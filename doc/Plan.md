@@ -19,6 +19,8 @@ Jack will focus on implementing entities and components, and how their combinati
 Implementing system that operates on related groups of components, i.e. components that belong to the same entity.
 
 ## Charlie
+Charlie will work with how components define entities and consequently what it means for an entity to hold a component, and how the systems
+will work with the entities and components to run the game.
 
 # Game Player
 ## Scott
