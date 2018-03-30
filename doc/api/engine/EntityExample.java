@@ -8,7 +8,7 @@
 public Entity {
 
     public double ID; //unique ID to an entity
-    public List<Components> components; //list of components which define the entity
+    public List<Component> components; //list of components which define the entity
 
     /**
      * The constructor simply sets the ID of the entity and initializes its list of components
@@ -16,7 +16,7 @@ public Entity {
     **/
     public Entity (double ID) {
         this.ID = ID;
-        components = new ArrayList<Components>();
+        components = new ArrayList<Component>();
     }
 
 }
