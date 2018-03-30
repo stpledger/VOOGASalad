@@ -14,6 +14,7 @@ The game engine is being designed to be as flexible as possible by using an Enti
 * Two-Dimensions -- Platformers are generally defined by moving only along the X and Y axis as there is generally no Z dimension.
 * Ability for a variety of objects with different behaviors to be placed in the scene
 * Special interactions between the player's character and the dynamic environment. 
+
 ## High Level Design
 ![]()--picture
 
@@ -34,6 +35,7 @@ The game will be designed in the game authoring environment. Once the game is de
         * GenericButton
         * TabPane
 * SplashScreen
+
 ### Engine
 * Engine
     * Follows a "Entity-Component-System" architecture pattern
@@ -104,6 +106,7 @@ The Game Authoring Environment interacts with the engine and the data (reading a
     * The Game Authoring Environment needs the ability to edit currently instantiated Game Objects. Finding and altering these objects will be handled by a method `editGameAuthorState()`.
     * The Game Authoring Enviroment needs the capability to create new levels within itself. This will be handled by a method `appendLevelGameAuthorState()` and can be removed by `removeLevelGameAuthorState()`.
     * The Game Authroing Enviroment needs teh ability to create a new `GameAuthorState`. This will be handled through the method `newGameAuthorState()`.
+
 ### Game Player
 Since the Game Player relies on the information provided by the data and supported by the engine, the Game Player must utilize the API's that allow it to access that information. With that in mind, the Game Player does not have many API's, because the Game Player functions solely to depict the front-end entities from the data.
 
