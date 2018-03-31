@@ -1,4 +1,8 @@
+package systems;
+
 import java.util.List;
+
+import components.IComponent;
 
 public class Gravity implements ISystem {
 

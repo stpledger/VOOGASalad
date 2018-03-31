@@ -1,5 +1,9 @@
+package entities;
+
 import java.util.Map;
 import java.util.HashMap;
+
+import components.IComponent;
 
 /**
  * Entity class
@@ -36,4 +40,3 @@ public class Entity {
         components.remove(c);
     }
 }
-
