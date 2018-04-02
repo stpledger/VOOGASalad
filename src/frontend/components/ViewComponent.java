@@ -1,7 +1,13 @@
 package frontend.components;
 
+import frontend.IDEView;
 import javafx.scene.Node;
 
-public interface ViewComponent {
-	public Node getNode();
+abstract public class ViewComponent {
+	protected IDEView ideView; 
+	public ViewComponent(IDEView v) {
+		ideView = v;
+	};
+	
+	public abstract Node getNode();
 }

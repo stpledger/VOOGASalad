@@ -20,7 +20,7 @@ public class IDEView {
 	private static Parent layout;
 	
 	public IDEView() {
-		viewBuilder = new ViewBuilder();
+		viewBuilder = new ViewBuilder(this);
 		layout = viewBuilder.build();
 	}
 	
@@ -34,6 +34,9 @@ public class IDEView {
 	}
 	public double getIdeWidth() {
 		return ideWidth;
+	}
+	public void update() {
+		layout = viewBuilder.build();
 	}
 
 }

@@ -1,11 +1,12 @@
 package frontend.components;
 
+import frontend.IDEView;
 import javafx.scene.Node;
 
-public class ComponentView implements ViewComponent{
+public class ComponentView extends ViewComponent{
 	
-	public ComponentView() {
-		
+	public ComponentView(IDEView v) {
+		super(v);
 	}
 	
 	@Override
