@@ -1,4 +1,9 @@
+package gameEngine.ECS.entities;
+
 import java.util.Map;
+
+import gameEngine.ECS.components.IComponent;
+
 import java.util.HashMap;
 
 /**
