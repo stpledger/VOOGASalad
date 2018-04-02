@@ -1,3 +1,5 @@
+package components;
+
 /**
  *  Velocity component class
  **/
@@ -7,7 +9,7 @@ public class Velocity implements IComponent {
     public double YVel; //Y velocity associated with an entity that has this VelocityComponent
 
     /**
-     * Construtor for a VelocityComponent, just giving it its XVel and YVel values to be stored.
+     * Constructor for a VelocityComponent, just giving it its XVel and YVel values to be stored.
      * @param XVel entity's initial XVel
      * @param YVel entity's initial YVel
      **/

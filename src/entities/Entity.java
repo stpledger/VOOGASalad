@@ -1,10 +1,12 @@
-package gameEngine.ECS.entities;
+package entities;
 
 import java.util.Map;
 
 import gameEngine.ECS.components.IComponent;
 
 import java.util.HashMap;
+
+import components.IComponent;
 
 /**
  * Entity class
@@ -41,4 +43,3 @@ public class Entity {
         components.remove(c);
     }
 }
-
