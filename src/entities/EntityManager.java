@@ -1,4 +1,4 @@
-package gameEngine.ECS.entities;
+package entities;
 
 import java.util.List;
 
