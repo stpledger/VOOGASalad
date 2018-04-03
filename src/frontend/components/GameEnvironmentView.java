@@ -40,6 +40,7 @@ public class GameEnvironmentView extends ViewComponent {
 		tabsList.add(new Tab());
 		Tab t = tabsList.get(tabsList.size()-1);
 		t.setText("Level " + (tabsList.indexOf(t)+1));
+		t.setContent(new LevelView());
 		t.setOnClosed(new EventHandler<Event>() {
 			@Override
 			public void handle(Event e) {
@@ -50,7 +51,6 @@ public class GameEnvironmentView extends ViewComponent {
 		});
 		pane.getTabs().add(t);
 	}
-	
 
 	public Node getNode() {
 		return pane;
