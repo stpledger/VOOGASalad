@@ -67,7 +67,7 @@ public class Toolbar extends ViewComponent{
 		System.out.println("Game should be playing");
 	}
 	private static void addLevel() {
-		ideView.getViewBuilder().getGameEnvironmentView().addTab("test");
+		ideView.getViewBuilder().getGameEnvironmentView().addTab();
 		//TODO: add some better functionality here
 		
 	}
@@ -79,14 +79,16 @@ public class Toolbar extends ViewComponent{
 		temp.setOnAction(action -> {
 			Method method;
 			try {
-				method = this.getClass().getDeclaredMethod(temp.getValue());
-				method.invoke(null, null);
-				temp.setValue(name);
+				if(!temp.getSelectionModel().isEmpty()) {
+					method = this.getClass().getDeclaredMethod(temp.getValue());
+					method.invoke(null);
+					temp.getSelectionModel().clearSelection(); //TODO: This throws and indexoutofbounds error but runs fine because it makes a null value
+				}
 			} catch (Exception error) {
 				//TODO: make better error handling
 				error.printStackTrace();
 			}
-		});
+			});
 		temp.getStyleClass().add("combo-box");
 		return temp;
 	}
