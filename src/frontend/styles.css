@@ -1,0 +1,8 @@
+.toolbar {
+	-fx-background-color: #c4c4c4;
+}
+
+.combo-box, .arrow {
+	-fx-background-color: transparent;
+	-fx-font-weight: bold;
+}

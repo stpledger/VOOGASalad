@@ -23,15 +23,12 @@ public class Toolbar extends ViewComponent{
 	
 	private String[] fileMenuList = {"create", "load", "save"};
 	private String[] gameMenuList = {"settings", "play"};
-	
-	Background toolbarBackground = new Background( new BackgroundFill(Paint.valueOf("#b8babc"), new CornerRadii(1),
-			new Insets(0.0,0.0,0.0,0.0)));
-	
+
 	public Toolbar(IDEView v) {
 		super(v);
 		toolbar = new HBox();
-		toolbar.setBackground(toolbarBackground);
 		addComponents();
+		toolbar.getStyleClass().add("toolbar");
 	}
 	
 	public Node getNode() {
@@ -76,9 +73,9 @@ public class Toolbar extends ViewComponent{
 			} catch (Exception error) {
 				//TODO: make better error handling
 				error.printStackTrace();
-		
 			}
 		});
+		temp.getStyleClass().add("combo-box");
 		return temp;
 	}
 }
