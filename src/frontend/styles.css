@@ -10,3 +10,7 @@
 .component-view{
 	-fx-background-color: #4286f4;
 }
+
+.component-tab{
+	-fx-background-color: #c4c4c4;
+}

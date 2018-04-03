@@ -24,7 +24,7 @@ public class ComponentView extends ViewComponent{
 	private void addTabs() {
 		//TODO: Convert this to be reflection of all the components
 		for(String k : Arrays.asList(tabsList)) {
-			Tab temp = new ComponentTab(k);
+			Tab temp = new ComponentTab(k, ideView);
 			pane.getTabs().add(temp);
 		}
 	}
