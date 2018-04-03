@@ -32,6 +32,10 @@ public class IDEView {
 	public double getIdeHeight() {
 		return ideHeight;
 	}
+	public ViewBuilder getViewBuilder() {
+		return viewBuilder;
+		
+	}
 	public double getIdeWidth() {
 		return ideWidth;
 	}

@@ -38,4 +38,16 @@ public class ViewBuilder{
 		return border;
 		
 	}
+	
+	public Toolbar getToolbar() {
+		return toolbar;
+	}
+	
+	public GameEnvironmentView getGameEnvironmentView() {
+		return gameEnvironmentView;
+	}
+	
+	public ComponentView getComponentView() {
+		return componentView;
+	}
 }

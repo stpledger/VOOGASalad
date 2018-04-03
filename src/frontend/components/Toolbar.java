@@ -28,7 +28,7 @@ public class Toolbar extends ViewComponent{
 	private ArrayList<Node> toolbarNodes = new ArrayList<Node>();
 	
 	private String[] fileMenuList = {"create", "load", "save"};
-	private String[] gameMenuList = {"settings", "play"};
+	private String[] gameMenuList = {"addLevel", "settings", "play"};
 
 	public Toolbar(IDEView v) {
 		super(v);
@@ -66,6 +66,11 @@ public class Toolbar extends ViewComponent{
 	private static void play() {
 		System.out.println("Game should be playing");
 	}
+	private static void addLevel() {
+		ideView.getViewBuilder().getGameEnvironmentView().addTab("test");
+		//TODO: add some better functionality here
+		
+	}
 	
 	private Node createMenu(String name, String[] items) {
 		ComboBox<String> temp = new ComboBox<String>();
@@ -76,6 +81,7 @@ public class Toolbar extends ViewComponent{
 			try {
 				method = this.getClass().getDeclaredMethod(temp.getValue());
 				method.invoke(null, null);
+				temp.setValue(name);
 			} catch (Exception error) {
 				//TODO: make better error handling
 				error.printStackTrace();
