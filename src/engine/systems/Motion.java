@@ -14,12 +14,12 @@ import engine.components.Velocity;
  * @author Yameng
  */
 
-public class Motion implements ISystem{
+public class Motion{
 	private Map<Integer, List<Component>> handledComponents;
     
 	/**
      * Adds position and velocity components to system map
-     * @param pid parent ID of Velocity component to be removed
+     * @param pid parent ID of component to be removed
      * @param pos position component to be removed vel velocity component to be removed
      */
     public void addComponent(int pid, Position pos, Velocity vel) {
@@ -43,13 +43,14 @@ public class Motion implements ISystem{
      * Apply changes in velocities to positions
      * @param velocities updated velocity components
      */
-	@Override
 	public void execute(List<Component> velocities) {
 		for(Component comp:velocities) {
 			Velocity vel = (Velocity)comp;
 			int pid = vel.getParentID();
+			//just for debug, delete later
 			if(!handledComponents.containsKey(pid)) {
-				System.out.println("Motion system has missing components!");
+				System.out.println("Errors: Motion system has missing components!");
+				return;
 			}
 			
 			List<Component> val = handledComponents.get(pid);
