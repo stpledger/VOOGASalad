@@ -13,10 +13,10 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception{
-		MainView simulation = new MainView;
+		GamePlayerView gamePlayer = new GamePlayerView;
 		mainStage = primaryStage;
 		primaryStage.setTitle(TITLE);
-		//primaryStage.setScene(simulation.initializeStartScene();
+		primaryStage.setScene(gamePlayer.initializeStartScene();
 		primaryStage.show();
 	}
 	
