@@ -1,6 +1,7 @@
 package frontend.components;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,6 +18,11 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class Toolbar extends ViewComponent{
 	private HBox toolbar;
 	private ArrayList<Node> toolbarNodes = new ArrayList<Node>();

@@ -4,6 +4,11 @@ import frontend.IDEView;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class ViewBuilder{
 	private Toolbar toolbar;
 	private GameEnvironmentView gameEnvironmentView;

@@ -5,6 +5,11 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 
+/**
+ * 
+ * @author Collin Brown(Cdb55)
+ *
+ */
 public class ComponentTab extends Tab{
 	IDEView ideView;
 	ScrollPane scrollPane;
@@ -21,7 +26,10 @@ public class ComponentTab extends Tab{
 		scrollPane.setPrefWidth(ideView.getComponentViewWidth());
 		this.setContent(scrollPane);
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public Node getNode() {
 		return scrollPane;
 	}
