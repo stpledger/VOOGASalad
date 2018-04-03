@@ -1,6 +1,7 @@
 package frontend.components;
 
 import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -17,21 +18,23 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Paint;
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class Toolbar extends ViewComponent{
 	private HBox toolbar;
 	private ArrayList<Node> toolbarNodes = new ArrayList<Node>();
 	
 	private String[] fileMenuList = {"create", "load", "save"};
-	private String[] gameMenuList = {"settings", "play"};
-	
-	Background toolbarBackground = new Background( new BackgroundFill(Paint.valueOf("#b8babc"), new CornerRadii(1),
-			new Insets(0.0,0.0,0.0,0.0)));
-	
+	private String[] gameMenuList = {"addLevel", "settings", "play"};
+
 	public Toolbar(IDEView v) {
 		super(v);
 		toolbar = new HBox();
-		toolbar.setBackground(toolbarBackground);
 		addComponents();
+		toolbar.getStyleClass().add("toolbar");
 	}
 	
 	public Node getNode() {
@@ -63,6 +66,11 @@ public class Toolbar extends ViewComponent{
 	private static void play() {
 		System.out.println("Game should be playing");
 	}
+	private static void addLevel() {
+		ideView.getViewBuilder().getGameEnvironmentView().addTab("test");
+		//TODO: add some better functionality here
+		
+	}
 	
 	private Node createMenu(String name, String[] items) {
 		ComboBox<String> temp = new ComboBox<String>();
@@ -73,12 +81,13 @@ public class Toolbar extends ViewComponent{
 			try {
 				method = this.getClass().getDeclaredMethod(temp.getValue());
 				method.invoke(null, null);
+				temp.setValue(name);
 			} catch (Exception error) {
 				//TODO: make better error handling
 				error.printStackTrace();
-		
 			}
 		});
+		temp.getStyleClass().add("combo-box");
 		return temp;
 	}
 }

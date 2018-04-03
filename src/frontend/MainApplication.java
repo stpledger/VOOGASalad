@@ -4,6 +4,11 @@ import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class MainApplication extends Application {
 
 	@Override

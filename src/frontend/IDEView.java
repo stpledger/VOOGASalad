@@ -16,7 +16,7 @@ public class IDEView {
 	private double toolbarHeight = 25;
 	private double componentViewWidth = 300;
 	
-	private ViewBuilder viewBuilder;
+	private static ViewBuilder viewBuilder;
 	private static Parent layout;
 	
 	public IDEView() {
@@ -26,14 +26,25 @@ public class IDEView {
 	
 	public static Scene getScene() {
 		Scene s = new Scene(layout, ideWidth, ideHeight);
-		// s.getStylesheets().add("styles.css"); TODO: Add a styles.css
+		s.getStylesheets().add(IDEView.class.getResource("styles.css").toExternalForm());
 		return s;
 	}
 	public double getIdeHeight() {
 		return ideHeight;
 	}
+	public ViewBuilder getViewBuilder() {
+		return viewBuilder;
+		
+	}
 	public double getIdeWidth() {
 		return ideWidth;
+	}
+	public double getComponentViewWidth() {
+		return componentViewWidth;
+	}
+	public void addTempNode(Node n) {
+		viewBuilder.addTempNode(n);
+		this.update();
 	}
 	public void update() {
 		layout = viewBuilder.build();
