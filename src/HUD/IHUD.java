@@ -1,3 +1,4 @@
+package HUD;
 
 public interface IHUD {
 
