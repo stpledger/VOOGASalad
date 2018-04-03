@@ -35,6 +35,9 @@ public class IDEView {
 	public double getIdeWidth() {
 		return ideWidth;
 	}
+	public double getComponentViewWidth() {
+		return componentViewWidth;
+	}
 	public void update() {
 		layout = viewBuilder.build();
 	}

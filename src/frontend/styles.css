@@ -6,3 +6,7 @@
 	-fx-background-color: transparent;
 	-fx-font-weight: bold;
 }
+
+.component-view{
+	-fx-background-color: #4286f4;
+}
