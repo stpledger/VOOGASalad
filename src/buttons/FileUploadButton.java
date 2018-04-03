@@ -2,18 +2,15 @@ package buttons;
 
 
 import java.io.File;
-
 import GamePlayer.GamePlayerView;
 import GamePlayer.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 
 public class FileUploadButton extends Button {
 	
-		private final int MAX_WIDTH = 250;
 		private final String BUTTON_NAME = "Upload"; //change to a resource file
 	
 		public FileUploadButton() {
@@ -26,12 +23,12 @@ public class FileUploadButton extends Button {
 		private void setFileEvent() {
 			this.setOnAction(new EventHandler<ActionEvent>() {
 				@Override public void handle(ActionEvent e) {
-					fileUpload(); //activate the play method
+					fileUpload(); //activate the file upload method
 				}
 			});
 		}
+		
 		private void fileUpload() {
-			
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Resource File");
 			fileChooser.getExtensionFilters().add(

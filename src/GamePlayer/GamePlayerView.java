@@ -6,8 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 
 public class GamePlayerView {
-	private final int WIDTH_SIZE = 824;
-	private final int HEIGHT_SIZE = 864;
+	private final int WIDTH_SIZE = 400;
+	private final int HEIGHT_SIZE = 400;
 	private Scene myScene;
 	private Group group;
 
