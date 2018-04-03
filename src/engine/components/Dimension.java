@@ -1,5 +1,11 @@
 package engine.components;
 
+/**
+ * This component defines dimensions of the sprite. It consists of height and width of the sprite.
+ * It is instantiated with a path of image passed from authoring environment, and changes according to game logic.
+ * @author Yameng
+ */
+
 public class Dimension extends Component{
 	private double height,width;
 	
