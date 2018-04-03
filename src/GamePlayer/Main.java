@@ -22,4 +22,8 @@ public class Main extends Application {
 		primaryStage.show();
 	}
 	
+	public Stage getMainStage() {
+		return mainStage;
+	}
+	
 }

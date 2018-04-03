@@ -1,5 +1,6 @@
 package GamePlayer;
 
+import buttons.FileUploadButton;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
@@ -15,7 +16,9 @@ public class GamePlayerView {
 	}
 	
 	public Scene intializeStartScene() {
+		FileUploadButton fileBtn = new FileUploadButton();
 		group = new Group();
+		group.getChildren().add(fileBtn);
 		myScene = setupScene();
 		return myScene;
 	}
