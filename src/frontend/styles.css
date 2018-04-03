@@ -16,5 +16,6 @@
 }
 
 .component-box{
-	-fx-background-color: #4286f4;
+	-fx-fill: #4286f4;
+	-fx-stroke: black;
 }
