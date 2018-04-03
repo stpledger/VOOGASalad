@@ -16,6 +16,7 @@ public class Main extends Application {
 		MainView simulation = new MainView;
 		mainStage = primaryStage;
 		primaryStage.setTitle(TITLE);
+		//primaryStage.setScene(simulation.initializeStartScene();
 		primaryStage.show();
 	}
 	
