@@ -9,7 +9,7 @@ import javafx.scene.Node;
  *
  */
 abstract public class ViewComponent {
-	protected IDEView ideView; 
+	protected static IDEView ideView; 
 	public ViewComponent(IDEView v) {
 		ideView = v;
 	};
