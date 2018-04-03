@@ -2,10 +2,12 @@ package frontend.components;
 
 import frontend.IDEView;
 import javafx.event.EventHandler;
+import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.GridPane;
@@ -37,45 +39,60 @@ public class ComponentTab extends Tab{
 	private static final class DragContext {
 		public double mouseAnchorX;
 		public double mouseAnchorY;
-		public double initialTranslateX;
-		public double initialTranslateY;
+		public double initialLayoutX;
+		public double initialLayoutY;
 	}
 	
 	DragAndDropDynamicYoutility daddy = (n) -> {
 		final DragContext dragContext = new DragContext();
-		final Group wrapper = new Group(n);
 		
-		wrapper.addEventFilter(
-                MouseEvent.MOUSE_CLICKED,
+		n.addEventFilter(
+                MouseEvent.MOUSE_PRESSED,
                 new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(final MouseEvent mouseEvent) {
+                    		n.setCursor(Cursor.CLOSED_HAND);
                             dragContext.mouseAnchorX = mouseEvent.getX();
                             dragContext.mouseAnchorY = mouseEvent.getY();
-                            dragContext.initialTranslateX =
+                            dragContext.initialLayoutX =
                                     n.getTranslateX();
-                            dragContext.initialTranslateY =
+                            dragContext.initialLayoutY =
                                     n.getTranslateY();
-                            System.out.println("oh");
                     }
                 });
+		
+		n.addEventFilter(MouseEvent.MOUSE_RELEASED,
+				new EventHandler<MouseEvent>() {
+					@Override
+					public void handle(final MouseEvent mouseEvent) {
+						n.setCursor(Cursor.DEFAULT);
+					}
+		});
  
-        wrapper.addEventFilter(
+        n.addEventFilter(
                 MouseEvent.MOUSE_DRAGGED,
                 new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(final MouseEvent mouseEvent) {
                             n.setTranslateX(
-                                    dragContext.initialTranslateX
+                                    dragContext.initialLayoutX
                                         + mouseEvent.getX()
                                         - dragContext.mouseAnchorX);
                             n.setTranslateY(
-                                    dragContext.initialTranslateY
+                                    dragContext.initialLayoutY
                                         + mouseEvent.getY()
                                         - dragContext.mouseAnchorY);
                     }
                 });
-        	ideView.addTempNode(wrapper);
+        n.setOnDragExited(new EventHandler<DragEvent>() {
+
+			@Override
+			public void handle(DragEvent event) {
+				System.out.println("m");
+				
+			}
+        	
+        });
 		    return n;
 	};
 	
