@@ -31,7 +31,7 @@ public class ComponentTab extends Tab{
 	}
 	
 	public interface DragAndDropDynamicYoutility{
-		public Group execute(Node n);
+		public Node execute(Node n);
 	}
 	
 	private static final class DragContext {
@@ -45,31 +45,38 @@ public class ComponentTab extends Tab{
 		final DragContext dragContext = new DragContext();
 		final Group wrapper = new Group(n);
 		
-		n.setOnMouseClicked(new EventHandler<MouseEvent>() {
-			            public void handle(final MouseEvent mouseEvent) {
-			                    dragContext.mouseAnchorX = mouseEvent.getX();
-			                    dragContext.mouseAnchorY = mouseEvent.getY();
-			                    dragContext.initialTranslateX =
-			                        n.getTranslateX();
-			                    dragContext.initialTranslateY =
-			                        n.getTranslateY();
-			                    System.out.println("oh");
-			            }   
-			            });
-		 n.setOnMouseDragged( new EventHandler<MouseEvent>() {
-		                public void handle(final MouseEvent mouseEvent) {
-		                        n.setTranslateX(
-		                            dragContext.initialTranslateX
-		                                + mouseEvent.getX()
-		                                - dragContext.mouseAnchorX);
-		                        n.setTranslateY(
-		                            dragContext.initialTranslateY
-		                                + mouseEvent.getY()
-		                                - dragContext.mouseAnchorY);
-		                }
-		            });
-		    System.out.println(wrapper.toString());
-		    return wrapper;
+		wrapper.addEventFilter(
+                MouseEvent.MOUSE_CLICKED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(final MouseEvent mouseEvent) {
+                            dragContext.mouseAnchorX = mouseEvent.getX();
+                            dragContext.mouseAnchorY = mouseEvent.getY();
+                            dragContext.initialTranslateX =
+                                    n.getTranslateX();
+                            dragContext.initialTranslateY =
+                                    n.getTranslateY();
+                            System.out.println("oh");
+                    }
+                });
+ 
+        wrapper.addEventFilter(
+                MouseEvent.MOUSE_DRAGGED,
+                new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(final MouseEvent mouseEvent) {
+                            n.setTranslateX(
+                                    dragContext.initialTranslateX
+                                        + mouseEvent.getX()
+                                        - dragContext.mouseAnchorX);
+                            n.setTranslateY(
+                                    dragContext.initialTranslateY
+                                        + mouseEvent.getY()
+                                        - dragContext.mouseAnchorY);
+                    }
+                });
+        	ideView.addTempNode(wrapper);
+		    return n;
 	};
 	
 	private void assemble() {

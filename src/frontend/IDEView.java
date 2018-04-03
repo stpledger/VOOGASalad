@@ -16,7 +16,7 @@ public class IDEView {
 	private double toolbarHeight = 25;
 	private double componentViewWidth = 300;
 	
-	private ViewBuilder viewBuilder;
+	private static ViewBuilder viewBuilder;
 	private static Parent layout;
 	
 	public IDEView() {
@@ -37,6 +37,10 @@ public class IDEView {
 	}
 	public double getComponentViewWidth() {
 		return componentViewWidth;
+	}
+	public void addTempNode(Node n) {
+		viewBuilder.addTempNode(n);
+		this.update();
 	}
 	public void update() {
 		layout = viewBuilder.build();
