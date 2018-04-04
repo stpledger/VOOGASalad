@@ -1,5 +1,6 @@
 package engine.systems;
 
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,6 +26,7 @@ public class Gravity{
      * Adds velocity component to system map
      * @param ic	Velocity component to be added
      */
+
     public void addComponent(int pid, Velocity ic) {
 	    	if(!handledComponents.containsKey(pid)) {
 	    		handledComponents.put(pid, ic);
@@ -35,6 +37,7 @@ public class Gravity{
      * Removes velocity component from system map
      * @param ic	Velocity component to be removed
      */
+
     public void removeComponent(int pid) {
 	    	if(handledComponents.containsKey(pid)) {
 	    		handledComponents.remove(pid);
