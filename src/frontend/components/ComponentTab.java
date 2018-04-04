@@ -32,7 +32,7 @@ public class ComponentTab extends Tab{
 		assemble();
 	}
 	
-	public interface DragAndDropDynamicYoutility{
+	public interface DragAndDropDynamicYoutility {
 		public Node execute(Node n);
 	}
 	
