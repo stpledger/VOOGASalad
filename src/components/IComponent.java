@@ -1,5 +1,3 @@
 package components;
 
-public interface IComponent {
-
-}
+public interface IComponent { }

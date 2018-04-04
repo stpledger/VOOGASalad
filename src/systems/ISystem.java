@@ -2,11 +2,11 @@ package systems;
 
 import java.util.List;
 
-import components.IComponent;
+import entities.Entity;
 
 public interface ISystem {
 
-    public void execute(List<IComponent> components);
+    void execute(List<Entity> entities);
 
 }
 

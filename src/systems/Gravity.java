@@ -2,18 +2,21 @@ package systems;
 
 import java.util.List;
 
-import components.IComponent;
+import components.Velocity;
+import entities.Entity;
 
 public class Gravity implements ISystem {
 
-    private double acceleration;
+    private final double acceleration = 9.8;
+    private final String name = "Velocity";
 
-    public Gravity () {
-        acceleration = 9.8;
-    }
+    public Gravity () { }
 
     @Override
-    public void execute(List<IComponent> components) {
-
+    public void execute(List<Entity> entities) {
+        for (Entity e: entities) {
+            Velocity v = (Velocity) e.get(name);
+            v.YVel+=acceleration;
+        }
     }
 }

@@ -19,7 +19,7 @@ public class Entity {
     **/
     public Entity (double ID) {
         this.ID = ID;
-        components = new HashMap<>();
+        components = new HashMap();
     }
 
     public double getID () { return ID; }
@@ -36,7 +36,9 @@ public class Entity {
         components.put(name, c);
     }
 
-    public void remove (IComponent c) {
-        components.remove(c);
+    public void remove (String name) {
+        components.remove(name);
     }
+
+
 }
