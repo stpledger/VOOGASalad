@@ -1,10 +1,8 @@
 package engine.systems;
 
-import java.util.Arrays;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Map;
 
-import engine.components.Acceleration;
 import engine.components.Component;
 import engine.components.Position;
 import engine.components.Velocity;
@@ -20,6 +18,11 @@ public class Motion implements System {
 	private Map<Integer, Position> positions;
 	private Map<Integer, Velocity> velocities;
     
+	public Motion() {
+		positions = new HashMap<>();
+		velocities = new HashMap<>();
+	}
+	
 	/**
      * Adds position and velocity components to system map
      * @param pid parent ID of component to be removed

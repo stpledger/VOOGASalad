@@ -1,29 +1,33 @@
 package engine.systems;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import engine.components.Component;
+import engine.components.Position;
 
 public class Collision implements System {
 
+	private Map<Integer, Position> positions;
+	
 	public Collision() {
-		
+		positions = new HashMap<>();
 	}
 
-	@Override
 	public void execute(double elapsedTime) {
-		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void addComponent(int pid, Component c) {
-		// TODO Auto-generated method stub
-		
+		if(c instanceof Position) {
+			positions.put(pid, (Position) c);
+		}
 	}
 
-	@Override
 	public void removeComponent(int pid) {
-		// TODO Auto-generated method stub
-		
+		if(positions.containsKey(pid)) {
+			positions.remove(pid);
+		}
 	}
 	
 	
