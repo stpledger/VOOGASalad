@@ -2,28 +2,28 @@ package engine.components;
 
 public class Acceleration extends Component implements IComponent {
 
-	private double accX, accY;
+	private double xAcc, yAcc;
 	
 	public Acceleration(int pid, double x, double y) {
 		super(pid);
-		this.accX = x;
-		this.accY = y;
+		this.xAcc = x;
+		this.yAcc = y;
 	}
 
-	public double getAccX() {
-		return accX;
+	public double getxAcc() {
+		return xAcc;
 	}
 
-	public void setAccX(double accX) {
-		this.accX = accX;
+	public void setxAcc(double xAcc) {
+		this.xAcc = xAcc;
 	}
 
-	public double getAccY() {
-		return accY;
+	public double getyAcc() {
+		return yAcc;
 	}
 
-	public void setAccY(double accY) {
-		this.accY = accY;
+	public void setyAcc(double yAcc) {
+		this.yAcc = yAcc;
 	}
 
 }

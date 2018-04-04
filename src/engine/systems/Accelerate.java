@@ -1,13 +1,10 @@
 package engine.systems;
 
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import engine.components.Acceleration;
 import engine.components.Component;
-import engine.components.Position;
 import engine.components.Velocity;
 
 /**
@@ -55,29 +52,14 @@ public class Accelerate implements System {
 		}
 	}
 
-	/**
-	 * Apply changes in velocities to positions
-	 * @param velocities updated velocity components
-	 */
-	public void execute(List<Velocity> velocities) {
-		for(Velocity vel:velocities) {
-			int pid = vel.getParentID();
-			//just for debug, delete later
-			if(!handledComponents.containsKey(pid)) {
-				System.out.println("Errors: Acceleration system has missing components!");
-				return;
-			}
-
-			handledComponents.put(pid,vel);
-		}
-	}
-
-	@Override
 	public void execute(double elapsedTime) {
 		velocities.keySet().forEach((pid) -> {
 			if(accelerations.containsKey(pid)) {
 				Velocity v = velocities.get(pid);
 				Acceleration a = accelerations.get(pid);
+				
+				v.setXVel(v.getXVel() + elapsedTime * a.getxAcc());
+				v.setYVel(v.getYVel() + elapsedTime * a.getyAcc());
 			}
 		});
 	}
