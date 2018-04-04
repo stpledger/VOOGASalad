@@ -14,7 +14,7 @@ import engine.components.Velocity;
  * @author Yameng
  */
 
-public class Motion{
+public class Motion extends System{
 	private Map<Integer, List<Component>> handledComponents;
     
 	/**
@@ -33,6 +33,7 @@ public class Motion{
      * Removes position and velocity component from system map
      * @param pid parent ID of Velocity component to be removed
      */
+    @Override
     public void removeComponent(int pid) {
 	    	if(!handledComponents.containsKey(pid)) {
 	    		handledComponents.remove(pid);
