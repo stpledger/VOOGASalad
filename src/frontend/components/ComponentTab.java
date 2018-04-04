@@ -10,6 +10,7 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Tab;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
@@ -22,7 +23,7 @@ import javafx.scene.shape.Rectangle;
 public class ComponentTab extends Tab{
 	public static final double SCROLLBAR_WIDTH = 20;
 	IDEView ideView;
-	GridPane pane;
+	FlowPane pane;
 	ScrollPane externalPane;
 	public ComponentTab(String name, IDEView v) {
 		super(name);
@@ -99,13 +100,12 @@ public class ComponentTab extends Tab{
 	private void assemble() {
 		externalPane = new ScrollPane();
 		externalPane.setHbarPolicy(ScrollBarPolicy.NEVER);
-		pane = new GridPane();
+		externalPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		pane = new FlowPane();
 		pane.setPrefWidth(ideView.getComponentViewWidth());
 		//TODO: Make this dynamic to handle each individual component
-		for(int i = 0; i < 9; i++) {
-		pane.add(new ComponentBox("bleh", "temp"), 0, i);
-		pane.add(new ComponentBox("bleh", "temp"), 1, i);
-		pane.add(new ComponentBox("bleh", "temp"), 2, i);
+		for(int i = 0; i < 8; i++) {
+		pane.getChildren().add(new ComponentBox("bleh", "temp"));
 		}
 		externalPane.setContent(pane);
 		this.setContent(externalPane);
