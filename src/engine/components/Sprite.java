@@ -1,5 +1,7 @@
 package engine.components;
 
+import java.io.FileNotFoundException;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -7,16 +9,24 @@ public class Sprite extends Component implements IComponent {
 
 	private ImageView image;
 	
-	public Sprite(int pid, String filename) {
+	public Sprite(int pid, String filename) throws FileNotFoundException {
 		super(pid);
-		image = new ImageView(new Image(filename));
+		try {
+			image = new ImageView(new Image(filename));
+		} catch (Exception e) {
+			throw new FileNotFoundException();
+		}
 	}
 
 	public ImageView getImage() {
 		return image;
 	}
 
-	public void setImage(String im) {
-		image.setImage(new Image(im));
+	public void setImage(String im) throws FileNotFoundException {
+		try {
+			image.setImage(new Image(im));
+		} catch (Exception e) {
+			throw new FileNotFoundException();
+		}
 	}
 }
