@@ -7,7 +7,6 @@ public class Velocity extends Component implements IComponent {
 
     private double XVel; //X velocity associated with an entity that has this VelocityComponent
 	private double YVel; //Y velocity associated with an entity that has this VelocityComponent
-	private double gravAcc;
 
     /**
      * Constructor for a VelocityComponent, just giving it its XVel and YVel values to be stored.
@@ -19,7 +18,6 @@ public class Velocity extends Component implements IComponent {
         super(pid);
     	this.XVel = XVel;
         this.YVel = YVel;
-        this.gravAcc = gravAcc;
     }
     
     public double getXVel() {
@@ -37,15 +35,4 @@ public class Velocity extends Component implements IComponent {
 	public void setYVel(double yVel) {
 		YVel = yVel;
 	}
-
-	public double getGravAcc() {
-		return gravAcc;
-	}
-
-	public void setGravAcc(double gravAcc) {
-		this.gravAcc = gravAcc;
-	}
-	
-	
-	
 }
