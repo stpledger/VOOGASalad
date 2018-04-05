@@ -1,6 +1,9 @@
 package engine.systems;
 
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import engine.components.Component;
@@ -8,33 +11,37 @@ import engine.components.Position;
 import engine.components.Velocity;
 
 /**
- * System to apply changes in positions to an object based on changes in velocities
+ * ISystem to apply changes in positions to an object based on changes in velocities
  * Required component: Position, Velocity
  *
  * @author Yameng
  */
 
 public class Motion implements ISystem {
-	private Map<Integer, Position> positions;
-	private Map<Integer, Velocity> velocities;
 
+	private static final int VELOCITY_INDEX = 0;
+	private static final int POSITION_INDEX = 1;
+
+	private Map<Integer, List<Component>> handledComponents = new HashMap<>();
+	private List<Component> activeComponents;
     
-	public Motion() {
-		positions = new HashMap<>();
-		velocities = new HashMap<>();
-	}
+	
 	
 	/**
      * Adds position and velocity components to system map
      * @param pid parent ID of component to be removed
-     * @param pos position component to be removed vel velocity component to be removed
+     * @param components position component to be removed vel velocity component to be removed
      */
-    public void addComponent(int pid, Component c) {
-    	if(c instanceof Velocity) {
-			velocities.put(pid, (Velocity) c);
-		} else if(c instanceof Position) {
-			positions.put(pid, (Position) c);
-		}
+
+    public void addComponent(int pid, Map<String, Component> components) {
+    	if(!handledComponents.containsKey(pid)) {
+    		if (components.containsKey("Velocity") && components.containsKey("Position")) {
+    			List<Component> newComponents = new ArrayList<>();
+    			newComponents.add(components.get("Velocity"));
+    			newComponents.add(components.get("Position"));
+    			handledComponents.put(pid, newComponents);
+			}
+    	}
     }
     
     /**
@@ -43,25 +50,25 @@ public class Motion implements ISystem {
      */
     @Override
     public void removeComponent(int pid) {
-    	if(velocities.containsKey(pid)) {
-    		velocities.remove(pid);
-    	}
-    	if(positions.containsKey(pid)) {
-    		positions.remove(pid);
+
+    	if(handledComponents.containsKey(pid)) {
+    		handledComponents.remove(pid);
     	}
     }
 
+    /**
+     * Apply changes in velocities to positions
+     */
+	public void execute(double time) {
+		for (int pid : handledComponents.keySet()) {
+			activeComponents = handledComponents.get(pid);
 
-	public void execute(double elapsedTime) {
-		velocities.keySet().forEach((pid) -> {
-			if(positions.containsKey(pid)) {
-				Velocity v = velocities.get(pid);
-				Position p = positions.get(pid);
-				
-				p.setxPos(p.getxPos() + elapsedTime * v.getXVel());
-				p.setyPos(p.getyPos() + elapsedTime * v.getYVel());
-			}
-		});
+			Velocity v = (Velocity) activeComponents.get(VELOCITY_INDEX);
+			Position p = (Position) activeComponents.get(POSITION_INDEX);
+
+			p.setXPos(p.getXPos() + v.getXVel()*time);
+			p.setYPos(p.getYPos() + v.getYVel()*time);
+		}
 	}
 
 }

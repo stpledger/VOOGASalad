@@ -2,12 +2,12 @@ package engine.systems;
 
 import engine.components.Component;
 
+
+import java.util.Map;
+
 public interface ISystem {
 
-	public void execute(double elapsedTime);
-	
-	public void addComponent(int pid, Component c);
-	
-	public void removeComponent(int pid);
-	
+    void addComponent (int pid, Map<String, Component> components);
+    void removeComponent (int pid);
+    void execute(double time);
 }

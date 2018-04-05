@@ -1,6 +1,8 @@
 package engine.systems;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import engine.components.Acceleration;
@@ -17,51 +19,55 @@ import engine.components.Velocity;
 
 public class Accelerate implements ISystem {
 	
-	private Map<Integer, Velocity> velocities;
-	private Map<Integer, Acceleration> accelerations;
+	private static final int ACCELERATION_INDEX = 0;
+	private static final int VELOCITY_INDEX = 1;
 
-	public Accelerate() {
-		velocities = new HashMap<>();
-		accelerations = new HashMap<>();
-	}
-	
-	
+	private Map<Integer, List<Component>> handledComponents = new HashMap<>();
+    
 	/**
-	 * Adds velocity components to system map
-	 * @param pid parent ID of component to be removed
-	 * @param vel velocity component to be removed
+	 * Adds acceleration and velocity components from <String, Component> Map
+	 * 
+	 * @param pid	Parent ID of components
+	 * @param components	Map of components for given parent
 	 */
-	public void addComponent(int pid, Component c) {
-		if(c instanceof Velocity) {
-			velocities.put(pid, (Velocity) c);
-		} else if(c instanceof Acceleration) {
-			accelerations.put(pid, (Acceleration) c);
-		}
-	}
-
-	/**
-	 * Removes position and velocity component from system map
-	 * @param pid parent ID of Velocity component to be removed
-	 */
-	public void removeComponent(int pid) {
-		if(velocities.containsKey(pid)) {
-			velocities.remove(pid);
-		}
-		if(accelerations.containsKey(pid)) {
-			accelerations.remove(pid);
-		}
-	}
-
-	public void execute(double elapsedTime) {
-		velocities.keySet().forEach((pid) -> {
-			if(accelerations.containsKey(pid)) {
-				Velocity v = velocities.get(pid);
-				Acceleration a = accelerations.get(pid);
-				
-				v.setXVel(v.getXVel() + elapsedTime * a.getxAcc());
-				v.setYVel(v.getYVel() + elapsedTime * a.getyAcc());
+    public void addComponent(int pid, Map<String, Component> components) {
+    	if(!handledComponents.containsKey(pid)) {
+    		if (components.containsKey("Acceleration") && components.containsKey("Velocity")) {
+    			List<Component> newComponents = new ArrayList<>();
+    			newComponents.add(components.get("Acceleration"));
+    			newComponents.add(components.get("Velocity"));
+    			handledComponents.put(pid, newComponents);
 			}
-		});
+    	}
+    }
+    
+    /**
+     * Removes components for given ID
+     * 
+     * @param pid	Parent whos components will be removed
+     */
+    public void removeComponent(int pid) {
+
+    	if(handledComponents.containsKey(pid)) {
+    		handledComponents.remove(pid);
+    	}
+    }
+
+    /**
+     * Updates velocity values based on Acceleration component
+     * 
+     *  @param time	Update time for game loop
+     */
+	public void execute(double time) {
+		for (int pid : handledComponents.keySet()) {
+			List<Component> activeComponents = handledComponents.get(pid);
+
+			Acceleration a = (Acceleration) activeComponents.get(ACCELERATION_INDEX);
+			Velocity v = (Velocity) activeComponents.get(VELOCITY_INDEX);
+
+			v.setXVel(v.getXVel() + a.getxAcc()*time);
+			v.setYVel(v.getYVel() + a.getyAcc()*time);
+		}
 	}
 
 }

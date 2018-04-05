@@ -9,7 +9,7 @@ import engine.components.Poison;
 
 
 
-public class HealthDamage extends System {
+public class HealthDamage implements ISystem {
 	
 	
 	private Map<Integer, Health> healthComponents;
