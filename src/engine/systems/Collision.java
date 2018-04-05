@@ -7,7 +7,7 @@ import engine.components.Component;
 import engine.components.Dimension;
 import engine.components.Position;
 
-public class Collision implements System {
+public class Collision implements ISystem {
 
 	private Map<Integer, Position> positions;
 	private Map<Integer, Dimension> dimensions;

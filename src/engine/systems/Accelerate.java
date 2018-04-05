@@ -15,7 +15,7 @@ import engine.components.Velocity;
  * @author Yameng
  */
 
-public class Accelerate implements System {
+public class Accelerate implements ISystem {
 	
 	private Map<Integer, Velocity> velocities;
 	private Map<Integer, Acceleration> accelerations;

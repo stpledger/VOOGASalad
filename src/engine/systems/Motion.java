@@ -14,7 +14,7 @@ import engine.components.Velocity;
  * @author Yameng
  */
 
-public class Motion implements System {
+public class Motion implements ISystem {
 	private Map<Integer, Position> positions;
 	private Map<Integer, Velocity> velocities;
     

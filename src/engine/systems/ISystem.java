@@ -2,7 +2,7 @@ package engine.systems;
 
 import engine.components.Component;
 
-public interface System {
+public interface ISystem {
 
 	public void execute(double elapsedTime);
 	
