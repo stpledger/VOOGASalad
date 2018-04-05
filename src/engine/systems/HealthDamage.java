@@ -12,7 +12,6 @@ import engine.components.Health;
 
 
 public class HealthDamage implements ISystem {
-	
 	public static int HEALTH_INDEX = 0;
 	public static int DAMAGE_INDEX = 1;
 	
@@ -21,7 +20,6 @@ public class HealthDamage implements ISystem {
 	public HealthDamage() {
 		healthComponents = new HashMap<>();
 	}
-	
 	public void addComponent(int pid, Map<String, Component> components) {
 		if (components.containsKey(Health.getKey()) && components.containsKey(Damage.getKey())) {
 			List<Component> newComponents = new ArrayList<>();
@@ -30,11 +28,12 @@ public class HealthDamage implements ISystem {
 			
 			healthComponents.put(pid, newComponents);
 		}
+		
 	}
 	
-	public void removeComponent(int pid) {
-		if(healthComponents.containsKey(pid)) {
-    		healthComponents.remove(pid);
+    public void removeComponent(int pid) {
+		if(handledComponents.containsKey(pid)) {
+    		handledComponents.remove(pid);
     	}  
 	}
 	
@@ -50,4 +49,6 @@ public class HealthDamage implements ISystem {
 			}
 		});
 	}
+
+	
 }
