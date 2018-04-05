@@ -10,8 +10,8 @@ Part 1:
 5. They both think their API is flexible to add new components, and their API is compatible with other parts.
 
 Part 2:
-1.Both handle collision checking. They think they are descriptive.
-2.Jeremy think he needs a week, while Martin hopes to finish it by Friday. The parts in question 4 make estimation uncertain.
-3.Both are excited about doing individual animation module.
-4.Jeremy is worried about how to parallelized different state machines of nodes. Martin is worried about shaking problems when multiple collisions happening on the same object.
-5.They both to focus on collision checking.
+1. Both handle collision checking. They think they are descriptive.
+2. Jeremy think he needs a week, while Martin hopes to finish it by Friday. The parts in question 4 make estimation uncertain.
+3. Both are excited about doing individual animation module.
+4. Jeremy is worried about how to parallelized different state machines of nodes. Martin is worried about shaking problems when multiple collisions happening on the same object.
+5. They both to focus on collision checking.
