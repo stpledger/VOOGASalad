@@ -14,15 +14,21 @@ public class SystemManager {
         this.systems = systems;
     }
 
-    public void addComponents (int id, Map<String, Component> components) {
+    public void addComponents (int pid, Map<String, Component> components) {
         for (ISystem s : systems) {
-            s.addComponent(id, components);
+            s.addComponent(pid, components);
         }
     }
 
-    public void removeComponents (int id) {
+    public void removeComponents (int pid) {
         for (ISystem s : systems) {
-            s.removeComponent(id);
+            s.removeComponent(pid);
+        }
+    }
+
+    public void execute (double time) {
+        for (ISystem s: systems) {
+            s.execute(time);
         }
     }
 }

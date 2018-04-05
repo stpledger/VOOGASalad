@@ -1,6 +1,6 @@
 package engine.components;
 
-public class Health extends Component implements IComponent{
+public class Health extends Component {
 	private double health;
 	
 	public Health(int pid, double health) {
