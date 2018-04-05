@@ -41,40 +41,16 @@ public class Toolbar extends ViewComponent{
 		toolbar.getChildren().addAll(toAdd);
 		
 	}
-	private static void load() {
-		System.out.println("file should be loaded");
-	}
-	
-	private static void save() {
-		System.out.println("file should be saved");
-	}
-	
-	private static void create() {
-		System.out.println("file should have been created");
-	}
-	
-	private static void settings() {
-		System.out.println("Settings window should be open");
-	}
-	private static void play() {
-		System.out.println("Game should be playing");
-	}
-	private static void addLevel() {
-		//TODO: add some better functionality here
-		
-	}
+
 	
 	private Node createMenu(String name, String[] items) {
 		ComboBox<String> temp = new ComboBox<String>();
 		temp.setPromptText(name);
 		temp.getItems().addAll(Arrays.asList(items));
 		temp.setOnAction(action -> {
-			Method method;
 			try {
 				if(!temp.getSelectionModel().isEmpty()) {
-					//TODO: Make this send a broadcast to the handler.
-					method = this.getClass().getDeclaredMethod(temp.getValue());
-					method.invoke(null);
+					broadcast.setMessage(temp.getSelectionModel().getSelectedItem());
 					temp.getSelectionModel().clearSelection(); //TODO: This throws and indexoutofbounds error but runs fine because it makes a null value
 				}
 			} catch (Exception error) {
@@ -86,17 +62,10 @@ public class Toolbar extends ViewComponent{
 		return temp;
 	}
 
-
 	@Override
-	public String getNodeName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public short getNodeType() {
-		// TODO Auto-generated method stub
-		return 0;
+	protected Broadcast buildBroadcast() {
+		Broadcast b = new Broadcast();
+		return b;
 	}
 }
 	
