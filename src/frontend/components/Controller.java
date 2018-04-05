@@ -50,7 +50,11 @@ public class Controller {
 				for(Method m : tempMethodList) {
 					if(m.getName().equals(tempMethodName)) {
 						try {
-							m.invoke(tempComponent);
+							if(m.getParameterCount() == 0) {
+								m.invoke(tempComponent);
+							} else {
+								m.invoke(tempComponent, args);
+							}
 						} catch (IllegalAccessException e) {
 							System.out.println("IllegalAccessException");
 						} catch (IllegalArgumentException e) {

@@ -18,9 +18,10 @@ import javafx.scene.control.TabPane;
  *
  */
 public class GameEnvironmentView extends ViewComponent {
-	TabPane pane;
-	Button addButton;
-	ArrayList<Tab> tabsList;
+	private TabPane pane;
+	private Button addButton;
+	private ArrayList<Tab> tabsList;
+	private Object clipboard;
 	
 	public GameEnvironmentView() {
 		super();
@@ -50,6 +51,11 @@ public class GameEnvironmentView extends ViewComponent {
 		});
 		pane.getTabs().add(t);
 	}
+	
+	public void setClipboard(Object o) {
+		clipboard = o;
+	}
+	
 	public Node getNode() {
 		return pane;
 	}
