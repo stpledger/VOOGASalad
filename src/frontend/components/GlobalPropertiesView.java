@@ -12,4 +12,10 @@ public class GlobalPropertiesView extends PropertiesView {
 		super();
 	}
 
+	@Override
+	protected Broadcast buildBroadcast() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

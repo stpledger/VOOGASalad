@@ -54,4 +54,10 @@ public class GameEnvironmentView extends ViewComponent {
 	public Node getNode() {
 		return pane;
 	}
+
+	@Override
+	protected Broadcast buildBroadcast() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

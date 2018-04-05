@@ -34,4 +34,10 @@ public class ComponentView extends ViewComponent{
 		return pane;
 	}
 
+	@Override
+	protected Broadcast buildBroadcast() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

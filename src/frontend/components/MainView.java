@@ -1,5 +1,7 @@
 package frontend.components;
 
+import java.util.Arrays;
+
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
@@ -14,6 +16,7 @@ public class MainView{
 	private Toolbar toolbar;
 	private GameEnvironmentView gameEnvironmentView;
 	private ComponentView componentView;
+	private Controller controller;
 	
 	//GUI Constants
 	private static double ideHeight = 600;
@@ -25,6 +28,8 @@ public class MainView{
 		toolbar = new Toolbar();
 		gameEnvironmentView = new GameEnvironmentView();
 		componentView = new ComponentView();
+		ViewComponent[] components = {toolbar, gameEnvironmentView, componentView};
+		controller = new Controller(Arrays.asList(components));
 	}
 	
 	

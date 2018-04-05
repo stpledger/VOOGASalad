@@ -86,17 +86,10 @@ public class Toolbar extends ViewComponent{
 		return temp;
 	}
 
-
 	@Override
-	public String getNodeName() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public short getNodeType() {
-		// TODO Auto-generated method stub
-		return 0;
+	protected Broadcast buildBroadcast() {
+		Broadcast b = new Broadcast();
+		return b;
 	}
 }
 	
