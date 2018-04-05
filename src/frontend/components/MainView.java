@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
  * @author Collin Brown(cdb55)
  *
  */
-public class ViewBuilder{
+public class MainView{
 	private BorderPane border;
 	private Toolbar toolbar;
 	private GameEnvironmentView gameEnvironmentView;
@@ -20,7 +20,7 @@ public class ViewBuilder{
 	private static double ideWidth = 1200;
 	private double toolbarHeight = 25;
 	
-	public ViewBuilder() {
+	public MainView() {
 		border = new BorderPane();
 		toolbar = new Toolbar();
 		gameEnvironmentView = new GameEnvironmentView();
@@ -54,7 +54,7 @@ public class ViewBuilder{
 	}
 
 	public static void setIDEHeight(double ideHeight) {
-		ViewBuilder.ideHeight = ideHeight;
+		MainView.ideHeight = ideHeight;
 	}
 
 	public static double getIDEWidth() {
@@ -62,6 +62,6 @@ public class ViewBuilder{
 	}
 
 	public static void setIDEWidth(double ideWidth) {
-		ViewBuilder.ideWidth = ideWidth;
+		MainView.ideWidth = ideWidth;
 	}
 }

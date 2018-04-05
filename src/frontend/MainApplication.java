@@ -1,6 +1,6 @@
 package frontend;
 
-import frontend.components.ViewBuilder;
+import frontend.components.MainView;
 import javafx.application.Application;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -16,7 +16,7 @@ public class MainApplication extends Application {
 
 	@Override
 	public void start(Stage  primaryStage) throws Exception {
-		ViewBuilder viewBuilder = new ViewBuilder();
+		MainView viewBuilder = new MainView();
 		Parent layout = viewBuilder.build();
 		Scene s = new Scene(layout, viewBuilder.getIDEWidth(), viewBuilder.getIDEHeight());
 		s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
