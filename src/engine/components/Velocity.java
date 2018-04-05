@@ -3,7 +3,7 @@ package engine.components;
 /**
  *  Velocity component class
  **/
-public class Velocity extends Component implements IComponent {
+public class Velocity extends Component {
 
     private double XVel; //X velocity associated with an entity that has this VelocityComponent
 	private double YVel; //Y velocity associated with an entity that has this VelocityComponent

@@ -31,14 +31,13 @@ public class Accelerate implements ISystem {
 	 * @param components	Map of components for given parent
 	 */
     public void addComponent(int pid, Map<String, Component> components) {
-    	if(!handledComponents.containsKey(pid)) {
-    		if (components.containsKey("Acceleration") && components.containsKey("Velocity")) {
-    			List<Component> newComponents = new ArrayList<>();
-    			newComponents.add(components.get("Acceleration"));
-    			newComponents.add(components.get("Velocity"));
-    			handledComponents.put(pid, newComponents);
-			}
-    	}
+		if (components.containsKey("Acceleration") && components.containsKey("Velocity")) {
+			List<Component> newComponents = new ArrayList<>();
+			newComponents.add(components.get("Acceleration"));
+			newComponents.add(components.get("Velocity"));
+			handledComponents.put(pid, newComponents);
+		}
+    	
     }
     
     /**
@@ -47,7 +46,6 @@ public class Accelerate implements ISystem {
      * @param pid	Parent whos components will be removed
      */
     public void removeComponent(int pid) {
-
     	if(handledComponents.containsKey(pid)) {
     		handledComponents.remove(pid);
     	}

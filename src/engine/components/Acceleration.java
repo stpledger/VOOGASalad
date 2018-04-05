@@ -1,6 +1,6 @@
 package engine.components;
 
-public class Acceleration extends Component implements IComponent {
+public class Acceleration extends Component {
 
 	private double xAcc, yAcc;
 	

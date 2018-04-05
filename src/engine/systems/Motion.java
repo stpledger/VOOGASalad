@@ -34,14 +34,12 @@ public class Motion implements ISystem {
      */
 
     public void addComponent(int pid, Map<String, Component> components) {
-    	if(!handledComponents.containsKey(pid)) {
-    		if (components.containsKey("Velocity") && components.containsKey("Position")) {
-    			List<Component> newComponents = new ArrayList<>();
-    			newComponents.add(components.get("Velocity"));
-    			newComponents.add(components.get("Position"));
-    			handledComponents.put(pid, newComponents);
-			}
-    	}
+		if (components.containsKey("Velocity") && components.containsKey("Position")) {
+			List<Component> newComponents = new ArrayList<>();
+			newComponents.add(components.get("Velocity"));
+			newComponents.add(components.get("Position"));
+			handledComponents.put(pid, newComponents);
+		}
     }
     
     /**

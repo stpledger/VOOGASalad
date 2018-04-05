@@ -5,7 +5,7 @@ import java.io.FileNotFoundException;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class Sprite extends Component implements IComponent {
+public class Sprite extends Component {
 
 	private ImageView image;
 	

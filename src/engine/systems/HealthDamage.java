@@ -38,4 +38,10 @@ public class HealthDamage implements ISystem {
 		    healthComponents.get(pid).setHealth(change);
 		}
 	}
+
+	@Override
+	public void execute(double elapsedTime) {
+		// TODO Auto-generated method stub
+		
+	}
 }

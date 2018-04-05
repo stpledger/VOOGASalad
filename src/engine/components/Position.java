@@ -5,7 +5,7 @@ package engine.components;
  * 
  * @author fitzj
  */
-public class Position extends Component implements IComponent {
+public class Position extends Component {
 
 	private double xPos;
 	private double yPos;
