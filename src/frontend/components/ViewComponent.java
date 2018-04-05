@@ -11,7 +11,7 @@ import javafx.scene.Node;
  * @author Collin Brown(cdb55)
  *
  */
-abstract public class ViewComponent extends ChildNode{
+abstract public class ViewComponent extends ChildNode {
 	protected Broadcast broadcast;
 	
 	public abstract Node getNode();
