@@ -1,5 +1,44 @@
 package engine.systems;
 
-public class InputHandler {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import engine.components.Component;
+import engine.components.IKeyInput;
+
+public class InputHandler implements ISystem {
+	private Map<Integer, List<IKeyInput>> handledComponents = new HashMap<>();
+
+	@Override
+	public void addComponent(int pid, Map<String, Component> components) {
+		List<IKeyInput> newComponents = new ArrayList<>();
+		for (Component c: components.values()) {
+			if( c instanceof IKeyInput) {
+				newComponents.add((IKeyInput) c);
+			}
+		}
+			handledComponents.put(pid, newComponents);	    
+	}
+
+	@Override
+	public void removeComponent(int pid) {
+		if(handledComponents.containsKey(pid)) {
+    		handledComponents.remove(pid);
+    	}
+		
+	}
+
+	@Override
+	public void execute(double time) {
+		for (int pid : handledComponents.keySet()) {
+			for(IKeyInput h : handledComponents.get(pid)) {
+				 h.execute();
+			}
+		}
+		
+	}
+	
+	
 }
