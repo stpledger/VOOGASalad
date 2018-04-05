@@ -31,6 +31,7 @@ public class Acceleration implements ISystem {
 	 * Removes position and velocity component from system map
 	 * @param pid parent ID of Velocity component to be removed
 	 */
+
 	public void removeComponent(int pid) {
 		if(!handledComponents.containsKey(pid)) {
 			handledComponents.remove(pid);
@@ -41,6 +42,7 @@ public class Acceleration implements ISystem {
 	 * Apply changes in velocities to positions
 	 * @param velocities updated velocity components
 	 */
+	
 	public void execute(List<Velocity> velocities) {
 		for(Velocity vel:velocities) {
 			int pid = vel.getParentID();

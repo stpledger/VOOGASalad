@@ -22,7 +22,9 @@ public class Motion implements ISystem {
 	private Map<Integer, List<Component>> handledComponents = new HashMap<>();
 	private List<Component> newComponents;
 	private List<Component> activeComponents;
-    
+
+public class Motion extends System{
+
 	/**
      * Adds position and velocity components to system map
      * @param pid parent ID of component to be removed
@@ -43,6 +45,7 @@ public class Motion implements ISystem {
      * Removes position and velocity component from system map
      * @param pid parent ID of Velocity component to be removed
      */
+    @Override
     public void removeComponent(int pid) {
     	if(handledComponents.containsKey(pid)) {
     		handledComponents.remove(pid);
