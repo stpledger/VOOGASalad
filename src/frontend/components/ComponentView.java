@@ -34,4 +34,10 @@ public class ComponentView extends ViewComponent{
 		return pane;
 	}
 
+	@Override
+	protected Broadcast buildBroadcast() {
+		Broadcast b = new Broadcast();
+		return b;
+	}
+
 }
