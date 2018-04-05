@@ -17,6 +17,7 @@ import engine.components.Velocity;
 public class Motion implements ISystem {
 	private Map<Integer, Position> positions;
 	private Map<Integer, Velocity> velocities;
+
     
 	public Motion() {
 		positions = new HashMap<>();
@@ -40,6 +41,7 @@ public class Motion implements ISystem {
      * Removes position and velocity component from system map
      * @param pid parent ID of Velocity component to be removed
      */
+    @Override
     public void removeComponent(int pid) {
     	if(velocities.containsKey(pid)) {
     		velocities.remove(pid);
