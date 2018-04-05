@@ -16,6 +16,7 @@ import java.util.Observer;
 public class Controller {
 	private ArrayList<ViewComponent> myComponents = new ArrayList<ViewComponent>();
 	
+	
 	public Controller(List<ViewComponent> components) {
 		myComponents.addAll(components);
 		setUpListeners();
