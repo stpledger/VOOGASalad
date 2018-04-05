@@ -1,6 +1,5 @@
 package frontend.components;
 
-import frontend.IDEView;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
@@ -15,13 +14,11 @@ public class ViewBuilder{
 	private Toolbar toolbar;
 	private GameEnvironmentView gameEnvironmentView;
 	private ComponentView componentView;
-	private IDEView ideView;
 	
 	//GUI Constants
 	private static double ideHeight = 600;
 	private static double ideWidth = 1200;
 	private double toolbarHeight = 25;
-	private double componentViewWidth = 300;
 	
 	public ViewBuilder() {
 		border = new BorderPane();

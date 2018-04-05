@@ -9,9 +9,10 @@ import javafx.scene.Node;
  *
  */
 abstract public class ViewComponent extends ChildNode{
+	
 
 	public abstract Node getNode();
-	
+
 	@Override
 	public String getNodeName() {
 		return this.getNode().getId();

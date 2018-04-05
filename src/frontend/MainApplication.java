@@ -18,7 +18,7 @@ public class MainApplication extends Application {
 	public void start(Stage  primaryStage) throws Exception {
 		ViewBuilder viewBuilder = new ViewBuilder();
 		Parent layout = viewBuilder.build();
-		Scene s = new Scene(layout, viewBuilder.getIDEHeight(), viewBuilder.getIDEWidth());
+		Scene s = new Scene(layout, viewBuilder.getIDEWidth(), viewBuilder.getIDEHeight());
 		s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		primaryStage.setTitle("One Class, One Method");
         primaryStage.setScene(s);
