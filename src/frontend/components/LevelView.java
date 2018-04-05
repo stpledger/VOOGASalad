@@ -23,6 +23,10 @@ public class LevelView extends ScrollPane {
 		//Always hide the scrollbar
 		this.setHbarPolicy(ScrollBarPolicy.NEVER);
 		this.setVbarPolicy(ScrollBarPolicy.NEVER);
+		LocalPropertiesView loProp = new LocalPropertiesView();
+		LevelPropertiesView leProp = new LevelPropertiesView();
+		GlobalPropertiesView glProp = new GlobalPropertiesView();
+		pane.getChildren().addAll(loProp.getNode(),leProp.getNode(),glProp.getNode());
 	}
 	
 }

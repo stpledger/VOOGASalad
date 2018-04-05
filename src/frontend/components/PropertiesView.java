@@ -4,7 +4,7 @@ import javafx.scene.Node;
 
 /**
  * 
- * @author Collin Brown(cdb55)
+ * @author Hemanth Yakkali (hy115)
  *
  */
 public abstract class PropertiesView extends ViewComponent {
@@ -16,4 +16,6 @@ public abstract class PropertiesView extends ViewComponent {
 	public Node getNode() {
 		return null;	
 	}
+	
+	
 }
