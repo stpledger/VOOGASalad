@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import frontend.IDEView;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -23,8 +22,8 @@ public class GameEnvironmentView extends ViewComponent {
 	Button addButton;
 	ArrayList<Tab> tabsList;
 	
-	public GameEnvironmentView(IDEView v) {
-		super(v);
+	public GameEnvironmentView() {
+		super();
 		pane = new TabPane();
 		tabsList = new ArrayList<Tab>();
 		addTab(); // add the first level

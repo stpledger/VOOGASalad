@@ -1,6 +1,5 @@
 package frontend.components;
 
-import frontend.IDEView;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -22,12 +21,12 @@ import javafx.scene.shape.Rectangle;
  */
 public class ComponentTab extends Tab{
 	public static final double SCROLLBAR_WIDTH = 20;
-	IDEView ideView;
 	FlowPane pane;
 	ScrollPane externalPane;
-	public ComponentTab(String name, IDEView v) {
+	double myComponentViewWidth;
+	public ComponentTab(String name, double componentViewWidth) {
 		super(name);
-		ideView = v;
+		myComponentViewWidth = componentViewWidth;
 		this.setClosable(false);
 		this.getStyleClass().add("component-tab");
 		assemble();
@@ -102,7 +101,7 @@ public class ComponentTab extends Tab{
 		externalPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		externalPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		pane = new FlowPane();
-		pane.setPrefWidth(ideView.getComponentViewWidth());
+		pane.setPrefWidth(myComponentViewWidth);
 		//TODO: Make this dynamic to handle each individual component
 		for(int i = 0; i < 8; i++) {
 		pane.getChildren().add(new ComponentBox("bleh", "temp"));
@@ -123,8 +122,8 @@ public class ComponentTab extends Tab{
 	private class ComponentBox extends Rectangle{
 		
 		public ComponentBox(String name, String imagePath) {
-			this.setWidth((ideView.getComponentViewWidth() - SCROLLBAR_WIDTH)/3);
-			this.setHeight((ideView.getComponentViewWidth() - SCROLLBAR_WIDTH)/3);
+			this.setWidth((myComponentViewWidth - SCROLLBAR_WIDTH)/3);
+			this.setHeight((myComponentViewWidth - SCROLLBAR_WIDTH)/3);
 			this.getStyleClass().add("component-box");
 			daddy.execute(this);
 		}

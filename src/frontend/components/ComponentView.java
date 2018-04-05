@@ -4,19 +4,19 @@ import java.util.Arrays;
 
 import com.sun.prism.paint.Color;
 
-import frontend.IDEView;
 import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.shape.Rectangle;
 
 public class ComponentView extends ViewComponent{
+	private double componentViewWidth = 300;
 	private TabPane pane;
 	private String[] tabsList = {"Sprites", "Blocks", "Game Objects"};
-	public ComponentView(IDEView v) {
-		super(v);
+	public ComponentView() {
+		super();
 		pane = new TabPane();
-		pane.setPrefWidth(ideView.getComponentViewWidth());
+		pane.setPrefWidth(componentViewWidth);
 		pane.getStyleClass().add("component-view");
 		addTabs();
 	}
@@ -24,7 +24,7 @@ public class ComponentView extends ViewComponent{
 	private void addTabs() {
 		//TODO: Convert this to be reflection of all the components
 		for(String k : Arrays.asList(tabsList)) {
-			Tab temp = new ComponentTab(k, ideView);
+			Tab temp = new ComponentTab(k, componentViewWidth);
 			pane.getTabs().add(temp);
 		}
 	}
