@@ -47,7 +47,6 @@ public class GameEnvironmentView extends ViewComponent {
 				tabsList.remove(t);
 				updateTabs.accept(tabsList);
 			}
-			
 		});
 		pane.getTabs().add(t);
 	}
