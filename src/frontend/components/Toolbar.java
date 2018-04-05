@@ -50,12 +50,11 @@ public class Toolbar extends ViewComponent{
 		temp.setOnAction(action -> {
 			try {
 				if(!temp.getSelectionModel().isEmpty()) {
-					broadcast.setMessage(temp.getSelectionModel().getSelectedItem());
-					temp.getSelectionModel().clearSelection(); //TODO: This throws and indexoutofbounds error but runs fine because it makes a null value
-				}
+					broadcast.setMessage(temp.getSelectionModel().getSelectedItem(),null);
+						temp.getSelectionModel().clearSelection(); //TODO: This throws and indexoutofbounds error but runs fine because it makes a null value
+					}
 			} catch (Exception error) {
 				//TODO: make better error handling
-				error.printStackTrace();
 			}
 			});
 		temp.getStyleClass().add("combo-box");
