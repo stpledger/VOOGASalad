@@ -1,6 +1,5 @@
 package frontend.components;
 
-import frontend.IDEView;
 
 /**
  * 
@@ -9,8 +8,14 @@ import frontend.IDEView;
  */
 public class GlobalPropertiesView extends PropertiesView {
 
-	public GlobalPropertiesView(IDEView v) {
-		super(v);
+	public GlobalPropertiesView(){
+		super();
+	}
+
+	@Override
+	protected Broadcast buildBroadcast() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import frontend.IDEView;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -19,15 +18,16 @@ import javafx.scene.control.TabPane;
  *
  */
 public class GameEnvironmentView extends ViewComponent {
-	TabPane pane;
-	Button addButton;
-	ArrayList<Tab> tabsList;
+	private TabPane pane;
+	private Button addButton;
+	private ArrayList<Tab> tabsList;
+	private Object clipboard;
 	
-	public GameEnvironmentView(IDEView v) {
-		super(v);
+	public GameEnvironmentView() {
+		super();
 		pane = new TabPane();
 		tabsList = new ArrayList<Tab>();
-		addTab(); // add the first level
+		addLevel(); // add the first level
 	}
 	
 	Consumer<List<Tab>> updateTabs = (l) -> {
@@ -36,7 +36,7 @@ public class GameEnvironmentView extends ViewComponent {
 		}
 	};
 	
-	public void addTab(){
+	public void addLevel(){
 		tabsList.add(new Tab());
 		Tab t = tabsList.get(tabsList.size()-1);
 		t.setText("Level " + (tabsList.indexOf(t)+1));
@@ -50,8 +50,18 @@ public class GameEnvironmentView extends ViewComponent {
 		});
 		pane.getTabs().add(t);
 	}
-
+	
+	public void setClipboard(Object o) {
+		clipboard = o;
+	}
+	
 	public Node getNode() {
 		return pane;
+	}
+
+	@Override
+	protected Broadcast buildBroadcast() {
+		Broadcast b = new Broadcast();
+		return b;
 	}
 }

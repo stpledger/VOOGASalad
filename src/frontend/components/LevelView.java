@@ -2,7 +2,6 @@ package frontend.components;
 
 import java.util.ArrayList;
 
-import frontend.IDEView;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;

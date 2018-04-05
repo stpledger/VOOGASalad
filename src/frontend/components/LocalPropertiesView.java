@@ -1,7 +1,4 @@
 package frontend.components;
-
-import frontend.IDEView;
-import engine.components.*;
 /**
  * Opens up the Local Properties window so that an editor can edit certain features of an entity,
  * such as poison, health, velocity, etc. 
@@ -11,9 +8,14 @@ import engine.components.*;
  */
 public class LocalPropertiesView extends PropertiesView {
 
-	
-	public LocalPropertiesView(IDEView v) {
-		super(v);
+	public LocalPropertiesView() {
+		super();
+	}
+
+	@Override
+	protected Broadcast buildBroadcast() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
