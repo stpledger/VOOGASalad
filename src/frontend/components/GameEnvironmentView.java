@@ -26,7 +26,7 @@ public class GameEnvironmentView extends ViewComponent {
 		super();
 		pane = new TabPane();
 		tabsList = new ArrayList<Tab>();
-		addTab(); // add the first level
+		addLevel(); // add the first level
 	}
 	
 	Consumer<List<Tab>> updateTabs = (l) -> {
@@ -35,7 +35,7 @@ public class GameEnvironmentView extends ViewComponent {
 		}
 	};
 	
-	public void addTab(){
+	public void addLevel(){
 		tabsList.add(new Tab());
 		Tab t = tabsList.get(tabsList.size()-1);
 		t.setText("Level " + (tabsList.indexOf(t)+1));
@@ -49,10 +49,6 @@ public class GameEnvironmentView extends ViewComponent {
 			
 		});
 		pane.getTabs().add(t);
-	}
-	public void addLevel() {
-		addTab();
-		
 	}
 	public Node getNode() {
 		return pane;

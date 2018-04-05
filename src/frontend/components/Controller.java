@@ -8,7 +8,11 @@ import java.util.EventListener;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
-
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class Controller {
 	private ArrayList<ViewComponent> myComponents = new ArrayList<ViewComponent>();
 	
@@ -30,7 +34,9 @@ public class Controller {
 	}
 	
 	private class BroadcastListener implements Observer{
-
+		/**
+		 * Whenever an observable object is changed, this method looks of the corresponding message to be used
+		 */
 		@Override
 		public void update(Observable origin, Object message) {
 			for(ViewComponent tempComponent : myComponents) {
@@ -39,7 +45,6 @@ public class Controller {
 					if(m.getName().equals(message)) {
 						try {
 							m.invoke(tempComponent);
-							System.out.println("success");
 						} catch (IllegalAccessException e) {
 							System.out.println("IllegalAccessException");
 						} catch (IllegalArgumentException e) {
