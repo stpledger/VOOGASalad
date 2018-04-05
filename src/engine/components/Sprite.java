@@ -18,6 +18,10 @@ public class Sprite extends Component {
 		}
 	}
 
+	public static String getKey() {
+		return "Sprite";
+	}
+	
 	public ImageView getImage() {
 		return image;
 	}

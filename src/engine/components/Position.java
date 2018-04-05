@@ -22,6 +22,10 @@ public class Position extends Component {
 		this.yPos = yPos;
 	}
 
+	public static String getKey() {
+		return "Position";
+	}
+	
 	public double getXPos() {
 		return xPos;
 	}
