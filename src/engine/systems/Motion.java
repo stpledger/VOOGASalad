@@ -23,7 +23,7 @@ public class Motion implements ISystem {
 	private List<Component> newComponents;
 	private List<Component> activeComponents;
 
-public class Motion extends System{
+public class Motion extends ISystem{
 
 	/**
      * Adds position and velocity components to system map

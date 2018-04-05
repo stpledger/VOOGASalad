@@ -48,7 +48,7 @@ public class Acceleration implements ISystem {
 			int pid = vel.getParentID();
 			//just for debug, delete later
 			if(!handledComponents.containsKey(pid)) {
-				ISystem.out.println("Errors: Acceleration system has missing components!");
+				System.out.println("Errors: Acceleration system has missing components!");
 				return;
 			}
 
