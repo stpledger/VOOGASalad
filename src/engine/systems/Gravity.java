@@ -7,13 +7,13 @@ import java.util.Map;
 import engine.components.Velocity;
 
 /**
- * System to apply gravity to an object based on Velocity component's gravity acceleration
+ * ISystem to apply gravity to an object based on Velocity component's gravity acceleration
  * Required component: Velocity
  * 
  * @author fitzj
  * @author Yameng
  */
-public class Gravity{
+public class Gravity implements ISystem {
 	private Map<Integer, Velocity> handledComponents;
     private Time time;
     
@@ -49,7 +49,7 @@ public class Gravity{
 	    	for(int id: ids) {
 	    		//just for debug, delete later
 	    		if(!handledComponents.containsKey(id)) {
-	    			System.out.println("Errors: Gravity system has missing components!");
+	    			ISystem.out.println("Errors: Gravity system has missing components!");
 	    			return;
 	    		}
 	    		

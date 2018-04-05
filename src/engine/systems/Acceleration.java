@@ -1,22 +1,19 @@
 package engine.systems;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import engine.components.Component;
-import engine.components.Position;
 import engine.components.Velocity;
 
 /**
  * **
- * System to apply changes in velocities
+ * ISystem to apply changes in velocities
  * Required component: Velocity
  *
  * @author Yameng
  */
 
-public class Acceleration{
+public class Acceleration implements ISystem {
 	private Map<Integer, Velocity> handledComponents;
 
 	/**
@@ -49,7 +46,7 @@ public class Acceleration{
 			int pid = vel.getParentID();
 			//just for debug, delete later
 			if(!handledComponents.containsKey(pid)) {
-				System.out.println("Errors: Acceleration system has missing components!");
+				ISystem.out.println("Errors: Acceleration system has missing components!");
 				return;
 			}
 
