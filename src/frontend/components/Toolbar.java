@@ -19,6 +19,7 @@ public class Toolbar extends ViewComponent{
 	private ArrayList<Node> toolbarNodes = new ArrayList<Node>();
 	
 	private String[] fileMenuList = {"create", "load", "save"};
+	private String[] editMenuList = {"newSprite", "editSprites"};
 	private String[] gameMenuList = {"addLevel", "settings", "play"};
 	
 	
@@ -34,15 +35,24 @@ public class Toolbar extends ViewComponent{
 		return toolbar;
 	}
 	
+	/**
+	 * Adds necessary toolbars
+	 */
 	private void addComponents() {
 		List<Node> toAdd = new ArrayList<>();
 		toAdd.add(createMenu("File", fileMenuList));
+		// toAdd.add(createMenu("Edit", editMenuList));
 		toAdd.add(createMenu("Game", gameMenuList));
 		toolbar.getChildren().addAll(toAdd);
 		
 	}
 
-	
+	/**
+	 * Dynamically create a menu
+	 * @param name the name of the menu
+	 * @param items the items in a given menu
+	 * @return a Node with the menu
+	 */
 	private Node createMenu(String name, String[] items) {
 		ComboBox<String> temp = new ComboBox<String>();
 		temp.setPromptText(name);
@@ -60,7 +70,9 @@ public class Toolbar extends ViewComponent{
 		temp.getStyleClass().add("combo-box");
 		return temp;
 	}
-
+	/**
+	 * Builds the Broadcast object that will send messages to the controller
+	 */
 	@Override
 	protected Broadcast buildBroadcast() {
 		Broadcast b = new Broadcast();
