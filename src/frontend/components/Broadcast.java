@@ -9,23 +9,25 @@ import java.util.Observable;
  *
  */
 class Broadcast extends Observable {
-	private Method method;
+	private String message;
 	public Broadcast() {
+		super();
 	}
 	/**
 	 * Get the method associated with this object
 	 * @return
 	 */
-	public Method getMethod() {
-		return method;
+	public String getMessage() {
+		return message;
 	}
 	/**
 	 * Set the method that will be invoked by the Controller
 	 * @param m
 	 */
-	public void setMethod(Method m) {
-		this.method = m;
-		this.notifyObservers(method);
+	public void setMessage(String m) {
+		this.message = m;
+		this.setChanged();
+		this.notifyObservers(message);
 	}
 	
 	

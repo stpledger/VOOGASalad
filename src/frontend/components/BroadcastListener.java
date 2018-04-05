@@ -7,9 +7,8 @@ class BroadcastListener implements Observer{
 
 	@Override
 	public void update(Observable origin, Object message) {
-		if(message.getClass().getTypeName().equals("Method")) {
-			System.out.println("nut");
-		}
+		System.out.println(message.toString());
 	}
+	
 
 }

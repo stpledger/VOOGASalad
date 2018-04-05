@@ -57,7 +57,7 @@ public class GameEnvironmentView extends ViewComponent {
 
 	@Override
 	protected Broadcast buildBroadcast() {
-		// TODO Auto-generated method stub
-		return null;
+		Broadcast b = new Broadcast();
+		return b;
 	}
 }

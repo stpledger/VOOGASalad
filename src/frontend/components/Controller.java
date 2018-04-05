@@ -16,8 +16,12 @@ public class Controller {
 
 	private void setUpListeners() {
 		for(ViewComponent tempComponent: myComponents) {
-			Observer tempObserver = new BroadcastListener();
-			tempComponent.getBroadcast().addObserver(tempObserver);
+			BroadcastListener tempListener = new BroadcastListener();
+			try {
+			tempComponent.addObserver(tempListener);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
 		}
 		
 	}

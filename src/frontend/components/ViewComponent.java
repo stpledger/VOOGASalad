@@ -1,6 +1,7 @@
 package frontend.components;
 
 import java.util.Observable;
+import java.util.Observer;
 
 import com.sun.org.apache.xerces.internal.dom.ChildNode;
 import javafx.scene.Node;
@@ -11,7 +12,7 @@ import javafx.scene.Node;
  *
  */
 abstract public class ViewComponent extends ChildNode{
-	private Broadcast broadcast;
+	protected Broadcast broadcast;
 	
 	public abstract Node getNode();
 	
@@ -29,6 +30,10 @@ abstract public class ViewComponent extends ChildNode{
 	@Override
 	public short getNodeType() {
 		return Short.parseShort(this.getNode().getClass().getName());
+	}
+	
+	public void addObserver(Observer o) {
+		broadcast.addObserver(o);
 	}
 
 	public Broadcast getBroadcast() {
