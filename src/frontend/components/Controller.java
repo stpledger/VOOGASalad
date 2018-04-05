@@ -34,11 +34,12 @@ public class Controller {
 		@Override
 		public void update(Observable origin, Object message) {
 			for(ViewComponent tempComponent : myComponents) {
-				List<Method> tempMethodList = Arrays.asList(tempComponent.getClass().getMethods());
+				List<Method> tempMethodList = Arrays.asList(tempComponent.getClass().getDeclaredMethods());
 				for(Method m : tempMethodList) {
 					if(m.getName().equals(message)) {
 						try {
-							m.invoke(null);
+							m.invoke(tempComponent);
+							System.out.println("success");
 						} catch (IllegalAccessException e) {
 							System.out.println("IllegalAccessException");
 						} catch (IllegalArgumentException e) {
@@ -47,6 +48,7 @@ public class Controller {
 							System.out.println("InvocationTargetException");
 						} catch (NullPointerException e) {
 							//Blank Catch
+							System.out.println("No such method");
 						} catch (Exception e) {
 							System.out.println("critical failure");
 						}
