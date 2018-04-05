@@ -8,6 +8,8 @@ import java.util.EventListener;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
+
+import javafx.util.Pair;
 /**
  * 
  * @author Collin Brown(cdb55)
@@ -40,10 +42,13 @@ public class Controller {
 		 */
 		@Override
 		public void update(Observable origin, Object message) {
+			Pair<String, Object[]> tempPair = (Pair<String, Object[]>)message;
+			String tempMethodName = tempPair.getKey().toString();
+			Object[] args = tempPair.getValue();
 			for(ViewComponent tempComponent : myComponents) {
 				List<Method> tempMethodList = Arrays.asList(tempComponent.getClass().getDeclaredMethods());
 				for(Method m : tempMethodList) {
-					if(m.getName().equals(message)) {
+					if(m.getName().equals(tempMethodName)) {
 						try {
 							m.invoke(tempComponent);
 						} catch (IllegalAccessException e) {

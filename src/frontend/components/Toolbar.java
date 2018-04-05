@@ -50,7 +50,7 @@ public class Toolbar extends ViewComponent{
 		temp.setOnAction(action -> {
 			try {
 				if(!temp.getSelectionModel().isEmpty()) {
-					broadcast.setMessage(temp.getSelectionModel().getSelectedItem());
+					broadcast.setMessage(temp.getSelectionModel().getSelectedItem(),null);
 					temp.getSelectionModel().clearSelection(); //TODO: This throws and indexoutofbounds error but runs fine because it makes a null value
 				}
 			} catch (Exception error) {
