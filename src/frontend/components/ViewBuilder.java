@@ -17,18 +17,19 @@ public class ViewBuilder{
 	private ComponentView componentView;
 	private IDEView ideView;
 	
-	public ViewBuilder(IDEView v) {
+	//GUI Constants
+	private static double ideHeight = 600;
+	private static double ideWidth = 1200;
+	private double toolbarHeight = 25;
+	private double componentViewWidth = 300;
+	
+	public ViewBuilder() {
 		border = new BorderPane();
-		ideView = v;
-		toolbar = new Toolbar(ideView);
-		gameEnvironmentView = new GameEnvironmentView(ideView);
-		componentView = new ComponentView(ideView);
+		toolbar = new Toolbar();
+		gameEnvironmentView = new GameEnvironmentView();
+		componentView = new ComponentView();
 	}
 	
-	public void addTempNode(Node n) {
-		border.getChildren().add(n);
-		ideView.update();
-	}
 	
 	public Parent build() {
 		border = new BorderPane();
@@ -49,5 +50,21 @@ public class ViewBuilder{
 	
 	public ComponentView getComponentView() {
 		return componentView;
+	}
+
+	public static double getIDEHeight() {
+		return ideHeight;
+	}
+
+	public static void setIDEHeight(double ideHeight) {
+		ViewBuilder.ideHeight = ideHeight;
+	}
+
+	public static double getIDEWidth() {
+		return ideWidth;
+	}
+
+	public static void setIDEWidth(double ideWidth) {
+		ViewBuilder.ideWidth = ideWidth;
 	}
 }

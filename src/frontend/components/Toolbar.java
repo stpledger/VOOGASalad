@@ -4,20 +4,12 @@ import java.util.ArrayList;
 
 import java.util.Arrays;
 import java.util.List;
-
 import java.lang.reflect.Method;
 
-import com.sun.prism.paint.Color;
-
 import frontend.IDEView;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Paint;
 /**
  * 
  * @author Collin Brown(cdb55)
@@ -29,7 +21,9 @@ public class Toolbar extends ViewComponent{
 	
 	private String[] fileMenuList = {"create", "load", "save"};
 	private String[] gameMenuList = {"addLevel", "settings", "play"};
-
+	
+	
+	
 	public Toolbar(IDEView v) {
 		super(v);
 		toolbar = new HBox();
@@ -91,6 +85,19 @@ public class Toolbar extends ViewComponent{
 			});
 		temp.getStyleClass().add("combo-box");
 		return temp;
+	}
+
+
+	@Override
+	public String getNodeName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public short getNodeType() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }
 	
