@@ -9,7 +9,7 @@ import engine.components.Poison;
 
 
 
-public class HealthDamage extends System {
+public class HealthDamage implements ISystem {
 	
 	
 	private Map<Integer, Health> healthComponents;
@@ -37,5 +37,11 @@ public class HealthDamage extends System {
 			double change = healthComponents.get(pid).getHealth()-p.getPoison();
 		    healthComponents.get(pid).setHealth(change);
 		}
+	}
+
+	@Override
+	public void execute(double elapsedTime) {
+		// TODO Auto-generated method stub
+		
 	}
 }
