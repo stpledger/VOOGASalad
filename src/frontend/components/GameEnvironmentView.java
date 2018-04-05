@@ -50,7 +50,10 @@ public class GameEnvironmentView extends ViewComponent {
 		});
 		pane.getTabs().add(t);
 	}
-
+	public void addLevel() {
+		System.out.println("yooo");
+		
+	}
 	public Node getNode() {
 		return pane;
 	}

@@ -28,6 +28,7 @@ class Broadcast extends Observable {
 		this.message = m;
 		this.setChanged();
 		this.notifyObservers(message);
+		this.clearChanged();
 	}
 	
 	
