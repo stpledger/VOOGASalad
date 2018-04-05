@@ -8,7 +8,6 @@ import java.util.Map;
 import engine.components.Component;
 import engine.components.Damage;
 import engine.components.Health;
-import engine.components.Poison;
 
 
 
@@ -24,10 +23,10 @@ public class HealthDamage implements ISystem {
 	}
 	
 	public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey("Health") && components.containsKey("Damage")) {
+		if (components.containsKey(Health.getKey()) && components.containsKey(Damage.getKey())) {
 			List<Component> newComponents = new ArrayList<>();
-			newComponents.add(components.get("Health"));
-			newComponents.add(components.get("Damage"));
+			newComponents.add(components.get(Health.getKey()));
+			newComponents.add(components.get(Damage.getKey()));
 			
 			healthComponents.put(pid, newComponents);
 		}
