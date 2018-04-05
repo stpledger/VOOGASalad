@@ -14,6 +14,10 @@ public class Dimension extends Component{
 		this.height = height;
 		this.width = width;
 	}
+	
+	public static String getKey() {
+		return "Dimension";
+	}
 
 	public double[] getDimension() {
 		return new double[]{width,height};

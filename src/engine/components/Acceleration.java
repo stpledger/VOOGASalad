@@ -4,6 +4,10 @@ public class Acceleration extends Component {
 
 	private double xAcc, yAcc;
 	
+	public static String getKey() {
+		return "Acceleration";
+	}
+	
 	public Acceleration(int pid, double x, double y) {
 		super(pid);
 		this.xAcc = x;

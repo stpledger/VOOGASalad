@@ -11,5 +11,5 @@ public class Component {
 	public int getParentID () {
 		return pid;
 	}
-	
+		
 }

@@ -20,6 +20,10 @@ public class Velocity extends Component {
         this.YVel = YVel;
     }
     
+    public static String getKey() {
+		return "Velocity";
+	}
+    
     public double getXVel() {
 		return XVel;
 	}

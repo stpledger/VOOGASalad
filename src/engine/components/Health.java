@@ -9,6 +9,10 @@ public class Health extends Component {
 		this.health = health;
 	}
 
+	public static String getKey() {
+		return "Health";
+	}
+	
 	public double getHealth() {
 		return health;
 	}

@@ -79,13 +79,13 @@ public class Collision implements ISystem {
 	}
 
 	public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey("Position") && components.containsKey("Dimension")) {
+		if (components.containsKey(Position.getKey()) && components.containsKey(Dimension.getKey())) {
 			List<Component> newComponents = new ArrayList<>();
-			newComponents.add(components.get("Dimension"));
-			newComponents.add(components.get("Position"));
+			newComponents.add(components.get(Dimension.getKey()));
+			newComponents.add(components.get(Position.getKey()));
 			handledComponents.put(pid, newComponents);
-			if(components.containsKey("Velocity")) {
-				colliders.put(pid, (Velocity) components.get("Velocity"));
+			if(components.containsKey(Velocity.getKey())) {
+				colliders.put(pid, (Velocity) components.get(Velocity.getKey()));
 			}
 		}
 	}

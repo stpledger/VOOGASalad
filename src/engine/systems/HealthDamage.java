@@ -10,6 +10,7 @@ import engine.components.Damage;
 import engine.components.Health;
 
 
+
 public class HealthDamage implements ISystem {
 	public static int HEALTH_INDEX = 0;
 	public static int DAMAGE_INDEX = 1;
@@ -20,10 +21,11 @@ public class HealthDamage implements ISystem {
 		healthComponents = new HashMap<>();
 	}
 	public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey("Health") && components.containsKey("Damage")) {
+		if (components.containsKey(Health.getKey()) && components.containsKey(Damage.getKey())) {
 			List<Component> newComponents = new ArrayList<>();
-			newComponents.add(components.get("Health"));
-			newComponents.add(components.get("Damage"));
+			newComponents.add(components.get(Health.getKey()));
+			newComponents.add(components.get(Damage.getKey()));
+			
 			healthComponents.put(pid, newComponents);
 		}
 		
