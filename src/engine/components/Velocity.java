@@ -2,6 +2,7 @@ package engine.components;
 
 /**
  *  Velocity component class
+ *  @author fitzj
  **/
 public class Velocity extends Component {
 
