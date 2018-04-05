@@ -35,10 +35,10 @@ public class ComponentTab extends Tab{
 		assemble();
 	}
 	
-	public interface DragAndDropDynamicYoutility{
-		public Node execute(Node n);
-	}
 	
+	/**
+	 * builds the ScrollPane and the FlowPane within it
+	 */
 	private void assemble() {
 		externalPane = new ScrollPane();
 		externalPane.setHbarPolicy(ScrollBarPolicy.NEVER);
@@ -53,19 +53,24 @@ public class ComponentTab extends Tab{
 		this.setContent(externalPane);
 	}
 	/**
-	 * 
-	 * @return
+	 * Returns the graphic representation of the ComponentTab
 	 */
 	public Node getNode() {
 		return pane;
 	}
 	
+	/**
+	 * Gets the observable property of the currently selected element
+	 * @return
+	 */
 	public ObjectProperty getSelectedElementProperty() {
 		return selectedElement;
 	}
 	
 	
-	
+	/**
+	 *	The ComponentBox holds the properties and images of various gameObjects
+	 */
 	private class ComponentBox extends Rectangle{
 		
 		public ComponentBox(String name, String imagePath) {
