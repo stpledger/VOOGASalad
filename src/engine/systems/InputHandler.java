@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+import javafx.scene.input.KeyCode;
 import engine.components.Component;
 import engine.components.IKeyInput;
 
@@ -30,13 +30,19 @@ public class InputHandler implements ISystem {
 		
 	}
 
-	@Override
-	public void execute(double time) {
+
+	public void execute(double time, KeyCode code) {
 		for (int pid : handledComponents.keySet()) {
 			for(IKeyInput h : handledComponents.get(pid)) {
-				 h.execute();
+				 h.execute(code);
 			}
 		}
+		
+	}
+
+	@Override
+	public void execute(double time) {
+		// TODO Auto-generated method stub
 		
 	}
 	
