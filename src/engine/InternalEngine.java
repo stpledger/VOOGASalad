@@ -14,15 +14,9 @@ public class InternalEngine implements Engine {
 		
 		
 	}
-	
-	public void start() {
-		
-	}
 
-	public void stop() {
-	}
-	
-	public void pause() {
+	public void update(double time) {
+		systems.forEach(sys -> sys.execute(time));
 	}
 	
 	

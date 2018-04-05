@@ -17,8 +17,7 @@ public class GameInitializer {
         systems = new ArrayList<>();
         renderOrder = new ArrayList<>();
 
-        systems.add(new Acceleration());
-        systems.add(new Gravity());
+        systems.add(new Accelerate());
         systems.add(new Motion());
 
         SM = new SystemManager(systems);
