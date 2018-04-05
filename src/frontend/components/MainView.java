@@ -32,7 +32,9 @@ public class MainView{
 		controller = new Controller(Arrays.asList(components));
 	}
 	
-	
+	/**
+	 * creates the ViewComponents and adds them to the borderPane 
+	 */
 	public Parent build() {
 		border = new BorderPane();
 		border.setTop(toolbar.getNode());
@@ -42,30 +44,58 @@ public class MainView{
 		
 	}
 	
+	/**
+	 * Returns the Toolbar object
+	 * @return
+	 */
 	public Toolbar getToolbar() {
 		return toolbar;
 	}
 	
+	/**
+	 * Returns the gameEnvironmentView object
+	 * @return
+	 */
 	public GameEnvironmentView getGameEnvironmentView() {
 		return gameEnvironmentView;
 	}
 	
+	/**
+	 * Returns the ComponentView object
+	 * @return
+	 */
 	public ComponentView getComponentView() {
 		return componentView;
 	}
-
+	
+	/**
+	 * Returns the height of the gameAuthoringEnvironment
+	 * @return
+	 */
 	public static double getIDEHeight() {
 		return ideHeight;
 	}
-
+	
+	/**
+	 * Sets the height of the gameAuthoringEnvironment
+	 * @param ideHeight
+	 */
 	public static void setIDEHeight(double ideHeight) {
 		MainView.ideHeight = ideHeight;
 	}
-
+	
+	/**
+	 * Gets the width of the gameAuthroingEnvironment
+	 * @return
+	 */
 	public static double getIDEWidth() {
 		return ideWidth;
 	}
-
+	
+	/**
+	 * Sets the width of the GameAuthoringEnvironment
+	 * @param ideWidth
+	 */
 	public static void setIDEWidth(double ideWidth) {
 		MainView.ideWidth = ideWidth;
 	}

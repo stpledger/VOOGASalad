@@ -25,7 +25,7 @@ class Broadcast extends Observable {
 		return methodName;
 	}
 	/**
-	 * Set the method that will be invoked by the Controller
+	 * Creates and sends a Pair with the method name and the arguments to all of the Observers
 	 * @param m
 	 */
 	public void setMessage(String m, Object[] args) {
