@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.lang.reflect.Method;
 
-import frontend.IDEView;
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
@@ -24,8 +23,8 @@ public class Toolbar extends ViewComponent{
 	
 	
 	
-	public Toolbar(IDEView v) {
-		super(v);
+	public Toolbar() {
+		super();
 		toolbar = new HBox();
 		addComponents();
 		toolbar.getStyleClass().add("toolbar");
@@ -61,7 +60,6 @@ public class Toolbar extends ViewComponent{
 		System.out.println("Game should be playing");
 	}
 	private static void addLevel() {
-		ideView.getViewBuilder().getGameEnvironmentView().addTab();
 		//TODO: add some better functionality here
 		
 	}
@@ -74,6 +72,7 @@ public class Toolbar extends ViewComponent{
 			Method method;
 			try {
 				if(!temp.getSelectionModel().isEmpty()) {
+					//TODO: Make this send a broadcast to the handler.
 					method = this.getClass().getDeclaredMethod(temp.getValue());
 					method.invoke(null);
 					temp.getSelectionModel().clearSelection(); //TODO: This throws and indexoutofbounds error but runs fine because it makes a null value

@@ -1,8 +1,6 @@
 package frontend.components;
 
 import com.sun.org.apache.xerces.internal.dom.ChildNode;
-
-import frontend.IDEView;
 import javafx.scene.Node;
 
 /**
@@ -11,10 +9,16 @@ import javafx.scene.Node;
  *
  */
 abstract public class ViewComponent extends ChildNode{
-	protected static IDEView ideView; 
-	public ViewComponent(IDEView v) {
-		ideView = v;
-	};
-	
+
 	public abstract Node getNode();
+	
+	@Override
+	public String getNodeName() {
+		return this.getNode().getId();
+	}
+
+	@Override
+	public short getNodeType() {
+		return Short.parseShort(this.getNode().getClass().getName());
+	}
 }
