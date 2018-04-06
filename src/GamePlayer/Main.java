@@ -4,14 +4,14 @@ import javafx.stage.Stage;
 
 
 public class Main extends Application {
-	
+
 	prviate static final String TITLE = "VoogaSalad";
 	private static Stage mainStage;
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
-	
+
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 		GamePlayerView gamePlayer = new GamePlayerView;
@@ -20,5 +20,5 @@ public class Main extends Application {
 		primaryStage.setScene(gamePlayer.initializeStartScene();
 		primaryStage.show();
 	}
-	
+
 }

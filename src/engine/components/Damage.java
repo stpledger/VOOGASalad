@@ -34,5 +34,5 @@ public class Damage extends Component {
 		lifetime--;
 	}
 
-	
+
 }
