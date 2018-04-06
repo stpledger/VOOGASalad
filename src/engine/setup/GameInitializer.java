@@ -50,5 +50,8 @@ public class GameInitializer {
     public RenderManager getRM() {
         return RM;
     }
-
+    
+    public List<ISystem> getSystems() {		// For testing
+    	return systems;
+    }
 }

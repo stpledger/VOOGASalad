@@ -25,12 +25,21 @@ public class Motion implements ISystem {
     private Map<Integer, List<Component>> handledComponents = new HashMap<>();
     private List<Component> activeComponents;
 
-    public class Motion extends ISystem{
-        /**
-         * Adds position and velocity components to system map
-         * @param pid parent ID of component to be removed
-         * @param components position component to be removed vel velocity component to be removed
-         */
+    public void addComponent(int pid, Map<String, Component> components) {
+		if (components.containsKey(Velocity.getKey()) && components.containsKey(Position.getKey())) {
+			List<Component> newComponents = new ArrayList<>();
+			newComponents.add(components.get(Velocity.getKey()));
+			newComponents.add(components.get(Position.getKey()));
+			handledComponents.put(pid, newComponents);
+		}
+    }
+    
+    /**
+     * Removes position and velocity component from system map
+     * @param pid parent ID of Velocity component to be removed
+     */
+    @Override
+    public void removeComponent(int pid) {
 
         public void addComponent(int pid, Map<String, Component> components) {
             if (components.containsKey("Velocity") && components.containsKey("Position")) {
