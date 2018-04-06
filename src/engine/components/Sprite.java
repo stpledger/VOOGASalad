@@ -15,11 +15,13 @@ public class Sprite extends Component {
 	
 	public Sprite(int pid, String filename) throws FileNotFoundException {
 		super(pid);
+		Image im;
 		try {
-			image = new ImageView(new Image(filename));
+			im = new Image(filename);
 		} catch (Exception e) {
 			throw new FileNotFoundException();
 		}
+		image = new ImageView(im);
 	}
 
 	public static String getKey() {

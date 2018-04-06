@@ -15,7 +15,7 @@ public class Velocity extends Component {
      * @param YVel 		entity's initial YVel
      * @param gravAcc	entity's gravity acceleration
      **/
-    public Velocity (int pid, double XVel, double YVel, double gravAcc) {
+    public Velocity (int pid, double XVel, double YVel) {
         super(pid);
     	this.XVel = XVel;
         this.YVel = YVel;
