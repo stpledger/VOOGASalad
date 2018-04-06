@@ -24,8 +24,8 @@ public class GameInitializer {
 
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
-            if (components.containsKey("Position")) {
-                Position p = (Position) components.get("Position");
+            if (components.containsKey(Position.getKey())) {
+                Position p = (Position) components.get(Position.getKey());
                 renderOrder.add(p);
             }
             SM.addComponents(id, components);
@@ -45,5 +45,9 @@ public class GameInitializer {
             else if (p2.getXPos() > p1.getXPos()) return -1;
             else return 0;
         }
+    }
+    
+    public List<ISystem> getSystems() {		// For testing
+    	return systems;
     }
 }

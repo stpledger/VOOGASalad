@@ -31,10 +31,10 @@ public class Accelerate implements ISystem {
 	 * @param components	Map of components for given parent
 	 */
     public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey("Acceleration") && components.containsKey("Velocity")) {
+		if (components.containsKey(Acceleration.getKey()) && components.containsKey(Velocity.getKey())) {
 			List<Component> newComponents = new ArrayList<>();
-			newComponents.add(components.get("Acceleration"));
-			newComponents.add(components.get("Velocity"));
+			newComponents.add(components.get(Acceleration.getKey()));
+			newComponents.add(components.get(Velocity.getKey()));
 			handledComponents.put(pid, newComponents);
 		}
     	
