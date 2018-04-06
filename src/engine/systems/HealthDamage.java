@@ -28,8 +28,8 @@ public class HealthDamage implements ISystem {
 	}
 	
     public void removeComponent(int pid) {
-		if(handledComponents.containsKey(pid)) {
-    		handledComponents.remove(pid);
+		if(healthComponents.containsKey(pid)) {
+    		healthComponents.remove(pid);
     	}  
 	}
 	

@@ -76,6 +76,9 @@ public class Collision implements ISystem {
 		if(handledComponents.containsKey(pid)) {
 			handledComponents.remove(pid);
 		}
+		if(colliders.containsKey(pid)) {
+			colliders.remove(pid);
+		}
 	}
 
 	public void addComponent(int pid, Map<String, Component> components) {
