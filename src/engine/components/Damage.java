@@ -12,6 +12,10 @@ public class Damage extends Component {
 	private double damage;
 	private int lifetime;
 	
+	public static String getKey() {
+		return "Damage";
+	}
+	
 	public Damage (int pid, double damage, int lifetime) {
 		super(pid);
 		this.damage = damage;

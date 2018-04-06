@@ -9,10 +9,14 @@ package engine.components;
 public class Dimension extends Component{
 	private double height,width;
 	
-	public Dimension(int pid, double height, double width) {
+	public Dimension(int pid, double width, double height) {
 		super(pid);
 		this.height = height;
 		this.width = width;
+	}
+	
+	public static String getKey() {
+		return "Dimension";
 	}
 
 	public double[] getDimension() {
