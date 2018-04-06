@@ -28,7 +28,7 @@ public class TestGameState {
 			e.printStackTrace();
 		}
 		Position p = new Position(0, 100, 100);
-		Dimension d = new Dimension(0, 50, 50);
+		Dimension d = new Dimension(0, 100, 100);
 		Velocity v = new Velocity(0,0,-80);
 		Acceleration a = new Acceleration(0, 0, 50);
 		Map<String, Component> mario = new HashMap<>();
