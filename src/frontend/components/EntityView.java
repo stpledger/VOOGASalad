@@ -55,7 +55,8 @@ public class EntityView extends ViewComponent{
 
 		@Override
 		public void changed(ObservableValue clipboardObject, Object oldValue, Object newValue) {
-			broadcast.setMessage("setClipboard", new Object[] {newValue});			
+			broadcast.setMessage("setClipboard", new Object[] {newValue});	
+			broadcast.setMessage("setTool", new Object[] {"add"});
 		}
 	}
 

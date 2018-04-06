@@ -21,6 +21,7 @@ public class Toolbar extends ViewComponent{
 	private String[] fileMenuList = {"create", "load", "save"};
 	private String[] editMenuList = {"newSprite", "editSprites"};
 	private String[] gameMenuList = {"addLevel", "settings", "play"};
+	private String[] toolsMenuList = {"add" , "delete", "edit"};
 	
 	
 	
@@ -40,9 +41,10 @@ public class Toolbar extends ViewComponent{
 	 */
 	private void addComponents() {
 		List<Node> toAdd = new ArrayList<>();
-		toAdd.add(createMenu("File", fileMenuList));
-		// toAdd.add(createMenu("Edit", editMenuList));
-		toAdd.add(createMenu("Game", gameMenuList));
+		toAdd.add(createMenu("File", false, fileMenuList));
+		// toAdd.add(createMenu("Edit", false, editMenuList));
+		toAdd.add(createMenu("Game", false, gameMenuList));
+		toAdd.add(createMenu("Tool",true, toolsMenuList));
 		toolbar.getChildren().addAll(toAdd);
 		
 	}
@@ -53,7 +55,7 @@ public class Toolbar extends ViewComponent{
 	 * @param items the items in a given menu
 	 * @return a Node with the menu
 	 */
-	private Node createMenu(String name, String[] items) {
+	private Node createMenu(String name, Boolean sticky,  String[] items) {
 		ComboBox<String> temp = new ComboBox<String>();
 		temp.setPromptText(name);
 		temp.getItems().addAll(Arrays.asList(items));
@@ -61,14 +63,25 @@ public class Toolbar extends ViewComponent{
 			try {
 				if(!temp.getSelectionModel().isEmpty()) {
 					broadcast.setMessage(temp.getSelectionModel().getSelectedItem(),null);
+					if(!sticky) {
 						temp.getSelectionModel().clearSelection(); //TODO: This throws and indexoutofbounds error but runs fine because it makes a null value
+					}
 					}
 			} catch (Exception error) {
 				//TODO: make better error handling
 			}
 			});
 		temp.getStyleClass().add("combo-box");
+		toolbarNodes.add(temp);
 		return temp;
+	}
+	/**
+	 * 
+	 * @param tool
+	 */
+	public void setTool(Object tool) {
+		ComboBox<String> cb = (ComboBox<String>) toolbarNodes.get(2);
+		cb.getSelectionModel().select((String) tool); 
 	}
 	/**
 	 * Builds the Broadcast object that will send messages to the controller
