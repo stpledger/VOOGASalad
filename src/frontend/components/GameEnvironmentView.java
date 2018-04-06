@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -67,6 +68,7 @@ public class GameEnvironmentView extends ViewComponent {
 	public void setClipboard(Object o) {
 		//TODO: add argument check because this is being called from the controller
 		clipboard = o;
+		((LevelView) tabsList.get(0).getContent()).addElement(o);
 	}
 	
 	/**

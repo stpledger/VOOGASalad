@@ -1,7 +1,19 @@
 package frontend.components;
 
+import java.io.DataOutputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
+import java.util.HashMap;
+
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.naming.directory.DirContext;
+
+import com.sun.xml.internal.bind.CycleRecoverable.Context;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
@@ -21,17 +33,17 @@ import javafx.scene.shape.Rectangle;
  * @author Collin Brown(Cdb55)
  *
  */
-public class ComponentTab extends Tab{
+public class EntityTab extends Tab{
 	public static final double SCROLLBAR_WIDTH = 20;
 	private ObjectProperty selectedElement = new SimpleObjectProperty();
 	FlowPane pane;
 	ScrollPane externalPane;
-	double myComponentViewWidth;
-	public ComponentTab(String name, double componentViewWidth) {
+	double myEntityViewWidth;
+	public EntityTab(String name, double entityViewWidth) {
 		super(name);
-		myComponentViewWidth = componentViewWidth;
+		myEntityViewWidth = entityViewWidth;
 		this.setClosable(false);
-		this.getStyleClass().add("component-tab");
+		this.getStyleClass().add("entity-tab");
 		assemble();
 	}
 	
@@ -44,10 +56,10 @@ public class ComponentTab extends Tab{
 		externalPane.setHbarPolicy(ScrollBarPolicy.NEVER);
 		externalPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		pane = new FlowPane();
-		pane.setPrefWidth(myComponentViewWidth);
+		pane.setPrefWidth(myEntityViewWidth);
 		//TODO: Make this dynamic to handle each individual component
 		for(int i = 0; i < 8; i++) {
-		pane.getChildren().add(new ComponentBox("bleh", "temp"));
+		pane.getChildren().add(new EntityBox(i));
 		}
 		externalPane.setContent(pane);
 		this.setContent(externalPane);
@@ -71,19 +83,24 @@ public class ComponentTab extends Tab{
 	/**
 	 *	The ComponentBox holds the properties and images of various gameObjects
 	 */
-	private class ComponentBox extends Rectangle{
-		
-		public ComponentBox(String name, String imagePath) {
-			this.setWidth((myComponentViewWidth - SCROLLBAR_WIDTH)/3);
-			this.setHeight((myComponentViewWidth - SCROLLBAR_WIDTH)/3);
-			this.getStyleClass().add("component-box");
+	private class EntityBox extends Rectangle {
+		private int objectId;
+		public EntityBox(int id) {
+			objectId = id;
+			this.setWidth((myEntityViewWidth - SCROLLBAR_WIDTH)/3);
+			this.setHeight((myEntityViewWidth - SCROLLBAR_WIDTH)/3);
+			this.getStyleClass().add("entity-box");
+			
 			this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					selectedElement.setValue(this);
+					selectedElement.setValue(id);
 				}
 			});
 		}
+		
+		
+		
 	}
 	
 }
