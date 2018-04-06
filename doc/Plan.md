@@ -14,7 +14,7 @@ Hemanth will deal with the interactions with the engine - the GAE will need to c
 Jack will focus on implementing entities and components, and how their combinations will produce different behaviors. Additionally, he will help implement the systems that utilize these components, such as movement or physics systems.
 
 ## Yameng
-
+Yameng will work on implementing entities and components, and several important systems that uses these entities and components to define different behaviors.
 ## Stefani
 Implementing system that operates on related groups of components, i.e. components that belong to the same entity.
 
