@@ -14,7 +14,7 @@ import javafx.scene.layout.HBox;
  * @author Collin Brown(cdb55)
  *
  */
-public class Toolbar extends ViewComponent{
+public class Toolbar extends ViewComponent {
 	private HBox toolbar;
 	private ArrayList<Node> toolbarNodes = new ArrayList<Node>();
 	
