@@ -3,12 +3,15 @@ package frontend.components;
 import java.util.ArrayList;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.lang.reflect.Method;
 
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
+import javafx.util.Pair;
 /**
  * 
  * @author Collin Brown(cdb55)
@@ -18,10 +21,21 @@ public class Toolbar extends ViewComponent{
 	private HBox toolbar;
 	private ArrayList<Node> toolbarNodes = new ArrayList<Node>();
 	
-	private String[] fileMenuList = {"create", "load", "save"};
-	private String[] editMenuList = {"newSprite", "editSprites"};
-	private String[] gameMenuList = {"addLevel", "settings", "play"};
-	private String[] toolsMenuList = {"add" , "delete", "edit"};
+	HashMap<String,String> fileMenuList = new HashMap<String,String>(){{
+		put("Create","create");
+		put("Load", "load");
+		put("Save", "save");
+	}}; 
+	HashMap<String,String> gameMenuList = new HashMap<String,String>() {{
+		put("Add Level", "addLevel");
+		put("Settings", "settings");
+		put("Play", "Play");
+	}};
+	HashMap<String,String> toolsMenuList = new HashMap<String,String>() {{
+		put("Add", "addTool");
+		put("Delete", "deleteTool");
+		put("Edit", "editTool");
+	}};
 	
 	
 	
@@ -55,14 +69,14 @@ public class Toolbar extends ViewComponent{
 	 * @param items the items in a given menu
 	 * @return a Node with the menu
 	 */
-	private Node createMenu(String name, Boolean sticky,  String[] items) {
+	private Node createMenu(String name, Boolean sticky,  HashMap<String,String> items) {
 		ComboBox<String> temp = new ComboBox<String>();
 		temp.setPromptText(name);
-		temp.getItems().addAll(Arrays.asList(items));
+		temp.getItems().addAll(items.keySet());
 		temp.setOnAction(action -> {
 			try {
 				if(!temp.getSelectionModel().isEmpty()) {
-					broadcast.setMessage(temp.getSelectionModel().getSelectedItem(),null);
+					broadcast.setMessage(items.get(temp.getSelectionModel().getSelectedItem()),null);
 					if(!sticky) {
 						temp.getSelectionModel().clearSelection(); //TODO: This throws and indexoutofbounds error but runs fine because it makes a null value
 					}
@@ -81,7 +95,11 @@ public class Toolbar extends ViewComponent{
 	 */
 	public void setTool(Object tool) {
 		ComboBox<String> cb = (ComboBox<String>) toolbarNodes.get(2);
-		cb.getSelectionModel().select((String) tool); 
+		for (Entry<String, String> k : toolsMenuList.entrySet()) {
+	        if (k.getValue().equals(tool)) {
+	        	cb.getSelectionModel().select(k.getKey());
+	        }
+		}
 	}
 	/**
 	 * Builds the Broadcast object that will send messages to the controller
