@@ -25,4 +25,14 @@ public class LevelView extends ScrollPane {
 		this.setVbarPolicy(ScrollBarPolicy.NEVER);
 	}
 	
+	public void addElement(Object n) {
+		System.out.println(n);
+		//this.getChildren().add(n);
+	}
+
+	public void setText(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

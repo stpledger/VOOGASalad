@@ -16,17 +16,17 @@ import javafx.scene.control.TabPane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
-public class ComponentView extends ViewComponent{
-	private double componentViewWidth = 300;
+public class EntityView extends ViewComponent{
+	private double entityViewWidth = 300;
 	private TabPane pane;
 	private String[] tabsList = {"Sprites", "Blocks", "Game Objects"};
 	private Object clipboard;
 	
-	public ComponentView() {
+	public EntityView() {
 		super();
 		pane = new TabPane();
-		pane.setPrefWidth(componentViewWidth);
-		pane.getStyleClass().add("component-view");
+		pane.setPrefWidth(entityViewWidth);
+		pane.getStyleClass().add("entity-view");
 		addTabs();
 	}
 	
@@ -34,7 +34,7 @@ public class ComponentView extends ViewComponent{
 		//TODO: Convert this to be reflection of all the components
 		for(String k : Arrays.asList(tabsList)) {
 			ClipboardListener c = new ClipboardListener();
-			ComponentTab temp = new ComponentTab(k, componentViewWidth);
+			EntityTab temp = new EntityTab(k, entityViewWidth);
 			temp.getSelectedElementProperty().addListener(c);
 			pane.getTabs().add(temp);
 		}
