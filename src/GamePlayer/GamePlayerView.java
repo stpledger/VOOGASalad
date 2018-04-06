@@ -1,8 +1,13 @@
+package GamePlayer;
+
+import buttons.FileUploadButton;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 
 public class GamePlayerView {
-	
+	private final int WIDTH_SIZE = 400;
+	private final int HEIGHT_SIZE = 400;
 	private Scene myScene;
 	private Group group;
 
@@ -11,7 +16,9 @@ public class GamePlayerView {
 	}
 	
 	public Scene intializeStartScene() {
+		FileUploadButton fileBtn = new FileUploadButton();
 		group = new Group();
+		group.getChildren().add(fileBtn);
 		myScene = setupScene();
 		return myScene;
 	}
@@ -20,7 +27,7 @@ public class GamePlayerView {
 	 * 
 	 * @return New scene with the grid, buttons, and a background color
 	 */
-	public static Scene setupScene() {
+	public Scene setupScene() {
 		return new Scene(group,WIDTH_SIZE,HEIGHT_SIZE,Color.WHEAT);
 	}
 }
