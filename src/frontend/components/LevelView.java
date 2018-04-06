@@ -29,4 +29,14 @@ public class LevelView extends ScrollPane {
 		pane.getChildren().addAll(loProp.getNode(),leProp.getNode(),glProp.getNode());
 	}
 	
+	public void addElement(Object n) {
+		System.out.println(n);
+		//this.getChildren().add(n);
+	}
+
+	public void setText(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

@@ -7,15 +7,15 @@
 	-fx-font-weight: bold;
 }
 
-.component-view{
+.entity-view{
 	-fx-background-color: #4286f4;
 }
 
-.component-tab{
+.entity-tab{
 	-fx-background-color: #c4c4c4;
 }
 
-.component-box{
+.entity-box{
 	-fx-fill: #4286f4;
 	-fx-stroke: black;
 }
