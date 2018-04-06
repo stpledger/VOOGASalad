@@ -1,5 +1,9 @@
 package engine.components;
 
+/**
+ * Component for an entitie's health. Contains one double to represent this value.
+ * @author fitzj
+ */
 public class Health extends Component {
 	private double health;
 	

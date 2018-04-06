@@ -46,4 +46,8 @@ public class GameInitializer {
             else return 0;
         }
     }
+    
+    public List<ISystem> getSystems() {		// For testing
+    	return systems;
+    }
 }
