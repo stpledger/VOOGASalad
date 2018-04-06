@@ -5,7 +5,7 @@ package engine.components;
  * 
  * @author fitzj
  */
-public class Position extends Component implements IComponent {
+public class Position extends Component {
 
 	private double xPos;
 	private double yPos;
@@ -22,19 +22,23 @@ public class Position extends Component implements IComponent {
 		this.yPos = yPos;
 	}
 
-	public double getxPos() {
+	public static String getKey() {
+		return "Position";
+	}
+	
+	public double getXPos() {
 		return xPos;
 	}
 
-	public void setxPos(double xPos) {
+	public void setXPos(double xPos) {
 		this.xPos = xPos;
 	}
 
-	public double getyPos() {
+	public double getYPos() {
 		return yPos;
 	}
 
-	public void setyPos(double yPos) {
+	public void setYPos(double yPos) {
 		this.yPos = yPos;
 	}
 }
