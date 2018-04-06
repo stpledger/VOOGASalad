@@ -71,6 +71,7 @@ public class Controller {
 							System.out.println("IllegalArgumentException");
 						} catch (InvocationTargetException e) {
 							System.out.println("InvocationTargetException");
+							e.printStackTrace();
 						} catch (NullPointerException e) {
 							//Blank Catch
 							System.out.println("No such method");
