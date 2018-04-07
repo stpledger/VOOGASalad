@@ -97,12 +97,4 @@ public class GameEnvironmentView extends ViewComponent {
 	public Node getNode() {
 		return pane;
 	}
-	/**
-	 * Build the Broadcast object to communicate with the controller
-	 */
-	@Override
-	protected Broadcast buildBroadcast() {
-		Broadcast b = new Broadcast();
-		return b;
-	}
 }

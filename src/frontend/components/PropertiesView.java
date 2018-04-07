@@ -13,10 +13,11 @@ import javafx.stage.Stage;
 
 /**
  * 
- * @author Collin Brown(cdb55)
+ * @author Dylan Powers
+ * @author Collin Brown
  *
  */
-public abstract class PropertiesView {
+public abstract class PropertiesView extends ViewComponent {
 	
 	private final int GRID_SEPARATION = 10;
 	private GridPane root;
