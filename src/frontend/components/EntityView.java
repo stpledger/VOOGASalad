@@ -16,7 +16,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Pair;
 
-public class EntityView extends ViewComponent{
+public class EntityView extends ViewComponent {
 	private double entityViewWidth = 300;
 	private TabPane pane;
 	private String[] tabsList = {"Sprites", "Blocks", "Game Objects"};
@@ -43,12 +43,6 @@ public class EntityView extends ViewComponent{
 	@Override
 	public Node getNode() {
 		return pane;
-	}
-
-	@Override
-	protected Broadcast buildBroadcast() {
-		Broadcast b = new Broadcast();
-		return b;
 	}
 	
 	private class ClipboardListener implements ChangeListener{

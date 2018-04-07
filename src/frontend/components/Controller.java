@@ -46,7 +46,7 @@ public class Controller {
 	 * @author Collin Brown(cdb55)
 	 *
 	 */
-	private class BroadcastListener implements Observer{
+	private class BroadcastListener implements Observer {
 		/**
 		 * Whenever an observable object is changed, this method looks of the corresponding message to be used
 		 */
@@ -82,7 +82,6 @@ public class Controller {
 				}
 			}
 		}
-
 	}
 	
 	

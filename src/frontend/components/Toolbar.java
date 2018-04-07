@@ -101,14 +101,6 @@ public class Toolbar extends ViewComponent {
 	        }
 		}
 	}
-	/**
-	 * Builds the Broadcast object that will send messages to the controller
-	 */
-	@Override
-	protected Broadcast buildBroadcast() {
-		Broadcast b = new Broadcast();
-		return b;
-	}
 }
 	
 	
