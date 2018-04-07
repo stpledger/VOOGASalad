@@ -2,7 +2,6 @@ package frontend.components;
 
 import java.util.Map;
 
-import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -93,4 +92,6 @@ public abstract class PropertiesView extends ViewComponent {
 			return input.matches("[0-9]*");
 		}
 	}
+	
+	
 }

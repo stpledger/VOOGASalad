@@ -11,4 +11,9 @@ public class LocalPropertiesView extends PropertiesView {
 	public LocalPropertiesView() {
 		super();
 	}
+
+	@Override
+	protected String title() {
+		return null;
+	}
 }
