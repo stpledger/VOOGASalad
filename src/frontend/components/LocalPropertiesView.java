@@ -1,4 +1,7 @@
 package frontend.components;
+
+import javafx.scene.Node;
+
 /**
  * Opens up the Local Properties window so that an editor can edit certain features of an entity,
  * such as poison, health, velocity, etc. 
@@ -14,6 +17,12 @@ public class LocalPropertiesView extends PropertiesView {
 
 	@Override
 	protected String title() {
+		return null;
+	}
+
+	@Override
+	public Node getNode() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }

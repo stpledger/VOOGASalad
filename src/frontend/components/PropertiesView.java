@@ -1,5 +1,6 @@
 package frontend.components;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javafx.geometry.Pos;
@@ -19,6 +20,8 @@ import javafx.stage.Stage;
 public abstract class PropertiesView extends ViewComponent {
 	
 	private final int GRID_SEPARATION = 10;
+	private final int HEIGHT = 450;
+	private final int WIDTH = 450;
 	private GridPane root;
 	
 	/**
@@ -34,15 +37,19 @@ public abstract class PropertiesView extends ViewComponent {
 	/**
 	 * Opens the Property Editor window.
 	 */
-	protected void open() {
+	protected void open(ArrayList<String> arrayList) {
 		Stage stage = new Stage();
 		stage.setTitle(this.title());
-		stage.setScene(new Scene(root, 450, 450));
+		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		stage.show();
-		Label componentLabel = new Label("Component: ");
-		root.add(componentLabel, 0, 0);
-		NumberField number = new NumberField();
-		root.add(number, 1, 0);
+		int rowIndex = 0;
+		for(String label: arrayList) {
+			Label componentLabel = new Label(label+": ");
+			root.add(componentLabel, 0, rowIndex);
+			NumberField number = new NumberField();
+			root.add(number, 1, rowIndex);
+			rowIndex++;
+		}
 	}
 	
 	/**

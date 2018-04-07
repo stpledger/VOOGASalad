@@ -1,5 +1,6 @@
 package frontend.components;
 
+import javafx.scene.Node;
 
 /**
  * 
@@ -14,6 +15,12 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	@Override
 	protected String title() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Node getNode() {
 		// TODO Auto-generated method stub
 		return null;
 	}
