@@ -71,4 +71,16 @@ public class GameState implements IGameState {
 				state.get(entity).remove(component);
 		}
 	}
+
+	@Override
+	public void addLevel() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeLevel() {
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -38,4 +38,9 @@ public interface IGameState {
 	 * @param component the component that should be added to the entity.
 	 */
 	public void removeComponent(Integer entity, Component component);
+	
+	public void addLevel();
+	
+	public void removeLevel();
+	
 }

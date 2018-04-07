@@ -26,7 +26,7 @@ public class LevelView extends ScrollPane {
 		LocalPropertiesView loProp = new LocalPropertiesView();
 		LevelPropertiesView leProp = new LevelPropertiesView();
 		GlobalPropertiesView glProp = new GlobalPropertiesView();
-		pane.getChildren().addAll(loProp.getNode(),leProp.getNode(),glProp.getNode());
+//		pane.getChildren().addAll(loProp,leProp,glProp);
 	}
 	
 	public void addElement(Object n) {

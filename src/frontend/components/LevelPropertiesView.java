@@ -8,7 +8,7 @@ package frontend.components;
 public class LevelPropertiesView extends PropertiesView{
 
 	@Override
-	protected Broadcast buildBroadcast() {
+	protected String title() {
 		// TODO Auto-generated method stub
 		return null;
 	}

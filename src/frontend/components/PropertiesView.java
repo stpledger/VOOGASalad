@@ -2,7 +2,6 @@ package frontend.components;
 
 import java.util.Map;
 
-import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -14,6 +13,7 @@ import javafx.stage.Stage;
 /**
  * 
  * @author Hemanth Yakkali (hy115)
+ * @author Dylan Powers (ddp19)
  *
  */
 public abstract class PropertiesView {
