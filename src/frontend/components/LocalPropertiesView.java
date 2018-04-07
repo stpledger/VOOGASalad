@@ -8,7 +8,16 @@ package frontend.components;
  */
 public class LocalPropertiesView extends PropertiesView {
 	
-	public LocalPropertiesView() {
-		super();
+	/**
+	 * Initialize the object with a given broadcast method
+	 * @param broadcast the broadcast to be added
+	 */
+	public LocalPropertiesView(Broadcast broadcast) {
+		super(broadcast);
+		
+	}
+	
+	public String title() {
+		return "Local Properties";
 	}
 }

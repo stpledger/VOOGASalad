@@ -14,7 +14,6 @@ import engine.components.Component;
  */
 public class GameState implements IGameState {
 
-	
 	private List<Map<Integer, List<Component>>> state;
 	/**
 	 * This object should only be constructed once, upon initialization of the authoring environment.
