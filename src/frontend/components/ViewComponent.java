@@ -21,10 +21,8 @@ abstract public class ViewComponent{
 	public abstract Node getNode();
 	
 	public ViewComponent() {
-		setBroadcast(buildBroadcast());
+		setBroadcast(new Broadcast());
 	}
-
-	protected abstract Broadcast buildBroadcast();
 	
 	/**
 	 * Adds an observer to the broadcast object

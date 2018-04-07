@@ -7,7 +7,7 @@ package frontend.components;
  *
  */
 public class LocalPropertiesView extends PropertiesView {
-
+	
 	public LocalPropertiesView() {
 		super();
 	}

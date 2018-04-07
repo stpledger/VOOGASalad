@@ -8,11 +8,17 @@ import javafx.scene.layout.GridPane;
 /**
  * 
  * @author Collin Brown(cdb55)
+ * @author Hemanth Yakkali((hy115)
  *
  */
 public class LevelView extends ScrollPane {
+	
 	GridPane pane;
 	ArrayList<Node> activeObjects = new ArrayList<Node>();
+	private String levelText;
+	private double levelTime;
+	private double levelDistance;
+	
 	public LevelView() {
 		//Create the Grid Pane
 		pane = new GridPane();
@@ -23,20 +29,33 @@ public class LevelView extends ScrollPane {
 		//Always hide the scrollbar
 		this.setHbarPolicy(ScrollBarPolicy.NEVER);
 		this.setVbarPolicy(ScrollBarPolicy.NEVER);
-		LocalPropertiesView loProp = new LocalPropertiesView();
-		LevelPropertiesView leProp = new LevelPropertiesView();
-		GlobalPropertiesView glProp = new GlobalPropertiesView();
-//		pane.getChildren().addAll(loProp,leProp,glProp);
+		this.onMouseClickedProperty()
 	}
 	
+	/**
+	 * 
+	 * @param n Object to be added to the level
+	 */
 	public void addElement(Object n) {
 		System.out.println(n);
 		//this.getChildren().add(n);
 	}
 
-	public void setText(String string) {
-		// TODO Auto-generated method stub
-		
+	/**
+	 * 
+	 * @param string Name of level to be shown on the tab
+	 */
+	public void setLevelText(String string) {
+		levelText = string;
+	}
+	
+	
+	public void setLevelDuration(double time) {
+		levelTime = time;
+	}
+	
+	public void setLevelLength(double distance) {
+		levelDistance = distance;
 	}
 	
 }
