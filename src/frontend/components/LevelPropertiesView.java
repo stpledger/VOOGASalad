@@ -42,7 +42,7 @@ public class LevelPropertiesView extends PropertiesView{
 			}
 			currentRow++;
 		}
-		getRoot().add(MenuItemBuilder.buildButton("Submit Changes", null), 0, currentRow++);
+		getRoot().add(MenuItemBuilder.buildButton("Submit Changes", e->fieldUpdate()), 0, currentRow++);
 	}
 	
 	private void fieldUpdate() {
