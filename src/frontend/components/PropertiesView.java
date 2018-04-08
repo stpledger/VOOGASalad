@@ -86,7 +86,7 @@ public abstract class PropertiesView {
 	 * @param pckgname name of the package in which to look for these properties
 	 * @return a String array of classes from a given package
 	 */
-	private String[] getClassesInPackage(String pckgName) {
+	protected String[] getClassesInPackage(String pckgName) {
         ClassLoader cld = Thread.currentThread().getContextClassLoader();
         if (cld == null) {
             throw new IllegalStateException("Can't get class loader.");
@@ -105,7 +105,9 @@ public abstract class PropertiesView {
             if (filename.endsWith(".class")) {
                 String classname = buildClassname(pckgName, filename);
                 try {
-                    classes.add(Class.forName(classname).toString());
+                		String clazz = Class.forName(classname).toString();
+                		// Strip everything except for the word following the last period (the actual class name)
+                    classes.add(clazz.substring(clazz.lastIndexOf(".") + 1));
                 } catch (ClassNotFoundException e) {
                     System.err.println("Error creating class " + classname);
                 }
@@ -126,6 +128,10 @@ public abstract class PropertiesView {
         return className;
     }
     
+    /**
+     * Gets and returns the JavaFX-related root of the {@code PropertiesView}.
+     * @return the {@code GridPane} root.
+     */
 	protected GridPane getRoot() {
 		return this.root;
 	}

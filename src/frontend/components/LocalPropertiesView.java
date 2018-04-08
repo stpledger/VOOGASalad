@@ -1,4 +1,8 @@
 package frontend.components;
+
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+
 /**
  * Opens up the Local Properties window so that an editor can edit certain features of an entity,
  * such as poison, health, velocity, etc. 
@@ -8,6 +12,7 @@ package frontend.components;
  */
 public class LocalPropertiesView extends PropertiesView {
 	
+	private final String PROPERTIES_PACKAGE = "engine.components";
 	private Broadcast broadcast;
 	/**
 	 * Initialize the object with a given broadcast method
@@ -23,7 +28,15 @@ public class LocalPropertiesView extends PropertiesView {
 	 */
 	@Override
 	protected void fill() {
-		
+		int currentRow = 0;
+		for (String property : super.getClassesInPackage(PROPERTIES_PACKAGE)) {
+			Label componentLabel = new Label(property);
+			getRoot().add(componentLabel, 0, currentRow);
+			// Text field should only accept numeric values
+			NumberField number = new NumberField();
+			getRoot().add(number, 1, currentRow);
+			currentRow++;
+		}
 	}
 	
 	/**
