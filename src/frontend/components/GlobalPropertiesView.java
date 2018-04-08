@@ -1,5 +1,6 @@
 package frontend.components;
 
+import java.util.Map;
 
 /**
  * 
@@ -12,5 +13,18 @@ public class GlobalPropertiesView extends PropertiesView {
 		super();
 	}
 
+	@Override
+	protected String title() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected void fill() {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
 
 }

@@ -4,11 +4,9 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -20,6 +18,8 @@ import javafx.stage.Stage;
 public abstract class PropertiesView {
 	
 	private final int GRID_SEPARATION = 10;
+	private final int HEIGHT = 450;
+	private final int WIDTH = 450;
 	private GridPane root;
 	
 	/**
@@ -35,15 +35,11 @@ public abstract class PropertiesView {
 	/**
 	 * Opens the Property Editor window.
 	 */
-	protected void open() {
+	protected void open(ArrayList<String> arrayList) {
 		Stage stage = new Stage();
 		stage.setTitle(this.title());
-		stage.setScene(new Scene(root, 450, 450));
+		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		stage.show();
-		Label componentLabel = new Label("Component: ");
-		root.add(componentLabel, 0, 0);
-		NumberField number = new NumberField();
-		root.add(number, 1, 0);
 	}
 	
 	/**

@@ -1,7 +1,6 @@
 package frontend.components;
 
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 /**
  * Opens up the Local Properties window so that an editor can edit certain features of an entity,
@@ -49,4 +48,5 @@ public class LocalPropertiesView extends PropertiesView {
 	public String title() {
 		return String.format("Entity %d Local Properties", this.entityNumber);
 	}
+	
 }
