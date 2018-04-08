@@ -34,8 +34,7 @@ public class LocalPropertiesView extends PropertiesView {
 			getRoot().add(componentLabel, 0, currentRow);
 			// Text field should only accept numeric values
 			NumberField number = new NumberField();
-			getRoot().add(number, 1, currentRow);
-			currentRow++;
+			getRoot().add(number, 1, currentRow++);
 		}
 	}
 	
