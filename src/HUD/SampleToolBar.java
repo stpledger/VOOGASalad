@@ -2,6 +2,8 @@ package HUD;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
+import javafx.scene.layout.HBox;
+import labelComponents.timeLabel;
 
 public class SampleToolBar extends ToolBar implements IHUD{
 
@@ -10,16 +12,15 @@ public class SampleToolBar extends ToolBar implements IHUD{
 	 */
 	public SampleToolBar() {
 		//constructor to create a Sample Tool Bar
+		HBox toolbarLayout = new HBox(250); //adding spacing by 40 units
 		Label label1 = new Label();
 		label1.setText("Lives");
 		Label label2 = new Label();
 		label2.setText("Score");
-		Label label3 = new Label();
-		label3.setText("Time");
-		Label label4 = new Label();
-		label4.setText("0");
+		timeLabel label3 = new timeLabel(0);
+		toolbarLayout.getChildren().addAll(label1, label2, label3);
 		//label4.textProperty().bind(observable); //bind to the time of the game
-		this.getItems().addAll(label1, label2, label3);
+		this.getItems().add(toolbarLayout);
 	}
 	
 	
