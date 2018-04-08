@@ -56,8 +56,7 @@ public class GamePlayerController {
 //	        popup.setX(500);
 //	        popup.setY(200);
 //	        popup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
-			//
-	        pauseMenu.show(mainStage);
+			pauseMenu.show(mainStage);
 			//pane.getChildren().get(0).setVisible(false);
 			//mainStage.setScene(new Scene(new Button("asdkl;f")));
 		}
