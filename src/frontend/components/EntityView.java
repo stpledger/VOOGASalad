@@ -1,20 +1,26 @@
 package frontend.components;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.imageio.ImageIO;
 import javax.swing.event.ChangeEvent;
 
 import com.sun.prism.paint.Color;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Pair;
@@ -22,27 +28,23 @@ import javafx.util.Pair;
 public class EntityView extends ViewComponent {
 	private double entityViewWidth = 300;
 	private TabPane pane;
-	private String[] tabsList = {"Sprites", "Blocks", "Game Objects"};
+	private ArrayList<String> tabsList = new ArrayList<String>();
 	private Object clipboard;
 	private ArrayList<String> entityTypes = new ArrayList<String>();
-	private ArrayList<entities.Entity> entityArray;
 	
 	public EntityView() {
 		super();
 		pane = new TabPane();
 		pane.setPrefWidth(entityViewWidth);
 		pane.getStyleClass().add("entity-view");
-		addTabs();
 	}
 	
-	private void addTabs() {
+	private void addTab(String type) {
 		//TODO: Convert this to be reflection of all the components
-		for(String k : Arrays.asList(tabsList)) {
 			ClipboardListener c = new ClipboardListener();
-			EntityTab temp = new EntityTab(k, entityViewWidth);
+			EntityTab temp = new EntityTab(type, entityViewWidth);
 			temp.getSelectedElementProperty().addListener(c);
 			pane.getTabs().add(temp);
-		}
 	}
 	
 	/**
@@ -66,6 +68,26 @@ public class EntityView extends ViewComponent {
 	public void editEntity() {
 		
 	}
+	/**
+	 * Called when a EntityBuilderView is closed
+	 * @param entityType String representing the type of entity that this object represents
+	 * @param imgFile Image file corresponding to the Sprite Image for this object.
+	 */
+	public void saveEntity(String entityType, File imgFile) {
+	//Turn the imageFile into a usableImage
+		BufferedImage bufferedImage = null;
+		try {
+			bufferedImage = ImageIO.read(imgFile);
+		} catch (IOException e) {
+			//TODO: Show ImageNotFoundException
+		}
+        Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+    //Check to see if a tab exists for the type
+        if(tabsList.isEmpty() || !tabsList.contains(entityType)) { 
+        	addTab(entityType);
+        	tabsList.add(entityType);
+        }   
+    }
 	
 	@Override
 	public Node getNode() {

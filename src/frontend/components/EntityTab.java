@@ -23,9 +23,12 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Tab;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -57,13 +60,14 @@ public class EntityTab extends Tab{
 		externalPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		pane = new FlowPane();
 		pane.setPrefWidth(myEntityViewWidth);
-		//TODO: Make this dynamic to handle each individual component
-		for(int i = 0; i < 8; i++) {
-		pane.getChildren().add(new EntityBox(i));
-		}
 		externalPane.setContent(pane);
 		this.setContent(externalPane);
 	}
+	public void addNewEntity(String name, Image img) {
+		
+	}
+
+
 	/**
 	 * Returns the graphic representation of the ComponentTab
 	 */
@@ -83,24 +87,28 @@ public class EntityTab extends Tab{
 	/**
 	 *	The ComponentBox holds the properties and images of various gameObjects
 	 */
-	private class EntityBox extends Rectangle {
-		private int objectId;
-		public EntityBox(int id) {
-			objectId = id;
-			this.setWidth((myEntityViewWidth - SCROLLBAR_WIDTH)/3);
-			this.setHeight((myEntityViewWidth - SCROLLBAR_WIDTH)/3);
-			this.getStyleClass().add("entity-box");
-			
+	private class EntityBox extends VBox {
+		private String name;
+		private Image image;
+		private ImageView imageView;
+		private double boxDimension = (myEntityViewWidth - SCROLLBAR_WIDTH)/3;
+		
+		public EntityBox(String n, Image img) {
+			name  = n;
+			image = img;
+			imageView = new ImageView(image);
+			imageView.setFitHeight(boxDimension-20);
+			imageView.setFitWidth(boxDimension-20);
+			this.setWidth(boxDimension);
+			this.setHeight(boxDimension);
+			this.getChildren().add(imageView);
 			this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					selectedElement.setValue(id);
+					selectedElement.setValue(name);
 				}
 			});
 		}
-		
-		
-		
 	}
 	
 }

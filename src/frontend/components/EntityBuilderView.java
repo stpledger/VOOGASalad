@@ -15,6 +15,8 @@ import javax.swing.JFileChooser;
 import frontend.MainApplication;
 import frontend.components.PropertiesView.NumberField;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
@@ -49,8 +51,10 @@ public class EntityBuilderView{
 	private String entityName;
 	private String spriteFilePath;
 	private ArrayList<String> entityTypes;
+	private String myEntityType;
 	private Stage stage;
 	private File imageFile;
+	private Image image;
 	private List<String> imageExtensions = Arrays.asList(new String[] {".jpg",".png",".jpeg"});
 	
 	
@@ -101,11 +105,17 @@ public class EntityBuilderView{
 			this.getChildren().add(entityTypePrompt);
 			
 			//Create Entity Type selector
-			ComboBox entityType = new ComboBox();
+			ComboBox<String> entityType = new ComboBox<String>();
 			entityType.getStyleClass().add(".entity-builder-combo-box"); //TODO: Make the arrow reappear so people know we mean business
 			entityType.getItems().addAll(entityTypes);
 			entityType.setMinWidth(150);
-			entityType.getSelectionModel().selectFirst();
+			entityType.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					myEntityType = entityType.getSelectionModel().getSelectedItem();
+				}
+			});
+			entityType.setPromptText("Entity Type");
 			this.getChildren().add(entityType);
 			
 			//Create a Load Image button
@@ -126,7 +136,7 @@ public class EntityBuilderView{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-	                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+	                image = SwingFXUtils.toFXImage(bufferedImage, null);
 					leftPanel.setNewImage(image);
 				}		
 			});
@@ -180,9 +190,18 @@ public class EntityBuilderView{
 		
 		private void buildMenu() {
 			//Create Save Button
-			Button b = new Button("Save");
-			b.getStyleClass().add("entity-builder-view-button");
-			this.getChildren().add(b);
+			Button saveButton = new Button("Save");
+			saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+				@Override
+				public void handle(MouseEvent arg0) {
+					broadcast.setMessage("saveEntity", new Object[] {myEntityType, imageFile});
+					stage.close();
+					
+				}
+				
+			});
+			saveButton.getStyleClass().add("entity-builder-view-button");
+			this.getChildren().add(saveButton);
 		}
 	}
 
