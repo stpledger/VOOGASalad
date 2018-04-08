@@ -1,5 +1,8 @@
 package engine.components;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This component defines dimensions of the sprite. It consists of height and width of the sprite.
  * It is instantiated with a path of image passed from authoring environment, and changes according to game logic.
@@ -43,5 +46,13 @@ public class Dimension extends Component{
 	public void setWidth(double width) {
 		this.width = width;
 	}
-
+	
+	public Map<String, String> getParameters(){
+		Map<String, String> map = new HashMap<>(){{
+		     put("width", "double");
+		     put("height", "double");
+		}};
+		
+		return map;
+	}
 }

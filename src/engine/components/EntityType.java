@@ -1,5 +1,8 @@
 package engine.components;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class EntityType extends Component{
 	private String type = "Not Defined";
 	
@@ -23,4 +26,5 @@ public class EntityType extends Component{
 	public String toString() {
 		return type;
 	}
+	
 }

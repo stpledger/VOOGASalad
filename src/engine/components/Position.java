@@ -1,5 +1,8 @@
 package engine.components;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Component class for the position of an entity. Contains x and y coordinates as doubles.
  * 
@@ -40,5 +43,15 @@ public class Position extends Component {
 
 	public void setYPos(double yPos) {
 		this.yPos = yPos;
+	}
+	
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String, String> map = new HashMap<>(){{
+		     put("xPos", "double");
+		     put("yPos", "double");
+		}};
+		
+		return map;
 	}
 }

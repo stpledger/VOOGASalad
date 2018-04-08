@@ -1,5 +1,8 @@
 package engine.components;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  *  Velocity component class
  *  @author fitzj
@@ -17,7 +20,7 @@ public class Velocity extends Component {
      **/
     public Velocity (int pid, double XVel, double YVel) {
         super(pid);
-    	this.XVel = XVel;
+    		this.XVel = XVel;
         this.YVel = YVel;
     }
     
@@ -39,5 +42,15 @@ public class Velocity extends Component {
 
 	public void setYVel(double yVel) {
 		YVel = yVel;
+	}
+	
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String, String> map = new HashMap<>(){{
+		     put("xVel", "double");
+		     put("yVel", "double");
+		}};
+		
+		return map;
 	}
 }

@@ -1,6 +1,8 @@
 package engine.components;
 
 import java.io.FileNotFoundException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,5 +40,14 @@ public class Sprite extends Component {
 		} catch (Exception e) {
 			throw new FileNotFoundException();
 		}
+	}
+	
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String, String> map = new HashMap<>(){{
+		     put("filename", "String");
+		}};
+		
+		return map;
 	}
 }

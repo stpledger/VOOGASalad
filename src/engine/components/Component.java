@@ -1,5 +1,7 @@
 package engine.components;
 
+import java.util.Map;
+
 /**
  * Component superclass. Just a databucket for a parent ID, which all sub components need.
  * Overall, components are just data buckets. They should contain instance variables (ie doubles, ints, etc), 
@@ -21,5 +23,6 @@ public abstract class Component {
 	public int getParentID () {
 		return pid;
 	}
-		
+	
+	public abstract Map<String, String> getParameters();
 }

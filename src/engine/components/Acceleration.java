@@ -1,5 +1,8 @@
 package engine.components;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Component housing acceleration information. Can be used to apply gravity, force, etc
  * @author fitzj
@@ -46,4 +49,13 @@ public class Acceleration extends Component {
 		this.yAcc = yAcc;
 	}
 
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String, String> map = new HashMap<>(){{
+		     put("x", "double");
+		     put("y", "double");
+		}};
+		
+		return map;
+	}
 }
