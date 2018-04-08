@@ -11,6 +11,8 @@ import engine.components.IKeyInput;
 public class InputHandler implements ISystem {
 	private Map<Integer, List<IKeyInput>> handledComponents = new HashMap<>();
 
+	
+	//front end sends here the keycode and than I run components on it
 	@Override
 	public void addComponent(int pid, Map<String, Component> components) {
 		List<IKeyInput> newComponents = new ArrayList<>();
