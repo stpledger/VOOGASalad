@@ -1,5 +1,7 @@
 package frontend.components;
 
+import java.util.Map;
+
 /**
  * 
  * @author Collin Brown(cdb55)
@@ -18,7 +20,7 @@ public class GlobalPropertiesView extends PropertiesView {
 	}
 
 	@Override
-	protected void fill() {
+	protected void fill(Map<String, Boolean> fields) {
 		// TODO Auto-generated method stub
 		
 	}

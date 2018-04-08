@@ -39,29 +39,23 @@ public abstract class PropertiesView {
 		stage.setTitle(this.title());
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		stage.show();
-		int rowIndex = 0;
-		for(String label: arrayList) {
-			Label componentLabel = new Label(label+": ");
-			root.add(componentLabel, 0, rowIndex);
-			NumberField number = new NumberField();
-			root.add(number, 1, rowIndex);
-			rowIndex++;
-		}
 	}
 	
 	/**
 	 * Fills the window with the appropriate names and fields.
 	 * @param fields a map with component names that map {@code true} if the box should be strictly numeric, and {@code false} if not.
 	 */
-	protected abstract void fill();
-	
-	
+	protected abstract void fill(Map<String, Boolean> fields);
 	
 	/**
 	 * Get the title that this window should display.
 	 * @return the title of the window.
 	 */
 	protected abstract String title();
+	
+	protected GridPane getRoot() {
+		return root;
+	}
 	
 	/**
 	 * Nested class to created a text field that only accepts numbers.

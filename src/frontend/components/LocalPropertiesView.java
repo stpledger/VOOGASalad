@@ -1,5 +1,7 @@
 package frontend.components;
 
+import java.util.Map;
+
 /**
  * Opens up the Local Properties window so that an editor can edit certain features of an entity,
  * such as poison, health, velocity, etc. 
@@ -22,7 +24,7 @@ public class LocalPropertiesView extends PropertiesView {
 	}
 
 	@Override
-	protected void fill() {
+	protected void fill(Map<String, Boolean> fields) {
 		// TODO Auto-generated method stub
 		
 	}
