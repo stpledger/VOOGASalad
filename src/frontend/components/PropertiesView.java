@@ -1,5 +1,6 @@
 package frontend.components;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 import javafx.geometry.Pos;
@@ -8,17 +9,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
-
 /**
  * 
  * @author Dylan Powers
- * @author Collin Brown
  *
  */
-public abstract class PropertiesView extends ViewComponent {
+public abstract class PropertiesView {
 	
 	private final int GRID_SEPARATION = 10;
+	private final int HEIGHT = 450;
+	private final int WIDTH = 450;
 	private GridPane root;
 	
 	/**
@@ -30,40 +30,32 @@ public abstract class PropertiesView extends ViewComponent {
 		root.setHgap(GRID_SEPARATION);
 		root.setVgap(GRID_SEPARATION);
 	}
-	
+
 	/**
 	 * Opens the Property Editor window.
 	 */
-	protected void open() {
+	protected void open(ArrayList<String> arrayList) {
 		Stage stage = new Stage();
 		stage.setTitle(this.title());
-		stage.setScene(new Scene(root, 450, 450));
+		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		stage.show();
-		Label componentLabel = new Label("Component: ");
-		root.add(componentLabel, 0, 0);
-		NumberField number = new NumberField();
-		root.add(number, 1, 0);
+		int rowIndex = 0;
+		for(String label: arrayList) {
+			Label componentLabel = new Label(label+": ");
+			root.add(componentLabel, 0, rowIndex);
+			NumberField number = new NumberField();
+			root.add(number, 1, rowIndex);
+			rowIndex++;
+		}
 	}
 	
 	/**
 	 * Fills the window with the appropriate names and fields.
 	 * @param fields a map with component names that map {@code true} if the box should be strictly numeric, and {@code false} if not.
 	 */
-	protected void fill(Map<String, Boolean> fields) {
-		int currentRow = 0;
-		for (String componentName : fields.keySet()) {
-			Label componentLabel = new Label(componentName);
-			root.add(componentLabel, 0, currentRow);
-			if (fields.get(componentName)) { 
-				// Text field should only accept numeric values
-				NumberField number = new NumberField();
-				root.add(number, 0, currentRow++);
-			} else {
-				TextField text = new TextField();
-				root.add(text, 0, currentRow++);
-			}
-		}
-	}
+	protected abstract void fill();
+	
+	
 	
 	/**
 	 * Get the title that this window should display.
