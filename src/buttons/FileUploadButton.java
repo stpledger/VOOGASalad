@@ -26,7 +26,9 @@ public class FileUploadButton extends Button {
 				}
 			});
 		}
-		
+
+		//test
+
 		private void fileUpload() {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Resource File");
