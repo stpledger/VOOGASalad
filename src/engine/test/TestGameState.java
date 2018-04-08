@@ -30,7 +30,7 @@ public class TestGameState {
 		Position p = new Position(0, 100, 100);
 		Dimension d = new Dimension(0, 100, 100);
 		Velocity v = new Velocity(0,0,-80);
-		Acceleration a = new Acceleration(0, 0, 50);
+		Acceleration a = new Acceleration(0, 0, 100);
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(Position.getKey(), p);
 		mario.put(Dimension.getKey(), d);
@@ -43,7 +43,7 @@ public class TestGameState {
 		
 		
 		entities.put(0,  mario);
-		GameInitializer gi = new GameInitializer(entities);
+		GameInitializer gi = new GameInitializer(entities, 0, 0);
 		eng = new InternalEngine(gi.getSystems());
 	}
 	
