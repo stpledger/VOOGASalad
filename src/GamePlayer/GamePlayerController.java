@@ -1,6 +1,7 @@
 package GamePlayer;
 
 import HUD.SampleToolBar;
+import Menu.PauseMenu;
 import buttons.FileUploadButton;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -11,6 +12,8 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class GamePlayerController {
@@ -19,6 +22,7 @@ public class GamePlayerController {
 	private Scene myScene;
 	private Group group;
 	private BorderPane pane = new BorderPane();
+	private PauseMenu pauseMenu = new PauseMenu();
 
 	public GamePlayerController() {
 
@@ -47,7 +51,14 @@ public class GamePlayerController {
 	private void handleKeyInput (KeyCode code) {
 		if (code == KeyCode.ESCAPE) {
 			Stage mainStage = (Stage) pane.getScene().getWindow();
-			pane.getChildren().get(0).setVisible(false);
+			//instantiate the Pause menu popup class 
+			Popup popup = new Popup();
+	        popup.setX(500);
+	        popup.setY(200);
+	        popup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
+			//
+	        pauseMenu.show(mainStage);
+			//pane.getChildren().get(0).setVisible(false);
 			//mainStage.setScene(new Scene(new Button("asdkl;f")));
 		}
 
