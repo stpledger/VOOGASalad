@@ -20,7 +20,7 @@ public class GlobalPropertiesView extends PropertiesView {
 	}
 
 	@Override
-	protected void fill(Map<String, Boolean> fields) {
+	protected void fill() {
 		// TODO Auto-generated method stub
 		
 	}
