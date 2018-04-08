@@ -52,7 +52,7 @@ public class EntityView extends ViewComponent {
 		//TODO: Replace this with the real types of entities
 		ArrayList<String> entityTypes = new ArrayList<String>();
 		entityTypes.addAll(Arrays.asList(new String[] {"Block", "Character", "Game Object", "NPC", "Power Up"}));
-		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);
+		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, broadcast);
 			
 	}
 	/**
