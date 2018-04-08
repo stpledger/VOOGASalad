@@ -1,6 +1,5 @@
 package HUD;
 
-import buttons.FileUploadButton;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 
@@ -17,6 +16,9 @@ public class SampleToolBar extends ToolBar implements IHUD{
 		label2.setText("Score");
 		Label label3 = new Label();
 		label3.setText("Time");
+		Label label4 = new Label();
+		label4.setText("0");
+		//label4.textProperty().bind(observable); //bind to the time of the game
 		this.getItems().addAll(label1, label2, label3);
 	}
 	
