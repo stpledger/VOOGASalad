@@ -1,9 +1,21 @@
 package frontend.components;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import javax.imageio.ImageIO;
+import javax.swing.JFileChooser;
 
 import frontend.MainApplication;
 import frontend.components.PropertiesView.NumberField;
+import javafx.embed.swing.SwingFXUtils;
+import javafx.event.EventHandler;
 import javafx.geometry.HPos;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -14,23 +26,32 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
 public class EntityBuilderView{
 	private final int HEIGHT = 600;
 	private final int WIDTH = 800;
 	private final int LEFT_PANEL_WIDTH = 200;
+	private TopMenu topMenu;
+	private BottomMenu bottomMenu;
 	private Broadcast broadcast;
+	private LeftPanel leftPanel;
 	private BorderPane root;
 	private String entityName;
 	private String spriteFilePath;
 	private ArrayList<String> entityTypes;
+	private Stage stage;
+	private File imageFile;
+	private List<String> imageExtensions = Arrays.asList(new String[] {".jpg",".png",".jpeg"});
 	
 	
 	public EntityBuilderView (ArrayList<String> eTypes, Broadcast b) {
@@ -44,9 +65,12 @@ public class EntityBuilderView{
 	 */
 	private void build() {
 		root = new BorderPane();
-		root.setTop(new topMenu());
-		root.setLeft(new LeftPanel());
-		root.setBottom(new bottomMenu());
+		topMenu = new TopMenu();
+		bottomMenu = new BottomMenu();
+		leftPanel = new LeftPanel();
+		root.setTop(topMenu);
+		root.setLeft(leftPanel);
+		root.setBottom(bottomMenu);
 		
 	}
 
@@ -54,7 +78,7 @@ public class EntityBuilderView{
 	 * Opens the Property Editor window.
 	 */
 	private void open() {
-		Stage stage = new Stage();
+		stage = new Stage();
 		Scene s = new Scene(root, WIDTH, HEIGHT);
 		stage.setTitle("Entity Builder");
 		s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
@@ -62,8 +86,8 @@ public class EntityBuilderView{
 		stage.show();
 	}
 	
-	private class topMenu extends HBox {
-		public topMenu() {
+	private class TopMenu extends HBox {
+		public TopMenu() {
 			this.setAlignment(Pos.CENTER_LEFT);
 			this.getStyleClass().add("toolbar");
 			this.setWidth(WIDTH);
@@ -87,6 +111,25 @@ public class EntityBuilderView{
 			//Create a Load Image button
 			Button imageButton = new Button("Load Image");
 			imageButton.getStyleClass().add("entity-builder-view-button");
+			imageButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
+				@Override
+				public void handle(MouseEvent event) {
+					FileChooser fileChooser = new FileChooser();
+					fileChooser.setTitle("Open Image File");
+					fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
+					imageFile = fileChooser.showOpenDialog(stage);
+					BufferedImage bufferedImage = null;
+					try {
+						bufferedImage = ImageIO.read(imageFile);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	                Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+					leftPanel.setNewImage(image);
+				}		
+			});
 			this.getChildren().add(imageButton);
 			
 			
@@ -97,6 +140,7 @@ public class EntityBuilderView{
 	 */
 	private class LeftPanel extends ScrollPane {
 		private VBox vBox;
+		private ImageView imageView;
 		public LeftPanel() {
 			this.setWidth(LEFT_PANEL_WIDTH);
 			vBox = new VBox();
@@ -106,20 +150,27 @@ public class EntityBuilderView{
 
 		private void buildPanel() {
 			//Create an Image View
-			ImageView imageView = new ImageView();
+			imageView = new ImageView();
 			imageView.setFitWidth(LEFT_PANEL_WIDTH);
 			imageView.setFitHeight(LEFT_PANEL_WIDTH);
 			imageView.setImage(new Image("mario.png"));
 			vBox.getChildren().add(imageView);
 			
 		}
+		
+		/**
+		 * Set the current image being displayed in the properties panel
+		 */
+		public void setNewImage(Image i) {
+			imageView.setImage(i);
+		}
 	}
 	
 	/**
 	 * Bottom Menu of the EntityBuilderView
 	 */
-	private class bottomMenu extends HBox {
-		public bottomMenu() {
+	private class BottomMenu extends HBox {
+		public BottomMenu() {
 			this.setAlignment(Pos.CENTER_RIGHT);
 			this.getStyleClass().add("toolbar");
 			this.setWidth(WIDTH);
