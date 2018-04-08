@@ -18,7 +18,6 @@ public class GameInitializer {
 
     public GameInitializer (Map <Integer, Map<String, Component>> entities, double centerX, double centerY) {
         systems = new ArrayList<>();
-
         systems.add(new Accelerate());
         systems.add(new Motion());
         SM = new SystemManager(systems);
@@ -28,19 +27,16 @@ public class GameInitializer {
         renderCenterY = centerY;
         RM = new RenderManager(renderDistance, renderCenterX, renderCenterY);
 
-
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
             if (components.containsKey(Position.getKey())) {
                 Position p = (Position) components.get(Position.getKey());
                 RM.add(p);
             }
-        }
-
-        for (int id : RM.getWithinRender()) {
-            Map<String, Component> components = entities.get(id);
             SM.addComponents(id, components);
         }
+
+        SM.setActives(RM.getWithinRender());
     }
 
     public SystemManager getSM () {

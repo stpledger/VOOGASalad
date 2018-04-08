@@ -8,17 +8,15 @@ import engine.components.Position;
 
 public class RenderManager {
 
-    private double renderDistance;
+    private final double renderDistance;
     private double centerX, centerY;
 
-    private Map<Integer, Position> withinRender, outsideRender;
+    private Map<Integer, Position> withinRender = new HashMap<>(), outsideRender = new HashMap<>();
 
     public RenderManager (double renderDistance, double initialCenterX, double initialCenterY) {
         this.renderDistance = renderDistance;
         centerX = initialCenterX;
         centerY = initialCenterY;
-        withinRender = new HashMap<>();
-        outsideRender = new HashMap<>();
     }
 
     public Set<Integer> getWithinRender() {

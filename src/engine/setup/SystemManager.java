@@ -2,6 +2,7 @@ package engine.setup;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import engine.systems.ISystem;
 import engine.components.Component;
@@ -26,9 +27,16 @@ public class SystemManager {
         }
     }
 
+    public void setActives (Set<Integer> actives) {
+        for (ISystem s : systems) {
+            s.setActives(actives);
+        }
+    }
+
     public void execute (double time) {
         for (ISystem s: systems) {
             s.execute(time);
         }
     }
+
 }
