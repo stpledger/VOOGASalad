@@ -12,7 +12,7 @@ public class PauseMenu extends Popup implements IMenu {
 	 */
 	public PauseMenu() {
 		VBox pane = new VBox();
-		pane.getChildren().addAll(new Button("Sound"), new Button("Difficulty"), new Button("Settings"));
+		pane.getChildren().addAll(new Button("Sound"), new Button("Difficulty"), new Button("Settings"), new Button("New Game"));
 		this.getContent().add(pane);
 		
 	}
@@ -21,7 +21,6 @@ public class PauseMenu extends Popup implements IMenu {
 	public void toggleMenu() {
 		// TODO Auto-generated method stub
 		this.show();
-		
 	}
 
 }

@@ -17,8 +17,8 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class GamePlayerController {
-	private final int WIDTH_SIZE = 600;
-	private final int HEIGHT_SIZE = 800;
+	private final int WIDTH_SIZE = 800;
+	private final int HEIGHT_SIZE = 400;
 	private Scene myScene;
 	private Group group;
 	private BorderPane pane = new BorderPane();
@@ -52,10 +52,10 @@ public class GamePlayerController {
 		if (code == KeyCode.ESCAPE) {
 			Stage mainStage = (Stage) pane.getScene().getWindow();
 			//instantiate the Pause menu popup class 
-			Popup popup = new Popup();
-	        popup.setX(500);
-	        popup.setY(200);
-	        popup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
+//			Popup popup = new Popup();
+//	        popup.setX(500);
+//	        popup.setY(200);
+//	        popup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
 			//
 	        pauseMenu.show(mainStage);
 			//pane.getChildren().get(0).setVisible(false);

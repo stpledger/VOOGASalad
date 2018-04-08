@@ -2,7 +2,6 @@ package buttons;
 
 
 import java.io.File;
-import GamePlayer.GamePlayerView;
 import GamePlayer.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
