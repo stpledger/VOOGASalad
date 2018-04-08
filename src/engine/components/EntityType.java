@@ -15,4 +15,12 @@ public class EntityType extends Component{
 	public String getType() {
 		return type;
 	}
+	
+	public boolean equals(String newType) {
+		return type.equals(newType);
+	}
+	
+	public String toString() {
+		return type;
+	}
 }
