@@ -1,45 +1,39 @@
 package entities;
 
-import java.util.Map;
-
-//import gameEngine.ECS.components.IComponent;
-
-import java.util.HashMap;
-
-import components.IComponent;
-
+import java.util.ArrayList;
+import java.util.List;
+import engine.components.Component;
 /**
  * Entity class
- **/
-public class Entity {
+ */
+public abstract class Entity {
 
-    private double ID; //unique ID to an entity
-    private Map<String, IComponent> components; //list of components which define the entity
-
+    private int ID; //unique ID to an entity
+    private List<Component> components; //list of components which define the entity
     /**
      * The constructor simply sets the ID of the entity and initializes its list of components
      * @param ID which identifies an entity
-    **/
-    public Entity (double ID) {
+     */
+    public Entity(int ID) {
         this.ID = ID;
-        components = new HashMap<>();
+        components = new ArrayList<>();
+    }
+    
+    public abstract void addDefaultComponents();
+
+    public int getID() { 
+    		return ID; 
+    	}
+
+    public boolean contains(Component component) {
+        return components.contains(component);
     }
 
-    public double getID () { return ID; }
-
-    public IComponent get (String name) {
-        return components.get(name);
+    public void add(Component component) {
+        components.add(component);
     }
 
-    public boolean contains (String name) {
-        return components.containsKey(name);
-    }
-
-    public void add (String name, IComponent c) {
-        components.put(name, c);
-    }
-
-    public void remove (IComponent c) {
+    public void remove(Component c) {
         components.remove(c);
     }
 }
