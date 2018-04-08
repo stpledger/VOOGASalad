@@ -1,4 +1,5 @@
 package frontend.components;
+
 /**
  * Opens up the Local Properties window so that an editor can edit certain features of an entity,
  * such as poison, health, velocity, etc. 
@@ -7,8 +8,22 @@ package frontend.components;
  *
  */
 public class LocalPropertiesView extends PropertiesView {
-
-	public LocalPropertiesView() {
+	
+	/**
+	 * Initialize the object with a given broadcast method
+	 * @param broadcast the broadcast to be added
+	 */
+	public LocalPropertiesView(Broadcast broadcast) {
 		super();
+	}
+	
+	public String title() {
+		return "Local Properties";
+	}
+
+	@Override
+	protected void fill() {
+		// TODO Auto-generated method stub
+		
 	}
 }

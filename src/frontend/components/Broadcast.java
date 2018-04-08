@@ -24,6 +24,7 @@ class Broadcast extends Observable {
 	public String getMethodName() {
 		return methodName;
 	}
+	
 	/**
 	 * Creates and sends a Pair with the method name and the arguments to all of the Observers
 	 * @param m a string representing the method name to be called in other views

@@ -33,9 +33,9 @@ public class Toolbar extends ViewComponent {
 		put("Play", "play");
 	}};
 	TreeMap<String, String> entityMenuList = new TreeMap<String,String>(){{
-		put("Edit Entity", "editEntity");
+		//put("Edit Entity", "editEntity");
 		put("New Entity", "createEntity");
-		put("Delete Entity", "deleteEntity");
+		//put("Delete Entity", "deleteEntity");
 	}};
 	TreeMap<String,String> toolsMenuList = new TreeMap<String,String>() {{
 		put("Add", "addTool");
@@ -105,14 +105,6 @@ public class Toolbar extends ViewComponent {
 	        	cb.getSelectionModel().select(k.getKey());
 	        }
 		}
-	}
-	/**
-	 * Builds the Broadcast object that will send messages to the controller
-	 */
-	@Override
-	protected Broadcast buildBroadcast() {
-		Broadcast b = new Broadcast();
-		return b;
 	}
 }
 	

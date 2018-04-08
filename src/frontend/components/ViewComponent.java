@@ -2,17 +2,15 @@ package frontend.components;
 
 import java.util.Observable;
 import java.util.Observer;
-
 import com.sun.org.apache.xerces.internal.dom.ChildNode;
 import javafx.scene.Node;
-
 /**
  * 
  * @author Collin Brown(cdb55)
  *
  */
 
-abstract public class ViewComponent{
+abstract public class ViewComponent {
 	protected Broadcast broadcast;
 	/**
 	 * returns the Node representing the Graphic interface of a given ViewComponent
@@ -21,10 +19,8 @@ abstract public class ViewComponent{
 	public abstract Node getNode();
 	
 	public ViewComponent() {
-		setBroadcast(buildBroadcast());
+		setBroadcast(new Broadcast());
 	}
-
-	protected abstract Broadcast buildBroadcast();
 	
 	/**
 	 * Adds an observer to the broadcast object
