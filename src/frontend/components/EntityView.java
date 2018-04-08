@@ -1,5 +1,6 @@
 package frontend.components;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
@@ -21,6 +22,7 @@ public class EntityView extends ViewComponent{
 	private TabPane pane;
 	private String[] tabsList = {"Sprites", "Blocks", "Game Objects"};
 	private Object clipboard;
+	private ArrayList<entities.Entity> entityArray;
 	
 	public EntityView() {
 		super();
@@ -50,7 +52,6 @@ public class EntityView extends ViewComponent{
 		Broadcast b = new Broadcast();
 		return b;
 	}
-	
 	private class ClipboardListener implements ChangeListener{
 
 		@Override

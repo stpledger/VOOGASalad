@@ -26,12 +26,13 @@ class Broadcast extends Observable {
 	}
 	/**
 	 * Creates and sends a Pair with the method name and the arguments to all of the Observers
-	 * @param m
+	 * @param m a string representing the method name to be called in other views
+	 * @param args an Object array representing the arguments of a given method
 	 */
 	public void setMessage(String m, Object[] args) {
 		this.methodName = m;
 		this.arguments = args;
-		message = new Pair<String, Object[]>(methodName, arguments);
+		message = new Pair<String, Object[]>(methodName, arguments); //Method to be invoked and necessary arguments
 		this.setChanged();
 		this.notifyObservers(message);
 		this.clearChanged();
