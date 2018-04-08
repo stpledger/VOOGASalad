@@ -1,5 +1,7 @@
 package frontend.components;
 
+import java.util.Map;
+
 /**
  * 
  * @author Collin Brown(cdb55)
