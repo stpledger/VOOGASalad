@@ -64,7 +64,7 @@ public class EntityTab extends Tab{
 		this.setContent(externalPane);
 	}
 	public void addNewEntity(String name, Image img) {
-		
+		pane.getChildren().add(new EntityBox(name, img));
 	}
 
 

@@ -87,6 +87,12 @@ public class EntityView extends ViewComponent {
         	addTab(entityType);
         	tabsList.add(entityType);
         }   
+    //Add the entityBox
+        for(Tab tab : pane.getTabs()) {
+        	if(tab.getText().equals(entityType)) {
+        		((EntityTab) tab).addNewEntity("object", image);
+        	}
+        }
     }
 	
 	@Override
