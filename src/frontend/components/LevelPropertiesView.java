@@ -1,16 +1,16 @@
 package frontend.components;
 
-import javafx.scene.Node;
-
 /**
  * @author Hemanth Yakkali (hy115)
  */
 public class LevelPropertiesView extends PropertiesView{
 	
 	private int levelNum;
+	private Broadcast broadcast;
 	
-	public LevelPropertiesView(int level) {
+	public LevelPropertiesView(int level, Broadcast broadcast) {
 		super();
+		this.broadcast = broadcast;
 		levelNum = level;
 	}
 
@@ -20,9 +20,9 @@ public class LevelPropertiesView extends PropertiesView{
 	}
 
 	@Override
-	public Node getNode() {
+	protected void fill() {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 
 }

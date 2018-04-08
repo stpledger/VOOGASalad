@@ -24,7 +24,7 @@ public class LevelView extends ScrollPane {
 	private double levelTime;
 	private double levelDistance;
 	
-	public LevelView(int level) {
+	public LevelView(int level, Broadcast broadcast) {
 		//Create the Grid Pane
 		pane = new GridPane();
 		pane.getStyleClass().add("level-view");
@@ -41,7 +41,7 @@ public class LevelView extends ScrollPane {
 			public void handle(MouseEvent event) {
 				MouseButton button = event.getButton();
 				if(button == MouseButton.SECONDARY) {
-					LevelPropertiesView lView = new LevelPropertiesView(levelNumber);
+					LevelPropertiesView lView = new LevelPropertiesView(levelNumber, broadcast);
 					lView.open(new ArrayList<String>(Arrays.asList("Time","Distance")));
 				}
 			}

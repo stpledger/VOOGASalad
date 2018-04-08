@@ -1,7 +1,5 @@
 package frontend.components;
 
-import javafx.scene.Node;
-
 /**
  * 
  * @author Collin Brown(cdb55)
@@ -20,9 +18,9 @@ public class GlobalPropertiesView extends PropertiesView {
 	}
 
 	@Override
-	public Node getNode() {
+	protected void fill() {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 	
 	

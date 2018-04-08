@@ -53,7 +53,7 @@ public class GameEnvironmentView extends ViewComponent {
 		tabsList.add(new Tab());
 		Tab t = tabsList.get(tabsList.size()-1);
 		t.setText("Level " + (tabsList.indexOf(t)+1));
-		t.setContent(new LevelView(tabsList.indexOf(t)+1));
+		t.setContent(new LevelView(tabsList.indexOf(t)+1, broadcast));
 		t.setOnClosed(new EventHandler<Event>() { //Handles tab closed events
 			@Override
 			public void handle(Event e) {
