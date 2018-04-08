@@ -35,6 +35,8 @@ public class FileUploadButton extends Button {
 					new FileChooser.ExtensionFilter("XML", "*.xml"));
 			Main currentMain = new Main();
 			File file = fileChooser.showOpenDialog(currentMain.getMainStage());
+			//change into a new Scene
+			
 //	        if (file != null) {
 //	        		GamePlayerView.getFileSelector().getItems().add(file);
 //	        		GamePlayerView.getFileSelector().setMaxWidth(MAX_WIDTH);
