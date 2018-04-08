@@ -37,6 +37,7 @@ public class LevelPropertiesView extends PropertiesView{
 			getRoot().add(componentLabel, 0, currentRow);
 			// Text field should only accept numeric values
 			NumberField number = new NumberField();
+			componentLabel.setLabelFor(number);
 			getRoot().add(number, 1, currentRow);
 			currentRow++;
 		}
@@ -45,6 +46,7 @@ public class LevelPropertiesView extends PropertiesView{
 	
 	private void fieldUpdate() {
 		
+		broadcast.setMessage("", args);
 	}
 
 }
