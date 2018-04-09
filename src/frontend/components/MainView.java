@@ -15,7 +15,7 @@ public class MainView{
 	private BorderPane border;
 	private Toolbar toolbar;
 	private GameEnvironmentView gameEnvironmentView;
-	private ComponentView componentView;
+	private EntityView componentView;
 	private Controller controller;
 	
 	//GUI Constants
@@ -27,7 +27,7 @@ public class MainView{
 		border = new BorderPane();
 		toolbar = new Toolbar();
 		gameEnvironmentView = new GameEnvironmentView();
-		componentView = new ComponentView();
+		componentView = new EntityView();
 		ViewComponent[] components = {toolbar, gameEnvironmentView, componentView};
 		controller = new Controller(Arrays.asList(components));
 	}
@@ -64,7 +64,7 @@ public class MainView{
 	 * Returns the ComponentView object
 	 * @return
 	 */
-	public ComponentView getComponentView() {
+	public EntityView getComponentView() {
 		return componentView;
 	}
 	
