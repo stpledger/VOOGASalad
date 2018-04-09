@@ -40,32 +40,8 @@ public class Motion implements ISystem {
      */
     @Override
     public void removeComponent(int pid) {
-<<<<<<< HEAD
-    	
-    }
-        public void addComponent(int pid, Map<String, Component> components) {
-            if (components.containsKey("Velocity") && components.containsKey("Position")) {
-                List<Component> newComponents = new ArrayList<>();
-                newComponents.add(components.get("Velocity"));
-                newComponents.add(components.get("Position"));
-                handledComponents.put(pid, newComponents);
-            }
-        }
-
-        /**
-         * Removes position and velocity component from system map
-         * @param pid parent ID of Velocity component to be removed
-         */
-        @Override
-        public void removeComponent(int pid) {
-
-            if(handledComponents.containsKey(pid)) {
-                handledComponents.remove(pid);
-            }
-=======
         if(handledComponents.containsKey(pid)) {
             handledComponents.remove(pid);
->>>>>>> 50f3c473a4f4856e4b66ff0fc6a62632d1ad0db3
         }
     }
 
