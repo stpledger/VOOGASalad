@@ -4,13 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.HashMap;
 
 import engine.components.Component;
-import engine.components.Dimension;
-import engine.components.Health;
-import engine.components.Position;
-import engine.components.Sprite;
 import engine.support.ComponentBuilder;
 
 /**
@@ -31,18 +26,14 @@ public abstract class Entity {
         this.ID = ID;
         components = new ArrayList<>();
     }
-    
-    public int getID() {
-    		return this.ID;
-    }
 
-    public void add (Component c) {
+    public void add(Component c) {
         components.add(c);
     }
+    
     public void remove (Component c) {
         components.remove(c);
     }
-    
     
     /**
      * Sets health, because every entity should always have health.
@@ -63,7 +54,15 @@ public abstract class Entity {
 	public void setPosition(double x, double y) {
 		this.add(ComponentBuilder.buildComponent(this.getID(), "Position", Arrays.asList(new String[] {Double.toString(x),Double.toString(y)})));
 	}
-	
-	public abstract void addDefaultComponents();
+	    
+    public abstract void addDefaultComponents();
     
+    public int getID() {
+    	return this.ID;
+    }
+    
+    public List<Component> getComponentList(){
+    	return components;
+    }
+
 }
