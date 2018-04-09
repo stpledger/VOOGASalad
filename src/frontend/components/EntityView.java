@@ -52,11 +52,8 @@ public class EntityView extends TabPane {
 	 * Opens the window to create a new entity
 	 */
 	public void createEntity() {
-		//TODO: Replace this with the real types of entities
-		ArrayList<String> entityTypes = new ArrayList<String>();
-		entityTypes.addAll(Arrays.asList(new String[] {"Block", "Character", "Game Object", "NPC", "Power Up"}));
-		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);
-			
+		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
+		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);			
 	}
 	/**
 	 * Opens the window to delete an entity
