@@ -11,10 +11,13 @@ import javafx.scene.image.ImageView;
  */
 public class Sprite extends Component {
 
+	private String filename;
+	//@XStreamOmitField
 	private ImageView image;
 	
 	public Sprite(int pid, List<String> parameters) throws FileNotFoundException {
 		super(pid);
+		this.filename = filename;
 		Image im;
 		try {
 			im = new Image(parameters.get(0));
@@ -28,6 +31,8 @@ public class Sprite extends Component {
 	public static String getKey() {
 		return "Sprite";
 	}
+
+	public String getName() { return filename; }
 	
 	public ImageView getImage() {
 		return image;
