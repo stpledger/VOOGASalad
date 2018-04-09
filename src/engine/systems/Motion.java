@@ -40,7 +40,8 @@ public class Motion implements ISystem {
      */
     @Override
     public void removeComponent(int pid) {
-
+    	
+    }
         public void addComponent(int pid, Map<String, Component> components) {
             if (components.containsKey("Velocity") && components.containsKey("Position")) {
                 List<Component> newComponents = new ArrayList<>();
