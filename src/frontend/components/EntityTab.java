@@ -95,16 +95,19 @@ public class EntityTab extends Tab{
 		private double boxDimension = (myEntityViewWidth - SCROLLBAR_WIDTH)/3;
 		
 		public EntityBox(String n, Image img) {
+			//Create the VBox
 			this.getStyleClass().add("entity-box");
+			this.setWidth(boxDimension);
+			this.setHeight(boxDimension);
+			//Create the ImageView
 			name  = n;
 			image = img;
 			imageView = new ImageView(image);
 			imageView.setFitHeight(boxDimension-20);
 			imageView.setFitWidth(boxDimension-20);
-			this.setWidth(boxDimension);
-			this.setFillWidth(true);
-			this.setHeight(boxDimension);
 			this.getChildren().add(imageView);
+			
+			//Set onClick method to add the item to clipboard
 			this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
