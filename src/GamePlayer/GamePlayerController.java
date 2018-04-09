@@ -24,6 +24,7 @@ public class GamePlayerController {
 	private File currentFile;
 	private FileUploadButton fileBtn;
 
+
 	public GamePlayerController() {
 
 	}
@@ -31,6 +32,12 @@ public class GamePlayerController {
 	
 	public Scene intializeStartScene() {
 		fileBtn = new FileUploadButton();
+		fileBtn.getFileBooleanProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				initializeGameStart();
+			}
+		});
 		SampleToolBar sampleBar = new SampleToolBar();
 //		group = new Group();
 //		group.getChildren().add(fileBtn);
@@ -42,36 +49,46 @@ public class GamePlayerController {
 	}
 	
 	/**
-	 * method that initializes all visual entities onto the main group.
+	 * Method that begins displaying the game
 	 */
 	public void initializeGameStart() {
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
 		pane.setCenter(gameRoot); //adds starting game Root to the file.
+		initializeGameAnimation(); //begins the animation cycle
+	}
+
+	/**
+	 * Begins the animation cycle count of the animation after game has started
+	 */
+	public void initializeGameAnimation() {
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
+				e -> step(SECOND_DELAY, gameRoot));
+		Timeline animation = new Timeline();
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
 	}
 	
-	
 	/**
-	 * Begins the animation cycle count of the animation.
+	 * Step method that repeats the animation by checking entities using render and system Manager
+	 * @param elapsedTime
+	 * @param root
 	 */
-//	public void initializeGameAnimation() {
-//		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-//				e -> step(SECOND_DELAY, firstroot));
-//		Timeline animation = new Timeline();
-//		animation.setCycleCount(Timeline.INDEFINITE);
-//		animation.getKeyFrames().add(frame);
-//		animation.play();
-//	}
+	private void step (double elapsedTime, Group root) {
+		gameView.systemManager.execute(elapsedTime);
+		gameView.renderManager.garbageCollect();
+		gameView.renderManager.renderObjects();
+		
+	}
 	
 
 	/**
-	 * 
-	 * @return New scene with the grid, buttons, and a background color
+	 * Listener for the file button.
+	 * @param code
 	 */
-	public Scene setupScene() {
-		return new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
-	}
+	
 	
 	private void handleKeyInput (KeyCode code) {
 		if (code == KeyCode.ESCAPE) {
