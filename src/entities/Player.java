@@ -12,6 +12,8 @@ import engine.support.ComponentBuilder;
 public class Player extends Entity {
 
 	private final String TYPE = "Player";
+	private final double INITIAL_HEALTH = 100;
+	private final double INITIAL_DAMAGE = 10;
 	
 	/**
 	 * Construct the object with the given ID.
@@ -27,8 +29,8 @@ public class Player extends Entity {
 	@Override
 	public void addDefaultComponents() {
 		this.add(ComponentBuilder.buildComponent(this.getID(), "EntityType", Arrays.asList(new String[] {TYPE})));
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Health", Arrays.asList(new String[] {"100"})));
-		
+		this.add(ComponentBuilder.buildComponent(this.getID(), "Damage", Arrays.asList(new String[] {Double.toString(INITIAL_DAMAGE)})));
+		this.setHealth(INITIAL_HEALTH);
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import com.sun.glass.ui.Cursor;
 
+import frontend.gamestate.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -25,6 +26,7 @@ public class GameEnvironmentView extends ViewComponent {
 	private ArrayList<Tab> tabsList;
 	private Object clipboard;
 	private String activeTool;
+	private IGameState state;
 	
 	/**
 	 * Default Constructor
@@ -34,6 +36,7 @@ public class GameEnvironmentView extends ViewComponent {
 		pane = new TabPane();
 		activeTool = "move";
 		tabsList = new ArrayList<Tab>();
+		state = new GameState();
 		addLevel(); // add the first level
 	}
 	/**
@@ -50,9 +53,11 @@ public class GameEnvironmentView extends ViewComponent {
 	 * Creates a new LevelView
 	 */
 	public void addLevel(){
-		tabsList.add(new Tab());
-		Tab t = tabsList.get(tabsList.size()-1);
-		t.setText("Level " + (tabsList.indexOf(t)+1));
+		Tab t = new Tab();
+		tabsList.add(t);
+		t.setText("Level " + (tabsList.indexOf(t)+1)); // add one to account for zero-indexing
+		// Level newLevel = new Level();
+		// state.addLevel(newLevel);
 		t.setContent(new LevelView(tabsList.indexOf(t)+1, broadcast));
 		t.setOnClosed(new EventHandler<Event>() { //Handles tab closed events
 			@Override
