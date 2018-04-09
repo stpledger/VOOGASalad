@@ -20,8 +20,10 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 /*
     Auhot @Conrad defines the method of reading in xml files and outputting this information to the UI to be initialized
@@ -31,22 +33,17 @@ public class DataRead {
     /*
         parses the xml file and sends state info to UI
      */
-    private static  GameState buildState(File xml) {
+    private static GameState buildState(File xml) {
         try {
             XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
-            Map<Integer, Map<String,Component>> gameState = (Map<Integer,Map<String, Component>>)xstream.fromXML(xml);
+            Map<Level,Map<Integer, Map<String,Component>>> gameState = (HashMap<Level, Map<Integer,Map<String, Component>>>)xstream.fromXML(xml);
             return new GameState(gameState);
         }
         catch(Exception e){throw new IllegalStateException();}
     }
 
-    private static  GameState loadFile(Stage activeScreen) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Open Resource File");
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));
-        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("XML Files", "*.xml"));
+    public static  GameState loadFile(File xml) {
         try {
-            File xml = fileChooser.showOpenDialog(activeScreen);
             return buildState(xml);
         } catch (IllegalStateException e) {
             String error = e.getMessage();

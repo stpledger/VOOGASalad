@@ -31,10 +31,8 @@ public class DataWrite {
       Author @ Conrad defines how and where files are saveed by the user
  */
     //calls save turtles lines and preferences and writes output
-    public static void saveFile(GameState gameState) throws Exception{
-       // buildDoc();
-        createFile(gameState, "Game1");
-
+    public static void saveFile(GameState gameState, String fileName) throws Exception{
+        createFile(gameState, fileName);
     }
 
     //specifies a format and file location to save the information
