@@ -2,16 +2,15 @@ package frontend.components;
 
 import java.util.ArrayList;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
-import java.lang.reflect.Method;
+import java.util.TreeMap;
 
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.HBox;
-import javafx.util.Pair;
 /**
  * 
  * @author Collin Brown(cdb55)
@@ -20,18 +19,25 @@ import javafx.util.Pair;
 public class Toolbar extends ViewComponent {
 	private HBox toolbar;
 	private ArrayList<Node> toolbarNodes = new ArrayList<Node>();
+
 	
-	HashMap<String,String> fileMenuList = new HashMap<String,String>(){{
+	//Initialize the menus in Hashmaps<String placeHolder, methodName>
+	TreeMap<String,String> fileMenuList = new TreeMap<String,String>(){{
 		put("Create","create");
 		put("Load", "load");
 		put("Save", "save");
 	}}; 
-	HashMap<String,String> gameMenuList = new HashMap<String,String>() {{
+	TreeMap<String,String> gameMenuList = new TreeMap<String,String>() {{
 		put("Add Level", "addLevel");
 		put("Settings", "settings");
-		put("Play", "Play");
+		put("Play", "play");
 	}};
-	HashMap<String,String> toolsMenuList = new HashMap<String,String>() {{
+	TreeMap<String, String> entityMenuList = new TreeMap<String,String>(){{
+		//put("Edit Entity", "editEntity");
+		put("New Entity", "createEntity");
+		//put("Delete Entity", "deleteEntity");
+	}};
+	TreeMap<String,String> toolsMenuList = new TreeMap<String,String>() {{
 		put("Add", "addTool");
 		put("Delete", "deleteTool");
 		put("Edit", "editTool");
@@ -56,11 +62,10 @@ public class Toolbar extends ViewComponent {
 	private void addComponents() {
 		List<Node> toAdd = new ArrayList<>();
 		toAdd.add(createMenu("File", false, fileMenuList));
-		// toAdd.add(createMenu("Edit", false, editMenuList));
+		toAdd.add(createMenu("Entity", false, entityMenuList));
 		toAdd.add(createMenu("Game", false, gameMenuList));
 		toAdd.add(createMenu("Tool",true, toolsMenuList));
-		toolbar.getChildren().addAll(toAdd);
-		
+		toolbar.getChildren().addAll(toAdd);		
 	}
 
 	/**
@@ -69,20 +74,20 @@ public class Toolbar extends ViewComponent {
 	 * @param items the items in a given menu
 	 * @return a Node with the menu
 	 */
-	private Node createMenu(String name, Boolean sticky,  HashMap<String,String> items) {
+	private Node createMenu(String name, Boolean sticky,  Map<String,String> items) {
 		ComboBox<String> temp = new ComboBox<String>();
 		temp.setPromptText(name);
 		temp.getItems().addAll(items.keySet());
 		temp.setOnAction(action -> {
 			try {
-				if(!temp.getSelectionModel().isEmpty()) {
-					broadcast.setMessage(items.get(temp.getSelectionModel().getSelectedItem()),null);
-					if(!sticky) {
-						temp.getSelectionModel().clearSelection(); //TODO: This throws and indexoutofbounds error but runs fine because it makes a null value
-					}
+					if(!temp.getSelectionModel().getSelectedItem().equals(null)) {
+						broadcast.setMessage(items.get(temp.getSelectionModel().getSelectedItem()),null);
+						if(!sticky) {
+							temp.getSelectionModel().select(null);//TODO: This throws and indexoutofbounds error but runs fine because it makes a null value
+						}
 					}
 			} catch (Exception error) {
-				//TODO: make better error handling
+				System.out.println("Error trying to process toolbar selection: " + temp.getSelectionModel().getSelectedItem());
 			}
 			});
 		temp.getStyleClass().add("combo-box");
@@ -90,7 +95,7 @@ public class Toolbar extends ViewComponent {
 		return temp;
 	}
 	/**
-	 * 
+	 * Method that can be called to set the active tool
 	 * @param tool
 	 */
 	public void setTool(Object tool) {

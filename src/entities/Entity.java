@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+
+import java.util.HashMap;
+
 import engine.components.Component;
 import engine.components.Dimension;
 import engine.components.Health;
@@ -26,16 +29,22 @@ public abstract class Entity {
         this.ID = ID;
         components = new ArrayList<>();
     }
-    
-    public abstract void addDefaultComponents();
-    public int getID () { return ID; }
+
+    public boolean contains (Component component) {
+        return components.contains(component);
+    }
 
     public void add (Component c) {
         components.add(c);
     }
 
+
     public void remove (Component c) {
         components.remove(c);
+    }
+    
+    public int getID() {
+    		return this.ID;
     }
     
     /**
@@ -57,5 +66,7 @@ public abstract class Entity {
 	public void setPosition(double x, double y) {
 		this.add(new Position(this.getID(),x,y));
 	}
+	
+	
     
 }
