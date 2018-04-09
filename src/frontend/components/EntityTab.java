@@ -15,6 +15,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -94,12 +95,14 @@ public class EntityTab extends Tab{
 		private double boxDimension = (myEntityViewWidth - SCROLLBAR_WIDTH)/3;
 		
 		public EntityBox(String n, Image img) {
+			this.getStyleClass().add("entity-box");
 			name  = n;
 			image = img;
 			imageView = new ImageView(image);
 			imageView.setFitHeight(boxDimension-20);
 			imageView.setFitWidth(boxDimension-20);
 			this.setWidth(boxDimension);
+			this.setFillWidth(true);
 			this.setHeight(boxDimension);
 			this.getChildren().add(imageView);
 			this.setOnMouseClicked(new EventHandler<MouseEvent>() {
