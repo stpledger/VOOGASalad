@@ -19,9 +19,6 @@ public class RenderManager {
         centerY = initialCenterY;
     }
 
-    public Set<Integer> getWithinRender() {
-        return withinRender.keySet();
-    }
 
     public void setCenterX (double newCenterX) {
         centerX = newCenterX;
@@ -32,30 +29,27 @@ public class RenderManager {
     }
 
     public void add (Position p) {
-        double positionX = p.getXPos();
-        double positionY = p.getYPos();
-        if (withinRenderDistance(positionX, positionY)) withinRender.put(p.getParentID(), p);
+        if (withinRenderDistance(p.getXPos(), p.getYPos())) withinRender.put(p.getParentID(), p);
         else outsideRender.put(p.getParentID(), p);
     }
 
     public void garbageCollect() {
-        for (int id : withinRender.keySet()) {
-            Position p = withinRender.get(id);
+        for (Position p : withinRender.values()) {
             if (!withinRenderDistance(p.getXPos(), p.getYPos())) {
-                outsideRender.put(id, p);
-                withinRender.remove(id);
+                outsideRender.put(p.getParentID(), p);
+                withinRender.remove(p.getParentID());
             }
         }
     }
 
-    public void renderObjects() {
-        for (int id : outsideRender.keySet()) {
-            Position p = outsideRender.get(id);
+    public Set<Integer> renderObjects() {
+        for (Position p : outsideRender.values()) {
             if (withinRenderDistance(p.getXPos(), p.getYPos())) {
-                withinRender.put(id, p);
-                outsideRender.remove(id);
+                withinRender.put(p.getParentID(), p);
+                outsideRender.remove(p.getParentID());
             }
         }
+        return withinRender.keySet();
     }
 
     private boolean withinRenderDistance(double x, double y) {

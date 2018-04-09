@@ -31,17 +31,16 @@ public class Motion implements ISystem {
 		}
     }
 
-        /**
-         * Removes position and velocity component from system map
-         * @param pid parent ID of Velocity component to be removed
-         */
-        @Override
-        public void removeComponent(int pid) {
-
-            if(handledComponents.containsKey(pid)) {
-                handledComponents.remove(pid);
-            }
+    /**
+     * Removes position and velocity component from system map
+     * @param pid parent ID of Velocity component to be removed
+     */
+    @Override
+    public void removeComponent(int pid) {
+        if(handledComponents.containsKey(pid)) {
+            handledComponents.remove(pid);
         }
+    }
 
     @Override
     public void setActives(Set<Integer> actives) {
@@ -49,10 +48,11 @@ public class Motion implements ISystem {
     }
 
     /**
-         * Apply changes in velocities to positions
-         */
-        public void execute(double time) {
-            for (int pid : activeComponents) {
+     * Apply changes in velocities to positions
+     */
+    public void execute(double time) {
+        for (int pid : activeComponents) {
+            if (handledComponents.containsKey(pid)) {
                 List<Component> components = handledComponents.get(pid);
 
                 Velocity v = (Velocity) components.get(VELOCITY_INDEX);
@@ -62,5 +62,6 @@ public class Motion implements ISystem {
                 p.setYPos(p.getYPos() + v.getYVel()*time);
             }
         }
-
     }
+
+}
