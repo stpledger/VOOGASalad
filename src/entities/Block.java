@@ -12,7 +12,6 @@ import engine.support.ComponentBuilder;
 public class Block extends Entity{
 	
 	private final String TYPE =  "Block";
-	
 	private final String BLOCK_HEALTH = "50";
 
 	public Block(int ID) {
