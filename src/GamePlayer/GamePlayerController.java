@@ -28,7 +28,7 @@ public class GamePlayerController {
 	public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private Scene myScene;
-	private Group group;
+	private Group gameRoot;
 	private BorderPane pane = new BorderPane();
 	private PauseMenu pauseMenu = new PauseMenu();
 	private GamePlayerEntityView gameView;
@@ -58,6 +58,8 @@ public class GamePlayerController {
 	public void initializeGameStart() {
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
+		gameRoot = gameView.createEntityGroup();
+		pane.setCenter(gameRoot); //adds starting game Root to the file.
 	}
 	
 	

@@ -42,7 +42,7 @@ public class GamePlayerEntityView {
 	 * Return a Group that adds all the entity image objects 
 	 * @return
 	 */
-	private Group createEntityGroup() {
+	public Group createEntityGroup() {
 		Group entityRoot = new Group();
 		Set<Integer> keyset = entityMap.keySet();
 		Map<String, Component> entityComponents;
