@@ -4,13 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.HashMap;
 
 import engine.components.Component;
-import engine.components.Dimension;
-import engine.components.Health;
-import engine.components.Position;
-import engine.components.Sprite;
 import engine.support.ComponentBuilder;
 
 /**
@@ -33,16 +28,12 @@ public abstract class Entity {
         this.ID = ID;
         components = new ArrayList<>();
     }
-    
-    public int getID() {
-    	return this.ID;
-    }
 
-    public void add (Component c) {
+    public void add(Component c) {
         components.add(c);
     }
     
-    public void remove (Component c) {
+    public void remove(Component c) {
         components.remove(c);
     }
     
@@ -63,4 +54,12 @@ public abstract class Entity {
 	}
     
     public abstract void addDefaultComponents();
+    
+    public int getID() {
+    	return this.ID;
+    }
+    
+    public List<Component> getComponentList(){
+    	return components;
+    }
 }
