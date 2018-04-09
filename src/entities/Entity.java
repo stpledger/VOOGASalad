@@ -38,6 +38,10 @@ public abstract class Entity {
         components.remove(c);
     }
     
+    /**
+     * Sets health, because every entity should always have health.
+     * @param health
+     */
 	public void setHealth(double health) {
 		this.add(new Health(this.getID(),health));
 	}
