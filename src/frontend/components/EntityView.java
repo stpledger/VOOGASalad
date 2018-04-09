@@ -53,7 +53,6 @@ public class EntityView extends TabPane {
 	 */
 	public void createEntity() {
 		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
-
 		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);			
 
 	}

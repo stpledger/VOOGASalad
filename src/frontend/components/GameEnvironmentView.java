@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 
 import com.sun.glass.ui.Cursor;
 
+import frontend.gamestate.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -14,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.MouseButton;
 
 /**
  * 
@@ -24,6 +26,7 @@ public class GameEnvironmentView extends TabPane {
 	private ArrayList<Tab> tabsList;
 	private Object clipboard;
 	private String activeTool;
+	private IGameState state;
 	
 	/**
 	 * Default Constructor
@@ -32,7 +35,16 @@ public class GameEnvironmentView extends TabPane {
 		super();
 		activeTool = "move";
 		tabsList = new ArrayList<Tab>();
+		state = new GameState();
 		addLevel(); // add the first level
+		this.setOnMouseClicked(e -> {
+			if (e.getButton().equals(MouseButton.PRIMARY)) {
+				if (e.getClickCount() == 2) {
+					PropertiesView LPV = new LocalPropertiesView(1);
+					LPV.open();
+				}
+			}
+		});
 	}
 	/**
 	 * called whenever there is any change to the tabslist
@@ -89,5 +101,4 @@ public class GameEnvironmentView extends TabPane {
 			break;
 		}
 	}
-
 }

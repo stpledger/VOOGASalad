@@ -1,7 +1,11 @@
 package frontend.components;
 
 import java.util.List;
+<<<<<<< HEAD
 
+=======
+import java.util.ResourceBundle;
+>>>>>>> 7665aabcf6be02d1c7026b4b1149ef1e0c0e79d4
 import javafx.scene.control.Label;
 
 /**
@@ -13,7 +17,7 @@ import javafx.scene.control.Label;
  */
 public class LocalPropertiesView extends PropertiesView {
 	
-	private final String PROPERTIES_PACKAGE = "engine.components";
+	private final String PROPERTIES_PACKAGE = "resources/components";
 	private int entityNumber;
 	
 	/**
@@ -31,7 +35,7 @@ public class LocalPropertiesView extends PropertiesView {
 	@Override
 	protected void fill() {
 		int currentRow = 0;
-		for (String property : getClassesInPackage(PROPERTIES_PACKAGE)) {
+		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE).keySet()) {
 			Label componentLabel = new Label(property);
 			this.getRoot().add(componentLabel, 0, currentRow);
 			NumberField number = new NumberField();

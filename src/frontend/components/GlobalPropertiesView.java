@@ -22,7 +22,6 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	@Override
 	protected void fill() {
-		// TODO Auto-generated method stub
 		
 	}
 
