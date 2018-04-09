@@ -1,9 +1,7 @@
 package frontend.components;
 
-import javafx.event.EventHandler;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 /**
  * 
@@ -21,15 +19,14 @@ public class LevelView extends ScrollPane {
 		this.level = level;
 		this.setContent(pane);
 		this.getStyleClass().add("level-view-wrapper");
-		//Always hide the scrollbar
-//		this.setHbarPolicy(ScrollBarPolicy.NEVER);
-//		this.setVbarPolicy(ScrollBarPolicy.NEVER);
 		this.setOnMouseClicked(e-> {		
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				LevelPropertiesView lView = new LevelPropertiesView(levelNum);
 				lView.open();
 			}
 		});
-	}	
+	}
+	
+	
 	
 }
