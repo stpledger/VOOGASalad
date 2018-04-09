@@ -2,6 +2,7 @@ package entities;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.HashMap;
 
@@ -10,6 +11,7 @@ import engine.components.Dimension;
 import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
+import engine.support.ComponentBuilder;
 
 /**
  * 
@@ -47,19 +49,19 @@ public abstract class Entity {
      * @param health
      */
 	public void setHealth(double health) {
-		this.add();
+		this.add(ComponentBuilder.buildComponent(this.getID(), "Health", Arrays.asList(new String[] {Double.toString(health)})));
 	}
 	
 	public void setSprite(String filename) throws FileNotFoundException {
-		this.add();
+		this.add(ComponentBuilder.buildComponent(this.getID(), "Sprite", Arrays.asList(new String[] {filename})));
 	}
 	
 	public void setDimension(double width, double height) {
-		this.add(new Dimension(this.getID(),width,height));
+		this.add(ComponentBuilder.buildComponent(this.getID(), "Dimension", Arrays.asList(new String[] {Double.toString(width),Double.toString(height)})));
 	}
 	
 	public void setPosition(double x, double y) {
-		this.add(new Position(this.getID(),x,y));
+		this.add(ComponentBuilder.buildComponent(this.getID(), "Position", Arrays.asList(new String[] {Double.toString(x),Double.toString(y)})));
 	}
 	
 	public abstract void addDefaultComponents();
