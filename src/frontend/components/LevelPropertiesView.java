@@ -41,12 +41,12 @@ public class LevelPropertiesView extends PropertiesView{
 			getRoot().add(number, 1, currentRow);
 			currentRow++;
 		}
-		getRoot().add(MenuItemBuilder.buildButton("Submit Changes", e->fieldUpdate()), 0, currentRow++);
+//		getRoot().add(MenuItemBuilder.buildButton("Submit Changes", e->fieldUpdate()), 0, currentRow++);
 	}
 	
-	private void fieldUpdate() {
-		
-		broadcast.setMessage("", args);
-	}
+//	private void fieldUpdate() {
+//		
+//		broadcast.setMessage("", args);
+//	}
 
 }

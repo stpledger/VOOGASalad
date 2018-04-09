@@ -27,11 +27,11 @@ public class ComponentBuilder {
 			case "Position":
 				return new Position(pid, inputs); 	
 			case "Sprite":
-			try {
-				return new Sprite(pid, inputs);
-			} catch (FileNotFoundException e) {
-				return null;
-			} 
+				try {
+					return new Sprite(pid, inputs);
+				} catch (FileNotFoundException e) {
+					return null;
+				} 
 			case "Velocity":
 				return new Velocity(pid, inputs); 
 		}

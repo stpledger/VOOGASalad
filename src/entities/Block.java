@@ -1,7 +1,8 @@
 package entities;
 
-import engine.components.EntityType;
-import engine.components.Health;
+import java.util.Arrays;
+
+import engine.support.ComponentBuilder;
 
 /**
  * 
@@ -12,7 +13,7 @@ public class Block extends Entity{
 	
 	private final String TYPE =  "Block";
 	
-	private final int BLOCK_HEALTH = 50;
+	private final String BLOCK_HEALTH = "50";
 
 	public Block(int ID) {
 		super(ID);
@@ -21,8 +22,8 @@ public class Block extends Entity{
 
 	@Override
 	public void addDefaultComponents() {
-		this.add(new Health(this.getID(),BLOCK_HEALTH));
-		this.add(new EntityType(this.getID(),TYPE));
+		this.add(ComponentBuilder.buildComponent(this.getID(), "Health", Arrays.asList(new String[] {BLOCK_HEALTH})));
+		this.add(ComponentBuilder.buildComponent(this.getID(), "EntityType", Arrays.asList(new String[] {TYPE})));
 	}
 	
 }
