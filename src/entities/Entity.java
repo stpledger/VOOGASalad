@@ -12,8 +12,11 @@ import engine.components.Position;
 import engine.components.Sprite;
 
 /**
- * Entity class
- **/
+ * 
+ * @author Hemanth Yakkali
+ * @author Dylan Powers
+ *
+ */
 public abstract class Entity {
 
     private int ID; //unique ID to an entity

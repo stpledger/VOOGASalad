@@ -1,12 +1,18 @@
 package entities;
 
-import java.io.FileNotFoundException;
+import engine.components.EntityType;
+import engine.components.Health;
 
-import engine.components.*;
-
+/**
+ * 
+ * @author Hemanth Yakkali
+ *
+ */
 public class Block extends Entity{
 	
 	private final String TYPE =  "Block";
+	
+	private final int BLOCK_HEALTH = 50;
 
 	public Block(int ID) {
 		super(ID);
@@ -15,10 +21,8 @@ public class Block extends Entity{
 
 	@Override
 	public void addDefaultComponents() {
-		this.add(new Velocity(this.getID(),0,0));
-		this.add(new Damage(this.getID(),0,0));
+		this.add(new Health(this.getID(),BLOCK_HEALTH));
 		this.add(new EntityType(this.getID(),TYPE));
-		this.add(new Acceleration(this.getID(),0,0));
 	}
 	
 }
