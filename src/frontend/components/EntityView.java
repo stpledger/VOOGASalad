@@ -29,33 +29,33 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 import sun.reflect.Reflection;
 
-public class EntityView extends ViewComponent {
+public class EntityView extends TabPane {
 	private double entityViewWidth = 300;
-	private TabPane pane;
 	private ArrayList<String> tabsList = new ArrayList<String>();
 	private Object clipboard;
 	private ArrayList<String> entityTypes = new ArrayList<String>();
 	
 	public EntityView() {
 		super();
-		pane = new TabPane();
-		pane.setPrefWidth(entityViewWidth);
-		pane.getStyleClass().add("entity-view");	
+		this.setPrefWidth(entityViewWidth);
+		this.getStyleClass().add("entity-view");
 	}
 	
 	private void addTab(String type) {
 			ClipboardListener c = new ClipboardListener();
 			EntityTab temp = new EntityTab(type, entityViewWidth);
 			temp.getSelectedElementProperty().addListener(c);
-			pane.getTabs().add(temp);
+			this.getTabs().add(temp);
 	}
 	
 	/**
 	 * Opens the window to create a new entity
 	 */
 	public void createEntity() {
-		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
-		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, broadcast);
+		//TODO: Replace this with the real types of entities
+		ArrayList<String> entityTypes = new ArrayList<String>();
+		entityTypes.addAll(Arrays.asList(new String[] {"Block", "Character", "Game Object", "NPC", "Power Up"}));
+		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);
 			
 	}
 	/**
@@ -89,7 +89,7 @@ public class EntityView extends ViewComponent {
         	tabsList.add(entityType);
         }   
     //Add the entityBox
-        for(Tab tab : pane.getTabs()) {
+        for(Tab tab : this.getTabs()) {
         	if(tab.getText().equals(entityType)) {
         		((EntityTab) tab).addNewEntity("object", image);
         	}
@@ -144,16 +144,6 @@ public class EntityView extends ViewComponent {
         return className;
     }
 	
-	@Override
-	public Node getNode() {
-		return pane;
-	}
-
-	
-	protected Broadcast buildBroadcast() {
-		Broadcast b = new Broadcast();
-		return b;
-	}
 	private class ClipboardListener implements ChangeListener{
 
 		@Override

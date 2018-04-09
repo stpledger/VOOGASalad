@@ -1,6 +1,7 @@
 package frontend.components;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.scene.control.Label;
 
@@ -10,14 +11,13 @@ import javafx.scene.control.Label;
 public class LevelPropertiesView extends PropertiesView{
 	
 	private int levelNum;
-	private Broadcast broadcast;
 	private final String LEVELS_PACKAGE = "engine.components";
+	private final String RESOURCES = "resources/";
 	
-	public LevelPropertiesView(int level, Broadcast broadcast, List<String> props) {
+	public LevelPropertiesView(int level) {
 		super();
-		this.broadcast = broadcast;
 		levelNum = level;
-		this.fill(props);
+		this.fill();
 	}
 
 	@Override
@@ -28,15 +28,12 @@ public class LevelPropertiesView extends PropertiesView{
 	@Override
 	protected void fill() {
 		int currentRow = 0;
-		for (String property : props) {
-			System.out.println(property);
-			Label componentLabel = new Label(property);
-			getRoot().add(componentLabel, 0, currentRow);
-			// Text field should only accept numeric values
+		ResourceBundle levelProps = ResourceBundle.getBundle(RESOURCES+"levelProperties");
+		for (String property : levelProps.keySet()) {
+			Label componentLabel = new Label(levelProps.getString(property));
 			NumberField number = new NumberField();
 			componentLabel.setLabelFor(number);
-			getRoot().add(number, 1, currentRow);
-			currentRow++;
+			getRoot().addRow(currentRow++, componentLabel,number);
 		}
 //		getRoot().add(MenuItemBuilder.buildButton("Submit Changes", e->fieldUpdate()), 0, currentRow++);
 	}

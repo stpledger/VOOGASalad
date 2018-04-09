@@ -17,27 +17,18 @@ public class LevelView extends ScrollPane {
 	private Level level;
 	
 	public LevelView(Level level, int levelNum) {
-		//Create the Grid Pane
-		pane = new GridPane();
-		pane.getStyleClass().add("level-view");
-				
+		this.getStyleClass().add("level-view");
 		this.level = level;
 		this.setContent(pane);
 		this.getStyleClass().add("level-view-wrapper");
 		//Always hide the scrollbar
-		this.setHbarPolicy(ScrollBarPolicy.NEVER);
-		this.setVbarPolicy(ScrollBarPolicy.NEVER);
-		this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-			@Override
-			public void handle(MouseEvent event) {
-				MouseButton button = event.getButton();
-				if(button == MouseButton.SECONDARY) {
-					LevelPropertiesView lView = new LevelPropertiesView(levelNum, broadcast, level.getPropertyList());
-					lView.open();
-				}
+//		this.setHbarPolicy(ScrollBarPolicy.NEVER);
+//		this.setVbarPolicy(ScrollBarPolicy.NEVER);
+		this.setOnMouseClicked(e-> {		
+			if(e.getButton().equals(MouseButton.SECONDARY)) {
+				LevelPropertiesView lView = new LevelPropertiesView(levelNum);
+				lView.open();
 			}
-			
 		});
 	}	
 	
