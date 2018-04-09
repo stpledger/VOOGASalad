@@ -1,5 +1,7 @@
 package GamePlayer;
 
+import java.io.File;
+
 import HUD.SampleToolBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
@@ -29,34 +31,47 @@ public class GamePlayerController {
 	private Group group;
 	private BorderPane pane = new BorderPane();
 	private PauseMenu pauseMenu = new PauseMenu();
+	private GamePlayerEntityView gameView;
+	private File currentFile;
+	private FileUploadButton fileBtn;
 
 	public GamePlayerController() {
 
 	}
 	
+	
 	public Scene intializeStartScene() {
-	//FileUploadButton fileBtn = new FileUploadButton();
+		fileBtn = new FileUploadButton();
 		SampleToolBar sampleBar = new SampleToolBar();
-		group = new Group();
-	//	group.getChildren().add(fileBtn);
+//		group = new Group();
+//		group.getChildren().add(fileBtn);
 		pane.setTop(sampleBar);
-		myScene = setupScene();
+		pane.setBottom(fileBtn);
+		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
 		return myScene;
 	}
 	
 	/**
+	 * method that initializes all visual entities onto the main group.
+	 */
+	public void initializeGameStart() {
+		currentFile = fileBtn.getFile();
+		gameView = new GamePlayerEntityView(currentFile);
+	}
+	
+	
+	/**
 	 * Begins the animation cycle count of the animation.
 	 */
-	public void initializeGameAnimation() {
-		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-				e -> step(SECOND_DELAY, firstroot));
-		Timeline animation = new Timeline();
-		animation.setCycleCount(Timeline.INDEFINITE);
-		animation.getKeyFrames().add(frame);
-		animation.play();
-		
-	}
+//	public void initializeGameAnimation() {
+//		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
+//				e -> step(SECOND_DELAY, firstroot));
+//		Timeline animation = new Timeline();
+//		animation.setCycleCount(Timeline.INDEFINITE);
+//		animation.getKeyFrames().add(frame);
+//		animation.play();
+//	}
 	
 
 	/**
