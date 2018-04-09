@@ -1,5 +1,7 @@
 package frontend.components;
 
+import java.util.List;
+
 import javafx.scene.control.Label;
 
 /**
@@ -12,16 +14,14 @@ import javafx.scene.control.Label;
 public class LocalPropertiesView extends PropertiesView {
 	
 	private final String PROPERTIES_PACKAGE = "engine.components";
-	private Broadcast broadcast;
 	private int entityNumber;
 	
 	/**
 	 * Initialize the object with a given broadcast method
 	 * @param broadcast the broadcast to be added
 	 */
-	public LocalPropertiesView(int entityNumber, Broadcast broadcast) {
+	public LocalPropertiesView(int entityNumber) {
 		super();
-		this.broadcast = broadcast;
 		this.entityNumber = entityNumber;
 	}
 	
@@ -47,5 +47,6 @@ public class LocalPropertiesView extends PropertiesView {
 	public String title() {
 		return String.format("Entity %d Local Properties", this.entityNumber);
 	}
+
 	
 }

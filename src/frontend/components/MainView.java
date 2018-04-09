@@ -16,7 +16,6 @@ public class MainView{
 	private Toolbar toolbar;
 	private GameEnvironmentView gameEnvironmentView;
 	private EntityView componentView;
-	private Controller controller;
 	
 	//GUI Constants
 	private static double ideHeight = 600;
@@ -29,7 +28,6 @@ public class MainView{
 		gameEnvironmentView = new GameEnvironmentView();
 		componentView = new EntityView();
 		ViewComponent[] components = {toolbar, gameEnvironmentView, componentView};
-		controller = new Controller(Arrays.asList(components));
 	}
 	
 	/**

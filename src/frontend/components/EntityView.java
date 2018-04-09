@@ -55,7 +55,7 @@ public class EntityView extends ViewComponent {
 	 */
 	public void createEntity() {
 		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
-		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, broadcast);
+		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);
 			
 	}
 	/**
@@ -150,16 +150,11 @@ public class EntityView extends ViewComponent {
 	}
 
 	
-	protected Broadcast buildBroadcast() {
-		Broadcast b = new Broadcast();
-		return b;
-	}
 	private class ClipboardListener implements ChangeListener{
 
 		@Override
 		public void changed(ObservableValue clipboardObject, Object oldValue, Object newValue) {
-			broadcast.setMessage("setClipboard", new Object[] {newValue});	
-			broadcast.setMessage("setTool", new Object[] {"addTool"});
+			//TODO: Make this change the clipboard in GameEnvironmentView
 		}
 	}
 

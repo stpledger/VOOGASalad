@@ -10,12 +10,10 @@ import javafx.scene.control.Label;
 public class LevelPropertiesView extends PropertiesView{
 	
 	private int levelNum;
-	private Broadcast broadcast;
 	private final String LEVELS_PACKAGE = "engine.components";
 	
-	public LevelPropertiesView(int level, Broadcast broadcast, List<String> props) {
+	public LevelPropertiesView(int level, List<String> props) {
 		super();
-		this.broadcast = broadcast;
 		levelNum = level;
 		this.fill(props);
 	}

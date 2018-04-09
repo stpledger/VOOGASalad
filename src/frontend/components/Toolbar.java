@@ -1,71 +1,48 @@
 package frontend.components;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
-
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
 import java.util.TreeMap;
 
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.HBox;
+import javafx.util.Pair;
 /**
  * 
  * @author Collin Brown(cdb55)
  *
  */
-public class Toolbar extends ViewComponent {
-	private HBox toolbar;
+public class Toolbar extends MenuBar{
 	private ArrayList<Node> toolbarNodes = new ArrayList<Node>();
-
-	
-	//Initialize the menus in Hashmaps<String placeHolder, methodName>
-	TreeMap<String,String> fileMenuList = new TreeMap<String,String>(){{
-		put("Create","create");
-		put("Load", "load");
-		put("Save", "save");
-	}}; 
-	TreeMap<String,String> gameMenuList = new TreeMap<String,String>() {{
-		put("Add Level", "addLevel");
-		put("Settings", "settings");
-		put("Play", "play");
-	}};
-	TreeMap<String, String> entityMenuList = new TreeMap<String,String>(){{
-		//put("Edit Entity", "editEntity");
-		put("New Entity", "createEntity");
-		//put("Delete Entity", "deleteEntity");
-	}};
-	TreeMap<String,String> toolsMenuList = new TreeMap<String,String>() {{
-		put("Add", "addTool");
-		put("Delete", "deleteTool");
-		put("Edit", "editTool");
-	}};
-	
-	
 	
 	public Toolbar() {
 		super();
-		toolbar = new HBox();
-		addComponents();
-		toolbar.getStyleClass().add("toolbar");
+		this.getStyleClass().add("toolbar");
+		addMenus(getMenuProperties());
 	}
 	
-	public Node getNode() {
-		return toolbar;
-	}
 	
-	/**
-	 * Adds necessary toolbars
-	 */
-	private void addComponents() {
-		List<Node> toAdd = new ArrayList<>();
-		toAdd.add(createMenu("File", false, fileMenuList));
-		toAdd.add(createMenu("Entity", false, entityMenuList));
-		toAdd.add(createMenu("Game", false, gameMenuList));
-		toAdd.add(createMenu("Tool",true, toolsMenuList));
-		toolbar.getChildren().addAll(toAdd);		
+	private void addMenus(ArrayList<Pair<String,Properties>> menuProperties) {
+		ArrayList<Pair<String,Properties>> tempMenuProperties = menuProperties;
+		for(Pair<String, Properties> p: tempMenuProperties) {
+			Menu m = new Menu();
+			m.setText(p.getKey());
+			Set<Object> items = p.getValue().keySet();
+			
+		}
+		
 	}
 
 	/**
@@ -74,37 +51,31 @@ public class Toolbar extends ViewComponent {
 	 * @param items the items in a given menu
 	 * @return a Node with the menu
 	 */
-	private Node createMenu(String name, Boolean sticky,  Map<String,String> items) {
-		ComboBox<String> temp = new ComboBox<String>();
-		temp.setPromptText(name);
-		temp.getItems().addAll(items.keySet());
-		temp.setOnAction(action -> {
-			try {
-					if(!temp.getSelectionModel().getSelectedItem().equals(null)) {
-						broadcast.setMessage(items.get(temp.getSelectionModel().getSelectedItem()),null);
-						if(!sticky) {
-							temp.getSelectionModel().select(null);//TODO: This throws and indexoutofbounds error but runs fine because it makes a null value
-						}
-					}
-			} catch (Exception error) {
-				System.out.println("Error trying to process toolbar selection: " + temp.getSelectionModel().getSelectedItem());
-			}
-			});
-		temp.getStyleClass().add("combo-box");
-		toolbarNodes.add(temp);
-		return temp;
+	private Menu createMenu(Properties p) {
+		
+		return null;
 	}
 	/**
-	 * Method that can be called to set the active tool
-	 * @param tool
+	 * Get all of the properties files located in the resources.menus folder
+	 * @return An ArrayList of Pairs that has the name of the menu and the properties of that menu
 	 */
-	public void setTool(Object tool) {
-		ComboBox<String> cb = (ComboBox<String>) toolbarNodes.get(2);
-		for (Entry<String, String> k : toolsMenuList.entrySet()) {
-	        if (k.getValue().equals(tool)) {
-	        	cb.getSelectionModel().select(k.getKey());
-	        }
+	private ArrayList<Pair<String,Properties>> getMenuProperties(){
+		ArrayList<Pair<String,Properties>> menuProperties = new ArrayList<Pair<String,Properties>>();
+		File menuFolder = new File("resources/menus");
+		File[] menuFiles = menuFolder.listFiles();
+		for(File f : Arrays.asList(menuFiles)) {
+			Properties p = new Properties();
+			InputStream in = this.getClass().getResourceAsStream(f.getPath());
+			try {
+				p.load(in);
+				in.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			menuProperties.add(new Pair(f.getName(),p));
 		}
+		return menuProperties;	
 	}
 }
 	
