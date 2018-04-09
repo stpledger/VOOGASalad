@@ -6,8 +6,6 @@ import java.util.Observer;
 
 import javax.swing.event.ChangeEvent;
 
-import com.sun.prism.paint.Color;
-
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Node;
