@@ -1,7 +1,8 @@
 package engine.components;
 
-
 import java.util.Map;
+
+
 
 public class RightKey implements IKeyInput {
 	

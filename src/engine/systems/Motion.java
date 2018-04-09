@@ -40,6 +40,7 @@ public class Motion implements ISystem {
      */
     @Override
     public void removeComponent(int pid) {
+<<<<<<< HEAD
     	
     }
         public void addComponent(int pid, Map<String, Component> components) {
@@ -61,7 +62,12 @@ public class Motion implements ISystem {
             if(handledComponents.containsKey(pid)) {
                 handledComponents.remove(pid);
             }
+=======
+        if(handledComponents.containsKey(pid)) {
+            handledComponents.remove(pid);
+>>>>>>> 50f3c473a4f4856e4b66ff0fc6a62632d1ad0db3
         }
+    }
 
         /**
          * Apply changes in velocities to positions
