@@ -27,10 +27,15 @@ import javafx.util.Pair;
  *
  */
 public class Toolbar extends MenuBar{
+	private String toolbarName;
 	private ArrayList<Node> toolbarNodes = new ArrayList<Node>();
-	
-	public Toolbar() {
+	/**
+	 * Creates a Toolbar based on all of the .properties files saved in the directory src/res/~name~
+	 * @param name
+	 */
+	public Toolbar(String name) {
 		super();
+		toolbarName = name;
 		this.getStyleClass().add("toolbar");
 		addMenus(getMenuProperties());
 	}
@@ -70,7 +75,7 @@ public class Toolbar extends MenuBar{
 	 */
 	private ArrayList<Pair<String,Properties>> getMenuProperties(){
 		ArrayList<Pair<String,Properties>> menuProperties = new ArrayList<Pair<String,Properties>>();
-		File menuFolder = new File("src/resources/menus");
+		File menuFolder = new File("src/resources/menus/" + toolbarName);
 		File[] menuFiles = menuFolder.listFiles();
 		for(File f : Arrays.asList(menuFiles)) {
 			Properties p = new Properties();

@@ -24,28 +24,32 @@ import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import sun.reflect.Reflection;
 
-public class EntityView extends TabPane {
+public class EntityView extends BorderPane {
 	private double entityViewWidth = 300;
 	private ArrayList<String> tabsList = new ArrayList<String>();
 	private Object clipboard;
 	private ArrayList<String> entityTypes = new ArrayList<String>();
+	private TabPane tabPane = new TabPane();
 	
 	public EntityView() {
 		super();
 		this.setPrefWidth(entityViewWidth);
 		this.getStyleClass().add("entity-view");
+		this.setTop(new Toolbar("Entity"));
+		this.setCenter(tabPane);
 	}
 	
 	private void addTab(String type) {
 			ClipboardListener c = new ClipboardListener();
 			EntityTab temp = new EntityTab(type, entityViewWidth);
 			temp.getSelectedElementProperty().addListener(c);
-			this.getTabs().add(temp);
+			tabPane.getTabs().add(temp);
 	}
 	
 	/**
@@ -87,7 +91,7 @@ public class EntityView extends TabPane {
         	tabsList.add(entityType);
         }   
     //Add the entityBox
-        for(Tab tab : this.getTabs()) {
+        for(Tab tab : tabPane.getTabs()) {
         	if(tab.getText().equals(entityType)) {
         		((EntityTab) tab).addNewEntity("object", image);
         	}
