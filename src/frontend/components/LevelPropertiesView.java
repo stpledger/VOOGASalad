@@ -1,11 +1,8 @@
 package frontend.components;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-import frontend.components.PropertiesView.NumberField;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 
 /**
  * @author Hemanth Yakkali (hy115)
@@ -16,11 +13,11 @@ public class LevelPropertiesView extends PropertiesView{
 	private Broadcast broadcast;
 	private final String LEVELS_PACKAGE = "engine.components";
 	
-	public LevelPropertiesView(int level, Broadcast broadcast) {
+	public LevelPropertiesView(int level, Broadcast broadcast, List<String> props) {
 		super();
 		this.broadcast = broadcast;
 		levelNum = level;
-		this.fill();
+		this.fill(props);
 	}
 
 	@Override
@@ -29,9 +26,9 @@ public class LevelPropertiesView extends PropertiesView{
 	}
 
 	@Override
-	protected void fill() {
+	protected void fill(List<String> props) {
 		int currentRow = 0;
-		for (String property : getClassesInPackage(LEVELS_PACKAGE)) {
+		for (String property : props) {
 			System.out.println(property);
 			Label componentLabel = new Label(property);
 			getRoot().add(componentLabel, 0, currentRow);
@@ -43,10 +40,5 @@ public class LevelPropertiesView extends PropertiesView{
 		}
 //		getRoot().add(MenuItemBuilder.buildButton("Submit Changes", e->fieldUpdate()), 0, currentRow++);
 	}
-	
-//	private void fieldUpdate() {
-//		
-//		broadcast.setMessage("", args);
-//	}
 
 }
