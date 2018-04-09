@@ -18,8 +18,6 @@ public abstract class Entity {
 
     private int ID; //unique ID to an entity
     private List<Component> components; //list of components which define the entity
-
-
     /**
      * The constructor simply sets the ID of the entity and initializes its list of components
      * @param ID which identifies an entity
@@ -33,10 +31,14 @@ public abstract class Entity {
         components.add(c);
     }
     
-    public void remove(Component c) {
+    public void remove (Component c) {
         components.remove(c);
     }
     
+    /**
+     * Sets health, because every entity should always have health.
+     * @param health
+     */
 	public void setHealth(double health) {
 		this.add(ComponentBuilder.buildComponent(this.getID(), "Health", Arrays.asList(new String[] {Double.toString(health)})));
 	}
@@ -52,7 +54,7 @@ public abstract class Entity {
 	public void setPosition(double x, double y) {
 		this.add(ComponentBuilder.buildComponent(this.getID(), "Position", Arrays.asList(new String[] {Double.toString(x),Double.toString(y)})));
 	}
-    
+	    
     public abstract void addDefaultComponents();
     
     public int getID() {
@@ -62,4 +64,5 @@ public abstract class Entity {
     public List<Component> getComponentList(){
     	return components;
     }
+
 }

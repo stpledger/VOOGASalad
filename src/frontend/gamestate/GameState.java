@@ -14,13 +14,13 @@ import engine.components.Component;
  */
 public class GameState implements IGameState {
 
-	private List<Map<Integer, List<Component>>> state;
+	private Map<Integer, Map<Integer, List<Component>>> state;
 	/**
 	 * This object should only be constructed once, upon initialization of the authoring environment.
 	 * It will then continue to keep track of the current state of the game by using the update method below.
 	 */
 	public GameState() {
-		state = new ArrayList<>();
+		state = new HashMap<>();
 	}
 	
 	public void save() {
@@ -83,9 +83,10 @@ public class GameState implements IGameState {
 	
 	/**
 	 * Updates the current state by adding a new level to the list of levels.
+	 * @param levelNumber the level number to remove
 	 */
-	public void addLevel() {
-		state.add(new HashMap<>());
+	public void addLevel(int levelNumber) {
+		state.put(levelNumber, new HashMap<>());
 	}
 	
 	/**

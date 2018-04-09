@@ -47,8 +47,9 @@ public interface IGameState {
 	
 	/**
 	 * Updates the current state by adding a new level to the list of levels.
+	 * @param levelNumber the level number to add
 	 */
-	public void addLevel();
+	public void addLevel(int levelNumber);
 	
 	/**
 	 * Updates the current state my removing a level number.
