@@ -53,12 +53,11 @@ public class GameEnvironmentView extends ViewComponent {
 	 * Creates a new LevelView
 	 */
 	public void addLevel(){
-		Tab t = new Tab();
-		tabsList.add(t);
-		t.setText("Level " + (tabsList.indexOf(t)+1)); // add one to account for zero-indexing
-		// Level newLevel = new Level();
-		// state.addLevel(newLevel);
-		t.setContent(new LevelView(tabsList.indexOf(t)+1, broadcast));
+		tabsList.add(new Tab());
+		Tab t = tabsList.get(tabsList.size()-1);
+		t.setText("Level " + (tabsList.indexOf(t)+1));
+		Level level = new Level(tabsList.indexOf(t)+1);
+		t.setContent(new LevelView(level,tabsList.indexOf(t)+1, broadcast));
 		t.setOnClosed(new EventHandler<Event>() { //Handles tab closed events
 			@Override
 			public void handle(Event e) {

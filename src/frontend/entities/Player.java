@@ -1,4 +1,4 @@
-package entities;
+package frontend.entities;
 
 import java.util.Arrays;
 
@@ -21,6 +21,7 @@ public class Player extends Entity {
 	 */
 	public Player(int ID) {
 		super(ID);
+		addDefaultComponents();
 	}
 
 	/**
@@ -29,8 +30,7 @@ public class Player extends Entity {
 	@Override
 	public void addDefaultComponents() {
 		this.add(ComponentBuilder.buildComponent(this.getID(), "EntityType", Arrays.asList(new String[] {TYPE})));
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Damage", Arrays.asList(new String[] {Double.toString(INITIAL_DAMAGE)})));
-		this.setHealth(INITIAL_HEALTH);
+		this.add(ComponentBuilder.buildComponent(this.getID(), "Health", Arrays.asList(new String[] {"100"})));
 	}
 
 }

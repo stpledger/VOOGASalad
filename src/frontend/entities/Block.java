@@ -1,4 +1,4 @@
-package entities;
+package frontend.entities;
 
 import java.util.Arrays;
 
@@ -21,7 +21,7 @@ public class Block extends Entity{
 
 	@Override
 	public void addDefaultComponents() {
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Health", Arrays.asList(new String[] {Double.toString(BLOCK_HEALTH)})));
+		this.setHealth(BLOCK_HEALTH);
 		this.add(ComponentBuilder.buildComponent(this.getID(), "EntityType", Arrays.asList(new String[] {TYPE})));
 	}
 	
