@@ -1,5 +1,8 @@
 package engine.components;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javafx.scene.input.KeyCode;
 
 public class RightKey implements IKeyInput {

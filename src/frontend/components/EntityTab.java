@@ -15,6 +15,7 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Group;
 import javafx.scene.Node;
@@ -23,9 +24,12 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Tab;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 
 /**
@@ -57,13 +61,14 @@ public class EntityTab extends Tab{
 		externalPane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		pane = new FlowPane();
 		pane.setPrefWidth(myEntityViewWidth);
-		//TODO: Make this dynamic to handle each individual component
-		for(int i = 0; i < 8; i++) {
-		pane.getChildren().add(new EntityBox(i));
-		}
 		externalPane.setContent(pane);
 		this.setContent(externalPane);
 	}
+	public void addNewEntity(String name, Image img) {
+		pane.getChildren().add(new EntityBox(name, img));
+	}
+
+
 	/**
 	 * Returns the graphic representation of the ComponentTab
 	 */
@@ -83,24 +88,33 @@ public class EntityTab extends Tab{
 	/**
 	 *	The ComponentBox holds the properties and images of various gameObjects
 	 */
-	private class EntityBox extends Rectangle {
-		private int objectId;
-		public EntityBox(int id) {
-			objectId = id;
-			this.setWidth((myEntityViewWidth - SCROLLBAR_WIDTH)/3);
-			this.setHeight((myEntityViewWidth - SCROLLBAR_WIDTH)/3);
+	private class EntityBox extends VBox {
+		private String name;
+		private Image image;
+		private ImageView imageView;
+		private double boxDimension = (myEntityViewWidth - SCROLLBAR_WIDTH)/3;
+		
+		public EntityBox(String n, Image img) {
+			//Create the VBox
 			this.getStyleClass().add("entity-box");
+			this.setWidth(boxDimension);
+			this.setHeight(boxDimension);
+			//Create the ImageView
+			name  = n;
+			image = img;
+			imageView = new ImageView(image);
+			imageView.setFitHeight(boxDimension-20);
+			imageView.setFitWidth(boxDimension-20);
+			this.getChildren().add(imageView);
 			
+			//Set onClick method to add the item to clipboard
 			this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					selectedElement.setValue(id);
+					selectedElement.setValue(name);
 				}
 			});
 		}
-		
-		
-		
 	}
 	
 }

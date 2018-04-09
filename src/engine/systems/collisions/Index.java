@@ -1,5 +1,10 @@
 package engine.systems.collisions;
 
+/**
+ * This class defines sequence of indexes used to store components  for collision system
+ * @author Yameng
+ */
+
 public class Index {
 	public static int TYPE_INDEX;
 	public static int DIMENSION_INDEX;

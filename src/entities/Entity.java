@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import java.util.List;
 
+
+import java.util.HashMap;
+
 import engine.components.Component;
 import engine.components.Dimension;
 import engine.components.Health;
@@ -22,6 +25,7 @@ public abstract class Entity {
     private int ID; //unique ID to an entity
     private List<Component> components; //list of components which define the entity
 
+
     /**
      * The constructor simply sets the ID of the entity and initializes its list of components
      * @param ID which identifies an entity
@@ -31,11 +35,17 @@ public abstract class Entity {
         components = new ArrayList<>();
     }
 
-    public int getID () { return ID; }
-
-    public void add (Component c) {
-        components.add(c);
+    public Component get (String name) {
+        return components.get(name);
     }
+
+    public boolean contains (String name) {
+        return components.containsKey(name);
+    }
+
+    public void add (String name, Component c) {
+        components.put(name, c);
+
 
     public void remove (Component c) {
         components.remove(c);
