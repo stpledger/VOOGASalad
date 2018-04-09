@@ -106,6 +106,7 @@ public class EntityTab extends Tab{
 			imageView.setFitHeight(boxDimension-20);
 			imageView.setFitWidth(boxDimension-20);
 			this.getChildren().add(imageView);
+			//Create a textbox with the name;
 			
 			//Set onClick method to add the item to clipboard
 			this.setOnMouseClicked(new EventHandler<MouseEvent>() {
