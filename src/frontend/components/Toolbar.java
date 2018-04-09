@@ -9,18 +9,17 @@ import java.util.TreeMap;
 
 import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.MenuBar;
 import javafx.scene.layout.HBox;
 /**
  * 
  * @author Collin Brown(cdb55)
  *
  */
-public class Toolbar extends ViewComponent {
-	private HBox toolbar;
+public class Toolbar extends MenuBar {
 	
 	private ArrayList<Node> toolbarNodes = new ArrayList<Node>();
 
-	
 	//Initialize the menus in Hashmaps<String placeHolder, methodName>
 	TreeMap<String,String> fileMenuList = new TreeMap<String,String>(){{
 		put("Create","create");
@@ -45,13 +44,8 @@ public class Toolbar extends ViewComponent {
 	
 	public Toolbar() {
 		super();
-		toolbar = new HBox();
 		addComponents();
-		toolbar.getStyleClass().add("toolbar");
-	}
-	
-	public Node getNode() {
-		return toolbar;
+		this.getStyleClass().add("toolbar");
 	}
 	
 	/**
@@ -63,7 +57,7 @@ public class Toolbar extends ViewComponent {
 		toAdd.add(createMenu("Entity", false, entityMenuList));
 		toAdd.add(createMenu("Game", false, gameMenuList));
 		toAdd.add(createMenu("Tool",true, toolsMenuList));
-		toolbar.getChildren().addAll(toAdd);		
+		this.getChildren().addAll(toAdd);		
 	}
 
 	/**
@@ -79,7 +73,7 @@ public class Toolbar extends ViewComponent {
 		temp.setOnAction(action -> {
 			try {
 					if(!temp.getSelectionModel().getSelectedItem().equals(null)) {
-						broadcast.setMessage(items.get(temp.getSelectionModel().getSelectedItem()),null);
+//						broadcast.setMessage(items.get(temp.getSelectionModel().getSelectedItem()),null);
 						if(!sticky) {
 							temp.getSelectionModel().select(null);//TODO: This throws and indexoutofbounds error but runs fine because it makes a null value
 						}
@@ -92,6 +86,7 @@ public class Toolbar extends ViewComponent {
 		toolbarNodes.add(temp);
 		return temp;
 	}
+	
 	/**
 	 * Method that can be called to set the active tool
 	 * @param tool

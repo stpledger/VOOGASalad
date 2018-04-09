@@ -45,7 +45,6 @@ public class EntityBuilderView{
 	private final int LEFT_PANEL_WIDTH = 200;
 	private TopMenu topMenu;
 	private BottomMenu bottomMenu;
-	private Broadcast broadcast;
 	private LeftPanel leftPanel;
 	private BorderPane root;
 	private String entityName;
@@ -58,8 +57,7 @@ public class EntityBuilderView{
 	private List<String> imageExtensions = Arrays.asList(new String[] {".jpg",".png",".jpeg"});
 	
 	
-	public EntityBuilderView (ArrayList<String> eTypes, Broadcast b) {
-		broadcast = b;
+	public EntityBuilderView (ArrayList<String> eTypes) {
 		entityTypes = eTypes;
 		this.build();
 		this.open();
@@ -194,7 +192,7 @@ public class EntityBuilderView{
 			saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					broadcast.setMessage("saveEntity", new Object[] {myEntityType, imageFile});
+//					broadcast.setMessage("saveEntity", new Object[] {myEntityType, imageFile});
 					stage.close();
 					
 				}

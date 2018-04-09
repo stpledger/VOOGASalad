@@ -1,8 +1,5 @@
 package frontend.components;
 
-import java.util.Arrays;
-
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
@@ -16,7 +13,6 @@ public class MainView{
 	private Toolbar toolbar;
 	private GameEnvironmentView gameEnvironmentView;
 	private EntityView componentView;
-	private Controller controller;
 	
 	//GUI Constants
 	private static double ideHeight = 600;
@@ -28,8 +24,6 @@ public class MainView{
 		toolbar = new Toolbar();
 		gameEnvironmentView = new GameEnvironmentView();
 		componentView = new EntityView();
-		ViewComponent[] components = {toolbar, gameEnvironmentView, componentView};
-		controller = new Controller(Arrays.asList(components));
 	}
 	
 	/**
@@ -37,9 +31,9 @@ public class MainView{
 	 */
 	public Parent build() {
 		border = new BorderPane();
-		border.setTop(toolbar.getNode());
-		border.setLeft(componentView.getNode());
-		border.setCenter(gameEnvironmentView.getNode());
+		border.setTop(toolbar);
+		border.setLeft(componentView);
+		border.setCenter(gameEnvironmentView);
 		return border;
 		
 	}
