@@ -12,6 +12,8 @@ import engine.support.ComponentBuilder;
 public class Player extends Entity {
 
 	private final String TYPE = "Player";
+	private final double INITIAL_HEALTH = 100;
+	private final double INITIAL_DAMAGE = 10;
 	
 	/**
 	 * Construct the object with the given ID.

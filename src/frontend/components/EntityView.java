@@ -53,12 +53,7 @@ public class EntityView extends TabPane {
 	 */
 	public void createEntity() {
 		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
-<<<<<<< HEAD
 		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);			
-=======
-		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, broadcast);
-			
->>>>>>> 99708816e6d9e14ff5ec70bc08be3757347aeadb
 	}
 	/**
 	 * Opens the window to delete an entity
