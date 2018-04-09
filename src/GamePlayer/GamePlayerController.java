@@ -9,6 +9,8 @@ import engine.setup.RenderManager;
 import engine.setup.SystemManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -38,6 +40,12 @@ public class GamePlayerController {
 	
 	public Scene intializeStartScene() {
 		fileBtn = new FileUploadButton();
+		fileBtn.getFileBooleanProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				initializeGameStart();
+			}
+		});
 		SampleToolBar sampleBar = new SampleToolBar();
 //		group = new Group();
 //		group.getChildren().add(fileBtn);
@@ -49,7 +57,7 @@ public class GamePlayerController {
 	}
 	
 	/**
-	 * Method that 
+	 * Method that begins displaying the game
 	 */
 	public void initializeGameStart() {
 		currentFile = fileBtn.getFile();
@@ -82,6 +90,13 @@ public class GamePlayerController {
 		gameView.renderManager.renderObjects();
 		
 	}
+	
+
+	/**
+	 * Listener for the file button.
+	 * @param code
+	 */
+	
 	
 	private void handleKeyInput (KeyCode code) {
 		if (code == KeyCode.ESCAPE) {
