@@ -1,7 +1,12 @@
 package engine.components;
-
-
+/**
+ * Component that indicates that the entity has action when the key corresponding to String RIGHT is pressed.
+ * It changes xVelocity of the entity
+ * @author Stefani Vukajlovic
+ */
 import java.util.Map;
+
+
 
 public class RightKey implements IKeyInput {
 	

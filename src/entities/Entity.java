@@ -6,7 +6,7 @@ import java.util.Map;
 
 import java.util.HashMap;
 
-import components.IComponent;
+import engine.components.Component;
 
 /**
  * Entity class
@@ -14,7 +14,7 @@ import components.IComponent;
 public class Entity {
 
     private double ID; //unique ID to an entity
-    private Map<String, IComponent> components; //list of components which define the entity
+    private Map<String, Component> components; //list of components which define the entity
 
     /**
      * The constructor simply sets the ID of the entity and initializes its list of components
@@ -27,7 +27,7 @@ public class Entity {
 
     public double getID () { return ID; }
 
-    public IComponent get (String name) {
+    public Component get (String name) {
         return components.get(name);
     }
 
@@ -35,11 +35,11 @@ public class Entity {
         return components.containsKey(name);
     }
 
-    public void add (String name, IComponent c) {
+    public void add (String name, Component c) {
         components.put(name, c);
     }
 
-    public void remove (IComponent c) {
+    public void remove (Component c) {
         components.remove(c);
     }
 }

@@ -32,10 +32,7 @@ public class TestGameState {
 		Position p = new Position(0, 100, 100);
 		Dimension d = new Dimension(0, 100, 100);
 		Velocity v = new Velocity(0,0,-80);
-		Acceleration a = new Acceleration(0, 0, 50);
-		KeyInput k = new KeyInput(0, null);
-		k.setOnAction(KeyCode.SPACE, (id) -> v.setXVel(v.getXVel()+10));
-
+		Acceleration a = new Acceleration(0, 0, 100);
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(Position.getKey(), p);
 		mario.put(Dimension.getKey(), d);
