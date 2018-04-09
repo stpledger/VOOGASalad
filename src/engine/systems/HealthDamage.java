@@ -1,5 +1,8 @@
 package engine.systems;
-
+/**
+ * A system that handles what happens when two entities collide, one having health component and the other damage
+ * @author Stefani Vukajlovic
+ */
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
