@@ -12,6 +12,7 @@ import engine.support.ComponentBuilder;
 public class Player extends Entity {
 
 	private final String TYPE = "Player";
+	
 	/**
 	 * Construct the object with the given ID.
 	 * @param ID the ID of this object.
@@ -26,6 +27,8 @@ public class Player extends Entity {
 	@Override
 	public void addDefaultComponents() {
 		this.add(ComponentBuilder.buildComponent(this.getID(), "EntityType", Arrays.asList(new String[] {TYPE})));
+		this.add(ComponentBuilder.buildComponent(this.getID(), "Health", Arrays.asList(new String[] {"100"})));
+		
 	}
 
 }

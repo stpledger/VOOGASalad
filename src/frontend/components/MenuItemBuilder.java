@@ -4,6 +4,11 @@ import java.util.function.Consumer;
 
 import javafx.scene.control.Button;
 
+/**
+ * 
+ * @author Hemanth Yakkali
+ *
+ */
 public class MenuItemBuilder {
 	
 	public static Button buildButton(String text, Consumer<Void> event) {

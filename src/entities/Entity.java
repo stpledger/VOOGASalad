@@ -2,10 +2,7 @@ package entities;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 import java.util.List;
-
-
 import java.util.HashMap;
 
 import engine.components.Component;
@@ -15,8 +12,11 @@ import engine.components.Position;
 import engine.components.Sprite;
 
 /**
- * Entity class
- **/
+ * 
+ * @author Hemanth Yakkali
+ * @author Dylan Powers
+ *
+ */
 public abstract class Entity {
 
     private int ID; //unique ID to an entity
@@ -29,23 +29,18 @@ public abstract class Entity {
         this.ID = ID;
         components = new ArrayList<>();
     }
-
-    public boolean contains (Component component) {
-        return components.contains(component);
+    
+    public int getID() {
+    		return this.ID;
     }
 
     public void add (Component c) {
         components.add(c);
     }
-
-
     public void remove (Component c) {
         components.remove(c);
     }
     
-    public int getID() {
-    		return this.ID;
-    }
     
     /**
      * Sets health, because every entity should always have health.
@@ -67,6 +62,6 @@ public abstract class Entity {
 		this.add(new Position(this.getID(),x,y));
 	}
 	
-	
+	public abstract void addDefaultComponents();
     
 }

@@ -51,7 +51,7 @@ public class Acceleration extends Component {
 
 	@Override
 	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<>(){{
+		List<String[]> parameters = new ArrayList<String[]>(){{
 		     add(new String[] {"xAcc","double"});
 		     add(new String[] {"yAcc","double"});
 		}};

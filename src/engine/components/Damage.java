@@ -45,7 +45,7 @@ public class Damage extends Component {
 
 	@Override
 	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<>() {{
+		List<String[]> parameters = new ArrayList<String[]>(){{
 		     add(new String[] {"damage","double"});
 		     add(new String[] {"lifetime","double"});
 		}};

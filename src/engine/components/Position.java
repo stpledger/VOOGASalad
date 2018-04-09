@@ -49,7 +49,7 @@ public class Position extends Component {
 	
 	@Override
 	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<>(){{
+		List<String[]> parameters = new ArrayList<String[]>(){{
 		     add(new String[] {"xPos","double"});
 		     add(new String[] {"yPos","double"});
 		}};

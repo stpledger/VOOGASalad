@@ -34,7 +34,6 @@ public class LocalPropertiesView extends PropertiesView {
 		for (String property : getClassesInPackage(PROPERTIES_PACKAGE)) {
 			Label componentLabel = new Label(property);
 			this.getRoot().add(componentLabel, 0, currentRow);
-			// Text field should only accept numeric values
 			NumberField number = new NumberField();
 			this.getRoot().add(number, 1, currentRow++);
 		}
