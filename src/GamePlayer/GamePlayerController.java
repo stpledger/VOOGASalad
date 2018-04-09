@@ -3,6 +3,8 @@ package GamePlayer;
 import HUD.SampleToolBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -15,10 +17,14 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class GamePlayerController {
 	private final int WIDTH_SIZE = 800;
 	private final int HEIGHT_SIZE = 400;
+	public final int FRAMES_PER_SECOND = 60;
+	public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+	public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private Scene myScene;
 	private Group group;
 	private BorderPane pane = new BorderPane();
@@ -37,6 +43,19 @@ public class GamePlayerController {
 		myScene = setupScene();
 		myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
 		return myScene;
+	}
+	
+	/**
+	 * Begins the animation cycle count of the animation.
+	 */
+	public void initializeGameAnimation() {
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
+				e -> step(SECOND_DELAY, firstroot));
+		Timeline animation = new Timeline();
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
+		
 	}
 	
 
