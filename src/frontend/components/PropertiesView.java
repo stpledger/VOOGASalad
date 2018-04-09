@@ -35,7 +35,7 @@ public abstract class PropertiesView {
 	/**
 	 * Opens the Property Editor window.
 	 */
-	protected void open(ArrayList<String> arrayList) {
+	protected void open() {
 		Stage stage = new Stage();
 		stage.setTitle(this.title());
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
@@ -46,7 +46,7 @@ public abstract class PropertiesView {
 	 * Fills the window with the appropriate names and fields.
 	 * @param fields a map with component names that map {@code true} if the box should be strictly numeric, and {@code false} if not.
 	 */
-	protected abstract void fill();
+	protected abstract void fill(List<String> props);
 
 	/**
 	 * Get the title that this window should display.
