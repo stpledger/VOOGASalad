@@ -13,6 +13,7 @@ public class FileUploadButton extends Button {
 	
 		private final String BUTTON_NAME = "Upload"; //change to a resource file
 		private File uploadedFile;
+		private Boolean fileBoolean = false;
 		
 		public FileUploadButton() {
 			this.setText(BUTTON_NAME);
@@ -41,10 +42,15 @@ public class FileUploadButton extends Button {
 	        		uploadedFile = file;
 	        		System.out.println("File Uploaded");
 	        }
-	       
+	        fileBoolean = true; //game file has been uploaded
+	        
 		}
 		
 		public File getFile() {
 			return uploadedFile;
+		}
+		
+		public Boolean getFileBoolean() {
+			return fileBoolean;
 		}
 }	
