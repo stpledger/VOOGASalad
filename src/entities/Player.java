@@ -19,6 +19,7 @@ public class Player extends Entity {
 	 */
 	public Player(int ID) {
 		super(ID);
+		addDefaultComponents();
 	}
 
 	/**
@@ -28,7 +29,6 @@ public class Player extends Entity {
 	public void addDefaultComponents() {
 		this.add(ComponentBuilder.buildComponent(this.getID(), "EntityType", Arrays.asList(new String[] {TYPE})));
 		this.add(ComponentBuilder.buildComponent(this.getID(), "Health", Arrays.asList(new String[] {"100"})));
-		
 	}
 
 }

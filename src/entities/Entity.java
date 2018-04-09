@@ -26,6 +26,8 @@ public abstract class Entity {
         this.ID = ID;
         components = new ArrayList<>();
     }
+    
+    public abstract void addDefaultComponents();
 
     public void add(Component c) {
         components.add(c);
@@ -54,15 +56,17 @@ public abstract class Entity {
 	public void setPosition(double x, double y) {
 		this.add(ComponentBuilder.buildComponent(this.getID(), "Position", Arrays.asList(new String[] {Double.toString(x),Double.toString(y)})));
 	}
-	    
-    public abstract void addDefaultComponents();
-    
+	
+	public void setEntityType(String type) {
+		this.add(ComponentBuilder.buildComponent(this.getID(), "EntityType", Arrays.asList(new String[] {type})));
+	}
+	        
     public int getID() {
     	return this.ID;
     }
     
     public List<Component> getComponentList(){
-    	return components;
+    	return this.components;
     }
 
 }
