@@ -21,7 +21,6 @@ public class MainView {
 	
 	public MainView() {
 		border = new BorderPane();
-		toolbar = new Toolbar();
 		gameEnvironmentView = new GameEnvironmentView();
 		componentView = new EntityView();
 	}
