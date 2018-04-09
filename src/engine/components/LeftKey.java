@@ -1,13 +1,16 @@
 package engine.components;
 
-import javafx.scene.input.KeyCode;
+import java.util.Map;
 
 public class LeftKey implements IKeyInput{
+	  private static final double X_VEL=-50;
+	  private static final String CODE_NAME = "LEFT";
 
 	@Override
-	public void execute(KeyCode code) {
-		if(code == KeyCode.LEFT) {
-			
+	public void execute(String code, Map<String, Component> entityComponents) {
+		if(code == CODE_NAME) {
+		Velocity vel =(Velocity) entityComponents.get("Velocity");
+		vel.setXVel(X_VEL);
 		}
 		
 	}
