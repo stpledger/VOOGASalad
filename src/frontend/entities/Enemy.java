@@ -1,4 +1,4 @@
-package entities;
+package frontend.entities;
 
 import java.util.Arrays;
 
