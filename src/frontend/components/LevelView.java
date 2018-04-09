@@ -33,7 +33,7 @@ public class LevelView extends ScrollPane {
 			public void handle(MouseEvent event) {
 				MouseButton button = event.getButton();
 				if(button == MouseButton.SECONDARY) {
-					LevelPropertiesView lView = new LevelPropertiesView(levelNum, broadcast, level.getPropertyList());
+					LevelPropertiesView lView = new LevelPropertiesView(levelNum, level.getPropertyList());
 					lView.open();
 				}
 			}

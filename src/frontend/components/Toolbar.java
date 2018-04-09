@@ -2,7 +2,6 @@ package frontend.components;
 
 import java.util.ArrayList;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,6 +17,7 @@ import javafx.scene.layout.HBox;
  */
 public class Toolbar extends ViewComponent {
 	private HBox toolbar;
+	
 	private ArrayList<Node> toolbarNodes = new ArrayList<Node>();
 
 	
@@ -42,8 +42,6 @@ public class Toolbar extends ViewComponent {
 		put("Delete", "deleteTool");
 		put("Edit", "editTool");
 	}};
-	
-	
 	
 	public Toolbar() {
 		super();
