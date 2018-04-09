@@ -42,7 +42,6 @@ public class Toolbar extends MenuBar{
 			Set<Object> items = p.getValue().keySet();
 			
 		}
-		
 	}
 
 	/**
@@ -55,6 +54,7 @@ public class Toolbar extends MenuBar{
 		
 		return null;
 	}
+	
 	/**
 	 * Get all of the properties files located in the resources.menus folder
 	 * @return An ArrayList of Pairs that has the name of the menu and the properties of that menu
