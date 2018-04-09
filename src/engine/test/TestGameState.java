@@ -37,6 +37,7 @@ public class TestGameState {
 		KeyInput k = new KeyInput(0, null);
 		k.setOnAction(KeyCode.SPACE, (id) -> v.setXVel(v.getXVel()+10));
 
+
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(Position.getKey(), p);
 		mario.put(Dimension.getKey(), d);
