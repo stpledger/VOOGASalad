@@ -16,7 +16,6 @@ import javafx.util.Pair;
  *
  */
 public class Controller {
-	private ArrayList<ViewComponent> myComponents = new ArrayList<ViewComponent>();
 	
 	/**
 	 * Handles all of the calls from one ViewComponent that must be invoked in another ViewComponent.
@@ -83,6 +82,4 @@ public class Controller {
 			}
 		}
 	}
-	
-	
 }

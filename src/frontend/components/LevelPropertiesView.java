@@ -26,7 +26,7 @@ public class LevelPropertiesView extends PropertiesView{
 	}
 
 	@Override
-	protected void fill(List<String> props) {
+	protected void fill() {
 		int currentRow = 0;
 		for (String property : props) {
 			System.out.println(property);

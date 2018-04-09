@@ -11,7 +11,7 @@ import javafx.scene.layout.BorderPane;
  * @author Collin Brown(cdb55)
  *
  */
-public class MainView{
+public class MainView {
 	private BorderPane border;
 	private Toolbar toolbar;
 	private GameEnvironmentView gameEnvironmentView;
