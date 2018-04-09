@@ -35,6 +35,7 @@ public class GamePlayerEntityView {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
 		entityMap = gameState.getGameState();
+		initializeGamePlayerEntityView();
 	}
 	
 	/**
@@ -55,13 +56,12 @@ public class GamePlayerEntityView {
 	}
 	
 	/**
-	 * 
+	 * initialize the Game Initializer to create the systemManager and renderManager.
 	 */
 	private void initializeGamePlayerEntityView() {
 		gameInitializer = new GameInitializer(entityMap);
 		systemManager = gameInitializer.getSM();
 		renderManager = gameInitializer.getRM();
-		
 	}
 
 	
