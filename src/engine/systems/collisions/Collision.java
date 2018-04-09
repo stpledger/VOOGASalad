@@ -1,10 +1,6 @@
 package engine.systems.collisions;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import engine.components.Component;
 import engine.components.Dimension;
@@ -80,6 +76,11 @@ public class Collision implements ISystem {
 		if(colliders.containsKey(pid)) {
 			colliders.remove(pid);
 		}
+	}
+
+	@Override
+	public void setActives(Set<Integer> actives) {
+		//put in active listeners
 	}
 
 	public void addComponent(int pid, Map<String, Component> components) {

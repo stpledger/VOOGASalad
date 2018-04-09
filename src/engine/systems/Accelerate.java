@@ -1,9 +1,6 @@
 package engine.systems;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import engine.components.Acceleration;
 import engine.components.Component;
@@ -23,6 +20,7 @@ public class Accelerate implements ISystem {
 	private static final int VELOCITY_INDEX = 1;
 
 	private Map<Integer, List<Component>> handledComponents = new HashMap<>();
+	private Set<Integer> activeComponents;
     
 	/**
 	 * Adds acceleration and velocity components from <String, Component> Map
@@ -51,20 +49,27 @@ public class Accelerate implements ISystem {
     	}
     }
 
-    /**
+	@Override
+	public void setActives(Set<Integer> actives) {
+		activeComponents = actives;
+	}
+
+	/**
      * Updates velocity values based on Acceleration component
      * 
      *  @param time	Update time for game loop
      */
 	public void execute(double time) {
-		for (int pid : handledComponents.keySet()) {
-			List<Component> activeComponents = handledComponents.get(pid);
+		for (int pid : activeComponents) {
+			if (handledComponents.containsKey(pid)) {
+				List<Component> activeComponents = handledComponents.get(pid);
 
-			Acceleration a = (Acceleration) activeComponents.get(ACCELERATION_INDEX);
-			Velocity v = (Velocity) activeComponents.get(VELOCITY_INDEX);
+				Acceleration a = (Acceleration) activeComponents.get(ACCELERATION_INDEX);
+				Velocity v = (Velocity) activeComponents.get(VELOCITY_INDEX);
 
-			v.setXVel(v.getXVel() + a.getxAcc()*time);
-			v.setYVel(v.getYVel() + a.getyAcc()*time);
+				v.setXVel(v.getXVel() + a.getxAcc()*time);
+				v.setYVel(v.getYVel() + a.getyAcc()*time);
+			}
 		}
 	}
 
