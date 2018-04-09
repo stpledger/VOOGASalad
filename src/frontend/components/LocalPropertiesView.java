@@ -13,13 +13,16 @@ public class LocalPropertiesView extends PropertiesView {
 	
 	private final String PROPERTIES_PACKAGE = "engine.components";
 	private Broadcast broadcast;
+	private int entityNumber;
+	
 	/**
 	 * Initialize the object with a given broadcast method
 	 * @param broadcast the broadcast to be added
 	 */
-	public LocalPropertiesView(Broadcast broadcast) {
+	public LocalPropertiesView(int entityNumber, Broadcast broadcast) {
 		super();
 		this.broadcast = broadcast;
+		this.entityNumber = entityNumber;
 	}
 	
 	/**
@@ -28,13 +31,11 @@ public class LocalPropertiesView extends PropertiesView {
 	@Override
 	protected void fill() {
 		int currentRow = 0;
-		for (String property : super.getClassesInPackage(PROPERTIES_PACKAGE)) {
+		for (String property : getClassesInPackage(PROPERTIES_PACKAGE)) {
 			Label componentLabel = new Label(property);
-			getRoot().add(componentLabel, 0, currentRow);
-			// Text field should only accept numeric values
+			this.getRoot().add(componentLabel, 0, currentRow);
 			NumberField number = new NumberField();
-			getRoot().add(number, 1, currentRow);
-			currentRow++;
+			this.getRoot().add(number, 1, currentRow++);
 		}
 	}
 	
@@ -44,7 +45,7 @@ public class LocalPropertiesView extends PropertiesView {
 	 */
 	@Override
 	public String title() {
-		return "Local Properties";
+		return String.format("Entity %d Local Properties", this.entityNumber);
 	}
 	
 }
