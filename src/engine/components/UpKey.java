@@ -2,17 +2,16 @@ package engine.components;
 
 import java.util.Map;
 
-public class LeftKey implements IKeyInput{
-	  private static final double X_VEL=-50;
-	  private static final String CODE_NAME = "LEFT";
+public class UpKey implements IKeyInput {
+	 private static final double Y_VEL=50;
+	  private static final String CODE_NAME = "UP";
 
 	@Override
 	public void execute(String code, Map<String, Component> entityComponents) {
 		if(code == CODE_NAME) {
 		Velocity vel =(Velocity) entityComponents.get("Velocity");
-		vel.setXVel(X_VEL);
+		vel.setYVel(Y_VEL);
 		}
 		
 	}
-
 }
