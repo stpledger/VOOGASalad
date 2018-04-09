@@ -1,5 +1,9 @@
 package engine.components;
-
+/**
+ * Component that indicates that the entity has action when the key corresponding to String LEFT is pressed.
+ * It changes xVelocity of the entity
+ * @author Stefani Vukajlovic
+ */
 import java.util.Map;
 
 public class LeftKey implements IKeyInput{
