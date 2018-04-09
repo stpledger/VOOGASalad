@@ -43,7 +43,7 @@ public class GamePlayerController {
 		fileBtn.getFileBooleanProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				initializeGameStart();
+				initializeGameStart(); //begin the game
 			}
 		});
 		SampleToolBar sampleBar = new SampleToolBar();
