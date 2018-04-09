@@ -1,6 +1,7 @@
 package frontend.components;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -17,6 +18,7 @@ import java.util.TreeMap;
 import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.util.Pair;
 /**
@@ -33,15 +35,15 @@ public class Toolbar extends MenuBar{
 		addMenus(getMenuProperties());
 	}
 	
-	
+	/**
+	 * Add all of the menus outlined in the resources.menus package to the menuBar
+	 * @param menuProperties
+	 */
 	private void addMenus(ArrayList<Pair<String,Properties>> menuProperties) {
 		ArrayList<Pair<String,Properties>> tempMenuProperties = menuProperties;
 		for(Pair<String, Properties> p: tempMenuProperties) {
-			Menu m = new Menu();
-			m.setText(p.getKey());
-			Set<Object> items = p.getValue().keySet();
-			
-		}
+			this.getMenus().add((createMenu(p.getKey(),p.getValue())));
+			}
 	}
 
 	/**
@@ -50,9 +52,16 @@ public class Toolbar extends MenuBar{
 	 * @param items the items in a given menu
 	 * @return a Node with the menu
 	 */
-	private Menu createMenu(Properties p) {
-		
-		return null;
+	private Menu createMenu(String s, Properties p) {
+		Menu m = new Menu();
+		m.setText(s);
+		Set<Object> items = p.keySet();
+		for(Object o : items) {
+			MenuItem menuItem = new MenuItem();
+			menuItem.setText(p.getProperty((String) o));
+			m.getItems().add(menuItem);
+		}
+		return m;
 	}
 	
 	/**
@@ -61,19 +70,17 @@ public class Toolbar extends MenuBar{
 	 */
 	private ArrayList<Pair<String,Properties>> getMenuProperties(){
 		ArrayList<Pair<String,Properties>> menuProperties = new ArrayList<Pair<String,Properties>>();
-		File menuFolder = new File("resources/menus");
+		File menuFolder = new File("src/resources/menus");
 		File[] menuFiles = menuFolder.listFiles();
 		for(File f : Arrays.asList(menuFiles)) {
 			Properties p = new Properties();
-			InputStream in = this.getClass().getResourceAsStream(f.getPath());
 			try {
-				p.load(in);
-				in.close();
+				p.load(new FileInputStream(f));
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			menuProperties.add(new Pair(f.getName(),p));
+			menuProperties.add(new Pair(f.getName().replace(".properties", ""),p));
 		}
 		return menuProperties;	
 	}
