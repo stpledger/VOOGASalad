@@ -1,6 +1,8 @@
 package engine.components;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,10 +20,10 @@ public class Velocity extends Component {
      * @param YVel 		entity's initial YVel
      * @param gravAcc	entity's gravity acceleration
      **/
-    public Velocity (int pid, double XVel, double YVel) {
+    public Velocity (int pid, List<String> parameters) {
         super(pid);
-    		this.XVel = XVel;
-        this.YVel = YVel;
+    		this.XVel = Double.parseDouble(parameters.get(0));
+        this.YVel = Double.parseDouble(parameters.get(1));
     }
     
     public static String getKey() {
@@ -45,12 +47,12 @@ public class Velocity extends Component {
 	}
 	
 	@Override
-	public Map<String, String> getParameters(){
-		Map<String, String> map = new HashMap<>(){{
-		     put("xVel", "double");
-		     put("yVel", "double");
+	public List<String[]> getParameters(){
+		List<String[]> parameters = new ArrayList<>(){{
+		     add(new String[] {"xVel","double"});
+		     add(new String[] {"yVel","double"});
 		}};
 		
-		return map;
+		return parameters;
 	}
 }

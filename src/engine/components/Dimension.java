@@ -1,6 +1,8 @@
 package engine.components;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -12,10 +14,10 @@ import java.util.Map;
 public class Dimension extends Component{
 	private double height,width;
 	
-	public Dimension(int pid, double width, double height) {
+	public Dimension(int pid, List<String> parameters) {
 		super(pid);
-		this.height = height;
-		this.width = width;
+		this.height = Double.parseDouble(parameters.get(0));
+		this.width = Double.parseDouble(parameters.get(1));
 	}
 	
 	public static String getKey() {
@@ -47,12 +49,13 @@ public class Dimension extends Component{
 		this.width = width;
 	}
 	
-	public Map<String, String> getParameters(){
-		Map<String, String> map = new HashMap<>(){{
-		     put("width", "double");
-		     put("height", "double");
+	@Override
+	public List<String[]> getParameters(){
+		List<String[]> parameters = new ArrayList<>(){{
+		     add(new String[] {"width","double"});
+		     add(new String[] {"height","double"});
 		}};
 		
-		return map;
+		return parameters;
 	}
 }

@@ -1,9 +1,7 @@
 package engine.components;
-
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.ArrayList;
+import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -15,12 +13,13 @@ public class Sprite extends Component {
 
 	private ImageView image;
 	
-	public Sprite(int pid, String filename) throws FileNotFoundException {
+	public Sprite(int pid, List<String> parameters) throws FileNotFoundException {
 		super(pid);
 		Image im;
 		try {
-			im = new Image(filename);
+			im = new Image(parameters.get(0));
 		} catch (Exception e) {
+			System.out.println("Can not find image files");
 			throw new FileNotFoundException();
 		}
 		image = new ImageView(im);
@@ -43,11 +42,11 @@ public class Sprite extends Component {
 	}
 	
 	@Override
-	public Map<String, String> getParameters(){
-		Map<String, String> map = new HashMap<>(){{
-		     put("filename", "String");
+	public List<String[]> getParameters(){
+		List<String[]> parameters = new ArrayList<>(){{
+		     add(new String[] {"filename","string"});
 		}};
 		
-		return map;
+		return parameters;
 	}
 }

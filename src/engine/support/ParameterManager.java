@@ -1,28 +1,33 @@
 package engine.support;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 import engine.components.Component;
 import java.lang.reflect.*;
+
+/**
+ * Class used to get information for required component class, and build component instances.
+ * Support the creation of component instances in authoring environment.
+ * @author Yameng
+ */
 public class ParameterManager {
 	public ParameterManager() {
 		
 	}
 	
 	/**
-	 * get name, type and number of parameters the component needs
-	 * @param component name of component
-	 * @return a map: name of parameters -> type of parameters
+	 * Get name, type and number of parameters the component constructor requires.
+	 * Return an empty list if given component class does not exist
+	 * @param component name of component class
+	 * @return a list of string[]: ["name of parameter", "type of parameter"]
 	 */
-	public static Map<String, String> getParameters(String component){
-		Map<String, String> parameters = new HashMap<>();
+	public static List<String[]> getParameters(String component){
+		List<String[]> parameters = new ArrayList<>();
 		Class<?> cls;
 		try {
 			cls = Class.forName(component);
 			Method method = cls.getDeclaredMethod("getParameters");
-			parameters = (Map<String, String>) method.invoke(null);
+			parameters = (List<String[]>) method.invoke(null);
 		} catch (ClassNotFoundException e) {
 			System.out.println("Missing component class error");
 		}
@@ -36,37 +41,63 @@ public class ParameterManager {
 	}
 	
 	/**
-	 * build components instances based on parameters inputs 
-	 * return null if parameters inputs are invalid
+	 * Build components instances based on inputs of parameters 
+	 * Return null if parameters inputs are invalid
 	 * @param pid parent id
 	 * @param component name of component class
 	 * @param parameters parameters inputs
 	 * @return component instance
 	 */
-	public static Component buildComponent(int pid, String component, List<Object> parameters) {
-		if(!isValid(component, parameters)) {
+	public static Component buildComponent(int pid, String component, List<String> inputs) {
+		if(!isValid(component, inputs)) {
+			System.out.println("Input type is invalid!");
 			return null;
 		}
 		
-		//build component here
-		return ComponentBuilder.buildComponent(pid,component, parameters);
+		Component res = ComponentBuilder.buildComponent(pid,component,inputs);
+		if(res == null) {
+			System.out.println("Can not build a "+component+" component");
+		}
+		return res;
 	}
 	
-	private static boolean isValid(String component, List<Object> parameters) {
-		Map<String, String> map = getParameters(component);
+	private static boolean isValid(String component, List<String> inputs) {
+		List<String[]> parameters = getParameters(component);
 		int index = 0;
-		for(Map.Entry<String, String> entry: map.entrySet()) {
-			String type = entry.getValue();
-			Object object = parameters.get(index);
-			if(!compareType(object, type)) {
+		if(parameters.size() != inputs.size()) {
+			return false;
+		}
+		for(int i = 0; i < parameters.size(); i++) {
+			String type = parameters.get(i)[1];
+			String input = inputs.get(i);
+			if(!compareType(input,type)) {
 				return false;
 			}
-			index++;
 		}
 		return true;	
 	}
 	
-	private static boolean compareType(Object object, String type) {
-		return false;
+	/**
+	 * Check if type of object equals to type string
+	 * @param object
+	 * @param type
+	 * @return true or false
+	 */
+	private static boolean compareType(String input, String type) {
+		try {
+			if(type.equals("double")) {
+				Double.parseDouble(input);
+				return true;
+			}
+			else if(type.equals("String")) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}catch(Exception e) {
+			System.out.println("Input parameter " + input+" is invalid!");
+			return false;
+		}
 	}
 }
