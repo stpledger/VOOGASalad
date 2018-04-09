@@ -1,7 +1,5 @@
 package engine.components;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -15,12 +13,12 @@ public class Sprite extends Component {
 	//@XStreamOmitField
 	private ImageView image;
 	
-	public Sprite(int pid, List<String> parameters) throws FileNotFoundException {
+	public Sprite(int pid, String filename) throws FileNotFoundException {
 		super(pid);
 		this.filename = filename;
 		Image im;
 		try {
-			im = new Image(parameters.get(0));
+			im = new Image(filename);
 		} catch (Exception e) {
 			System.out.println("Can not find image files");
 			throw new FileNotFoundException();
@@ -46,12 +44,4 @@ public class Sprite extends Component {
 		}
 	}
 	
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<>(){{
-		     add(new String[] {"filename","string"});
-		}};
-		
-		return parameters;
-	}
 }
