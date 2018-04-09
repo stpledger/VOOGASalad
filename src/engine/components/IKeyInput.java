@@ -1,7 +1,7 @@
 package engine.components;
 
-import javafx.scene.input.KeyCode;
+import java.util.Map;
 
 public interface IKeyInput {
-      public void  execute(KeyCode code);
+      public void execute(String code, Map<String, Component> entityComponents);
 }
