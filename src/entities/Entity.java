@@ -2,10 +2,7 @@ package entities;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-
 import java.util.List;
-
-
 import java.util.HashMap;
 
 import engine.components.Component;
@@ -34,19 +31,15 @@ public abstract class Entity {
         this.ID = ID;
         components = new ArrayList<>();
     }
-
-    public Component get (String name) {
-        return components.get(name);
+    
+    public int getID() {
+    	return this.ID;
     }
 
-    public boolean contains (String name) {
-        return components.containsKey(name);
+    public void add (Component c) {
+        components.add(c);
     }
-
-    public void add (String name, Component c) {
-        components.put(name, c);
-
-
+    
     public void remove (Component c) {
         components.remove(c);
     }
