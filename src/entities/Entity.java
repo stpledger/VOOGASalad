@@ -52,11 +52,11 @@ public abstract class Entity {
      * @param health
      */
 	public void setHealth(double health) {
-		this.add(new Health(this.getID(),health));
+		this.add();
 	}
 	
 	public void setSprite(String filename) throws FileNotFoundException {
-		this.add(new Sprite(this.getID(),filename));
+		this.add();
 	}
 	
 	public void setDimension(double width, double height) {
