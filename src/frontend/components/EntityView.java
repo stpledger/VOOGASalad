@@ -17,8 +17,7 @@ import java.util.function.Consumer;
 import javax.imageio.ImageIO;
 import javax.swing.event.ChangeEvent;
 
-import com.sun.beans.finder.ClassFinder;
-import com.sun.prism.paint.Color;
+//import com.sun.beans.finder.ClassFinder;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -112,7 +111,6 @@ public class EntityView extends BorderPane {
 	
 	/**
 	 * Gets all of the class names from a given package. Useful when determining which properties can be changed.
-	 * @param pckgname name of the package in which to look for these properties
 	 * @return a String array of classes from a given package
 	 */
 	protected String[] getEntitiesInEntitiesPackage() {
@@ -144,8 +142,8 @@ public class EntityView extends BorderPane {
 	
 	/**
 	 * Builds the class name to fully represent a given class
-	 * @param pckgname the package to look for the class ine
-	 * @param filename the name of the class file
+	 * @param pckgName the package to look for the class ine
+	 * @param fileName the name of the class file
 	 * @return a String representing the fully-qualified class name
 	 */
     private String buildClassname(String pckgName, String fileName) {
@@ -158,7 +156,6 @@ public class EntityView extends BorderPane {
 		@Override
 		public void changed(ObservableValue clipboardObject, Object oldValue, Object newValue) {
 			clipboardHandler.accept(newValue);
-
 		}
 	}
 

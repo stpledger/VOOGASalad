@@ -4,14 +4,20 @@ package engine.test;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 
+import java.io.FileNotFoundException;
+
 public class TestPlayer {
 
 	TestGameState tgs;
 	
 	public TestPlayer() {
-		tgs = new TestGameState();
+		try {
+			tgs = new TestGameState();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	public Scene getScene() {
 		Group root = new Group();
 		Scene s = new Scene(root, 600, 600);
