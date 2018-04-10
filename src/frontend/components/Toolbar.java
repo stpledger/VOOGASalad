@@ -14,7 +14,10 @@ import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.function.Consumer;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -28,13 +31,15 @@ import javafx.util.Pair;
  */
 public class Toolbar extends MenuBar{
 	private String toolbarName;
-	private ArrayList<Node> toolbarNodes = new ArrayList<Node>();
+	private Map<String,Consumer> consumerMap;
+	
 	/**
 	 * Creates a Toolbar based on all of the .properties files saved in the directory src/res/~name~
 	 * @param name
 	 */
-	public Toolbar(String name) {
+	public Toolbar(String name,  Map<String,Consumer> cm) {
 		super();
+		consumerMap = cm;
 		toolbarName = name;
 		this.getStyleClass().add("toolbar");
 		addMenus(getMenuProperties());
@@ -64,6 +69,7 @@ public class Toolbar extends MenuBar{
 		for(Object o : items) {
 			MenuItem menuItem = new MenuItem();
 			menuItem.setText(p.getProperty((String) o));
+			menuItem.setOnAction((e)->consumerMap.get(o).accept(e));
 			m.getItems().add(menuItem);
 		}
 		return m;

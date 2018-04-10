@@ -192,11 +192,7 @@ public class EntityBuilderView{
 			saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-<<<<<<< HEAD
 					//TODO: Make this save the entity
-=======
-//					broadcast.setMessage("saveEntity", new Object[] {myEntityType, imageFile});
->>>>>>> d5cb50ad7a72d7d22708124d0105fda504e64f91
 					stage.close();
 					
 				}

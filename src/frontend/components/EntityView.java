@@ -6,9 +6,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
 import javax.swing.event.ChangeEvent;
@@ -36,12 +39,20 @@ public class EntityView extends BorderPane {
 	private Object clipboard;
 	private ArrayList<String> entityTypes = new ArrayList<String>();
 	private TabPane tabPane = new TabPane();
+	Consumer c = (e) -> {
+		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
+		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);
+	};
+	private Map<String, Consumer> consumerMap = new HashMap<String,Consumer>(){{
+		this.put("newEntity", c);
+	}};
+	
 	
 	public EntityView() {
 		super();
 		this.setPrefWidth(entityViewWidth);
 		this.getStyleClass().add("entity-view");
-		this.setTop(new Toolbar("Entity"));
+		this.setTop(new Toolbar("Entity", consumerMap));
 		this.setCenter(tabPane);
 	}
 	
@@ -52,14 +63,6 @@ public class EntityView extends BorderPane {
 			tabPane.getTabs().add(temp);
 	}
 	
-	/**
-	 * Opens the window to create a new entity
-	 */
-	public void createEntity() {
-		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
-		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);			
-
-	}
 	/**
 	 * Opens the window to delete an entity
 	 */
@@ -104,7 +107,7 @@ public class EntityView extends BorderPane {
 	 * @return a String array of classes from a given package
 	 */
 	protected String[] getEntitiesInEntitiesPackage() {
-		String pckgName = "entities";
+		String pckgName = "frontend/entities";
         ClassLoader cld = Thread.currentThread().getContextClassLoader();
         if (cld == null) {
             throw new IllegalStateException("Can't get class loader.");
