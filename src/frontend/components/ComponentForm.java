@@ -34,7 +34,7 @@ public class ComponentForm extends GridPane {
 		fields = new ArrayList<>();
 		int col = 0;
 		this.add(new Label(name), col++, 0);
-		for (int i = 0; i < numFields; i++) {
+		for (int i = 0; i < (numFields-1); i++) {
 			TextField tf = new TextField();
 			this.add(tf, col++, 0);
 		}
@@ -47,7 +47,7 @@ public class ComponentForm extends GridPane {
 	 */
 	public Component buildComponent() {
 		String fullName =  COMPONENT_PREFIX + this.name;
-		Object[] params = new Object[numFields];
+		Object[] params = new Object[fields.size()];
 		for (int i = 0; i < numFields; i++) {
 			params[i] = fields.get(i).getText();
 		}

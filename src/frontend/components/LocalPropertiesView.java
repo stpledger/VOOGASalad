@@ -66,6 +66,9 @@ public class LocalPropertiesView extends PropertiesView {
 		try {
 			Class clazz = Class.forName(fullName);
 			Constructor cons = clazz.getDeclaredConstructors()[0];
+			// subtract one because the first parameter is ALWAYS the parent ID of the entity
+			int prop = cons.getParameterCount() - 1;
+			System.out.println(prop);
 			return cons.getParameterCount();
 		} catch (ClassNotFoundException e) {
 			// TODO better exception
