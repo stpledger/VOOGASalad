@@ -64,7 +64,7 @@ public class TestGameState {
 		Velocity v3 = new Velocity(2,0,10);
 		Acceleration a3 = new Acceleration(1, 0, 0);
 
-		TestKeyInput tki = new TestKeyInput(2, "left", list ->  {
+		KeyInput tki = new KeyInput(2, KeyCode.LEFT, list ->  {
 			((Velocity) list.get("Velocity")).setYVel(1000);
 		});
 		
