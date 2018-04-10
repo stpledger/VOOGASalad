@@ -8,7 +8,7 @@ import javafx.scene.layout.BorderPane;
  * @author Collin Brown(cdb55)
  *
  */
-public class MainView{
+public class MainView {
 	private BorderPane border;
 	private Toolbar toolbar;
 	private GameEnvironmentView gameEnvironmentView;
@@ -21,7 +21,6 @@ public class MainView{
 	
 	public MainView() {
 		border = new BorderPane();
-		toolbar = new Toolbar();
 		gameEnvironmentView = new GameEnvironmentView();
 		componentView = new EntityView();
 	}

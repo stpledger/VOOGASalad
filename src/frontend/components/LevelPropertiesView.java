@@ -14,6 +14,7 @@ public class LevelPropertiesView extends PropertiesView{
 	private final String LEVELS_PACKAGE = "engine.components";
 	private final String RESOURCES = "resources/";
 	
+
 	public LevelPropertiesView(int level) {
 		super();
 		levelNum = level;
