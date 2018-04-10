@@ -1,10 +1,7 @@
 package engine.systems;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import engine.components.Component;
 import engine.components.Position;
@@ -23,7 +20,7 @@ public class Motion implements ISystem {
     private static final int POSITION_INDEX = 1;
 
     private Map<Integer, List<Component>> handledComponents = new HashMap<>();
-    private List<Component> activeComponents;
+    private Set<Integer> activeComponents;
 
     public void addComponent(int pid, Map<String, Component> components) {
 		if (components.containsKey(Velocity.getKey()) && components.containsKey(Position.getKey())) {
@@ -33,31 +30,39 @@ public class Motion implements ISystem {
 			handledComponents.put(pid, newComponents);
 		}
     }
-    
+
     /**
      * Removes position and velocity component from system map
      * @param pid parent ID of Velocity component to be removed
      */
     @Override
     public void removeComponent(int pid) {
+
         if(handledComponents.containsKey(pid)) {
             handledComponents.remove(pid);
         }
     }
 
-        /**
-         * Apply changes in velocities to positions
-         */
-        public void execute(double time) {
-            for (int pid : handledComponents.keySet()) {
-                activeComponents = handledComponents.get(pid);
 
-                Velocity v = (Velocity) activeComponents.get(VELOCITY_INDEX);
-                Position p = (Position) activeComponents.get(POSITION_INDEX);
+    public void setActives(Set<Integer> actives) {
+        activeComponents = actives;
+    }
+
+    /**
+     * Apply changes in velocities to positions
+     */
+    public void execute(double time) {
+        for (int pid : activeComponents) {
+            if (handledComponents.containsKey(pid)) {
+                List<Component> components = handledComponents.get(pid);
+
+                Velocity v = (Velocity) components.get(VELOCITY_INDEX);
+                Position p = (Position) components.get(POSITION_INDEX);
 
                 p.setXPos(p.getXPos() + v.getXVel()*time);
                 p.setYPos(p.getYPos() + v.getYVel()*time);
             }
         }
-
     }
+
+}

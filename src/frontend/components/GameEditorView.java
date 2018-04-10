@@ -6,16 +6,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
-import com.sun.glass.ui.Cursor;
-
 import frontend.gamestate.*;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -32,7 +27,7 @@ import GamePlayer.Main;
  *
  */
 public class GameEditorView extends BorderPane {
-	private static final String GAMEFILEEXTENSION = ".xml";
+	private static final String GAME_FILE_EXTENSION = ".xml";
 	private ArrayList<Tab> tabsList;
 	private Object clipboard;
 	private String activeTool;
@@ -55,14 +50,6 @@ public class GameEditorView extends BorderPane {
 		state = new GameState();
 		addLevel(); // add the first level
 		this.setCenter(tabPane);
-		this.setOnMouseClicked(e -> {
-			if (e.getButton().equals(MouseButton.PRIMARY)) {
-				if (e.getClickCount() == 2) {
-					PropertiesView LPV = new LocalPropertiesView(1);
-					LPV.open();
-				}
-			}
-		});
 	}
 	
 	/**
@@ -74,7 +61,7 @@ public class GameEditorView extends BorderPane {
 	Consumer loadGame = (e)->{
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Image File");
-		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", GAMEFILEEXTENSION));
+		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", GAME_FILE_EXTENSION));
 		gameFile = fileChooser.showOpenDialog(new Stage());};
 	//Handles save game call from toolbar
 	Consumer saveGame = (e)->{System.out.println("Save Game!");};

@@ -18,7 +18,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 
-import com.sun.xml.internal.bind.CycleRecoverable.Context;
+//mport com.sun.xml.internal.bind.CycleRecoverable.Context;
 
 import engine.components.Component;
 import engine.components.Sprite;

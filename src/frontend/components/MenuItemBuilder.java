@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
 
 /**
  * 
@@ -22,6 +23,18 @@ public class MenuItemBuilder {
 		MenuItem menuItem = new MenuItem(text);
 		menuItem.setOnAction(e->event.accept(null));
 		return menuItem;
+	}
+	
+	public static TextField buildTextField(String text, Consumer<Void> event, boolean isNumber) {
+		if(isNumber) {
+			NumberField field = new NumberField();
+			field.setOnAction(e->event.accept(null));
+			return field;
+		} else {
+			TextField field = new TextField(text);
+			field.setOnAction(e->event.accept(null));
+			return field;
+		}
 	}
 	
 }
