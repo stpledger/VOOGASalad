@@ -43,6 +43,15 @@ public class InputHandler implements ISystem {
     	}
 		
 	}
+	public void removeSpecificComponent(int pid, KeyCode code) {
+		if (handledComponents.containsKey(pid)) {
+			handledComponents.get(pid).forEach(comp-> {
+				if(comp.getCode()==code) {
+					handledComponents.remove(pid, comp);
+				}
+			});	
+		}
+	}
 
 	@Override
 	public void execute(double time) {
