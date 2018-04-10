@@ -45,7 +45,6 @@ public class HealthDamage implements ISystem {
 
 	public void execute(double time) {
 		activeComponents.forEach((key) -> {
-<<<<<<< HEAD
 			Map<String, Component> map = healthComponents.get(key);
 			Health h = (Health) map.get(Health.getKey());
 			if(map.containsKey(Damage.getKey())) {
@@ -59,19 +58,7 @@ public class HealthDamage implements ISystem {
 				if(d.getLifetime() == 0) {
 					healthComponents.remove(h.getParentID());
 				}
-=======
-			List<Component> list = healthComponents.get(key);
-			Health h = (Health) list.get(HEALTH_INDEX);
-			Damage d = (Damage) list.get(DAMAGE_INDEX);
 
-			if (h.getParentID()!=d.getParentID()) {
-				h.setHealth(h.getHealth() - d.getDamage());
-				d.decrementLife();
-			}
-
-			if(d.getLifetime() == 0) {
-				healthComponents.remove(h.getParentID());
->>>>>>> 9d2c61e58bf633d7fda5043bafe04e74d489d2b8
 			}
 			
 			if(h.getHealth() <= 0) {

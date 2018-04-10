@@ -42,7 +42,7 @@ public class DamageHandler {
 			}
 			else {
 				Damage damage = new Damage(newPid,newDamage,newLifetime);
-				//Entity add damage component
+				EntityManager.addComponent(playerID, Damage.getKey(), damage);
 			}
 		}
 	}

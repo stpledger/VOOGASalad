@@ -25,9 +25,5 @@ public class Health extends Component {
 	public void setHealth(double health) {
 		this.health = health;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> 9d2c61e58bf633d7fda5043bafe04e74d489d2b8
 
 }

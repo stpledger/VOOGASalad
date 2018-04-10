@@ -47,13 +47,8 @@ public class Accelerate implements ISystem {
 
 	@Override
 	public void setActives(Set<Integer> actives) {
-<<<<<<< HEAD
 	    	activeComponents = actives;
 	    	activeComponents.retainAll(handledComponents.keySet());
-=======
-    	activeComponents = actives;
-    	activeComponents.retainAll(handledComponents.keySet());
->>>>>>> 9d2c61e58bf633d7fda5043bafe04e74d489d2b8
 	}
 
 	/**
@@ -63,17 +58,10 @@ public class Accelerate implements ISystem {
      */
 	public void execute(double time) {
 		for (int pid : activeComponents) {
-<<<<<<< HEAD
 			Map<String,Component> activeComponents = handledComponents.get(pid);
 
 			Acceleration a = (Acceleration) activeComponents.get(Acceleration.getKey());
 			Velocity v = (Velocity) activeComponents.get(Velocity.getKey());
-=======
-			List<Component> activeComponents = handledComponents.get(pid);
-
-			Acceleration a = (Acceleration) activeComponents.get(ACCELERATION_INDEX);
-			Velocity v = (Velocity) activeComponents.get(VELOCITY_INDEX);
->>>>>>> 9d2c61e58bf633d7fda5043bafe04e74d489d2b8
 
 			v.setXVel(v.getXVel() + a.getxAcc()*time);
 			v.setYVel(v.getYVel() + a.getyAcc()*time);

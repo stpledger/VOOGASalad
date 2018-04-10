@@ -12,10 +12,6 @@ import javafx.scene.image.ImageView;
  * @author Yameng
  */
 public class Sprite extends Component {
-<<<<<<< HEAD
-=======
-
->>>>>>> 9d2c61e58bf633d7fda5043bafe04e74d489d2b8
 	public static String KEY = "Sprite";
 	private String filename;
 	//@XStreamOmitField
