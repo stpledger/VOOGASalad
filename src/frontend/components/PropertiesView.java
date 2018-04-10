@@ -55,28 +55,6 @@ public abstract class PropertiesView {
 	protected abstract String title();
 	
 	/**
-	 * Nested class to created a text field that only accepts numbers.
-	 * @param args
-	 */
-	class NumberField extends TextField {
-		@Override
-		public void replaceText(int start, int end, String text) {
-			if (isNumber(text))
-				super.replaceText(start, end, text);
-		}
-		
-		@Override
-		public void replaceSelection(String text) {
-			if (isNumber(text))
-				super.replaceSelection(text);
-		}
-		
-		private boolean isNumber(String input) {
-			return input.matches("[0-9]*");
-		}
-	}
-	
-	/**
 	 * Gets all of the class names from a given package. Useful when determining which properties can be changed.
 	 * @param pckgname name of the package in which to look for these properties
 	 * @return a String array of classes from a given package
