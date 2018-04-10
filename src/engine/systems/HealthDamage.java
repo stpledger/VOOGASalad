@@ -56,7 +56,7 @@ public class HealthDamage implements ISystem {
 				}
 
 				if(d.getLifetime() == 0) {
-					healthComponents.remove(h.getParentID());
+					EntityManager.removeComponent(key, Damage.getKey(), d);
 				}
 
 			}

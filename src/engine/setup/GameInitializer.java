@@ -22,7 +22,7 @@ public class GameInitializer {
         systems.add(new Motion());
         systems.add(new Animate());
         SM = new SystemManager(systems);
-        EM = new EntityManager(entities, SM);
+        EM = new EntityManager(entities);
         
         double renderDistance = 300.0;
         double renderCenterX = 50;
