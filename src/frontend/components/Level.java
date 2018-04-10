@@ -70,7 +70,6 @@ public class Level {
 
 	public void setLevelTime(double levelTime) {
 		this.levelTime = levelTime;
-		System.out.println("WE GOT IT!");
 	}
 
 	public double getLevelDistance() {
