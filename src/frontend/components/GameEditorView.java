@@ -128,6 +128,7 @@ public class GameEditorView extends BorderPane {
 	public void setClipboard(Object o) {
 		//TODO: add argument check because this is being called from the controller
 		clipboard = o;
+		System.out.println(o.toString());
 	}
 	
 	//TODO: change these class names

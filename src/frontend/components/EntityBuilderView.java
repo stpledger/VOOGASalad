@@ -114,33 +114,38 @@ public class EntityBuilderView{
 			}
 			this.getMenus().add(typeMenu);
 			
-			//Create a Load Image button
-			Button imageButton = new Button("Load Image");
-			imageButton.getStyleClass().add("entity-builder-view-button");
-			imageButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-
-				@Override
-				public void handle(MouseEvent event) {
-					FileChooser fileChooser = new FileChooser();
-					fileChooser.setTitle("Open Image File");
-					fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
-					imageFile = fileChooser.showOpenDialog(stage);
-					BufferedImage bufferedImage = null;
-					try {
-						bufferedImage = ImageIO.read(imageFile);
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	                image = SwingFXUtils.toFXImage(bufferedImage, null);
-					leftPanel.setNewImage(image);
-				}		
+			//Create the Image Menu
+			Menu imageMenu = new Menu();
+			imageMenu.setText("Image");
+			//Menu item for loading a new image
+			MenuItem addImage = new MenuItem();
+			addImage.setText("Add");
+			addImage.setOnAction((e)->{
+				FileChooser fileChooser = new FileChooser();
+				fileChooser.setTitle("Open Image File");
+				fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
+				imageFile = fileChooser.showOpenDialog(stage);
+				BufferedImage bufferedImage = null;
+				try {
+					bufferedImage = ImageIO.read(imageFile);
+				} catch (IOException x) {
+					// TODO Auto-generated catch block
+					x.printStackTrace();
+				}
+                image = SwingFXUtils.toFXImage(bufferedImage, null);
+				leftPanel.setNewImage(image);
 			});
-			this.getChildren().add(imageButton);
-			
-			
-			
-		}
+			imageMenu.getItems().add(addImage);	
+			MenuItem removeImage = new MenuItem();
+			removeImage.setText("Remove");
+			removeImage.setOnAction((e)->{
+				imageFile = null;
+				image = null;
+				leftPanel.setNewImage(new Image("Mario.png"));
+			});
+			imageMenu.getItems().add(removeImage);
+			this.getMenus().add(imageMenu);
+			}
 	}
 	/**
 	 * ScrollPane that holds the current properties of an Entity
