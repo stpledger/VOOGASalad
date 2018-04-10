@@ -40,7 +40,7 @@ public class DataRead {
         catch(Exception e){throw new IllegalStateException();}
     }
 
-    private static  GameState loadFile(Stage activeScreen) {
+    public static  GameState loadFile(Stage activeScreen) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         fileChooser.setInitialDirectory(new File(System.getProperty("user.dir")));

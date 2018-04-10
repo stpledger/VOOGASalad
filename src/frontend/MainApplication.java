@@ -15,7 +15,7 @@ import javafx.scene.Scene;
 /**
  * 
  * @author Collin Brown(cdb55)
- *
+ *d
  */
 public class MainApplication extends Application {
 
