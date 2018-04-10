@@ -17,6 +17,7 @@ public class FixedSteps extends GameLoop		// Again, NOT MINE, see GameLoop
         this.updater = updater;
         this.renderer = renderer;
         this.fpsReporter = fpsReporter;
+        this.renderer.run();
     }
 
     private static final float timeStep = 0.0166f;
@@ -44,7 +45,7 @@ public class FixedSteps extends GameLoop		// Again, NOT MINE, see GameLoop
             updater.accept(timeStep);
             accumulatedTime -= timeStep;
         }
-        renderer.run();
+
 
         secondsElapsedSinceLastFpsUpdate += secondsElapsed;
         framesSinceLastFpsUpdate++;
