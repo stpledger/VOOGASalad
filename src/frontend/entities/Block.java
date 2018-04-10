@@ -1,9 +1,5 @@
 package frontend.entities;
 
-import java.util.Arrays;
-
-import engine.support.ComponentBuilder;
-
 /**
  * 
  * @author Hemanth Yakkali
@@ -22,7 +18,7 @@ public class Block extends Entity{
 	@Override
 	public void addDefaultComponents() {
 		this.setHealth(BLOCK_HEALTH);
-		this.add(ComponentBuilder.buildComponent(this.getID(), "EntityType", Arrays.asList(new String[] {TYPE})));
+		this.setEntityType(TYPE);
 	}
 	
 }
