@@ -1,6 +1,21 @@
 package engine.systems;
+<<<<<<< HEAD
+/**
+ * A system that handles what happens when two entities collide, one having health component and the other damage
+ * @author Stefani Vukajlovic
+ */
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import java.util.*;
+=======
+
+
+import java.util.*;
+
+>>>>>>> 1b29115742bd5604061c98ff89ceb50bf8ce3c64
 
 import engine.components.Component;
 import engine.components.Damage;
@@ -32,7 +47,6 @@ public class HealthDamage implements ISystem {
     	}  
 	}
 
-	@Override
 	public void setActives(Set<Integer> actives) {
 		activeComponents = actives;
 		activeComponents.retainAll(healthComponents.keySet());

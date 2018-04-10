@@ -2,17 +2,19 @@ package buttons;
 
 
 import java.io.File;
-import GamePlayer.GamePlayerView;
 import GamePlayer.Main;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class FileUploadButton extends Button {
 	
 		private final String BUTTON_NAME = "Upload"; //change to a resource file
-	
+		private File uploadedFile;
+		private Boolean fileBoolean = false;
+		
 		public FileUploadButton() {
 			this.setText(BUTTON_NAME);
 			this.setFileEvent();
@@ -27,17 +29,28 @@ public class FileUploadButton extends Button {
 				}
 			});
 		}
-		
+
+		//test
 		private void fileUpload() {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Resource File");
-			fileChooser.getExtensionFilters().add(
-					new FileChooser.ExtensionFilter("XML", "*.xml"));
-			Main currentMain = new Main();
-			File file = fileChooser.showOpenDialog(currentMain.getMainStage());
-//	        if (file != null) {
-//	        		GamePlayerView.getFileSelector().getItems().add(file);
-//	        		GamePlayerView.getFileSelector().setMaxWidth(MAX_WIDTH);
-//	        }
+			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML", "*.xml"));
+			Stage mainStage = (Stage) this.getScene().getWindow();
+			File file = fileChooser.showOpenDialog(mainStage);
+			//change into a new Scene
+	        if (file != null) {
+	        		uploadedFile = file;
+	        		System.out.println("File Uploaded");
+	        }
+	        fileBoolean = true; //game file has been uploaded
+	        
 		}
-}
+		
+		public File getFile() {
+			return uploadedFile;
+		}
+		
+		public Boolean getFileBoolean() {
+			return fileBoolean;
+		}
+}	

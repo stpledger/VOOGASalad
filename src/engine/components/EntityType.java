@@ -1,5 +1,12 @@
 package engine.components;
 
+
+import java.util.List;
+
+/**
+ * This component defines type fof entity,like "player","block" etc
+ * @author Yameng
+ */
 public class EntityType extends Component{
 	private String type = "Not Defined";
 	
@@ -22,5 +29,19 @@ public class EntityType extends Component{
 	
 	public String toString() {
 		return type;
+	}
+
+	@Override
+	public List<String[]> getParameters(){
+		List<String[]> parameters = new ArrayList<String[]>(){{
+		     add(new String[] {"type","string"});
+		}};
+		
+		return parameters;
+	}
+
+	@Override
+	public String getKey() {
+		return "EntityType";
 	}
 }
