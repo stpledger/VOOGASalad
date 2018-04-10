@@ -28,8 +28,8 @@ public class GamePlayerEntityView {
 	private Map<Integer, Map<String, Component>> entityMap;
 	private GameState gameState;
 	private GameInitializer gameInitializer;
-	private SystemManager systemManager;
-	private RenderManager renderManager;
+	public SystemManager systemManager;
+	public RenderManager renderManager;
 	
 	public GamePlayerEntityView(File file) {
 		gameFile = file;

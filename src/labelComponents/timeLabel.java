@@ -4,7 +4,7 @@ import javafx.scene.control.Label;
 
 public class timeLabel extends Label{
 	
-	private final String TIME_LABEL_NAME = "time";
+	private final String TIME_LABEL_NAME = "time: ";
 	private int currentTime;
 	/**
 	 * constructor that specifies how much 
