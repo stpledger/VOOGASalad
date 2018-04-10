@@ -12,15 +12,12 @@ import java.util.List;
 
 public class Dimension extends Component{
 	private double height,width;
+	public static String KEY = "Dimension";
 	
 	public Dimension(int pid, double w, double h) {
-		super(pid);
+		super(pid, KEY);
 		this.height = h;
 		this.width = w;
-	}
-	
-	public static String getKey() {
-		return "Dimension";
 	}
 
 	public double[] getDimension() {
@@ -47,15 +44,6 @@ public class Dimension extends Component{
 	public void setWidth(double width) {
 		this.width = width;
 	}
-	
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<String[]>(){{
-		     add(new String[] {"width","double"});
-		     add(new String[] {"height","double"});
-		}};
-		
-		return parameters;
-	}
+
 
 }

@@ -15,14 +15,11 @@ import java.util.List;
 public class Damage extends Component {
 	private double damage;
 	private double lifetime;
-
-	public static String getKey() {
-		return "Damage";
-	}
+	public static String KEY = "Damage";
 
 
-	public Damage (int pid, List<String> parameters) {
-		super(pid);
+	public Damage (int pid, double damage, double lifetime) {
+		super(pid, KEY);
 		this.damage = damage;
 		this.lifetime = lifetime;
 	}
@@ -43,14 +40,5 @@ public class Damage extends Component {
 		lifetime--;
 	}
 
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<String[]>(){{
-		     add(new String[] {"damage","double"});
-		     add(new String[] {"lifetime","double"});
-		}};
-
-		return parameters;
-	}
 
 }
