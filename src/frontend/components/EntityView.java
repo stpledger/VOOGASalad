@@ -20,6 +20,7 @@ import javax.swing.event.ChangeEvent;
 import com.sun.beans.finder.ClassFinder;
 import com.sun.prism.paint.Color;
 
+import engine.components.Sprite;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
@@ -44,25 +45,31 @@ public class EntityView extends BorderPane {
 	private TabPane tabPane = new TabPane();
 	private Consumer clipboardHandler;
 	
-	//Consumer for Handling the onClose event of an EntityBuilderView
-	BiConsumer<String, File> onClose = (e,y) -> {saveEntity(e,y);};
-	//Consumer for Creating a new Entity(Opens EntityBuilderView)
-	Consumer newEntity = (e) -> {
-		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
-		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
-	};
-	private Map<String, Consumer> consumerMap = new HashMap<String,Consumer>(){{
-		this.put("newEntity", newEntity);
-	}};
 	
 	public EntityView(Consumer ch) {
 		super();
 		clipboardHandler = ch;
 		this.setPrefWidth(entityViewWidth);
 		this.getStyleClass().add("entity-view");
-		this.setTop(new Toolbar("Entity", consumerMap));
+		this.setTop(new Toolbar("Entities", consumerMap));
 		this.setCenter(tabPane);
 	}
+	/**
+	 * Located Below are all the consumers to handle toolbar events
+	 */
+		BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
+		//Consumer for Creating a new Entity(Opens EntityBuilderView)
+		Consumer newEntity = (e) -> {
+			entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
+			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
+		};
+		Consumer saveEntities = (e) -> {System.out.println("Save Entites!");};
+		Consumer loadEntities = (e)->{System.out.println("Load Entitites!");};
+		private Map<String, Consumer> consumerMap = new HashMap<String,Consumer>(){{
+			this.put("newEntity", newEntity);
+			this.put("saveEntities", saveEntities);
+			this.put("loadEntities", loadEntities);
+		}};
 	
 	
 	private void addTab(String type) {
@@ -86,17 +93,18 @@ public class EntityView extends BorderPane {
 	/**
 	 * Called when a EntityBuilderView is closed
 	 * @param entityType String representing the type of entity that this object represents
-	 * @param imgFile Image file corresponding to the Sprite Image for this object.
+	 * @param componentAttributes Image file corresponding to the Sprite Image for this object.
 	 */
-	public void saveEntity(String entityType, File imgFile) {
+	public void saveEntity(String entityType, Map<Class, Object[]> componentAttributes) {
 	//Turn the imageFile into a usableImage
 		BufferedImage bufferedImage = null;
-		try {
-			bufferedImage = ImageIO.read(imgFile);
-		} catch (IOException e) {
-			//TODO: Show ImageNotFoundException
-		}
-        Image image = SwingFXUtils.toFXImage(bufferedImage, null);
+			File f = (File) componentAttributes.get(Sprite.class)[0];
+			try {
+				Image image = SwingFXUtils.toFXImage(ImageIO.read(f), null);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     //Check to see if a tab exists for the type
         if(tabsList.isEmpty() || !tabsList.contains(entityType)) { 
         	addTab(entityType);
@@ -105,7 +113,7 @@ public class EntityView extends BorderPane {
     //Add the entityBox
         for(Tab tab : tabPane.getTabs()) {
         	if(tab.getText().equals(entityType)) {
-        		((EntityTab) tab).addNewEntity("object", image);
+        		((EntityTab) tab).addNewEntity(entityType, componentAttributes);
         	}
         }
     }

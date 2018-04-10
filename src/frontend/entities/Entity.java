@@ -15,7 +15,7 @@ import engine.support.ComponentBuilder;
  *
  */
 public abstract class Entity {
-
+	
     private int ID; //unique ID to an entity
     private List<Component> components; //list of components which define the entity
     /**
@@ -25,6 +25,12 @@ public abstract class Entity {
     public Entity (int ID) {
         this.ID = ID;
         components = new ArrayList<>();
+    }
+    /**
+     * This is a constructor that does not set the id of an entity;
+     */
+    public Entity() {
+    	
     }
     
     public abstract void addDefaultComponents();
@@ -63,6 +69,10 @@ public abstract class Entity {
 	        
     public int getID() {
     	return this.ID;
+    }
+    
+    public void setID(int iD) {
+    	this.ID = iD;
     }
     
     public List<Component> getComponentList(){

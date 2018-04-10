@@ -32,7 +32,7 @@ import GamePlayer.Main;
  *
  */
 public class GameEditorView extends BorderPane {
-	private static final String GAMEFILEEXTENSION = ".vooga";
+	private static final String GAMEFILEEXTENSION = ".xml";
 	private ArrayList<Tab> tabsList;
 	private Object clipboard;
 	private String activeTool;

@@ -7,12 +7,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.BiConsumer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 
+import engine.components.Sprite;
 import frontend.MainApplication;
 import frontend.components.PropertiesView.NumberField;
 import javafx.embed.swing.SwingFXUtils;
@@ -51,7 +54,6 @@ public class EntityBuilderView{
 	private BottomMenu bottomMenu;
 	private LeftPanel leftPanel;
 	private BorderPane root;
-	private String entityName;
 	private String spriteFilePath;
 	private ArrayList<String> entityTypes;
 	private String myEntityType;
@@ -59,10 +61,11 @@ public class EntityBuilderView{
 	private File imageFile;
 	private Image image;
 	private List<String> imageExtensions = Arrays.asList(new String[] {".jpg",".png",".jpeg"});
-	private BiConsumer<String, File> onClose;
+	private BiConsumer<String, Map<Class, Object[]>> onClose;
+	private Map<Class, Object[]> componentAttributes = new HashMap<Class, Object[]>();
 	
 	
-	public EntityBuilderView (ArrayList<String> eTypes, BiConsumer<String, File> oC) {
+	public EntityBuilderView (ArrayList<String> eTypes, BiConsumer<String, Map<Class,Object[]>> oC) {
 		onClose = oC;
 		entityTypes = eTypes;
 		this.build();
@@ -125,6 +128,7 @@ public class EntityBuilderView{
 				fileChooser.setTitle("Open Image File");
 				fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
 				imageFile = fileChooser.showOpenDialog(stage);
+				componentAttributes.put(Sprite.class, new Object[] {imageFile});
 				BufferedImage bufferedImage = null;
 				try {
 					bufferedImage = ImageIO.read(imageFile);
@@ -197,12 +201,10 @@ public class EntityBuilderView{
 		private void buildMenu() {
 			//Create Save Button
 			Button saveButton = new Button("Save");
-			saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent arg0) {
-					onClose.accept(myEntityType, imageFile);
+			saveButton.setOnMouseClicked((e)->{
+					onClose.accept(myEntityType, componentAttributes);
 					stage.close();
-				}});
+				});
 			saveButton.getStyleClass().add("entity-builder-view-button");
 			this.getChildren().add(saveButton);
 		}

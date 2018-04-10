@@ -1,19 +1,31 @@
 package frontend.components;
 
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.naming.directory.DirContext;
 
 import com.sun.xml.internal.bind.CycleRecoverable.Context;
 
+import engine.components.Component;
+import engine.components.Sprite;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableMap;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -24,6 +36,7 @@ import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Tab;
+import javafx.scene.effect.Reflection;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
@@ -64,8 +77,8 @@ public class EntityTab extends Tab{
 		externalPane.setContent(pane);
 		this.setContent(externalPane);
 	}
-	public void addNewEntity(String name, Image img) {
-		pane.getChildren().add(new EntityBox(name, img));
+	public void addNewEntity(String type, Map<Class, Object[]> componentAttributes) {
+		pane.getChildren().add(new EntityBox(type, componentAttributes));
 	}
 
 
@@ -90,18 +103,28 @@ public class EntityTab extends Tab{
 	 */
 	private class EntityBox extends VBox {
 		private String name;
+		private String type;
 		private Image image;
 		private ImageView imageView;
+		Map<Class, Object[]> componentAttributes = new HashMap<Class,Object[]>();
 		private double boxDimension = (myEntityViewWidth - SCROLLBAR_WIDTH)/3;
 		
-		public EntityBox(String n, Image img) {
+		public EntityBox(String t, Map<Class, Object[]> m) {
 			//Create the VBox
 			this.getStyleClass().add("entity-box");
 			this.setWidth(boxDimension);
 			this.setHeight(boxDimension);
 			//Create the ImageView
-			name  = n;
-			image = img;
+			componentAttributes = m;
+			File f = (File) componentAttributes.get(Sprite.class)[0];
+			try {
+				image = SwingFXUtils.toFXImage(ImageIO.read(f), null);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			type = t;
+			componentAttributes = m;
 			imageView = new ImageView(image);
 			imageView.setFitHeight(boxDimension-20);
 			imageView.setFitWidth(boxDimension-20);
@@ -112,10 +135,19 @@ public class EntityTab extends Tab{
 			this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					selectedElement.setValue(name);
+					try {
+						selectedElement.setValue(new Object[] {getEntityFromPackage(type), componentAttributes});
+					} catch (ClassNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+				private Class getEntityFromPackage(String type) throws ClassNotFoundException {
+					return Class.forName("frontend.entities." + type);
 				}
 			});
 		}
-	}
-	
+		        
+}
 }
