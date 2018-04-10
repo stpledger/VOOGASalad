@@ -41,4 +41,5 @@ public class Velocity extends Component {
 	public void setYVel(double yVel) {
 		YVel = yVel;
 	}
+
 }

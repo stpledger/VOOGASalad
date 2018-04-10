@@ -45,5 +45,4 @@ public class Dimension extends Component{
 		this.width = width;
 	}
 
-
 }

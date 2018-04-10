@@ -26,5 +26,4 @@ public class Health extends Component {
 		this.health = health;
 	}
 
-
 }

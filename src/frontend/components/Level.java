@@ -36,7 +36,6 @@ public class Level {
 			add("Distance");
 		}};
 		return properties;
-
 	}
 
 	public String getLevelDifficulty() {
