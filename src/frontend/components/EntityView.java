@@ -6,9 +6,13 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
 import javax.swing.event.ChangeEvent;
@@ -24,51 +28,50 @@ import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 import sun.reflect.Reflection;
 
-public class EntityView extends TabPane {
+import frontend.components.*;
+
+public class EntityView extends BorderPane {
 	private double entityViewWidth = 300;
 	private ArrayList<String> tabsList = new ArrayList<String>();
 	private Object clipboard;
 	private ArrayList<String> entityTypes = new ArrayList<String>();
+	private TabPane tabPane = new TabPane();
+	private Consumer clipboardHandler;
 	
-	public EntityView() {
+	//Consumer for Handling the onClose event of an EntityBuilderView
+	BiConsumer<String, File> onClose = (e,y) -> {saveEntity(e,y);};
+	//Consumer for Creating a new Entity(Opens EntityBuilderView)
+	Consumer newEntity = (e) -> {
+		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
+		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
+	};
+	private Map<String, Consumer> consumerMap = new HashMap<String,Consumer>(){{
+		this.put("newEntity", newEntity);
+	}};
+	
+	public EntityView(Consumer ch) {
 		super();
-<<<<<<< HEAD
+		clipboardHandler = ch;
 		this.setPrefWidth(entityViewWidth);
 		this.getStyleClass().add("entity-view");
-=======
-		pane = new TabPane();
-		pane.setPrefWidth(entityViewWidth);
-		pane.getStyleClass().add("entity-view");	
->>>>>>> 4aed8c8c47718c3885c560932b415c0fe60143a1
+		this.setTop(new Toolbar("Entity", consumerMap));
+		this.setCenter(tabPane);
 	}
+	
 	
 	private void addTab(String type) {
 			ClipboardListener c = new ClipboardListener();
 			EntityTab temp = new EntityTab(type, entityViewWidth);
 			temp.getSelectedElementProperty().addListener(c);
-			this.getTabs().add(temp);
+			tabPane.getTabs().add(temp);
 	}
 	
-	/**
-	 * Opens the window to create a new entity
-	 */
-	public void createEntity() {
-<<<<<<< HEAD
-		//TODO: Replace this with the real types of entities
-		ArrayList<String> entityTypes = new ArrayList<String>();
-		entityTypes.addAll(Arrays.asList(new String[] {"Block", "Character", "Game Object", "NPC", "Power Up"}));
-		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);
-=======
-		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
-		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, broadcast);
->>>>>>> 4aed8c8c47718c3885c560932b415c0fe60143a1
-			
-	}
 	/**
 	 * Opens the window to delete an entity
 	 */
@@ -100,7 +103,7 @@ public class EntityView extends TabPane {
         	tabsList.add(entityType);
         }   
     //Add the entityBox
-        for(Tab tab : this.getTabs()) {
+        for(Tab tab : tabPane.getTabs()) {
         	if(tab.getText().equals(entityType)) {
         		((EntityTab) tab).addNewEntity("object", image);
         	}
@@ -113,7 +116,7 @@ public class EntityView extends TabPane {
 	 * @return a String array of classes from a given package
 	 */
 	protected String[] getEntitiesInEntitiesPackage() {
-		String pckgName = "entities";
+		String pckgName = "frontend/entities";
         ClassLoader cld = Thread.currentThread().getContextClassLoader();
         if (cld == null) {
             throw new IllegalStateException("Can't get class loader.");
@@ -131,13 +134,9 @@ public class EntityView extends TabPane {
         for (String filename : directory.list()) {
             if (filename.endsWith(".class") && !filename.startsWith("Entity")) { //Check to make sure its a class file and not the superclass
                 String classname = buildClassname(pckgName, filename);
-                try {
-                		String clazz = Class.forName(classname).toString();
-                		// Strip everything except for the word following the last period (the actual class name)
-                    classes.add(clazz.substring(clazz.lastIndexOf(".") + 1));
-                } catch (ClassNotFoundException e) {
-                    System.err.println("Error creating class " + classname);
-                }
+                String clazz = classname.replace(".java", "");
+				// Strip everything except for the word following the last period (the actual class name)
+               classes.add(clazz.substring(clazz.lastIndexOf(".") + 1));
             }
         }
         return classes.toArray(new String[classes.size()]);
@@ -151,16 +150,15 @@ public class EntityView extends TabPane {
 	 */
     private String buildClassname(String pckgName, String fileName) {
     		String className = pckgName + '.' + fileName.replace(".class", "");
-        System.out.println(className);
         return className;
     }
-	
+
 	private class ClipboardListener implements ChangeListener{
 
 		@Override
 		public void changed(ObservableValue clipboardObject, Object oldValue, Object newValue) {
-			broadcast.setMessage("setClipboard", new Object[] {newValue});	
-			broadcast.setMessage("setTool", new Object[] {"addTool"});
+			clipboardHandler.accept(newValue);
+
 		}
 	}
 
