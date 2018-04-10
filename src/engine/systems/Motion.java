@@ -30,6 +30,7 @@ public class Motion implements ISystem {
                 newComponents.add(components.get("Position"));
                 handledComponents.put(pid, newComponents);
             }
+        }
     /**
      * Removes position and velocity component from system map
      * @param pid parent ID of Velocity component to be removed
@@ -41,23 +42,10 @@ public class Motion implements ISystem {
         }
     }
 
-        /**
-         * Removes position and velocity component from system map
-         * @param pid parent ID of Velocity component to be removed
-         */
-        @Override
-        public void removeComponent(int pid) {
-
-            if (handledComponents.containsKey(pid)) {
-                handledComponents.remove(pid);
-            }
-            if (handledComponents.containsKey(pid)) {
-                handledComponents.remove(pid);
-            }
-        }
     @Override
     public void setActives(Set<Integer> actives) {
         activeComponents = actives;
+        activeComponents.retainAll(handledComponents.keySet());
     }
 
     /**
@@ -65,15 +53,13 @@ public class Motion implements ISystem {
      */
     public void execute(double time) {
         for (int pid : activeComponents) {
-            if (handledComponents.containsKey(pid)) {
-                List<Component> components = handledComponents.get(pid);
+            List<Component> components = handledComponents.get(pid);
 
-                Velocity v = (Velocity) components.get(VELOCITY_INDEX);
-                Position p = (Position) components.get(POSITION_INDEX);
+            Velocity v = (Velocity) components.get(VELOCITY_INDEX);
+            Position p = (Position) components.get(POSITION_INDEX);
 
-                p.setXPos(p.getXPos() + v.getXVel()*time);
-                p.setYPos(p.getYPos() + v.getYVel()*time);
-            }
+            p.setXPos(p.getXPos() + v.getXVel()*time);
+            p.setYPos(p.getYPos() + v.getYVel()*time);
         }
     }
 

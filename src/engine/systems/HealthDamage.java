@@ -1,5 +1,4 @@
 package engine.systems;
-<<<<<<< HEAD
 /**
  * A system that handles what happens when two entities collide, one having health component and the other damage
  * @author Stefani Vukajlovic
@@ -10,12 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import java.util.*;
-=======
-
-
-import java.util.*;
-
->>>>>>> 1b29115742bd5604061c98ff89ceb50bf8ce3c64
 
 import engine.components.Component;
 import engine.components.Damage;
@@ -30,6 +23,7 @@ public class HealthDamage implements ISystem {
 	public HealthDamage() {
 		healthComponents = new HashMap<>();
 	}
+
 	public void addComponent(int pid, Map<String, Component> components) {
 		if (components.containsKey(Health.getKey()) && components.containsKey(Damage.getKey())) {
 			List<Component> newComponents = new ArrayList<>();
@@ -48,20 +42,22 @@ public class HealthDamage implements ISystem {
 
 	public void setActives(Set<Integer> actives) {
 		activeComponents = actives;
+		activeComponents.retainAll(healthComponents.keySet());
 	}
 
 	public void execute(double time) {
 		activeComponents.forEach((key) -> {
-			if (healthComponents.containsKey(key)) {
-				List<Component> list = healthComponents.get(key);
-				Health h = (Health) list.get(HEALTH_INDEX);
-				Damage d = (Damage) list.get(DAMAGE_INDEX);
+			List<Component> list = healthComponents.get(key);
+			Health h = (Health) list.get(HEALTH_INDEX);
+			Damage d = (Damage) list.get(DAMAGE_INDEX);
 
+			if (h.getParentID()!=d.getParentID()) {
 				h.setHealth(h.getHealth() - d.getDamage());
 				d.decrementLife();
-				if(d.getLifetime() == 0) {
-					healthComponents.remove(h.getParentID());
-				}
+			}
+
+			if(d.getLifetime() == 0) {
+				healthComponents.remove(h.getParentID());
 			}
 		});
 	}
