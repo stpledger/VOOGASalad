@@ -1,6 +1,7 @@
 package engine.components;
 
 
+import java.util.List;
 
 /**
  * This component defines type fof entity,like "player","block" etc
@@ -8,9 +9,11 @@ package engine.components;
  */
 public class EntityType extends Component{
 	private String type = "Not Defined";
+
+	public static String KEY = "EntityType";
 	
 	public EntityType(int pid, String type) {
-		super(pid);
+		super(pid, KEY);
 		this.type = type;
 	}
 

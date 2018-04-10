@@ -1,5 +1,10 @@
 package frontend;
 
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 import frontend.components.MainView;
 import javafx.application.Application;
 import javafx.scene.image.Image;
@@ -10,7 +15,7 @@ import javafx.scene.Scene;
 /**
  * 
  * @author Collin Brown(cdb55)
- *
+ *d
  */
 public class MainApplication extends Application {
 
@@ -25,7 +30,6 @@ public class MainApplication extends Application {
         primaryStage.sizeToScene();
         primaryStage.setResizable(false);
         primaryStage.show();
-		
 	}
 	
 	public static void main(String[] args) {

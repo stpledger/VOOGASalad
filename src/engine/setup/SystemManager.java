@@ -15,7 +15,7 @@ public class SystemManager {
         this.systems = systems;
     }
 
-    public void addEntity (int pid, Map<String, Component> components) {
+    public void addEntity(int pid, Map<String, Component> components) {
         for (ISystem s : systems) {
             s.addComponent(pid, components);
         }
@@ -39,4 +39,20 @@ public class SystemManager {
         }
     }
 
+    /**
+     * For next step. Not implemented now.
+    public void addComponent(int pid, Map<String, Component> components) {
+    		for (ISystem s : systems) {
+            s.addComponent(pid, components);
+        }
+    }
+
+    
+    public void removeComponent(int pid, Map<String, Component> components) {
+    		for (ISystem s : systems) {
+    			s.removeComponent(pid, components);
+    		}
+    }
+    **/
+    
 }
