@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import com.sun.glass.ui.Cursor;
 
 import frontend.gamestate.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -19,6 +20,8 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
+import GamePlayer.Main;
 
 /**
  * 
@@ -71,7 +74,19 @@ public class GameEditorView extends BorderPane {
 	//Handles the show settings call from toolbar
 	Consumer showSettings = (e)->{System.out.println("Show Settings!");};
 	//Handles the play game call from toolbar
-	Consumer play = (e)->{System.out.println("Play!");};
+	Consumer play = (e)->{
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				try { 
+					new Main().start(new Stage());
+				} catch (Exception e) { 
+					System.out.println("Error Running Game");
+				}
+			}	
+		});
+		
+		};
 	//Handles the call for the addTool in toolbar
 	Consumer addTool = (e)->{System.out.println("Add Tool!");};
 	//Handles the call for the deleteTool in toolbar
