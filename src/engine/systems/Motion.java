@@ -22,28 +22,40 @@ public class Motion implements ISystem {
     private Map<Integer, List<Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents;
 
-    public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey(Velocity.getKey()) && components.containsKey(Position.getKey())) {
-			List<Component> newComponents = new ArrayList<>();
-			newComponents.add(components.get(Velocity.getKey()));
-			newComponents.add(components.get(Position.getKey()));
-			handledComponents.put(pid, newComponents);
-		}
-    }
 
+        public void addComponent(int pid, Map<String, Component> components) {
+            if (components.containsKey("Velocity") && components.containsKey("Position")) {
+                List<Component> newComponents = new ArrayList<>();
+                newComponents.add(components.get("Velocity"));
+                newComponents.add(components.get("Position"));
+                handledComponents.put(pid, newComponents);
+            }
     /**
      * Removes position and velocity component from system map
      * @param pid parent ID of Velocity component to be removed
      */
     @Override
     public void removeComponent(int pid) {
-
         if(handledComponents.containsKey(pid)) {
             handledComponents.remove(pid);
         }
     }
 
+        /**
+         * Removes position and velocity component from system map
+         * @param pid parent ID of Velocity component to be removed
+         */
+        @Override
+        public void removeComponent(int pid) {
 
+            if (handledComponents.containsKey(pid)) {
+                handledComponents.remove(pid);
+            }
+            if (handledComponents.containsKey(pid)) {
+                handledComponents.remove(pid);
+            }
+        }
+    @Override
     public void setActives(Set<Integer> actives) {
         activeComponents = actives;
     }

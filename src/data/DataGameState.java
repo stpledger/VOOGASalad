@@ -1,36 +1,38 @@
 package data;
 
 import engine.components.Component;
+import frontend.components.Level;
+import frontend.gamestate.GameState;
 
 import java.util.*;
-import java.util.logging.Level;
-
-public class GameState {
+public class DataGameState {
     private Map<Level,Map<Integer, Map<String, Component>>> gameState;
 
-    public GameState(Map<Level,Map<Integer, Map<String, Component>>> gameState) {
+    public DataGameState(Map<Level,Map<Integer, Map<String, Component>>> gameState) {
         this();
         this.gameState = gameState;
     }
 
-    public GameState(Map<Level, Map<Integer,List<Component>>> gameState) {
+    public DataGameState(GameState gameState) {
         this();
-        for(Level level : gameState.keySet()) {
+        Map<Level, Map<Integer,List<Component>>> tempState = gameState.getAuthorMap();
+        for(Level level : tempState.keySet()) {
             Map<Integer, Map<String, Component>> entityMap = new HashMap<>();
-            for (Integer integer : gameState.get(level).keySet()) {
+            for (Integer integer : tempState.get(level).keySet()) {
                 Map<String, Component> componentMap = new HashMap<>();
-                for (Component component : gameState.get(level).get(integer)) {
+                for (Component component : tempState.get(level).get(integer)) {
                     componentMap.put(component.getKey(), component);
                 }
                 entityMap.put(integer,componentMap);
             }
+
             this.gameState.put(level,entityMap);
         }
 
 
     }
 
-    public GameState()
+    public DataGameState()
     {
         this.gameState = new HashMap<Level,Map<Integer, Map<String, Component>>>();
     }

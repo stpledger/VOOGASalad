@@ -22,5 +22,7 @@ public abstract class Component {
 	public int getParentID () {
 		return pid;
 	}
+
+	public abstract String getKey();
 	
 }
