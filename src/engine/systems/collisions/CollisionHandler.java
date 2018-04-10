@@ -37,21 +37,6 @@ public class CollisionHandler {
 	
 	private void handleCollision(List<Component> player, List<Component> collider) {
 		String colliderType = ((EntityType)(collider.get(TYPE_INDEX))).toString();
-		switch(colliderType){
-			case "simple enemy":
-				break;
-			case "flying fire-shooting enemy":
-				break;
-			case "simple block":
-				break;
-			case "fire block":
-				break;
-			case "super power block":
-				break;
-			case "power-up":
-				break;
-			case "fire ball":
-				break;
-		}
+
 	}
 }
