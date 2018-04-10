@@ -8,7 +8,6 @@ import java.util.Set;
 
 import data.DataGameState;
 import data.DataRead;
-import data.GameState;
 import engine.components.Component;
 import engine.components.Sprite;
 import engine.setup.GameInitializer;
@@ -16,9 +15,7 @@ import engine.setup.RenderManager;
 import engine.setup.SystemManager;
 import frontend.components.Level;
 import javafx.scene.Group;
-import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
-import javafx.stage.Stage;
 
 /**
  * Class that controls how the entity objects are displayed
@@ -36,7 +33,7 @@ public class GamePlayerEntityView {
 	public RenderManager renderManager;
 	private Level one;
 	
-	public GamePlayerEntityView(File file) {
+	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
 		levelMap = gameState.getGameState();

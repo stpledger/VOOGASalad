@@ -1,6 +1,7 @@
 package GamePlayer;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Set;
 import HUD.SampleToolBar;
 import Menu.PauseMenu;
@@ -47,7 +48,12 @@ public class GamePlayerController {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				System.out.println("blah");
-				initializeGameStart(); //begin the game
+				try {
+					initializeGameStart();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					System.out.println("File Not Found");
+				} //begin the game
 			}
 		});
 		
@@ -70,8 +76,9 @@ public class GamePlayerController {
 	
 	/**
 	 * Method that begins displaying the game
+	 * @throws FileNotFoundException 
 	 */
-	public void initializeGameStart() {
+	public void initializeGameStart() throws FileNotFoundException {
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
