@@ -63,7 +63,14 @@ public class GamePlayerEntityView {
 		systemManager = gameInitializer.getSM();
 		renderManager = gameInitializer.getRM();
 	}
-
+	
+	public SystemManager getSystemManager() {
+		return systemManager;
+	}
+	
+	public RenderManager getRenderManager() {
+		return renderManager;
+	}
 	
 	
 }

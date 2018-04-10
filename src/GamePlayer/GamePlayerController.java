@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class GamePlayerController {
 	private final int WIDTH_SIZE = 800;
@@ -105,9 +106,9 @@ public class GamePlayerController {
 	 * @param root
 	 */
 	private void step (double elapsedTime, Group root) {
-		gameView.systemManager.execute(elapsedTime);
-		gameView.renderManager.garbageCollect();
-		gameView.renderManager.renderObjects();
+		gameView.getSystemManager().execute(elapsedTime);
+		gameView.getRenderManager().garbageCollect();
+		gameView.getRenderManager().renderObjects();
 		
 	}
 	

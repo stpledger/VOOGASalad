@@ -5,7 +5,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 
-public class PauseMenu extends Popup implements IMenu {
+public class PauseMenu extends Popup {
 
 	/**
 	 * Constructor for the Pause Menu Popup
@@ -16,11 +16,4 @@ public class PauseMenu extends Popup implements IMenu {
 		this.getContent().add(pane);
 		
 	}
-	
-	@Override
-	public void toggleMenu() {
-		// TODO Auto-generated method stub
-		this.show();
-	}
-
 }
