@@ -13,7 +13,9 @@ import engine.components.Sprite;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
+import frontend.components.Level;
 import javafx.scene.Group;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
@@ -26,7 +28,7 @@ public class GamePlayerEntityView {
 	
 	private File gameFile;
 	//private Group entityRoot;
-	private Map<Integer, Map<String, Component>> entityMap;
+	private Map<Level,Map<Integer,Map<String,Component>>> levelMap;
 	private DataGameState gameState;
 	private GameInitializer gameInitializer;
 	public SystemManager systemManager;
@@ -35,9 +37,13 @@ public class GamePlayerEntityView {
 	public GamePlayerEntityView(File file) {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
-		entityMap = gameState.getGameState();
+		levelMap = gameState.getGameState();
 		initializeGamePlayerEntityView();
 	}
+//	
+//	public ComboBox createLevelSelector() {
+//		
+//	}
 	
 	/**
 	 * Return a Group that adds all the entity image objects 
