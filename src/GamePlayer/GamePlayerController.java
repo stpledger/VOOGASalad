@@ -5,6 +5,7 @@ import java.util.Set;
 
 import HUD.SampleToolBar;
 import Menu.PauseMenu;
+
 import buttons.FileUploadButton;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
@@ -51,7 +52,7 @@ public class GamePlayerController {
 		fileBtn.getFileBooleanProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				initializeGameStart();
+				initializeGameStart(); //begin the game
 			}
 		});
 		SampleToolBar sampleBar = new SampleToolBar();
@@ -105,9 +106,9 @@ public class GamePlayerController {
 	 * @param root
 	 */
 	private void step (double elapsedTime, Group root) {
-		gameView.systemManager.execute(elapsedTime);
-		gameView.renderManager.garbageCollect();
-		gameView.renderManager.renderObjects();
+		gameView.getSystemManager().execute(elapsedTime);
+		gameView.getRenderManager().garbageCollect();
+		gameView.getRenderManager().renderObjects();
 		
 	}
 	
