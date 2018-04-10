@@ -52,10 +52,17 @@ public class Motion implements ISystem {
      */
     public void execute(double time) {
         for (int pid : activeComponents) {
+<<<<<<< HEAD
             Map<String, Component> components = handledComponents.get(pid);
 
             Velocity v = (Velocity) components.get(Velocity.getKey());
             Position p = (Position) components.get(Position.getKey());
+=======
+            List<Component> components = handledComponents.get(pid);
+
+            Velocity v = (Velocity) components.get(VELOCITY_INDEX);
+            Position p = (Position) components.get(POSITION_INDEX);
+>>>>>>> 9d2c61e58bf633d7fda5043bafe04e74d489d2b8
 
             p.setXPos(p.getXPos() + v.getXVel()*time);
             p.setYPos(p.getYPos() + v.getYVel()*time);

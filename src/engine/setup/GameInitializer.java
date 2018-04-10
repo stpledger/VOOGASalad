@@ -45,9 +45,6 @@ public class GameInitializer {
                     }
                 }**/
             }
-            if (components.containsKey(KeyInput.getKey())) {
-
-            }
             SM.addEntity(id, components);
         }
 

@@ -43,5 +43,8 @@ public class Velocity extends Component {
 		YVel = yVel;
 	}
 
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 9d2c61e58bf633d7fda5043bafe04e74d489d2b8
 }

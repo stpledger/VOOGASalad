@@ -35,8 +35,30 @@ public class CollisionHandler {
 		
 	}
 	
+<<<<<<< HEAD
 	private void handleCollision(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
 		damageHandler.handle(playerID, player, colliderID, collider);
+=======
+	private void handleCollision(List<Component> player, List<Component> collider) {
+
+		String colliderType = ((EntityType)(collider.get(Index.TYPE_INDEX))).toString();
+		switch(colliderType){
+			case "simple enemy":
+				break;
+			case "flying fire-shooting enemy":
+				break;
+			case "simple block":
+				break;
+			case "fire block":
+				break;
+			case "super power block":
+				break;
+			case "power-up":
+				break;
+			case "fire ball":
+				break;
+		}
+>>>>>>> 9d2c61e58bf633d7fda5043bafe04e74d489d2b8
 	}
 
 }
