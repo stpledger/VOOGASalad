@@ -15,14 +15,16 @@ public class GameInitializer {
 
     private SystemManager SM;
     private RenderManager RM;
-
+    private EntityManager EM;
+    
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
         systems = new ArrayList<>();
         systems.add(new Accelerate());
         systems.add(new Motion());
         systems.add(new Animate());
         SM = new SystemManager(systems);
-
+        EM = new EntityManager(entities, SM);
+        
         double renderDistance = 300.0;
         double renderCenterX = 50;
         double renderCenterY = 50;

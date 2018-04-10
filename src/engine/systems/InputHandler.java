@@ -52,7 +52,10 @@ public class InputHandler implements ISystem {
 		
 	}
 
-	
+	@Override
+	public Map<Integer, List<Component>> getAllComponents(){
+		return handledComponents;
+	}
 	
 	
 	

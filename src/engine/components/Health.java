@@ -1,9 +1,7 @@
 package engine.components;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Component for an entitie's health. Contains one double to represent this value.

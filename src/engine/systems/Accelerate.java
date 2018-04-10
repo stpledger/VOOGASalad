@@ -44,9 +44,9 @@ public class Accelerate implements ISystem {
      * @param pid	Parent whos components will be removed
      */
     public void removeComponent(int pid) {
-    	if(handledComponents.containsKey(pid)) {
-    		handledComponents.remove(pid);
-    	}
+	    	if(handledComponents.containsKey(pid)) {
+	    		handledComponents.remove(pid);
+	    	}
     }
 
 	@Override
@@ -73,5 +73,9 @@ public class Accelerate implements ISystem {
 		}
 	}
 
+	@Override
+	public Map<Integer, List<Component>> getAllComponents(){
+		return handledComponents;
+	}
 }
 
