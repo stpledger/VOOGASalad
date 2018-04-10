@@ -28,6 +28,10 @@ public class KeyInput extends Component {
 		return con;
 	}
 
+	public static String getKey() {
+		return "KeyInput";
+	}
+	
 }
 
 

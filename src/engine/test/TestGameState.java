@@ -8,7 +8,6 @@ import engine.Engine;
 import engine.InternalEngine;
 import engine.components.*;
 import engine.setup.GameInitializer;
-import engine.systems.InputHandler;
 import javafx.scene.input.KeyCode;
 
 public class TestGameState {
@@ -34,9 +33,7 @@ public class TestGameState {
 		Velocity v = new Velocity(0,0,-80);
 
 		Acceleration a = new Acceleration(0, 0, 50);
-		KeyInput k = new KeyInput(0, null);
-		k.setOnAction(KeyCode.SPACE, (id) -> v.setXVel(v.getXVel()+10));
-
+		KeyInput k = new KeyInput(0, KeyCode.SPACE, e -> {});
 
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(Position.getKey(), p);
@@ -63,10 +60,6 @@ public class TestGameState {
 		Dimension d3 = new Dimension(2, 100, 100);
 		Velocity v3 = new Velocity(2,0,10);
 		Acceleration a3 = new Acceleration(1, 0, 0);
-
-		TestKeyInput tki = new TestKeyInput(2, "left", list ->  {
-			((Velocity) list.get("Velocity")).setYVel(1000);
-		});
 		
 		Map<String, Component> mario3 = new HashMap<>();
 		mario3.put(Position.getKey(), p3);
