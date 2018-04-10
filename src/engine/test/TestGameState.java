@@ -1,13 +1,16 @@
 package engine.test;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import engine.Engine;
 import engine.InternalEngine;
 import engine.components.*;
 import engine.setup.GameInitializer;
+import engine.support.ComponentBuilder;
 import javafx.scene.input.KeyCode;
 
 public class TestGameState {
@@ -16,6 +19,13 @@ public class TestGameState {
 	private Engine eng;
 	
 	public TestGameState() throws FileNotFoundException {
+				
+		List<String> newL = new ArrayList<>();
+		newL.add("3");
+		newL.add("5");
+		
+		ComponentBuilder.buildComponent(0, "Acceleration", newL);
+		
 		entities = new HashMap<>();
 		Sprite s = null;
 		Sprite s2 = null;
