@@ -22,11 +22,13 @@ public class DataRead {
     private static DataGameState buildState(File xml) {
         try {
             XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
-            Map<Level,Map<Integer, Map<String,Component>>> gameState = (HashMap<Level, Map<Integer,Map<String, Component>>>)xstream.fromXML(xml);
-
-            return new DataGameState(gameState);
+            DataGameState gameState = (DataGameState)xstream.fromXML(xml);
+            return gameState;
         }
-        catch(Exception e){throw new IllegalStateException();}
+        catch(Exception e){
+            ErrorStatement(e.getMessage());
+            return new DataGameState();
+        }
     }
 
     public static DataGameState loadFile(File xml) {
@@ -46,13 +48,4 @@ public class DataRead {
         alert.setContentText(error);
         alert.showAndWait();
     }
-
-
-//    public static void main(String args[])
-//    {
-//        File read = new File("C:\\Users\\Conrad\\IdeaProjects\\voogasalad_oneclassonemethod\\src\\data\\Baby's_First_Serialized.xml");
-//        Map<Integer,Map<String,Component>> poop = buildState(read).getGameState();
-//        System.out.print(poop);
-//    }
-
 }

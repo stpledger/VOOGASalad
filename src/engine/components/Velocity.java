@@ -18,7 +18,6 @@ public class Velocity extends Component {
      * Constructor for a VelocityComponent, just giving it its XVel and YVel values to be stored.
      * @param XVel 		entity's initial XVel
      * @param YVel 		entity's initial YVel
-     * @param gravAcc	entity's gravity acceleration
      **/
     public Velocity (int pid, List<String> parameters) {
         super(pid);
