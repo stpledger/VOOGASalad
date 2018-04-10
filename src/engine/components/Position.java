@@ -10,9 +10,10 @@ import java.util.List;
  * @author fitzj
  */
 public class Position extends Component {
-
 	private double xPos;
 	private double yPos;
+
+	public static String KEY = "Position";
 
 	/**
 	 * Constructor for parent id, x, and y initial values
@@ -21,13 +22,9 @@ public class Position extends Component {
 	 * @param y	Initial y position as a double
 	 */
 	public Position(int pid, double x, double y) {
-		super(pid);
+		super(pid, KEY);
 		this.xPos = x;
 		this.yPos = y;
-	}
-
-	public static String getKey() {
-		return "Position";
 	}
 
 	public double getXPos() {
@@ -46,13 +43,4 @@ public class Position extends Component {
 		this.yPos = yPos;
 	}
 
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<String[]>(){{
-		     add(new String[] {"xPos","double"});
-		     add(new String[] {"yPos","double"});
-		}};
-
-		return parameters;
-	}
 }

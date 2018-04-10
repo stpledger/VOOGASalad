@@ -82,10 +82,5 @@ public class InputHandler implements ISystem {
 	public void setActives(Set<Integer> actives) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	
-	
-	
-	
+	}	
 }

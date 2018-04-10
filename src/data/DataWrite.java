@@ -4,7 +4,7 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import engine.components.Acceleration;
 import engine.components.Component;
-import engine.components.Damage;
+import engine.components.DamageLauncher;
 import frontend.gamestate.GameState;
 
 

@@ -9,9 +9,11 @@ import java.util.List;
  */
 public class EntityType extends Component{
 	private String type = "Not Defined";
+
+	public static String KEY = "EntityType";
 	
 	public EntityType(int pid, String type) {
-		super(pid);
+		super(pid, KEY);
 		this.type = type;
 	}
 
@@ -31,17 +33,4 @@ public class EntityType extends Component{
 		return type;
 	}
 
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<String[]>(){{
-		     add(new String[] {"type","string"});
-		}};
-		
-		return parameters;
-	}
-
-	@Override
-	public String getKey() {
-		return "EntityType";
-	}
 }

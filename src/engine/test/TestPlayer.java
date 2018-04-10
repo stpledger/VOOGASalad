@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 //package engine.test;
 //
 //
@@ -29,8 +29,7 @@
 //	}
 //
 //}
-=======
-package engine.test;
+/**package engine.test;
 
 
 import javafx.scene.Group;
@@ -58,5 +57,4 @@ public class TestPlayer {
 		return s;
 	}
 	
-}
->>>>>>> 1b29115742bd5604061c98ff89ceb50bf8ce3c64
+}**/
