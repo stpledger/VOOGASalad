@@ -1,6 +1,5 @@
 package frontend.components;
 
-import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.Label;
@@ -11,13 +10,11 @@ import javafx.scene.control.Label;
 public class LevelPropertiesView extends PropertiesView{
 	
 	private int levelNum;
-	private final String LEVELS_PACKAGE = "engine.components";
 	private final String RESOURCES = "resources/";
 	
-
-	public LevelPropertiesView(int level) {
+	public LevelPropertiesView(Level level, int levelNum) {
 		super();
-		levelNum = level;
+		this.levelNum = levelNum;
 		this.fill();
 	}
 

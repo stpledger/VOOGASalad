@@ -27,16 +27,6 @@ public class Level {
 	public void removeEntity(Entity entity) {
 		this.entityList.remove(entity);
 	}
-	
-	public List<String> getPropertyList(){
-		List<String> properties = new ArrayList<String>() {{
-			add("Information");
-			add("Difficulty");
-			add("Time");
-			add("Distance");
-		}};
-		return properties;
-	}
 
 	public String getLevelDifficulty() {
 		return this.levelDifficulty;
