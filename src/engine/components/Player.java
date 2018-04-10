@@ -3,23 +3,10 @@ package engine.components;
 import java.util.List;
 
 public class Player extends Component {
+	public static String KEY = "Player";
 
     public Player(int pid) {
-        super(pid);
+        super(pid, KEY);
     }
 
-    @Override
-    public List<String[]> getParameters() {
-        return null;
-    }
-
-    public static String getKey() {
-        return "Player";
-    }
-
-	@Override
-	public List<String[]> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

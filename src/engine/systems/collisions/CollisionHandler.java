@@ -4,33 +4,39 @@ import java.util.List;
 import java.util.Map;
 
 import engine.components.Component;
+import engine.components.Damage;
+import engine.components.DamageLauncher;
 import engine.components.EntityType;
+import engine.components.Player;
 
 public class CollisionHandler {
-	public CollisionHandler(Map<Integer, List<Component>> handledComponents) {
-
-	}
+	private DamageHandler damageHandler;
 	
-	public void handle(Map<Integer, List<Component>> handledComponents, int key1, int key2) {
-		List<Component> components1 = handledComponents.get(key1);
-		List<Component> components2 = handledComponents.get(key2);
+	public CollisionHandler() {
+		damageHandler = new DamageHandler();
+	}
+
+	public void handle(Map<Integer, Map<String, Component>> handledComponents, int key1, int key2) {
+		Map<String, Component> components1 = handledComponents.get(key1);
+		Map<String, Component> components2 = handledComponents.get(key2);
 		
-		boolean flag1 = ((EntityType)(components1.get(Index.TYPE_INDEX))).equals("player");
-		boolean flag2 = ((EntityType)(components2.get(Index.TYPE_INDEX))).equals("player");
+		boolean flag1 = components1.containsKey(Player.getKey());
+		boolean flag2 = components2.containsKey(Player.getKey());
 		if(!flag1 && !flag2) {
 			return;
 		}
-		List<Component> player = flag1 ? components1: components2;
-		List<Component> collider = flag1? components2: components1;
 		
-		handleCollision(player, collider);
+		Map<String, Component> player = flag1 ? components1: components2;
+		int playerID = flag1 ? key1 : key2;
+		Map<String, Component> collider = flag1? components2: components1;
+		int colliderID = flag1 ? key2 : key1;
+		
+		handleCollision(playerID, player, colliderID, collider);
 		
 	}
 	
-	private void handleCollision(List<Component> player, List<Component> collider) {
-		switch(colliderType){
-			
-		}
+	private void handleCollision(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
+		damageHandler.handle(playerID, player, colliderID, collider);
 	}
 
 }

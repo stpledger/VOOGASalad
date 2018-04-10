@@ -15,11 +15,7 @@ import engine.components.Velocity;
  */
 
 public class Accelerate implements ISystem {
-	
-	private static final int ACCELERATION_INDEX = 0;
-	private static final int VELOCITY_INDEX = 1;
-
-	private Map<Integer, List<Component>> handledComponents = new HashMap<>();
+	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
 	private Set<Integer> activeComponents;
     
 	/**
@@ -30,9 +26,9 @@ public class Accelerate implements ISystem {
 	 */
     public void addComponent(int pid, Map<String, Component> components) {
 		if (components.containsKey(Acceleration.getKey()) && components.containsKey(Velocity.getKey())) {
-			List<Component> newComponents = new ArrayList<>();
-			newComponents.add(components.get(Acceleration.getKey()));
-			newComponents.add(components.get(Velocity.getKey()));
+			Map<String, Component> newComponents = new HashMap<>();
+			newComponents.put(Acceleration.getKey(),components.get(Acceleration.getKey()));
+			newComponents.put(Velocity.getKey(),components.get(Velocity.getKey()));
 			handledComponents.put(pid, newComponents);
 		}
     	
@@ -51,7 +47,8 @@ public class Accelerate implements ISystem {
 
 	@Override
 	public void setActives(Set<Integer> actives) {
-		activeComponents = actives;
+	    	activeComponents = actives;
+	    	activeComponents.retainAll(handledComponents.keySet());
 	}
 
 	/**
@@ -61,21 +58,15 @@ public class Accelerate implements ISystem {
      */
 	public void execute(double time) {
 		for (int pid : activeComponents) {
-			if (handledComponents.containsKey(pid)) {
-				List<Component> activeComponents = handledComponents.get(pid);
+			Map<String,Component> activeComponents = handledComponents.get(pid);
 
-				Acceleration a = (Acceleration) activeComponents.get(ACCELERATION_INDEX);
-				Velocity v = (Velocity) activeComponents.get(VELOCITY_INDEX);
+			Acceleration a = (Acceleration) activeComponents.get(Acceleration.getKey());
+			Velocity v = (Velocity) activeComponents.get(Velocity.getKey());
 
-				v.setXVel(v.getXVel() + a.getxAcc()*time);
-				v.setYVel(v.getYVel() + a.getyAcc()*time);
-			}
+			v.setXVel(v.getXVel() + a.getxAcc()*time);
+			v.setYVel(v.getYVel() + a.getyAcc()*time);
 		}
 	}
 
-	@Override
-	public Map<Integer, List<Component>> getAllComponents(){
-		return handledComponents;
-	}
 }
 

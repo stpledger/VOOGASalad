@@ -12,13 +12,13 @@ import java.util.List;
  * and changes according to game logic.
  * @author Yameng
  */
-public class Damage extends Component {
+public class DamageLauncher extends Component {
 	private double damage;
 	private double lifetime;
-	public static String KEY = "Damage";
+	public static String KEY = "DamageLauncher";
 
 
-	public Damage(int pid, double damage, double lifetime) {
+	public DamageLauncher (int pid, double damage, double lifetime) {
 		super(pid, KEY);
 		this.damage = damage;
 		this.lifetime = lifetime;
@@ -38,10 +38,6 @@ public class Damage extends Component {
 
 	public void decrementLife() {
 		lifetime--;
-	}
-	
-	public void setLifetime(double lifetime) {
-		this.lifetime = lifetime;
 	}
 
 }
