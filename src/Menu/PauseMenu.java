@@ -8,12 +8,14 @@ import javafx.stage.Popup;
 
 public class PauseMenu extends Popup {
 
+	public FileUploadButton fileBtn;
 	/**
 	 * Constructor for the Pause Menu Popup
 	 */
 	public PauseMenu() {
 		VBox pane = new VBox();
-		pane.getChildren().addAll(new Button("Sound"), new Button("Difficulty"), new Button("Settings"), new FileUploadButton());
+		fileBtn = new FileUploadButton();
+		pane.getChildren().addAll(new Button("Sound"), new Button("Difficulty"), new Button("Settings"), fileBtn);
 		this.getContent().add(pane);
 		
 	}
