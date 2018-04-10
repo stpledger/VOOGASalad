@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.BiConsumer;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -55,9 +56,11 @@ public class EntityBuilderView{
 	private File imageFile;
 	private Image image;
 	private List<String> imageExtensions = Arrays.asList(new String[] {".jpg",".png",".jpeg"});
+	private BiConsumer<String, File> onClose;
 	
 	
-	public EntityBuilderView (ArrayList<String> eTypes) {
+	public EntityBuilderView (ArrayList<String> eTypes, BiConsumer<String, File> oC) {
+		onClose = oC;
 		entityTypes = eTypes;
 		this.build();
 		this.open();
@@ -192,7 +195,7 @@ public class EntityBuilderView{
 			saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					//TODO: Make this save the entity
+					onClose.accept(myEntityType, imageFile);
 					stage.close();
 				}});
 			saveButton.getStyleClass().add("entity-builder-view-button");

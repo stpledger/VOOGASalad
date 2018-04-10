@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
@@ -41,9 +42,10 @@ public class EntityView extends BorderPane {
 	private Object clipboard;
 	private ArrayList<String> entityTypes = new ArrayList<String>();
 	private TabPane tabPane = new TabPane();
+	BiConsumer<String, File> onClose = (e,y) -> {saveEntity(e,y);};
 	Consumer c = (e) -> {
 		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
-		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);
+		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
 	};
 	private Map<String, Consumer> consumerMap = new HashMap<String,Consumer>(){{
 		this.put("newEntity", c);
@@ -127,13 +129,9 @@ public class EntityView extends BorderPane {
         for (String filename : directory.list()) {
             if (filename.endsWith(".class") && !filename.startsWith("Entity")) { //Check to make sure its a class file and not the superclass
                 String classname = buildClassname(pckgName, filename);
-                try {
-                		String clazz = Class.forName(classname).toString();
-                		// Strip everything except for the word following the last period (the actual class name)
-                    classes.add(clazz.substring(clazz.lastIndexOf(".") + 1));
-                } catch (ClassNotFoundException e) {
-                    System.err.println("Error creating class " + classname);
-                }
+                String clazz = classname.replace(".java", "");
+				// Strip everything except for the word following the last period (the actual class name)
+               classes.add(clazz.substring(clazz.lastIndexOf(".") + 1));
             }
         }
         return classes.toArray(new String[classes.size()]);
@@ -147,7 +145,6 @@ public class EntityView extends BorderPane {
 	 */
     private String buildClassname(String pckgName, String fileName) {
     		String className = pckgName + '.' + fileName.replace(".class", "");
-        System.out.println(className);
         return className;
     }
 
