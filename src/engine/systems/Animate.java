@@ -2,6 +2,7 @@ package engine.systems;
 
 import engine.components.*;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.util.List;
@@ -48,27 +49,14 @@ public class Animate implements ISystem {
 
     @Override
     public void execute(double time) {
-        List<Component> components = handledComponents.get(playerID);
-        Velocity v = (Velocity) components.get(VELOCITY_INDEX);
-        double xVel = v.getXVel();
-        double yVel = v.getYVel();
-
-        for (int pid : handledComponents.keySet()) {
-            components = handledComponents.get(pid);
+        for (int pid : activeComponents) {
+            List<Component> components = handledComponents.get(pid);
             Position p = (Position) components.get(POSITION_INDEX);
+            Sprite s = (Sprite) components.get(SPRITE_INDEX);
 
-            if (pid!=playerID) {
-                p.setXPos(p.getXPos()-xVel*time);
-                p.setYPos(p.getYPos()-yVel*time);
-
-                if (activeComponents.contains(pid)) {
-                    Sprite s = (Sprite) components.get(SPRITE_INDEX);
-
-                    ImageView im = s.getImage();
-                    im.setX(p.getXPos());
-                    im.setY(p.getYPos());
-                }
-            }
+            ImageView iv = s.getImage();
+            iv.setX(p.getXPos());
+            iv.setY(p.getYPos());
         }
     }
 }

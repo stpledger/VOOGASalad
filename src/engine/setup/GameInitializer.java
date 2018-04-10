@@ -14,12 +14,15 @@ public class GameInitializer {
 
     private SystemManager SM;
     private RenderManager RM;
+    private InputHandler IH;
 
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
         systems = new ArrayList<>();
         systems.add(new Accelerate());
         systems.add(new Motion());
         systems.add(new Animate());
+        IH = new InputHandler();
+        systems.add(IH);
         SM = new SystemManager(systems);
 
         double renderDistance = 300.0;
@@ -32,16 +35,6 @@ public class GameInitializer {
             if (components.containsKey(Position.getKey())) {
                 Position p = (Position) components.get(Position.getKey());
                 RM.add(p);
-                /**if (components.containsKey(Sprite.getKey())) {
-                    Sprite s = (Sprite) components.get(Sprite.getKey());
-                    try {
-                        s.setImage(s.getName());
-                        s.getImage().setX(p.getXPos());
-                        s.getImage().setY(p.getYPos());
-                    } catch (Exception e) {
-                        throw new FileNotFoundException();
-                    }
-                }**/
             }
             SM.addEntity(id, components);
         }
@@ -56,6 +49,8 @@ public class GameInitializer {
     public RenderManager getRM() {
         return RM;
     }
+
+    public InputHandler getIH() { return IH; }
 
     public List<ISystem> getSystems() {		// For testing
     	return systems;

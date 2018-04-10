@@ -56,12 +56,12 @@ public class SerializeTest {
         params.clear();
         params.add("data\\Mario.png");
 
-        try {
+        /**try {
             Sprite entity1Sprite = new Sprite(1, params);
             entity1Components.put("Sprite", entity1Sprite);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        }**/
 
         params.clear();
         params.add("4");
@@ -89,12 +89,12 @@ public class SerializeTest {
         params.clear();
         params.add("data\\Waluigi.png");
 
-        try {
+        /**try {
             Sprite entity2Sprite = new Sprite(2, params);
             entity2Components.put("Sprite", entity2Sprite);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
+        }**/
 
         level1State.put(1,entity1Components);
         level2State.put(2, entity2Components);

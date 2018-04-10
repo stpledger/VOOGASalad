@@ -1,4 +1,4 @@
-package frontend.entities;
+/**package frontend.entities;
 
 import java.util.Arrays;
 
@@ -15,7 +15,7 @@ public class Enemy extends Entity{
 		super(ID);
 		addDefaultComponents();
 	}
-
+	/
 	@Override
 	public void addDefaultComponents() {
 		this.setHealth(ENEMY_HEALTH);
@@ -31,4 +31,4 @@ public class Enemy extends Entity{
 		this.add(ComponentBuilder.buildComponent(this.getID(), "Damage", Arrays.asList(new String[] {Double.toString(damage),Double.toString(lifetime)})));
 	}
 
-}
+}**/

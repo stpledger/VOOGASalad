@@ -16,10 +16,10 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception{
-		GamePlayerController gamePlayer = new GamePlayerController();
+		//GamePlayerController gamePlayer = new GamePlayerController();
 		mainStage = primaryStage;
 		primaryStage.setTitle(TITLE);
-		primaryStage.setScene(gamePlayer.intializeStartScene());
+		//primaryStage.setScene(gamePlayer.intializeStartScene());
 		primaryStage.show();
 		
 	}

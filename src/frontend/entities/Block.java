@@ -1,3 +1,4 @@
+/**
 package frontend.entities;
 
 import java.util.Arrays;
@@ -8,7 +9,7 @@ import engine.support.ComponentBuilder;
  * 
  * @author Hemanth Yakkali
  *
- */
+ *
 public class Block extends Entity{
 	
 	private final String TYPE =  "Block";
@@ -26,3 +27,4 @@ public class Block extends Entity{
 	}
 	
 }
+**/

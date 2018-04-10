@@ -14,7 +14,7 @@ public class Health extends Component {
 	
 	
 	public Health(int pid, double health) {
-		super(pid, KEY);
+		super(pid);
 		this.health = health;
 	}
 	
@@ -25,5 +25,7 @@ public class Health extends Component {
 	public void setHealth(double health) {
 		this.health = health;
 	}
+
+	public static String getKey() { return KEY; }
 
 }

@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import engine.components.Component;
-import engine.support.ComponentBuilder;
 
 /**
  * 
@@ -36,12 +35,12 @@ public abstract class Entity {
     public void remove (Component c) {
         components.remove(c);
     }
-    
+
     /**
      * Sets health, because every entity should always have health.
      * @param health
      */
-	public void setHealth(double health) {
+	/** public void setHealth(double health) {
 		this.add(ComponentBuilder.buildComponent(this.getID(), "Health", Arrays.asList(new String[] {Double.toString(health)})));
 	}
 	
@@ -60,7 +59,7 @@ public abstract class Entity {
 	public void setEntityType(String type) {
 		this.add(ComponentBuilder.buildComponent(this.getID(), "EntityType", Arrays.asList(new String[] {type})));
 	}
-	        
+	    **/
     public int getID() {
     	return this.ID;
     }

@@ -21,7 +21,7 @@ public class Acceleration extends Component {
 	 * @param yAcc		Initial y acceleration
 	 */
 	public Acceleration(int pid, double xAcc, double yAcc) {
-		super(pid, KEY);
+		super(pid);
 		this.xAcc = xAcc;
 		this.yAcc = yAcc;
 	}
@@ -41,6 +41,8 @@ public class Acceleration extends Component {
 	public void setyAcc(double yAcc) {
 		this.yAcc = yAcc;
 	}
+
+	public static String getKey() { return KEY; }
 
 }
 

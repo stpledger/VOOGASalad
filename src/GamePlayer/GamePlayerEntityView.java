@@ -1,4 +1,4 @@
-package GamePlayer;
+//package GamePlayer;
 
 import java.io.File;
 import java.util.List;
@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import data.DataRead;
-import data.GameState;
 import engine.components.Component;
 import engine.components.Sprite;
 import engine.setup.GameInitializer;
@@ -21,7 +20,7 @@ import javafx.stage.Stage;
  * @author Ryan
  *
  */
-public class GamePlayerEntityView {
+/**public class GamePlayerEntityView {
 	
 	private File gameFile;
 	//private Group entityRoot;
@@ -36,13 +35,13 @@ public class GamePlayerEntityView {
 		gameState = DataRead.loadFile(gameFile);
 		entityMap = gameState.getGameState();
 		initializeGamePlayerEntityView();
-	}
+	}**/
 	
 	/**
 	 * Return a Group that adds all the entity image objects 
 	 * @return
 	 */
-	public Group createEntityGroup() {
+	/**public Group createEntityGroup() {
 		Group entityRoot = new Group();
 		Set<Integer> keyset = entityMap.keySet();
 		Map<String, Component> entityComponents;
@@ -53,17 +52,18 @@ public class GamePlayerEntityView {
 			entityRoot.getChildren().add(image);
 		}
 		return entityRoot;
-	}
+	}**/
 	
 	/**
 	 * initialize the Game Initializer to create the systemManager and renderManager.
 	 */
-	private void initializeGamePlayerEntityView() {
+	/**private void initializeGamePlayerEntityView() {
 		gameInitializer = new GameInitializer(entityMap);
 		systemManager = gameInitializer.getSM();
 		renderManager = gameInitializer.getRM();
-	}
+	}**/
 
 	
 	
-}
+//}
+

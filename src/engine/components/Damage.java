@@ -19,7 +19,7 @@ public class Damage extends Component {
 
 
 	public Damage (int pid, double damage, double lifetime) {
-		super(pid, KEY);
+		super(pid);
 		this.damage = damage;
 		this.lifetime = lifetime;
 	}
@@ -39,5 +39,7 @@ public class Damage extends Component {
 	public void decrementLife() {
 		lifetime--;
 	}
+
+	public static String getKey() { return KEY; }
 
 }

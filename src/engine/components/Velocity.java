@@ -21,7 +21,7 @@ public class Velocity extends Component {
      * @param YVel 		entity's initial YVel
      **/
     public Velocity (int pid, double XVel, double YVel) {
-        super(pid, KEY);
+        super(pid);
     	this.XVel = XVel;
         this.YVel = YVel;
     }
@@ -42,4 +42,5 @@ public class Velocity extends Component {
 		YVel = yVel;
 	}
 
+	public static String getKey() { return KEY; }
 }

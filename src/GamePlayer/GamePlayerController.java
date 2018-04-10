@@ -1,4 +1,4 @@
-package GamePlayer;
+/**package GamePlayer;
 
 import java.io.File;
 import java.util.Set;
@@ -79,7 +79,7 @@ public class GamePlayerController {
 	/**
 	 * Method that begins displaying the game
 	 */
-	public void initializeGameStart() {
+	/**public void initializeGameStart() {
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
@@ -89,7 +89,7 @@ public class GamePlayerController {
 
 	/**
 	 * Begins the animation cycle count of the animation after game has started
-	 */
+	 *
 	public void initializeGameAnimation() {
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
 				e -> step(SECOND_DELAY, gameRoot));
@@ -104,7 +104,7 @@ public class GamePlayerController {
 	 * @param elapsedTime
 	 * @param root
 	 */
-	private void step (double elapsedTime, Group root) {
+	/**private void step (double elapsedTime, Group root) {
 		gameView.systemManager.execute(elapsedTime);
 		gameView.renderManager.garbageCollect();
 		gameView.renderManager.renderObjects();
@@ -118,7 +118,7 @@ public class GamePlayerController {
 	 */
 	
 	
-	private void handleKeyInput (KeyCode code) {
+	/**private void handleKeyInput (KeyCode code) {
 		if (code == KeyCode.ESCAPE) {
 			Stage mainStage = (Stage) pane.getScene().getWindow();
 			//instantiate the Pause menu popup class 
@@ -137,3 +137,4 @@ public class GamePlayerController {
 		
 	}
 }
+**/
