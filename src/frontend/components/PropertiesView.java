@@ -4,6 +4,7 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,6 +22,8 @@ public abstract class PropertiesView {
 	private final int HEIGHT = 450;
 	private final int WIDTH = 450;
 	private GridPane root;
+	private final String RESOURCES = "resources/";
+	private ResourceBundle buttonProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"buttons");
 	
 	/**
 	 * Initialize the root of this window as a {@code GridPane}.
@@ -107,5 +110,13 @@ public abstract class PropertiesView {
      */
 	protected GridPane getRoot() {
 		return this.root;
+	}
+	
+	protected String getResourcesFilePath() {
+		return this.RESOURCES;
+	}
+	
+	protected ResourceBundle getButtonProps() {
+		return this.buttonProps;
 	}
 }

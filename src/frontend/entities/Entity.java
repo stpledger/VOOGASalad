@@ -7,6 +7,7 @@ import java.util.List;
 
 import engine.components.Component;
 import engine.support.ComponentBuilder;
+import javafx.scene.image.ImageView;
 
 /**
  * 
@@ -14,7 +15,7 @@ import engine.support.ComponentBuilder;
  * @author Dylan Powers
  *
  */
-public abstract class Entity {
+public abstract class Entity extends ImageView{
 
 	/**
 	 * Unique ID to the entity
@@ -33,6 +34,7 @@ public abstract class Entity {
     public Entity (int ID) {
         this.ID = ID;
         components = new ArrayList<>();
+        
     }
     
     /**

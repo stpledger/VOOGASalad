@@ -11,15 +11,12 @@ import javafx.scene.control.TextField;
 public class LevelPropertiesView extends PropertiesView{
 	
 	private int levelNum;
-	private final String RESOURCES = "resources/";
-	private ResourceBundle buttonProps;
 	private Level level;
 	
 	public LevelPropertiesView(Level level, int levelNum) {
 		super();
 		this.levelNum = levelNum;
 		this.level = level;
-		this.buttonProps = ResourceBundle.getBundle(RESOURCES+"buttons");
 		this.fill();
 	}
 
@@ -31,7 +28,7 @@ public class LevelPropertiesView extends PropertiesView{
 	@Override
 	protected void fill() {
 		int currentRow = 0;
-		ResourceBundle levelProps = ResourceBundle.getBundle(RESOURCES+"levelProperties");
+		ResourceBundle levelProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"levelProperties");
 		TextField infoText = new TextField();
 		TextField diffText = new TextField();
 		NumberField timeNumber = new NumberField();
@@ -41,7 +38,7 @@ public class LevelPropertiesView extends PropertiesView{
 			getRoot().addRow(currentRow++,label);
 		}
 		getRoot().addColumn(1,diffText,timeNumber,infoText,distNumber);
-		getRoot().add(MenuItemBuilder.buildButton(buttonProps.getString("Submit"), e-> {
+		getRoot().add(MenuItemBuilder.buildButton(this.getButtonProps().getString("Submit"), e-> {
 			level.setLevelInfo(infoText.getText());
 			level.setLevelDifficulty(diffText.getText());
 			level.setLevelTime(Double.parseDouble(timeNumber.getText()));
