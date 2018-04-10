@@ -1,7 +1,7 @@
 package frontend.gamestate;
 
-import data.Level;
 import engine.components.Component;
+import frontend.components.Level;
 
 import java.util.List;
 import java.util.Map;

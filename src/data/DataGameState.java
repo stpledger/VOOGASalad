@@ -1,6 +1,7 @@
 package data;
 
 import engine.components.Component;
+import frontend.components.Level;
 import frontend.gamestate.GameState;
 
 import java.util.*;

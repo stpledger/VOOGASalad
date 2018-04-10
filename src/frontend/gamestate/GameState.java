@@ -5,8 +5,8 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
 
-import data.Level;
 import engine.components.Component;
+import frontend.components.Level;
 
 /**
  * Keeps track of the current state of the authoring environment, so that the author can save/load games dynamically. 
