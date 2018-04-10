@@ -1,6 +1,9 @@
 package engine.components;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *  Velocity component class
  *  @author fitzj
@@ -41,4 +44,14 @@ public class Velocity extends Component {
 		YVel = yVel;
 	}
 	
+
+	@Override
+	public List<String[]> getParameters(){
+		List<String[]> parameters = new ArrayList<String[]>(){{
+		     add(new String[] {"xVel","double"});
+		     add(new String[] {"yVel","double"});
+		}};
+		
+		return parameters;
+	}
 }

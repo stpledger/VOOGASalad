@@ -1,5 +1,9 @@
 package engine.components;
 
+import javafx.scene.input.KeyCode;
+
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -32,7 +36,13 @@ public class KeyInput extends Component {
 		return "KeyInput";
 	}
 	
+
+
+
+
+
+    @Override
+    public List<String[]> getParameters() {
+        return null;
+    }
 }
-
-
-

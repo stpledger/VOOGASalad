@@ -10,6 +10,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class FileUploadButton extends Button {
 	
@@ -38,7 +39,10 @@ public class FileUploadButton extends Button {
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Resource File");
 			fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("XML", "*.xml"));
-			Stage mainStage = (Stage) this.getScene().getWindow();
+//			Stage mainStage = (Stage) this.getScene().getWindow();
+//			File file = fileChooser.showOpenDialog(mainStage);
+//			
+			Window mainStage = this.getScene().getWindow();
 			File file = fileChooser.showOpenDialog(mainStage);
 			//change into a new Scene
 	        if (file != null) {

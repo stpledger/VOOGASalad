@@ -18,16 +18,10 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws Exception{
 		GamePlayerController gamePlayer = new GamePlayerController();
 		mainStage = primaryStage;
-<<<<<<< HEAD
 		mainStage.setTitle(TITLE);
 		mainStage.setScene(gamePlayer.intializeStartScene());
 		mainStage.show();
-=======
-		primaryStage.setTitle(TITLE);
-		primaryStage.setScene(gamePlayer.intializeStartScene());
-		primaryStage.show();
-		
->>>>>>> 80eeaf44f1980aadc5c4fbe08d57ebf17de30a93
+
 	}
 
 
