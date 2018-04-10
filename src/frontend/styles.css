@@ -2,20 +2,24 @@
 	-fx-background-color: #c4c4c4;
 }
 
+.toolbar-prompt{
+	-fx-font-weight: bold;
+}
+
 .combo-box, .arrow {
 	-fx-background-color: transparent;
 	-fx-font-weight: bold;
 }
 
-.component-view{
+.entity-view{
 	-fx-background-color: #4286f4;
 }
 
-.component-tab{
+.entity-tab{
 	-fx-background-color: #c4c4c4;
 }
 
-.component-box{
+.entity-box{
 	-fx-fill: #4286f4;
 	-fx-stroke: black;
 }
@@ -24,4 +28,17 @@
 }
 
 .level-view-wrapper{
+}
+
+.entity-builder-view-button{
+	-fx-background-color: transparent;
+	-fx-font-weight: bold;
+	-fx-stroke: black;
+	-fx-stroke-width: 5;
+
+}
+
+.entity-builder-combo-box > .arrow {
+	-fx-background-color: black;
+	-fx-font-weight: bold;
 }

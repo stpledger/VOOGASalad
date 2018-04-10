@@ -8,6 +8,11 @@ public class Player extends Component {
         super(pid);
     }
 
+    @Override
+    public List<String[]> getParameters() {
+        return null;
+    }
+
     public static String getKey() {
         return "Player";
     }
