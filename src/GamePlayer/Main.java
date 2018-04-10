@@ -21,6 +21,7 @@ public class Main extends Application {
 		primaryStage.setTitle(TITLE);
 		primaryStage.setScene(gamePlayer.intializeStartScene());
 		primaryStage.show();
+		
 	}
 
 
