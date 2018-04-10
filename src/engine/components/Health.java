@@ -1,9 +1,5 @@
 package engine.components;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * Component for an entitie's health. Contains one double to represent this value.
@@ -13,9 +9,9 @@ public class Health extends Component {
 	private double health;
 	
 	
-	public Health(int pid, List<String> parameters) {
+	public Health(int pid, double health) {
 		super(pid);
-		this.health = Double.parseDouble(parameters.get(0));
+		this.health = health;
 	}
 
 	public static String getKey() {
@@ -29,13 +25,5 @@ public class Health extends Component {
 	public void setHealth(double health) {
 		this.health = health;
 	}
-	
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<String[]>(){{
-		     add(new String[] {"health","double"});
-		}};
-		
-		return parameters;
-	}
+
 }

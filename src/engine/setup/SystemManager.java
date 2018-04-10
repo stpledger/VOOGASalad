@@ -2,6 +2,7 @@ package engine.setup;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import engine.systems.ISystem;
 import engine.components.Component;
@@ -14,15 +15,21 @@ public class SystemManager {
         this.systems = systems;
     }
 
-    public void addComponents (int pid, Map<String, Component> components) {
+    public void addEntity (int pid, Map<String, Component> components) {
         for (ISystem s : systems) {
             s.addComponent(pid, components);
         }
     }
 
-    public void removeComponents (int pid) {
+    public void removeEntity (int pid) {
         for (ISystem s : systems) {
             s.removeComponent(pid);
+        }
+    }
+
+    public void setActives (Set<Integer> actives) {
+        for (ISystem s : systems) {
+            s.setActives(actives);
         }
     }
 
@@ -31,4 +38,5 @@ public class SystemManager {
             s.execute(time);
         }
     }
+
 }
