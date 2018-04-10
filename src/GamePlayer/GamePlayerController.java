@@ -1,14 +1,19 @@
 package GamePlayer;
 
 import java.io.File;
-
 import HUD.SampleToolBar;
 import Menu.PauseMenu;
+import buttons.FileUploadButton;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class GamePlayerController {
 	private final int WIDTH_SIZE = 800;
