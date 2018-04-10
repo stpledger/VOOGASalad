@@ -1,8 +1,7 @@
 package frontend.entities;
 
-import java.util.Arrays;
-
-import engine.support.ComponentBuilder;
+import engine.components.Damage;
+import engine.components.Position;
 
 /**
  * 
@@ -29,11 +28,11 @@ public class Enemy extends Entity{
 	}
 	
 	public void setVelocity(double xVel, double yVel) {
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Position", Arrays.asList(new String[] {Double.toString(xVel),Double.toString(yVel)})));
+		this.add(new Position(this.getID(),xVel,yVel));
 	}
 	
 	public void setDamage(double damage, double lifetime) {
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Damage", Arrays.asList(new String[] {Double.toString(damage),Double.toString(lifetime)})));
+		this.add(new Damage(this.getID(),damage,lifetime));
 	}
 
 }

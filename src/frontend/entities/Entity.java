@@ -2,11 +2,14 @@ package frontend.entities;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import engine.components.Component;
-import engine.support.ComponentBuilder;
+import engine.components.Dimension;
+import engine.components.EntityType;
+import engine.components.Health;
+import engine.components.Position;
+import engine.components.Sprite;
 import javafx.scene.image.ImageView;
 
 /**
@@ -34,7 +37,6 @@ public abstract class Entity extends ImageView{
     public Entity (int ID) {
         this.ID = ID;
         components = new ArrayList<>();
-        
     }
     
     /**
@@ -63,7 +65,7 @@ public abstract class Entity extends ImageView{
      * @param health
      */
 	public void setHealth(double health) {
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Health", Arrays.asList(new String[] {Double.toString(health)})));
+		this.add(new Health(this.getID(),health));
 	}
 	
 	/**
@@ -72,7 +74,7 @@ public abstract class Entity extends ImageView{
 	 * @throws FileNotFoundException
 	 */
 	public void setSprite(String filename) throws FileNotFoundException {
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Sprite", Arrays.asList(new String[] {filename})));
+		this.add(new Sprite(this.getID(),filename));
 	}
 	
 	/**
@@ -81,7 +83,7 @@ public abstract class Entity extends ImageView{
 	 * @param height Height of entity
 	 */
 	public void setDimension(double width, double height) {
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Dimension", Arrays.asList(new String[] {Double.toString(width),Double.toString(height)})));
+		this.add(new Dimension(this.getID(),width,height));
 	}
 	
 	/**
@@ -90,7 +92,7 @@ public abstract class Entity extends ImageView{
 	 * @param y Y position
 	 */
 	public void setPosition(double x, double y) {
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Position", Arrays.asList(new String[] {Double.toString(x),Double.toString(y)})));
+		this.add(new Position(this.getID(),x,y));
 	}
 	
 	/**
@@ -98,7 +100,7 @@ public abstract class Entity extends ImageView{
 	 * @param type Type of entity
 	 */
 	public void setEntityType(String type) {
-		this.add(ComponentBuilder.buildComponent(this.getID(), "EntityType", Arrays.asList(new String[] {type})));
+		this.add(new EntityType(this.getID(),type));
 	}
 	        
 	/**
