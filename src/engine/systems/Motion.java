@@ -30,6 +30,12 @@ public class Motion implements ISystem {
                 newComponents.add(components.get("Position"));
                 handledComponents.put(pid, newComponents);
             }
+    /**
+     * Removes position and velocity component from system map
+     * @param pid parent ID of Velocity component to be removed
+     */
+    @Override
+    public void removeComponent(int pid) {
         if(handledComponents.containsKey(pid)) {
             handledComponents.remove(pid);
         }

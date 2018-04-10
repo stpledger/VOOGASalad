@@ -2,6 +2,7 @@ package engine.components;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -16,13 +17,12 @@ public class Sprite extends Component {
 	private ImageView image;
 
 	public Sprite(int pid, List<String> parameters) throws FileNotFoundException {
-		super(pid);
+	    super(pid);
 		this.filename = parameters.get(0);
 		Image im;
 		try {
 			im = new Image(parameters.get(0));
             image = new ImageView(im);
-
         } catch (Exception e) {
             try {
                 im = new Image(System.getProperty("user.dir") + "\\"+parameters.get(0));
@@ -32,6 +32,12 @@ public class Sprite extends Component {
                 System.out.println("Can not find image files    " + System.getProperty("user.dir") + "\\"+ filename);
             }
         }
+			im = new Image(filename);
+		 catch (Exception a) {
+			System.out.println("Can not find image files");
+			throw new FileNotFoundException();
+		}
+		image = new ImageView(im);
 	}
 
 	public static String getKey() {

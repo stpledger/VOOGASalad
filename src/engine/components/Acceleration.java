@@ -1,5 +1,6 @@
 package engine.components;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,13 +25,13 @@ public class Acceleration extends Component {
 	/**
 	 * Constructs component with initial values and parent entity ID
 	 * @param pid	Parent ID
-	 * @param x		Initial x acceleration
-	 * @param y		Initial y acceleration
+	 * @param xAcc		Initial x acceleration
+	 * @param yAcc		Initial y acceleration
 	 */
-	public Acceleration(int pid, List<String> parameters) {
+	public Acceleration(int pid, double xAcc, double yAcc) {
 		super(pid);
-		this.xAcc = Double.parseDouble(parameters.get(0));
-		this.yAcc = Double.parseDouble(parameters.get(1));
+		this.xAcc = xAcc;
+		this.yAcc = yAcc;
 	}
 
 	public double getxAcc() {
