@@ -42,8 +42,7 @@ public class GamePlayerController {
 	
 	public Scene intializeStartScene() {
 		SampleToolBar sampleBar = new SampleToolBar();
-//		fileBtn = sample
-		fileBtn = new FileUploadButton();
+		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
