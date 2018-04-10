@@ -55,13 +55,4 @@ public class Sprite extends Component {
 			throw new FileNotFoundException();
 		}
 	}
-
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<String[]>(){{
-		     add(new String[] {"filename","string"});
-		}};
-
-		return parameters;
-	}
 }

@@ -29,13 +29,4 @@ public class Health extends Component {
 		this.health = health;
 	}
 
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<String[]>(){{
-		     add(new String[] {"health","double"});
-		}};
-		
-		return parameters;
-	}
-
 }

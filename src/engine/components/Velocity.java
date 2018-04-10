@@ -46,14 +46,4 @@ public class Velocity extends Component {
 		YVel = yVel;
 	}
 	
-
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<String[]>(){{
-		     add(new String[] {"xVel","double"});
-		     add(new String[] {"yVel","double"});
-		}};
-		
-		return parameters;
-	}
 }

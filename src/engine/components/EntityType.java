@@ -31,17 +31,4 @@ public class EntityType extends Component{
 		return type;
 	}
 
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<String[]>(){{
-		     add(new String[] {"type","string"});
-		}};
-		
-		return parameters;
-	}
-
-	@Override
-	public String getKey() {
-		return "EntityType";
-	}
 }

@@ -42,15 +42,4 @@ public class Damage extends Component {
 	public void decrementLife() {
 		lifetime--;
 	}
-
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<String[]>(){{
-		     add(new String[] {"damage","double"});
-		     add(new String[] {"lifetime","double"});
-		}};
-
-		return parameters;
-	}
-
 }
