@@ -9,13 +9,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
-import javax.swing.event.ChangeEvent;
+
 
 //import com.sun.beans.finder.ClassFinder;
 
@@ -23,18 +21,10 @@ import engine.components.Sprite;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
-import javafx.util.Pair;
-import sun.reflect.Reflection;
-
-import frontend.components.*;
 
 public class EntityView extends BorderPane {
 	private double entityViewWidth = 300;

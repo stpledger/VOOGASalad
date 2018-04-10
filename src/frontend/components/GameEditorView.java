@@ -29,7 +29,7 @@ import GamePlayer.Main;
 public class GameEditorView extends BorderPane {
 	private static final String GAME_FILE_EXTENSION = ".xml";
 	private ArrayList<Tab> tabsList;
-	private Object clipboard;
+	private Object[] clipboard;
 	private String activeTool;
 	private IGameState state;
 	private TabPane tabPane;
@@ -138,8 +138,8 @@ public class GameEditorView extends BorderPane {
 	 */
 	public void setClipboard(Object o) {
 		//TODO: add argument check because this is being called from the controller
-		clipboard = o;
-		System.out.println(o.toString());
+		clipboard = (Object[]) o;
+		System.out.println(clipboard[0].toString() + clipboard[1].toString());
 	}
 	
 	//TODO: change these class names

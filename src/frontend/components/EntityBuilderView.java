@@ -2,8 +2,6 @@ package frontend.components;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,35 +11,21 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
-
 import engine.components.Sprite;
 import frontend.MainApplication;
-import frontend.components.PropertiesView.NumberField;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.geometry.HPos;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
@@ -54,7 +38,6 @@ public class EntityBuilderView{
 	private BottomMenu bottomMenu;
 	private LeftPanel leftPanel;
 	private BorderPane root;
-	private String spriteFilePath;
 	private ArrayList<String> entityTypes;
 	private String myEntityType;
 	private Stage stage;
@@ -64,7 +47,11 @@ public class EntityBuilderView{
 	private BiConsumer<String, Map<Class, Object[]>> onClose;
 	private Map<Class, Object[]> componentAttributes = new HashMap<Class, Object[]>();
 	
-	
+	/**
+	 * The constructor of the popup window for creating new entities
+	 * @param eTypes All of the possible types of entities
+	 * @param oC A BiConsumer that will handle the closing of an EntityBuilderView window that requires a string of the type of entity and a Map of Component Classes and an object[] of their argumetns
+	 */
 	public EntityBuilderView (ArrayList<String> eTypes, BiConsumer<String, Map<Class,Object[]>> oC) {
 		onClose = oC;
 		entityTypes = eTypes;
@@ -124,22 +111,25 @@ public class EntityBuilderView{
 			MenuItem addImage = new MenuItem();
 			addImage.setText("Add");
 			addImage.setOnAction((e)->{
+				//Handles choosing a new file
 				FileChooser fileChooser = new FileChooser();
 				fileChooser.setTitle("Open Image File");
 				fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
 				imageFile = fileChooser.showOpenDialog(stage);
+				//Build the spriteComponent for a given entity
 				componentAttributes.put(Sprite.class, new Object[] {imageFile});
 				BufferedImage bufferedImage = null;
 				try {
 					bufferedImage = ImageIO.read(imageFile);
 				} catch (IOException x) {
-					// TODO Auto-generated catch block
-					x.printStackTrace();
+					System.out.println("Error accessing image for new entity");
 				}
                 image = SwingFXUtils.toFXImage(bufferedImage, null);
 				leftPanel.setNewImage(image);
 			});
 			imageMenu.getItems().add(addImage);	
+			
+			//Menu item for removing an image
 			MenuItem removeImage = new MenuItem();
 			removeImage.setText("Remove");
 			removeImage.setOnAction((e)->{
