@@ -194,10 +194,7 @@ public class EntityBuilderView{
 				public void handle(MouseEvent arg0) {
 					//TODO: Make this save the entity
 					stage.close();
-					
-				}
-				
-			});
+				}});
 			saveButton.getStyleClass().add("entity-builder-view-button");
 			this.getChildren().add(saveButton);
 		}
