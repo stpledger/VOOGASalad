@@ -7,14 +7,14 @@ import java.util.Map;
 
 /**
  * Component class for the position of an entity. Contains x and y coordinates as doubles.
- * 
+ *
  * @author fitzj
  */
 public class Position extends Component {
 
 	private double xPos;
 	private double yPos;
-	
+
 	/**
 	 * Constructor for parent id, x, and y initial values
 	 * @param pid	Parent id as an int
@@ -30,7 +30,7 @@ public class Position extends Component {
 	public static String getKey() {
 		return "Position";
 	}
-	
+
 	public double getXPos() {
 		return xPos;
 	}
@@ -46,14 +46,14 @@ public class Position extends Component {
 	public void setYPos(double yPos) {
 		this.yPos = yPos;
 	}
-	
+
 	@Override
 	public List<String[]> getParameters(){
 		List<String[]> parameters = new ArrayList<String[]>(){{
 		     add(new String[] {"xPos","double"});
 		     add(new String[] {"yPos","double"});
 		}};
-		
+
 		return parameters;
 	}
 }

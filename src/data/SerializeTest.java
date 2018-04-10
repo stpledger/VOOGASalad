@@ -2,81 +2,117 @@ package data;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+import engine.components.*;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SerializeTest {
 
-    public static class Person {
-        private String firstName;
-        private String lastName;
-        private int index;
-        private List<Dog> dogs;
-
-        public Person(String f, String l, int id, List<Dog> dogs ){
-            firstName = f;
-            lastName = l;
-            index = id;
-            this.dogs=dogs;
-        }
-
-        @Override
-        public String toString() {
-            return "Person{" +
-                    "firstName='" + firstName + '\'' +
-                    ", lastName='" + lastName + '\'' +
-                    ", index='" + index + '\'' +
-                    ", dogs=" + dogs +
-                    '}';
-        }
-    }
-
-    public static class Dog{
-        private String type;
-        private String name;
-
-        public Dog(String type, String name) {
-            this.type = type;
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return "Dog{" +
-                    "type='" + type + '\'' +
-                    ", name='" + name + '\'' +
-                    '}';
-        }
-
-
-    }
-
     public static void main(String[] args)
     {
-        ArrayList<Dog> andysDogs = new ArrayList<>();
-        andysDogs.add( new Dog("Lab", "Goldee"));
-        andysDogs.add(new Dog("Welsh", "Blue"));
-        ArrayList<Person> people = new ArrayList<>();
+        Level level1 = new Level("Fire Island", "Smario", 1);
+        Level level2 = new Level("Water World", "Smario", 2);
 
-        people.add( new Person("Andy", "Dufrene", 2, andysDogs));
-        people.add(new Person("Conrad", "Mitchell", 1,null));
+        Map<Integer, Map<String, Component>> level1State = new HashMap<>();
+        Map<Integer, Map<String, Component>> level2State = new HashMap<>();
 
-        XStream xStream = new XStream(new DomDriver());
-        xStream.alias("Person",Person.class);
-        xStream.alias("Dog",Dog.class);
+        Integer entity1 = 1;
+        Integer entity2 = 2;
 
-        String xml= xStream.toXML(people);
+        Map<String, Component> entity1Components = new HashMap<>();
+        Map<String, Component> entity2Components = new HashMap<>();
 
-        // System.out.print(xml);
+        ArrayList<String> params = new ArrayList<>();
 
-        people.clear();
-        System.out.print(people);
+        params.add("1");
+        params.add("3");
 
-        people =(ArrayList<Person>) xStream.fromXML(xml);
-        System.out.print(people);
+        Acceleration entity1Acceleration = new Acceleration(1,params);
+        entity1Components.put("Acceleration", entity1Acceleration);
 
+
+        params.clear();
+        params.add("10");
+        params.add("30");
+
+        Position entity1Position = new Position(1, params);
+        entity1Components.put("Position", entity1Position);
+
+        params.clear();
+        params.add("5");
+        params.add("0");
+
+        Velocity entity1Velocity = new Velocity(1, params);
+        entity1Components.put("Velocity", entity1Velocity);
+
+
+        params.clear();
+        params.add("data\\Mario.png");
+
+        try {
+            Sprite entity1Sprite = new Sprite(1, params);
+            entity1Components.put("Sprite", entity1Sprite);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        params.clear();
+        params.add("4");
+        params.add("10");
+//__________________________________________________
+        Acceleration entity2Acceleration = new Acceleration(2,params);
+        entity2Components.put("Acceleration", entity2Acceleration);
+
+
+        params.clear();
+        params.add("100");
+        params.add("50");
+
+        Position entity2Position = new Position(2, params);
+        entity2Components.put("Position", entity2Position);
+
+        params.clear();
+        params.add("1");
+        params.add("-1");
+
+        Velocity entity2Velocity = new Velocity(2, params);
+        entity2Components.put("Velocity", entity2Velocity);
+
+
+        params.clear();
+        params.add("data\\Waluigi.png");
+
+        try {
+            Sprite entity2Sprite = new Sprite(2, params);
+            entity2Components.put("Sprite", entity2Sprite);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        level1State.put(1,entity1Components);
+        level2State.put(2, entity2Components);
+
+
+
+        Map<Level,Map<Integer,Map<String,Component>>> testState = new HashMap<>();
+        testState.put(level1,level1State);
+        testState.put(level2,level2State);
+        DataGameState state = new DataGameState(testState);
+
+        File xml = new File("sdf");
+        try {
+             xml =DataWrite.saveFile(state, "TestGame1");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        DataGameState testDeserialize = new DataGameState();
+        testDeserialize = DataRead.loadFile(xml);
 
     }
 

@@ -13,10 +13,9 @@ public class LeftKey implements IKeyInput{
 	@Override
 	public void execute(String code, Map<String, Component> entityComponents) {
 		if(code == CODE_NAME) {
-		Velocity vel =(Velocity) entityComponents.get("Velocity");
-		vel.setXVel(X_VEL);
+			Velocity vel = (Velocity) entityComponents.get("Velocity");
+			vel.setXVel(X_VEL);
 		}
-		
 	}
 
 }

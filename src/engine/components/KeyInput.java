@@ -3,6 +3,7 @@ package engine.components;
 import javafx.scene.input.KeyCode;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -38,4 +39,9 @@ public class KeyInput extends Component {
         return keyActions.keySet();
     }
 
+
+    @Override
+    public List<String[]> getParameters() {
+        return null;
+    }
 }
