@@ -1,7 +1,5 @@
 package frontend.components;
 
-import java.util.Map;
-
 /**
  * 
  * @author Collin Brown(cdb55)
@@ -23,7 +21,5 @@ public class GlobalPropertiesView extends PropertiesView {
 	protected void fill() {
 		
 	}
-	
-	
 
 }

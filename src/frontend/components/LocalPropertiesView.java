@@ -32,7 +32,7 @@ public class LocalPropertiesView extends PropertiesView {
 	public LocalPropertiesView(int entityNumber) {
 		super();
 		this.entityNumber = entityNumber;
-		this.fill();
+		fill();
 	}
 	
 	/**
@@ -54,7 +54,7 @@ public class LocalPropertiesView extends PropertiesView {
 	public String title() {
 		return String.format("Entity %d Local Properties", this.entityNumber);
 	}
-
+	
 	/**
 	 * Given a name of a component class in the engine, find the number of fields that it takes and their types.
 	 * This is required for generating the appropriate amount of text boxes
