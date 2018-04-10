@@ -1,7 +1,9 @@
 package frontend.components;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import frontend.entities.Entity;
 
@@ -14,10 +16,12 @@ public class Level {
 	private double levelTime;
 	private double levelDistance;
 	private List<Entity> entityList;
+	private Map<String,Boolean> HUDprops;
 	
 	public Level(int level) {
 		this.setLevelNum(level);
 		this.entityList = new ArrayList<Entity>();
+		this.setHUDprops(new HashMap<>());
 	}
 	
 	public void addEntity(Entity entity) {
@@ -75,6 +79,18 @@ public class Level {
 
 	public void setLevelDistance(double levelDistance) {
 		this.levelDistance = levelDistance;
+	}
+
+	public Map<String,Boolean> getHUDprops() {
+		return this.HUDprops;
+	}
+
+	public void setHUDprops(Map<String,Boolean> hUDprops) {
+		this.HUDprops = hUDprops;
+	}
+	
+	public void addHUDProp(String prop, Boolean bool) {
+		this.HUDprops.put(prop, bool);
 	}
 	
 }
