@@ -7,8 +7,11 @@ import javafx.scene.control.Label;
 
 public class HUDPropertiesView extends PropertiesView{
 	
-	public HUDPropertiesView() {
+	private Level level;
+	
+	public HUDPropertiesView(Level level) {
 		super();
+		this.level = level;
 		this.fill();
 	}
 
@@ -26,16 +29,14 @@ public class HUDPropertiesView extends PropertiesView{
 		}		
 		getRoot().addColumn(1, healthBox,livesBox,levelBox,timeBox);
 		getRoot().add(MenuItemBuilder.buildButton(this.getButtonProps().getString("Submit"), e-> {
-//			for(Node n:getRoot().getChildren()) {
-//				if(n instanceof CheckBox){
-//					final CheckBox boxy = (CheckBox)n;
-//					System.out.println(boxy.isSelected());
-//				}
-//			}
-			System.out.println("Lives"+livesBox.isSelected());
-			System.out.println("Health"+healthBox.isSelected());
-			System.out.println("Time"+timeBox.isSelected());
-			System.out.println("Level"+levelBox.isSelected());
+			level.addHUDProp(HUDProps.getString("Lives"), livesBox.isSelected());
+			level.addHUDProp(HUDProps.getString("Health"), healthBox.isSelected());
+			level.addHUDProp(HUDProps.getString("Time"), timeBox.isSelected());
+			level.addHUDProp(HUDProps.getString("Levels"), levelBox.isSelected());
+//			System.out.println("Lives"+livesBox.isSelected());
+//			System.out.println("Health"+healthBox.isSelected());
+//			System.out.println("Time"+timeBox.isSelected());
+//			System.out.println("Level"+levelBox.isSelected());
 		}), 0, currentRow++);
 	}
 

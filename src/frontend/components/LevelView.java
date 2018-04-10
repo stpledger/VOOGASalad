@@ -27,6 +27,10 @@ public class LevelView extends ScrollPane {
 					LocalPropertiesView LPV = new LocalPropertiesView(1);
 					LPV.open();
 				}
+				if (e.getClickCount() == 3) {
+					HUDPropertiesView HPV = new HUDPropertiesView(level);
+					HPV.open();
+				}
 			}
 		});
 	}
