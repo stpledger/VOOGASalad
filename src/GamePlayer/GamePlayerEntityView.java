@@ -1,6 +1,7 @@
 package GamePlayer;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -21,7 +22,7 @@ import javafx.stage.Stage;
 
 /**
  * Class that controls how the entity objects are displayed
- * @author Ryan
+ * @author Ryan Fu
  *
  */
 public class GamePlayerEntityView {
@@ -33,17 +34,17 @@ public class GamePlayerEntityView {
 	private GameInitializer gameInitializer;
 	public SystemManager systemManager;
 	public RenderManager renderManager;
+	private Level one;
 	
 	public GamePlayerEntityView(File file) {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
 		levelMap = gameState.getGameState();
+		Set<Level> levelMapKeyset = levelMap.keySet();
+		one = levelMapKeyset.iterator().next();
 		initializeGamePlayerEntityView();
 	}
-//	
-//	public ComboBox createLevelSelector() {
-//		
-//	}
+
 	
 	/**
 	 * Return a Group that adds all the entity image objects 
@@ -51,10 +52,10 @@ public class GamePlayerEntityView {
 	 */
 	public Group createEntityGroup() {
 		Group entityRoot = new Group();
-		Set<Integer> keyset = entityMap.keySet();
+		Set<Integer> keyset = levelMap.get(one).keySet();  //change dependency later
 		Map<String, Component> entityComponents;
 		for (int i = 0; i<keyset.size();i++) {
-			entityComponents = entityMap.get(i);
+			entityComponents = levelMap.get(one).get(i); //change dependency later ****
 			Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
 			ImageView image = spriteComponent.getImage(); //gets the class of the sprite
 			entityRoot.getChildren().add(image);
@@ -64,9 +65,10 @@ public class GamePlayerEntityView {
 	
 	/**
 	 * initialize the Game Initializer to create the systemManager and renderManager.
+	 * @throws FileNotFoundException 
 	 */
-	private void initializeGamePlayerEntityView() {
-		gameInitializer = new GameInitializer(entityMap);
+	private void initializeGamePlayerEntityView() throws FileNotFoundException {
+		gameInitializer = new GameInitializer(levelMap.get(one)); //gets only level 1
 		systemManager = gameInitializer.getSM();
 		renderManager = gameInitializer.getRM();
 	}
