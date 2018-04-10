@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import com.sun.glass.ui.Cursor;
 
 import frontend.gamestate.*;
 import javafx.event.ActionEvent;
@@ -40,21 +39,13 @@ public class GameEnvironmentView extends TabPane {
 		this.setOnMouseClicked(e -> {
 			if (e.getButton().equals(MouseButton.PRIMARY)) {
 				if (e.getClickCount() == 2) {
+					// TODO grab entity number somehow
 					PropertiesView LPV = new LocalPropertiesView(1);
 					LPV.open();
 				}
 			}
 		});
 	}
-	/**
-	 * called whenever there is any change to the tabslist
-	 * TODO: This might not even need to be a lambda but gotta flex for Duval.
-	 */
-	Consumer<List<Tab>> updateTabs = (l) -> {
-		for(Tab t : l) {
-			t.setText("Level " + (l.indexOf(t)+1));
-		}
-	};
 	
 	/**
 	 * Creates a new LevelView
@@ -65,11 +56,10 @@ public class GameEnvironmentView extends TabPane {
 		t.setText("Level " + (tabsList.indexOf(t)+1));
 		Level level = new Level(tabsList.indexOf(t)+1);
 		t.setContent(new LevelView(level,tabsList.indexOf(t)+1));
-		t.setOnClosed(new EventHandler<Event>() { //Handles tab closed events
-			@Override
-			public void handle(Event e) {
-				tabsList.remove(t);
-				updateTabs.accept(tabsList);
+		t.setOnClosed(e -> {
+			tabsList.remove(t);
+			for(Tab tab : tabsList) {
+				tab.setText("Level " + (tabsList.indexOf(tab)+1));
 			}
 		});
 		this.getTabs().add(t);
