@@ -49,6 +49,7 @@ public class GamePlayerController {
 		fileBtn.getFileBooleanProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				System.out.println("blah");
 				initializeGameStart(); //begin the game
 			}
 		});
@@ -78,7 +79,7 @@ public class GamePlayerController {
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
-		pane.setCenter(gameRoot); //adds starting game Root to the file.
+		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		initializeGameAnimation(); //begins the animation cycle
 	}
 

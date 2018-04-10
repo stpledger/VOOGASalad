@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import data.DataGameState;
 import data.DataRead;
 import data.GameState;
 import engine.components.Component;
@@ -26,7 +27,7 @@ public class GamePlayerEntityView {
 	private File gameFile;
 	//private Group entityRoot;
 	private Map<Integer, Map<String, Component>> entityMap;
-	private GameState gameState;
+	private DataGameState gameState;
 	private GameInitializer gameInitializer;
 	private SystemManager systemManager;
 	private RenderManager renderManager;
