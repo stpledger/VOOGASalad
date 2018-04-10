@@ -10,15 +10,12 @@ import java.util.List;
  */
 public class Health extends Component {
 	private double health;
+	public static String KEY = "Health";
 	
 	
 	public Health(int pid, double health) {
-		super(pid);
+		super(pid, KEY);
 		this.health = health;
-	}
-
-	public static String getKey() {
-		return "Health";
 	}
 	
 	public double getHealth() {
@@ -27,15 +24,6 @@ public class Health extends Component {
 	
 	public void setHealth(double health) {
 		this.health = health;
-	}
-
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<String[]>(){{
-		     add(new String[] {"health","double"});
-		}};
-		
-		return parameters;
 	}
 
 }

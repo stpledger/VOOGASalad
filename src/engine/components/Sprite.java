@@ -12,12 +12,13 @@ import javafx.scene.image.ImageView;
  */
 public class Sprite extends Component {
 
+	public static String KEY = "Sprite";
 	private String filename;
 	//@XStreamOmitField
 	private ImageView image;
 
 	public Sprite(int pid, List<String> parameters) throws FileNotFoundException {
-	    super(pid);
+	    super(pid, KEY);
 		this.filename = parameters.get(0);
 		Image im;
 		try {
@@ -32,16 +33,7 @@ public class Sprite extends Component {
                 System.out.println("Can not find image files    " + System.getProperty("user.dir") + "\\"+ filename);
             }
         }
-			im = new Image(filename);
-		 catch (Exception a) {
-			System.out.println("Can not find image files");
-			throw new FileNotFoundException();
-		}
-		image = new ImageView(im);
-	}
 
-	public static String getKey() {
-		return "Sprite";
 	}
 
 	public String getName() { return filename; }
@@ -58,12 +50,4 @@ public class Sprite extends Component {
 		}
 	}
 
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<String[]>(){{
-		     add(new String[] {"filename","string"});
-		}};
-
-		return parameters;
-	}
 }
