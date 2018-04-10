@@ -192,9 +192,9 @@ public class EntityBuilderView{
 			saveButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent arg0) {
-					stage.close();	
-				}
-			});
+					//TODO: Make this save the entity
+					stage.close();
+				}});
 			saveButton.getStyleClass().add("entity-builder-view-button");
 			this.getChildren().add(saveButton);
 		}
