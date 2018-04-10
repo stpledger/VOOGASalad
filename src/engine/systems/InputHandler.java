@@ -7,7 +7,6 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.components.Component;
-import engine.components.IKeyInput;
 import engine.components.KeyInput;
 import javafx.scene.input.KeyCode;
 
@@ -53,6 +52,8 @@ public class InputHandler implements ISystem {
 			});
 		});
 	}
+	
+	
 	@Override
 	public void setActives(Set<Integer> actives) {
 		// TODO Auto-generated method stub

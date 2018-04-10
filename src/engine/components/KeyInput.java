@@ -27,7 +27,6 @@ public class KeyInput extends Component {
 	public Consumer<Map<String, Component>> getConsumer() {
 		return con;
 	}
-	
 
 }
 
