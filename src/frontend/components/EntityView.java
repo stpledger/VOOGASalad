@@ -42,15 +42,17 @@ public class EntityView extends BorderPane {
 	private Object clipboard;
 	private ArrayList<String> entityTypes = new ArrayList<String>();
 	private TabPane tabPane = new TabPane();
+	
+	//Consumer for Handling the onClose event of an EntityBuilderView
 	BiConsumer<String, File> onClose = (e,y) -> {saveEntity(e,y);};
-	Consumer c = (e) -> {
+	//Consumer for Creating a new Entity(Opens EntityBuilderView)
+	Consumer newEntity = (e) -> {
 		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
 		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
 	};
 	private Map<String, Consumer> consumerMap = new HashMap<String,Consumer>(){{
-		this.put("newEntity", c);
+		this.put("newEntity", newEntity);
 	}};
-	
 	
 	public EntityView() {
 		super();
@@ -59,6 +61,7 @@ public class EntityView extends BorderPane {
 		this.setTop(new Toolbar("Entity", consumerMap));
 		this.setCenter(tabPane);
 	}
+	
 	
 	private void addTab(String type) {
 			ClipboardListener c = new ClipboardListener();

@@ -11,7 +11,7 @@ import javafx.scene.layout.BorderPane;
 public class MainView {
 	private BorderPane border;
 	private Toolbar toolbar;
-	private GameEnvironmentView gameEnvironmentView;
+	private GameEditorView gameEnvironmentView;
 	private EntityView componentView;
 	
 	//GUI Constants
@@ -21,7 +21,7 @@ public class MainView {
 	
 	public MainView() {
 		border = new BorderPane();
-		gameEnvironmentView = new GameEnvironmentView();
+		gameEnvironmentView = new GameEditorView();
 		componentView = new EntityView();
 	}
 	
@@ -49,7 +49,7 @@ public class MainView {
 	 * Returns the gameEnvironmentView object
 	 * @return
 	 */
-	public GameEnvironmentView getGameEnvironmentView() {
+	public GameEditorView getGameEnvironmentView() {
 		return gameEnvironmentView;
 	}
 	

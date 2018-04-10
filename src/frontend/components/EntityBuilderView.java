@@ -26,6 +26,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -90,34 +93,26 @@ public class EntityBuilderView{
 		stage.setScene(s);
 		stage.show();
 	}
-	
-	private class TopMenu extends HBox {
+
+	private class TopMenu extends MenuBar {
 		public TopMenu() {
-			this.setAlignment(Pos.CENTER_LEFT);
 			this.getStyleClass().add("toolbar");
 			this.setWidth(WIDTH);
 			buildMenu();
 		}
 
 		private void buildMenu() {
-			//Create prompt text
-			Text entityTypePrompt = new Text("Entity Prompt: ");
-			entityTypePrompt.getStyleClass().add("toolbar-prompt");
-			this.getChildren().add(entityTypePrompt);
-			
 			//Create Entity Type selector
-			ComboBox<String> entityType = new ComboBox<String>();
-			entityType.getStyleClass().add(".entity-builder-combo-box"); //TODO: Make the arrow reappear so people know we mean business
-			entityType.getItems().addAll(entityTypes);
-			entityType.setMinWidth(150);
-			entityType.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					myEntityType = entityType.getSelectionModel().getSelectedItem();
-				}
-			});
-			entityType.setPromptText("Entity Type");
-			this.getChildren().add(entityType);
+			Menu typeMenu = new Menu();
+			typeMenu.setText("Object Type");
+			typeMenu.getStyleClass().add(".entity-builder-combo-box"); //TODO: Make the arrow reappear so people know we mean business
+			for(String et : entityTypes) {
+				MenuItem menuItem = new MenuItem();
+				menuItem.setText(et);
+				menuItem.setOnAction((e)->{myEntityType = et; typeMenu.setText(et);});
+				typeMenu.getItems().add(menuItem);
+			}
+			this.getMenus().add(typeMenu);
 			
 			//Create a Load Image button
 			Button imageButton = new Button("Load Image");
@@ -144,6 +139,7 @@ public class EntityBuilderView{
 			this.getChildren().add(imageButton);
 			
 			
+			
 		}
 	}
 	/**
@@ -158,7 +154,9 @@ public class EntityBuilderView{
 			this.setContent(vBox);
 			buildPanel();
 		}
-
+		/**
+		 * Builds the left-side Panel
+		 */
 		private void buildPanel() {
 			//Create an Image View
 			imageView = new ImageView();
@@ -188,7 +186,9 @@ public class EntityBuilderView{
 			buildMenu();
 			
 		}
-		
+		/**
+		 * Builds the menu
+		 */
 		private void buildMenu() {
 			//Create Save Button
 			Button saveButton = new Button("Save");
