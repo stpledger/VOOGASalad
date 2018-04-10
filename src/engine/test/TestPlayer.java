@@ -1,7 +1,6 @@
 package engine.test;
 
 
-import engine.systems.InputHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 

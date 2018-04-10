@@ -1,11 +1,14 @@
 package GamePlayer;
 
 import java.io.File;
+import java.util.Set;
 import HUD.SampleToolBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.SetProperty;
+import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
@@ -29,9 +32,14 @@ public class GamePlayerController {
 	private File currentFile;
 	private FileUploadButton fileBtn;
 
+	
+	// SORRY FOR CHANGING YOUR CODE PLAYER	-ENGINE
+	private SetProperty<KeyCode> activeKeys;
+	
+	
 
 	public GamePlayerController() {
-
+		activeKeys = new SimpleSetProperty<>();
 	}
 	
 	
@@ -49,7 +57,19 @@ public class GamePlayerController {
 		pane.setTop(sampleBar);
 		pane.setBottom(fileBtn);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
-		myScene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
+		myScene.setOnKeyPressed(e -> {
+			handleKeyInput(e.getCode());
+			
+			
+			// SORRY
+			activeKeys.add(e.getCode());
+			
+		});
+		
+		myScene.setOnKeyReleased(e -> {
+			activeKeys.remove(e.getCode());
+		});
+		
 		return myScene;
 	}
 	
@@ -107,6 +127,10 @@ public class GamePlayerController {
 			//pane.getChildren().get(0).setVisible(false);
 			//mainStage.setScene(new Scene(new Button("asdkl;f")));
 		}
-
+		
+		
+		
+		
+		
 	}
 }
