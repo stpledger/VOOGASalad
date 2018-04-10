@@ -7,6 +7,7 @@ import java.util.List;
 
 import engine.components.Component;
 import engine.support.ComponentBuilder;
+import frontend.components.LocalPropertiesView;
 import javafx.scene.image.ImageView;
 
 /**
@@ -31,10 +32,12 @@ public abstract class Entity extends ImageView{
      * The constructor simply sets the ID of the entity and initializes its list of components
      * @param ID which identifies an entity
     **/
-    public Entity (int ID) {
+    public Entity(int ID) {
         this.ID = ID;
         components = new ArrayList<>();
-        
+        this.setOnMouseClicked(e -> {
+        		LocalPropertiesView LPV = new LocalPropertiesView(this);
+        }); 
     }
     
     /**
@@ -47,7 +50,10 @@ public abstract class Entity extends ImageView{
      * @param c Component object
      */
     public void add(Component c) {
-        components.add(c);
+    		for (Component other : this.components) {
+    			if (c.getKey().equals(other.getKey())) return;
+    		}
+    		this.components.add(c);
     }
     
     /**
@@ -114,7 +120,7 @@ public abstract class Entity extends ImageView{
      * @return List of components which define the entity
      */
     public List<Component> getComponentList(){
-    	return this.components;
+    		return this.components;
     }
 
 }
