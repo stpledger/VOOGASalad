@@ -45,6 +45,8 @@ public class GamePlayerController {
 	
 	
 	public Scene intializeStartScene() {
+		SampleToolBar sampleBar = new SampleToolBar();
+//		fileBtn = sample
 		fileBtn = new FileUploadButton();
 		fileBtn.getFileBooleanProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
@@ -53,11 +55,10 @@ public class GamePlayerController {
 				initializeGameStart(); //begin the game
 			}
 		});
-		SampleToolBar sampleBar = new SampleToolBar();
+		
 //		group = new Group();
 //		group.getChildren().add(fileBtn);
 		pane.setTop(sampleBar);
-		pane.setLeft(fileBtn);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
 			handleKeyInput(e.getCode());
