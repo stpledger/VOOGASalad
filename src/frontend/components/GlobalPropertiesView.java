@@ -1,6 +1,5 @@
 package frontend.components;
 
-
 /**
  * 
  * @author Collin Brown(cdb55)
@@ -13,9 +12,14 @@ public class GlobalPropertiesView extends PropertiesView {
 	}
 
 	@Override
-	protected Broadcast buildBroadcast() {
+	protected String title() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	protected void fill() {
+		
 	}
 
 }

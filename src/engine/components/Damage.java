@@ -38,6 +38,4 @@ public class Damage extends Component {
 	public void decrementLife() {
 		lifetime--;
 	}
-
-
 }

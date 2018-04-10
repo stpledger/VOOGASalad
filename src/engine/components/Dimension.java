@@ -44,6 +44,4 @@ public class Dimension extends Component{
 	public void setWidth(double width) {
 		this.width = width;
 	}
-	
-
 }

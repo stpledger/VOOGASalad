@@ -30,4 +30,5 @@ public class EntityType extends Component{
 		return type;
 	}
 
+
 }

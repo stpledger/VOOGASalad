@@ -43,4 +43,5 @@ public class Position extends Component {
 	public void setYPos(double yPos) {
 		this.yPos = yPos;
 	}
+
 }
