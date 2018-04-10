@@ -1,10 +1,9 @@
+
 package engine;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import engine.systems.ISystem;
-import engine.test.TestGameState;
 
 /**
  * Actual instantiation of engine. Runs game initializer and calls systems to update.
@@ -26,3 +25,4 @@ public class InternalEngine implements Engine {
 		systems.forEach(sys -> sys.execute(time));
 	}	
 }
+

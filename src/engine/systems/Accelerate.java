@@ -1,9 +1,6 @@
 package engine.systems;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import engine.components.Acceleration;
 import engine.components.Component;
@@ -23,6 +20,7 @@ public class Accelerate implements ISystem {
 	private static final int VELOCITY_INDEX = 1;
 
 	private Map<Integer, List<Component>> handledComponents = new HashMap<>();
+	private Set<Integer> activeComponents;
     
 	/**
 	 * Adds acceleration and velocity components from <String, Component> Map
@@ -51,13 +49,19 @@ public class Accelerate implements ISystem {
     	}
     }
 
-    /**
+	@Override
+	public void setActives(Set<Integer> actives) {
+    	activeComponents = actives;
+    	activeComponents.retainAll(handledComponents.keySet());
+	}
+
+	/**
      * Updates velocity values based on Acceleration component
      * 
      *  @param time	Update time for game loop
      */
 	public void execute(double time) {
-		for (int pid : handledComponents.keySet()) {
+		for (int pid : activeComponents) {
 			List<Component> activeComponents = handledComponents.get(pid);
 
 			Acceleration a = (Acceleration) activeComponents.get(ACCELERATION_INDEX);
