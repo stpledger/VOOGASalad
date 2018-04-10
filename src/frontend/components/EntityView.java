@@ -42,6 +42,7 @@ public class EntityView extends BorderPane {
 	private Object clipboard;
 	private ArrayList<String> entityTypes = new ArrayList<String>();
 	private TabPane tabPane = new TabPane();
+	private Consumer clipboardHandler;
 	
 	//Consumer for Handling the onClose event of an EntityBuilderView
 	BiConsumer<String, File> onClose = (e,y) -> {saveEntity(e,y);};
@@ -54,8 +55,9 @@ public class EntityView extends BorderPane {
 		this.put("newEntity", newEntity);
 	}};
 	
-	public EntityView() {
+	public EntityView(Consumer ch) {
 		super();
+		clipboardHandler = ch;
 		this.setPrefWidth(entityViewWidth);
 		this.getStyleClass().add("entity-view");
 		this.setTop(new Toolbar("Entity", consumerMap));
@@ -155,8 +157,7 @@ public class EntityView extends BorderPane {
 
 		@Override
 		public void changed(ObservableValue clipboardObject, Object oldValue, Object newValue) {
-//			broadcast.setMessage("setClipboard", new Object[] {newValue});	
-//			broadcast.setMessage("setTool", new Object[] {"addTool"});
+			clipboardHandler.accept(newValue);
 
 		}
 	}

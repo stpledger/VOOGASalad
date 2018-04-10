@@ -1,5 +1,7 @@
 package frontend.components;
 
+import java.util.function.Consumer;
+
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
@@ -11,8 +13,13 @@ import javafx.scene.layout.BorderPane;
 public class MainView {
 	private BorderPane border;
 	private Toolbar toolbar;
-	private GameEditorView gameEnvironmentView;
+	private GameEditorView gameEditorView;
 	private EntityView componentView;
+	
+	//Consumer to handle transferring clipboard transfers
+	Consumer clipboardHandler = (e)->{
+		gameEditorView.setClipboard(e);
+	};
 	
 	//GUI Constants
 	private static double ideHeight = 600;
@@ -21,8 +28,8 @@ public class MainView {
 	
 	public MainView() {
 		border = new BorderPane();
-		gameEnvironmentView = new GameEditorView();
-		componentView = new EntityView();
+		gameEditorView = new GameEditorView();
+		componentView = new EntityView(clipboardHandler);
 	}
 	
 	/**
@@ -32,7 +39,7 @@ public class MainView {
 		border = new BorderPane();
 		border.setTop(toolbar);
 		border.setLeft(componentView);
-		border.setCenter(gameEnvironmentView);
+		border.setCenter(gameEditorView);
 		return border;
 		
 	}
@@ -50,7 +57,7 @@ public class MainView {
 	 * @return
 	 */
 	public GameEditorView getGameEnvironmentView() {
-		return gameEnvironmentView;
+		return gameEditorView;
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package frontend.components;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.function.Consumer;
 import com.sun.glass.ui.Cursor;
 
 import frontend.gamestate.*;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -19,6 +21,10 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
+import GamePlayer.Main;
 
 /**
  * 
@@ -26,12 +32,14 @@ import javafx.scene.layout.BorderPane;
  *
  */
 public class GameEditorView extends BorderPane {
+	private static final String GAMEFILEEXTENSION = ".vooga";
 	private ArrayList<Tab> tabsList;
 	private Object clipboard;
 	private String activeTool;
 	private IGameState state;
 	private TabPane tabPane;
 	private Toolbar toolbar;
+	private File gameFile;
 	
 	/**
 	 * Default Constructor
@@ -63,7 +71,11 @@ public class GameEditorView extends BorderPane {
 	//Handles new game call from toolbar
 	Consumer newGame = (e)->{System.out.println("New Game!");}; 
 	//Handles load game call from toolbar
-	Consumer loadGame = (e)->{System.out.println("Load Game!");};
+	Consumer loadGame = (e)->{
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Image File");
+		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", GAMEFILEEXTENSION));
+		gameFile = fileChooser.showOpenDialog(new Stage());};
 	//Handles save game call from toolbar
 	Consumer saveGame = (e)->{System.out.println("Save Game!");};
 	//Handles the add new level call from toolbar
@@ -71,7 +83,19 @@ public class GameEditorView extends BorderPane {
 	//Handles the show settings call from toolbar
 	Consumer showSettings = (e)->{System.out.println("Show Settings!");};
 	//Handles the play game call from toolbar
-	Consumer play = (e)->{System.out.println("Play!");};
+	Consumer play = (e)->{
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				try { 
+					new Main().start(new Stage());
+				} catch (Exception e) { 
+					System.out.println("Error Running Game");
+				}
+			}	
+		});
+		
+		};
 	//Handles the call for the addTool in toolbar
 	Consumer addTool = (e)->{System.out.println("Add Tool!");};
 	//Handles the call for the deleteTool in toolbar
@@ -128,6 +152,7 @@ public class GameEditorView extends BorderPane {
 	public void setClipboard(Object o) {
 		//TODO: add argument check because this is being called from the controller
 		clipboard = o;
+		System.out.println(o.toString());
 	}
 	
 	//TODO: change these class names
