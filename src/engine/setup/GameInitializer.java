@@ -6,7 +6,6 @@ import java.util.*;
 import engine.components.Component;
 import engine.components.KeyInput;
 import engine.components.Position;
-import engine.components.Sprite;
 import engine.systems.*;
 
 public class GameInitializer {

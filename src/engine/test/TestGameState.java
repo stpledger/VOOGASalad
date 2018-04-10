@@ -64,6 +64,10 @@ public class TestGameState {
 		Velocity v3 = new Velocity(2,0,10);
 		Acceleration a3 = new Acceleration(1, 0, 0);
 
+		TestKeyInput tki = new TestKeyInput(2, "left", list ->  {
+			((Velocity) list.get("Velocity")).setYVel(1000);
+		});
+		
 		Map<String, Component> mario3 = new HashMap<>();
 		mario3.put(Position.getKey(), p3);
 		mario3.put(Dimension.getKey(), d3);
