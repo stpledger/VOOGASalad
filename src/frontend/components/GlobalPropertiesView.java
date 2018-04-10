@@ -23,7 +23,7 @@ public class GlobalPropertiesView extends PropertiesView {
 	@Override
 	protected void fill() {
 		int currentRow = 0;
-		ResourceBundle globalProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"globalProperties");
+		ResourceBundle globalProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"GlobalProperties");
 		NumberField timeNumber = new NumberField();
 		NumberField livesNumber = new NumberField();
 		NumberField levelNumber = new NumberField();

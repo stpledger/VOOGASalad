@@ -29,7 +29,7 @@ public class LevelPropertiesView extends PropertiesView{
 	@Override
 	protected void fill() {
 		int currentRow = 0;
-		ResourceBundle levelProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"levelProperties");
+		ResourceBundle levelProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"LevelProperties");
 		TextField infoText = new TextField();
 		TextField diffText = new TextField();
 		NumberField timeNumber = new NumberField();
