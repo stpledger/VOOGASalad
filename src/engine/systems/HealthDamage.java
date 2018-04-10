@@ -1,5 +1,8 @@
 package engine.systems;
-
+/**
+ * A system that handles what happens when two entities collide, one having health component and the other damage
+ * @author Stefani Vukajlovic
+ */
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +16,7 @@ public class HealthDamage implements ISystem {
 	public static int DAMAGE_INDEX = 1;
 	
 	private Map<Integer, List<Component>> healthComponents;
+	private Set<Integer> activeComponents;
 
 	public HealthDamage() {
 		healthComponents = new HashMap<>();
@@ -32,16 +36,24 @@ public class HealthDamage implements ISystem {
     		healthComponents.remove(pid);
     	}  
 	}
-	
+
+	@Override
+	public void setActives(Set<Integer> actives) {
+		activeComponents = actives;
+	}
+
 	public void execute(double time) {
-		healthComponents.forEach((key, list) -> {
-			Health h = (Health) list.get(HEALTH_INDEX);
-			Damage d = (Damage) list.get(DAMAGE_INDEX);
-			
-			h.setHealth(h.getHealth() - d.getDamage());
-			d.decrementLife();
-			if(d.getLifetime() == 0) {
-				healthComponents.remove(h.getParentID());
+		activeComponents.forEach((key) -> {
+			if (healthComponents.containsKey(key)) {
+				List<Component> list = healthComponents.get(key);
+				Health h = (Health) list.get(HEALTH_INDEX);
+				Damage d = (Damage) list.get(DAMAGE_INDEX);
+
+				h.setHealth(h.getHealth() - d.getDamage());
+				d.decrementLife();
+				if(d.getLifetime() == 0) {
+					healthComponents.remove(h.getParentID());
+				}
 			}
 		});
 	}

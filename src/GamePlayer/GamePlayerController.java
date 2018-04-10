@@ -1,12 +1,9 @@
 package GamePlayer;
 
 import java.io.File;
-
 import HUD.SampleToolBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
-import engine.setup.RenderManager;
-import engine.setup.SystemManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ChangeListener;
