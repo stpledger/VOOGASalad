@@ -14,6 +14,7 @@ import engine.components.Component;
 import engine.components.Damage;
 import engine.components.DamageLauncher;
 import engine.components.Health;
+import engine.setup.EntityManager;
 public class HealthDamage implements ISystem {
 	private Map<Integer, Map<String, Component>> healthComponents;
 	private Set<Integer> activeComponents;
@@ -55,8 +56,10 @@ public class HealthDamage implements ISystem {
 					d.decrementLife();
 				}
 
+				Component dComponent = (Component)d;
+				map.put(Damage.getKey(), dComponent);
 				if(d.getLifetime() == 0) {
-					EntityManager.removeComponent(key, Damage.getKey(), d);
+					EntityManager.removeComponent(key, Damage.getKey(), dComponent);
 				}
 
 			}
