@@ -36,11 +36,12 @@ public class GameEnvironmentView extends TabPane {
 		tabsList = new ArrayList<Tab>();
 		state = new GameState();
 		addLevel(); // add the first level
+		System.out.println("GEV");
 		this.setOnMouseClicked(e -> {
 			if (e.getButton().equals(MouseButton.PRIMARY)) {
 				if (e.getClickCount() == 2) {
 					// TODO grab entity number somehow
-					PropertiesView LPV = new LocalPropertiesView(1);
+					LocalPropertiesView LPV = new LocalPropertiesView(1);
 					LPV.open();
 				}
 			}

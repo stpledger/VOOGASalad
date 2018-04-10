@@ -22,8 +22,9 @@ public class LocalPropertiesView extends PropertiesView {
 	
 	private final String PROPERTIES_PACKAGE = "resources/components";
 	private final String COMPONENT_PREFIX = "engine.components.";
+	private List<ComponentForm> activeForms;
 	private int entityNumber;
-	private Button submitButton;
+	private final String SUBMIT_TEXT = "Submit Changes";
 	
 	/**
 	 * Initialize the object with a given broadcast method
@@ -32,7 +33,7 @@ public class LocalPropertiesView extends PropertiesView {
 	public LocalPropertiesView(int entityNumber) {
 		super();
 		this.entityNumber = entityNumber;
-		fill();
+		this.fill();
 	}
 	
 	/**
@@ -41,9 +42,19 @@ public class LocalPropertiesView extends PropertiesView {
 	@Override
 	protected void fill() {
 		int currentRow = 0;
+		this.activeForms = new ArrayList<>();
 		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE).keySet()) {
-			getRoot().add(new ComponentForm(this.entityNumber, property, numFields(property)), 0, currentRow++);
+			ComponentForm cf = new ComponentForm(this.entityNumber, property, numFields(property));
+			this.activeForms.add(cf);
+			getRoot().add(cf, 0, currentRow++);
 		}
+		Button submit = new Button(SUBMIT_TEXT);
+		submit.setOnAction(e -> {
+			for (ComponentForm cf : this.activeForms) {
+				Component c = cf.buildComponent();
+			}
+		});
+		getRoot().add(submit, 0, currentRow);
 	}
 	
 	/**

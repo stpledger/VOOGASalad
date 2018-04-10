@@ -54,7 +54,9 @@ public class ComponentForm extends GridPane {
 		try {
 			Class clazz = Class.forName(fullName);
 			Constructor cons = clazz.getDeclaredConstructors()[0];
-			return (Component) cons.newInstance(this.entity, params);
+			Component comp = (Component) cons.newInstance(this.entity, params);
+			System.out.println(comp);
+			return comp;
 		} catch (ClassNotFoundException e) {
 			// TODO better exception
 			e.printStackTrace();
