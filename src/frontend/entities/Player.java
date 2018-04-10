@@ -1,9 +1,5 @@
 package frontend.entities;
 
-import java.util.Arrays;
-
-import engine.components.EntityType;
-import engine.support.ComponentBuilder;
 /**
  * A class to represent the player object, and its default components.
  * @author Dylan Powers
@@ -29,8 +25,8 @@ public class Player extends Entity {
 	 */
 	@Override
 	public void addDefaultComponents() {
-		this.add(ComponentBuilder.buildComponent(this.getID(), "EntityType", Arrays.asList(new String[] {TYPE})));
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Health", Arrays.asList(new String[] {"100"})));
+		this.setEntityType(TYPE);
+		this.setHealth(INITIAL_HEALTH);
 	}
 
 }
