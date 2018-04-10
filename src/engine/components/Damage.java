@@ -1,9 +1,5 @@
 package engine.components;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * This component defines poisons points of the game object.
@@ -21,10 +17,10 @@ public class Damage extends Component {
 		return "Damage";
 	}
 	
-	public Damage (int pid, List<String> parameters) {
+	public Damage (int pid, double damage, double lifetime) {
 		super(pid);
-		this.damage = Double.parseDouble(parameters.get(0));
-		this.lifetime = Double.parseDouble(parameters.get(1));
+		this.damage = damage;
+		this.lifetime = lifetime;
 	}
 
 	public double getDamage() {
@@ -43,13 +39,5 @@ public class Damage extends Component {
 		lifetime--;
 	}
 
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<>(){{
-		     add(new String[] {"damage","double"});
-		     add(new String[] {"lifetime","double"});
-		}};
-		
-		return parameters;
-	}
+
 }

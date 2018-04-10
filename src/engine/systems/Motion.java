@@ -37,12 +37,13 @@ public class Motion implements ISystem {
      */
     @Override
     public void removeComponent(int pid) {
+
         if(handledComponents.containsKey(pid)) {
             handledComponents.remove(pid);
         }
     }
 
-    @Override
+
     public void setActives(Set<Integer> actives) {
         activeComponents = actives;
     }

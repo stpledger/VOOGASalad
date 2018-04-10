@@ -1,6 +1,5 @@
 package engine.components;
 
-import java.util.List;
 
 /**
  * Component superclass. Just a databucket for a parent ID, which all sub components need.
@@ -24,5 +23,4 @@ public abstract class Component {
 		return pid;
 	}
 	
-	public abstract List<String[]> getParameters();
 }
