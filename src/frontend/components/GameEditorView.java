@@ -1,7 +1,9 @@
 package frontend.components;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 import com.sun.glass.ui.Cursor;
@@ -16,27 +18,35 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
 
 /**
  * 
  * @author Collin Brown(cdb55)
  *
  */
-public class GameEnvironmentView extends TabPane {
+public class GameEditorView extends BorderPane {
 	private ArrayList<Tab> tabsList;
 	private Object clipboard;
 	private String activeTool;
 	private IGameState state;
+	private TabPane tabPane;
+	private Toolbar toolbar;
 	
 	/**
 	 * Default Constructor
 	 */
-	public GameEnvironmentView() {
+	public GameEditorView() {
 		super();
+		//Create a Toolbar
+		toolbar = new Toolbar("GameEditor", consumerMap);
+		this.setTop(toolbar);
+		tabPane = new TabPane();
 		activeTool = "move";
 		tabsList = new ArrayList<Tab>();
 		state = new GameState();
 		addLevel(); // add the first level
+		this.setCenter(tabPane);
 		this.setOnMouseClicked(e -> {
 			if (e.getButton().equals(MouseButton.PRIMARY)) {
 				if (e.getClickCount() == 2) {
@@ -46,6 +56,42 @@ public class GameEnvironmentView extends TabPane {
 			}
 		});
 	}
+	
+	/**
+	 * Below are all of the consumers to be passed to the toolbar
+	 */
+	//Handles new game call from toolbar
+	Consumer newGame = (e)->{System.out.println("New Game!");}; 
+	//Handles load game call from toolbar
+	Consumer loadGame = (e)->{System.out.println("Load Game!");};
+	//Handles save game call from toolbar
+	Consumer saveGame = (e)->{System.out.println("Save Game!");};
+	//Handles the add new level call from toolbar
+	Consumer newLevel = (e)->{addLevel();};
+	//Handles the show settings call from toolbar
+	Consumer showSettings = (e)->{System.out.println("Show Settings!");};
+	//Handles the play game call from toolbar
+	Consumer play = (e)->{System.out.println("Play!");};
+	//Handles the call for the addTool in toolbar
+	Consumer addTool = (e)->{System.out.println("Add Tool!");};
+	//Handles the call for the deleteTool in toolbar
+	Consumer deleteTool = (e)->{System.out.println("Delete Tool!");};
+	//Handles thecall for the editTool in Toolbar
+	Consumer editTool = (e)->{System.out.println("edit Tool!");};
+	//All of the consumers are added to the consumerMap below
+	private Map<String, Consumer> consumerMap = new HashMap<String, Consumer>(){{
+		this.put("newGame", newGame);
+		this.put("loadGame", loadGame);
+		this.put("saveGame", saveGame);
+		this.put("addLevel", newLevel);
+		this.put("showSettings", showSettings);
+		this.put("play", play);
+		this.put("addTool", addTool);
+		this.put("deleteTool", deleteTool);
+		this.put("editTool", editTool);
+		
+	}};
+	
 	/**
 	 * called whenever there is any change to the tabslist
 	 * TODO: This might not even need to be a lambda but gotta flex for Duval.
@@ -72,7 +118,7 @@ public class GameEnvironmentView extends TabPane {
 				updateTabs.accept(tabsList);
 			}
 		});
-		this.getTabs().add(t);
+		tabPane.getTabs().add(t);
 	}
 	
 	/**
