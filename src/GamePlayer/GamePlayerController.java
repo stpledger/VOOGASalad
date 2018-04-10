@@ -35,13 +35,10 @@ public class GamePlayerController {
 	private GamePlayerEntityView gameView;
 	private File currentFile;
 	private FileUploadButton fileBtn;
-
 	
 	// SORRY FOR CHANGING YOUR CODE PLAYER	-ENGINE Team
 	private SetProperty<KeyCode> activeKeys;
 	
-	
-
 	public GamePlayerController() {
 		activeKeys = new SimpleSetProperty<>();
 	}
@@ -59,21 +56,18 @@ public class GamePlayerController {
 //		group = new Group();
 //		group.getChildren().add(fileBtn);
 		pane.setTop(sampleBar);
-		pane.setBottom(fileBtn);
+		pane.setLeft(fileBtn);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
 			handleKeyInput(e.getCode());
-			
-			
 			// SORRY
-			activeKeys.add(e.getCode());
+			//activeKeys.add(e.getCode());
 			
 		});
-		
-		myScene.setOnKeyReleased(e -> {
-			activeKeys.remove(e.getCode());
-		});
-		
+//		
+//		myScene.setOnKeyReleased(e -> {
+//			activeKeys.remove(e.getCode());
+//		});
 		return myScene;
 	}
 	
