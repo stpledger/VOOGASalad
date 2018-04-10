@@ -5,6 +5,7 @@ import java.util.*;
 import engine.components.Acceleration;
 import engine.components.Component;
 import engine.components.Velocity;
+import engine.setup.EntityManager;
 
 /**
  * **
@@ -14,7 +15,7 @@ import engine.components.Velocity;
  * @author Yameng
  */
 
-public class Accelerate implements ISystem {
+public class Accelerate implements ISystem{
 	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
 	private Set<Integer> activeComponents;
     
@@ -45,6 +46,53 @@ public class Accelerate implements ISystem {
 	    	}
     }
 
+    @Override
+    public void addComponent(int pid, String componentName) {
+    		if(!componentName.equals(Acceleration.getKey()) && !componentName.equals(Velocity.getKey())) {
+    			return;
+    		}
+    		
+    		if(handledComponents.containsKey(pid)) {
+    			System.out.println("Accelerate System tries adding duplicate " + componentName + " component for entity " + pid + " !");
+    		}
+    		
+
+    		Map<String, Component> map = new HashMap<>();
+    		map.put(componentName,EntityManager.getComponent(pid, componentName));
+    		if(componentName.equals(Acceleration.getKey())) {
+    			Component component = EntityManager.getComponent(pid,Velocity.getKey());
+    			if(component == null) {
+    				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Velocity.getKey() + " component!");
+    				return;
+    			}
+    			map.put(Velocity.getKey(), component);
+    		}
+    		else {
+    			Component component = EntityManager.getComponent(pid,Acceleration.getKey());
+    			if(component == null) {
+    				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Acceleration.getKey() + " component!");
+    				return;
+    			}
+    			map.put(Acceleration.getKey(), component);
+    		}
+    		handledComponents.put(pid,map);
+    }
+    
+    @Override
+    public void removeComponent(int pid, String componentName) {
+		if(!componentName.equals(Acceleration.getKey()) && !componentName.equals(Velocity.getKey())) {
+			return;
+		}
+		
+		if(!handledComponents.containsKey(pid)) {
+			System.out.println("Accelerate System tries remove " + componentName + " from non-existing entity " + pid + " !");
+		}
+		
+
+		handledComponents.remove(pid);
+    }
+
+    
 	@Override
 	public void setActives(Set<Integer> actives) {
 	    	activeComponents = actives;

@@ -1,7 +1,7 @@
 package engine.systems;
 
 import engine.components.*;
-
+import engine.setup.EntityManager;
 import javafx.scene.image.ImageView;
 
 import java.util.List;
@@ -35,6 +35,50 @@ public class Animate implements ISystem {
             handledComponents.remove(pid);
         }
     }
+
+    public void addComponent(int pid, String componentName) {
+		if(!componentName.equals(Position.getKey()) && !componentName.equals(Sprite.getKey())) {
+			return;
+		}
+		
+		if(handledComponents.containsKey(pid)) {
+			System.out.println("Animate System tries adding duplicate " + componentName + " component for entity " + pid + " !");
+		}
+		
+
+		Map<String, Component> map = new HashMap<>();
+		map.put(componentName,EntityManager.getComponent(pid, componentName));
+		if(componentName.equals(Position.getKey())) {
+			Component component = EntityManager.getComponent(pid,Sprite.getKey());
+			if(component == null) {
+				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Sprite.getKey() + " component!");
+				return;
+			}
+			map.put(Sprite.getKey(), component);
+		}
+		else {
+			Component component = EntityManager.getComponent(pid,Position.getKey());
+			if(component == null) {
+				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Position.getKey() + " component!");
+				return;
+			}
+			map.put(Position.getKey(), component);
+		}
+		handledComponents.put(pid,map);
+    }
+
+	public void removeComponent(int pid, String componentName) {
+		if(!componentName.equals(Position.getKey()) && !componentName.equals(Sprite.getKey())) {
+			return;
+		}
+		
+		if(!handledComponents.containsKey(pid)) {
+			System.out.println("Animate System tries remove " + componentName + " from non-existing entity " + pid + " !");
+		}
+		
+	
+		handledComponents.remove(pid);
+	}
 
     @Override
     public void setActives(Set<Integer> actives) {
