@@ -30,6 +30,8 @@ import javafx.stage.Stage;
 import javafx.util.Pair;
 import sun.reflect.Reflection;
 
+import frontend.components.*;
+
 public class EntityView extends BorderPane {
 	private double entityViewWidth = 300;
 	private ArrayList<String> tabsList = new ArrayList<String>();
@@ -58,7 +60,6 @@ public class EntityView extends BorderPane {
 	public void createEntity() {
 		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
 		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);			
-
 	}
 	/**
 	 * Opens the window to delete an entity
@@ -150,7 +151,9 @@ public class EntityView extends BorderPane {
 
 		@Override
 		public void changed(ObservableValue clipboardObject, Object oldValue, Object newValue) {
-			//TODO: Make this change the clipboard in GameEnvironmentView
+//			broadcast.setMessage("setClipboard", new Object[] {newValue});	
+//			broadcast.setMessage("setTool", new Object[] {"addTool"});
+
 		}
 	}
 

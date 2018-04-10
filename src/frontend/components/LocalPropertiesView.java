@@ -1,11 +1,7 @@
 package frontend.components;
 
 import java.util.List;
-<<<<<<< HEAD
-
-=======
 import java.util.ResourceBundle;
->>>>>>> 7665aabcf6be02d1c7026b4b1149ef1e0c0e79d4
 import javafx.scene.control.Label;
 
 /**
@@ -27,6 +23,7 @@ public class LocalPropertiesView extends PropertiesView {
 	public LocalPropertiesView(int entityNumber) {
 		super();
 		this.entityNumber = entityNumber;
+		fill();
 	}
 	
 	/**
