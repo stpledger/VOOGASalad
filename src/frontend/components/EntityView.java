@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
@@ -41,22 +42,28 @@ public class EntityView extends BorderPane {
 	private Object clipboard;
 	private ArrayList<String> entityTypes = new ArrayList<String>();
 	private TabPane tabPane = new TabPane();
-	Consumer c = (e) -> {
+	private Consumer clipboardHandler;
+	
+	//Consumer for Handling the onClose event of an EntityBuilderView
+	BiConsumer<String, File> onClose = (e,y) -> {saveEntity(e,y);};
+	//Consumer for Creating a new Entity(Opens EntityBuilderView)
+	Consumer newEntity = (e) -> {
 		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
-		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes);
+		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
 	};
 	private Map<String, Consumer> consumerMap = new HashMap<String,Consumer>(){{
-		this.put("newEntity", c);
+		this.put("newEntity", newEntity);
 	}};
 	
-	
-	public EntityView() {
+	public EntityView(Consumer ch) {
 		super();
+		clipboardHandler = ch;
 		this.setPrefWidth(entityViewWidth);
 		this.getStyleClass().add("entity-view");
 		this.setTop(new Toolbar("Entity", consumerMap));
 		this.setCenter(tabPane);
 	}
+	
 	
 	private void addTab(String type) {
 			ClipboardListener c = new ClipboardListener();
@@ -127,13 +134,9 @@ public class EntityView extends BorderPane {
         for (String filename : directory.list()) {
             if (filename.endsWith(".class") && !filename.startsWith("Entity")) { //Check to make sure its a class file and not the superclass
                 String classname = buildClassname(pckgName, filename);
-                try {
-                		String clazz = Class.forName(classname).toString();
-                		// Strip everything except for the word following the last period (the actual class name)
-                    classes.add(clazz.substring(clazz.lastIndexOf(".") + 1));
-                } catch (ClassNotFoundException e) {
-                    System.err.println("Error creating class " + classname);
-                }
+                String clazz = classname.replace(".java", "");
+				// Strip everything except for the word following the last period (the actual class name)
+               classes.add(clazz.substring(clazz.lastIndexOf(".") + 1));
             }
         }
         return classes.toArray(new String[classes.size()]);
@@ -147,7 +150,6 @@ public class EntityView extends BorderPane {
 	 */
     private String buildClassname(String pckgName, String fileName) {
     		String className = pckgName + '.' + fileName.replace(".class", "");
-        System.out.println(className);
         return className;
     }
 
@@ -155,8 +157,7 @@ public class EntityView extends BorderPane {
 
 		@Override
 		public void changed(ObservableValue clipboardObject, Object oldValue, Object newValue) {
-//			broadcast.setMessage("setClipboard", new Object[] {newValue});	
-//			broadcast.setMessage("setTool", new Object[] {"addTool"});
+			clipboardHandler.accept(newValue);
 
 		}
 	}
