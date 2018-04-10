@@ -1,7 +1,10 @@
 package GamePlayer;
 
 import java.io.File;
+<<<<<<< HEAD
 
+=======
+>>>>>>> dbe4ae09bbd68f8c94bb0b5e3180cfbf7b0010c7
 import java.util.Set;
 import HUD.SampleToolBar;
 import Menu.PauseMenu;
@@ -32,45 +35,41 @@ public class GamePlayerController {
 	private GamePlayerEntityView gameView;
 	private File currentFile;
 	private FileUploadButton fileBtn;
-
 	
 	// SORRY FOR CHANGING YOUR CODE PLAYER	-ENGINE Team
 	private SetProperty<KeyCode> activeKeys;
 	
-	
-
 	public GamePlayerController() {
 		activeKeys = new SimpleSetProperty<>();
 	}
 	
 	
 	public Scene intializeStartScene() {
+		SampleToolBar sampleBar = new SampleToolBar();
+//		fileBtn = sample
 		fileBtn = new FileUploadButton();
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> initializeGameStart());
 			/*{@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				System.out.println("blah");
 				initializeGameStart(); //begin the game
 			}
 		});*/
-		SampleToolBar sampleBar = new SampleToolBar();
+		
 //		group = new Group();
 //		group.getChildren().add(fileBtn);
 		pane.setTop(sampleBar);
-		pane.setBottom(fileBtn);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
 			handleKeyInput(e.getCode());
-			
-			
 			// SORRY
-			activeKeys.add(e.getCode());
+			//activeKeys.add(e.getCode());
 			
 		});
-		
-		myScene.setOnKeyReleased(e -> {
-			activeKeys.remove(e.getCode());
-		});
-		
+//		
+//		myScene.setOnKeyReleased(e -> {
+//			activeKeys.remove(e.getCode());
+//		});
 		return myScene;
 	}
 	
@@ -81,7 +80,7 @@ public class GamePlayerController {
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
-		pane.setCenter(gameRoot); //adds starting game Root to the file.
+		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		initializeGameAnimation(); //begins the animation cycle
 	}
 
@@ -103,9 +102,9 @@ public class GamePlayerController {
 	 * @param root
 	 */
 	private void step (double elapsedTime, Group root) {
-		gameView.systemManager.execute(elapsedTime);
-		gameView.renderManager.garbageCollect();
-		gameView.renderManager.renderObjects();
+		gameView.getSystemManager().execute(elapsedTime);
+		gameView.getRenderManager().garbageCollect();
+		gameView.getRenderManager().renderObjects();
 		
 	}
 	
