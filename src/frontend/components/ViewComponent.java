@@ -3,7 +3,6 @@ package frontend.components;
 import java.util.Observable;
 import java.util.Observer;
 
-import com.sun.org.apache.xerces.internal.dom.ChildNode;
 import javafx.scene.Node;
 
 /**
