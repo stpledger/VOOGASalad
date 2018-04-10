@@ -37,12 +37,12 @@ public class GamePlayerController {
 	
 	public Scene intializeStartScene() {
 		fileBtn = new FileUploadButton();
-		fileBtn.getFileBooleanProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
+		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> initializeGameStart());
+			/*{@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				initializeGameStart(); //begin the game
 			}
-		});
+		});*/
 		SampleToolBar sampleBar = new SampleToolBar();
 //		group = new Group();
 //		group.getChildren().add(fileBtn);
