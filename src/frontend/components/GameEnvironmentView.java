@@ -4,42 +4,49 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+
+import frontend.gamestate.*;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.input.MouseButton;
 
 /**
  * 
  * @author Collin Brown(cdb55)
  *
  */
-public class GameEnvironmentView extends ViewComponent {
-	private TabPane pane;
+public class GameEnvironmentView extends TabPane {
 	private ArrayList<Tab> tabsList;
 	private Object clipboard;
+	private String activeTool;
+	private IGameState state;
 	
 	/**
 	 * Default Constructor
 	 */
 	public GameEnvironmentView() {
 		super();
-		pane = new TabPane();
+		activeTool = "move";
 		tabsList = new ArrayList<Tab>();
+		state = new GameState();
 		addLevel(); // add the first level
+		System.out.println("GEV");
+		this.setOnMouseClicked(e -> {
+			if (e.getButton().equals(MouseButton.PRIMARY)) {
+				if (e.getClickCount() == 2) {
+					// TODO grab entity number somehow
+					LocalPropertiesView LPV = new LocalPropertiesView(1);
+					LPV.open();
+				}
+			}
+		});
 	}
-	/**
-	 * called whenever there is any change to the tabslist
-	 * TODO: This might not even need to be a lambda but gotta flex for Duval.
-	 */
-	Consumer<List<Tab>> updateTabs = (l) -> {
-		for(Tab t : l) {
-			t.setText("Level " + (l.indexOf(t)+1));
-		}
-	};
 	
 	/**
 	 * Creates a new LevelView
@@ -48,16 +55,15 @@ public class GameEnvironmentView extends ViewComponent {
 		tabsList.add(new Tab());
 		Tab t = tabsList.get(tabsList.size()-1);
 		t.setText("Level " + (tabsList.indexOf(t)+1));
-		t.setContent(new LevelView());
-		t.setOnClosed(new EventHandler<Event>() { //Handles tab closed events
-			@Override
-			public void handle(Event e) {
-				tabsList.remove(t);
-				updateTabs.accept(tabsList);
+		Level level = new Level(tabsList.indexOf(t)+1);
+		t.setContent(new LevelView(level,tabsList.indexOf(t)+1));
+		t.setOnClosed(e -> {
+			tabsList.remove(t);
+			for(Tab tab : tabsList) {
+				tab.setText("Level " + (tabsList.indexOf(tab)+1));
 			}
-			
 		});
-		pane.getTabs().add(t);
+		this.getTabs().add(t);
 	}
 	
 	/**
@@ -69,18 +75,21 @@ public class GameEnvironmentView extends ViewComponent {
 		clipboard = o;
 	}
 	
-	/**
-	 * Get the graphic representation of GameEnvironmentView
-	 */
-	public Node getNode() {
-		return pane;
-	}
-	/**
-	 * Build the Broadcast object to communicate with the controller
-	 */
-	@Override
-	protected Broadcast buildBroadcast() {
-		Broadcast b = new Broadcast();
-		return b;
+	//TODO: change these class names
+	public void addTool() {setTool("add");}
+	public void deleteTool() {setTool("delete");}
+	public void editTool() {setTool("edit");}
+	
+	public void setTool(Object o) {
+		activeTool = o.toString();
+		switch(o.toString()) {
+		case "edit":
+			this.setCursor(javafx.scene.Cursor.OPEN_HAND);
+			break;
+		case "add":
+		case "delete":
+			this.setCursor(javafx.scene.Cursor.HAND);
+			break;
+		}
 	}
 }

@@ -1,28 +1,37 @@
 package frontend.components;
 
-import java.util.ArrayList;
-
-import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
 /**
  * 
  * @author Collin Brown(cdb55)
+ * @author Hemanth Yakkali((hy115)
  *
  */
 public class LevelView extends ScrollPane {
-	GridPane pane;
-	ArrayList<Node> activeObjects = new ArrayList<Node>();
-	public LevelView() {
-		//Create the Grid Pane
-		pane = new GridPane();
-		pane.getStyleClass().add("level-view");
-		
+	
+	private GridPane pane;
+	private Level level;
+	
+	public LevelView(Level level, int levelNum) {
+		this.getStyleClass().add("level-view");
+		this.level = level;
 		this.setContent(pane);
 		this.getStyleClass().add("level-view-wrapper");
-		//Always hide the scrollbar
-		this.setHbarPolicy(ScrollBarPolicy.NEVER);
-		this.setVbarPolicy(ScrollBarPolicy.NEVER);
+		this.setOnMouseClicked(e-> {		
+			if(e.getButton().equals(MouseButton.SECONDARY)) {
+				LevelPropertiesView lView = new LevelPropertiesView(levelNum);
+				lView.open();
+			} else if (e.getButton().equals(MouseButton.PRIMARY)) {
+				if (e.getClickCount() == 2) {
+					LocalPropertiesView LPV = new LocalPropertiesView(1);
+					LPV.open();
+				}
+			}
+		});
 	}
+	
+	
 	
 }

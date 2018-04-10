@@ -1,6 +1,6 @@
 package engine.components;
 
-import java.util.ArrayList;
+
 import java.util.List;
 
 /**
@@ -9,10 +9,12 @@ import java.util.List;
  */
 public class EntityType extends Component{
 	private String type = "Not Defined";
+
+	public static String KEY = "EntityType";
 	
-	public EntityType(int pid, List<String> parameters) {
-		super(pid);
-		this.type = parameters.get(0);
+	public EntityType(int pid, String type) {
+		super(pid, KEY);
+		this.type = type;
 	}
 
 	public void setType(String newType) {
@@ -31,12 +33,4 @@ public class EntityType extends Component{
 		return type;
 	}
 
-	@Override
-	public List<String[]> getParameters(){
-		List<String[]> parameters = new ArrayList<>(){{
-		     add(new String[] {"type","string"});
-		}};
-		
-		return parameters;
-	}
 }

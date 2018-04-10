@@ -1,8 +1,7 @@
 package frontend.components;
 
-import java.util.Arrays;
+import java.util.function.Consumer;
 
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
@@ -11,12 +10,16 @@ import javafx.scene.layout.BorderPane;
  * @author Collin Brown(cdb55)
  *
  */
-public class MainView{
+public class MainView {
 	private BorderPane border;
 	private Toolbar toolbar;
-	private GameEnvironmentView gameEnvironmentView;
-	private ComponentView componentView;
-	private Controller controller;
+	private GameEditorView gameEditorView;
+	private EntityView componentView;
+	
+	//Consumer to handle transferring clipboard transfers
+	Consumer clipboardHandler = (e)->{
+		gameEditorView.setClipboard(e);
+	};
 	
 	//GUI Constants
 	private static double ideHeight = 600;
@@ -25,11 +28,8 @@ public class MainView{
 	
 	public MainView() {
 		border = new BorderPane();
-		toolbar = new Toolbar();
-		gameEnvironmentView = new GameEnvironmentView();
-		componentView = new ComponentView();
-		ViewComponent[] components = {toolbar, gameEnvironmentView, componentView};
-		controller = new Controller(Arrays.asList(components));
+		gameEditorView = new GameEditorView();
+		componentView = new EntityView(clipboardHandler);
 	}
 	
 	/**
@@ -37,9 +37,9 @@ public class MainView{
 	 */
 	public Parent build() {
 		border = new BorderPane();
-		border.setTop(toolbar.getNode());
-		border.setLeft(componentView.getNode());
-		border.setCenter(gameEnvironmentView.getNode());
+		border.setTop(toolbar);
+		border.setLeft(componentView);
+		border.setCenter(gameEditorView);
 		return border;
 		
 	}
@@ -56,15 +56,15 @@ public class MainView{
 	 * Returns the gameEnvironmentView object
 	 * @return
 	 */
-	public GameEnvironmentView getGameEnvironmentView() {
-		return gameEnvironmentView;
+	public GameEditorView getGameEnvironmentView() {
+		return gameEditorView;
 	}
 	
 	/**
 	 * Returns the ComponentView object
 	 * @return
 	 */
-	public ComponentView getComponentView() {
+	public EntityView getComponentView() {
 		return componentView;
 	}
 	

@@ -1,6 +1,5 @@
 package engine.systems.collisions;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -29,6 +28,7 @@ public class CollisionHandler {
 	}
 	
 	private void handleCollision(List<Component> player, List<Component> collider) {
+
 		String colliderType = ((EntityType)(collider.get(Index.TYPE_INDEX))).toString();
 		switch(colliderType){
 			case "simple enemy":

@@ -3,39 +3,36 @@ package engine.components;
 import javafx.scene.input.KeyCode;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.function.Consumer;
+
+import javafx.scene.input.KeyCode;
 
 public class KeyInput extends Component {
 
-    private Map<KeyCode, Consumer<Integer>> keyActions;
+	private KeyCode code;
+	private Consumer<Map<String, Component>> con;
 
-    /**
-     * Constructs component with entity parent ID
-     *
-     * @param pid ID of parent. Can not be changed externally.
-     */
-    public KeyInput(int pid, Map<KeyCode, Consumer<Integer>> keyActions) {
-        super(pid);
-        if (keyActions==null) this.keyActions = new HashMap<>();
-        else this.keyActions = keyActions;
-    }
+	public static String KEY = "KeyInput";
+	
+	public KeyInput(int pid, KeyCode code, Consumer<Map<String, Component>> con) {
+		super(pid, KEY);
+		this.code = code;
+		this.con = con;		
+	}
 
-    public void setOnAction (KeyCode key, Consumer<Integer> action) {
-        keyActions.put(key, action);
-    }
+	public KeyCode getCode() {
+		return code;
+	}
 
-    public void doAction(KeyCode key) {
-        keyActions.get(key).accept(getParentID());
-    }
+	public void setCode(KeyCode code) {
+		this.code = code;
+	}
 
-    public static String getKey () {
-        return "KeyInput";
-    }
-
-    public Set<KeyCode> getActions () {
-        return keyActions.keySet();
-    }
+	public Consumer<Map<String, Component>> getConsumer() {
+		return con;
+	}
+	
 
 }
