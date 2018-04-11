@@ -15,10 +15,12 @@ import engine.components.Sprite;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
+import engine.systems.InputHandler;
 import frontend.components.Level;
 import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
@@ -30,16 +32,18 @@ public class GamePlayerEntityView {
 	
 	private File gameFile;
 	//private Group entityRoot;
-	private Map<Level,Map<Integer,Map<String,Component>>> levelMap;
+	private Map<Integer, Map<String, Component>> entityMap;
 	private DataGameState gameState;
 	private GameInitializer gameInitializer;
 	public SystemManager systemManager;
 	public RenderManager renderManager;
 	private Level one;
+	private InputHandler inputHandler;
 	
 	public GamePlayerEntityView(File file) {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
+		inputHandler = gameInitializer.getIH();
 //Changed the code enclosed to load a random level and create an entity map
 		Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
 		for(Level level : levelMap.keySet()) {
@@ -94,6 +98,10 @@ public class GamePlayerEntityView {
 	
 	public RenderManager getRenderManager() {
 		return renderManager;
+	}
+
+	public void setInput(KeyCode code){
+		inputHandler.addCode(code);
 	}
 	
 	

@@ -25,6 +25,7 @@ public class GamePlayerController {
 	public final int FRAMES_PER_SECOND = 60;
 	public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+	private Stage myStage;
 	private Scene myScene;
 	private Group gameRoot;
 	private BorderPane pane = new BorderPane();
@@ -34,8 +35,8 @@ public class GamePlayerController {
 	private FileUploadButton fileBtn;
 
 	
-	public GamePlayerController() {
-		gameView = new GamePlayerEntityView(currentFile);
+	public GamePlayerController(Stage stage) {
+		myStage = stage;
 	}
 	
 	
@@ -49,7 +50,7 @@ public class GamePlayerController {
 		pane.setTop(sampleBar);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
-			handleKeyInput(e.getCode());
+			pauseMenu.show(myStage);
 		});
 		return myScene;
 	}
@@ -59,7 +60,9 @@ public class GamePlayerController {
 	 */
 	public void initializeGameStart() {
 		currentFile = fileBtn.getFile();
+		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
+		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
 		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		initializeGameAnimation(); //begins the animation cycle
 	}
@@ -85,26 +88,5 @@ public class GamePlayerController {
 		gameView.getSystemManager().execute(elapsedTime);
 		gameView.getRenderManager().garbageCollect();
 		gameView.getRenderManager().renderObjects();
-	}
-	
-
-	/**
-	 * Listener for the file button.
-	 * @param code
-	 */
-	
-	
-	private void handleKeyInput (KeyCode code) {
-		if (code == KeyCode.ESCAPE) {
-			Stage mainStage = (Stage) pane.getScene().getWindow();
-			//instantiate the Pause menu popup class 
-//			Popup popup = new Popup();
-//	        popup.setX(500);
-//	        popup.setY(200);
-//	        popup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
-			pauseMenu.show(mainStage);
-			//pane.getChildren().get(0).setVisible(false);
-			//mainStage.setScene(new Scene(new Button("asdkl;f")));
-		}
 	}
 }
