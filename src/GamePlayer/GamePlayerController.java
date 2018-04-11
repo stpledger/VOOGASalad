@@ -58,7 +58,14 @@ public class GamePlayerController {
 		MenuGameBar menuBar = new MenuGameBar();
 		pane.setBottom(menuBar);
 		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
-		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> initializeGameStart());
+		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+			try{
+				initializeGameStart();
+			}
+			catch(FileNotFoundException e){
+				e.printStackTrace();
+			}
+		});
 		pane.setTop(sampleBar);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
