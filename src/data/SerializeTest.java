@@ -57,7 +57,7 @@ public class SerializeTest {
         params.add("Mario.png");
 
         try {
-            Sprite entity1Sprite = new Sprite(1, params);
+            Sprite entity1Sprite = new Sprite(1, "Mario.png");
             entity1Components.put("Sprite", entity1Sprite);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -90,7 +90,7 @@ public class SerializeTest {
         params.add("Mario.png");
 
         try {
-            Sprite entity2Sprite = new Sprite(2, params);
+            Sprite entity2Sprite = new Sprite(2, "Mario.png");
             entity2Components.put("Sprite", entity2Sprite);
         } catch (FileNotFoundException e) {
             e.printStackTrace();

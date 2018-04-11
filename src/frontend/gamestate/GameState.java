@@ -1,6 +1,9 @@
 package frontend.gamestate;
 
 import java.util.List;
+
+import data.DataWrite;
+
 import java.util.ArrayList;
 import frontend.components.Level;
 
@@ -26,7 +29,14 @@ public class GameState implements IGameState {
 	
 	@Override
 	public void save() {
-		
+		try {
+			DataWrite.saveFile(this,"Test");
+			System.out.println("saved!");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.print("didnt work");
+		}
 	}
 	
 	/**
