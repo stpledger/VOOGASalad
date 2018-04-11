@@ -1,8 +1,6 @@
 package engine.components;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This component defines dimensions of the sprite. It consists of height and width of the sprite.
@@ -44,8 +42,9 @@ public class Dimension extends Component{
 	public void setWidth(double width) {
 		this.width = width;
 	}
-
-	public static String getKey() {
+	
+	public String getKey() {
 		return KEY;
 	}
+
 }

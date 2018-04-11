@@ -39,15 +39,15 @@ public class TestGameState {
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
 		
 		Map<String, Component> mario = new HashMap<>();
-		mario.put(Position.getKey(), (Component)p);
-		mario.put(Dimension.getKey(), (Component)d);
-		mario.put(Sprite.getKey(), (Component)s);
-		mario.put(Velocity.getKey(), (Component)v);
-		mario.put(Acceleration.getKey(), (Component)a);
-		mario.put(type.getKey(), (Component)type);
-		mario.put(KeyInput.getKey(), (Component)k);
-		mario.put(Health.getKey(), (Component)h);
-		mario.put(DamageLauncher.getKey(), (Component)launcher);
+		mario.put(Position.KEY, (Component)p);
+		mario.put(Dimension.KEY, (Component)d);
+		mario.put(Sprite.KEY, (Component)s);
+		mario.put(Velocity.KEY, (Component)v);
+		mario.put(Acceleration.KEY, (Component)a);
+		mario.put(type.KEY, (Component)type);
+		mario.put(KeyInput.KEY, (Component)k);
+		mario.put(Health.KEY, (Component)h);
+		mario.put(DamageLauncher.KEY, (Component)launcher);
 		
 		EntityType type2 = new EntityType(1,"enermy");
 		Position p2 = new Position(1, 200, 100);
@@ -58,14 +58,14 @@ public class TestGameState {
 		DamageLauncher launcher2 = new DamageLauncher(0,2,2);
 		
 		Map<String, Component> mario2 = new HashMap<>();
-		mario2.put(Position.getKey(), (Component)p2);
-		mario2.put(Dimension.getKey(), (Component)d2);
-		mario2.put(Sprite.getKey(), (Component)s2);
-		mario2.put(Velocity.getKey(), (Component)v2);
-		mario2.put(type2.getKey(), (Component)type);
-		mario2.put(Acceleration.getKey(), (Component)a2);
-		mario2.put(Health.getKey(), (Component)h2);
-		mario2.put(DamageLauncher.getKey(), (Component)launcher2);
+		mario2.put(Position.KEY, (Component)p2);
+		mario2.put(Dimension.KEY, (Component)d2);
+		mario2.put(Sprite.KEY, (Component)s2);
+		mario2.put(Velocity.KEY, (Component)v2);
+		mario2.put(type2.KEY, (Component)type);
+		mario2.put(Acceleration.KEY, (Component)a2);
+		mario2.put(Health.KEY, (Component)h2);
+		mario2.put(DamageLauncher.KEY, (Component)launcher2);
 		
 		EntityType type3 = new EntityType(2,"enermy");
 		Position p3 = new Position(2, 300, 100);
@@ -76,14 +76,14 @@ public class TestGameState {
 		DamageLauncher launcher3 = new DamageLauncher(0,2,2);
 		
 		Map<String, Component> mario3 = new HashMap<>();
-		mario3.put(Position.getKey(), (Component)p3);
-		mario3.put(Dimension.getKey(), (Component)d3);
-		mario3.put(Sprite.getKey(), (Component)s3);
-		mario3.put(Velocity.getKey(), (Component)v3);
-		mario3.put(Acceleration.getKey(), (Component)a3);
-		mario3.put(type3.getKey(), (Component)type);
-		mario3.put(Health.getKey(), (Component)h3);
-		mario3.put(DamageLauncher.getKey(), (Component)launcher3);
+		mario3.put(Position.KEY, (Component)p3);
+		mario3.put(Dimension.KEY, (Component)d3);
+		mario3.put(Sprite.KEY, (Component)s3);
+		mario3.put(Velocity.KEY, (Component)v3);
+		mario3.put(Acceleration.KEY, (Component)a3);
+		mario3.put(type3.KEY, (Component)type);
+		mario3.put(Health.KEY, (Component)h3);
+		mario3.put(DamageLauncher.KEY, (Component)launcher3);
 		
 		entities.put(0, mario);
 		entities.put(1, mario2);

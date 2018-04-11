@@ -1,9 +1,6 @@
 package engine.components;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Component housing acceleration information. Can be used to apply gravity, force, etc
  * @author Yameng
@@ -42,10 +39,11 @@ public static String KEY = "Acceleration";
 	public void setyAcc(double yAcc) {
 		this.yAcc = yAcc;
 	}
-
-	public static String getKey() {
+	
+	public String getKey() {
 		return KEY;
 	}
+
 }
 
 

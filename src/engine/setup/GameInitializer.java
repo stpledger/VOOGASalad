@@ -9,6 +9,8 @@ import engine.components.KeyInput;
 import engine.components.Position;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
+import javafx.beans.property.SetProperty;
+import javafx.scene.input.KeyCode;
 
 public class GameInitializer {
 
@@ -37,9 +39,9 @@ public class GameInitializer {
 
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
-            if (components.containsKey(Position.getKey())) {
-            		Component c = components.get(Position.getKey());
-                Position p = (Position) c;
+            if (components.containsKey(Position.KEY)) {
+                Position p = (Position) components.get(Position.KEY);
+
                 RM.add(p);
                 
                 /**if (components.containsKey(Sprite.getKey())) {
@@ -78,4 +80,7 @@ public class GameInitializer {
     public List<ISystem> getSystems() {		// For testing
     		return systems;
     }
+    
+
+    
 }

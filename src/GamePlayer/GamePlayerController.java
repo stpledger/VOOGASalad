@@ -3,12 +3,12 @@ package GamePlayer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
 import HUD.SampleToolBar;
-import Menu.LevelSelector;
-import Menu.MenuGameBar;
+
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
 import engine.systems.InputHandler;
@@ -24,6 +24,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -50,13 +51,14 @@ public class GamePlayerController {
 	
 	public GamePlayerController(Stage stage) {
 		myStage = stage;
+		
 	}
 	
 	
 	public Scene intializeStartScene() {
 		SampleToolBar sampleBar = new SampleToolBar();
-		MenuGameBar menuBar = new MenuGameBar();
-		pane.setBottom(menuBar);
+		//MenuGameBar menuBar = new MenuGameBar();
+		//pane.setBottom(menuBar);
 		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			try{
@@ -69,7 +71,18 @@ public class GamePlayerController {
 		pane.setTop(sampleBar);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
-			pauseMenu.show(myStage);
+			if(e.getCode() == KeyCode.ESCAPE) {
+				pauseMenu.show(myStage);
+			// SORRY
+			} else {
+				gameView.setInput(e.getCode());
+			}
+		});
+//		
+		myScene.setOnKeyReleased(e -> {
+			if(e.getCode() != KeyCode.ESCAPE) {
+				gameView.removeInput(e.getCode());
+			}
 		});
 		return myScene;
 	}
@@ -84,16 +97,22 @@ public class GamePlayerController {
 		 */
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
+		
+		
 		gameRoot = gameView.createEntityGroup();
-		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
+		//gameRoot.getChildren().add(new Rectangle(200,200));
+		//myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
 		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
+		
 		initializeGameAnimation(); //begins the animation cycle
+
 	}
 
 	/**
 	 * Begins the animation cycle count of the animation after game has started
 	 */
 	public void initializeGameAnimation() {
+		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
 				e -> step(SECOND_DELAY, gameRoot));
 		Timeline animation = new Timeline();
@@ -101,8 +120,7 @@ public class GamePlayerController {
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
-	
-	
+
 	
 	/**
 	 * Step method that repeats the animation by checking entities using render and system Manager

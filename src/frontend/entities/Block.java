@@ -1,9 +1,5 @@
 package frontend.entities;
 
-import java.util.Arrays;
-
-import engine.support.ComponentBuilder;
-
 /**
  * 
  * @author Hemanth Yakkali
@@ -13,6 +9,7 @@ public class Block extends Entity{
 	
 	private final String TYPE =  "Block";
 	private final double BLOCK_HEALTH = 50;
+	private final double BLOCK_DIMENSION = 25;
 
 	public Block(int ID) {
 		super(ID);
@@ -22,7 +19,9 @@ public class Block extends Entity{
 	@Override
 	public void addDefaultComponents() {
 		this.setHealth(BLOCK_HEALTH);
-		this.add(ComponentBuilder.buildComponent(this.getID(), "EntityType", Arrays.asList(new String[] {TYPE})));
+		this.setEntityType(TYPE);
+		this.setDimension(BLOCK_DIMENSION, BLOCK_DIMENSION);
+		// TODO add method to set sprite
 	}
 	
 }

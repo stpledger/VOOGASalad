@@ -54,7 +54,7 @@ public class ParameterManager {
 			return null;
 		}
 		
-		Component res = ComponentBuilder.buildComponent(pid,component,inputs);
+		Component res = null;//ComponentBuilder.buildComponent(pid,component,inputs);
 		if(res == null) {
 			System.out.println("Can not build a "+component+" component");
 		}

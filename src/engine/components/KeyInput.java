@@ -2,12 +2,9 @@ package engine.components;
 
 import javafx.scene.input.KeyCode;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import javafx.scene.input.KeyCode;
 
 public class KeyInput extends Component {
 	private KeyCode code;
@@ -33,8 +30,9 @@ public class KeyInput extends Component {
 		return con;
 	}
 	
-
-	public static String getKey() {
+	public String getKey() {
 		return KEY;
 	}
+	
+
 }

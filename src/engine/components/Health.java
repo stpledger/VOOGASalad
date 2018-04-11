@@ -1,8 +1,6 @@
 package engine.components;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Component for an entitie's health. Contains one double to represent this value.
@@ -26,7 +24,7 @@ public class Health extends Component {
 		this.health = health;
 	}
 	
-	public static String getKey() {
+	public String getKey() {
 		return KEY;
 	}
 

@@ -7,7 +7,7 @@ package engine.components;
  * and setters/getters. Systems contain all the game logic.
  * @author fitzj
  */
-public class Component {
+public abstract class Component {
 	
 	private int pid;
 	
@@ -23,8 +23,6 @@ public class Component {
 		return pid;
 	}
 
-	public static String getKey() {
-		return "";
-	}
+	public abstract String getKey();
 
 }

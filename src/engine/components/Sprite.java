@@ -1,7 +1,8 @@
 package engine.components;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+
+
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -44,6 +45,10 @@ public class Sprite extends Component {
 		} catch (RuntimeException e) {
 			
 		}
+	}
+	
+	public String getKey() {
+		return KEY;
 	}
 
 }
