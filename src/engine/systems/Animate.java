@@ -3,14 +3,12 @@ package engine.systems;
 import engine.components.*;
 import engine.setup.EntityManager;
 import javafx.scene.image.ImageView;
-
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.Map;
 import java.util.HashMap;
 
 public class Animate implements ISystem {
+	private final String PLAYER = "player";
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents;
     private int playerID=-1;
@@ -21,7 +19,7 @@ public class Animate implements ISystem {
             Map<String, Component> newComponents = new HashMap<>();
             newComponents.put(Position.getKey(),components.get(Position.getKey()));
             newComponents.put(Sprite.getKey(),components.get(Sprite.getKey()));
-            if (components.containsKey(Player.getKey())) {
+            if (((EntityType)components.get(EntityType.getKey())).getType().equals(PLAYER)) {
                 playerID = pid;
                 newComponents.put(Velocity.getKey(),components.get(Velocity.getKey()));
             }
@@ -114,4 +112,9 @@ public class Animate implements ISystem {
             }
         }
     }
+    
+    @Override
+	public Map<Integer, Map<String, Component>> getHandledComponent() {
+		return handledComponents;
+	}
 }

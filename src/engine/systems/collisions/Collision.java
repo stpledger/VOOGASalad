@@ -2,14 +2,13 @@ package engine.systems.collisions;
 
 import java.util.*;
 
-import engine.components.Acceleration;
 import engine.components.Component;
 import engine.components.Dimension;
+import engine.components.EntityType;
 import engine.components.Position;
 import engine.components.Velocity;
 import engine.setup.EntityManager;
 import engine.systems.DefaultSystem;
-import engine.systems.ISystem;
 
 public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents;
@@ -18,13 +17,20 @@ public class Collision extends DefaultSystem{
 	
 	public Collision() {
 		handledComponents = EntityManager.getEntities();
+	
 		colliders = new HashMap<>();
 		handler = new CollisionHandler();
 	}
 
+	@Override
+	public Map<Integer, Map<String, Component>> getHandledComponent(){
+		return handledComponents;
+	}
+	
 	public void execute(double time) {
 		colliders.forEach((key1, vel) -> {
 			handledComponents.forEach((key2, map) -> {				// Hooooorrible code, refactor
+				
 				if(key1 != key2) {
 					Dimension d1 = (Dimension) handledComponents.get(key1).get(Dimension.getKey());
 					Dimension d2 = (Dimension) handledComponents.get(key2).get(Dimension.getKey());
@@ -115,14 +121,11 @@ public class Collision extends DefaultSystem{
 
 	
 	public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey(Position.getKey()) && components.containsKey(Dimension.getKey())) {
-			Map<String, Component> newComponents = new HashMap<>();
-			newComponents.put(Dimension.getKey(),components.get(Dimension.getKey()));
-			newComponents.put(Position.getKey(),components.get(Position.getKey()));
-			handledComponents.put(pid, newComponents);
-			if(components.containsKey(Velocity.getKey())) {
-				colliders.put(pid, (Velocity) components.get(Velocity.getKey()));
-			}
+		if(!handledComponents.containsKey(pid)) {
+			handledComponents.put(pid,components);
+		}
+		if(components.containsKey(Velocity.getKey())) {
+			colliders.put(pid, (Velocity) components.get(Velocity.getKey()));
 		}
 	}
 

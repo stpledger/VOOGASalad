@@ -19,7 +19,7 @@ public class DamageLauncher extends Component {
 
 
 	public DamageLauncher (int pid, double damage, double lifetime) {
-		super(pid, KEY);
+		super(pid);
 		this.damage = damage;
 		this.lifetime = lifetime;
 	}
@@ -40,4 +40,7 @@ public class DamageLauncher extends Component {
 		lifetime--;
 	}
 
+	public static String getKey() {
+		return KEY;
+	}
 }

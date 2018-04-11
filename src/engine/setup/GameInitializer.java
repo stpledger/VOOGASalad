@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 import engine.components.Component;
+import engine.components.EntityType;
 import engine.components.KeyInput;
 import engine.components.Position;
 import engine.systems.*;
@@ -19,6 +20,7 @@ public class GameInitializer {
     private EntityManager EM;
     
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
+    		EM = new EntityManager(entities);
         systems = new ArrayList<>();
         systems.add(new Accelerate());
         systems.add(new Motion());
@@ -27,7 +29,6 @@ public class GameInitializer {
         systems.add(collision);
         systems.add(new Animate());
         SM = new SystemManager(systems, collision);
-        EM = new EntityManager(entities);
         
         double renderDistance = 300.0;
         double renderCenterX = 50;
@@ -37,8 +38,10 @@ public class GameInitializer {
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
             if (components.containsKey(Position.getKey())) {
-                Position p = (Position) components.get(Position.getKey());
+            		Component c = components.get(Position.getKey());
+                Position p = (Position) c;
                 RM.add(p);
+                
                 /**if (components.containsKey(Sprite.getKey())) {
                     Sprite s = (Sprite) components.get(Sprite.getKey());
                     try {
@@ -50,6 +53,7 @@ public class GameInitializer {
                     }
                 }**/
             }
+            
             SM.addEntity(id, components);
         }
 

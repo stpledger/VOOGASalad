@@ -16,7 +16,7 @@ public class KeyInput extends Component {
 	public static String KEY = "KeyInput";
 	
 	public KeyInput(int pid, KeyCode code, Consumer<Map<String, Component>> con) {
-		super(pid, KEY);
+		super(pid);
 		this.code = code;
 		this.con = con;		
 	}
@@ -34,4 +34,7 @@ public class KeyInput extends Component {
 	}
 	
 
+	public static String getKey() {
+		return KEY;
+	}
 }
