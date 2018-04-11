@@ -31,14 +31,13 @@ public class LevelPropertiesView extends PropertiesView{
 		ResourceBundle levelProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"LevelProperties");
 		TextField infoText = new TextField();
 		TextField diffText = new TextField();
-		
 		NumberField timeNumber = new NumberField();
 		NumberField distNumber = new NumberField();
+		getRoot().addColumn(1,diffText,timeNumber,infoText,distNumber);
 		for (String property : levelProps.keySet()) {
 			Label label = new Label(levelProps.getString(property));
-			getRoot().addRow(currentRow++,label);
+			this.getRoot().add(label, 0, currentRow++);
 		}
-		getRoot().addColumn(1,diffText,timeNumber,infoText,distNumber);
 		getRoot().add(MenuItemBuilder.buildButton(this.getButtonProps().getString("Submit"), e-> {
 			level.setLevelInfo(infoText.getText());
 			level.setLevelDifficulty(diffText.getText());
@@ -46,5 +45,4 @@ public class LevelPropertiesView extends PropertiesView{
 			level.setLevelDistance(Double.parseDouble(distNumber.getText()));
 		}), 0, currentRow++);
 	}
-
 }

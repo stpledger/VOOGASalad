@@ -16,15 +16,21 @@ import frontend.components.Level;
  */
 public class GameState implements IGameState {
 
+<<<<<<< HEAD
 	private Map<Level, Map<Integer, List<Component>>> state;
+=======
+>>>>>>> 585e88583efca66a75c4be1622035435b0d2e727
 	/**
 	 * This object should only be constructed once, upon initialization of the authoring environment.
 	 * It will then continue to keep track of the current state of the game by using the update method below.
 	 */
+	private List<Level> state;
+
 	public GameState() {
-		state = new HashMap<>();
+		state = new ArrayList<>();
 	}
 	
+<<<<<<< HEAD
 	/*allows the creation of a gamestate from an existing 
 	 * map that represents a game @param state
 	 */
@@ -72,10 +78,26 @@ public class GameState implements IGameState {
 		} else {
 			if (!state.get(level).get(entity).contains(component))
 				state.get(level).get(entity).add(component);
+=======
+	@Override
+	public void save() {
+		
+	}
+	
+	/**
+	 * Updates the current state by adding a new level object to the list of levels.
+	 * @param level The level object to add
+	 */
+	@Override
+	public void addLevel(Level level) {
+		if(!state.contains(level)) {
+			state.add(level);
+>>>>>>> 585e88583efca66a75c4be1622035435b0d2e727
 		}
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * Remove a component from the state. The user would edit this using the {@code LocalPropertiesView}.
 	 * @param level  level to remove the component from
 	 * @param entity the entity that the component should be removed from
@@ -117,4 +139,15 @@ public class GameState implements IGameState {
 		return state;
 	}
 
+=======
+	 * Updates the current state my removing a level object.
+	 * @param level The level object to remove
+	 */
+	@Override
+	public void removeLevel(Level level) {
+		if(state.contains(level)) {
+			state.remove(level);
+		}
+	}
+>>>>>>> 585e88583efca66a75c4be1622035435b0d2e727
 }

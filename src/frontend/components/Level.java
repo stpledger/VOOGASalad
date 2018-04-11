@@ -22,11 +22,13 @@ public class Level {
 	private double levelDistance;
 	private List<Entity> entityList;
 	private Map<String,Boolean> HUDprops;
+	private Map<String,String> GProps;
 	
 	public Level(int level) {
 		this.setLevelNum(level);
 		this.entityList = new ArrayList<>();
 		this.HUDprops = new HashMap<>();
+		this.GProps = new HashMap<>();
 	}
 	
 	public void addEntity(Entity entity) {
@@ -43,6 +45,7 @@ public class Level {
 
 	public void setLevelDifficulty(String levelDifficulty) {
 		this.levelDifficulty = levelDifficulty;
+		System.out.println(levelDifficulty);
 	}
 
 	public String getLevelInfo() {
@@ -51,6 +54,7 @@ public class Level {
 
 	public void setLevelInfo(String levelInfo) {
 		this.levelInfo = levelInfo;
+		System.out.println(levelInfo);
 	}
 
 	public int getLevelNum() {
@@ -75,6 +79,7 @@ public class Level {
 
 	public void setLevelTime(double levelTime) {
 		this.levelTime = levelTime;
+		System.out.println(levelTime);
 	}
 
 	public double getLevelDistance() {
@@ -83,18 +88,31 @@ public class Level {
 
 	public void setLevelDistance(double levelDistance) {
 		this.levelDistance = levelDistance;
+		System.out.println(levelDistance);
 	}
 
 	public Map<String,Boolean> getHUDprops() {
 		return this.HUDprops;
 	}
 
-	public void setHUDprops(Map<String,Boolean> hUDprops) {
-		this.HUDprops = hUDprops;
+	public void setHUDprops(Map<String,Boolean> HUDprops) {
+		this.HUDprops = HUDprops;
+	}
+	
+	public Map<String,String> getGProps() {
+		return this.GProps;
+	}
+
+	public void setGProps(Map<String,String> GProps) {
+		this.GProps = GProps;
 	}
 	
 	public void addHUDProp(String prop, Boolean bool) {
 		this.HUDprops.put(prop, bool);
+	}
+	
+	public void addGProp(String prop, String value) {
+		this.GProps.put(prop, value);
 	}
 	
 }
