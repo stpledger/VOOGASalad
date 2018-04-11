@@ -50,7 +50,7 @@ public class Sprite extends Component {
 				}
 			}
 		}
-		System.exit(0);
+		//System.exit(0);
 		return image;
 	}
 
