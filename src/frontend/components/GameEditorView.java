@@ -52,7 +52,7 @@ public class GameEditorView extends BorderPane {
 	private TabPane tabPane;
 	private Toolbar toolbar;
 	private File gameFile;
-	private int nextID  = 0;
+	private int nextID  = 0; //The next ID to be used
 	
 	/**
 	 * Default Constructor
