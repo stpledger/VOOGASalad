@@ -3,22 +3,22 @@ package data;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import engine.components.Component;
+import frontend.components.Level;
 import javafx.scene.control.Alert;
-import javafx.stage.FileChooser;
-
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.logging.Level;
 
 /*
-    Auhot @Conrad defines the method of reading in xml files and outputting this information to the UI to be initialized
+    @Author Conrad defines methods for reading in various information from 
+    the xml files reresenting gameStates
  */
 public class DataRead {
 
-    /*
-        parses the xml file and sends state info to UI
+    /*loads a game file and return it to the public method if
+     * the game file doesnt exist in the right form it returns an empty state
      */
     private static DataGameState buildState(File xml) {
         try {
@@ -31,7 +31,10 @@ public class DataRead {
             return new DataGameState();
         }
     }
-
+    
+    /* receives a gamestate and loads it to the player
+     * from buildState
+     */
     public static DataGameState loadFile(File xml) {
         try {
             return buildState(xml);
@@ -41,7 +44,23 @@ public class DataRead {
         }
         return new DataGameState();
     }
+    
+    /*return a map for the gamestate to be sent to authoring that can be built into their 
+     *version of game state
+     */
+    public static Map<Level, Map<Integer, List<Component>>> loadAuthorFile(File xml) {
+        try {
+            DataGameState tempState = loadFile(xml);
+            return tempState.getGameStateAuthoring();
+        } 
+        catch (IllegalStateException e) {
+            ErrorStatement("File could not b e read");
+            return new HashMap<Level,Map<Integer,List<Component>>>();
+        }
+    }
 
+    /*prints an error to the screen 
+     */
     private static void ErrorStatement(String error) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Error");

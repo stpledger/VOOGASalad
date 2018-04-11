@@ -7,8 +7,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import HUD.SampleToolBar;
-import Menu.LevelSelector;
-import Menu.MenuGameBar;
+
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
 import engine.systems.InputHandler;
@@ -56,8 +55,8 @@ public class GamePlayerController {
 	
 	public Scene intializeStartScene() {
 		SampleToolBar sampleBar = new SampleToolBar();
-		MenuGameBar menuBar = new MenuGameBar();
-		pane.setBottom(menuBar);
+		//MenuGameBar menuBar = new MenuGameBar();
+		//pane.setBottom(menuBar);
 		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			try{
