@@ -73,7 +73,7 @@ public class GamePlayerEntityView {
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
 				image.setX(200);
 				image.setY(200);
-				image.setImage(new Image("mystery.jpg"));
+				//image.setImage(new Image("mystery.jpg"));
 				System.out.print(image.getX());
 				//System.exit(0);
 				entityRoot.getChildren().add(image);
@@ -90,7 +90,7 @@ public class GamePlayerEntityView {
 	private void initializeGamePlayerEntityView() {
 		try {
 			gameInitializer = new GameInitializer(entityMap);
-			inputHandler = gameInitializer.getIH();
+			//inputHandler = gameInitializer.getIH();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("You made it this far");
