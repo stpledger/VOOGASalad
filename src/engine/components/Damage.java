@@ -1,9 +1,6 @@
 package engine.components;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * This component defines poisons points of the game object.
  * The entity with this component can harm other entities it collides with,
@@ -19,7 +16,7 @@ public class Damage extends Component {
 
 
 	public Damage(int pid, double damage, double lifetime) {
-		super(pid, KEY);
+		super(pid);
 		this.damage = damage;
 		this.lifetime = lifetime;
 	}
