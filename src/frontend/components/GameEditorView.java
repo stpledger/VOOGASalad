@@ -163,7 +163,7 @@ public class GameEditorView extends BorderPane {
 			//Get Constructor for entityType
 			Constructor<?> entityConstructor = entityType.getConstructor(int.class);
 			//Create a new instance of the entity
-			entity = (Entity) entityConstructor.newInstance(nextID); 
+			entity = (Entity) entityConstructor.newInstance(nextID);
 			 //Set the X,Y position of the mouseEvent to the X,Y position of the object
 			entity.setPosition(mouseEvent.getX(), mouseEvent.getY() - this.tabPane.getTabMaxHeight());
 			//Get all of the inputs for components
