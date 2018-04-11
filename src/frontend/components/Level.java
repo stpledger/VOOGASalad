@@ -7,6 +7,11 @@ import java.util.Map;
 
 import frontend.entities.Entity;
 
+/**
+ * 
+ * @author Hemanth Yakkali(hy115)
+ *
+ */
 public class Level {
 
 	private int levelNum;

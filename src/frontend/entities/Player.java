@@ -3,6 +3,7 @@ package frontend.entities;
 /**
  * A class to represent the player object, and its default components.
  * @author Dylan Powers
+ * @author Hemanth Yakkali(hy115)
  *
  */
 public class Player extends Entity {

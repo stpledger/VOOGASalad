@@ -5,6 +5,11 @@ import java.util.ResourceBundle;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 
+/**
+ * 
+ * @author Hemanth Yakkali(hy115)
+ *
+ */
 public class HUDPropertiesView extends PropertiesView{
 	
 	private Level level;
@@ -33,10 +38,6 @@ public class HUDPropertiesView extends PropertiesView{
 			level.addHUDProp(HUDProps.getString("Health"), healthBox.isSelected());
 			level.addHUDProp(HUDProps.getString("Time"), timeBox.isSelected());
 			level.addHUDProp(HUDProps.getString("Levels"), levelBox.isSelected());
-//			System.out.println("Lives"+livesBox.isSelected());
-//			System.out.println("Health"+healthBox.isSelected());
-//			System.out.println("Time"+timeBox.isSelected());
-//			System.out.println("Level"+levelBox.isSelected());
 		}), 0, currentRow++);
 	}
 

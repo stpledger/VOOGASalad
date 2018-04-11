@@ -22,7 +22,6 @@ public class LevelPropertiesView extends PropertiesView{
 
 	@Override
 	protected String title() {
-		System.out.println("slek");
 		return "Level "+levelNum+" Properties";
 	}
 
