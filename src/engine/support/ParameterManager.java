@@ -52,13 +52,13 @@ public class ParameterManager {
 			System.out.println("Input type is invalid!");
 			return null;
 		}
-		
-		/**Component res = ComponentBuilder.buildComponent(pid,component,inputs);
+
+		Component res = ComponentBuilder.buildComponent(pid,component,inputs);
+
 		if(res == null) {
 			System.out.println("Can not build a "+component+" component");
 		}
-		return res;**/
-		return null;
+		return res;
 	}
 	
 	/**

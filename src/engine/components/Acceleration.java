@@ -1,9 +1,6 @@
 package engine.components;
 
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Component housing acceleration information. Can be used to apply gravity, force, etc
  * @author Yameng

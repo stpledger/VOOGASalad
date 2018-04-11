@@ -3,6 +3,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -50,6 +51,7 @@ public class GamePlayerController {
 	
 	public GamePlayerController(Stage stage) {
 		myStage = stage;
+		
 	}
 	
 	
@@ -69,7 +71,18 @@ public class GamePlayerController {
 		pane.setTop(sampleBar);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
-			pauseMenu.show(myStage);
+			if(e.getCode() == KeyCode.ESCAPE) {
+				pauseMenu.show(myStage);
+			// SORRY
+			} else {
+				gameView.setInput(e.getCode());
+			}
+		});
+//		
+		myScene.setOnKeyReleased(e -> {
+			if(e.getCode() != KeyCode.ESCAPE) {
+				gameView.removeInput(e.getCode());
+			}
 		});
 		return myScene;
 	}
@@ -88,17 +101,26 @@ public class GamePlayerController {
 >>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
+		
+		
 		gameRoot = gameView.createEntityGroup();
 		//gameRoot.getChildren().add(new Rectangle(200,200));
+<<<<<<< HEAD
 		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
+=======
+		//myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
+>>>>>>> 5ffe0488334c8d3bdd3e798934c76a03d31a2a22
 		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
-		//initializeGameAnimation(); //begins the animation cycle
+		
+		initializeGameAnimation(); //begins the animation cycle
+
 	}
 
 	/**
 	 * Begins the animation cycle count of the animation after game has started
 	 *
 	public void initializeGameAnimation() {
+		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
 				e -> step(SECOND_DELAY, gameRoot));
 		Timeline animation = new Timeline();
@@ -106,8 +128,7 @@ public class GamePlayerController {
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
-	
-	
+
 	
 	/**
 	 * Step method that repeats the animation by checking entities using render and system Manager

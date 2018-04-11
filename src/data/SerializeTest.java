@@ -56,6 +56,12 @@ public class SerializeTest {
         params.clear();
         params.add("Mario.png");
 
+        try {
+            Sprite entity1Sprite = new Sprite(1, "Mario.png");
+            entity1Components.put("Sprite", entity1Sprite);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         params.clear();
         params.add("4");
@@ -83,6 +89,13 @@ public class SerializeTest {
         params.clear();
         params.add("Mario.png");
 
+        try {
+            Sprite entity2Sprite = new Sprite(2, "Mario.png");
+            entity2Components.put("Sprite", entity2Sprite);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         level1State.put(1,entity1Components);
         level2State.put(2, entity2Components);
 
@@ -95,7 +108,7 @@ public class SerializeTest {
 
         File xml = new File("sdf");
         try {
-             xml =DataWrite.saveFile(state, "TestGame1");
+            xml =DataWrite.saveFile(state, "TestGame1");
         } catch (Exception e) {
             e.printStackTrace();
         }

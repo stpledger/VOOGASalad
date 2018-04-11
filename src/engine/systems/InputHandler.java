@@ -35,10 +35,6 @@ public class InputHandler implements ISystem {
 		}
 	}
 
-	public void addCode (KeyCode code) {
-		activeCodes.add(code);
-	}
-
 	@Override
 	public void setActives(Set<Integer> actives) {
 		//will get around to this
@@ -66,8 +62,18 @@ public class InputHandler implements ISystem {
 	@Override
 	public void removeComponent(int pid, String componentName) {
 		// TODO Auto-generated method stub
-		
-	}	
+	}
+
+	public void removeCode(KeyCode code) {
+		if(activeCodes.contains(code)) {
+			activeCodes.remove(code);
+		}
+	}
+
+	public void addCode(KeyCode code) {
+		activeCodes.add(code);
+		System.out.println(code);
+	}
 
 	@Override
 	public Map<Integer, Map<String, Component>> getHandledComponent() {

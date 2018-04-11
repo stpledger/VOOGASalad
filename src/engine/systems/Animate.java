@@ -4,6 +4,7 @@ import engine.components.*;
 
 import engine.setup.EntityManager;
 import javafx.scene.image.ImageView;
+
 import java.util.Set;
 import java.util.Map;
 import java.util.HashMap;
@@ -16,13 +17,14 @@ public class Animate implements ISystem {
 
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
-        if (components.containsKey(Position.getKey()) && components.containsKey(Sprite.getKey())) {
+        if (components.containsKey(Position.KEY) && components.containsKey(Sprite.KEY)) {
             Map<String, Component> newComponents = new HashMap<>();
-            newComponents.put(Position.getKey(),components.get(Position.getKey()));
-            newComponents.put(Sprite.getKey(),components.get(Sprite.getKey()));
-            if (((EntityType)components.get(EntityType.getKey())).getType().equals(PLAYER)) {
+            newComponents.put(Position.KEY,components.get(Position.KEY));
+            newComponents.put(Sprite.KEY,components.get(Sprite.KEY));
+            if (components.containsKey(Player.KEY)) {
+
                 playerID = pid;
-                newComponents.put(Velocity.getKey(),components.get(Velocity.getKey()));
+                newComponents.put(Velocity.KEY,components.get(Velocity.KEY));
             }
             handledComponents.put(pid, newComponents);
         }
@@ -36,7 +38,7 @@ public class Animate implements ISystem {
     }
 
     public void addComponent(int pid, String componentName) {
-		if(!componentName.equals(Position.getKey()) && !componentName.equals(Sprite.getKey())) {
+		if(!componentName.equals(Position.KEY) && !componentName.equals(Sprite.KEY)) {
 			return;
 		}
 		
@@ -47,27 +49,27 @@ public class Animate implements ISystem {
 
 		Map<String, Component> map = new HashMap<>();
 		map.put(componentName,EntityManager.getComponent(pid, componentName));
-		if(componentName.equals(Position.getKey())) {
-			Component component = EntityManager.getComponent(pid,Sprite.getKey());
+		if(componentName.equals(Position.KEY)) {
+			Component component = EntityManager.getComponent(pid,Sprite.KEY);
 			if(component == null) {
-				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Sprite.getKey() + " component!");
+				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Sprite.KEY + " component!");
 				return;
 			}
-			map.put(Sprite.getKey(), component);
+			map.put(Sprite.KEY, component);
 		}
 		else {
-			Component component = EntityManager.getComponent(pid,Position.getKey());
+			Component component = EntityManager.getComponent(pid,Position.KEY);
 			if(component == null) {
-				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Position.getKey() + " component!");
+				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Position.KEY + " component!");
 				return;
 			}
-			map.put(Position.getKey(), component);
+			map.put(Position.KEY, component);
 		}
 		handledComponents.put(pid,map);
     }
 
 	public void removeComponent(int pid, String componentName) {
-		if(!componentName.equals(Position.getKey()) && !componentName.equals(Sprite.getKey())) {
+		if(!componentName.equals(Position.KEY) && !componentName.equals(Sprite.KEY)) {
 			return;
 		}
 		
@@ -90,20 +92,20 @@ public class Animate implements ISystem {
         if(playerID!=-1){
             Map<String, Component> components = handledComponents.get(playerID);
 
-            Velocity v = (Velocity) components.get(Velocity.getKey());
+            Velocity v = (Velocity) components.get(Velocity.KEY);
             double xVel = v.getXVel();
             double yVel = v.getYVel();
 
             for (int pid : handledComponents.keySet()) {
                 components = handledComponents.get(pid);
-                Position p = (Position) components.get(Position.getKey());
+                Position p = (Position) components.get(Position.KEY);
 
                 if (pid != playerID) {
                     p.setXPos(p.getXPos() - xVel * time);
                     p.setYPos(p.getYPos() - yVel * time);
 
                     if (activeComponents.contains(pid)) {
-                        Sprite s = (Sprite) components.get(Sprite.getKey());
+                        Sprite s = (Sprite) components.get(Sprite.KEY);
 
                         ImageView im = s.getImage();
                         im.setX(p.getXPos());

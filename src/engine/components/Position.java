@@ -1,8 +1,7 @@
 package engine.components;
 
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Component class for the position of an entity. Contains x and y coordinates as doubles.

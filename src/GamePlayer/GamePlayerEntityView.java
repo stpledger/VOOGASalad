@@ -18,6 +18,7 @@ import engine.setup.SystemManager;
 import frontend.components.EntityBuilderView;
 import engine.systems.InputHandler;
 import frontend.components.Level;
+import javafx.beans.property.SetProperty;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -79,6 +80,7 @@ import javafx.stage.Stage;
 			if(entityComponents.containsKey("Sprite")) {
 				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
+
 				image.setX(200);
 				image.setY(200);
 				//image.setImage(new Image("mystery.jpg"));
@@ -105,7 +107,7 @@ import javafx.stage.Stage;
 	private void initializeGamePlayerEntityView() {
 		try {
 			gameInitializer = new GameInitializer(entityMap);
-			//inputHandler = gameInitializer.getIH();
+			inputHandler = gameInitializer.getIH();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("You made it this far");
@@ -135,7 +137,16 @@ import javafx.stage.Stage;
 	public void setInput(KeyCode code){
 		inputHandler.addCode(code);
 	}
+<<<<<<< HEAD
 	
 	
 //}
 
+=======
+
+
+	public void removeInput(KeyCode code) {
+		inputHandler.removeCode(code);
+	}
+}
+>>>>>>> 5ffe0488334c8d3bdd3e798934c76a03d31a2a22
