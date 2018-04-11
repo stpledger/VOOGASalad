@@ -55,12 +55,6 @@ public abstract class Entity extends ImageView {
         		}
         }); 
     }
-    /**
-     * This is a constructor that does not set the id of an entity;
-     */
-    public Entity() {
-    	
-    }
     
     /**
      * Adds components that are inherent to the specific entity.
@@ -79,7 +73,10 @@ public abstract class Entity extends ImageView {
 //    				break;
 //    			}
 //    		}
-    		this.components.add(c);
+    		if (c != null) {
+    			this.components.add(c);
+    			System.out.println("Component added: " + c);
+    		}
     }
     
     /**
@@ -122,7 +119,7 @@ public abstract class Entity extends ImageView {
 	 * @param y Y position
 	 */
     public void setPosition(double x, double y) {
-		this.add(new Position(this.getID(),x,y));
+		this.add(new Position(this.getID(), x, y));
 		this.setLayoutX(x);
 		this.setLayoutY(y);
 	}
