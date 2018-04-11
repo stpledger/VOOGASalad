@@ -4,9 +4,11 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 import engine.components.Component;
+import engine.components.EntityType;
 import engine.components.KeyInput;
 import engine.components.Position;
 import engine.systems.*;
+import engine.systems.collisions.Collision;
 
 public class GameInitializer {
 
@@ -16,14 +18,19 @@ public class GameInitializer {
     private RenderManager RM;
     private InputHandler IH;
 
+    private EntityManager EM;
+
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
+    		EM = new EntityManager(entities);
         systems = new ArrayList<>();
         systems.add(new Accelerate());
         systems.add(new Motion());
+        IH = new InputHandler(); 
+        Collision collision = new Collision();
+        systems.add(collision);
         systems.add(new Animate());
-        IH = new InputHandler();
         systems.add(IH);
-        SM = new SystemManager(systems);
+        SM = new SystemManager(systems, collision);
 
         double renderDistance = 300.0;
         double renderCenterX = 50;
@@ -33,9 +40,11 @@ public class GameInitializer {
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
             if (components.containsKey(Position.getKey())) {
-                Position p = (Position) components.get(Position.getKey());
+            		Component c = components.get(Position.getKey());
+                Position p = (Position) c;
                 RM.add(p);
             }
+            
             SM.addEntity(id, components);
         }
 
@@ -50,9 +59,15 @@ public class GameInitializer {
         return RM;
     }
 
-    public InputHandler getIH() { return IH; }
+    public EntityManager getEM() {
+    		return EM;
+    }
+
+    public InputHandler getIH() {
+         return IH;
+         }
 
     public List<ISystem> getSystems() {		// For testing
-    	return systems;
+    		return systems;
     }
 }

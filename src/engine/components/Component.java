@@ -24,5 +24,5 @@ public class Component {
 	}
 
 	public static String getKey() { return ""; }
-	
+
 }

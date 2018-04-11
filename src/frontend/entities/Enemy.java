@@ -1,16 +1,19 @@
 /**package frontend.entities;
 
-import java.util.Arrays;
-
-import engine.support.ComponentBuilder;
-
-public class Enemy extends Entity{
+/**
+ * 
+ * @author Hemanth Yakkali(hy115)
+ *
+ */
+public class Enemy extends Entity {
 	
 	private final String TYPE = "Enemy";
-	private final double ENEMY_DAMAGE = 10;
-	private final double ENEMY_LIFETIME = 50;
-	private final double ENEMY_HEALTH = 100;
-	
+	private final double INITIAL_HEALTH = 50;
+	private final double INITIAL_DAMAGE = 5;
+	private final double INITIAL_LIFETIME = 10;
+	private final double ENEMY_WIDTH = 20;
+	private final double ENEMY_HEIGHT = 40;
+
 	public Enemy(int ID) {
 		super(ID);
 		addDefaultComponents();
@@ -18,17 +21,12 @@ public class Enemy extends Entity{
 	/
 	@Override
 	public void addDefaultComponents() {
-		this.setHealth(ENEMY_HEALTH);
-		this.setDamage(ENEMY_DAMAGE, ENEMY_LIFETIME);
+		this.setHealth(INITIAL_HEALTH);
 		this.setEntityType(TYPE);
-	}
-	
-	public void setVelocity(double xVel, double yVel) {
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Position", Arrays.asList(new String[] {Double.toString(xVel),Double.toString(yVel)})));
-	}
-	
-	public void setDamage(double damage, double lifetime) {
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Damage", Arrays.asList(new String[] {Double.toString(damage),Double.toString(lifetime)})));
+		this.setDimension(ENEMY_WIDTH, ENEMY_HEIGHT);
+		this.setDamage(INITIAL_DAMAGE, INITIAL_LIFETIME);
+		
+		//TODO add method to set sprite
 	}
 
 }**/

@@ -45,6 +45,8 @@ public class Dimension extends Component{
 		this.width = width;
 	}
 
-	public static String getKey() { return KEY; }
+	public static String getKey() {
+		return KEY;
+	}
 
 }

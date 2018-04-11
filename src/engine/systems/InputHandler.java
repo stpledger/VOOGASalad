@@ -14,7 +14,7 @@ import javafx.scene.input.KeyCode;
 
 
 public class InputHandler implements ISystem {
-	private Map<Integer, KeyInput> handledComponents = new HashMap<>();
+	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
 
 	private Set<KeyCode> activeCodes = new HashSet<>();
 
@@ -22,7 +22,9 @@ public class InputHandler implements ISystem {
 	@Override
 	public void addComponent(int pid, Map<String, Component> components) {
 		if (components.containsKey(KeyInput.getKey())) {
-			handledComponents.put(pid, (KeyInput) components.get(KeyInput.getKey()));
+			Map<String, Component> newComponents = new HashMap<>();
+			newComponents.put(KeyInput.getKey(), components.get(KeyInput.getKey()));
+			handledComponents.put(pid, newComponents);
 		}
 	}
 
@@ -45,13 +47,30 @@ public class InputHandler implements ISystem {
 	@Override
 	public void execute(double time) {
 		for (int id : handledComponents.keySet()) {
-			KeyInput k = handledComponents.get(id);
-				for (KeyCode key : activeCodes) {
-					if (k.containsCode(key)) {
-						k.action(key);
-					}
+			Map<String, Component> components = handledComponents.get(id);
+			KeyInput k = (KeyInput) components.get(KeyInput.getKey());
+			for (KeyCode key : activeCodes) {
+				if (k.containsCode(key)) {
+					k.action(key);
+				}
 			}
 		}
 		activeCodes.clear();
+	}
+
+	public void addComponent(int pid, String componentName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeComponent(int pid, String componentName) {
+		// TODO Auto-generated method stub
+		
+	}	
+
+	@Override
+	public Map<Integer, Map<String, Component>> getHandledComponent() {
+		return handledComponents;
 	}
 }

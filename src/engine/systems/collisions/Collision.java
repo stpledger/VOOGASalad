@@ -4,29 +4,38 @@ import java.util.*;
 
 import engine.components.Component;
 import engine.components.Dimension;
+import engine.components.EntityType;
 import engine.components.Position;
 import engine.components.Velocity;
-import engine.systems.ISystem;
+import engine.setup.EntityManager;
+import engine.systems.DefaultSystem;
 
-public class Collision implements ISystem {
-	private Map<Integer, List<Component>> handledComponents;
+public class Collision extends DefaultSystem{
+	private Map<Integer, Map<String,Component>> handledComponents;
 	private Map<Integer, Velocity> colliders;
 	private CollisionHandler handler;
 	
 	public Collision() {
-		handledComponents = new HashMap<>();
+		handledComponents = EntityManager.getEntities();
+	
 		colliders = new HashMap<>();
-		handler = new CollisionHandler(handledComponents);
+		handler = new CollisionHandler();
 	}
 
+	@Override
+	public Map<Integer, Map<String, Component>> getHandledComponent(){
+		return handledComponents;
+	}
+	
 	public void execute(double time) {
 		colliders.forEach((key1, vel) -> {
-			handledComponents.forEach((key2, list) -> {				// Hooooorrible code, refactor
+			handledComponents.forEach((key2, map) -> {				// Hooooorrible code, refactor
+				
 				if(key1 != key2) {
-					Dimension d1 = (Dimension) handledComponents.get(key1).get(Index.DIMENSION_INDEX);
-					Dimension d2 = (Dimension) handledComponents.get(key2).get(Index.DIMENSION_INDEX);
-					Position p1 = (Position) handledComponents.get(key1).get(Index.POSITION_INDEX);
-					Position p2 = (Position) handledComponents.get(key2).get(Index.POSITION_INDEX);
+					Dimension d1 = (Dimension) handledComponents.get(key1).get(Dimension.getKey());
+					Dimension d2 = (Dimension) handledComponents.get(key2).get(Dimension.getKey());
+					Position p1 = (Position) handledComponents.get(key1).get(Position.getKey());
+					Position p2 = (Position) handledComponents.get(key2).get(Position.getKey());
 					
 					double topOverlap = p1.getYPos() + d1.getHeight() - p2.getYPos();
 					double leftOverlap = p1.getXPos() + d1.getWidth() - p2.getXPos();
@@ -78,21 +87,51 @@ public class Collision implements ISystem {
 		}
 	}
 
+	public void addComponent(int pid, String componentName) {
+		if(!componentName.equals(Velocity.getKey())) {
+			return;
+		}
+		
+		if(colliders.containsKey(pid)) {
+			System.out.println("Collision System tries adding duplicate " + componentName + " component for entity " + pid + " !");
+		}
+		
+
+		Velocity velocity = (Velocity)EntityManager.getComponent(pid, componentName);
+		colliders.put(pid, velocity);
+	}
+
+	public void removeComponent(int pid, String componentName) {
+		if(!componentName.equals(Velocity.getKey())) {
+			return;
+		}
+		
+		if(!colliders.containsKey(pid)) {
+			System.out.println("Collision System tries remove " + componentName + " component from non-existing entity " + pid + " !");
+		}
+		
+
+		colliders.remove(pid);
+	}
+
 	@Override
 	public void setActives(Set<Integer> actives) {
 		//put in active listeners
 	}
 
+	
 	public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey(Position.getKey()) && components.containsKey(Dimension.getKey())) {
-			List<Component> newComponents = new ArrayList<>();
-			newComponents.add(components.get(Dimension.getKey()));
-			newComponents.add(components.get(Position.getKey()));
-			handledComponents.put(pid, newComponents);
-			if(components.containsKey(Velocity.getKey())) {
-				colliders.put(pid, (Velocity) components.get(Velocity.getKey()));
-			}
+		if(!handledComponents.containsKey(pid)) {
+			handledComponents.put(pid,components);
 		}
+		if(components.containsKey(Velocity.getKey())) {
+			colliders.put(pid, (Velocity) components.get(Velocity.getKey()));
+		}
+	}
+
+	@Override
+	public void update(Map<Integer, Map<String, Component>> handledComponents) {
+		this.handledComponents = handledComponents;
 	}
 	
 }

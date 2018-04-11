@@ -1,8 +1,5 @@
 package engine.components;
 
-
-import java.util.List;
-
 /**
  * This component defines type fof entity,like "player","block" etc
  * @author Yameng
@@ -33,6 +30,8 @@ public class EntityType extends Component{
 		return type;
 	}
 
-	public static String getKey() { return KEY; }
+	public static String getKey() {
+		return KEY;
+	}
 
 }

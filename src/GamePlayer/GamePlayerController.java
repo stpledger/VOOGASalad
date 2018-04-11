@@ -1,13 +1,16 @@
 /**package GamePlayer;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import HUD.SampleToolBar;
+
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
-import engine.setup.RenderManager;
-import engine.setup.SystemManager;
+import engine.systems.InputHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.SetProperty;
@@ -15,9 +18,12 @@ import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -27,6 +33,7 @@ public class GamePlayerController {
 	public final int FRAMES_PER_SECOND = 60;
 	public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+	private Stage myStage;
 	private Scene myScene;
 	private Group gameRoot;
 	private BorderPane pane = new BorderPane();
@@ -34,57 +41,58 @@ public class GamePlayerController {
 	private GamePlayerEntityView gameView;
 	private File currentFile;
 	private FileUploadButton fileBtn;
+	//Consumer that changes the view of the pane.
+//	Consumer newLevel = (e) -> {
+//		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
+//		pane.setCenter((Node) e);
+//	};
 
 	
-	// SORRY FOR CHANGING YOUR CODE PLAYER	-ENGINE Team
-	private SetProperty<KeyCode> activeKeys;
-	
-	
-
-	public GamePlayerController() {
-		activeKeys = new SimpleSetProperty<>();
+	public GamePlayerController(Stage stage) {
+		myStage = stage;
 	}
 	
 	
 	public Scene intializeStartScene() {
-		fileBtn = new FileUploadButton();
-		fileBtn.getFileBooleanProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+		SampleToolBar sampleBar = new SampleToolBar();
+		//MenuGameBar menuBar = new MenuGameBar();
+		//pane.setBottom(menuBar);
+		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
+		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+			try{
 				initializeGameStart();
 			}
+			catch(FileNotFoundException e){
+				e.printStackTrace();
+			}
 		});
-		SampleToolBar sampleBar = new SampleToolBar();
-//		group = new Group();
-//		group.getChildren().add(fileBtn);
 		pane.setTop(sampleBar);
-		pane.setBottom(fileBtn);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
-			handleKeyInput(e.getCode());
-			
-			
-			// SORRY
-			activeKeys.add(e.getCode());
-			
+			pauseMenu.show(myStage);
 		});
-		
-		myScene.setOnKeyReleased(e -> {
-			activeKeys.remove(e.getCode());
-		});
-		
 		return myScene;
 	}
 	
 	/**
 	 * Method that begins displaying the game
+	 * @throws FileNotFoundException 
 	 */
+<<<<<<< HEAD
 	/**public void initializeGameStart() {
+=======
+	public void initializeGameStart() throws FileNotFoundException {
+		/**
+		 * When the Game Starts create the Level Map;
+		 */
+>>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
-		pane.setCenter(gameRoot); //adds starting game Root to the file.
-		initializeGameAnimation(); //begins the animation cycle
+		//gameRoot.getChildren().add(new Rectangle(200,200));
+		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
+		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
+		//initializeGameAnimation(); //begins the animation cycle
 	}
 
 	/**
@@ -99,11 +107,14 @@ public class GamePlayerController {
 		animation.play();
 	}
 	
+	
+	
 	/**
 	 * Step method that repeats the animation by checking entities using render and system Manager
 	 * @param elapsedTime
 	 * @param root
 	 */
+<<<<<<< HEAD
 	/**private void step (double elapsedTime, Group root) {
 		gameView.systemManager.execute(elapsedTime);
 		gameView.renderManager.garbageCollect();
@@ -135,6 +146,12 @@ public class GamePlayerController {
 		
 		
 		
+=======
+	private void step (double elapsedTime, Group root) {
+		gameView.getSystemManager().execute(elapsedTime);
+		gameView.getRenderManager().garbageCollect();
+		gameView.getRenderManager().renderObjects();
+>>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
 	}
 }
 **/

@@ -6,11 +6,12 @@ import java.util.List;
 
 /**
  * Component housing acceleration information. Can be used to apply gravity, force, etc
+ * @author Yameng
  * @author fitzj
  */
 public class Acceleration extends Component {
 
-	public static String KEY = "Acceleration";
+public static String KEY = "Acceleration";
 	
 	private double xAcc, yAcc;
 	
