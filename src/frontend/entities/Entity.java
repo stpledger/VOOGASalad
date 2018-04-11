@@ -23,7 +23,7 @@ import javafx.scene.input.MouseButton;
  *
  */
 
-public abstract class Entity extends ImageView{
+public abstract class Entity extends ImageView {
 
 	/**
 	 * Unique ID to the entity
@@ -50,7 +50,7 @@ public abstract class Entity extends ImageView{
         };
         this.setOnMouseClicked(e -> {
         		if (e.getButton().equals(MouseButton.SECONDARY)) {
-        			LocalPropertiesView LPV = new LocalPropertiesView(addComponents);
+        			LocalPropertiesView LPV = new LocalPropertiesView(addComponents, this.type(), this.getID());
         			LPV.open();
         		}
         }); 

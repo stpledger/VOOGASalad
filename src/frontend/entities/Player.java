@@ -41,5 +41,4 @@ public class Player extends Entity {
 	public String type() {
 		return TYPE;
 	}
-
 }

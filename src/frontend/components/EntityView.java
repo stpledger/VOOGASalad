@@ -1,4 +1,4 @@
-package frontend.components;
+	package frontend.components;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
