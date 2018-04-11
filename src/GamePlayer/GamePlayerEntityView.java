@@ -16,8 +16,10 @@ import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
 import frontend.components.Level;
+import javafx.beans.property.SetProperty;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
@@ -92,5 +94,7 @@ public class GamePlayerEntityView {
 		return renderManager;
 	}
 	
-	
+	public void setActiveKeys(SetProperty<KeyCode> sp) {
+		gameInitializer.addActiveKeySet(sp);
+	}
 }

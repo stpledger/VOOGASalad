@@ -56,15 +56,19 @@ public class GamePlayerController {
 		pane.setTop(sampleBar);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
-			handleKeyInput(e.getCode());
+			if(e.getCode() == KeyCode.ESCAPE) {
+				handleKeyInput(e.getCode());
 			// SORRY
-			//activeKeys.add(e.getCode());
-			
+			} else {
+				activeKeys.add(e.getCode());
+			}
 		});
 //		
-//		myScene.setOnKeyReleased(e -> {
-//			activeKeys.remove(e.getCode());
-//		});
+		myScene.setOnKeyReleased(e -> {
+			if(e.getCode() != KeyCode.ESCAPE) {
+				activeKeys.remove(e.getCode());
+			}
+		});
 		return myScene;
 	}
 	
@@ -74,8 +78,12 @@ public class GamePlayerController {
 	public void initializeGameStart() {
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
+		
+		gameView.setActiveKeys(activeKeys);
+		
 		gameRoot = gameView.createEntityGroup();
 		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
+		
 		initializeGameAnimation(); //begins the animation cycle
 	}
 
@@ -83,12 +91,17 @@ public class GamePlayerController {
 	 * Begins the animation cycle count of the animation after game has started
 	 */
 	public void initializeGameAnimation() {
+		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
 				e -> step(SECOND_DELAY, gameRoot));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
+	}
+	
+	public SetProperty<KeyCode> getActiveKeys() {
+		return activeKeys;
 	}
 	
 	/**

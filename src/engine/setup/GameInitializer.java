@@ -8,6 +8,8 @@ import engine.components.KeyInput;
 import engine.components.Position;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
+import javafx.beans.property.SetProperty;
+import javafx.scene.input.KeyCode;
 
 public class GameInitializer {
 
@@ -74,4 +76,9 @@ public class GameInitializer {
     public List<ISystem> getSystems() {		// For testing
     		return systems;
     }
+    
+    public void addActiveKeySet(SetProperty<KeyCode> sp) {
+    	IH.addKeySet(sp);
+    }
+    
 }

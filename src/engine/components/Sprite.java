@@ -19,9 +19,9 @@ public class Sprite extends Component {
 	@XStreamOmitField
 	private ImageView image;
 
-	public Sprite(int pid, List<String> parameters) throws FileNotFoundException {
+	public Sprite(int pid, String parameters) throws FileNotFoundException {
 	    super(pid, KEY);
-		this.filename = parameters.get(0);
+		this.filename = parameters;
 		try {
 			setImage(filename);
 		}
