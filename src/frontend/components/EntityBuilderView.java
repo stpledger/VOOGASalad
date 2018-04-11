@@ -117,14 +117,12 @@ public class EntityBuilderView{
 				fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
 				imageFile = fileChooser.showOpenDialog(stage);
 				//Build the spriteComponent for a given entity
-				componentAttributes.put(Sprite.class, new Object[] {imageFile});
-				BufferedImage bufferedImage = null;
-				try {
-					bufferedImage = ImageIO.read(imageFile);
-				} catch (IOException x) {
-					System.out.println("Error accessing image for new entity");
+				componentAttributes.put(Sprite.class, new Object[] {imageFile.getAbsolutePath()});
+                try {
+					image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
+				} catch (IOException e1) {
+					System.out.println("Error loading image");
 				}
-                image = SwingFXUtils.toFXImage(bufferedImage, null);
 				leftPanel.setNewImage(image);
 			});
 			imageMenu.getItems().add(addImage);	

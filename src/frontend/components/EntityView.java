@@ -87,7 +87,7 @@ public class EntityView extends BorderPane {
 	public void saveEntity(String entityType, Map<Class, Object[]> componentAttributes) {
 	//Turn the imageFile into a usableImage
 		BufferedImage bufferedImage = null;
-			File f = (File) componentAttributes.get(Sprite.class)[0];
+			File f = new File((String) componentAttributes.get(Sprite.class)[0]);
 			try {
 				Image image = SwingFXUtils.toFXImage(ImageIO.read(f), null);
 			} catch (IOException e) {

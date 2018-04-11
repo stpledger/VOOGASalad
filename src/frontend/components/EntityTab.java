@@ -92,7 +92,7 @@ public class EntityTab extends Tab{
 			this.setHeight(boxDimension);
 			//Create the ImageView
 			componentAttributes = m;
-			File f = (File) componentAttributes.get(Sprite.class)[0];
+			File f = new File((String) componentAttributes.get(Sprite.class)[0]);
 			try {
 				image = SwingFXUtils.toFXImage(ImageIO.read(f), null);
 			} catch (IOException e1) {

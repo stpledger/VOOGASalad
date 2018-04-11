@@ -15,7 +15,7 @@ public class LevelView extends ScrollPane {
 	
 	public LevelView(Level level, int levelNum) {
 		this.getStyleClass().add("level-view");
-		this.level = level;
+		this.setLevel(level);
 		this.setContent(pane);
 		this.getStyleClass().add("level-view-wrapper");
 		this.setOnMouseClicked(e-> {		
@@ -33,6 +33,14 @@ public class LevelView extends ScrollPane {
 				}
 			}
 		});
+	}
+
+	public Level getLevel() {
+		return level;
+	}
+
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 
 }

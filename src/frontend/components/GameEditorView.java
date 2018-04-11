@@ -1,25 +1,35 @@
 package frontend.components;
 
 import java.io.File;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+
+import frontend.entities.Entity;
 import frontend.gamestate.*;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import GamePlayer.Main;
+import engine.components.Component;
+import engine.components.EntityType;
 
 /**
  * 
@@ -35,6 +45,7 @@ public class GameEditorView extends BorderPane {
 	private TabPane tabPane;
 	private Toolbar toolbar;
 	private File gameFile;
+	private int nextID  = 0;
 	
 	/**
 	 * Default Constructor
@@ -50,6 +61,8 @@ public class GameEditorView extends BorderPane {
 		state = new GameState();
 		addLevel(); // add the first level
 		this.setCenter(tabPane);
+		tabPane.setOnMouseClicked((e)->addEntity.accept(e)); //Add a new Entity OnClick
+		
 	}
 	
 	/**
@@ -83,12 +96,6 @@ public class GameEditorView extends BorderPane {
 		});
 		
 		};
-	//Handles the call for the addTool in toolbar
-	Consumer addTool = (e)->{System.out.println("Add Tool!");};
-	//Handles the call for the deleteTool in toolbar
-	Consumer deleteTool = (e)->{System.out.println("Delete Tool!");};
-	//Handles thecall for the editTool in Toolbar
-	Consumer editTool = (e)->{System.out.println("edit Tool!");};
 	//All of the consumers are added to the consumerMap below
 	private Map<String, Consumer> consumerMap = new HashMap<String, Consumer>(){{
 		this.put("newGame", newGame);
@@ -97,11 +104,8 @@ public class GameEditorView extends BorderPane {
 		this.put("addLevel", newLevel);
 		this.put("showSettings", showSettings);
 		this.put("play", play);
-		this.put("addTool", addTool);
-		this.put("deleteTool", deleteTool);
-		this.put("editTool", editTool);
-		
 	}};
+	
 	
 	/**
 	 * called whenever there is any change to the tabslist
@@ -137,26 +141,35 @@ public class GameEditorView extends BorderPane {
 	 * @param o
 	 */
 	public void setClipboard(Object o) {
-		//TODO: add argument check because this is being called from the controller
 		clipboard = (Object[]) o;
-		System.out.println(clipboard[0].toString() + clipboard[1].toString());
 	}
-	
-	//TODO: change these class names
-	public void addTool() {setTool("add");}
-	public void deleteTool() {setTool("delete");}
-	public void editTool() {setTool("edit");}
-	
-	public void setTool(Object o) {
-		activeTool = o.toString();
-		switch(o.toString()) {
-		case "edit":
-			this.setCursor(javafx.scene.Cursor.OPEN_HAND);
-			break;
-		case "add":
-		case "delete":
-			this.setCursor(javafx.scene.Cursor.HAND);
-			break;
+	/**
+	 * Consumer to handle adding a new entity to the current level
+	 */
+	private Consumer<MouseEvent> addEntity = (mouseevent) -> {
+		Object[] clipboardCopy =  clipboard; //Create a copy of the clipboard
+		ArrayList<Component> componentArrayList = new ArrayList<Component>();
+		Entity entity = null;
+		try {
+			Class entityType = (Class) clipboardCopy[0]; //Get the class of the entityType
+			Constructor<?> entityConstructor = entityType.getConstructor(int.class); //Get Constructor for entityType
+			entity = (Entity) entityConstructor.newInstance(nextID); //Create a new instance of the entity
+			entity.setPosition(mouseevent.getX(),mouseevent.getY()); //Set the X,Y position of the mouseEvent to the X,Y position of the object
+			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; //Get all of the inputs for components
+			for(Class k :entityComponents.keySet()) { //iterate through all the properties we have for new components
+				Constructor<?> componentConstructor = k.getConstructors()[0]; // get the constructor for the type of component
+				System.out.println(entityComponents.get(k)[0]);
+				componentArrayList.add((Component) componentConstructor.newInstance(nextID, entityComponents.get(k)[0])); //Add a new instance to arraylist.
+			}
+			for(Component c : componentArrayList) {
+				entity.add(c);
+			}
+			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).getLevel().addEntity(entity); //add the entity to the level
+			nextID ++; //Increment id's by one
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException e1) {
+			e1.printStackTrace();
 		}
-	}
+	};
+	
 }
