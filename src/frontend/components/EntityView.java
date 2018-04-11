@@ -42,6 +42,7 @@ public class EntityView extends BorderPane {
 		this.getStyleClass().add("entity-view");
 		this.setTop(new Toolbar("Entities", consumerMap));
 		this.setCenter(tabPane);
+		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
 	}
 	/**
 	 * Located Below are all the consumers to handle toolbar events
@@ -49,7 +50,6 @@ public class EntityView extends BorderPane {
 		BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
 		//Consumer for Creating a new Entity(Opens EntityBuilderView)
 		Consumer newEntity = (e) -> {
-			entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
 			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
 		};
 		Consumer saveEntities = (e) -> {System.out.println("Save Entites!");};

@@ -153,7 +153,7 @@ public class GameEditorView extends BorderPane {
 	/**
 	 * Consumer to handle adding a new entity to the current level
 	 */
-	private Consumer<MouseEvent> addEntity = (mouseevent) -> {
+	private Consumer<MouseEvent> addEntity = (mouseEvent) -> {
 		Object[] clipboardCopy =  clipboard; //Create a copy of the clipboard
 		ArrayList<Component> componentArrayList = new ArrayList<Component>();
 		Entity entity = null;
@@ -161,7 +161,7 @@ public class GameEditorView extends BorderPane {
 			Class entityType = (Class) clipboardCopy[0]; //Get the class of the entityType
 			Constructor<?> entityConstructor = entityType.getConstructor(int.class); //Get Constructor for entityType
 			entity = (Entity) entityConstructor.newInstance(nextID); //Create a new instance of the entity
-			entity.setPosition(mouseevent.getX(),mouseevent.getY()); //Set the X,Y position of the mouseEvent to the X,Y position of the object
+			entity.setPosition(mouseEvent.getX(), mouseEvent.getY() - this.tabPane.getTabMaxHeight()); //Set the X,Y position of the mouseEvent to the X,Y position of the object
 			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; //Get all of the inputs for components
 			for(Class k :entityComponents.keySet()) { //iterate through all the properties we have for new components
 				Constructor<?> componentConstructor = k.getConstructors()[0]; // get the constructor for the type of component

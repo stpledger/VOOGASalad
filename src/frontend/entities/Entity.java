@@ -102,6 +102,8 @@ public abstract class Entity extends ImageView{
 	 */
     public void setPosition(double x, double y) {
 		this.add(new Position(this.getID(),x,y));
+		this.setLayoutX(x);
+		this.setLayoutY(y);
 	}
 	
 	/**
