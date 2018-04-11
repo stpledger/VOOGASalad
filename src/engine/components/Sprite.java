@@ -21,7 +21,7 @@ public class Sprite extends Component {
 	public Sprite(int pid, String filename) throws FileNotFoundException {
 	    super(pid);
 		this.filename = filename;
-		Image im = new Image("engine/components/Waluigi.png");
+		Image im = new Image(filename);
 		/** try {
 			im = new Image(filename);
 		} catch (Exception e) {

@@ -25,9 +25,9 @@ public class TestGameState {
 		Sprite s3 = null;
 
 		try {
-		 s = new Sprite(0, "Waluigi.png");
-		 s2 = new Sprite(1, "Waluigi.png");
-		 s3 = new Sprite(2, "Walugui.png");
+		 s = new Sprite(0, "engine/components/Waluigi.png");
+		 s2 = new Sprite(1, "engine/components/Waluigi.png");
+		 s3 = new Sprite(2, "engine/components/Waluigi.png");
 		 } catch (FileNotFoundException e) {
 		 throw new FileNotFoundException();
 		 }
@@ -70,10 +70,14 @@ public class TestGameState {
 		mario3.put(Acceleration.getKey(), a3);
 
 		Consumer l = (e) -> {
-			v2.setYVel(v3.getYVel());
+			v.setYVel(-50);
 		};
-		KeyInput k = new KeyInput(1, KeyCode.K, l);
-		mario2.put(KeyInput.getKey(), k);
+		KeyInput k = new KeyInput(0, KeyCode.UP, l);
+		Consumer l2 = (e) -> {
+			v.setXVel(50);
+		};
+		k.addCode(KeyCode.RIGHT, l2);
+		mario.put(KeyInput.getKey(), k);
 
 
 		entities.put(0, mario);
