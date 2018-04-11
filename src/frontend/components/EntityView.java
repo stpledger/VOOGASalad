@@ -34,7 +34,6 @@ public class EntityView extends BorderPane {
 	private TabPane tabPane = new TabPane();
 	private Consumer clipboardHandler;
 	
-	
 	public EntityView(Consumer ch) {
 		super();
 		clipboardHandler = ch;

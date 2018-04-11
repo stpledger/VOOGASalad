@@ -158,16 +158,26 @@ public class GameEditorView extends BorderPane {
 		ArrayList<Component> componentArrayList = new ArrayList<Component>();
 		Entity entity = null;
 		try {
-			Class entityType = (Class) clipboardCopy[0]; //Get the class of the entityType
-			Constructor<?> entityConstructor = entityType.getConstructor(int.class); //Get Constructor for entityType
-			entity = (Entity) entityConstructor.newInstance(nextID); //Create a new instance of the entity
-			entity.setPosition(mouseEvent.getX(), mouseEvent.getY() - this.tabPane.getTabMaxHeight()); //Set the X,Y position of the mouseEvent to the X,Y position of the object
-			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; //Get all of the inputs for components
-			for(Class k :entityComponents.keySet()) { //iterate through all the properties we have for new components
-				Constructor<?> componentConstructor = k.getConstructors()[0]; // get the constructor for the type of component
-				ArrayList<Object> tempArr = new ArrayList<Object>() {{ //Create a temporary arraylist
-					this.add(nextID); //Add the pId to the temporary arraylist
-					this.addAll(Arrays.asList(entityComponents.get(k))); //add all the arguments for the component to the arraylist
+			//Get the class of the entityType
+			Class entityType = (Class) clipboardCopy[0]; 
+			//Get Constructor for entityType
+			Constructor<?> entityConstructor = entityType.getConstructor(int.class);
+			//Create a new instance of the entity
+			entity = (Entity) entityConstructor.newInstance(nextID); 
+			 //Set the X,Y position of the mouseEvent to the X,Y position of the object
+			entity.setPosition(mouseEvent.getX(), mouseEvent.getY() - this.tabPane.getTabMaxHeight());
+			//Get all of the inputs for components
+			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; 
+			//iterate through all the properties we have for new components
+			for(Class k :entityComponents.keySet()) { 
+				 // get the constructor for the type of component
+				Constructor<?> componentConstructor = k.getConstructors()[0];
+				//Create a temporary arraylist
+				ArrayList<Object> tempArr = new ArrayList<Object>() {{ 
+					 //Add the pId to the temporary arraylist
+					this.add(nextID);
+					//add all the arguments for the component to the arraylist
+					this.addAll(Arrays.asList(entityComponents.get(k))); 
 				}};
 				Object[] args = tempArr.toArray(); //Convert the temp array to an array of objects
 				componentArrayList.add((Component) componentConstructor.newInstance(args)); //Add a new instance to arraylist.
