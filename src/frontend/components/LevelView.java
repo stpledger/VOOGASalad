@@ -25,6 +25,29 @@ public class LevelView extends ScrollPane {
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.getStyleClass().add("level-view-wrapper");
+		this.setupMouseClick(levelNum);
+		this.setupButtons();
+	}
+	
+	/**
+	 * Sets up mouse click events
+	 * @param levelNum Level number
+	 */
+	private void setupMouseClick(int levelNum) {
+		this.setOnMouseClicked(e-> {		
+			if (e.getButton().equals(MouseButton.PRIMARY)) {
+				if(e.getClickCount()==2) {
+					LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
+					lView.open();
+				}
+			}
+		});
+	}
+	
+	/**
+	 * Sets up buttons for each level view
+	 */
+	private void setupButtons() {
 		this.HUDButton = MenuItemBuilder.buildButton("HUD Properties", e->{
 			HUDPropertiesView HPV = new HUDPropertiesView(level);
 			HPV.open();
@@ -35,14 +58,6 @@ public class LevelView extends ScrollPane {
 		});
 		pane.add(this.GButton, 0, 0);
 		pane.add(this.HUDButton, 0, 1);
-		this.setOnMouseClicked(e-> {		
-			if (e.getButton().equals(MouseButton.PRIMARY)) {
-				if(e.getClickCount()==2) {
-					LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
-					lView.open();
-				}
-			}
-		});
 	}
 	
 	/**
