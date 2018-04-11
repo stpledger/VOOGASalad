@@ -82,5 +82,17 @@ public class InputHandler implements ISystem {
 	public void setActives(Set<Integer> actives) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public void addComponent(int pid, String componentName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeComponent(int pid, String componentName) {
+		// TODO Auto-generated method stub
+		
 	}	
 }

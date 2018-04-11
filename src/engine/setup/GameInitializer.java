@@ -7,6 +7,7 @@ import engine.components.Component;
 import engine.components.KeyInput;
 import engine.components.Position;
 import engine.systems.*;
+import engine.systems.collisions.Collision;
 
 public class GameInitializer {
 
@@ -14,14 +15,18 @@ public class GameInitializer {
 
     private SystemManager SM;
     private RenderManager RM;
+    private InputHandler IH;
     private EntityManager EM;
     
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
         systems = new ArrayList<>();
         systems.add(new Accelerate());
         systems.add(new Motion());
+        IH = new InputHandler(); 
+        Collision collision = new Collision();
+        systems.add(collision);
         systems.add(new Animate());
-        SM = new SystemManager(systems);
+        SM = new SystemManager(systems, collision);
         EM = new EntityManager(entities);
         
         double renderDistance = 300.0;
@@ -59,7 +64,14 @@ public class GameInitializer {
         return RM;
     }
 
+    public EntityManager getEM() {
+    		return EM;
+    }
+     public InputHandler getIH() {
+         return IH;
+         }
+     
     public List<ISystem> getSystems() {		// For testing
-    	return systems;
+    		return systems;
     }
 }

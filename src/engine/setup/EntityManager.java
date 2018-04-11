@@ -26,13 +26,14 @@ public class EntityManager {
     			return;
     		}
     		
-    		Map<String, Component> map = new HashMap<>();
+    		Map<String, Component> map = entities.get(pid);
     		if(map.containsKey(componentName)) {
     			System.out.println("Try Adding duplicate " + componentName + " component in EntityManager!");
     			return;
     		}
     		
     		map.put(componentName,component);
+    		SystemManager.addComponent(pid,componentName);
     }
     
     public static void removeComponent(int pid, String componentName, Component component) {
@@ -41,14 +42,20 @@ public class EntityManager {
 			return;
 		}
 		
-		Map<String, Component> map = new HashMap<>();
+		Map<String, Component> map = entities.get(pid);
 		if(!map.containsKey(componentName)) {
 			System.out.println("Try removing non-existing " + componentName + " component in EntityManager!");
 			return;
 		}
 		
 		map.remove(componentName);
+		SystemManager.removeComponent(pid,componentName);
     }
+    
+    public static Component getComponent(int pid, String componentName) {
+    		return entities.get(pid).get(componentName);
+    }
+    
     /**
      * For next step. Not implemented now.
     public void addComponent(int pid, String componentName) {
