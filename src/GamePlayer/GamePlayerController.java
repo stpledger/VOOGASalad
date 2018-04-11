@@ -76,7 +76,7 @@ public class GamePlayerController {
 		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
 		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
-		initializeGameAnimation(); //begins the animation cycle
+		//initializeGameAnimation(); //begins the animation cycle
 	}
 
 	/**

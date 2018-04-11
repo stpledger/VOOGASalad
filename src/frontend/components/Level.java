@@ -42,6 +42,10 @@ public class Level {
 	public String getLevelDifficulty() {
 		return this.levelDifficulty;
 	}
+	
+	public List<Entity> getEntityList(){
+		return entityList;
+	}
 
 	public void setLevelDifficulty(String levelDifficulty) {
 		this.levelDifficulty = levelDifficulty;
