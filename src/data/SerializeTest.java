@@ -108,7 +108,7 @@ public class SerializeTest {
 
         File xml = new File("sdf");
         try {
-             xml =DataWrite.saveFile(state, "TestGame1");
+            xml =DataWrite.saveFile(state, "TestGame1");
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -14,7 +14,7 @@ public class ParameterManager {
 	public ParameterManager() {
 		
 	}
-	
+
 	/**
 	 * Get name, type and number of parameters the component constructor requires.
 	 * Return an empty list if given component class does not exist
@@ -44,8 +44,7 @@ public class ParameterManager {
 	 * Build components instances based on inputs of parameters 
 	 * Return null if parameters inputs are invalid
 	 * @param pid parent id
-	 * @param component name of component class
-	 * @param input parameters inputs
+	 * @param inputs parameters inputs
 	 * @return component instance
 	 */
 	public static Component buildComponent(int pid, String component, List<String> inputs) {
@@ -53,8 +52,9 @@ public class ParameterManager {
 			System.out.println("Input type is invalid!");
 			return null;
 		}
-		
+
 		Component res = ComponentBuilder.buildComponent(pid,component,inputs);
+
 		if(res == null) {
 			System.out.println("Can not build a "+component+" component");
 		}
@@ -84,6 +84,9 @@ public class ParameterManager {
 	}
 	
 	/**
+	 * Check if type of object equals to type string
+	 * @param type
+	 * @return true or false
 	 * Check if type of object matches to type string
 	 * @param input input parameter value
 	 * @param type required type for the parameter

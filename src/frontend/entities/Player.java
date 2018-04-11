@@ -1,11 +1,19 @@
+/**
 package frontend.entities;
 
+<<<<<<< HEAD
+import java.util.Arrays;
+
+import engine.components.EntityType;
+
+=======
 /**
+>>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
  * A class to represent the player object, and its default components.
  * @author Dylan Powers
  * @author Hemanth Yakkali(hy115)
  *
- */
+
 public class Player extends Entity {
 
 	private final String TYPE = "Player";
@@ -15,18 +23,18 @@ public class Player extends Entity {
 	private final double PLAYER_WIDTH = 25;
 	private final double PLAYER_HEIGHT = 50;
 	
-	/**
+
 	 * Construct the object with the given ID.
 	 * @param ID the ID of this object.
-	 */
+	 *
 	public Player(int ID) {
 		super(ID);
 		addDefaultComponents();
 	}
 
-	/**
+
 	 * Add the default components to the player object.
-	 */
+	 *
 	@Override
 	public void addDefaultComponents() {
 		this.setHealth(INITIAL_HEALTH);
@@ -38,3 +46,4 @@ public class Player extends Entity {
 	}
 
 }
+**/

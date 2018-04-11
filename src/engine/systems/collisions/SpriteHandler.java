@@ -12,7 +12,7 @@ public class SpriteHandler {
 	}
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
-		if(!((EntityType)collider.get(EntityType.getKey())).getType().equals("Power-up")) {
+		if(!((EntityType)collider.get(EntityType.KEY)).getType().equals("Power-up")) {
 			return;
 		}
 		

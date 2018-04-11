@@ -1,8 +1,6 @@
 package engine.components;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *  Velocity component class
@@ -42,8 +40,9 @@ public class Velocity extends Component {
 	public void setYVel(double yVel) {
 		YVel = yVel;
 	}
-
+	
 	public static String getKey() {
 		return KEY;
 	}
+
 }
