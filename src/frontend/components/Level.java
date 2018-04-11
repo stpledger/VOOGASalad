@@ -33,6 +33,7 @@ public class Level {
 	
 	public void addEntity(Entity entity) {
 		this.entityList.add(entity);
+		System.out.println("Added!");
 	}
 	
 	public void removeEntity(Entity entity) {
