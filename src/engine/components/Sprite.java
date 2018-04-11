@@ -1,7 +1,6 @@
 package engine.components;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.List;
+
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -20,7 +19,7 @@ public class Sprite extends Component {
 	private ImageView image;
 
 	public Sprite(int pid, String parameters) throws FileNotFoundException {
-	    super(pid, KEY);
+	    super(pid);
 		this.filename = parameters;
 		try {
 			setImage(filename);
@@ -44,6 +43,10 @@ public class Sprite extends Component {
 		} catch (RuntimeException e) {
 			
 		}
+	}
+	
+	public String getKey() {
+		return KEY;
 	}
 
 }

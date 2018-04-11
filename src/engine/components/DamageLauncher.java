@@ -1,8 +1,6 @@
 package engine.components;
 
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This component defines poisons points of the game object.
@@ -19,7 +17,7 @@ public class DamageLauncher extends Component {
 
 
 	public DamageLauncher (int pid, double damage, double lifetime) {
-		super(pid, KEY);
+		super(pid);
 		this.damage = damage;
 		this.lifetime = lifetime;
 	}
@@ -38,6 +36,10 @@ public class DamageLauncher extends Component {
 
 	public void decrementLife() {
 		lifetime--;
+	}
+	
+	public String getKey() {
+		return KEY;
 	}
 
 }

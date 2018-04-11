@@ -26,10 +26,10 @@ public class Accelerate implements ISystem{
 	 * @param components	Map of components for given parent
 	 */
     public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey(Acceleration.getKey()) && components.containsKey(Velocity.getKey())) {
+		if (components.containsKey(Acceleration.KEY) && components.containsKey(Velocity.KEY)) {
 			Map<String, Component> newComponents = new HashMap<>();
-			newComponents.put(Acceleration.getKey(),components.get(Acceleration.getKey()));
-			newComponents.put(Velocity.getKey(),components.get(Velocity.getKey()));
+			newComponents.put(Acceleration.KEY,components.get(Acceleration.KEY));
+			newComponents.put(Velocity.KEY,components.get(Velocity.KEY));
 			handledComponents.put(pid, newComponents);
 		}
     	
@@ -48,7 +48,7 @@ public class Accelerate implements ISystem{
 
     @Override
     public void addComponent(int pid, String componentName) {
-    		if(!componentName.equals(Acceleration.getKey()) && !componentName.equals(Velocity.getKey())) {
+    		if(!componentName.equals(Acceleration.KEY) && !componentName.equals(Velocity.KEY)) {
     			return;
     		}
     		
@@ -59,28 +59,28 @@ public class Accelerate implements ISystem{
 
     		Map<String, Component> map = new HashMap<>();
     		map.put(componentName,EntityManager.getComponent(pid, componentName));
-    		if(componentName.equals(Acceleration.getKey())) {
-    			Component component = EntityManager.getComponent(pid,Velocity.getKey());
+    		if(componentName.equals(Acceleration.KEY)) {
+    			Component component = EntityManager.getComponent(pid,Velocity.KEY);
     			if(component == null) {
-    				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Velocity.getKey() + " component!");
+    				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Velocity.KEY + " component!");
     				return;
     			}
-    			map.put(Velocity.getKey(), component);
+    			map.put(Velocity.KEY, component);
     		}
     		else {
-    			Component component = EntityManager.getComponent(pid,Acceleration.getKey());
+    			Component component = EntityManager.getComponent(pid,Acceleration.KEY);
     			if(component == null) {
-    				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Acceleration.getKey() + " component!");
+    				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Acceleration.KEY + " component!");
     				return;
     			}
-    			map.put(Acceleration.getKey(), component);
+    			map.put(Acceleration.KEY, component);
     		}
     		handledComponents.put(pid,map);
     }
     
     @Override
     public void removeComponent(int pid, String componentName) {
-		if(!componentName.equals(Acceleration.getKey()) && !componentName.equals(Velocity.getKey())) {
+		if(!componentName.equals(Acceleration.KEY) && !componentName.equals(Velocity.KEY)) {
 			return;
 		}
 		
@@ -108,8 +108,8 @@ public class Accelerate implements ISystem{
 		for (int pid : activeComponents) {
 			Map<String,Component> activeComponents = handledComponents.get(pid);
 
-			Acceleration a = (Acceleration) activeComponents.get(Acceleration.getKey());
-			Velocity v = (Velocity) activeComponents.get(Velocity.getKey());
+			Acceleration a = (Acceleration) activeComponents.get(Acceleration.KEY);
+			Velocity v = (Velocity) activeComponents.get(Velocity.KEY);
 
 			v.setXVel(v.getXVel() + a.getxAcc()*time);
 			v.setYVel(v.getYVel() + a.getyAcc()*time);

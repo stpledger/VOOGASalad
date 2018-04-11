@@ -26,10 +26,10 @@ public class Collision extends DefaultSystem{
 		colliders.forEach((key1, vel) -> {
 			handledComponents.forEach((key2, map) -> {				// Hooooorrible code, refactor
 				if(key1 != key2) {
-					Dimension d1 = (Dimension) handledComponents.get(key1).get(Dimension.getKey());
-					Dimension d2 = (Dimension) handledComponents.get(key2).get(Dimension.getKey());
-					Position p1 = (Position) handledComponents.get(key1).get(Position.getKey());
-					Position p2 = (Position) handledComponents.get(key2).get(Position.getKey());
+					Dimension d1 = (Dimension) handledComponents.get(key1).get(Dimension.KEY);
+					Dimension d2 = (Dimension) handledComponents.get(key2).get(Dimension.KEY);
+					Position p1 = (Position) handledComponents.get(key1).get(Position.KEY);
+					Position p2 = (Position) handledComponents.get(key2).get(Position.KEY);
 					
 					double topOverlap = p1.getYPos() + d1.getHeight() - p2.getYPos();
 					double leftOverlap = p1.getXPos() + d1.getWidth() - p2.getXPos();
@@ -82,7 +82,7 @@ public class Collision extends DefaultSystem{
 	}
 
 	public void addComponent(int pid, String componentName) {
-		if(!componentName.equals(Velocity.getKey())) {
+		if(!componentName.equals(Velocity.KEY)) {
 			return;
 		}
 		
@@ -96,7 +96,7 @@ public class Collision extends DefaultSystem{
 	}
 
 	public void removeComponent(int pid, String componentName) {
-		if(!componentName.equals(Velocity.getKey())) {
+		if(!componentName.equals(Velocity.KEY)) {
 			return;
 		}
 		
@@ -115,13 +115,13 @@ public class Collision extends DefaultSystem{
 
 	
 	public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey(Position.getKey()) && components.containsKey(Dimension.getKey())) {
+		if (components.containsKey(Position.KEY) && components.containsKey(Dimension.KEY)) {
 			Map<String, Component> newComponents = new HashMap<>();
-			newComponents.put(Dimension.getKey(),components.get(Dimension.getKey()));
-			newComponents.put(Position.getKey(),components.get(Position.getKey()));
+			newComponents.put(Dimension.KEY,components.get(Dimension.KEY));
+			newComponents.put(Position.KEY,components.get(Position.KEY));
 			handledComponents.put(pid, newComponents);
-			if(components.containsKey(Velocity.getKey())) {
-				colliders.put(pid, (Velocity) components.get(Velocity.getKey()));
+			if(components.containsKey(Velocity.KEY)) {
+				colliders.put(pid, (Velocity) components.get(Velocity.KEY));
 			}
 		}
 	}

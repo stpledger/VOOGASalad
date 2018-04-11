@@ -14,11 +14,11 @@ import engine.components.Velocity;
 
 public class ComponentBuilder {
 	public static Component buildComponent(int pid, String component, List<String> inputs) throws IllegalArgumentException {
-		if(inputs.size() >= 2 && (component.equals(Acceleration.getKey()) 
-							|| component.equals(Velocity.getKey()) 
-							|| component.equals(Position.getKey())
-							|| component.equals(Damage.getKey())
-							|| component.equals(Dimension.getKey()))) {
+		if(inputs.size() >= 2 && (component.equals(Acceleration.KEY) 
+							|| component.equals(Velocity.KEY) 
+							|| component.equals(Position.KEY)
+							|| component.equals(Damage.KEY)
+							|| component.equals(Dimension.KEY))) {
 			double x = 0; 
 			double y = 0;
 			try {
@@ -30,7 +30,7 @@ public class ComponentBuilder {
 			} catch (Exception e) {
 				throw new IllegalArgumentException("Please provide numbers as inputs");
 			}
-		} else if(inputs.size() >= 1 && component.equals(Health.getKey())) {
+		} else if(inputs.size() >= 1 && component.equals(Health.KEY)) {
 			double h = 0;
 			try {
 				h = Double.parseDouble(inputs.get(0));
@@ -40,7 +40,7 @@ public class ComponentBuilder {
 			} catch (Exception e) {
 				throw new IllegalArgumentException("Please provide numbers as inputs");
 			}
-		} else if(inputs.size() >= 1 && component.equals(Sprite.getKey())) {
+		} else if(inputs.size() >= 1 && component.equals(Sprite.KEY)) {
 			try {
 				Class<?> c = Class.forName("engine.components." + component);
 				Constructor<?> con = c.getConstructor(int.class, String.class);

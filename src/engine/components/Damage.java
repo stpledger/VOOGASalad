@@ -41,4 +41,9 @@ public class Damage extends Component {
 		this.lifetime = lifetime;
 	}
 
+	
+	public String getKey() {
+		return KEY;
+	}
+
 }

@@ -38,8 +38,8 @@ public class GameInitializer {
 
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
-            if (components.containsKey(Position.getKey())) {
-                Position p = (Position) components.get(Position.getKey());
+            if (components.containsKey(Position.KEY)) {
+                Position p = (Position) components.get(Position.KEY);
                 RM.add(p);
                 /**if (components.containsKey(Sprite.getKey())) {
                     Sprite s = (Sprite) components.get(Sprite.getKey());

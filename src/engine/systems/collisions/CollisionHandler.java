@@ -20,8 +20,8 @@ public class CollisionHandler {
 		Map<String, Component> components1 = handledComponents.get(key1);
 		Map<String, Component> components2 = handledComponents.get(key2);
 		
-		boolean flag1 = components1.containsKey(Player.getKey());
-		boolean flag2 = components2.containsKey(Player.getKey());
+		boolean flag1 = components1.containsKey(Player.KEY);
+		boolean flag2 = components2.containsKey(Player.KEY);
 		if(!flag1 && !flag2) {
 			return;
 		}

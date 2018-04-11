@@ -2,12 +2,9 @@ package engine.components;
 
 import javafx.scene.input.KeyCode;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-import javafx.scene.input.KeyCode;
 
 public class KeyInput extends Component {
 	private KeyCode code;
@@ -16,7 +13,7 @@ public class KeyInput extends Component {
 	public static String KEY = "KeyInput";
 	
 	public KeyInput(int pid, KeyCode code, Consumer<Map<String, Component>> con) {
-		super(pid, KEY);
+		super(pid);
 		this.code = code;
 		this.con = con;		
 	}
@@ -31,6 +28,10 @@ public class KeyInput extends Component {
 
 	public Consumer<Map<String, Component>> getConsumer() {
 		return con;
+	}
+	
+	public String getKey() {
+		return KEY;
 	}
 	
 

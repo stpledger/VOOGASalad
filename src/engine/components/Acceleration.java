@@ -39,6 +39,10 @@ public static String KEY = "Acceleration";
 	public void setyAcc(double yAcc) {
 		this.yAcc = yAcc;
 	}
+	
+	public String getKey() {
+		return KEY;
+	}
 
 }
 
