@@ -18,14 +18,18 @@ public class LevelView extends ScrollPane {
 		this.getStyleClass().add("level-view");
 		this.level = level;
 		this.setContent(pane);
+		this.setOnScroll(e->this.setWidth(this.getWidth()+100));
+		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.getStyleClass().add("level-view-wrapper");
 		this.setOnMouseClicked(e-> {		
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
 				lView.open();
 			} else if (e.getButton().equals(MouseButton.PRIMARY)) {
-				if(e.getClickCount()==1) {
+				if (e.getClickCount()==1) {
 					GlobalPropertiesView GPV = new GlobalPropertiesView(level);
+					GPV.open();
 				}
 				if (e.getClickCount() == 2) {
 					LocalPropertiesView LPV = new LocalPropertiesView(1);
