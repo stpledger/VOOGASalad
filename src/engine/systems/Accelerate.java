@@ -116,5 +116,10 @@ public class Accelerate implements ISystem{
 		}
 	}
 
+	@Override
+	public Map<Integer, Map<String, Component>> getHandledComponent() {
+		return handledComponents;
+	}
+
 }
 

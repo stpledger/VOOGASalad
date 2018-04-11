@@ -3,17 +3,15 @@ package engine.systems;
 import engine.components.*;
 import engine.setup.EntityManager;
 import javafx.scene.image.ImageView;
-
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.Map;
 import java.util.HashMap;
 
 public class Animate implements ISystem {
+	private final String PLAYER = "player";
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents;
-    private int playerID;
+    private int playerID=-1;
 
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
@@ -21,7 +19,7 @@ public class Animate implements ISystem {
             Map<String, Component> newComponents = new HashMap<>();
             newComponents.put(Position.getKey(),components.get(Position.getKey()));
             newComponents.put(Sprite.getKey(),components.get(Sprite.getKey()));
-            if (components.containsKey(Player.getKey())) {
+            if (((EntityType)components.get(EntityType.getKey())).getType().equals(PLAYER)) {
                 playerID = pid;
                 newComponents.put(Velocity.getKey(),components.get(Velocity.getKey()));
             }
@@ -87,27 +85,36 @@ public class Animate implements ISystem {
 
     @Override
     public void execute(double time) {
+        System.out.println("Looping");
+        if(playerID!=-1){
         Map<String, Component> components = handledComponents.get(playerID);
-        Velocity v = (Velocity) components.get(Velocity.getKey());
-        double xVel = v.getXVel();
-        double yVel = v.getYVel();
 
-        for (int pid : handledComponents.keySet()) {
-            components = handledComponents.get(pid);
-            Position p = (Position) components.get(Position.getKey());
+            Velocity v = (Velocity) components.get(Velocity.getKey());
+            double xVel = v.getXVel();
+            double yVel = v.getYVel();
 
-            if (pid!=playerID) {
-                p.setXPos(p.getXPos()-xVel*time);
-                p.setYPos(p.getYPos()-yVel*time);
+            for (int pid : handledComponents.keySet()) {
+                components = handledComponents.get(pid);
+                Position p = (Position) components.get(Position.getKey());
 
-                if (activeComponents.contains(pid)) {
-                    Sprite s = (Sprite) components.get(Sprite.getKey());
+                if (pid != playerID) {
+                    p.setXPos(p.getXPos() - xVel * time);
+                    p.setYPos(p.getYPos() - yVel * time);
 
-                    ImageView im = s.getImage();
-                    im.setX(p.getXPos());
-                    im.setY(p.getYPos());
+                    if (activeComponents.contains(pid)) {
+                        Sprite s = (Sprite) components.get(Sprite.getKey());
+
+                        ImageView im = s.getImage();
+                        im.setX(p.getXPos());
+                        im.setY(p.getYPos());
+                    }
                 }
             }
         }
     }
+    
+    @Override
+	public Map<Integer, Map<String, Component>> getHandledComponent() {
+		return handledComponents;
+	}
 }

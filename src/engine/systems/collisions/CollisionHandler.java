@@ -7,21 +7,23 @@ import engine.components.Component;
 import engine.components.Damage;
 import engine.components.DamageLauncher;
 import engine.components.EntityType;
-import engine.components.Player;
 
 public class CollisionHandler {
+	private String PLAYER = "player";
 	private DamageHandler damageHandler;
+	private SpriteHandler spriteHandler;
 	
 	public CollisionHandler() {
 		damageHandler = new DamageHandler();
+		spriteHandler = new SpriteHandler();
 	}
 
 	public void handle(Map<Integer, Map<String, Component>> handledComponents, int key1, int key2) {
 		Map<String, Component> components1 = handledComponents.get(key1);
 		Map<String, Component> components2 = handledComponents.get(key2);
 		
-		boolean flag1 = components1.containsKey(Player.getKey());
-		boolean flag2 = components2.containsKey(Player.getKey());
+		boolean flag1 = ((EntityType)components1.get(EntityType.getKey())).getType().equals(PLAYER);
+		boolean flag2 = ((EntityType)components2.get(EntityType.getKey())).getType().equals(PLAYER);
 		if(!flag1 && !flag2) {
 			return;
 		}
@@ -37,6 +39,7 @@ public class CollisionHandler {
 	
 	private void handleCollision(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
 		damageHandler.handle(playerID, player, colliderID, collider);
+		spriteHandler.handle(playerID, player, colliderID, collider);
 	}
 
 }

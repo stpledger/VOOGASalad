@@ -1,5 +1,9 @@
 package engine.components;
 import java.io.FileNotFoundException;
+
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,14 +24,15 @@ public class Sprite extends Component {
 	@XStreamOmitField
 	private ImageView image;
 
-	public Sprite(int pid, String filename) throws FileNotFoundException {
-	    super(pid, KEY);
-		this.filename = filename;
+	public Sprite(int pid, String path) throws FileNotFoundException {
+	    super(pid);
+		this.filename = path;
 		try {
-			setImage(filename);
-		}
-		catch(RuntimeException e){
-			System.out.print("Havent created javafx form");
+			File imageFile = new File(filename);
+			im = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
+		} catch (Exception e) {
+			System.out.println("Can not find image files");
+			throw new FileNotFoundException();
 		}
 
 	}
