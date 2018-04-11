@@ -11,6 +11,7 @@ public class Block extends Entity{
 	private final double BLOCK_HEALTH = 50;
 	private final double BLOCK_DIMENSION = 25;
 
+
 	public Block(int ID) {
 		super(ID);
 		addDefaultComponents();
