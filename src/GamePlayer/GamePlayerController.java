@@ -7,8 +7,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import HUD.SampleToolBar;
-import Menu.LevelSelector;
-import Menu.MenuGameBar;
+
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
 import engine.systems.InputHandler;
@@ -24,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -55,8 +55,8 @@ public class GamePlayerController {
 	
 	public Scene intializeStartScene() {
 		SampleToolBar sampleBar = new SampleToolBar();
-		MenuGameBar menuBar = new MenuGameBar();
-		pane.setBottom(menuBar);
+		//MenuGameBar menuBar = new MenuGameBar();
+		//pane.setBottom(menuBar);
 		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			try{
@@ -85,9 +85,10 @@ public class GamePlayerController {
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
+		//gameRoot.getChildren().add(new Rectangle(200,200));
 		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
 		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
-		initializeGameAnimation(); //begins the animation cycle
+		//initializeGameAnimation(); //begins the animation cycle
 	}
 
 	/**

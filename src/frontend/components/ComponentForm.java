@@ -36,6 +36,7 @@ public class ComponentForm extends GridPane {
 		this.add(new Label(name), col++, 0);
 		for (int i = 0; i < (numFields-1); i++) {
 			TextField tf = new TextField();
+			fields.add(tf);
 			this.add(tf, col++, 0);
 		}
 	}
@@ -46,35 +47,57 @@ public class ComponentForm extends GridPane {
 	 * @return a component that accurately represents the data in this wrapper class
 	 */
 	public Component buildComponent() {
+		if (!validComponent()) return null;
 		String fullName =  COMPONENT_PREFIX + this.name;
-		Object[] params = new Object[fields.size()];
-		for (int i = 0; i < numFields; i++) {
-			params[i] = fields.get(i).getText();
-		}
+		Object[] params = new Object[fields.size() + 1];
+		// first argument is always the entity ID
+		params[0] = this.entity;
 		try {
-			Class clazz = Class.forName(fullName);
-			Constructor cons = clazz.getDeclaredConstructors()[0];
-			Component comp = (Component) cons.newInstance(this.entity, params);
+			Class<?> clazz = Class.forName(fullName);
+			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
+			Class<?>[] types = cons.getParameterTypes();
+			for (int i = 1; i < types.length; i++) {
+				String text = fields.get(i-1).getText();
+				params[i] = cast(types[i], text);
+			}
+			Component comp = (Component) cons.newInstance(params);
 			System.out.println(comp);
 			return comp;
-		} catch (ClassNotFoundException e) {
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  | IllegalArgumentException | InvocationTargetException e) {
 			// TODO better exception
-			e.printStackTrace();
-		} catch (InstantiationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IllegalArgumentException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (InvocationTargetException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-
+	/**
+	 * Check if the user fully entered something in this form. If the form has multiple text boxes, then
+	 * the user should have input two separate things. If not, the program should alert them of this.
+	 * @return true if the user fully entered everything that they should enter
+	 */
+	private boolean validComponent() {
+		for (TextField tf : this.fields) {
+			if (tf.getText() == null || tf.getText().trim().isEmpty())
+				return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * Casts the {@code String} in the {@code TextField} to the appropriate class based upon the types
+	 * declared in the constructor.
+	 * @param desiredType the type that the {@code String} should be cast to
+	 * @param text the text to be cast
+	 * @return an Object representing the casted class
+	 */
+	private Object cast(Class<?> desiredType, String text) {
+		Object reflectValue;
+		if (desiredType.equals(double.class))
+			reflectValue = Double.parseDouble(text);
+		else if (desiredType.equals(int.class))
+			reflectValue = Integer.parseInt(text);
+		else
+			reflectValue = text;
+		return reflectValue;
+	}
 }
