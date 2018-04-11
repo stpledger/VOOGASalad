@@ -43,8 +43,7 @@ public class GamePlayerEntityView {
 	public GamePlayerEntityView(File file) {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
-		inputHandler = gameInitializer.getIH();
-//Changed the code enclosed to load a random level and create an entity map
+		//Changed the code enclosed to load a random level and create an entity map
 		Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
 		for(Level level : levelMap.keySet()) {
 			entityMap = levelMap.get(level);
@@ -83,6 +82,7 @@ public class GamePlayerEntityView {
 	private void initializeGamePlayerEntityView() {
 		try {
 			gameInitializer = new GameInitializer(entityMap);
+			inputHandler = gameInitializer.getIH();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("You made it this far");
