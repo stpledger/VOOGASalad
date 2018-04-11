@@ -15,7 +15,7 @@
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>2</pid>
-                <filename>Waluigi.png</filename>
+                <filename>Mario.png</filename>
               </engine.components.Sprite>
             </entry>
             <entry>
