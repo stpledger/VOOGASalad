@@ -6,5 +6,9 @@
 	<classpathentry kind="lib" path="/Users/zihui/Downloads/xstream-1.4.10/lib/xstream-hibernate-1.4.10.jar"/>
 	<classpathentry kind="lib" path="/Users/zihui/Downloads/xstream-1.4.10/lib/xstream-jmh-1.4.10.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/Ryan/Downloads/xstream-1.4.10/lib/xstream-1.4.10.jar"/>
+	<classpathentry kind="lib" path="/Users/Ryan/Downloads/xstream-1.4.10/lib/xstream-benchmark-1.4.10.jar"/>
+	<classpathentry kind="lib" path="/Users/Ryan/Downloads/xstream-1.4.10/lib/xstream-hibernate-1.4.10.jar"/>
+	<classpathentry kind="lib" path="/Users/Ryan/Downloads/xstream-1.4.10/lib/xstream-jmh-1.4.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

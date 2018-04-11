@@ -30,7 +30,7 @@ public class DataWrite {
 
     //specifies a format and file location to save the information
     private static File createFile(DataGameState dataGameState, String name) throws Exception {
-        File xmlFile = new File(System.getProperty("user.dir")+"\\"+name+".xml");
+        File xmlFile = new File(System.getProperty("user.dir")+"\\"+"games\\"+name+".xml");
         FileOutputStream fos = new FileOutputStream(xmlFile);
         XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
         xstream.toXML(dataGameState, fos);
