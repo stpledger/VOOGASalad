@@ -1,53 +1,50 @@
 package engine.components;
-import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
-import javax.imageio.ImageIO;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
  * Sprite component containing an image. Constructor and setter throw file not found if the filepath is incorrect.
  * @author fitzj
+ * @author Yameng
  */
 public class Sprite extends Component {
-
+	public static String KEY = "Sprite";
 	private String filename;
-	//@XStreamOmitField
-	private ImageView image;
 	
-	public Sprite(int pid, String filename) throws FileNotFoundException {
-		super(pid);
-		this.filename = filename;
-		Image im;
-		try {
-			File imageFile = new File(filename);
-			im = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
-		} catch (Exception e) {
-			System.out.println("Can not find image files");
-			throw new FileNotFoundException();
-		}
-		image = new ImageView(im);
-	}
+	@XStreamOmitField
+	private ImageView image;
 
-	public static String getKey() {
-		return "Sprite";
+	public Sprite(int pid, List<String> parameters) throws FileNotFoundException {
+	    super(pid, KEY);
+		this.filename = parameters.get(0);
+		try {
+			setImage(filename);
+		}
+		catch(RuntimeException e){
+			System.out.print("Havent created javafx form");
+		}
+
 	}
 
 	public String getName() { return filename; }
-	
+
 	public ImageView getImage() {
+		ImageView image=new ImageView(new Image("File:data/"+filename));
 		return image;
 	}
 
 	public void setImage(String im) throws FileNotFoundException {
 		try {
 			image.setImage(new Image(im));
-		} catch (Exception e) {
-			throw new FileNotFoundException();
+		} catch (RuntimeException e) {
+			
 		}
 	}
-	
+
 }

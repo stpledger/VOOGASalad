@@ -23,19 +23,18 @@ public class InputHandler implements ISystem {
 	//front end sends here the keycode and than I run components on it
 	@Override
 	public void addComponent(int pid, Map<String, Component> components) {
-		List<KeyInput> newComponents = new ArrayList<>();
-		int counter =0;
-		for (Component c: components.values()) {
-			if( c instanceof KeyInput) {
-				newComponents.add((KeyInput) c);
-				counter++;
+		List<KeyInput> addedComp = new ArrayList<>();
+		components.forEach((key, comp) ->{
+			if(comp instanceof KeyInput) {
+				 addedComp.add((KeyInput) comp);
 			}
-			if(counter>=1) {
-			handledEntities.put(pid, components);
+		 });
+		    if(addedComp.size()!=0) {
+		    	handledEntities.put(pid, components);
+		    	handledComponents.put(pid, addedComp);
 		    }
-			handledComponents.put(pid, newComponents);	    
-	   }
-	}
+		}
+		
 	@Override
 	public void removeComponent(int pid) {
 		if(handledComponents.containsKey(pid)) {
@@ -43,6 +42,15 @@ public class InputHandler implements ISystem {
     		handledEntities.remove(pid);
     	}
 		
+	}
+	public void removeSpecificComponent(int pid, KeyCode code) {
+		if (handledComponents.containsKey(pid)) {
+			handledComponents.get(pid).forEach(comp-> {
+				if(comp.getCode()==code) {
+					handledComponents.remove(pid, comp);
+				}
+			});	
+		}
 	}
 
 	@Override
@@ -76,8 +84,15 @@ public class InputHandler implements ISystem {
 		
 	}
 
-	
-	
-	
-	
+	@Override
+	public void addComponent(int pid, String componentName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeComponent(int pid, String componentName) {
+		// TODO Auto-generated method stub
+		
+	}	
 }

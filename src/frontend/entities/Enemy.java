@@ -29,4 +29,10 @@ public class Enemy extends Entity {
 		//TODO add method to set sprite
 	}
 
+	@Override
+	public String type() {
+		// TODO Auto-generated method stub
+		return TYPE;
+	}
+
 }

@@ -23,7 +23,6 @@ public class GameState implements IGameState {
 		state = new ArrayList<>();
 	}
 	
-	@Override
 	public void save() {
 		
 	}
@@ -38,15 +37,12 @@ public class GameState implements IGameState {
 			state.add(level);
 		}
 	}
-	
-	/**
-	 * Updates the current state my removing a level object.
-	 * @param level The level object to remove
-	 */
+
 	@Override
 	public void removeLevel(Level level) {
 		if(state.contains(level)) {
 			state.remove(level);
 		}
 	}
+
 }

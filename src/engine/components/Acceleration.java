@@ -1,32 +1,28 @@
 package engine.components;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Component housing acceleration information. Can be used to apply gravity, force, etc
+ * @author Yameng
  * @author fitzj
  */
 public class Acceleration extends Component {
 
-	public static String KEY = "Acceleration";
+public static String KEY = "Acceleration";
 	
 	private double xAcc, yAcc;
 	
 	/**
-	 * Static method to get key for this component
-	 * @return	Acceleration key
-	 */
-	public static String getKey() {
-		return KEY;
-	}
-	
-	/**
 	 * Constructs component with initial values and parent entity ID
 	 * @param pid	Parent ID
-	 * @param x		Initial x acceleration
-	 * @param y		Initial y acceleration
+	 * @param xAcc		Initial x acceleration
+	 * @param yAcc		Initial y acceleration
 	 */
 	public Acceleration(int pid, double xAcc, double yAcc) {
-		super(pid);
+		super(pid, KEY);
 		this.xAcc = xAcc;
 		this.yAcc = yAcc;
 	}
@@ -48,3 +44,5 @@ public class Acceleration extends Component {
 	}
 
 }
+
+

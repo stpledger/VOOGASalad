@@ -72,13 +72,13 @@ public abstract class Entity extends ImageView{
      * @param c Component object
      */
     public void add(Component c) {
-    		for (Component other : this.components) {
-    			// Don't add duplicates
-    			if (c.getKey().equals(other.getKey())) {
-    				this.components.remove(other);
-    				break;
-    			}
-    		}
+//    		for (Component other : this.components) {
+//    			// Don't add duplicates
+//    			if (c.getKey().equals(other.getKey())) {
+//    				this.components.remove(other);
+//    				break;
+//    			}
+//    		}
     		this.components.add(c);
     }
     
