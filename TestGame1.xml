@@ -7,7 +7,6 @@
         <levelDistance>0.0</levelDistance>
         <entityList/>
         <HUDprops/>
-        <GProps/>
       </frontend.components.Level>
       <map>
         <entry>
@@ -55,7 +54,6 @@
         <levelDistance>0.0</levelDistance>
         <entityList/>
         <HUDprops/>
-        <GProps/>
       </frontend.components.Level>
       <map>
         <entry>
