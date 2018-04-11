@@ -1,6 +1,5 @@
 package engine.setup;
 
-import java.util.HashMap;
 import java.util.Map;
 import engine.components.Component;
 
@@ -19,6 +18,7 @@ public class EntityManager {
     public static Map<Integer, Map<String, Component>> getEntities(){
     		return entities;
     }
+    
     
     public static void addComponent(int pid, String componentName, Component component) {
     		if(!entities.containsKey(pid)) {
@@ -56,27 +56,4 @@ public class EntityManager {
     		return entities.get(pid).get(componentName);
     }
     
-    /**
-     * For next step. Not implemented now.
-    public void addComponent(int pid, String componentName) {
-    		Map<String, Component> components = entities.get(pid);
-    		
-    		if(!components.containsKey(componentName)) {
-    			components.add(componentName,);
-    		}
-    		
-        SM.addComponent(pid,components);
-    }
-	
-    
-    public void removeComponent(int pid, String componentName) {
-	    	Map<String, Component> components = entities.get(pid);
-			
-		if(components.containsKey(componentName)) {
-			components.remove(componentName);
-		}
-			
-	    SM.removeComponent(pid,components);
-    }
-	**/
 }

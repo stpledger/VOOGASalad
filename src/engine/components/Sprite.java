@@ -17,16 +17,16 @@ public class Sprite extends Component {
 	//@XStreamOmitField
 	private ImageView image;
 
-	public Sprite(int pid, List<String> parameters) throws FileNotFoundException {
+	public Sprite(int pid, String path) throws FileNotFoundException {
 	    super(pid, KEY);
-		this.filename = parameters.get(0);
+		this.filename = path;
 		Image im;
 		try {
-			im = new Image(parameters.get(0));
+			im = new Image(path);
             image = new ImageView(im);
         } catch (Exception e) {
             try {
-                im = new Image(System.getProperty("user.dir") + "\\"+parameters.get(0));
+                im = new Image(System.getProperty("user.dir") + "\\"+ path);
                 image = new ImageView(im);
 
             } catch (Exception a) {

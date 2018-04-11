@@ -27,7 +27,7 @@ public class TestGameState {
 		 } catch (FileNotFoundException e) {
 		 throw new FileNotFoundException();
 		 }**/
-		Player player = new Player(0);
+		EntityType type = new EntityType(0,"player");
 		Position p = new Position(0, 100, 100);
 		Dimension d = new Dimension(0, 100, 100);
 		Velocity v = new Velocity(0, 0, -80);
@@ -42,9 +42,10 @@ public class TestGameState {
 		mario.put(Sprite.getKey(), s);
 		mario.put(Velocity.getKey(), v);
 		mario.put(Acceleration.getKey(), a);
-		mario.put(Player.getKey(), player);
+		mario.put(type.getKey(), type);
 		mario.put(KeyInput.getKey(), k);
 
+		EntityType type2 = new EntityType(0,"enermy");
 		Position p2 = new Position(1, 200, 100);
 		Dimension d2 = new Dimension(1, 100, 100);
 		Velocity v2 = new Velocity(1, 0, 0);
@@ -55,8 +56,10 @@ public class TestGameState {
 		mario2.put(Dimension.getKey(), d2);
 		mario2.put(Sprite.getKey(), s2);
 		mario2.put(Velocity.getKey(), v2);
+		mario2.put(type2.getKey(), type);
 		mario2.put(Acceleration.getKey(), a2);
 
+		EntityType type3 = new EntityType(0,"enermy");
 		Position p3 = new Position(2, 300, 100);
 		Dimension d3 = new Dimension(2, 100, 100);
 		Velocity v3 = new Velocity(2, 0, 10);
@@ -68,11 +71,12 @@ public class TestGameState {
 		mario3.put(Sprite.getKey(), s3);
 		mario3.put(Velocity.getKey(), v3);
 		mario3.put(Acceleration.getKey(), a3);
-
+		mario3.put(type3.getKey(), type);
+		
 		entities.put(0, mario);
-
 		entities.put(1, mario2);
 		entities.put(2, mario3);
+		
 		GameInitializer gi = new GameInitializer(entities);
 
 		eng = new InternalEngine(gi.getSystems());
