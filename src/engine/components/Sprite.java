@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -18,9 +20,9 @@ public class Sprite extends Component {
 	@XStreamOmitField
 	private ImageView image;
 
-	public Sprite(int pid, String parameters) throws FileNotFoundException {
+	public Sprite(int pid, String path) throws FileNotFoundException {
 	    super(pid);
-		this.filename = parameters;
+		this.filename = path;
 		try {
 			setImage(filename);
 		}

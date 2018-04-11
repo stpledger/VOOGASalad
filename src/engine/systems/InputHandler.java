@@ -94,5 +94,10 @@ public class InputHandler implements ISystem {
 		System.out.println(code);
 	}
 
-		
+	
+	
+	@Override
+	public Map<Integer, Map<String, Component>> getHandledComponent() {
+		return handledEntities;
+	}
 }

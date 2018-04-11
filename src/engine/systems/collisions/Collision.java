@@ -2,14 +2,13 @@ package engine.systems.collisions;
 
 import java.util.*;
 
-import engine.components.Acceleration;
 import engine.components.Component;
 import engine.components.Dimension;
+import engine.components.EntityType;
 import engine.components.Position;
 import engine.components.Velocity;
 import engine.setup.EntityManager;
 import engine.systems.DefaultSystem;
-import engine.systems.ISystem;
 
 public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents;
@@ -18,13 +17,20 @@ public class Collision extends DefaultSystem{
 	
 	public Collision() {
 		handledComponents = EntityManager.getEntities();
+	
 		colliders = new HashMap<>();
 		handler = new CollisionHandler();
 	}
 
+	@Override
+	public Map<Integer, Map<String, Component>> getHandledComponent(){
+		return handledComponents;
+	}
+	
 	public void execute(double time) {
 		colliders.forEach((key1, vel) -> {
 			handledComponents.forEach((key2, map) -> {				// Hooooorrible code, refactor
+				
 				if(key1 != key2) {
 					Dimension d1 = (Dimension) handledComponents.get(key1).get(Dimension.KEY);
 					Dimension d2 = (Dimension) handledComponents.get(key2).get(Dimension.KEY);
@@ -123,6 +129,7 @@ public class Collision extends DefaultSystem{
 			if(components.containsKey(Velocity.KEY)) {
 				colliders.put(pid, (Velocity) components.get(Velocity.KEY));
 			}
+
 		}
 	}
 

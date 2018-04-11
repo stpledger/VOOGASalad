@@ -46,6 +46,4 @@ public class Position extends Component {
 		return KEY;
 	}
 	
-	
-
 }

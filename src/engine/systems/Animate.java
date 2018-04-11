@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 public class Animate implements ISystem {
+	private final String PLAYER = "player";
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents;
     private int playerID=-1;
@@ -20,6 +21,7 @@ public class Animate implements ISystem {
             newComponents.put(Position.KEY,components.get(Position.KEY));
             newComponents.put(Sprite.KEY,components.get(Sprite.KEY));
             if (components.containsKey(Player.KEY)) {
+
                 playerID = pid;
                 newComponents.put(Velocity.KEY,components.get(Velocity.KEY));
             }
@@ -112,4 +114,9 @@ public class Animate implements ISystem {
             }
         }
     }
+    
+    @Override
+	public Map<Integer, Map<String, Component>> getHandledComponent() {
+		return handledComponents;
+	}
 }

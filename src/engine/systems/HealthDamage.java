@@ -27,6 +27,7 @@ public class HealthDamage implements ISystem {
 			Map<String, Component> newComponents = new HashMap<>();
 			newComponents.put(Health.KEY,components.get(Health.KEY));
 			newComponents.put(DamageLauncher.KEY,components.get(DamageLauncher.KEY));
+
 			handledComponents.put(pid, newComponents);
 		}
 		
@@ -114,5 +115,8 @@ public class HealthDamage implements ISystem {
 		});
 	}
 
-	
+	@Override
+	public Map<Integer, Map<String, Component>> getHandledComponent() {
+		return handledComponents;
+	}
 }
