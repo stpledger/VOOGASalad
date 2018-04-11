@@ -15,12 +15,14 @@ public class GameInitializer {
 
     private SystemManager SM;
     private RenderManager RM;
+    private InputHandler IH;
     private EntityManager EM;
     
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
         systems = new ArrayList<>();
         systems.add(new Accelerate());
         systems.add(new Motion());
+        
         Collision collision = new Collision();
         systems.add(collision);
         systems.add(new Animate());
@@ -65,7 +67,10 @@ public class GameInitializer {
     public EntityManager getEM() {
     		return EM;
     }
-    
+     public InputHandler getIH() {
+         return IH;
+         }
+     
     public List<ISystem> getSystems() {		// For testing
     		return systems;
     }
