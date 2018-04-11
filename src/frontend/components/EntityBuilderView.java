@@ -14,7 +14,6 @@ import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 
 import frontend.MainApplication;
-import frontend.components.PropertiesView.NumberField;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.Event;

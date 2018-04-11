@@ -1,5 +1,6 @@
 package frontend.components;
 
+import frontend.entities.Entity;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
@@ -34,5 +35,15 @@ public class LevelView extends ScrollPane {
 			}
 		});
 	}
-
+	
+	/**
+	 * Adds entity to the level view both to be seen graphically and to the specific 
+	 * level object
+	 * @param e Entity to be added to the LevelView
+	 */
+	public void addEntity(Entity e) {
+		this.getChildren().add(e);
+		level.addEntity(e);
+	}
+	
 }
