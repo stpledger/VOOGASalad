@@ -3,6 +3,8 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -14,39 +16,33 @@ import javafx.scene.image.ImageView;
 public class Sprite extends Component {
 	public static String KEY = "Sprite";
 	private String filename;
-	//@XStreamOmitField
+	@XStreamOmitField
 	private ImageView image;
 
 	public Sprite(int pid, String path) throws FileNotFoundException {
-	    super(pid, KEY);
+	    super(pid);
 		this.filename = path;
-		Image im;
 		try {
-			im = new Image(path);
-            image = new ImageView(im);
-        } catch (Exception e) {
-            try {
-                im = new Image(System.getProperty("user.dir") + "\\"+ path);
-                image = new ImageView(im);
-
-            } catch (Exception a) {
-                System.out.println("Can not find image files    " + System.getProperty("user.dir") + "\\"+ filename);
-            }
-        }
+			setImage(filename);
+		}
+		catch(RuntimeException e){
+			System.out.print("Havent created javafx form");
+		}
 
 	}
 
 	public String getName() { return filename; }
 
 	public ImageView getImage() {
+		ImageView image=new ImageView(new Image("File:data/"+filename));
 		return image;
 	}
 
 	public void setImage(String im) throws FileNotFoundException {
 		try {
 			image.setImage(new Image(im));
-		} catch (Exception e) {
-			throw new FileNotFoundException();
+		} catch (RuntimeException e) {
+			
 		}
 	}
 

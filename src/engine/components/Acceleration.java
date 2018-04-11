@@ -22,7 +22,7 @@ public static String KEY = "Acceleration";
 	 * @param yAcc		Initial y acceleration
 	 */
 	public Acceleration(int pid, double xAcc, double yAcc) {
-		super(pid, KEY);
+		super(pid);
 		this.xAcc = xAcc;
 		this.yAcc = yAcc;
 	}
@@ -43,6 +43,9 @@ public static String KEY = "Acceleration";
 		this.yAcc = yAcc;
 	}
 
+	public static String getKey() {
+		return KEY;
+	}
 }
 
 

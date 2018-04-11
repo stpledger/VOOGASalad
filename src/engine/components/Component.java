@@ -10,15 +10,13 @@ package engine.components;
 public class Component {
 	
 	private int pid;
-	private static String key;
 	
 	/**
 	 * Constructs component with entity parent ID
 	 * @param pid	ID of parent. Can not be changed externally.
 	 */
-	public Component(int pid, String key) {
+	public Component(int pid) {
 		this.pid = pid;
-		this.key = key;
 	}
 	
 	public int getParentID () {
@@ -26,7 +24,7 @@ public class Component {
 	}
 
 	public static String getKey() {
-		return key;
+		return "";
 	}
 
 }

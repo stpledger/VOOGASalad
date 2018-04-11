@@ -15,7 +15,7 @@ public class Dimension extends Component{
 	public static String KEY = "Dimension";
 	
 	public Dimension(int pid, double w, double h) {
-		super(pid, KEY);
+		super(pid);
 		this.height = h;
 		this.width = w;
 	}
@@ -45,4 +45,7 @@ public class Dimension extends Component{
 		this.width = width;
 	}
 
+	public static String getKey() {
+		return KEY;
+	}
 }

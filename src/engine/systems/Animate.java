@@ -108,4 +108,9 @@ public class Animate implements ISystem {
             }
         }
     }
+    
+    @Override
+	public Map<Integer, Map<String, Component>> getHandledComponent() {
+		return handledComponents;
+	}
 }

@@ -19,7 +19,6 @@ public class EntityManager {
     		return entities;
     }
     
-    
     public static void addComponent(int pid, String componentName, Component component) {
     		if(!entities.containsKey(pid)) {
     			System.out.println("Missing entity in EntityManager!");

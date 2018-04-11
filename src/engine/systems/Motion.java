@@ -110,4 +110,8 @@ public class Motion implements ISystem {
         }
     }
 
+    @Override
+	public Map<Integer, Map<String, Component>> getHandledComponent() {
+		return handledComponents;
+	}
 }

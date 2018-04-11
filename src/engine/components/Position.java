@@ -22,7 +22,7 @@ public class Position extends Component {
 	 * @param y	Initial y position as a double
 	 */
 	public Position(int pid, double x, double y) {
-		super(pid, KEY);
+		super(pid);
 		this.xPos = x;
 		this.yPos = y;
 	}
@@ -43,4 +43,7 @@ public class Position extends Component {
 		this.yPos = yPos;
 	}
 
+	public static String getKey() {
+		return KEY;
+	}
 }
