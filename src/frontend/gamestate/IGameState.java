@@ -2,6 +2,10 @@ package frontend.gamestate;
 
 import engine.components.Component;
 import frontend.components.Level;
+
+import java.util.List;
+import java.util.Map;
+
 /**
  * Public-facing API to load and save games from the authoring environment. 
  * @author dylanpowers
@@ -16,13 +20,15 @@ public interface IGameState {
 	
 	/**
 	 * Updates the current state by adding a new level to the list of levels.
-	 * @param levelNumber the level number to add
+	 * @param level the level  to add
 	 */
 	public void addLevel(Level level);
 	
 	/**
 	 * Updates the current state my removing a level number.
-	 * @param levelNumber the level number to remove
+	 * @param level the level  to remove
 	 */
 	public void removeLevel(Level level);
+	
 }
+
