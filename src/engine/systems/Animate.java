@@ -1,6 +1,7 @@
 package engine.systems;
 
 import engine.components.*;
+
 import engine.setup.EntityManager;
 import javafx.scene.image.ImageView;
 
@@ -89,7 +90,7 @@ public class Animate implements ISystem {
     public void execute(double time) {
         System.out.println("Looping");
         if(playerID!=-1){
-        Map<String, Component> components = handledComponents.get(playerID);
+            Map<String, Component> components = handledComponents.get(playerID);
 
             Velocity v = (Velocity) components.get(Velocity.KEY);
             double xVel = v.getXVel();

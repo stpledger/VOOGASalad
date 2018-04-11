@@ -8,8 +8,6 @@ public class Player extends Component {
         super(pid);
     }
 
-    public String getKey() {
-		return KEY;
-	}
-    
+    public static String getKey() { return KEY; }
+
 }

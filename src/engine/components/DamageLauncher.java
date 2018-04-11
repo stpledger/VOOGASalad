@@ -38,7 +38,7 @@ public class DamageLauncher extends Component {
 		lifetime--;
 	}
 	
-	public String getKey() {
+	public static String getKey() {
 		return KEY;
 	}
 

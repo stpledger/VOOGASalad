@@ -41,7 +41,7 @@ public class Velocity extends Component {
 		YVel = yVel;
 	}
 	
-	public String getKey() {
+	public static String getKey() {
 		return KEY;
 	}
 

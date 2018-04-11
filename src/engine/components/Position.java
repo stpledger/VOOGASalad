@@ -41,9 +41,7 @@ public class Position extends Component {
 	public void setYPos(double yPos) {
 		this.yPos = yPos;
 	}
-	
-	public String getKey() {
-		return KEY;
-	}
-	
+
+	public static String getKey() { return KEY; }
+
 }

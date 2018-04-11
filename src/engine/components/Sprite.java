@@ -8,6 +8,7 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Sprite component containing an image. Constructor and setter throw file not found if the filepath is incorrect.
@@ -46,9 +47,7 @@ public class Sprite extends Component {
 			
 		}
 	}
-	
-	public String getKey() {
-		return KEY;
-	}
+
+	public static String getKey() { return KEY; }
 
 }

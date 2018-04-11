@@ -22,9 +22,9 @@ public class Dimension extends Component{
 		return new double[]{width,height};
 	}
 	
-	public void setDimension(double[] dimension) {
-		this.width = dimension[0];
-		this.height = dimension[1];
+	public void setDimension(double x, double y) {
+		this.width = x;
+		this.height = y;
 	}
 	
 	public double getHeight() {
@@ -43,7 +43,7 @@ public class Dimension extends Component{
 		this.width = width;
 	}
 	
-	public String getKey() {
+	public static String getKey() {
 		return KEY;
 	}
 

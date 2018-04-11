@@ -23,6 +23,6 @@ public abstract class Component {
 		return pid;
 	}
 
-	public abstract String getKey();
+	public static String getKey() { return ""; }
 
 }

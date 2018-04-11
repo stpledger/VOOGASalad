@@ -24,8 +24,7 @@ public class Health extends Component {
 		this.health = health;
 	}
 	
-	public String getKey() {
+	public static String getKey() {
 		return KEY;
 	}
-
 }
