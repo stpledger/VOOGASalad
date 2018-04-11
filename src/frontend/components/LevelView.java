@@ -22,6 +22,11 @@ public class LevelView extends ScrollPane {
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
 				lView.open();
+			} else if (e.getButton().equals(MouseButton.PRIMARY)) {
+				if (e.getClickCount() == 3) {
+					HUDPropertiesView HPV = new HUDPropertiesView(level);
+					HPV.open();
+				}
 			}
 		});
 	}

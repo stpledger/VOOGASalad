@@ -55,7 +55,7 @@ public class GameEditorView extends BorderPane {
 	/**
 	 * Below are all of the consumers to be passed to the toolbar
 	 */
-	//Handles new game call from toolbar
+	// Handles new game call from toolbar
 	Consumer newGame = (e)->{System.out.println("New Game!");}; 
 	//Handles load game call from toolbar
 	Consumer loadGame = (e)->{
@@ -122,12 +122,9 @@ public class GameEditorView extends BorderPane {
 		t.setText("Level " + (tabsList.indexOf(t)+1));
 		Level level = new Level(tabsList.indexOf(t)+1);
 		t.setContent(new LevelView(level,tabsList.indexOf(t)+1));
-		t.setOnClosed(new EventHandler<Event>() { //Handles tab closed events
-			@Override
-			public void handle(Event e) {
+		t.setOnClosed(e -> {
 				tabsList.remove(t);
 				updateTabs.accept(tabsList);
-			}
 		});
 		tabPane.getTabs().add(t);
 	}

@@ -26,15 +26,17 @@ public class LocalPropertiesView extends PropertiesView {
 	private List<ComponentForm> activeForms;
 	private Entity entity;
 	private final String SUBMIT_TEXT = "Submit Changes";
+	private Consumer<List<Component>> submitEvent;
 	
 	/**
 	 * Initialize the object with a given broadcast method
 	 * @param entityNumber
 	 */
-	public LocalPropertiesView(Entity entity) {
+	public LocalPropertiesView(Consumer<List<Component>> submitEvent) {
 		super();
 		this.entity = entity;
 		this.fill();
+		this.submitEvent = submitEvent;
 	}
 	
 	/**
@@ -51,9 +53,11 @@ public class LocalPropertiesView extends PropertiesView {
 		}
 		Button submit = new Button(SUBMIT_TEXT);
 		submit.setOnAction(e -> {
+			List<Component> componentsToAdd = new ArrayList<>();
 			for (ComponentForm cf : this.activeForms) {
-				Component c = cf.buildComponent();
+				componentsToAdd.add(cf.buildComponent());
 			}
+			submitEvent.accept(componentsToAdd);
 		});
 		getRoot().add(submit, 0, currentRow);
 	}
