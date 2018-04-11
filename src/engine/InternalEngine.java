@@ -1,4 +1,3 @@
-
 package engine;
 
 import java.util.List;
@@ -25,4 +24,3 @@ public class InternalEngine implements Engine {
 		systems.forEach(sys -> sys.execute(time));
 	}	
 }
-

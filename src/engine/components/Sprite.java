@@ -3,50 +3,62 @@ import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
  * Sprite component containing an image. Constructor and setter throw file not found if the filepath is incorrect.
  * @author fitzj
+ * @author Yameng
  */
 public class Sprite extends Component {
-
 	public static String KEY = "Sprite";
 	private String filename;
-	//@XStreamOmitField
+	@XStreamOmitField
 	private ImageView image;
 
 	public Sprite(int pid, List<String> parameters) throws FileNotFoundException {
 	    super(pid, KEY);
 		this.filename = parameters.get(0);
-		Image im;
 		try {
-			im = new Image(parameters.get(0));
-            image = new ImageView(im);
-        } catch (Exception e) {
-            try {
-                im = new Image(System.getProperty("user.dir") + "\\"+parameters.get(0));
-                image = new ImageView(im);
-
-            } catch (Exception a) {
-                System.out.println("Can not find image files    " + System.getProperty("user.dir") + "\\"+ filename);
-            }
-        }
+			setImage(filename);
+		}
+		catch(RuntimeException e){
+			System.out.print("Havent created javafx form");
+		}
 
 	}
 
 	public String getName() { return filename; }
 
 	public ImageView getImage() {
+		try {
+			image = new ImageView(new Image(filename));
+		}
+		catch(IllegalArgumentException e){
+			try {
+				image = new ImageView(new Image("File:"+filename));
+			}
+			catch(IllegalArgumentException a){
+				try {
+					image=new ImageView(new Image("File:data/"+filename));
+				}
+				catch(IllegalArgumentException v){
+						image=new ImageView(new Image(System.getProperty("user.dir")+"/"+filename));
+				}
+			}
+		}
+		System.exit(0);
 		return image;
 	}
 
 	public void setImage(String im) throws FileNotFoundException {
 		try {
 			image.setImage(new Image(im));
-		} catch (Exception e) {
-			throw new FileNotFoundException();
+		} catch (RuntimeException e) {
+			
 		}
 	}
 

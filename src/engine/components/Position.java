@@ -10,7 +10,6 @@ import java.util.List;
  * @author fitzj
  */
 public class Position extends Component {
-
 	private double xPos;
 	private double yPos;
 

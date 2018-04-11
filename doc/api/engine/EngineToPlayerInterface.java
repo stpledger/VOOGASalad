@@ -6,12 +6,12 @@
 public interface EngineToPlayerInterface {
 
 	/**
-	 * Starts game loop using GameState used with Engine constructor
+	 * Starts game loop using DataGameState used with Engine constructor
 	 */
 	public void play();
 	
 	/**
-	 * Pauses game loop, so GameState is no longer being modified
+	 * Pauses game loop, so DataGameState is no longer being modified
 	 */
 	public void pause();
 	

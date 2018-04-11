@@ -7,10 +7,11 @@ import java.util.List;
 /**
  *  Velocity component class
  *  @author fitzj
+ *  @author Yameng
  **/
 public class Velocity extends Component {
 
-    private double XVel; //X velocity associated with an entity that has this VelocityComponent
+	private double XVel; //X velocity associated with an entity that has this VelocityComponent
 	private double YVel; //Y velocity associated with an entity that has this VelocityComponent
 
 	public static String KEY = "Velocity";

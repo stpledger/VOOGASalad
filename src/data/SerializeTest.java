@@ -54,7 +54,7 @@ public class SerializeTest {
 
 
         params.clear();
-        params.add("data\\Mario.png");
+        params.add("Mario.png");
 
         try {
             Sprite entity1Sprite = new Sprite(1, params);
@@ -87,7 +87,7 @@ public class SerializeTest {
 
 
         params.clear();
-        params.add("data\\Waluigi.png");
+        params.add("Mario.png");
 
         try {
             Sprite entity2Sprite = new Sprite(2, params);

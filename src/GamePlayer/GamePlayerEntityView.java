@@ -2,13 +2,14 @@ package GamePlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import data.DataGameState;
 import data.DataRead;
-import data.GameState;
+import data.DataGameState;
 import engine.components.Component;
 import engine.components.Sprite;
 import engine.setup.GameInitializer;
@@ -39,9 +40,14 @@ public class GamePlayerEntityView {
 	public GamePlayerEntityView(File file) {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
-		levelMap = gameState.getGameState();
-		Set<Level> levelMapKeyset = levelMap.keySet();
-		one = levelMapKeyset.iterator().next();
+//Changed the code enclosed to load a random level and create an entity map
+		Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
+		for(Level level : levelMap.keySet()) {
+			entityMap = levelMap.get(level);
+			break;
+		}
+//This is mainly for debugging purposes not entirely sure how you will get specific levels out of the mao
+// because they arent ordered probably will have to iterate through levels and look at levelnum of each
 		initializeGamePlayerEntityView();
 	}
 
@@ -52,14 +58,17 @@ public class GamePlayerEntityView {
 	 */
 	public Group createEntityGroup() {
 		Group entityRoot = new Group();
-		Set<Integer> keyset = levelMap.get(one).keySet();  //change dependency later
 		Map<String, Component> entityComponents;
-		for (int i = 0; i<keyset.size();i++) {
-			entityComponents = levelMap.get(one).get(i); //change dependency later ****
-			Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
-			ImageView image = spriteComponent.getImage(); //gets the class of the sprite
-			entityRoot.getChildren().add(image);
+//Changed enclosed code to only load sprites for 
+		for(Integer i : entityMap.keySet()) {
+			entityComponents = entityMap.get(i);
+			if(entityComponents.containsKey("Sprite")) {
+				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
+				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
+				entityRoot.getChildren().add(image);
+			}
 		}
+//entities that have sprites and setup sprite images
 		return entityRoot;
 	}
 	
@@ -67,8 +76,14 @@ public class GamePlayerEntityView {
 	 * initialize the Game Initializer to create the systemManager and renderManager.
 	 * @throws FileNotFoundException 
 	 */
-	private void initializeGamePlayerEntityView() throws FileNotFoundException {
-		gameInitializer = new GameInitializer(levelMap.get(one)); //gets only level 1
+	private void initializeGamePlayerEntityView() {
+		try {
+			gameInitializer = new GameInitializer(entityMap);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("You made it this far");
+			e.printStackTrace();
+		}
 		systemManager = gameInitializer.getSM();
 		renderManager = gameInitializer.getRM();
 	}

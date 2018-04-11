@@ -84,8 +84,15 @@ public class InputHandler implements ISystem {
 		
 	}
 
-	
-	
-	
-	
+	@Override
+	public void addComponent(int pid, String componentName) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeComponent(int pid, String componentName) {
+		// TODO Auto-generated method stub
+		
+	}	
 }

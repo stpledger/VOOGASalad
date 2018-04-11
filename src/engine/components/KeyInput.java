@@ -10,7 +10,6 @@ import java.util.function.Consumer;
 import javafx.scene.input.KeyCode;
 
 public class KeyInput extends Component {
-
 	private KeyCode code;
 	private Consumer<Map<String, Component>> con;
 
