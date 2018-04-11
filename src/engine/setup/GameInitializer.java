@@ -77,8 +77,6 @@ public class GameInitializer {
     		return systems;
     }
     
-    public void addActiveKeySet(SetProperty<KeyCode> sp) {
-    	IH.addKeySet(sp);
-    }
+
     
 }

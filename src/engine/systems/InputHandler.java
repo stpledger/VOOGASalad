@@ -65,19 +65,6 @@ public class InputHandler implements ISystem {
 	}
 	
 	
-	public void addKeySet(SetProperty<KeyCode> actives) {
-		actives.addListener((SetChangeListener<? super KeyCode>) set -> {
-			KeyCode added = set.getElementAdded();
-			KeyCode removed = set.getElementRemoved();
-			
-			if(added != null) {
-				active.add(added);
-			}
-			if(removed != null) {
-				active.remove(removed);
-			}
-		});
-	}
 	@Override
 	public void setActives(Set<Integer> actives) {
 		// TODO Auto-generated method stub
@@ -94,5 +81,18 @@ public class InputHandler implements ISystem {
 	public void removeComponent(int pid, String componentName) {
 		// TODO Auto-generated method stub
 		
-	}	
+	}
+
+	public void removeCode(KeyCode code) {
+		if(active.contains(code)) {
+			active.remove(code);
+		}
+	}
+
+	public void addCode(KeyCode code) {
+		active.add(code);
+		System.out.println(code);
+	}
+
+		
 }

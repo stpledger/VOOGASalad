@@ -92,7 +92,7 @@ public class GamePlayerEntityView {
 	private void initializeGamePlayerEntityView() {
 		try {
 			gameInitializer = new GameInitializer(entityMap);
-			//inputHandler = gameInitializer.getIH();
+			inputHandler = gameInitializer.getIH();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("You made it this far");
@@ -121,8 +121,9 @@ public class GamePlayerEntityView {
 	public void setInput(KeyCode code){
 		inputHandler.addCode(code);
 	}
-	
-	public void setActiveKeys(SetProperty<KeyCode> sp) {
-		gameInitializer.addActiveKeySet(sp);
+
+
+	public void removeInput(KeyCode code) {
+		inputHandler.removeCode(code);
 	}
 }

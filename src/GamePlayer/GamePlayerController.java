@@ -3,6 +3,7 @@ package GamePlayer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -47,15 +48,14 @@ public class GamePlayerController {
 //		pane.setCenter((Node) e);
 //	};
 
-	private SetProperty<KeyCode> activeKeys;
 	
 	public GamePlayerController(Stage stage) {
 		myStage = stage;
+		
 	}
 	
 	
 	public Scene intializeStartScene() {
-		activeKeys = new SimpleSetProperty<>();
 		SampleToolBar sampleBar = new SampleToolBar();
 		//MenuGameBar menuBar = new MenuGameBar();
 		//pane.setBottom(menuBar);
@@ -75,13 +75,13 @@ public class GamePlayerController {
 				pauseMenu.show(myStage);
 			// SORRY
 			} else {
-				activeKeys.add(e.getCode());
+				gameView.setInput(e.getCode());
 			}
 		});
 //		
 		myScene.setOnKeyReleased(e -> {
 			if(e.getCode() != KeyCode.ESCAPE) {
-				activeKeys.remove(e.getCode());
+				gameView.removeInput(e.getCode());
 			}
 		});
 		return myScene;
@@ -98,11 +98,10 @@ public class GamePlayerController {
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		
-		gameView.setActiveKeys(activeKeys);
 		
 		gameRoot = gameView.createEntityGroup();
 		//gameRoot.getChildren().add(new Rectangle(200,200));
-		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
+		//myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
 		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		
 		initializeGameAnimation(); //begins the animation cycle
@@ -120,10 +119,6 @@ public class GamePlayerController {
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
-	}
-	
-	public SetProperty<KeyCode> getActiveKeys() {
-		return activeKeys;
 	}
 
 	
