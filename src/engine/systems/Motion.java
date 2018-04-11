@@ -15,8 +15,8 @@ import engine.components.Velocity;
  */
 
 public class Motion implements ISystem {
-	private static final int VELOCITY_INDEX = 0;
-    private static final int POSITION_INDEX = 1;
+	//private static final int VELOCITY_INDEX = 0;
+    //private static final int POSITION_INDEX = 1;
 
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents;
