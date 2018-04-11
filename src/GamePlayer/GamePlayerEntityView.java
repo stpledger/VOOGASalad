@@ -38,11 +38,14 @@ public class GamePlayerEntityView {
 	public GamePlayerEntityView(File file) {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
+//Changed the code enclosed to load a random level and create an entity map
 		Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
 		for(Level level : levelMap.keySet()) {
 			entityMap = levelMap.get(level);
 			break;
 		}
+//This is mainly for debugging purposes not entirely sure how you will get specific levels out of the mao
+// because they arent ordered probably will have to iterate through levels and look at levelnum of each 
 		initializeGamePlayerEntityView();
 	}
 	
@@ -53,6 +56,7 @@ public class GamePlayerEntityView {
 	public Group createEntityGroup() {
 		Group entityRoot = new Group();
 		Map<String, Component> entityComponents;
+//Changed enclosed code to only load sprites for 
 		for(Integer i : entityMap.keySet()) {
 			entityComponents = entityMap.get(i);
 			if(entityComponents.containsKey("Sprite")) {
@@ -61,6 +65,7 @@ public class GamePlayerEntityView {
 				entityRoot.getChildren().add(image);
 			}
 		}
+//entities that have sprites and setup sprite images
 		return entityRoot;
 	}
 	
