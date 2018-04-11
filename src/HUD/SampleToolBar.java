@@ -1,5 +1,6 @@
 package HUD;
 
+import Menu.LevelSelector;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
