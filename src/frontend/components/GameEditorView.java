@@ -16,14 +16,7 @@ import javax.imageio.ImageIO;
 import frontend.entities.Entity;
 import frontend.gamestate.*;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -35,7 +28,7 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import GamePlayer.Main;
 import engine.components.Component;
-import engine.components.EntityType;
+import engine.components.Position;
 import engine.components.Sprite;
 
 /**
@@ -68,8 +61,10 @@ public class GameEditorView extends BorderPane {
 		state = new GameState();
 		addLevel(); // add the first level
 		this.setCenter(tabPane);
-		tabPane.setOnMouseClicked((e)->addEntity.accept(e)); //Add a new Entity OnClick
-		
+		tabPane.setOnMouseClicked((e) -> {
+			if (e.getButton().equals(MouseButton.PRIMARY)) 
+				addEntity.accept(e);
+		}); // Add a new Entity OnClick
 	}
 	
 	/**
@@ -156,19 +151,23 @@ public class GameEditorView extends BorderPane {
 		Entity entity = null;
 		try {
 			//Get the class of the entityType
-			Class entityType = (Class) clipboardCopy[0]; 
+			Class<?> entityType = (Class<?>) clipboardCopy[0]; 
 			//Get Constructor for entityType
 			Constructor<?> entityConstructor = entityType.getConstructor(int.class);
 			//Create a new instance of the entity
-			entity = (Entity) entityConstructor.newInstance(nextID);
 			 //Set the X,Y position of the mouseEvent to the X,Y position of the object
+			System.out.println("About to create entity with ID " + nextID);
+			entity = (Entity) entityConstructor.newInstance(nextID); 
+			System.out.println(entity + " created with ID " + entity.getID());
+			//Set the X,Y position of the mouseEvent to the X,Y position of the object
 			entity.setPosition(mouseEvent.getX(), mouseEvent.getY() - this.tabPane.getTabMaxHeight());
+			entity.add(new Position(nextID, entity.getX(), entity.getY()));
 			//Get all of the inputs for components
 			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; 
 			//iterate through all the properties we have for new components
 			for(Class k :entityComponents.keySet()) { 
 				 // get the constructor for the type of component
-				Constructor<?> componentConstructor = k.getConstructors()[0];
+				Constructor<?> componentConstructor = k.getDeclaredConstructors()[0];
 				//Create a temporary arraylist
 				ArrayList<Object> tempArr = new ArrayList<Object>() {{ 
 					 //Add the pId to the temporary arraylist
@@ -189,7 +188,7 @@ public class GameEditorView extends BorderPane {
 				entity.add(c);
 			}
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity); //add the entity to the level
-			nextID ++; //Increment id's by one
+			nextID++; //Increment id's by one
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException | IOException e1) {
 			System.out.println("Error creating entity");

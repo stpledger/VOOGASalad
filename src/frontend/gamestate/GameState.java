@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
+
 import engine.components.Component;
 import frontend.components.Level;
 
@@ -40,7 +41,7 @@ public class GameState implements IGameState {
 			state.add(level);
 		}
 	}
-	
+
 	/**
 	 * Updates the current state my removing a level object.
 	 * @param level The level object to remove

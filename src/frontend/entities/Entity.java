@@ -23,7 +23,7 @@ import javafx.scene.input.MouseButton;
  *
  */
 
-public abstract class Entity extends ImageView{
+public abstract class Entity extends ImageView {
 
 	/**
 	 * Unique ID to the entity
@@ -50,16 +50,10 @@ public abstract class Entity extends ImageView{
         };
         this.setOnMouseClicked(e -> {
         		if (e.getButton().equals(MouseButton.SECONDARY)) {
-        			LocalPropertiesView LPV = new LocalPropertiesView(addComponents);
+        			LocalPropertiesView LPV = new LocalPropertiesView(addComponents, this.type(), this.getID());
         			LPV.open();
         		}
         }); 
-    }
-    /**
-     * This is a constructor that does not set the id of an entity;
-     */
-    public Entity() {
-    	
     }
     
     /**
@@ -72,14 +66,17 @@ public abstract class Entity extends ImageView{
      * @param c Component object
      */
     public void add(Component c) {
-    		for (Component other : this.components) {
-    			// Don't add duplicates
-    			if (c.getKey().equals(other.getKey())) {
-    				this.components.remove(other);
-    				break;
-    			}
+//    		for (Component other : this.components) {
+//    			// Don't add duplicates
+//    			if (c.getKey().equals(other.getKey())) {
+//    				this.components.remove(other);
+//    				break;
+//    			}
+//    		}
+    		if (c != null) {
+    			this.components.add(c);
+    			System.out.println("Component added: " + c);
     		}
-    		this.components.add(c);
     }
     
     /**
@@ -122,7 +119,7 @@ public abstract class Entity extends ImageView{
 	 * @param y Y position
 	 */
     public void setPosition(double x, double y) {
-		this.add(new Position(this.getID(),x,y));
+		this.add(new Position(this.getID(), x, y));
 		this.setLayoutX(x);
 		this.setLayoutY(y);
 	}

@@ -45,7 +45,7 @@ public class ParameterManager {
 	 * Return null if parameters inputs are invalid
 	 * @param pid parent id
 	 * @param component name of component class
-	 * @param parameters parameters inputs
+	 * @param input parameters inputs
 	 * @return component instance
 	 */
 	public static Component buildComponent(int pid, String component, List<String> inputs) {
@@ -61,6 +61,12 @@ public class ParameterManager {
 		return res;
 	}
 	
+	/**
+	 * Check whether or not inputs values are invalid
+	 * @param component
+	 * @param inputs
+	 * @return valid or not
+	 */
 	private static boolean isValid(String component, List<String> inputs) {
 		List<String[]> parameters = getParameters(component);
 		int index = 0;
@@ -78,10 +84,10 @@ public class ParameterManager {
 	}
 	
 	/**
-	 * Check if type of object equals to type string
-	 * @param object
-	 * @param type
-	 * @return true or false
+	 * Check if type of object matches to type string
+	 * @param input input parameter value
+	 * @param type required type for the parameter
+	 * @return if match or not
 	 */
 	private static boolean compareType(String input, String type) {
 		try {
@@ -89,7 +95,7 @@ public class ParameterManager {
 				Double.parseDouble(input);
 				return true;
 			}
-			else if(type.equals("String")) {
+			else if(type.equals("string")) {
 				return true;
 			}
 			else {
