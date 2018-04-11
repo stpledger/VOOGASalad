@@ -1,18 +1,21 @@
 package GamePlayer;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import data.DataGameState;
 import data.DataRead;
-import data.GameState;
+import data.DataGameState;
 import engine.components.Component;
 import engine.components.Sprite;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
+import frontend.components.Level;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -35,7 +38,11 @@ public class GamePlayerEntityView {
 	public GamePlayerEntityView(File file) {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
-		entityMap = gameState.getGameState();
+		Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
+		for(Level level : levelMap.keySet()) {
+			entityMap = levelMap.get(level);
+			break;
+		}
 		initializeGamePlayerEntityView();
 	}
 	
@@ -45,13 +52,14 @@ public class GamePlayerEntityView {
 	 */
 	public Group createEntityGroup() {
 		Group entityRoot = new Group();
-		Set<Integer> keyset = entityMap.keySet();
 		Map<String, Component> entityComponents;
-		for (int i = 0; i<keyset.size();i++) {
+		for(Integer i : entityMap.keySet()) {
 			entityComponents = entityMap.get(i);
-			Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
-			ImageView image = spriteComponent.getImage(); //gets the class of the sprite
-			entityRoot.getChildren().add(image);
+			if(entityComponents.containsKey("Sprite")) {
+				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
+				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
+				entityRoot.getChildren().add(image);
+			}
 		}
 		return entityRoot;
 	}
@@ -60,7 +68,13 @@ public class GamePlayerEntityView {
 	 * initialize the Game Initializer to create the systemManager and renderManager.
 	 */
 	private void initializeGamePlayerEntityView() {
-		gameInitializer = new GameInitializer(entityMap);
+		try {
+			gameInitializer = new GameInitializer(entityMap);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("You made it this far");
+			e.printStackTrace();
+		}
 		systemManager = gameInitializer.getSM();
 		renderManager = gameInitializer.getRM();
 	}
