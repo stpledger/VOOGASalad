@@ -16,14 +16,7 @@ import javax.imageio.ImageIO;
 import frontend.entities.Entity;
 import frontend.gamestate.*;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
@@ -35,7 +28,7 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import GamePlayer.Main;
 import engine.components.Component;
-import engine.components.EntityType;
+import engine.components.Position;
 import engine.components.Sprite;
 
 /**
@@ -68,8 +61,10 @@ public class GameEditorView extends BorderPane {
 		state = new GameState();
 		addLevel(); // add the first level
 		this.setCenter(tabPane);
-		tabPane.setOnMouseClicked((e)->addEntity.accept(e)); //Add a new Entity OnClick
-		
+		tabPane.setOnMouseClicked((e) -> {
+			if (e.getButton().equals(MouseButton.PRIMARY)) 
+				addEntity.accept(e);
+		}); // Add a new Entity OnClick
 	}
 	
 	/**
@@ -163,9 +158,9 @@ public class GameEditorView extends BorderPane {
 			System.out.println("About to create entity with ID " + nextID);
 			entity = (Entity) entityConstructor.newInstance(nextID); 
 			System.out.println(entity + " created with ID " + entity.getID());
-			
-			 //Set the X,Y position of the mouseEvent to the X,Y position of the object
+			//Set the X,Y position of the mouseEvent to the X,Y position of the object
 			entity.setPosition(mouseEvent.getX(), mouseEvent.getY() - this.tabPane.getTabMaxHeight());
+			entity.add(new Position(nextID, entity.getX(), entity.getY()));
 			//Get all of the inputs for components
 			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; 
 			//iterate through all the properties we have for new components

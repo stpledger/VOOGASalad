@@ -12,13 +12,13 @@ public interface GameAuthoringEnvironmentInternal {
 
 	/**
 	 * Load an existing game into the editor.
-	 * @return a GameState object representing an existing game
+	 * @return a DataGameState object representing an existing game
 	 */
 	public GameState load();
 	
 	/**
-	 * Look at the state of the current game and save it into a GameState object.
-	 * @return a GameState object representing the current state of the object being edited.
+	 * Look at the state of the current game and save it into a DataGameState object.
+	 * @return a DataGameState object representing the current state of the object being edited.
 	 */
 	public GameState save();
 	
@@ -33,7 +33,7 @@ public interface GameAuthoringEnvironmentInternal {
 	public void editObjectComponents();
 	
 	/**
-	 * Add a new level to the existing game project, and update the GameState.
+	 * Add a new level to the existing game project, and update the DataGameState.
 	 */
 	public void addLevel();
 	

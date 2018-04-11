@@ -1,13 +1,13 @@
 package engine.components;
 
-
-
 /**
  * This component defines type fof entity,like "player","block" etc
  * @author Yameng
  */
 public class EntityType extends Component{
 	private String type = "Not Defined";
+
+	public static String KEY = "EntityType";
 	
 	public EntityType(int pid, String type) {
 		super(pid);
@@ -30,5 +30,7 @@ public class EntityType extends Component{
 		return type;
 	}
 
-
+	public static String getKey() {
+		return KEY;
+	}
 }
