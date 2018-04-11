@@ -1,5 +1,10 @@
 package engine.components;
+import java.io.File;
 import java.io.FileNotFoundException;
+
+import javax.imageio.ImageIO;
+
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -18,7 +23,8 @@ public class Sprite extends Component {
 		this.filename = filename;
 		Image im;
 		try {
-			im = new Image(filename);
+			File imageFile = new File(filename);
+			im = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 		} catch (Exception e) {
 			System.out.println("Can not find image files");
 			throw new FileNotFoundException();

@@ -19,6 +19,7 @@ import javafx.scene.image.ImageView;
  * @author Dylan Powers
  *
  */
+
 public abstract class Entity extends ImageView{
 
 	/**
@@ -31,6 +32,7 @@ public abstract class Entity extends ImageView{
      */
     private List<Component> components;
     
+
     /**
      * The constructor simply sets the ID of the entity and initializes its list of components
      * @param ID which identifies an entity
@@ -38,6 +40,12 @@ public abstract class Entity extends ImageView{
     public Entity (int ID) {
         this.ID = ID;
         components = new ArrayList<>();
+    }
+    /**
+     * This is a constructor that does not set the id of an entity;
+     */
+    public Entity() {
+    	
     }
     
     /**
@@ -92,8 +100,10 @@ public abstract class Entity extends ImageView{
 	 * @param x X position
 	 * @param y Y position
 	 */
-    protected void setPosition(double x, double y) {
+    public void setPosition(double x, double y) {
 		this.add(new Position(this.getID(),x,y));
+		this.setLayoutX(x);
+		this.setLayoutY(y);
 	}
 	
 	/**
@@ -125,6 +135,7 @@ public abstract class Entity extends ImageView{
      * 
      * @return List of components which define the entity
      */
+
     public List<Component> getComponentList(){
     	return this.components;
     }

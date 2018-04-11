@@ -16,7 +16,7 @@ public class LevelView extends ScrollPane {
 	
 	public LevelView(Level level, int levelNum) {
 		this.getStyleClass().add("level-view");
-		this.level = level;
+		this.setLevel(level);
 		this.setContent(pane);
 		this.setOnScroll(e->this.setWidth(this.getWidth()+100));
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -43,6 +43,10 @@ public class LevelView extends ScrollPane {
 		});
 	}
 	
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+	
 	/**
 	 * Adds entity to the level view both to be seen graphically and to the specific 
 	 * level object
@@ -52,5 +56,4 @@ public class LevelView extends ScrollPane {
 		this.getChildren().add(e);
 		level.addEntity(e);
 	}
-	
 }
