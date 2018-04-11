@@ -12,8 +12,11 @@ import javafx.scene.control.TextField;
  */
 public class GlobalPropertiesView extends PropertiesView {
 
-	public GlobalPropertiesView(){
+	private Level level;
+	
+	public GlobalPropertiesView(Level level){
 		super();
+		this.level = level;
 	}
 
 	@Override
@@ -35,9 +38,9 @@ public class GlobalPropertiesView extends PropertiesView {
 		}
 		getRoot().addColumn(1,titleInput,titleInput,pathInput);
 		getRoot().add(MenuItemBuilder.buildButton(this.getButtonProps().getString("Submit"), e-> {
-			level.setLevelInfo(titleInput.getText());
-			level.setLevelDifficulty(titleInput.getText());
-			level.setLevelTime(Double.parseDouble(pathInput.getText()));
+			level.addGProp(globalProps.getString("Title"), titleInput.getText());
+			level.addGProp(globalProps.getString("Lives"), livesInput.getText());
+			level.addGProp(globalProps.getString("Filepath"), pathInput.getText());
 		}), 0, currentRow++);
 	}
 
