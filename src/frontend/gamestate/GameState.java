@@ -13,6 +13,7 @@ import frontend.components.Level;
  */
 public class GameState implements IGameState {
 
+
 	/**
 	 * This object should only be constructed once, upon initialization of the authoring environment.
 	 * It will then continue to keep track of the current state of the game by using the update method below.
@@ -23,6 +24,7 @@ public class GameState implements IGameState {
 		state = new ArrayList<>();
 	}
 	
+	@Override
 	public void save() {
 		
 	}
@@ -37,12 +39,19 @@ public class GameState implements IGameState {
 			state.add(level);
 		}
 	}
-
+	
+	/**
+	 * Updates the current state my removing a level object.
+	 * param level The level object to remove
+	 */
 	@Override
 	public void removeLevel(Level level) {
 		if(state.contains(level)) {
 			state.remove(level);
 		}
 	}
-
+	
+	public List<Level> getLevels() {
+		return state;
+	}
 }

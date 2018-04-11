@@ -2,37 +2,43 @@ package data;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import engine.components.Acceleration;
-import engine.components.Component;
-import engine.components.DamageLauncher;
+
 import frontend.gamestate.GameState;
 
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 public class DataWrite {
 
-/*
-      Author @ Conrad defines how and where files are saveed by the user
+/*  Author @ Conrad methods for saving data from either the authoring environment 
+ *  or the player
  */
-    //calls save turtles lines and preferences and writes output
+	private static final String XML_FILETYPE=".xml";
+	private static final String GAME_FILEPATH = "\\games\\";
+	
+    
+	/*creates an xml file from an authoiring environment 
+	 * this method converts authoring gamestate to player gamestate 
+	 * then writes to xml
+	 */
     public static void saveFile(GameState gameState, String fileName) throws Exception{
         DataGameState dataGameState = new DataGameState(gameState);
         createFile(dataGameState, fileName);
     }
 
+    /*creates an xml file from an authoiring environment 
+	 */
     public static File saveFile(DataGameState dataGameState, String fileName) throws Exception{
        return createFile(dataGameState, fileName);
     }
-
-    //specifies a format and file location to save the information
+    
+    /*does the backend work to create new files in the game directory
+     */
     private static File createFile(DataGameState dataGameState, String name) throws Exception {
-        File xmlFile = new File(System.getProperty("user.dir")+"\\"+"games\\"+name+".xml");
+        File xmlFile = new File(System.getProperty("user.dir")+GAME_FILEPATH+name+XML_FILETYPE);
         FileOutputStream fos = new FileOutputStream(xmlFile);
-        XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
+        XStream xstream = new XStream(new DomDriver()); 
         xstream.toXML(dataGameState, fos);
         return xmlFile;
     }

@@ -6,6 +6,8 @@
         <levelTime>0.0</levelTime>
         <levelDistance>0.0</levelDistance>
         <entityList/>
+        <HUDprops/>
+        <GProps/>
       </frontend.components.Level>
       <map>
         <entry>
@@ -52,6 +54,8 @@
         <levelTime>0.0</levelTime>
         <levelDistance>0.0</levelDistance>
         <entityList/>
+        <HUDprops/>
+        <GProps/>
       </frontend.components.Level>
       <map>
         <entry>
