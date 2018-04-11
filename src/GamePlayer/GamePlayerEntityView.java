@@ -71,11 +71,11 @@ public class GamePlayerEntityView {
 			if(entityComponents.containsKey("Sprite")) {
 				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
-				image.setX(200);
-				image.setY(200);
-				image.setImage(new Image("mystery.jpg"));
-				System.out.print(image.getX());
-				//System.exit(0);
+//				image.setX(200);
+//				image.setY(200);
+//				image.setImage(new Image("mystery.jpg"));
+//				System.out.print(image.getX());
+				System.out.print("LOADING");
 				entityRoot.getChildren().add(image);
 			}
 		}

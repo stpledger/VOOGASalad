@@ -86,10 +86,10 @@ public class GamePlayerController {
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
-		gameRoot.getChildren().add(new Rectangle(200,200));
+		//gameRoot.getChildren().add(new Rectangle(200,200));
 		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
 		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
-		initializeGameAnimation(); //begins the animation cycle
+		//initializeGameAnimation(); //begins the animation cycle
 	}
 
 	/**
