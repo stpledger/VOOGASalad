@@ -34,23 +34,7 @@ public class Sprite extends Component {
 	public String getName() { return filename; }
 
 	public ImageView getImage() {
-		try {
-			image = new ImageView(new Image(filename));
-		}
-		catch(IllegalArgumentException e){
-			try {
-				image = new ImageView(new Image("File:"+filename));
-			}
-			catch(IllegalArgumentException a){
-				try {
-					image=new ImageView(new Image("File:data/"+filename));
-				}
-				catch(IllegalArgumentException v){
-						image=new ImageView(new Image(System.getProperty("user.dir")+"/"+filename));
-				}
-			}
-		}
-		//System.exit(0);
+		ImageView image=new ImageView(new Image("File:data/"+filename));
 		return image;
 	}
 
