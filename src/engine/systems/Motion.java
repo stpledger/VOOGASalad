@@ -104,7 +104,7 @@ public class Motion implements ISystem {
 
             Velocity v = (Velocity) components.get(Velocity.getKey());
             Position p = (Position) components.get(Position.getKey());
-
+            System.out.println("Entity " + pid + " is at " + p.getXPos() + " and " + p.getYPos());
             p.setXPos(p.getXPos() + v.getXVel()*time);
             p.setYPos(p.getYPos() + v.getYVel()*time);
         }

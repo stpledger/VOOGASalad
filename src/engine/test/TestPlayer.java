@@ -51,7 +51,7 @@ public class TestPlayer {
 
 	public Scene getScene() {
 		Group root = new Group();
-		Scene s = new Scene(root, 600, 600);
+		Scene s = new Scene(root, 2000, 2000);
 		Renderer r = new Renderer(root, tgs.getEntities());
 		tgs.run(r);
 		return s;
