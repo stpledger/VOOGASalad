@@ -1,18 +1,23 @@
 package frontend.components;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import javax.imageio.ImageIO;
+
 import frontend.entities.Entity;
 import frontend.gamestate.*;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -21,6 +26,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
@@ -30,6 +36,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import GamePlayer.Main;
 import engine.components.Component;
 import engine.components.EntityType;
+import engine.components.Sprite;
 
 /**
  * 
@@ -158,18 +165,28 @@ public class GameEditorView extends BorderPane {
 			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; //Get all of the inputs for components
 			for(Class k :entityComponents.keySet()) { //iterate through all the properties we have for new components
 				Constructor<?> componentConstructor = k.getConstructors()[0]; // get the constructor for the type of component
-				System.out.println(entityComponents.get(k)[0]);
-				componentArrayList.add((Component) componentConstructor.newInstance(nextID, entityComponents.get(k)[0])); //Add a new instance to arraylist.
+				ArrayList<Object> tempArr = new ArrayList<Object>() {{ //Create a temporary arraylist
+					this.add(nextID); //Add the pId to the temporary arraylist
+					this.addAll(Arrays.asList(entityComponents.get(k))); //add all the arguments for the component to the arraylist
+				}};
+				Object[] args = tempArr.toArray(); //Convert the temp array to an array of objects
+				componentArrayList.add((Component) componentConstructor.newInstance(args)); //Add a new instance to arraylist.
+				if(k.equals(Sprite.class)) { //Check if this is the image
+					File imageFile = new File((String) entityComponents.get(k)[0]);
+					Image image = null;
+					image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
+					entity.setImage(image);
+				}
 			}
-			for(Component c : componentArrayList) {
+			for(Component c : componentArrayList) { //Add all the components
 				entity.add(c);
 			}
-			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).getLevel().addEntity(entity); //add the entity to the level
+			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity); //add the entity to the level
 			nextID ++; //Increment id's by one
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException e1) {
-			e1.printStackTrace();
-		}
+				| NoSuchMethodException | SecurityException | IOException e1) {
+			System.out.println("Error creating entity");
+		} 
 	};
 	
 }
