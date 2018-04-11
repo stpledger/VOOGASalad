@@ -3,6 +3,7 @@ package frontend.components;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 
 /**
  * 
@@ -11,8 +12,11 @@ import javafx.scene.control.Label;
  */
 public class GlobalPropertiesView extends PropertiesView {
 
-	public GlobalPropertiesView(){
+	private Level level;
+	
+	public GlobalPropertiesView(Level level){
 		super();
+		this.level = level;
 	}
 
 	@Override
@@ -23,21 +27,21 @@ public class GlobalPropertiesView extends PropertiesView {
 	@Override
 	protected void fill() {
 		int currentRow = 0;
-		ResourceBundle globalProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"globalProperties");
-		NumberField timeNumber = new NumberField();
-		NumberField livesNumber = new NumberField();
-		NumberField levelNumber = new NumberField();
+		ResourceBundle globalProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"GlobalProperties");
+
+		TextField titleInput = new TextField();
+		NumberField livesInput = new NumberField();
+		TextField pathInput = new TextField();
 		for(String property:globalProps.keySet()) {
 			Label label = new Label(globalProps.getString(property));
 			getRoot().addRow(currentRow++, label);
 		}
-		getRoot().addColumn(1,timeNumber,livesNumber,levelNumber);
+		getRoot().addColumn(1,titleInput,titleInput,pathInput);
 		getRoot().add(MenuItemBuilder.buildButton(this.getButtonProps().getString("Submit"), e-> {
-			level.setLevelInfo(timeNumber.getText());
-			level.setLevelDifficulty(livesNumber.getText());
-			level.setLevelTime(Double.parseDouble(levelNumber.getText()));
+			level.addGProp(globalProps.getString("Title"), titleInput.getText());
+			level.addGProp(globalProps.getString("Lives"), livesInput.getText());
+			level.addGProp(globalProps.getString("Filepath"), pathInput.getText());
 		}), 0, currentRow++);
-
 	}
 
 }

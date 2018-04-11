@@ -5,8 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import engine.components.Component;
 import frontend.components.LocalPropertiesView;
+import engine.components.Component;
+import engine.components.Damage;
+import engine.components.Dimension;
+import engine.components.EntityType;
+import engine.components.Health;
+import engine.components.Position;
+import engine.components.Sprite;
 import javafx.scene.image.ImageView;
 
 /**
@@ -15,6 +21,7 @@ import javafx.scene.image.ImageView;
  * @author Dylan Powers
  *
  */
+
 public abstract class Entity extends ImageView{
 
 	/**
@@ -27,6 +34,7 @@ public abstract class Entity extends ImageView{
      */
     private List<Component> components;
     
+
     /**
      * The constructor simply sets the ID of the entity and initializes its list of components
      * @param ID which identifies an entity
@@ -44,11 +52,17 @@ public abstract class Entity extends ImageView{
         		LPV.open();
         }); 
     }
+    /**
+     * This is a constructor that does not set the id of an entity;
+     */
+    public Entity() {
+    	
+    }
     
     /**
      * Adds components that are inherent to the specific entity.
      */
-    public abstract void addDefaultComponents();
+    protected abstract void addDefaultComponents();
 
     /**
      * 
@@ -77,7 +91,7 @@ public abstract class Entity extends ImageView{
      * Sets health, because every entity should always have health.
      * @param health
      */
-	public void setHealth(double health) {
+    protected void setHealth(double health) {
 		this.add(new Health(this.getID(),health));
 	}
 	
@@ -86,7 +100,7 @@ public abstract class Entity extends ImageView{
 	 * @param filename File path of the sprite image
 	 * @throws FileNotFoundException
 	 */
-	public void setSprite(String filename) throws FileNotFoundException {
+    protected void setSprite(String filename) throws FileNotFoundException {
 		this.add(new Sprite(this.getID(),filename));
 	}
 	
@@ -95,7 +109,7 @@ public abstract class Entity extends ImageView{
 	 * @param width Width of entity
 	 * @param height Height of entity
 	 */
-	public void setDimension(double width, double height) {
+    protected void setDimension(double width, double height) {
 		this.add(new Dimension(this.getID(),width,height));
 	}
 	
@@ -104,16 +118,27 @@ public abstract class Entity extends ImageView{
 	 * @param x X position
 	 * @param y Y position
 	 */
-	public void setPosition(double x, double y) {
+    public void setPosition(double x, double y) {
 		this.add(new Position(this.getID(),x,y));
+		this.setLayoutX(x);
+		this.setLayoutY(y);
 	}
 	
 	/**
 	 * 
 	 * @param type Type of entity
 	 */
-	public void setEntityType(String type) {
+    protected void setEntityType(String type) {
 		this.add(new EntityType(this.getID(),type));
+	}
+	
+	/**
+	 * 
+	 * @param damage Double damage 
+	 * @param lifetime Double lifetime
+	 */
+    protected void setDamage(double damage, double lifetime) {
+		this.add(new Damage(this.getID(),damage,lifetime));
 	}
 	        
 	/**
@@ -128,6 +153,7 @@ public abstract class Entity extends ImageView{
      * 
      * @return List of components which define the entity
      */
+
     public List<Component> getComponentList(){
     		return this.components;
     }

@@ -1,5 +1,6 @@
 package frontend.components;
 
+import frontend.entities.Entity;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
@@ -15,7 +16,7 @@ public class LevelView extends ScrollPane {
 	
 	public LevelView(Level level, int levelNum) {
 		this.getStyleClass().add("level-view");
-		this.level = level;
+		this.setLevel(level);
 		this.setContent(pane);
 		this.getStyleClass().add("level-view-wrapper");
 		this.setOnMouseClicked(e-> {		
@@ -23,6 +24,9 @@ public class LevelView extends ScrollPane {
 				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
 				lView.open();
 			} else if (e.getButton().equals(MouseButton.PRIMARY)) {
+				if(e.getClickCount()==1) {
+					GlobalPropertiesView GPV = new GlobalPropertiesView(level);
+				}
 				if (e.getClickCount() == 3) {
 					HUDPropertiesView HPV = new HUDPropertiesView(level);
 					HPV.open();
@@ -30,5 +34,18 @@ public class LevelView extends ScrollPane {
 			}
 		});
 	}
-
+	
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+	
+	/**
+	 * Adds entity to the level view both to be seen graphically and to the specific 
+	 * level object
+	 * @param e Entity to be added to the LevelView
+	 */
+	public void addEntity(Entity e) {
+		this.getChildren().add(e);
+		level.addEntity(e);
+	}
 }
