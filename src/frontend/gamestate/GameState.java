@@ -25,6 +25,14 @@ public class GameState implements IGameState {
 		state = new HashMap<>();
 	}
 	
+	/*allows the creation of a gamestate from an existing 
+	 * map that represents a game @param state
+	 */
+	public GameState(Map<Level, Map<Integer, List<Component>>> state)
+	{
+		this.state = state;
+	}
+	
 	public void save() {
 		
 	}
