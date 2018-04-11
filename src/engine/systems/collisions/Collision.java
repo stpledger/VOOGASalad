@@ -2,14 +2,16 @@ package engine.systems.collisions;
 
 import java.util.*;
 
+import engine.components.Acceleration;
 import engine.components.Component;
 import engine.components.Dimension;
 import engine.components.Position;
 import engine.components.Velocity;
 import engine.setup.EntityManager;
+import engine.systems.DefaultSystem;
 import engine.systems.ISystem;
 
-public class Collision implements ISystem {
+public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents;
 	private Map<Integer, Velocity> colliders;
 	private CollisionHandler handler;
@@ -79,11 +81,39 @@ public class Collision implements ISystem {
 		}
 	}
 
+	public void addComponent(int pid, String componentName) {
+		if(!componentName.equals(Velocity.getKey())) {
+			return;
+		}
+		
+		if(colliders.containsKey(pid)) {
+			System.out.println("Collision System tries adding duplicate " + componentName + " component for entity " + pid + " !");
+		}
+		
+
+		Velocity velocity = (Velocity)EntityManager.getComponent(pid, componentName);
+		colliders.put(pid, velocity);
+	}
+
+	public void removeComponent(int pid, String componentName) {
+		if(!componentName.equals(Velocity.getKey())) {
+			return;
+		}
+		
+		if(!colliders.containsKey(pid)) {
+			System.out.println("Collision System tries remove " + componentName + " component from non-existing entity " + pid + " !");
+		}
+		
+
+		colliders.remove(pid);
+	}
+
 	@Override
 	public void setActives(Set<Integer> actives) {
 		//put in active listeners
 	}
 
+	
 	public void addComponent(int pid, Map<String, Component> components) {
 		if (components.containsKey(Position.getKey()) && components.containsKey(Dimension.getKey())) {
 			Map<String, Component> newComponents = new HashMap<>();
@@ -94,6 +124,11 @@ public class Collision implements ISystem {
 				colliders.put(pid, (Velocity) components.get(Velocity.getKey()));
 			}
 		}
+	}
+
+	@Override
+	public void update(Map<Integer, Map<String, Component>> handledComponents) {
+		this.handledComponents = handledComponents;
 	}
 	
 }

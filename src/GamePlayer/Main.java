@@ -16,7 +16,7 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception{
-		GamePlayerController gamePlayer = new GamePlayerController();
+		GamePlayerController gamePlayer = new GamePlayerController(primaryStage);
 		mainStage = primaryStage;
 		mainStage.setTitle(TITLE);
 		mainStage.setScene(gamePlayer.intializeStartScene());

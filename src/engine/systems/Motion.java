@@ -3,9 +3,11 @@ package engine.systems;
 
 import java.util.*;
 
+import engine.components.Acceleration;
 import engine.components.Component;
 import engine.components.Position;
 import engine.components.Velocity;
+import engine.setup.EntityManager;
 
 /**
  * ISystem to apply changes in positions to an object based on changes in velocities
@@ -40,6 +42,52 @@ public class Motion implements ISystem {
             handledComponents.remove(pid);
         }
     }
+
+    @Override
+    public void addComponent(int pid, String componentName) {
+		if(!componentName.equals(Velocity.getKey()) && !componentName.equals(Position.getKey())) {
+			return;
+		}
+		
+		if(handledComponents.containsKey(pid)) {
+			System.out.println("Motion System tries adding duplicate " + componentName + " component for entity " + pid + " !");
+		}
+		
+
+		Map<String, Component> map = new HashMap<>();
+		map.put(componentName,EntityManager.getComponent(pid, componentName));
+		if(componentName.equals(Position.getKey())) {
+			Component component = EntityManager.getComponent(pid,Velocity.getKey());
+			if(component == null) {
+				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Velocity.getKey() + " component!");
+				return;
+			}
+			map.put(Velocity.getKey(), component);
+		}
+		else {
+			Component component = EntityManager.getComponent(pid,Position.getKey());
+			if(component == null) {
+				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Position.getKey() + " component!");
+				return;
+			}
+			map.put(Position.getKey(), component);
+		}
+		handledComponents.put(pid,map);
+    }
+
+    @Override
+	public void removeComponent(int pid, String componentName) {
+		if(!componentName.equals(Acceleration.getKey()) && !componentName.equals(Velocity.getKey())) {
+			return;
+		}
+		
+		if(!handledComponents.containsKey(pid)) {
+			System.out.println("Accelerate System tries remove " + componentName + " from non-existing entity " + pid + " !");
+		}
+		
+	
+		handledComponents.remove(pid);
+	}
 
     @Override
     public void setActives(Set<Integer> actives) {

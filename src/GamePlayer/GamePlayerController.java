@@ -11,6 +11,7 @@ import Menu.LevelSelector;
 import Menu.MenuGameBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
+import engine.systems.InputHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.SetProperty;
@@ -32,6 +33,7 @@ public class GamePlayerController {
 	public final int FRAMES_PER_SECOND = 60;
 	public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+	private Stage myStage;
 	private Scene myScene;
 	private Group gameRoot;
 	private BorderPane pane = new BorderPane();
@@ -44,12 +46,10 @@ public class GamePlayerController {
 //		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
 //		pane.setCenter((Node) e);
 //	};
+
 	
-	// SORRY FOR CHANGING YOUR CODE PLAYER	-ENGINE Team
-	private SetProperty<KeyCode> activeKeys;
-	
-	public GamePlayerController() {
-		activeKeys = new SimpleSetProperty<>();
+	public GamePlayerController(Stage stage) {
+		myStage = stage;
 	}
 	
 	
@@ -58,30 +58,12 @@ public class GamePlayerController {
 		MenuGameBar menuBar = new MenuGameBar();
 		pane.setBottom(menuBar);
 		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
-		fileBtn.getFileBooleanProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				System.out.println("blah");
-				try {
-					initializeGameStart();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					System.out.println("File Not Found");
-				} //begin the game
-			}
-		});
+		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> initializeGameStart());
 		pane.setTop(sampleBar);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
-			handleKeyInput(e.getCode());
-			// SORRY
-			//activeKeys.add(e.getCode());
-			
+			pauseMenu.show(myStage);
 		});
-//		
-//		myScene.setOnKeyReleased(e -> {
-//			activeKeys.remove(e.getCode());
-//		});
 		return myScene;
 	}
 	
@@ -96,6 +78,7 @@ public class GamePlayerController {
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
+		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
 		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		initializeGameAnimation(); //begins the animation cycle
 	}
@@ -123,32 +106,5 @@ public class GamePlayerController {
 		gameView.getSystemManager().execute(elapsedTime);
 		gameView.getRenderManager().garbageCollect();
 		gameView.getRenderManager().renderObjects();
-		
-	}
-	
-
-	/**
-	 * Listener for the file button.
-	 * @param code
-	 */
-	
-	
-	private void handleKeyInput (KeyCode code) {
-		if (code == KeyCode.ESCAPE) {
-			Stage mainStage = (Stage) pane.getScene().getWindow();
-			//instantiate the Pause menu popup class 
-//			Popup popup = new Popup();
-//	        popup.setX(500);
-//	        popup.setY(200);
-//	        popup.getContent().addAll(new Circle(25, 25, 50, Color.AQUAMARINE));
-			pauseMenu.show(mainStage);
-			//pane.getChildren().get(0).setVisible(false);
-			//mainStage.setScene(new Scene(new Button("asdkl;f")));
-		}
-		
-		
-		
-		
-		
 	}
 }
