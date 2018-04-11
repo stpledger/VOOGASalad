@@ -195,6 +195,7 @@ public class EntityBuilderView{
 			buildMenu();
 			
 		}
+		
 		/**
 		 * Builds the menu
 		 */

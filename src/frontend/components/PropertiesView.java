@@ -37,7 +37,7 @@ public abstract class PropertiesView {
 	/**
 	 * Opens the Property Editor window.
 	 */
-	protected void open() {
+	public void open() {
 		Stage stage = new Stage();
 		stage.setTitle(this.title());
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));

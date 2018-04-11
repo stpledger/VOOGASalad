@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import engine.components.Component;
+import frontend.entities.Entity;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
@@ -23,17 +24,19 @@ public class LocalPropertiesView extends PropertiesView {
 	private final String PROPERTIES_PACKAGE = "resources/components";
 	private final String COMPONENT_PREFIX = "engine.components.";
 	private List<ComponentForm> activeForms;
-	private int entityNumber;
+	private Entity entity;
 	private final String SUBMIT_TEXT = "Submit Changes";
+	private Consumer<List<Component>> submitEvent;
 	
 	/**
 	 * Initialize the object with a given broadcast method
 	 * @param entityNumber
 	 */
-	public LocalPropertiesView(int entityNumber) {
+	public LocalPropertiesView(Consumer<List<Component>> submitEvent) {
 		super();
-		this.entityNumber = entityNumber;
+		this.entity = entity;
 		this.fill();
+		this.submitEvent = submitEvent;
 	}
 	
 	/**
@@ -44,15 +47,17 @@ public class LocalPropertiesView extends PropertiesView {
 		int currentRow = 0;
 		this.activeForms = new ArrayList<>();
 		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE).keySet()) {
-			ComponentForm cf = new ComponentForm(this.entityNumber, property, numFields(property));
+			ComponentForm cf = new ComponentForm(this.entity.getID(), property, numFields(property));
 			this.activeForms.add(cf);
 			getRoot().add(cf, 0, currentRow++);
 		}
 		Button submit = new Button(SUBMIT_TEXT);
 		submit.setOnAction(e -> {
+			List<Component> componentsToAdd = new ArrayList<>();
 			for (ComponentForm cf : this.activeForms) {
-				Component c = cf.buildComponent();
+				componentsToAdd.add(cf.buildComponent());
 			}
+			submitEvent.accept(componentsToAdd);
 		});
 		getRoot().add(submit, 0, currentRow);
 	}
@@ -63,7 +68,7 @@ public class LocalPropertiesView extends PropertiesView {
 	 */
 	@Override
 	public String title() {
-		return String.format("Entity %d Local Properties", this.entityNumber);
+		return String.format("Entity %d Local Properties", this.entity.getID());
 	}
 	
 	/**
