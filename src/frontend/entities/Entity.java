@@ -3,7 +3,9 @@ package frontend.entities;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
+import frontend.components.LocalPropertiesView;
 import engine.components.Component;
 import engine.components.Damage;
 import engine.components.Dimension;
@@ -12,6 +14,7 @@ import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 
 /**
  * 
@@ -37,9 +40,20 @@ public abstract class Entity extends ImageView{
      * The constructor simply sets the ID of the entity and initializes its list of components
      * @param ID which identifies an entity
     **/
-    public Entity (int ID) {
+    public Entity(int ID) {
         this.ID = ID;
         components = new ArrayList<>();
+        Consumer<List<Component>> addComponents = (componentsToAdd) -> {
+        		for (Component c : componentsToAdd) {
+        			this.add(c);
+        		}
+        };
+        this.setOnMouseClicked(e -> {
+        		if (e.getButton().equals(MouseButton.SECONDARY)) {
+        			LocalPropertiesView LPV = new LocalPropertiesView(addComponents);
+        			LPV.open();
+        		}
+        }); 
     }
     /**
      * This is a constructor that does not set the id of an entity;
@@ -52,13 +66,20 @@ public abstract class Entity extends ImageView{
      * Adds components that are inherent to the specific entity.
      */
     protected abstract void addDefaultComponents();
-
+   
     /**
      * 
      * @param c Component object
      */
     public void add(Component c) {
-        components.add(c);
+    		for (Component other : this.components) {
+    			// Don't add duplicates
+    			if (c.getKey().equals(other.getKey())) {
+    				this.components.remove(other);
+    				break;
+    			}
+    		}
+    		this.components.add(c);
     }
     
     /**
@@ -128,8 +149,13 @@ public abstract class Entity extends ImageView{
 	 * @return Unique ID of the entity
 	 */
     public int getID() {
-    	return this.ID;
+    		return this.ID;
     }
+    
+    /**
+     * @return type of this entity
+     */
+    public abstract String type();
     
     /**
      * 
@@ -137,7 +163,7 @@ public abstract class Entity extends ImageView{
      */
 
     public List<Component> getComponentList(){
-    	return this.components;
+    		return this.components;
     }
 
 }
