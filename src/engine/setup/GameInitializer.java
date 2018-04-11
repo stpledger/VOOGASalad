@@ -28,7 +28,7 @@ public class GameInitializer {
         systems.add(new Motion());
         IH = new InputHandler(); 
         Collision collision = new Collision();
-        systems.add(collision);
+        //systems.add(collision);
         systems.add(new Animate());
         SM = new SystemManager(systems, collision);
         
