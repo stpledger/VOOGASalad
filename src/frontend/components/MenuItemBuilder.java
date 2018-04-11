@@ -26,15 +26,14 @@ public class MenuItemBuilder {
 	}
 	
 	public static TextField buildTextField(String text, Consumer<Void> event, boolean isNumber) {
+		TextField field;
 		if(isNumber) {
-			NumberField field = new NumberField();
-			field.setOnAction(e->event.accept(null));
-			return field;
+			field = new NumberField();
 		} else {
-			TextField field = new TextField(text);
-			field.setOnAction(e->event.accept(null));
-			return field;
+			field = new TextField(text);
 		}
+		field.setOnAction(e->event.accept(null));
+		return field;
 	}
 	
 }

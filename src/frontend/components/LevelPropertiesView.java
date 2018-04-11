@@ -32,6 +32,7 @@ public class LevelPropertiesView extends PropertiesView{
 		ResourceBundle levelProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"LevelProperties");
 		TextField infoText = new TextField();
 		TextField diffText = new TextField();
+		
 		NumberField timeNumber = new NumberField();
 		NumberField distNumber = new NumberField();
 		for (String property : levelProps.keySet()) {
