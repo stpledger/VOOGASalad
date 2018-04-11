@@ -24,6 +24,9 @@ public class LevelView extends ScrollPane {
 				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
 				lView.open();
 			} else if (e.getButton().equals(MouseButton.PRIMARY)) {
+				if(e.getClickCount()==1) {
+					GlobalPropertiesView GPV = new GlobalPropertiesView(level);
+				}
 				if (e.getClickCount() == 2) {
 					LocalPropertiesView LPV = new LocalPropertiesView(1);
 					LPV.open();
