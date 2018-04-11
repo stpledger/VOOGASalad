@@ -25,4 +25,9 @@ public class Block extends Entity{
 		// TODO add method to set sprite
 	}
 	
+	@Override
+	public String type() {
+		return TYPE;
+	}
+	
 }

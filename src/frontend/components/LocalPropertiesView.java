@@ -21,22 +21,24 @@ import java.lang.reflect.Constructor;
  */
 public class LocalPropertiesView extends PropertiesView {
 	
-	private final String PROPERTIES_PACKAGE = "resources/components";
+	private final String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final String COMPONENT_PREFIX = "engine.components.";
-	private List<ComponentForm> activeForms;
-	private Entity entity;
 	private final String SUBMIT_TEXT = "Submit Changes";
+	private List<ComponentForm> activeForms;
+	private int entityID;
 	private Consumer<List<Component>> submitEvent;
+	private String type;
 	
 	/**
 	 * Initialize the object with a given broadcast method
 	 * @param entityNumber
 	 */
-	public LocalPropertiesView(Consumer<List<Component>> submitEvent) {
+	public LocalPropertiesView(Consumer<List<Component>> submitEvent, String type, int ID) {
 		super();
-		this.entity = entity;
-		this.fill();
 		this.submitEvent = submitEvent;
+		this.type = type;
+		this.entityID = ID;
+		this.fill();
 	}
 	
 	/**
@@ -46,8 +48,8 @@ public class LocalPropertiesView extends PropertiesView {
 	protected void fill() {
 		int currentRow = 0;
 		this.activeForms = new ArrayList<>();
-		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE).keySet()) {
-			ComponentForm cf = new ComponentForm(this.entity.getID(), property, numFields(property));
+		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + type).keySet()) {
+			ComponentForm cf = new ComponentForm(this.entityID, property, numFields(property));
 			this.activeForms.add(cf);
 			getRoot().add(cf, 0, currentRow++);
 		}
@@ -68,7 +70,7 @@ public class LocalPropertiesView extends PropertiesView {
 	 */
 	@Override
 	public String title() {
-		return String.format("Entity %d Local Properties", this.entity.getID());
+		return String.format("Entity %d Local Properties", this.entityID);
 	}
 	
 	/**
