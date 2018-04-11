@@ -134,8 +134,8 @@ public class GameEditorView extends BorderPane {
 		Level level = new Level(tabsList.indexOf(t)+1);
 		t.setContent(new LevelView(level,tabsList.indexOf(t)+1));
 		t.setOnClosed(e -> {
-				tabsList.remove(t);
-				updateTabs.accept(tabsList);
+			tabsList.remove(t);
+			updateTabs.accept(tabsList);
 		});
 		tabPane.getTabs().add(t);
 	}

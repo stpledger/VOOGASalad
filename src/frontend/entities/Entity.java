@@ -14,6 +14,7 @@ import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 
 /**
  * 
@@ -48,8 +49,10 @@ public abstract class Entity extends ImageView{
         		}
         };
         this.setOnMouseClicked(e -> {
-        		LocalPropertiesView LPV = new LocalPropertiesView(addComponents);
-        		LPV.open();
+        		if (e.getButton().equals(MouseButton.SECONDARY)) {
+        			LocalPropertiesView LPV = new LocalPropertiesView(addComponents);
+        			LPV.open();
+        		}
         }); 
     }
     /**
@@ -63,7 +66,7 @@ public abstract class Entity extends ImageView{
      * Adds components that are inherent to the specific entity.
      */
     protected abstract void addDefaultComponents();
-
+   
     /**
      * 
      * @param c Component object
@@ -146,8 +149,13 @@ public abstract class Entity extends ImageView{
 	 * @return Unique ID of the entity
 	 */
     public int getID() {
-    	return this.ID;
+    		return this.ID;
     }
+    
+    /**
+     * @return type of this entity
+     */
+    public abstract String type();
     
     /**
      * 
