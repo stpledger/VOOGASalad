@@ -22,7 +22,7 @@ public class GameInitializer {
         systems = new ArrayList<>();
         systems.add(new Accelerate());
         systems.add(new Motion());
-        
+        IH = new InputHandler(); 
         Collision collision = new Collision();
         systems.add(collision);
         systems.add(new Animate());
