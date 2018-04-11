@@ -20,8 +20,8 @@ public class Level {
 	
 	public Level(int level) {
 		this.setLevelNum(level);
-		this.entityList = new ArrayList<Entity>();
-		this.setHUDprops(new HashMap<>());
+		this.entityList = new ArrayList<>();
+		this.HUDprops = new HashMap<>();
 	}
 	
 	public void addEntity(Entity entity) {
