@@ -11,7 +11,7 @@ import java.util.HashMap;
 public class Animate implements ISystem {
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents;
-    private int playerID;
+    private int playerID=-1;
 
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
@@ -85,25 +85,29 @@ public class Animate implements ISystem {
 
     @Override
     public void execute(double time) {
+        System.out.println("Looping");
+        if(playerID!=-1){
         Map<String, Component> components = handledComponents.get(playerID);
-        Velocity v = (Velocity) components.get(Velocity.getKey());
-        double xVel = v.getXVel();
-        double yVel = v.getYVel();
 
-        for (int pid : handledComponents.keySet()) {
-            components = handledComponents.get(pid);
-            Position p = (Position) components.get(Position.getKey());
+            Velocity v = (Velocity) components.get(Velocity.getKey());
+            double xVel = v.getXVel();
+            double yVel = v.getYVel();
 
-            if (pid!=playerID) {
-                p.setXPos(p.getXPos()-xVel*time);
-                p.setYPos(p.getYPos()-yVel*time);
+            for (int pid : handledComponents.keySet()) {
+                components = handledComponents.get(pid);
+                Position p = (Position) components.get(Position.getKey());
 
-                if (activeComponents.contains(pid)) {
-                    Sprite s = (Sprite) components.get(Sprite.getKey());
+                if (pid != playerID) {
+                    p.setXPos(p.getXPos() - xVel * time);
+                    p.setYPos(p.getYPos() - yVel * time);
 
-                    ImageView im = s.getImage();
-                    im.setX(p.getXPos());
-                    im.setY(p.getYPos());
+                    if (activeComponents.contains(pid)) {
+                        Sprite s = (Sprite) components.get(Sprite.getKey());
+
+                        ImageView im = s.getImage();
+                        im.setX(p.getXPos());
+                        im.setY(p.getYPos());
+                    }
                 }
             }
         }
