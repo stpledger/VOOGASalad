@@ -156,11 +156,14 @@ public class GameEditorView extends BorderPane {
 		Entity entity = null;
 		try {
 			//Get the class of the entityType
-			Class entityType = (Class) clipboardCopy[0]; 
+			Class<?> entityType = (Class<?>) clipboardCopy[0]; 
 			//Get Constructor for entityType
 			Constructor<?> entityConstructor = entityType.getConstructor(int.class);
 			//Create a new instance of the entity
+			System.out.println("About to create entity with ID " + nextID);
 			entity = (Entity) entityConstructor.newInstance(nextID); 
+			System.out.println(entity + " created with ID " + entity.getID());
+			
 			 //Set the X,Y position of the mouseEvent to the X,Y position of the object
 			entity.setPosition(mouseEvent.getX(), mouseEvent.getY() - this.tabPane.getTabMaxHeight());
 			//Get all of the inputs for components
@@ -168,7 +171,7 @@ public class GameEditorView extends BorderPane {
 			//iterate through all the properties we have for new components
 			for(Class k :entityComponents.keySet()) { 
 				 // get the constructor for the type of component
-				Constructor<?> componentConstructor = k.getConstructors()[0];
+				Constructor<?> componentConstructor = k.getDeclaredConstructors()[0];
 				//Create a temporary arraylist
 				ArrayList<Object> tempArr = new ArrayList<Object>() {{ 
 					 //Add the pId to the temporary arraylist
@@ -189,7 +192,7 @@ public class GameEditorView extends BorderPane {
 				entity.add(c);
 			}
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity); //add the entity to the level
-			nextID ++; //Increment id's by one
+			nextID++; //Increment id's by one
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException | IOException e1) {
 			System.out.println("Error creating entity");
