@@ -1,4 +1,4 @@
-package GamePlayer;
+package Menu;
 
 import java.util.Map;
 import java.util.Set;
@@ -7,22 +7,28 @@ import engine.components.Component;
 import frontend.components.Level;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.ComboBox;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 
 /**
  * ComboBox Class that allows user to select the corresponding level
  * @author Ryan
  *
  */
-public class LevelSelector extends ComboBox{
+public class MenuGameBar extends MenuBar{
 	
 	private int size;
 	private ObservableList<Map<Integer, Map<String, Component>>> levelList;
+	
+	private LevelSelector levelMenu;
 
-	public LevelSelector(Map<Level,Map<Integer,Map<String,Component>>> levelMap) {
-				Set<Level> levelKeySet = levelMap.keySet();
-				size = levelKeySet.size();
-				levelList = createLevelList(levelMap); //levelList now is a list of each level as a combobox.
+	public MenuGameBar() {
+				levelMenu = new LevelSelector();
+				//Set<Level> levelKeySet = levelMap.keySet();
+				//size = levelKeySet.size();
+				//levelList = createLevelList(levelMap); //levelList now is a list of each level as a combobox.
+				this.getMenus().add(levelMenu);
 				
 	}
 	

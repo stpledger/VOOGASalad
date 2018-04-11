@@ -2,8 +2,13 @@ package GamePlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Arrays;
 import java.util.Set;
+import java.util.function.Consumer;
+
 import HUD.SampleToolBar;
+import Menu.LevelSelector;
+import Menu.MenuGameBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
 import javafx.animation.KeyFrame;
@@ -13,9 +18,11 @@ import javafx.beans.property.SimpleSetProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -32,6 +39,11 @@ public class GamePlayerController {
 	private GamePlayerEntityView gameView;
 	private File currentFile;
 	private FileUploadButton fileBtn;
+	//Consumer that changes the view of the pane.
+//	Consumer newLevel = (e) -> {
+//		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
+//		pane.setCenter((Node) e);
+//	};
 	
 	// SORRY FOR CHANGING YOUR CODE PLAYER	-ENGINE Team
 	private SetProperty<KeyCode> activeKeys;
@@ -43,6 +55,8 @@ public class GamePlayerController {
 	
 	public Scene intializeStartScene() {
 		SampleToolBar sampleBar = new SampleToolBar();
+		MenuGameBar menuBar = new MenuGameBar();
+		pane.setBottom(menuBar);
 		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
@@ -56,9 +70,6 @@ public class GamePlayerController {
 				} //begin the game
 			}
 		});
-		
-//		group = new Group();
-//		group.getChildren().add(fileBtn);
 		pane.setTop(sampleBar);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
@@ -79,6 +90,9 @@ public class GamePlayerController {
 	 * @throws FileNotFoundException 
 	 */
 	public void initializeGameStart() throws FileNotFoundException {
+		/**
+		 * When the Game Starts create the Level Map;
+		 */
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
@@ -97,6 +111,8 @@ public class GamePlayerController {
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
+	
+	
 	
 	/**
 	 * Step method that repeats the animation by checking entities using render and system Manager
