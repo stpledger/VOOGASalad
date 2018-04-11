@@ -22,7 +22,12 @@ public class Sprite extends Component {
 	public Sprite(int pid, List<String> parameters) throws FileNotFoundException {
 	    super(pid, KEY);
 		this.filename = parameters.get(0);
-		setImage(filename);
+		try {
+			setImage(filename);
+		}
+		catch(RuntimeException e){
+			System.out.print("Havent created javafx form");
+		}
 
 	}
 
