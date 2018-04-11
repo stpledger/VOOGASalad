@@ -29,7 +29,7 @@
 //	}
 //
 //}
-/**package engine.test;
+package engine.test;
 
 
 import javafx.scene.Group;
@@ -57,4 +57,4 @@ public class TestPlayer {
 		return s;
 	}
 	
-}**/
+}

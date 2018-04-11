@@ -19,9 +19,9 @@ public class Sprite extends Component {
 	@XStreamOmitField
 	private ImageView image;
 
-	public Sprite(int pid, List<String> parameters) throws FileNotFoundException {
-	    super(pid, KEY);
-		this.filename = parameters.get(0);
+	public Sprite(int pid, String path) throws FileNotFoundException {
+	    super(pid);
+		this.filename = path;
 		try {
 			setImage(filename);
 		}
@@ -34,23 +34,7 @@ public class Sprite extends Component {
 	public String getName() { return filename; }
 
 	public ImageView getImage() {
-		try {
-			image = new ImageView(new Image(filename));
-		}
-		catch(IllegalArgumentException e){
-			try {
-				image = new ImageView(new Image("File:"+filename));
-			}
-			catch(IllegalArgumentException a){
-				try {
-					image=new ImageView(new Image("File:data/"+filename));
-				}
-				catch(IllegalArgumentException v){
-						image=new ImageView(new Image(System.getProperty("user.dir")+"/"+filename));
-				}
-			}
-		}
-		//System.exit(0);
+		ImageView image=new ImageView(new Image("File:data/"+filename));
 		return image;
 	}
 

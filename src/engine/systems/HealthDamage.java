@@ -26,10 +26,10 @@ public class HealthDamage implements ISystem {
 	}
 
 	public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey(Health.getKey()) && components.containsKey(DamageLauncher.getKey())) {
+		if (components.containsKey(Health.getKey()) && components.containsKey(Damage.getKey())) {
 			Map<String, Component> newComponents = new HashMap<>();
 			newComponents.put(Health.getKey(),components.get(Health.getKey()));
-			newComponents.put(DamageLauncher.getKey(),components.get(DamageLauncher.getKey()));
+			newComponents.put(Damage.getKey(),components.get(Damage.getKey()));
 			handledComponents.put(pid, newComponents);
 		}
 		
@@ -117,5 +117,8 @@ public class HealthDamage implements ISystem {
 		});
 	}
 
-	
+	@Override
+	public Map<Integer, Map<String, Component>> getHandledComponent() {
+		return handledComponents;
+	}
 }
