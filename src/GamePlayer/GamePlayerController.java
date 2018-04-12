@@ -105,8 +105,9 @@ public class GamePlayerController {
 		gameRoot = levelEntityGroupMap.get(1);
 
 		pane.getChildren().addAll(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
-		
+
 		initializeGameAnimation(); //begins the animation cycle
+
 	}
 
 	/**
