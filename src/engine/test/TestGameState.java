@@ -16,6 +16,7 @@ public class TestGameState {
 	private Engine eng;
 
 	public TestGameState() throws FileNotFoundException {
+		System.out.println("TestGameState");
 		entities = new HashMap<>();
 		Sprite s = new Sprite(0,"Mario.png");
 		Sprite s2 = new Sprite(1,"Mario.png");

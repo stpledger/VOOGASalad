@@ -10,10 +10,11 @@ public class Main extends Application {
 
 	private static Stage mainStage;
 
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 		GamePlayerController gamePlayer = new GamePlayerController(primaryStage);

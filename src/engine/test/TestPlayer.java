@@ -42,6 +42,7 @@ public class TestPlayer {
 	TestGameState tgs;
 	
 	public TestPlayer() {
+		System.out.println("start TestPlayer");
 		try {
 			tgs = new TestGameState();
 		} catch (FileNotFoundException e) {
@@ -53,7 +54,7 @@ public class TestPlayer {
 		Group root = new Group();
 		Scene s = new Scene(root, 2000, 2000);
 		Renderer r = new Renderer(root, tgs.getEntities());
-		tgs.run(r);
+		//tgs.run(r);
 		return s;
 	}
 	

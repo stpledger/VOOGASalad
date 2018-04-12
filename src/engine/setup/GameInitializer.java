@@ -20,6 +20,7 @@ public class GameInitializer {
     private EntityManager EM;
     
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
+    		System.out.println("GameInitializer");
     		EM = new EntityManager(entities);
         systems = new ArrayList<>();
         systems.add(new Accelerate());

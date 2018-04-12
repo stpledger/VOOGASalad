@@ -14,10 +14,13 @@ public class TestMain extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception{
+		System.out.println("start");
+		/**
 		primaryStage.setTitle("Test");
 		TestPlayer tp = new TestPlayer();
 		primaryStage.setScene(tp.getScene());
 		primaryStage.show();
+		**/
 	}
 	
 	
