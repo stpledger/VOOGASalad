@@ -1,11 +1,10 @@
 package engine.components;
+import java.io.File;
 import java.io.FileNotFoundException;
 
+import javax.imageio.ImageIO;
 
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
-
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
-
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -18,17 +17,18 @@ import javafx.scene.shape.Rectangle;
 public class Sprite extends Component {
 	public static String KEY = "Sprite";
 	private String filename;
-	@XStreamOmitField
+	//@XStreamOmitField
 	private ImageView image;
 
 	public Sprite(int pid, String fName) throws FileNotFoundException {
 	    super(pid);
 		this.filename = fName;
 		try {
-			setImage(filename);
-		}
-		catch(RuntimeException e){
-			System.out.print("Havent created javafx form");
+			File imageFile = new File(filename);
+			Image im = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
+		} catch (Exception e) {
+			System.out.println("Can not find image files");
+			throw new FileNotFoundException();
 		}
 
 	}
