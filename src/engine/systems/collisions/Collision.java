@@ -14,7 +14,6 @@ import engine.systems.DefaultSystem;
 
 public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();
-	private Map<Integer, Map<String,Component>> handledComponentsOnly = new HashMap<>();
 	private Map<Integer, Velocity> colliders;
 	private CollisionHandler handler;
 	
@@ -31,7 +30,7 @@ public class Collision extends DefaultSystem{
 	public void execute(double time) {
 		//System.out.println(colliders.containsKey(Dimension.KEY));
 		colliders.forEach((key1, vel) -> {
-			handledComponentsOnly.forEach((key2, map) -> {				// Hooooorrible code, refactor
+			handledComponents.forEach((key2, map) -> {				// Hooooorrible code, refactor
 				
 				if(key1 != key2) {
 					
@@ -189,23 +188,12 @@ public class Collision extends DefaultSystem{
 
 	
 	public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey(Position.KEY) && components.containsKey(Dimension.KEY)) {
-			Map<String, Component> newComponents = new HashMap<>();
-			Map<String, Component> newComponents1 = new HashMap<>();
-            components.forEach((key,val)->{
-            	newComponents.put(key, val);
-            	newComponents1.put(Dimension.KEY,components.get(Dimension.KEY));
-    			newComponents1.put(Position.KEY,components.get(Position.KEY));
-    			
-            });
-			//newComponents.put(Dimension.KEY,components.get(Dimension.KEY));
-			//newComponents.put(Position.KEY,components.get(Position.KEY));
-			handledComponents.put(pid, newComponents);
-			handledComponentsOnly.put(pid, newComponents1);
-			if(components.containsKey(Velocity.KEY)) {
-				colliders.put(pid, (Velocity) components.get(Velocity.KEY));
-			}
+	handledComponents.put(pid, components);
+
+		if(components.containsKey(Velocity.KEY)) {
+			colliders.put(pid, (Velocity) components.get(Velocity.KEY));
 		}
+
 	}
 
 	@Override
