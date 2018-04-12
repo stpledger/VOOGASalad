@@ -1,5 +1,6 @@
 package engine.components;
 
+import java.util.Map;
 
 /**
  * Component superclass. Just a databucket for a parent ID, which all sub components need.
@@ -10,12 +11,14 @@ package engine.components;
 public abstract class Component {
 	
 	private int pid;
+	private String keykey;
 	
 	/**
 	 * Constructs component with entity parent ID
 	 * @param pid	ID of parent. Can not be changed externally.
 	 */
-	public Component(int pid) {
+	public Component(int pid, String keykey) {
+		this.keykey = keykey;
 		this.pid = pid;
 	}
 	
@@ -23,6 +26,8 @@ public abstract class Component {
 		return pid;
 	}
 
-	public static String getKey() { return ""; }
+	public String getKeyKey() { return keykey; }
+
+	//public abstract Map<String,String> getParameters();
 
 }

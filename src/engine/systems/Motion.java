@@ -22,8 +22,8 @@ public class Motion implements ISystem {
     private Set<Integer> activeComponents;
 
 
-        public void addComponent(int pid, Map<String, Component> components) {
-            if (components.containsKey("Velocity") && components.containsKey("Position")) {
+    public void addComponent(int pid, Map<String, Component> components) {
+        if (components.containsKey(Velocity.KEY) && components.containsKey(Position.KEY)) {
                 Map<String, Component> newComponents = new HashMap<>();
                 newComponents.put(Velocity.KEY,components.get(Velocity.KEY));
                 newComponents.put(Position.KEY,components.get(Position.KEY));
