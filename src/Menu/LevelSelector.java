@@ -3,6 +3,7 @@ package Menu;
 import java.util.Map;
 import java.util.Set;
 
+import GamePlayer.GamePlayerController;
 import GamePlayer.GamePlayerEntityView;
 import engine.components.Component;
 import frontend.components.Level;
@@ -20,29 +21,36 @@ import javafx.scene.control.MenuItem;
 public class LevelSelector extends Menu {
 	private final String MENU_TITLE = "Level";
 	private Map<Integer, Map<Integer,Map<String,Component>>> orderedLevelMap;
+	private GamePlayerController mainController;
+	private  Map<Integer, Group> levelEntityGroupMap;
+	private int levelCount;
 	
-	public LevelSelector() {
+	public LevelSelector(GamePlayerController g) {
+		mainController = g;
+		levelEntityGroupMap = g.getGameLevelRoot();
 		this.setText(MENU_TITLE);
-		this.getItems().addAll(new MenuItem("Level 1"), new MenuItem("Level 2"), new MenuItem("Level 3"));
+		this.getItems().addAll(new MenuItem("level1"));
+		//createLevelMenu();
 	}
 	
 	/**
 	 * Method that creates each MenuItem for a given file;
 	 * @param levelMap
 	 */
-	public void createLevelMenu(Map<Level,Map<Integer,Map<String,Component>>> levelMap) {
-		Set<Level> levelKeySet = levelMap.keySet();
-		int count = 1;
-		while (levelKeySet.iterator().hasNext()) {
+	public void createLevelMenu() {
+		Set<Integer> levelKeySet = levelEntityGroupMap.keySet();
+		int count = levelKeySet.size();
+		levelCount = 1;
+		for (int i = 1; i<=count; i++) {
 			//Adds each level to the LevelList
-			MenuItem currentMenu = new MenuItem("Level" + count);
+			MenuItem currentMenu = new MenuItem("Level" + levelCount);
 			currentMenu.setOnAction(new EventHandler<ActionEvent>() { //event listener when the menu is selected.
 			    public void handle(ActionEvent t) {
-//			    		GamePlayerEntityView gameView = new GamePlayerEntityView();
-//			        Group gameRoot = gameView.createEntityGroup(levelMap.get(levelKeySet.iterator().next()));  //create a new root 
+			    		mainController.changeGameLevel(levelEntityGroupMap.get(levelCount));
 			    }
 			});
-
+			this.getItems().add(currentMenu);
+			levelCount++;
 		}
 	}
 	

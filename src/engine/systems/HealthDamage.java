@@ -14,6 +14,8 @@ import engine.components.DamageLauncher;
 import engine.components.Health;
 
 import engine.setup.EntityManager;
+import engine.setup.SystemManager;
+
 public class HealthDamage implements ISystem {
 	private Map<Integer, Map<String, Component>> handledComponents;
 	private Set<Integer> activeComponents;
@@ -109,7 +111,8 @@ public class HealthDamage implements ISystem {
 			}
 			
 			if(h.getHealth() <= 0) {
-				//kill the object
+				SystemManager.removeEntity(key);
+				System.out.println("removing");
 			}
 			
 		});
