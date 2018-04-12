@@ -1,4 +1,4 @@
-package GamePlayer;
+//package GamePlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,7 +18,9 @@ import engine.setup.SystemManager;
 import frontend.components.EntityBuilderView;
 import engine.systems.InputHandler;
 import frontend.components.Level;
+import javafx.beans.property.SetProperty;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -28,7 +30,7 @@ import javafx.stage.Stage;
  * @author Ryan Fu
  *
  */
-public class GamePlayerEntityView {
+/**public class GamePlayerEntityView {
 	
 	private File gameFile;
 	//private Group entityRoot;
@@ -53,15 +55,23 @@ public class GamePlayerEntityView {
 //This is mainly for debugging purposes not entirely sure how you will get specific levels out of the mao
 // because they arent ordered probably will have to iterate through levels and look at levelnum of each
 		initializeGamePlayerEntityView();
+<<<<<<< HEAD
+	}**/
+=======
 	}
 
+>>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
 	
 	/**
 	 * Return a Group that adds all the entity image objects 
 	 * @return
 	 */
+<<<<<<< HEAD
+	/**public Group createEntityGroup() {
+=======
 	//Make Entity Group accept a Hashmap for individual Levels
 	public Group createEntityGroup() {
+>>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
 		Group entityRoot = new Group();
 		Map<String, Component> entityComponents;
 //Changed enclosed code to only load sprites for 
@@ -70,17 +80,30 @@ public class GamePlayerEntityView {
 			if(entityComponents.containsKey("Sprite")) {
 				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
+
+				image.setX(200);
+				image.setY(200);
+				//image.setImage(new Image("mystery.jpg"));
+				System.out.print(image.getX());
+				//System.exit(0);
 				entityRoot.getChildren().add(image);
 			}
 		}
 //entities that have sprites and setup sprite images
 		return entityRoot;
-	}
+	}**/
 	
 	/**
 	 * initialize the Game Initializer to create the systemManager and renderManager.
 	 * @throws FileNotFoundException 
 	 */
+<<<<<<< HEAD
+	/**private void initializeGamePlayerEntityView() {
+		gameInitializer = new GameInitializer(entityMap);
+		systemManager = gameInitializer.getSM();
+		renderManager = gameInitializer.getRM();
+	}**/
+=======
 	private void initializeGamePlayerEntityView() {
 		try {
 			gameInitializer = new GameInitializer(entityMap);
@@ -109,10 +132,21 @@ public class GamePlayerEntityView {
 	public RenderManager getRenderManager() {
 		return renderManager;
 	}
+>>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
 
 	public void setInput(KeyCode code){
 		inputHandler.addCode(code);
 	}
+<<<<<<< HEAD
 	
 	
+//}
+
+=======
+
+
+	public void removeInput(KeyCode code) {
+		inputHandler.removeCode(code);
+	}
 }
+>>>>>>> 5ffe0488334c8d3bdd3e798934c76a03d31a2a22

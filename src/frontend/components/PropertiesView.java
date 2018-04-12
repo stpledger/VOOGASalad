@@ -4,10 +4,10 @@ import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 /**
@@ -21,6 +21,8 @@ public abstract class PropertiesView {
 	private final int HEIGHT = 450;
 	private final int WIDTH = 450;
 	private GridPane root;
+	private final String RESOURCES = "resources/";
+	private ResourceBundle buttonProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"buttons");
 	
 	/**
 	 * Initialize the root of this window as a {@code GridPane}.
@@ -53,28 +55,6 @@ public abstract class PropertiesView {
 	 * @return the title of the window.
 	 */
 	protected abstract String title();
-	
-	/**
-	 * Nested class to created a text field that only accepts numbers.
-	 * @param args
-	 */
-	class NumberField extends TextField {
-		@Override
-		public void replaceText(int start, int end, String text) {
-			if (isNumber(text))
-				super.replaceText(start, end, text);
-		}
-		
-		@Override
-		public void replaceSelection(String text) {
-			if (isNumber(text))
-				super.replaceSelection(text);
-		}
-		
-		private boolean isNumber(String input) {
-			return input.matches("[0-9]*");
-		}
-	}
 	
 	/**
 	 * Gets all of the class names from a given package. Useful when determining which properties can be changed.
@@ -129,5 +109,13 @@ public abstract class PropertiesView {
      */
 	protected GridPane getRoot() {
 		return this.root;
+	}
+	
+	protected String getResourcesFilePath() {
+		return this.RESOURCES;
+	}
+	
+	protected ResourceBundle getButtonProps() {
+		return this.buttonProps;
 	}
 }

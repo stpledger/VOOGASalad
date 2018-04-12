@@ -1,14 +1,10 @@
 package buttons;
 
-import java.io.File;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
-import javafx.stage.FileChooser;
-import javafx.stage.Stage;
+
 
 /**
  * Button that saves the current state of the game

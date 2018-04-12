@@ -2,39 +2,34 @@ package engine.components;
 
 import javafx.scene.input.KeyCode;
 
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.HashMap;
 import java.util.function.Consumer;
 
-import javafx.scene.input.KeyCode;
 
 public class KeyInput extends Component {
-	private KeyCode code;
-	private Consumer<Map<String, Component>> con;
+
+	private Map<KeyCode, Consumer> codes = new HashMap<>();
 
 	public static String KEY = "KeyInput";
 	
-	public KeyInput(int pid, KeyCode code, Consumer<Map<String, Component>> con) {
+	public KeyInput(int pid, KeyCode code, Consumer con) {
 		super(pid);
-		this.code = code;
-		this.con = con;		
+		codes.put(code, con);
 	}
 
-	public KeyCode getCode() {
-		return code;
+	public boolean containsCode (KeyCode key) {
+		return codes.containsKey(key);
 	}
 
-	public void setCode(KeyCode code) {
-		this.code = code;
+	public void addCode (KeyCode code, Consumer con) {
+		codes.put(code, con);
 	}
 
-	public Consumer<Map<String, Component>> getConsumer() {
-		return con;
+	public void action(KeyCode key) {
+		codes.get(key).accept(null);
 	}
-	
 
-	public static String getKey() {
-		return KEY;
-	}
+	public static String getKey() { return KEY; }
+
 }
