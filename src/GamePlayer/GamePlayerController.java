@@ -104,7 +104,6 @@ public class GamePlayerController {
 		//gameRoot.getChildren().add(new Rectangle(200,200));
 		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
 		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
-		
 		initializeGameAnimation(); //begins the animation cycle
 
 	}
@@ -113,7 +112,6 @@ public class GamePlayerController {
 	 * Begins the animation cycle count of the animation after game has started
 	 */
 	public void initializeGameAnimation() {
-		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
 				e -> step(SECOND_DELAY, gameRoot));
 		Timeline animation = new Timeline();

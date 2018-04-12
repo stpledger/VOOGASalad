@@ -1,5 +1,8 @@
 package engine.components;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This component defines type fof entity,like "player","block" etc
  * @author Yameng
@@ -33,5 +36,4 @@ public class EntityType extends Component{
 	public static String getKey() {
 		return KEY;
 	}
-
 }

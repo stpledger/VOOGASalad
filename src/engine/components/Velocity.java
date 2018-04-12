@@ -1,13 +1,15 @@
 package engine.components;
 
 
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *  Velocity component class
  *  @author fitzj
  *  @author Yameng
  **/
-public class Velocity extends Component {
+public class Velocity extends ShowableComponent {
 
 	private double XVel; //X velocity associated with an entity that has this VelocityComponent
 	private double YVel; //Y velocity associated with an entity that has this VelocityComponent
@@ -45,4 +47,12 @@ public class Velocity extends Component {
 		return KEY;
 	}
 
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String,String> res = new HashMap<String, String>(){{
+			put("Velocity X", Double.toString(XVel));
+			put("Velocity Y", Double.toString(YVel));
+		}};
+		return res;
+	}
 }

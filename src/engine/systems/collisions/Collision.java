@@ -19,7 +19,6 @@ public class Collision extends DefaultSystem{
 	private CollisionHandler handler;
 	
 	public Collision() {
-	
 		colliders = new HashMap<>();
 		handler = new CollisionHandler();
 	}

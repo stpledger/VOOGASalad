@@ -62,7 +62,7 @@ public abstract class Entity extends ImageView {
     public void add(Component c) {
     		if (c != null) {
     			if (this.contains(c))
-    				this.removeByName(c.getKey());
+    				this.removeByName(c.getKeyKey());
     			this.components.add(c);
     			
     		}
@@ -82,7 +82,7 @@ public abstract class Entity extends ImageView {
      */
     private void removeByName(String name) {
     		for (Component c : this.components) {
-    			if (c.getKey().equals(name)) {
+    			if (c.getKeyKey().equals(name)) {
     				this.remove(c);
     				return;
     			}
@@ -96,7 +96,7 @@ public abstract class Entity extends ImageView {
      */
     private boolean contains(Component c) {
     		for (Component existing : this.components) {
-    			if (existing.getKey() == c.getKey())
+    			if (existing.getKeyKey() == c.getKeyKey())
     				return true;
     		}
     		return false;
@@ -109,7 +109,7 @@ public abstract class Entity extends ImageView {
      */
     private boolean contains(String name) {
     		for (Component existing : this.components) {
-    			if (existing.getKey().equals(name))
+    			if (existing.getKeyKey().equals(name))
     				return true;
     		}
     		return false;

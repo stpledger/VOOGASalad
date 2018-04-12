@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import data.DataGameState;
 import data.DataRead;
@@ -15,10 +16,12 @@ import engine.components.Sprite;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
+import engine.systems.InputHandler;
 import frontend.components.Level;
 import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
@@ -39,11 +42,10 @@ public class GamePlayerEntityView {
 	private GameInitializer gameInitializer;
 	public SystemManager systemManager;
 	public RenderManager renderManager;
-	private Level one;
-	private Consumer onMenuLevelSelect;
+	//private Consumer onMenuLevelSelect;
 	private InputHandler inputHandler;
 	private Map<Integer, Group> levelEntityMap;
-	private Map<Level, Map<Integer, Map<String, Component>>> levelMap;
+	private Map<Integer, Map<String, Component>> entityMap;
 	
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
@@ -121,7 +123,6 @@ public class GamePlayerEntityView {
 	//Make Entity Group accept a Hashmap for individual Levels
 	public Group createEntityGroup() {
 		Group entityRoot = new Group();
-		Set<Integer> keyset = levelMap.get(one).keySet();  //change dependency later
 		Map<String, Component> entityComponents;
 //Changed enclosed code to only load sprites for 
 		for(Integer i : entityMap.keySet()) {
@@ -157,9 +158,7 @@ public class GamePlayerEntityView {
 		renderManager = gameInitializer.getRM();
 	}
 
-	public SystemManager getSystemManager() {
-		return systemManager;
-	}
+	public SystemManager getSystemManager() { return systemManager; }
 
 	public RenderManager getRenderManager() {
 		return renderManager;

@@ -1,5 +1,6 @@
 package engine.components;
 
+import java.util.Map;
 
 /**
  * Component superclass. Just a databucket for a parent ID, which all sub components need.
@@ -26,5 +27,7 @@ public abstract class Component {
 	}
 
 	public String getKeyKey() { return keykey; }
+
+	//public abstract Map<String,String> getParameters();
 
 }
