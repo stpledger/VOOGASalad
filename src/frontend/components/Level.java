@@ -26,7 +26,8 @@ public class Level {
 	public Level(int level) {
 		this.setLevelNum(level);
 		this.entityList = new ArrayList<Entity>();
-		this.setHUDprops(new HashMap<>());
+		this.HUDprops = new HashMap<>();
+		this.GProps = new HashMap<>();
 	}
 	
 	public void addEntity(Entity entity) {
@@ -105,16 +106,20 @@ public class Level {
 		this.HUDprops.put(prop, bool);
 	}
 
-	public Map<String,String> getGProps() {
-		return GProps;
-	}
-
 	public void setGProps(Map<String,String> gProps) {
 		GProps = gProps;
 	}
 	
 	public void addGProp(String prop, String value) {
 		this.GProps.put(prop, value);
+	}
+	
+	public void removeHUDProp(String prop) {
+		this.HUDprops.remove(prop);
+	}
+	
+	public void removeGProp(String prop) {
+		this.GProps.remove(prop);
 	}
 	
 }

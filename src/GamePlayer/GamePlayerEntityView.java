@@ -18,7 +18,9 @@ import engine.setup.SystemManager;
 import frontend.components.EntityBuilderView;
 import engine.systems.InputHandler;
 import frontend.components.Level;
+import javafx.beans.property.SetProperty;
 import javafx.scene.Group;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -26,6 +28,10 @@ import javafx.stage.Stage;
 /**
  * Class that controls how the entity objects are displayed
  * @author Ryan Fu
+ *
+ */
+
+/**
  *
  */
 public class GamePlayerEntityView {
@@ -40,12 +46,13 @@ public class GamePlayerEntityView {
 	private Level one;
 	private Consumer onMenuLevelSelect;
 	private InputHandler inputHandler;
+	private Map<Level, Map<Integer, Map<String, Component>>> levelMap;
 	
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
 		//Changed the code enclosed to load a random level and create an entity map
-		Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
+		levelMap = gameState.getGameState();
 		for(Level level : levelMap.keySet()) {
 			entityMap = levelMap.get(level);
 			break;
@@ -55,7 +62,6 @@ public class GamePlayerEntityView {
 		initializeGamePlayerEntityView();
 	}
 
-	
 	/**
 	 * Return a Group that adds all the entity image objects 
 	 * @return
@@ -70,6 +76,11 @@ public class GamePlayerEntityView {
 			if(entityComponents.containsKey("Sprite")) {
 				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
+				image.setX(200);
+				image.setY(200);
+				//image.setImage(new Image("mystery.jpg"));
+				System.out.print(image.getX());
+				//System.exit(0);
 				entityRoot.getChildren().add(image);
 			}
 		}
@@ -113,6 +124,9 @@ public class GamePlayerEntityView {
 	public void setInput(KeyCode code){
 		inputHandler.addCode(code);
 	}
-	
-	
+
+
+	public void removeInput(KeyCode code) {
+		inputHandler.removeCode(code);
+	}
 }

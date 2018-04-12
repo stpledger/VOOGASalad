@@ -3,7 +3,6 @@ package frontend.entities;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import frontend.components.LocalPropertiesView;
 import engine.components.Component;
@@ -43,14 +42,9 @@ public abstract class Entity extends ImageView {
     public Entity(int ID) {
         this.ID = ID;
         components = new ArrayList<>();
-        Consumer<List<Component>> addComponents = (componentsToAdd) -> {
-        		for (Component c : componentsToAdd) {
-        			this.add(c);
-        		}
-        };
         this.setOnMouseClicked(e -> {
         		if (e.getButton().equals(MouseButton.SECONDARY)) {
-        			LocalPropertiesView LPV = new LocalPropertiesView(addComponents, this.type(), this.getID());
+        			LocalPropertiesView LPV = new LocalPropertiesView(this);
         			LPV.open();
         		}
         }); 
@@ -66,16 +60,11 @@ public abstract class Entity extends ImageView {
      * @param c Component object
      */
     public void add(Component c) {
-//    		for (Component other : this.components) {
-//    			// Don't add duplicates
-//    			if (c.getKey().equals(other.getKey())) {
-//    				this.components.remove(other);
-//    				break;
-//    			}
-//    		}
     		if (c != null) {
+    			if (this.contains(c))
+    				this.removeByName(c.getKey());
     			this.components.add(c);
-    			System.out.println("Component added: " + c);
+    			
     		}
     }
     
@@ -85,6 +74,45 @@ public abstract class Entity extends ImageView {
      */
     public void remove (Component c) {
         components.remove(c);
+    }
+
+    /**
+     * Remove a component based upon its String value.
+     * @param name the name of the component to remove
+     */
+    private void removeByName(String name) {
+    		for (Component c : this.components) {
+    			if (c.getKey().equals(name)) {
+    				this.remove(c);
+    				return;
+    			}
+    		}
+    }
+    
+    /**
+     * Checks (by name) if the current entity already contains a given component.
+     * @param c the component to check
+     * @return true iff the component already belongs to this entity
+     */
+    private boolean contains(Component c) {
+    		for (Component existing : this.components) {
+    			if (existing.getKey() == c.getKey())
+    				return true;
+    		}
+    		return false;
+    }
+    
+    /**
+     * Checks (explicitly) by name if the current entity already contains this component.
+     * @param name the name of the component to check
+     * @return true iff the component already belongs to this entity
+     */
+    private boolean contains(String name) {
+    		for (Component existing : this.components) {
+    			if (existing.getKey().equals(name))
+    				return true;
+    		}
+    		return false;
     }
     
     /**

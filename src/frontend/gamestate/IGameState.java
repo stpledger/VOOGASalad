@@ -1,7 +1,10 @@
 package frontend.gamestate;
 
 import frontend.components.Level;
+<<<<<<< HEAD
 
+=======
+>>>>>>> cfc057d2d57201c0659b86078c34e768f921d3ac
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +31,7 @@ public interface IGameState {
 	 * @param level the level  to remove
 	 */
 	public void removeLevel(Level level);
-	
+
+	public List<Level> getLevels();
 }
 
