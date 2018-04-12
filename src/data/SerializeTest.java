@@ -37,7 +37,7 @@ public class SerializeTest {
         params.add("1");
         params.add("3");
 
-        Acceleration entity1Acceleration = new Acceleration(1,1,3);
+        Acceleration entity1Acceleration = new Acceleration(1,1,0);
         entity1Components.put("Acceleration", entity1Acceleration);
 
 
@@ -73,9 +73,9 @@ public class SerializeTest {
         Acceleration entity2Acceleration = new Acceleration(2,4,10);
         entity2Components.put("Acceleration", entity2Acceleration);
 
-        KeyInput k = new KeyInput(0, KeyCode.SPACE, e -> {
+        KeyInput k = new KeyInput(1, KeyCode.SPACE, e -> {
             System.out.println("lambda executed");
-            entity1Position.setXPos(entity1Position.getXPos()+10); });
+            entity1Position.setXPos(10000000); });
         entity1Components.put(k.KEY, k);
 
 
@@ -83,19 +83,22 @@ public class SerializeTest {
         params.add("100");
         params.add("50");
 
-        Position entity2Position = new Position(2, 100,50);
-        entity2Components.put("Position", entity2Position);
+        Position entity2Position = new Position(2, 0,0);
+        entity2Components.put(Position.KEY, entity2Position);
+
+        Dimension d = new Dimension (2, 20, 500);
+        entity2Components.put(Dimension.KEY, d);
 
         params.clear();
         params.add("1");
         params.add("-1");
 
-        Velocity entity2Velocity = new Velocity(2, 1,-1);
+        Velocity entity2Velocity = new Velocity(2, 20,0);
         entity2Components.put("Velocity", entity2Velocity);
 
 
         params.clear();
-        params.add("mario.png");
+        params.add("m ario.png");
 
         try {
             Sprite entity2Sprite = new Sprite(2, "mario.png");
@@ -116,7 +119,7 @@ public class SerializeTest {
 
         File xml = new File("sdf");
         try {
-            xml =DataWrite.saveFile(state, "TestGame1");
+            xml =DataWrite.saveFile(state, "TestGame2");
         } catch (Exception e) {
             e.printStackTrace();
         }
