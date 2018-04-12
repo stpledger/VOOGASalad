@@ -33,3 +33,4 @@ public class Enemy extends Entity {
 		return TYPE;
 	}
 }
+**/
