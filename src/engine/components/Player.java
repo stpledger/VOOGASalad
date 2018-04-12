@@ -1,6 +1,9 @@
 package engine.components;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Player extends Component {
     public static String KEY = "Player";
 

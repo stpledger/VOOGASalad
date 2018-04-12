@@ -16,7 +16,6 @@ public class Collision extends DefaultSystem{
 	private CollisionHandler handler;
 	
 	public Collision() {
-	
 		colliders = new HashMap<>();
 		handler = new CollisionHandler();
 	}
@@ -121,16 +120,10 @@ public class Collision extends DefaultSystem{
 
 	
 	public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey(Position.KEY) && components.containsKey(Dimension.KEY)) {
-			Map<String, Component> newComponents = new HashMap<>();
+		handledComponents.put(pid, components);
 
-			newComponents.put(Dimension.KEY,components.get(Dimension.KEY));
-			newComponents.put(Position.KEY,components.get(Position.KEY));
-			handledComponents.put(pid, newComponents);
-
-			if(components.containsKey(Velocity.KEY)) {
-				colliders.put(pid, (Velocity) components.get(Velocity.KEY));
-			}
+		if(components.containsKey(Velocity.KEY)) {
+			colliders.put(pid, (Velocity) components.get(Velocity.KEY));
 		}
 	}
 

@@ -158,9 +158,7 @@ public class GamePlayerEntityView {
 		renderManager = gameInitializer.getRM();
 	}
 
-	public SystemManager getSystemManager() {
-		return systemManager;
-	}
+	public SystemManager getSystemManager() { return systemManager; }
 
 	public RenderManager getRenderManager() {
 		return renderManager;

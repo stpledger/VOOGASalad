@@ -23,8 +23,8 @@ public class GameInitializer {
     private EntityManager EM;
 
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
-    		EM = new EntityManager(entities);
-    		Collision c = new Collision();
+        EM = new EntityManager(entities);
+        Collision c = new Collision();
         systems = new ArrayList<>();
         systems.add(new Accelerate());
         systems.add(new Motion());
