@@ -21,7 +21,7 @@ public class Sprite extends Component {
 	private ImageView image;
 
 	public Sprite(int pid, String fName) throws FileNotFoundException {
-	    super(pid);
+	    super(pid, KEY);
 		this.filename = fName;
 		try {
 			File imageFile = new File(filename);
