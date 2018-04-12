@@ -142,6 +142,7 @@ public class GameEditorView extends BorderPane {
 	public void setClipboard(Object o) {
 		clipboard = (Object[]) o;
 	}
+	
 	/**
 	 * Consumer to handle adding a new entity to the current level
 	 */
