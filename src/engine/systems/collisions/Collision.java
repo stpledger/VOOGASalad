@@ -11,12 +11,11 @@ import engine.setup.EntityManager;
 import engine.systems.DefaultSystem;
 
 public class Collision extends DefaultSystem{
-	private Map<Integer, Map<String,Component>> handledComponents;
+	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();
 	private Map<Integer, Velocity> colliders;
 	private CollisionHandler handler;
 	
 	public Collision() {
-		handledComponents = EntityManager.getEntities();
 	
 		colliders = new HashMap<>();
 		handler = new CollisionHandler();
@@ -49,6 +48,7 @@ public class Collision extends DefaultSystem{
 					
 					if(top || bot || left || right) {
 						handler.handle(handledComponents, key1, key2);// Signal collision
+						System.out.println("collision!");
 					}
 						
 					List<Double> lengths = new ArrayList<>();
@@ -123,13 +123,14 @@ public class Collision extends DefaultSystem{
 	public void addComponent(int pid, Map<String, Component> components) {
 		if (components.containsKey(Position.KEY) && components.containsKey(Dimension.KEY)) {
 			Map<String, Component> newComponents = new HashMap<>();
+
 			newComponents.put(Dimension.KEY,components.get(Dimension.KEY));
 			newComponents.put(Position.KEY,components.get(Position.KEY));
 			handledComponents.put(pid, newComponents);
+
 			if(components.containsKey(Velocity.KEY)) {
 				colliders.put(pid, (Velocity) components.get(Velocity.KEY));
 			}
-
 		}
 	}
 
