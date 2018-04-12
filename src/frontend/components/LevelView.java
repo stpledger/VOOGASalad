@@ -35,24 +35,9 @@ public class LevelView extends ScrollPane {
 	 */
 	private void setupMouseClick(int levelNum) {
 		this.setOnMouseClicked(e-> {		
-<<<<<<< HEAD
-			if (e.getButton().equals(MouseButton.PRIMARY)) {
-				if(e.getClickCount()==2) {
-					LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
-					lView.open();
-=======
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
 				lView.open();
-			} else if (e.getButton().equals(MouseButton.PRIMARY)) {
-				if(e.getClickCount() == 2) {
-					GlobalPropertiesView GPV = new GlobalPropertiesView(level);
-				}
-				if (e.getClickCount() == 3) {
-					HUDPropertiesView HPV = new HUDPropertiesView(level);
-					HPV.open();
->>>>>>> cfc057d2d57201c0659b86078c34e768f921d3ac
-				}
 			}
 		});
 	}
