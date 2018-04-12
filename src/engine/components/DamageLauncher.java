@@ -17,7 +17,7 @@ public class DamageLauncher extends Component {
 
 
 	public DamageLauncher (int pid, double damage, double lifetime) {
-		super(pid);
+		super(pid, KEY);
 		this.damage = damage;
 		this.lifetime = lifetime;
 	}

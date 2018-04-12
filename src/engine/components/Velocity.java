@@ -20,7 +20,7 @@ public class Velocity extends Component {
      * @param YVel 		entity's initial YVel
      **/
     public Velocity (int pid, double XVel, double YVel) {
-        super(pid);
+        super(pid, KEY);
     	this.XVel = XVel;
         this.YVel = YVel;
     }

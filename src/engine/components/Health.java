@@ -12,7 +12,7 @@ public class Health extends Component {
 	
 	
 	public Health(int pid, double health) {
-		super(pid);
+		super(pid, KEY);
 		this.health = health;
 	}
 	
