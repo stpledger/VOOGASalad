@@ -3,6 +3,7 @@ package frontend.entities;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import frontend.components.LocalPropertiesView;
 import engine.components.Component;
@@ -42,9 +43,14 @@ public abstract class Entity extends ImageView {
     public Entity(int ID) {
         this.ID = ID;
         components = new ArrayList<>();
+        Consumer<List<Component>> onSubmit = (componentsToAdd) -> {
+        		for (Component c : componentsToAdd) {
+        			this.add(c);
+        		}
+        };
         this.setOnMouseClicked(e -> {
         		if (e.getButton().equals(MouseButton.SECONDARY)) {
-        			LocalPropertiesView LPV = new LocalPropertiesView(this);
+        			LocalPropertiesView LPV = new LocalPropertiesView(this.getID(), this.type(), onSubmit);
         			LPV.open();
         		}
         }); 
@@ -56,6 +62,18 @@ public abstract class Entity extends ImageView {
     protected abstract void addDefaultComponents();
    
     /**
+     * Gets the names of all of the components.
+     * @return the names of all of the components
+     *
+     */
+    public List<String> getNames() {
+    		List<String> ans = new ArrayList<>();
+    		for (Component c : this.components) {
+    			ans.add(c.getKey());
+    		}
+    		return ans;
+    }
+    /**
      * 
      * @param c Component object
      */
@@ -64,7 +82,6 @@ public abstract class Entity extends ImageView {
     			if (this.contains(c))
     				this.removeByName(c.getKey());
     			this.components.add(c);
-    			
     		}
     }
     
