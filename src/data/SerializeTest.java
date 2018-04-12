@@ -2,7 +2,12 @@ package data;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-import engine.components.*;
+
+import engine.components.Acceleration;
+import engine.components.Component;
+import engine.components.Position;
+import engine.components.Sprite;
+import engine.components.Velocity;
 import frontend.components.Level;
 
 import java.io.File;

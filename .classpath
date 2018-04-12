@@ -1,22 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-<<<<<<< HEAD
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="C:/Users/Conrad/Downloads/xstream-1.4.10/lib/xstream-1.4.10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Conrad/Downloads/xstream-1.4.10/lib/xstream-benchmark-1.4.10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Conrad/Downloads/xstream-1.4.10/lib/xstream-hibernate-1.4.10.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Conrad/Downloads/xstream-1.4.10/lib/xstream-jmh-1.4.10.jar"/>
-=======
-	<classpathentry kind="lib" path="/Users/zihui/Downloads/xstream-1.4.10/lib/xstream-1.4.10.jar"/>
-	<classpathentry kind="lib" path="/Users/zihui/Downloads/xstream-1.4.10/lib/xstream-benchmark-1.4.10.jar"/>
-	<classpathentry kind="lib" path="/Users/zihui/Downloads/xstream-1.4.10/lib/xstream-hibernate-1.4.10.jar"/>
-	<classpathentry kind="lib" path="/Users/zihui/Downloads/xstream-1.4.10/lib/xstream-jmh-1.4.10.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/Ryan/Downloads/xstream-1.4.10/lib/xstream-1.4.10.jar"/>
 	<classpathentry kind="lib" path="/Users/Ryan/Downloads/xstream-1.4.10/lib/xstream-benchmark-1.4.10.jar"/>
 	<classpathentry kind="lib" path="/Users/Ryan/Downloads/xstream-1.4.10/lib/xstream-hibernate-1.4.10.jar"/>
 	<classpathentry kind="lib" path="/Users/Ryan/Downloads/xstream-1.4.10/lib/xstream-jmh-1.4.10.jar"/>
->>>>>>> 5ffe0488334c8d3bdd3e798934c76a03d31a2a22
 	<classpathentry kind="output" path="bin"/>
 </classpath>
