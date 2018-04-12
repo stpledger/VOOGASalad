@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import engine.components.Component;
-<<<<<<< HEAD
-=======
 import engine.components.Damage;
 import engine.components.Dimension;
 import engine.components.EntityType;
@@ -14,7 +12,6 @@ import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
 import javafx.scene.image.ImageView;
->>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
 
 /**
  * 
@@ -68,13 +65,8 @@ public abstract class Entity extends ImageView{
      * Sets health, because every entity should always have health.
      * @param health
      */
-<<<<<<< HEAD
-	/** public void setHealth(double health) {
-		this.add(ComponentBuilder.buildComponent(this.getID(), "Health", Arrays.asList(new String[] {Double.toString(health)})));
-=======
     protected void setHealth(double health) {
 		this.add(new Health(this.getID(),health));
->>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
 	}
 	
 	/**
@@ -120,15 +112,11 @@ public abstract class Entity extends ImageView{
     protected void setDamage(double damage, double lifetime) {
 		this.add(new Damage(this.getID(),damage,lifetime));
 	}
-<<<<<<< HEAD
-	    **/
-=======
 	        
 	/**
 	 * 
 	 * @return Unique ID of the entity
 	 */
->>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
     public int getID() {
     	return this.ID;
     }
