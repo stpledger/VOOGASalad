@@ -24,8 +24,12 @@ import javafx.stage.Stage;
  * @author Ryan Fu
  *
  */
-public class GamePlayerEntityView {
 
+/**
+ *
+ */
+public class GamePlayerEntityView {
+	
 	private File gameFile;
 	//private Group entityRoot;
 	private Map<Level,Map<Integer,Map<String,Component>>> levelMap;
@@ -34,34 +38,46 @@ public class GamePlayerEntityView {
 	public SystemManager systemManager;
 	public RenderManager renderManager;
 	private Level one;
-
-	public GamePlayerEntityView(File file) {
+	private Consumer onMenuLevelSelect;
+	private InputHandler inputHandler;
+	private Map<Level, Map<Integer, Map<String, Component>>> levelMap;
+	
+	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
+		//Changed the code enclosed to load a random level and create an entity map
 		levelMap = gameState.getGameState();
-		Set<Level> levelMapKeyset = levelMap.keySet();
-		one = levelMapKeyset.iterator().next();
-		try {
-			initializeGamePlayerEntityView();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+		for(Level level : levelMap.keySet()) {
+			entityMap = levelMap.get(level);
+			break;
 		}
+//This is mainly for debugging purposes not entirely sure how you will get specific levels out of the mao
+// because they arent ordered probably will have to iterate through levels and look at levelnum of each
+		initializeGamePlayerEntityView();
 	}
-
 
 	/**
 	 * Return a Group that adds all the entity image objects
 	 * @return
 	 */
+	//Make Entity Group accept a Hashmap for individual Levels
 	public Group createEntityGroup() {
 		Group entityRoot = new Group();
 		Set<Integer> keyset = levelMap.get(one).keySet();  //change dependency later
 		Map<String, Component> entityComponents;
-		for (int i = 0; i<keyset.size();i++) {
-			entityComponents = levelMap.get(one).get(i); //change dependency later ****
-			Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
-			ImageView image = spriteComponent.getImage(); //gets the class of the sprite
-			entityRoot.getChildren().add(image);
+//Changed enclosed code to only load sprites for 
+		for(Integer i : entityMap.keySet()) {
+			entityComponents = entityMap.get(i);
+			if(entityComponents.containsKey("Sprite")) {
+				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
+				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
+				image.setX(200);
+				image.setY(200);
+				//image.setImage(new Image("mystery.jpg"));
+				System.out.print(image.getX());
+				//System.exit(0);
+				entityRoot.getChildren().add(image);
+			}
 		}
 		return entityRoot;
 	}
@@ -70,8 +86,15 @@ public class GamePlayerEntityView {
 	 * initialize the Game Initializer to create the systemManager and renderManager.
 	 * @throws FileNotFoundException
 	 */
-	private void initializeGamePlayerEntityView() throws FileNotFoundException {
-		gameInitializer = new GameInitializer(levelMap.get(one)); //gets only level 1
+	private void initializeGamePlayerEntityView() {
+		try {
+			gameInitializer = new GameInitializer(entityMap);
+			inputHandler = gameInitializer.getIH();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("You made it this far");
+			e.printStackTrace();
+		}
 		systemManager = gameInitializer.getSM();
 		renderManager = gameInitializer.getRM();
 	}
@@ -82,6 +105,10 @@ public class GamePlayerEntityView {
 
 	public RenderManager getRenderManager() {
 		return renderManager;
+	}
+
+	public void setInput(KeyCode code){
+		inputHandler.addCode(code);
 	}
 
 

@@ -30,7 +30,7 @@ public class EntityType extends Component{
 		return type;
 	}
 
-	public String getKey() {
+	public static String getKey() {
 		return KEY;
 	}
 

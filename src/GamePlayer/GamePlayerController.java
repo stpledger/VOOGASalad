@@ -1,4 +1,4 @@
-/**package GamePlayer;
+package GamePlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -8,7 +8,7 @@ import java.util.Set;
 import java.util.function.Consumer;
 
 import HUD.SampleToolBar;
-
+import Menu.MenuGameBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
 import engine.systems.InputHandler;
@@ -57,8 +57,8 @@ public class GamePlayerController {
 	
 	public Scene intializeStartScene() {
 		SampleToolBar sampleBar = new SampleToolBar();
-		//MenuGameBar menuBar = new MenuGameBar();
-		//pane.setBottom(menuBar);
+		MenuGameBar menuBar = new MenuGameBar();
+		pane.setBottom(menuBar);
 		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			try{
@@ -86,4 +86,50 @@ public class GamePlayerController {
 		});
 		return myScene;
 	}
-	**/
+	
+	/**
+	 * Method that begins displaying the game
+	 * @throws FileNotFoundException 
+	 */
+	public void initializeGameStart() throws FileNotFoundException {
+		/**
+		 * When the Game Starts create the Level Map;
+		 */
+		currentFile = fileBtn.getFile();
+		gameView = new GamePlayerEntityView(currentFile);
+		
+		
+		gameRoot = gameView.createEntityGroup();
+		//gameRoot.getChildren().add(new Rectangle(200,200));
+		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
+		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
+		
+		initializeGameAnimation(); //begins the animation cycle
+
+	}
+
+	/**
+	 * Begins the animation cycle count of the animation after game has started
+	 */
+	public void initializeGameAnimation() {
+		
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
+				e -> step(SECOND_DELAY, gameRoot));
+		Timeline animation = new Timeline();
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
+	}
+
+	
+	/**
+	 * Step method that repeats the animation by checking entities using render and system Manager
+	 * @param elapsedTime
+	 * @param root
+	 */
+	private void step (double elapsedTime, Group root) {
+		gameView.getSystemManager().execute(elapsedTime);
+		gameView.getRenderManager().garbageCollect();
+		gameView.getRenderManager().renderObjects();
+	}
+}
