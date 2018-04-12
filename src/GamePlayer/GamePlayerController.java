@@ -100,23 +100,14 @@ public class GamePlayerController {
 
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
-<<<<<<< HEAD
 
 		levelEntityGroupMap = gameView.getlevelEntityMap();
 		gameRoot = levelEntityGroupMap.get(1);
 
 		pane.getChildren().addAll(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
-		
-=======
-		
-		
-		gameRoot = gameView.createEntityGroup();
-		levelEntityGroupMap = gameView.getlevelEntityMap(); //Map with each individual level with groups.
-		//gameRoot.getChildren().add(new Rectangle(200,200));
-		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
-		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
->>>>>>> e686802322d8502125252eb0c7a32ae77a88d4b9
+
 		initializeGameAnimation(); //begins the animation cycle
+
 	}
 
 	/**

@@ -125,14 +125,10 @@ public class GamePlayerEntityView {
 		}
 		inputHandler = gameInitializer.getIH();
 	}
-
-<<<<<<< HEAD
+	
 	public void execute (double time) {
 		gameInitializer.execute(time);
 	}
-=======
-	public SystemManager getSystemManager() { return systemManager; }
->>>>>>> e686802322d8502125252eb0c7a32ae77a88d4b9
 
 	public void render() {
 		gameInitializer.render();
