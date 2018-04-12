@@ -10,12 +10,14 @@ package engine.components;
 public abstract class Component {
 	
 	private int pid;
+	private String keykey;
 	
 	/**
 	 * Constructs component with entity parent ID
 	 * @param pid	ID of parent. Can not be changed externally.
 	 */
-	public Component(int pid) {
+	public Component(int pid, String keykey) {
+		this.keykey = keykey;
 		this.pid = pid;
 	}
 	
@@ -23,6 +25,6 @@ public abstract class Component {
 		return pid;
 	}
 
-	public static String getKey() { return ""; }
+	public String getKeyKey() { return keykey; }
 
 }

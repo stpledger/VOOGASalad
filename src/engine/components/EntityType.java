@@ -10,7 +10,7 @@ public class EntityType extends Component{
 	public static String KEY = "EntityType";
 	
 	public EntityType(int pid, String type) {
-		super(pid);
+		super(pid, KEY);
 		this.type = type;
 	}
 
@@ -30,7 +30,7 @@ public class EntityType extends Component{
 		return type;
 	}
 
-	public String getKey() {
+	public static String getKey() {
 		return KEY;
 	}
 
