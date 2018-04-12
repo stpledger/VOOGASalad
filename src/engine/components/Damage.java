@@ -16,7 +16,7 @@ public class Damage extends Component {
 
 
 	public Damage(int pid, double damage, double lifetime) {
-		super(pid);
+		super(pid, KEY);
 		this.damage = damage;
 		this.lifetime = lifetime;
 	}

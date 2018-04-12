@@ -36,17 +36,16 @@ public class Sprite extends Component {
 	public String getName() { return filename; }
 
 	public ImageView getImage() {
-		ImageView image=new ImageView(new Image("File:data/"+filename));
 		return image;
 	}
 
-	public void setImage(String im) throws FileNotFoundException {
+	/**public void setImage(String im) throws FileNotFoundException {
 		try {
 			image.setImage(new Image(im));
 		} catch (RuntimeException e) {
-			
+			System.out.println("oops");
 		}
-	}
+	}**/
 
 	public static String getKey() { return KEY; }
 
