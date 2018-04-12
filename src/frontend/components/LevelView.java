@@ -52,14 +52,12 @@ public class LevelView extends BorderPane {
 	 * @param levelNum Level number
 	 */
 	private void setupMouseClick(int levelNum) {
-		this.contentPane.setOnMouseClicked((e)-> {
-			if(e.getButton().equals(MouseButton.SECONDARY)) {
-				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
-				lView.open();
-				System.out.println(this.contentPane.getWidth());
-			}
+		this.setOnMouseClicked(e-> {		
 			if(e.getButton().equals(MouseButton.PRIMARY)) {
-				addEntity.accept(e);
+				if (e.getClickCount() == 2) {
+					LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
+					lView.open();
+				}
 			}
 		});
 	}

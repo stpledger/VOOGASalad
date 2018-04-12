@@ -60,6 +60,12 @@ public class GameEditorView extends BorderPane {
 		state = new GameState();
 		addLevel(); // add the first level
 		this.setCenter(tabPane);
+		tabPane.setOnMouseClicked((e) -> {
+			if (e.getButton().equals(MouseButton.PRIMARY)) {
+				if (e.getClickCount() == 1)
+					addEntity.accept(e);
+			}
+		}); // Add a new Entity OnClick
 	}
 	
 	/**
