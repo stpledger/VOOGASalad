@@ -14,7 +14,7 @@ public class KeyInput extends Component {
 	public static String KEY = "KeyInput";
 	
 	public KeyInput(int pid, KeyCode code, Consumer con) {
-		super(pid);
+		super(pid, KEY);
 		codes.put(code, con);
 	}
 

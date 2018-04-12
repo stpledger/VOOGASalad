@@ -72,7 +72,7 @@ public class InputHandler implements ISystem {
 
 	public void addCode(KeyCode code) {
 		activeCodes.add(code);
-		System.out.println(code);
+		//System.out.println(code);
 	}
 
 	@Override

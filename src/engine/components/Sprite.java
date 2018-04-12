@@ -22,31 +22,25 @@ public class Sprite extends Component {
 	private ImageView image;
 
 	public Sprite(int pid, String path) throws FileNotFoundException {
-	    super(pid);
-		this.filename = path;
-		try {
-			setImage(filename);
-		}
-		catch(RuntimeException e){
-			System.out.print("Havent created javafx form");
-		}
-
+	    super(pid, KEY);
+		filename = path;
+		Image im = new Image(filename);
+		image = new ImageView(im);
 	}
 
 	public String getName() { return filename; }
 
 	public ImageView getImage() {
-		ImageView image=new ImageView(new Image("File:data/"+filename));
 		return image;
 	}
 
-	public void setImage(String im) throws FileNotFoundException {
+	/**public void setImage(String im) throws FileNotFoundException {
 		try {
 			image.setImage(new Image(im));
 		} catch (RuntimeException e) {
-			
+			System.out.println("oops");
 		}
-	}
+	}**/
 
 	public static String getKey() { return KEY; }
 
