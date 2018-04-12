@@ -1,15 +1,19 @@
 package engine.test;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import data.DataGameState;
+import data.DataWrite;
 import engine.Engine;
 import engine.InternalEngine;
 import engine.components.*;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
+import frontend.components.Level;
 import javafx.scene.input.KeyCode;
 
 public class TestGameState {
@@ -20,30 +24,30 @@ public class TestGameState {
 
 	public TestGameState() throws FileNotFoundException {
 		entities = new HashMap<>();
-		Sprite s = new Sprite(0,"engine/components/Waluigi.png");
+		Sprite s = new Sprite(0,"mario.png");
 		//Sprite s2 = new Sprite(1,"engine/components/Waluigi.png");
-		Sprite s3 = new Sprite(2,"engine/components/Waluigi.png");
+		Sprite s3 = new Sprite(2,"mario.png");
 
 		EntityType type = new EntityType(0,"player");
 		Position p = new Position(0, 100, 100);
 		Dimension d = new Dimension(0, 100, 100);
 		Velocity v = new Velocity(0, 0, 0);
 
-		Acceleration a = new Acceleration(0, 0, 0);
-		KeyInput k = new KeyInput(0, KeyCode.RIGHT, e -> {
-			p.setXPos(p.getXPos()+10);
+		Acceleration a = new Acceleration(0, 0, 9.8);
+		KeyInput k = new KeyInput(0, KeyCode.RIGHT, (Runnable & Serializable) () -> {
+			v.setXVel(v.getXVel()+10);
 		});
-		k.addCode(KeyCode.UP,e->
+		k.addCode(KeyCode.UP, (Runnable & Serializable)() ->
 		{ 
-			p.setYPos(p.getYPos()-10);	
+			v.setYVel(v.getYVel()-10);
 		});
-		k.addCode(KeyCode.DOWN,e->
+		k.addCode(KeyCode.DOWN,(Runnable & Serializable) () ->
 		{ 
-			p.setYPos(p.getYPos()+10);	
+			v.setYVel(v.getYVel()+10);
 		});
-		k.addCode(KeyCode.LEFT,e->
+		k.addCode(KeyCode.LEFT,(Runnable & Serializable) () ->
 		{ 
-			p.setXPos(p.getXPos()-10);	
+			v.setXVel(v.getXVel()-10);
 		});
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
@@ -102,7 +106,15 @@ public class TestGameState {
 		ih = gi.getIH();
 		eng = new InternalEngine(gi.getSystems());
 
-
+		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
+		Level l = new Level(1);
+		state.put(l,entities);
+		DataGameState dState = new DataGameState(state);
+		try {
+			DataWrite.saveFile(dState, "Demo");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 

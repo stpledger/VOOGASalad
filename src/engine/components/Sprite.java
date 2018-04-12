@@ -27,7 +27,7 @@ public class Sprite extends Component {
 	private String filename;
 
 	@XStreamOmitField
-	private ImageView image;
+	private transient ImageView image;
 
 	public Sprite(int pid, String path) throws FileNotFoundException {
 	    super(pid, KEY);
