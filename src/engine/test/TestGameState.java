@@ -30,12 +30,24 @@ public class TestGameState {
 		Velocity v = new Velocity(0, 0, 0);
 
 		Acceleration a = new Acceleration(0, 0, 0);
-		KeyInput k = new KeyInput(0, KeyCode.SPACE, e -> {
+		KeyInput k = new KeyInput(0, KeyCode.RIGHT, e -> {
 			p.setXPos(p.getXPos()+10);
+		});
+		k.addCode(KeyCode.UP,e->
+		{ 
+			p.setYPos(p.getYPos()-10);	
+		});
+		k.addCode(KeyCode.DOWN,e->
+		{ 
+			p.setYPos(p.getYPos()+10);	
+		});
+		k.addCode(KeyCode.LEFT,e->
+		{ 
+			p.setXPos(p.getXPos()-10);	
 		});
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
-
+        Player play = new Player(0);
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(Position.getKey(), p);
 		mario.put(Dimension.getKey(), d);
@@ -46,7 +58,7 @@ public class TestGameState {
 		mario.put(KeyInput.getKey(), k);
 		mario.put(Health.getKey(), h);
 		mario.put(DamageLauncher.getKey(), launcher);
-
+        mario.put(Player.getKey(), play);
 //		EntityType type2 = new EntityType(1,"enermy");
 //		Position p2 = new Position(1, 200, 100);
 //		Dimension d2 = new Dimension(1, 100, 100);
@@ -69,8 +81,8 @@ public class TestGameState {
 		Position p3 = new Position(2, 300, 100);
 		Dimension d3 = new Dimension(2, 100, 100);
 		Velocity v3 = new Velocity(2, 0, 0);
-		Acceleration a3 = new Acceleration(1, 0, 0);
-		Health h3 = new Health(0,10);
+		Acceleration a3 = new Acceleration(2, 0, 0);
+		Health h3 = new Health(2,10);
 		DamageLauncher launcher3 = new DamageLauncher(0,2,2);
 
 		Map<String, Component> mario3 = new HashMap<>();
