@@ -23,8 +23,8 @@ public class Level {
 	private Map<String,Boolean> HUDprops;
 	private Map<String,String> GProps;
 	
-	public Level(int level) {
-		this.setLevelNum(level);
+	public Level(int levelNum) {
+		this.levelNum = levelNum;
 		this.entityList = new ArrayList<Entity>();
 		this.HUDprops = new HashMap<>();
 		this.GProps = new HashMap<>();
