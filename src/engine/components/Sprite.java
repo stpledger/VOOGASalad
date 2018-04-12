@@ -39,7 +39,7 @@ public class Sprite extends Component {
 	public String getName() { return filename; }
 
 	public ImageView getImage() {
-		image= new ImageView(new Image("File:data/"+filename));
+		if (image == null) image= new ImageView(new Image("File:data/"+filename));
 		return image;
 	}
 
