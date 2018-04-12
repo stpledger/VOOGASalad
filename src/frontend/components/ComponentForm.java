@@ -94,8 +94,6 @@ public class ComponentForm extends GridPane {
 		Object reflectValue;
 		if (desiredType.equals(double.class))
 			reflectValue = Double.parseDouble(text);
-		else if (desiredType.equals(int.class))
-			reflectValue = Integer.parseInt(text);
 		else
 			reflectValue = text;
 		return reflectValue;

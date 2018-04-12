@@ -6,6 +6,7 @@ import data.DataWrite;
 
 import java.util.ArrayList;
 import frontend.components.Level;
+import frontend.entities.Entity;
 
 /**
  * Keeps track of the current state of the authoring environment, so that the author can save/load games dynamically. 
@@ -62,5 +63,15 @@ public class GameState implements IGameState {
 	
 	public List<Level> getLevels() {
 		return state;
+	}
+	
+	public void printState() {
+		for (Level level : this.state) {
+			for (Entity e : level.getEntityList()) {
+				for (Component c : e.getComponentList()) {
+					System.out.println(e.type() + " has component " + c.getKey());
+				}
+			}
+		}
 	}
 }

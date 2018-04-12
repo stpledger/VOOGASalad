@@ -127,6 +127,7 @@ public class GameEditorView extends BorderPane {
 		Tab t = tabsList.get(tabsList.size()-1);
 		t.setText("Level " + (tabsList.indexOf(t)+1));
 		Level level = new Level(tabsList.indexOf(t)+1);
+		state.addLevel(level);
 		t.setContent(new LevelView(level,tabsList.indexOf(t)+1));
 		t.setOnClosed(e -> {
 			tabsList.remove(t);
@@ -190,7 +191,8 @@ public class GameEditorView extends BorderPane {
 			}
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity); //add the entity to the level
 			nextID++; //Increment id's by one
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+			state.printState();
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException | IOException e1) {
 			e1.printStackTrace();
 		} 
