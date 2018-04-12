@@ -1,4 +1,4 @@
-//package GamePlayer;
+package GamePlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -30,7 +30,11 @@ import javafx.stage.Stage;
  * @author Ryan Fu
  *
  */
-/**public class GamePlayerEntityView {
+
+/**
+ *
+ */
+public class GamePlayerEntityView {
 	
 	private File gameFile;
 	//private Group entityRoot;
@@ -42,12 +46,13 @@ import javafx.stage.Stage;
 	private Level one;
 	private Consumer onMenuLevelSelect;
 	private InputHandler inputHandler;
+	private Map<Level, Map<Integer, Map<String, Component>>> levelMap;
 	
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
 		//Changed the code enclosed to load a random level and create an entity map
-		Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
+		levelMap = gameState.getGameState();
 		for(Level level : levelMap.keySet()) {
 			entityMap = levelMap.get(level);
 			break;
@@ -55,23 +60,14 @@ import javafx.stage.Stage;
 //This is mainly for debugging purposes not entirely sure how you will get specific levels out of the mao
 // because they arent ordered probably will have to iterate through levels and look at levelnum of each
 		initializeGamePlayerEntityView();
-<<<<<<< HEAD
-	}**/
-=======
 	}
 
->>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
-	
 	/**
 	 * Return a Group that adds all the entity image objects 
 	 * @return
 	 */
-<<<<<<< HEAD
-	/**public Group createEntityGroup() {
-=======
 	//Make Entity Group accept a Hashmap for individual Levels
 	public Group createEntityGroup() {
->>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
 		Group entityRoot = new Group();
 		Map<String, Component> entityComponents;
 //Changed enclosed code to only load sprites for 
@@ -90,19 +86,12 @@ import javafx.stage.Stage;
 		}
 //entities that have sprites and setup sprite images
 		return entityRoot;
-	}**/
+	}
 	
 	/**
 	 * initialize the Game Initializer to create the systemManager and renderManager.
 	 * @throws FileNotFoundException 
 	 */
-<<<<<<< HEAD
-	/**private void initializeGamePlayerEntityView() {
-		gameInitializer = new GameInitializer(entityMap);
-		systemManager = gameInitializer.getSM();
-		renderManager = gameInitializer.getRM();
-	}**/
-=======
 	private void initializeGamePlayerEntityView() {
 		try {
 			gameInitializer = new GameInitializer(entityMap);
@@ -131,21 +120,13 @@ import javafx.stage.Stage;
 	public RenderManager getRenderManager() {
 		return renderManager;
 	}
->>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
 
 	public void setInput(KeyCode code){
 		inputHandler.addCode(code);
 	}
-<<<<<<< HEAD
-	
-	
-//}
-
-=======
 
 
 	public void removeInput(KeyCode code) {
 		inputHandler.removeCode(code);
 	}
 }
->>>>>>> 5ffe0488334c8d3bdd3e798934c76a03d31a2a22
