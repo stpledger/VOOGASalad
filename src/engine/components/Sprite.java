@@ -1,5 +1,4 @@
 package engine.components;
-import java.io.File;
 import java.io.FileNotFoundException;
 
 
@@ -7,7 +6,9 @@ import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -29,15 +30,10 @@ public class Sprite extends Component {
 	private ImageView image;
 
 	public Sprite(int pid, String path) throws FileNotFoundException {
-		super(pid, KEY);
-		this.filename = path;
-		try {
-			setImage(filename);
-		}
-		catch (RuntimeException e) {
-			System.out.println("Can not find image files");
-		}
-
+	    super(pid, KEY);
+		filename = path;
+		Image im = new Image(filename);
+		image = new ImageView(im);
 	}
 
 	public String getName() { return filename; }
