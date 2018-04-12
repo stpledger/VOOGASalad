@@ -1,10 +1,17 @@
 package engine.components;
-import java.io.File;
 import java.io.FileNotFoundException;
 
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
+<<<<<<< HEAD
+import java.util.ArrayList;
+import java.util.List;
+
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
+=======
+>>>>>>> cfc057d2d57201c0659b86078c34e768f921d3ac
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
@@ -17,6 +24,7 @@ import javafx.scene.shape.Rectangle;
 public class Sprite extends Component {
 	public static String KEY = "Sprite";
 	private String filename;
+
 	//@XStreamOmitField
 	private ImageView image;
 

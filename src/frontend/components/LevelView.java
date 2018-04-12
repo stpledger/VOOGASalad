@@ -1,6 +1,7 @@
 package frontend.components;
 
 import frontend.entities.Entity;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.GridPane;
@@ -13,13 +14,33 @@ public class LevelView extends ScrollPane {
 	
 	private GridPane pane;
 	private Level level;
+	private Button HUDButton;
+	private Button GButton;
 	
 	public LevelView(Level level, int levelNum) {
 		this.getStyleClass().add("level-view");
-		this.setLevel(level);
+		this.level = level;
+		this.pane = new GridPane();
 		this.setContent(pane);
+		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.getStyleClass().add("level-view-wrapper");
+		this.setupMouseClick(levelNum);
+		this.setupButtons();
+	}
+	
+	/**
+	 * Sets up mouse click events
+	 * @param levelNum Level number
+	 */
+	private void setupMouseClick(int levelNum) {
 		this.setOnMouseClicked(e-> {		
+<<<<<<< HEAD
+			if (e.getButton().equals(MouseButton.PRIMARY)) {
+				if(e.getClickCount()==2) {
+					LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
+					lView.open();
+=======
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
 				lView.open();
@@ -30,13 +51,26 @@ public class LevelView extends ScrollPane {
 				if (e.getClickCount() == 3) {
 					HUDPropertiesView HPV = new HUDPropertiesView(level);
 					HPV.open();
+>>>>>>> cfc057d2d57201c0659b86078c34e768f921d3ac
 				}
 			}
 		});
 	}
 	
-	public void setLevel(Level level) {
-		this.level = level;
+	/**
+	 * Sets up buttons for each level view
+	 */
+	private void setupButtons() {
+		this.HUDButton = MenuItemBuilder.buildButton("HUD Properties", e->{
+			HUDPropertiesView HPV = new HUDPropertiesView(level);
+			HPV.open();
+		});
+		this.GButton = MenuItemBuilder.buildButton("Global Properties", e->{
+			GlobalPropertiesView GPV = new GlobalPropertiesView(level);
+			GPV.open();
+		});
+		pane.add(this.GButton, 0, 0);
+		pane.add(this.HUDButton, 0, 1);
 	}
 	
 	/**

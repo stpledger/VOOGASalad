@@ -79,7 +79,7 @@ public class GameEditorView extends BorderPane {
 		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", GAME_FILE_EXTENSION));
 		gameFile = fileChooser.showOpenDialog(new Stage());};
 	//Handles save game call from toolbar
-	Consumer saveGame = (e)->{System.out.println("Save Game!");};
+	Consumer saveGame = (e)->{state.save();};
 	//Handles the add new level call from toolbar
 	Consumer newLevel = (e)->{addLevel();};
 	//Handles the show settings call from toolbar
@@ -133,6 +133,7 @@ public class GameEditorView extends BorderPane {
 			updateTabs.accept(tabsList);
 		});
 		tabPane.getTabs().add(t);
+		state.addLevel(level);
 	}
 	
 	/**

@@ -26,6 +26,7 @@ public class DataGameState {
     public DataGameState(GameState gameState) {
         this();
         for(Level level : gameState.getLevels()) {
+        	System.out.print("Level");
             Map<Integer, Map<String, Component>> entityMap = new HashMap<>();
             for (Entity entity : level.getEntityList()) {
                 Map<String, Component> componentMap = new HashMap<>();

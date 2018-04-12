@@ -1,16 +1,17 @@
 package frontend.gamestate;
 
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
+
+import data.DataWrite;
+
 import java.util.ArrayList;
-import engine.components.Component;
 import frontend.components.Level;
 
 /**
  * Keeps track of the current state of the authoring environment, so that the author can save/load games dynamically. 
  *
  * @author Dylan Powers
+ * @author Hemanth Yakkali(hy115)
  *
  */
 public class GameState implements IGameState {
@@ -27,7 +28,14 @@ public class GameState implements IGameState {
 	
 	@Override
 	public void save() {
-		
+		try {
+			DataWrite.saveFile(this,"Test");
+			System.out.println("saved!");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.print("didnt work");
+		}
 	}
 	
 	/**
@@ -52,8 +60,7 @@ public class GameState implements IGameState {
 		}
 	}
 	
-	public List<Level> getLevels()
-	{
+	public List<Level> getLevels() {
 		return state;
 	}
 }

@@ -36,7 +36,7 @@ public class DataWrite {
     /*does the backend work to create new files in the game directory
      */
     private static File createFile(DataGameState dataGameState, String name) throws Exception {
-        File xmlFile = new File(System.getProperty("user.dir")+GAME_FILEPATH+name+XML_FILETYPE);
+        File xmlFile = new File(name+XML_FILETYPE);
         FileOutputStream fos = new FileOutputStream(xmlFile);
         XStream xstream = new XStream(new DomDriver()); 
         xstream.toXML(dataGameState, fos);
