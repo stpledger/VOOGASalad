@@ -40,9 +40,8 @@ public class Damage extends Component {
 	public void setLifetime(double lifetime) {
 		this.lifetime = lifetime;
 	}
-
 	
-	public String getKey() {
+	public static String getKey() {
 		return KEY;
 	}
 

@@ -46,7 +46,7 @@ public class LocalPropertiesView extends PropertiesView {
 	protected void fill() {
 		int currentRow = 0;
 		this.activeForms = new ArrayList<>();
-		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + type).keySet()) {
+		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + entity.type()).keySet()) {
 			ComponentForm cf = new ComponentForm(this.entity.getID(), property, numFields(property));
 			this.activeForms.add(cf);
 			getRoot().add(cf, 0, currentRow++);
@@ -67,7 +67,7 @@ public class LocalPropertiesView extends PropertiesView {
 	 */
 	@Override
 	public String title() {
-		return String.format("Entity %d Local Properties", this.entityID);
+		return String.format("Entity %d Local Properties", this.entity.getID());
 	}
 	
 	/**

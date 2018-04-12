@@ -1,4 +1,4 @@
-/**package frontend.entities;
+package frontend.entities;
 
 /**
  * 

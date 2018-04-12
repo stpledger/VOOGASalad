@@ -191,7 +191,7 @@ public class GameEditorView extends BorderPane {
 			nextID++; //Increment id's by one
 		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException | IOException e1) {
-			System.out.println("Error creating entity");
+			e1.printStackTrace();
 		} 
 	};
 	

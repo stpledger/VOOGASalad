@@ -7,8 +7,6 @@ import java.util.function.Consumer;
 
 import frontend.components.LocalPropertiesView;
 import engine.components.Component;
-<<<<<<< HEAD
-=======
 import engine.components.Damage;
 import engine.components.Dimension;
 import engine.components.EntityType;
@@ -16,11 +14,7 @@ import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
 import javafx.scene.image.ImageView;
-<<<<<<< HEAD
 import javafx.scene.input.MouseButton;
-=======
->>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
->>>>>>> a39218190c2abbad283b29871373a4f5975b4991
 
 /**
  * 
@@ -49,11 +43,6 @@ public abstract class Entity extends ImageView {
     public Entity(int ID) {
         this.ID = ID;
         components = new ArrayList<>();
-        Consumer<List<Component>> addComponents = (componentsToAdd) -> {
-        		for (Component c : componentsToAdd) {
-        			this.add(c);
-        		}
-        };
         this.setOnMouseClicked(e -> {
         		if (e.getButton().equals(MouseButton.SECONDARY)) {
         			LocalPropertiesView LPV = new LocalPropertiesView(this);
@@ -96,6 +85,7 @@ public abstract class Entity extends ImageView {
     		for (Component c : this.components) {
     			if (c.getKey().equals(name)) {
     				this.remove(c);
+    				return;
     			}
     		}
     }
@@ -105,7 +95,7 @@ public abstract class Entity extends ImageView {
      * @param c the component to check
      * @return true iff the component already belongs to this entity
      */
-    public boolean contains(Component c) {
+    private boolean contains(Component c) {
     		for (Component existing : this.components) {
     			if (existing.getKey() == c.getKey())
     				return true;
@@ -118,7 +108,13 @@ public abstract class Entity extends ImageView {
      * @param name the name of the component to check
      * @return true iff the component already belongs to this entity
      */
-    
+    private boolean contains(String name) {
+    		for (Component existing : this.components) {
+    			if (existing.getKey().equals(name))
+    				return true;
+    		}
+    		return false;
+    }
     
     /**
      * Sets health, because every entity should always have health.
