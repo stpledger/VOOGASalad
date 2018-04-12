@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Consumer;
 
 import data.DataGameState;
 import data.DataRead;
@@ -15,10 +16,12 @@ import engine.components.Sprite;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
+import engine.systems.InputHandler;
 import frontend.components.Level;
 import javafx.scene.Group;
 import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
@@ -31,7 +34,7 @@ import javafx.stage.Stage;
  *
  */
 public class GamePlayerEntityView {
-	
+
 	private File gameFile;
 	//private Group entityRoot;
 	private Map<Level,Map<Integer,Map<String,Component>>> levelMap;
@@ -43,8 +46,8 @@ public class GamePlayerEntityView {
 	private Consumer onMenuLevelSelect;
 	private InputHandler inputHandler;
 	private Map<Integer, Group> levelEntityMap;
-	private Map<Level, Map<Integer, Map<String, Component>>> levelMap;
-	
+	private Map<Integer, Map<String, Component>> entityMap;
+
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
@@ -55,9 +58,9 @@ public class GamePlayerEntityView {
 			break;
 		}
 		//method tht builds the entire levelEntityMap;
-		levelEntityMap = createEntityGroupMap(levelMap);
-//This is mainly for debugging purposes not entirely sure how you will get specific levels out of the mao
-// because they arent ordered probably will have to iterate through levels and look at levelnum of each
+	//	levelEntityMap = createEntityGroupMap(levelMap);
+		//This is mainly for debugging purposes not entirely sure how you will get specific levels out of the mao
+		// because they arent ordered probably will have to iterate through levels and look at levelnum of each
 		initializeGamePlayerEntityView();
 	}
 
@@ -68,8 +71,8 @@ public class GamePlayerEntityView {
 	public Map<Integer, Group> getlevelEntityMap(){
 		return levelEntityMap;
 	}
-	
-//**************************************************************************
+
+	//**************************************************************************
 	//TESTING PURPOSED FOR LEVEL SELECTOR
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
@@ -85,7 +88,7 @@ public class GamePlayerEntityView {
 		}
 		return levelEntityMap;
 	}
-	
+
 	/**
 	 * Method that creates all the groups for each level in a levelMap.
 	 * @param entityMap
@@ -94,24 +97,24 @@ public class GamePlayerEntityView {
 	public Group createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap) {
 		Group entityRoot = new Group();
 		Map<String, Component> entityComponents;
-//Changed enclosed code to only load sprites for 
+		//Changed enclosed code to only load sprites for 
 		for(Integer i : entityMap.keySet()) {
 			entityComponents = entityMap.get(i);
 			if(entityComponents.containsKey("Sprite")) {
 				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
-//				image.setX(200);
-//				image.setY(200);
+				//				image.setX(200);
+				//				image.setY(200);
 				//image.setImage(new Image("mystery.jpg"));
 				System.out.print(image.getX());
 				//System.exit(0);
 				entityRoot.getChildren().add(image);
 			}
 		}
-//entities that have sprites and setup sprite images
+		//entities that have sprites and setup sprite images
 		return entityRoot;
 	}
-	
+
 	//**************************************************************************
 
 	/**
@@ -123,7 +126,7 @@ public class GamePlayerEntityView {
 		Group entityRoot = new Group();
 		Set<Integer> keyset = levelMap.get(one).keySet();  //change dependency later
 		Map<String, Component> entityComponents;
-//Changed enclosed code to only load sprites for 
+		//Changed enclosed code to only load sprites for 
 		for(Integer i : entityMap.keySet()) {
 			entityComponents = entityMap.get(i);
 			if(entityComponents.containsKey("Sprite")) {
@@ -169,8 +172,8 @@ public class GamePlayerEntityView {
 		inputHandler.addCode(code);
 	}
 
-//
-//	public void removeInput(KeyCode code) {
-//		//inputHandler.removeCode(code);
-//	}
+	//
+	//	public void removeInput(KeyCode code) {
+	//		//inputHandler.removeCode(code);
+	//	}
 }
