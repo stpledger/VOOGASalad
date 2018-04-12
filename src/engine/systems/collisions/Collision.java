@@ -28,7 +28,6 @@ public class Collision extends DefaultSystem{
 	}
 	
 	public void execute(double time) {
-		//System.out.println(colliders.containsKey(Dimension.KEY));
 		colliders.forEach((key1, vel) -> {
 			handledComponents.forEach((key2, map) -> {				// Hooooorrible code, refactor
 				
@@ -67,7 +66,7 @@ public class Collision extends DefaultSystem{
 					
 					if(righttop || rightbot || lefttop ||  leftbot || rightonly || leftonly || toponly || botonly) {
 						handler.handle(handledComponents, key1, key2);// Signal collision
-						System.out.println("collision");
+						//System.out.println("collision");
 					}
 						
 					List<Double> lengths = new ArrayList<>();
@@ -77,70 +76,24 @@ public class Collision extends DefaultSystem{
 					lengths.add(rightOverlap);
 					
 					Collections.sort(lengths);
-					
-					for(int i = 0; i < lengths.size(); i++) {
-						if(lengths.get(i) > 0) {
-							if(toponly) {
-								p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2); 
-								//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);// Change velocity
-							} else if(botonly) {
-								p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(9.8);
-							} 
-							else if(leftbot) {
-								System.out.println(botOverlap>rightOverlap);
-								if(botOverlap>leftOverlap) {
-									p1.setXPos(p2.getXPos() - d2.getWidth()/2-d1.getWidth()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(9.8);	
-								}
-								else {
-									p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(9.8);			
-								}
-							}
-							else if (rightbot) {
-								if(botOverlap>rightOverlap) {
-									p1.setXPos(p2.getXPos() + d2.getWidth()/2+d1.getWidth()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(9.8);	
-								}
-								else {
-									p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(9.8);			
-								}
-								
-							}
-							else if (lefttop) {
-								if(topOverlap<leftOverlap) {
-									p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
-								}
-								else {
-									p1.setXPos(p2.getXPos() - d1.getWidth()/2-d2.getWidth()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(9.8);
-								}
-							}
-							else if (righttop) {
-								if(topOverlap<rightOverlap) {
-									p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
-								}
-								else {
-									p1.setXPos(p2.getXPos() + d1.getWidth()/2+d2.getWidth()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(9.8);
-								}
-							}
-							else if(leftonly) {
-								p1.setXPos(p2.getXPos() - d1.getWidth()/2-d2.getWidth()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(9.8);
-							} else if(rightonly) {
-								p1.setXPos(p2.getXPos() + d2.getWidth()/2+d1.getWidth()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(9.8);
-							}
-							else if(rightbot) {
-								
-							}
-						}
-					}
-					
-				}
+
+					/**
+                    for(int i = 0; i < lengths.size(); i++) {
+                        if(lengths.get(i) > 0) {
+                            if(lengths.get(i) == topOverlap && top) {
+                                p1.setYPos(p2.getYPos() - d1.getHeight()); 		// Change velocity
+                            } else if(lengths.get(i) == botOverlap && bot) {
+                                p1.setYPos(p2.getYPos() + d2.getHeight());
+                            } else if(lengths.get(i) == leftOverlap && left) {
+                                p1.setXPos(p2.getXPos() - d1.getWidth());
+                            } else if(right) {
+                                p1.setXPos(p2.getXPos() + d2.getWidth());
+                            }
+                        }
+                    } **/
+
+
+                }
 			});
 		});
 	}

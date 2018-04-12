@@ -81,7 +81,7 @@ public class GamePlayerEntityView {
 	 * @param entityMap
 	 * @return
 	 */
-	public Group createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap) {
+	private Group createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap) {
 
 		Group entityRoot = new Group();
 		Map<String, Component> entityComponents;
@@ -125,7 +125,7 @@ public class GamePlayerEntityView {
 		}
 		inputHandler = gameInitializer.getIH();
 	}
-	
+
 	public void execute (double time) {
 		gameInitializer.execute(time);
 	}

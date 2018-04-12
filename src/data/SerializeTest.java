@@ -73,10 +73,6 @@ public class SerializeTest {
         Acceleration entity2Acceleration = new Acceleration(2,4,10);
         entity2Components.put("Acceleration", entity2Acceleration);
 
-        KeyInput k = new KeyInput(1, KeyCode.SPACE, e -> {
-            System.out.println("lambda executed");
-            entity1Position.setXPos(10000000); });
-        entity1Components.put(k.KEY, k);
 
 
         params.clear();

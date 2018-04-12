@@ -13,7 +13,7 @@ public class DamageHandler {
 	}
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
-		System.out.println("in damage handler");
+		//System.out.println("in damage handler");
 		if(collider.containsKey(DamageLauncher.KEY) || player.containsKey(DamageLauncher.KEY)) {
 			if(player.containsKey(DamageLauncher.KEY)) {
 				DamageLauncher launcher = (DamageLauncher)player.get(DamageLauncher.KEY);
