@@ -1,4 +1,4 @@
-package frontend.entities;
+/**package frontend.entities;
 
 /**
  * 
@@ -18,7 +18,7 @@ public class Enemy extends Entity {
 		super(ID);
 		addDefaultComponents();
 	}
-
+	/
 	@Override
 	public void addDefaultComponents() {
 		this.setHealth(INITIAL_HEALTH);
@@ -29,4 +29,4 @@ public class Enemy extends Entity {
 		//TODO add method to set sprite
 	}
 
-}
+}**/

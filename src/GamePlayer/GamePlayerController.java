@@ -3,7 +3,10 @@ package GamePlayer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+
 import java.util.Map;
+
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -67,7 +70,18 @@ public class GamePlayerController {
 		pane.setTop(sampleBar);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
-			pauseMenu.show(myStage);
+			if(e.getCode() == KeyCode.ESCAPE) {
+				pauseMenu.show(myStage);
+			// SORRY
+			} else {
+				gameView.setInput(e.getCode());
+			}
+		});
+//		
+		myScene.setOnKeyReleased(e -> {
+			if(e.getCode() != KeyCode.ESCAPE) {
+				gameView.removeInput(e.getCode());
+			}
 		});
 		return myScene;
 	}
@@ -84,18 +98,23 @@ public class GamePlayerController {
 		pane.setBottom(menuBar);
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
+		
+		
 		gameRoot = gameView.createEntityGroup();
 		levelEntityGroupMap = gameView.getlevelEntityMap(); //Map with each individual level with groups.
 		//gameRoot.getChildren().add(new Rectangle(200,200));
 		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
 		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
-		//initializeGameAnimation(); //begins the animation cycle
+		
+		initializeGameAnimation(); //begins the animation cycle
+
 	}
 
 	/**
 	 * Begins the animation cycle count of the animation after game has started
 	 */
 	public void initializeGameAnimation() {
+		
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
 				e -> step(SECOND_DELAY, gameRoot));
 		Timeline animation = new Timeline();
@@ -103,7 +122,6 @@ public class GamePlayerController {
 		animation.getKeyFrames().add(frame);
 		animation.play();
 	}
-	
 	/**
 	 * Changes the display of the gave.
 	 * @param gameRoot

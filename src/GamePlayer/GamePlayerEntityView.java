@@ -19,6 +19,7 @@ import engine.setup.SystemManager;
 import frontend.components.EntityBuilderView;
 import engine.systems.InputHandler;
 import frontend.components.Level;
+import javafx.beans.property.SetProperty;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,6 +29,10 @@ import javafx.stage.Stage;
 /**
  * Class that controls how the entity objects are displayed
  * @author Ryan Fu
+ *
+ */
+
+/**
  *
  */
 public class GamePlayerEntityView {
@@ -109,7 +114,7 @@ public class GamePlayerEntityView {
 		return entityRoot;
 	}
 	
-	
+
 	/**
 	 * Return a Group that adds all the entity image objects 
 	 * @return
@@ -143,7 +148,7 @@ public class GamePlayerEntityView {
 	private void initializeGamePlayerEntityView() {
 		try {
 			gameInitializer = new GameInitializer(entityMap);
-			//inputHandler = gameInitializer.getIH();
+			inputHandler = gameInitializer.getIH();
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("You made it this far");
@@ -172,6 +177,9 @@ public class GamePlayerEntityView {
 	public void setInput(KeyCode code){
 		inputHandler.addCode(code);
 	}
-	
-	
+
+
+	public void removeInput(KeyCode code) {
+		inputHandler.removeCode(code);
+	}
 }
