@@ -42,7 +42,7 @@ public class Damage extends Component {
 	}
 
 	
-	public String getKey() {
+	public static String getKey() {
 		return KEY;
 	}
 
