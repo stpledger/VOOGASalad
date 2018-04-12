@@ -7,6 +7,8 @@ import java.util.function.Consumer;
 
 import frontend.components.LocalPropertiesView;
 import engine.components.Component;
+<<<<<<< HEAD
+=======
 import engine.components.Damage;
 import engine.components.Dimension;
 import engine.components.EntityType;
@@ -14,7 +16,11 @@ import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
 import javafx.scene.image.ImageView;
+<<<<<<< HEAD
 import javafx.scene.input.MouseButton;
+=======
+>>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
+>>>>>>> a39218190c2abbad283b29871373a4f5975b4991
 
 /**
  * 
@@ -81,7 +87,7 @@ public abstract class Entity extends ImageView {
     public void remove (Component c) {
         components.remove(c);
     }
-    
+
     /**
      * Remove a component based upon its String value.
      * @param name the name of the component to remove

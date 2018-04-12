@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Sprite component containing an image. Constructor and setter throw file not found if the filepath is incorrect.
@@ -19,9 +20,9 @@ public class Sprite extends Component {
 	//@XStreamOmitField
 	private ImageView image;
 
-	public Sprite(int pid, String path) throws FileNotFoundException {
+	public Sprite(int pid, String fName) throws FileNotFoundException {
 	    super(pid);
-		this.filename = path;
+		this.filename = fName;
 		try {
 			File imageFile = new File(filename);
 			Image im = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
@@ -46,5 +47,7 @@ public class Sprite extends Component {
 			
 		}
 	}
+
+	public static String getKey() { return KEY; }
 
 }

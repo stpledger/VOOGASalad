@@ -13,7 +13,7 @@ public class TestMain extends Application {
 	}
 	
 	@Override
-	public void start(Stage primaryStage) throws Exception{
+	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Test");
 		TestPlayer tp = new TestPlayer();
 		primaryStage.setScene(tp.getScene());

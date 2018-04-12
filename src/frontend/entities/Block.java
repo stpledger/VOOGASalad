@@ -1,10 +1,11 @@
+/**
 package frontend.entities;
 
 /**
  * 
  * @author Hemanth Yakkali
  *
- */
+ *
 public class Block extends Entity{
 	
 	private final String TYPE =  "Block";
@@ -31,3 +32,4 @@ public class Block extends Entity{
 	}
 	
 }
+**/

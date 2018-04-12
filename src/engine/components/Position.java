@@ -1,8 +1,7 @@
 package engine.components;
 
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Component class for the position of an entity. Contains x and y coordinates as doubles.
@@ -43,7 +42,6 @@ public class Position extends Component {
 		this.yPos = yPos;
 	}
 
-	public static String getKey() {
-		return KEY;
-	}
+	public static String getKey() { return KEY; }
+
 }
