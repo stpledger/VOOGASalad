@@ -3,6 +3,7 @@ package GamePlayer;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.Map;
 import java.util.Set;
 import java.util.function.Consumer;
 
@@ -29,7 +30,7 @@ import javafx.util.Duration;
 
 public class GamePlayerController {
 	private final int WIDTH_SIZE = 800;
-	private final int HEIGHT_SIZE = 400;
+	private final int HEIGHT_SIZE = 500;
 	public final int FRAMES_PER_SECOND = 60;
 	public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -41,22 +42,19 @@ public class GamePlayerController {
 	private GamePlayerEntityView gameView;
 	private File currentFile;
 	private FileUploadButton fileBtn;
-	//Consumer that changes the view of the pane.
-//	Consumer newLevel = (e) -> {
-//		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
-//		pane.setCenter((Node) e);
-//	};
+	private Map<Integer, Group> levelEntityGroupMap; //map that is used to store the initial group for each level.
 
 	
 	public GamePlayerController(Stage stage) {
 		myStage = stage;
+		myStage.setResizable(false);
 	}
 	
 	
 	public Scene intializeStartScene() {
 		SampleToolBar sampleBar = new SampleToolBar();
-		MenuGameBar menuBar = new MenuGameBar();
-		pane.setBottom(menuBar);
+//		MenuGameBar menuBar = new MenuGameBar(this);
+//		pane.setBottom(menuBar);
 		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			try{
@@ -82,9 +80,12 @@ public class GamePlayerController {
 		/**
 		 * When the Game Starts create the Level Map;
 		 */
+		MenuGameBar menuBar = new MenuGameBar(this);
+		pane.setBottom(menuBar);
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		gameRoot = gameView.createEntityGroup();
+		levelEntityGroupMap = gameView.getlevelEntityMap(); //Map with each individual level with groups.
 		//gameRoot.getChildren().add(new Rectangle(200,200));
 		myScene.setOnKeyPressed(e -> gameView.setInput(e.getCode()));
 		pane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
@@ -103,7 +104,17 @@ public class GamePlayerController {
 		animation.play();
 	}
 	
+	/**
+	 * Changes the display of the gave.
+	 * @param gameRoot
+	 */
+	public void changeGameLevel(Group gameRoot) {
+		pane.setCenter(gameRoot);
+	}
 	
+	public Map<Integer, Group> getGameLevelRoot(){
+		return levelEntityGroupMap;
+	}
 	
 	/**
 	 * Step method that repeats the animation by checking entities using render and system Manager
