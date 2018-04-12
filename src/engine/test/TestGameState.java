@@ -30,16 +30,17 @@ public class TestGameState {
 		Velocity v = new Velocity(0, 0, 0);
 
 		Acceleration a = new Acceleration(0, 0, 0);
-		KeyInput k = new KeyInput(0, KeyCode.SPACE, e -> {
+		Consumer l = e -> {
 			p.setXPos(p.getXPos()+10);
-		});
+		};
+		KeyInput k = new KeyInput(0, KeyCode.SPACE, l);
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
 
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(Position.getKey(), p);
 		mario.put(Dimension.getKey(), d);
-		mario.put(Sprite.getKey(), s);
+		mario.put(Sprite.KEY, s);
 		mario.put(Velocity.getKey(), v);
 		mario.put(Acceleration.getKey(), a);
 		mario.put(type.getKey(), type);
@@ -76,7 +77,7 @@ public class TestGameState {
 		Map<String, Component> mario3 = new HashMap<>();
 		mario3.put(Position.getKey(), p3);
 		mario3.put(Dimension.getKey(), d3);
-		mario3.put(Sprite.getKey(), s3);
+		mario3.put(Sprite.KEY, s3);
 		mario3.put(Velocity.getKey(), v3);
 		mario3.put(Acceleration.getKey(), a3);
 		mario3.put(type3.getKey(), type);

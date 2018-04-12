@@ -7,8 +7,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	private static final String TITLE = "VoogaSalad";
-
-	private static Stage mainStage;
+	private Stage mainStage;
 
 	public static void main(String[] args) {
 		launch(args);
@@ -23,9 +22,5 @@ public class Main extends Application {
 		mainStage.show();
 	}
 
-
-	public Stage getMainStage() {
-		return mainStage;
-	}
 
 }
