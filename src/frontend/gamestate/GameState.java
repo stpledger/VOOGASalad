@@ -3,6 +3,7 @@ package frontend.gamestate;
 import java.util.List;
 
 import data.DataWrite;
+import engine.components.Component;
 
 import java.util.ArrayList;
 import frontend.components.Level;

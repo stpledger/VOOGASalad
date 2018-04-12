@@ -10,9 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
 import javax.imageio.ImageIO;
-
 import frontend.entities.Entity;
 import frontend.gamestate.*;
 import javafx.application.Platform;
@@ -79,7 +77,7 @@ public class GameEditorView extends BorderPane {
 		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", GAME_FILE_EXTENSION));
 		gameFile = fileChooser.showOpenDialog(new Stage());};
 	//Handles save game call from toolbar
-	Consumer saveGame = (e)->{state.save();};
+	Consumer saveGame = (e)->{System.out.println("Save Game!");};
 	//Handles the add new level call from toolbar
 	Consumer newLevel = (e)->{addLevel();};
 	//Handles the show settings call from toolbar
@@ -134,7 +132,6 @@ public class GameEditorView extends BorderPane {
 			updateTabs.accept(tabsList);
 		});
 		tabPane.getTabs().add(t);
-		state.addLevel(level);
 	}
 	
 	/**
@@ -191,7 +188,6 @@ public class GameEditorView extends BorderPane {
 			}
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity); //add the entity to the level
 			nextID++; //Increment id's by one
-			state.printState();
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException | IOException e1) {
 			e1.printStackTrace();
