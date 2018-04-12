@@ -2,7 +2,6 @@ package frontend.gamestate;
 
 import engine.components.Component;
 import frontend.components.Level;
-
 import java.util.List;
 import java.util.Map;
 
@@ -20,15 +19,16 @@ public interface IGameState {
 	
 	/**
 	 * Updates the current state by adding a new level to the list of levels.
-	 * @param level the level  to add
+	 * @param levelNumber the level number to add
 	 */
 	public void addLevel(Level level);
 	
 	/**
 	 * Updates the current state my removing a level number.
-	 * @param level the level  to remove
+	 * @param levelNumber the level number to remove
 	 */
 	public void removeLevel(Level level);
-	
+
+	public List<Level> getLevels();
 }
 

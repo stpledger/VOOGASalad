@@ -33,4 +33,5 @@ public class EntityType extends Component{
 	public static String getKey() {
 		return KEY;
 	}
+
 }

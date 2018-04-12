@@ -25,19 +25,17 @@ public class LocalPropertiesView extends PropertiesView {
 	private final String COMPONENT_PREFIX = "engine.components.";
 	private final String SUBMIT_TEXT = "Submit Changes";
 	private List<ComponentForm> activeForms;
-	private int entityID;
-	private Consumer<List<Component>> submitEvent;
+	private List<Component> existingComponents;
+	private Entity entity;
 	private String type;
 	
 	/**
 	 * Initialize the object with a given broadcast method
 	 * @param entityNumber
 	 */
-	public LocalPropertiesView(Consumer<List<Component>> submitEvent, String type, int ID) {
+	public LocalPropertiesView(Entity entity) {
 		super();
-		this.submitEvent = submitEvent;
-		this.type = type;
-		this.entityID = ID;
+		this.entity = entity;
 		this.fill();
 	}
 	
@@ -48,8 +46,8 @@ public class LocalPropertiesView extends PropertiesView {
 	protected void fill() {
 		int currentRow = 0;
 		this.activeForms = new ArrayList<>();
-		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + type).keySet()) {
-			ComponentForm cf = new ComponentForm(this.entityID, property, numFields(property));
+		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + entity.type()).keySet()) {
+			ComponentForm cf = new ComponentForm(this.entity.getID(), property, numFields(property));
 			this.activeForms.add(cf);
 			getRoot().add(cf, 0, currentRow++);
 		}
@@ -59,7 +57,6 @@ public class LocalPropertiesView extends PropertiesView {
 			for (ComponentForm cf : this.activeForms) {
 				componentsToAdd.add(cf.buildComponent());
 			}
-			submitEvent.accept(componentsToAdd);
 		});
 		getRoot().add(submit, 0, currentRow);
 	}
@@ -70,7 +67,7 @@ public class LocalPropertiesView extends PropertiesView {
 	 */
 	@Override
 	public String title() {
-		return String.format("Entity %d Local Properties", this.entityID);
+		return String.format("Entity %d Local Properties", this.entity.getID());
 	}
 	
 	/**
