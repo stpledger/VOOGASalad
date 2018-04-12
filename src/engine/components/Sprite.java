@@ -1,20 +1,18 @@
 package engine.components;
 import java.io.File;
 import java.io.FileNotFoundException;
-<<<<<<< HEAD
 
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
-=======
 import java.util.ArrayList;
 import java.util.List;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
->>>>>>> 969a08626f56724be25acece828231d4b652e66d
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 
 /**
  * Sprite component containing an image. Constructor and setter throw file not found if the filepath is incorrect.
@@ -24,15 +22,16 @@ import javafx.scene.image.ImageView;
 public class Sprite extends Component {
 	public static String KEY = "Sprite";
 	private String filename;
-	@XStreamOmitField
+
+	//@XStreamOmitField
 	private ImageView image;
 
-	public Sprite(int pid, String path) throws FileNotFoundException {
+	public Sprite(int pid, String fName) throws FileNotFoundException {
 	    super(pid);
-		this.filename = path;
+		this.filename = fName;
 		try {
 			File imageFile = new File(filename);
-			im = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
+			Image im = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 		} catch (Exception e) {
 			System.out.println("Can not find image files");
 			throw new FileNotFoundException();
@@ -54,5 +53,7 @@ public class Sprite extends Component {
 			
 		}
 	}
+
+	public static String getKey() { return KEY; }
 
 }

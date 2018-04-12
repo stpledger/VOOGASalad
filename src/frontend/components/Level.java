@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+//import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import frontend.entities.Entity;
 
 public class Level {
@@ -15,13 +15,17 @@ public class Level {
 	private String levelText;
 	private double levelTime;
 	private double levelDistance;
-	private List<Entity> entityList;
+	
+	//@XStreamOmitField
+	private transient List<Entity> entityList;
 	private Map<String,Boolean> HUDprops;
+	private Map<String,String> GProps;
 	
 	public Level(int level) {
 		this.setLevelNum(level);
 		this.entityList = new ArrayList<Entity>();
-		this.setHUDprops(new HashMap<>());
+		this.HUDprops = new HashMap<>();
+		this.GProps = new HashMap<>();
 	}
 	
 	public void addEntity(Entity entity) {
@@ -29,6 +33,7 @@ public class Level {
 			if (entity.getID() == other.getID()) return;
 		}
 		this.entityList.add(entity);
+		System.out.println("Added!");
 	}
 	
 	public void removeEntity(Entity entity) {
@@ -37,6 +42,10 @@ public class Level {
 
 	public String getLevelDifficulty() {
 		return this.levelDifficulty;
+	}
+	
+	public List<Entity> getEntityList(){
+		return entityList;
 	}
 
 	public void setLevelDifficulty(String levelDifficulty) {
@@ -93,6 +102,22 @@ public class Level {
 	
 	public void addHUDProp(String prop, Boolean bool) {
 		this.HUDprops.put(prop, bool);
+	}
+
+	public void setGProps(Map<String,String> gProps) {
+		GProps = gProps;
+	}
+	
+	public void addGProp(String prop, String value) {
+		this.GProps.put(prop, value);
+	}
+	
+	public void removeHUDProp(String prop) {
+		this.HUDprops.remove(prop);
+	}
+	
+	public void removeGProp(String prop) {
+		this.GProps.remove(prop);
 	}
 	
 }

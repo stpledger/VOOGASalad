@@ -25,19 +25,19 @@ public class LocalPropertiesView extends PropertiesView {
 	private final String COMPONENT_PREFIX = "engine.components.";
 	private final String SUBMIT_TEXT = "Submit Changes";
 	private List<ComponentForm> activeForms;
+	private Consumer<List<Component>> onSubmit;
 	private int entityID;
-	private Consumer<List<Component>> submitEvent;
 	private String type;
 	
 	/**
 	 * Initialize the object with a given broadcast method
 	 * @param entityNumber
 	 */
-	public LocalPropertiesView(Consumer<List<Component>> submitEvent, String type, int ID) {
+	public LocalPropertiesView(int entityID, String type, Consumer<List<Component>> onSubmit) {
 		super();
-		this.submitEvent = submitEvent;
+		this.entityID = entityID;
 		this.type = type;
-		this.entityID = ID;
+		this.onSubmit = onSubmit;
 		this.fill();
 	}
 	
@@ -59,7 +59,8 @@ public class LocalPropertiesView extends PropertiesView {
 			for (ComponentForm cf : this.activeForms) {
 				componentsToAdd.add(cf.buildComponent());
 			}
-			submitEvent.accept(componentsToAdd);
+			onSubmit.accept(componentsToAdd);
+			this.close();
 		});
 		getRoot().add(submit, 0, currentRow);
 	}

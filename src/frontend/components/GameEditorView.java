@@ -10,9 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
 import javax.imageio.ImageIO;
-
 import frontend.entities.Entity;
 import frontend.gamestate.*;
 import javafx.application.Platform;
@@ -127,6 +125,7 @@ public class GameEditorView extends BorderPane {
 		Tab t = tabsList.get(tabsList.size()-1);
 		t.setText("Level " + (tabsList.indexOf(t)+1));
 		Level level = new Level(tabsList.indexOf(t)+1);
+		state.addLevel(level);
 		t.setContent(new LevelView(level,tabsList.indexOf(t)+1));
 		t.setOnClosed(e -> {
 			tabsList.remove(t);
@@ -142,6 +141,7 @@ public class GameEditorView extends BorderPane {
 	public void setClipboard(Object o) {
 		clipboard = (Object[]) o;
 	}
+	
 	/**
 	 * Consumer to handle adding a new entity to the current level
 	 */
@@ -189,7 +189,7 @@ public class GameEditorView extends BorderPane {
 			}
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity); //add the entity to the level
 			nextID++; //Increment id's by one
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException | IOException e1) {
 			System.out.println("Error creating entity");
 			e1.printStackTrace();

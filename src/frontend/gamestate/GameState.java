@@ -1,17 +1,19 @@
 package frontend.gamestate;
 
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
 
+import data.DataWrite;
 import engine.components.Component;
+
+import java.util.ArrayList;
 import frontend.components.Level;
+import frontend.entities.Entity;
 
 /**
  * Keeps track of the current state of the authoring environment, so that the author can save/load games dynamically. 
  *
  * @author Dylan Powers
+ * @author Hemanth Yakkali(hy115)
  *
  */
 public class GameState implements IGameState {
@@ -28,7 +30,14 @@ public class GameState implements IGameState {
 	
 	@Override
 	public void save() {
-		
+		try {
+			DataWrite.saveFile(this,"Test");
+			System.out.println("saved!");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.print("didnt work");
+		}
 	}
 	
 	/**
@@ -44,12 +53,26 @@ public class GameState implements IGameState {
 
 	/**
 	 * Updates the current state my removing a level object.
-	 * @param level The level object to remove
+	 * param level The level object to remove
 	 */
 	@Override
 	public void removeLevel(Level level) {
 		if(state.contains(level)) {
 			state.remove(level);
+		}
+	}
+	
+	public List<Level> getLevels() {
+		return state;
+	}
+	
+	public void printState() {
+		for (Level level : this.state) {
+			for (Entity e : level.getEntityList()) {
+				for (Component c : e.getComponentList()) {
+					System.out.println(e.type() + " has component " + c.getKey());
+				}
+			}
 		}
 	}
 }
