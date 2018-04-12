@@ -3,6 +3,7 @@ package frontend.entities;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import frontend.components.LocalPropertiesView;
 import engine.components.Component;
