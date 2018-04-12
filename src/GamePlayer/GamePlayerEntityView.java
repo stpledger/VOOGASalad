@@ -71,9 +71,9 @@ public class GamePlayerEntityView {
 	public Map<Integer, Group> getlevelEntityMap(){
 		return levelEntityMap;
 	}
-
 	//**************************************************************************
 	//TESTING PURPOSED FOR LEVEL SELECTOR
+
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
 	 * @param levelMap 
@@ -114,8 +114,8 @@ public class GamePlayerEntityView {
 		//entities that have sprites and setup sprite images
 		return entityRoot;
 	}
-
 	//**************************************************************************
+
 
 	/**
 	 * Return a Group that adds all the entity image objects 
@@ -172,8 +172,9 @@ public class GamePlayerEntityView {
 		inputHandler.addCode(code);
 	}
 
-	//
-	//	public void removeInput(KeyCode code) {
-	//		//inputHandler.removeCode(code);
-	//	}
+
+	public void removeInput(KeyCode code) {
+		inputHandler.removeCode(code);
+	}
+
 }
