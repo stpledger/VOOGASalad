@@ -36,7 +36,7 @@ public class LevelView extends BorderPane {
 		this.pane = new ScrollPane();
 		this.toolbar = new HBox();
 		this.contentPane = new AnchorPane();
-		this.contentPane.setMinSize(800, 600);
+		this.contentPane.setMinSize(600, 600);
 		this.pane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.pane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.pane.setContent((contentPane));
