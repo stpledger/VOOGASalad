@@ -1,15 +1,19 @@
 package engine.test;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import data.DataGameState;
+import data.DataWrite;
 import engine.Engine;
 import engine.InternalEngine;
 import engine.components.*;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
+import frontend.components.Level;
 import javafx.scene.input.KeyCode;
 
 public class TestGameState {
@@ -20,23 +24,34 @@ public class TestGameState {
 
 	public TestGameState() throws FileNotFoundException {
 		entities = new HashMap<>();
-		Sprite s = new Sprite(0,"engine/components/Waluigi.png");
+		Sprite s = new Sprite(0,"mario.png");
 		//Sprite s2 = new Sprite(1,"engine/components/Waluigi.png");
-		Sprite s3 = new Sprite(2,"engine/components/Waluigi.png");
+		Sprite s3 = new Sprite(2,"mario.png");
 
 		EntityType type = new EntityType(0,"player");
 		Position p = new Position(0, 100, 100);
 		Dimension d = new Dimension(0, 100, 100);
 		Velocity v = new Velocity(0, 0, 0);
 
-		Acceleration a = new Acceleration(0, 0, 0);
-		Consumer l = e -> {
-			p.setXPos(p.getXPos()+10);
-		};
-		KeyInput k = new KeyInput(0, KeyCode.SPACE, l);
+		Acceleration a = new Acceleration(0, 0, 9.8);
+		KeyInput k = new KeyInput(0, KeyCode.RIGHT, (Runnable & Serializable) () -> {
+			v.setXVel(v.getXVel()+10);
+		});
+		k.addCode(KeyCode.UP, (Runnable & Serializable)() ->
+		{ 
+			v.setYVel(v.getYVel()-10);
+		});
+		k.addCode(KeyCode.DOWN,(Runnable & Serializable) () ->
+		{ 
+			v.setYVel(v.getYVel()+10);
+		});
+		k.addCode(KeyCode.LEFT,(Runnable & Serializable) () ->
+		{ 
+			v.setXVel(v.getXVel()-10);
+		});
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
-
+        Player play = new Player(0);
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(Position.getKey(), p);
 		mario.put(Dimension.getKey(), d);
@@ -47,7 +62,7 @@ public class TestGameState {
 		mario.put(KeyInput.getKey(), k);
 		mario.put(Health.getKey(), h);
 		mario.put(DamageLauncher.getKey(), launcher);
-
+        mario.put(Player.getKey(), play);
 //		EntityType type2 = new EntityType(1,"enermy");
 //		Position p2 = new Position(1, 200, 100);
 //		Dimension d2 = new Dimension(1, 100, 100);
@@ -70,8 +85,8 @@ public class TestGameState {
 		Position p3 = new Position(2, 300, 100);
 		Dimension d3 = new Dimension(2, 100, 100);
 		Velocity v3 = new Velocity(2, 0, 0);
-		Acceleration a3 = new Acceleration(1, 0, 0);
-		Health h3 = new Health(0,10);
+		Acceleration a3 = new Acceleration(2, 0, 0);
+		Health h3 = new Health(2,10);
 		DamageLauncher launcher3 = new DamageLauncher(0,2,2);
 
 		Map<String, Component> mario3 = new HashMap<>();
@@ -91,7 +106,15 @@ public class TestGameState {
 		ih = gi.getIH();
 		eng = new InternalEngine(gi.getSystems());
 
-
+		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
+		Level l = new Level(1);
+		state.put(l,entities);
+		DataGameState dState = new DataGameState(state);
+		try {
+			DataWrite.saveFile(dState, "Demo");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 
