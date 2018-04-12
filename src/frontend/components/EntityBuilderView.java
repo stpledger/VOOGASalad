@@ -2,7 +2,13 @@ package frontend.components;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -120,6 +126,7 @@ public class EntityBuilderView{
 				fileChooser.setTitle("Open Image File");
 				fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
 				imageFile = fileChooser.showOpenDialog(stage);
+				//TODO:copy the image to the data folder
 				//Build the spriteComponent for a given entity
 				componentAttributes.put(Sprite.class, new Object[] {imageFile.getAbsolutePath()});
                 try {
@@ -142,6 +149,7 @@ public class EntityBuilderView{
 			imageMenu.getItems().add(removeImage);
 			this.getMenus().add(imageMenu);
 			}
+
 	}
 	/**
 	 * ScrollPane that holds the current properties of an Entity
