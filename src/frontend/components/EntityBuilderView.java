@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 
 import javax.imageio.ImageIO;
+
+import data.DataWrite;
 import engine.components.Sprite;
 import frontend.MainApplication;
 import javafx.embed.swing.SwingFXUtils;
@@ -121,8 +123,13 @@ public class EntityBuilderView{
 				fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
 				imageFile = fileChooser.showOpenDialog(stage);
 				//Build the spriteComponent for a given entity
-				componentAttributes.put(Sprite.class, new Object[] {imageFile.getAbsolutePath()});
-                try {
+				try {
+					componentAttributes.put(Sprite.class, new Object[] {DataWrite.writeImage(imageFile)});
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+
+				try {
 					image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 				} catch (IOException e1) {
 					System.out.println("Error loading image");

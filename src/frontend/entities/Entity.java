@@ -69,7 +69,7 @@ public abstract class Entity extends ImageView {
     public List<String> getNames() {
     		List<String> ans = new ArrayList<>();
     		for (Component c : this.components) {
-    			ans.add(c.getKey());
+    			ans.add(c.getKeyKey());
     		}
     		return ans;
     }

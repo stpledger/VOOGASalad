@@ -19,7 +19,7 @@ public class DataWrite {
  */
 	private static final String XML_FILETYPE=".xml";
 	private static final String GAME_FILEPATH = "games\\";
-	private static final String IMAGE_DATAPATH = "dara\\";
+	private static final String IMAGE_DATAPATH = "data\\";
     private static final String PERIOD = ".";
 
 
@@ -50,11 +50,14 @@ public class DataWrite {
         return xmlFile;
     }
 
-    public static void writeImage(File imageFile) throws IOException {
+    public static String writeImage(File imageFile) throws IOException {
         BufferedImage image = null;
         try {
             image = ImageIO.read(imageFile);
-            ImageIO.write(image, getFileType(imageFile), new File(IMAGE_DATAPATH + imageFile.getName()));
+            String filePath = IMAGE_DATAPATH + imageFile.getName();
+            File fileDest = new File(filePath);
+            ImageIO.write(image, getFileType(imageFile), fileDest);
+            return filePath;
         }
         catch(Exception e)
         {
