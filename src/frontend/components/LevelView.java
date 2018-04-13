@@ -16,7 +16,7 @@ public class LevelView extends ScrollPane {
 	
 	public LevelView(Level level, int levelNum) {
 		this.getStyleClass().add("level-view");
-		this.level = level;
+		this.setLevel(level);
 		this.setContent(pane);
 		this.getStyleClass().add("level-view-wrapper");
 		this.setOnMouseClicked(e-> {		
@@ -24,12 +24,8 @@ public class LevelView extends ScrollPane {
 				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
 				lView.open();
 			} else if (e.getButton().equals(MouseButton.PRIMARY)) {
-				if(e.getClickCount()==1) {
+				if(e.getClickCount() == 2) {
 					GlobalPropertiesView GPV = new GlobalPropertiesView(level);
-				}
-				if (e.getClickCount() == 2) {
-					LocalPropertiesView LPV = new LocalPropertiesView(1);
-					LPV.open();
 				}
 				if (e.getClickCount() == 3) {
 					HUDPropertiesView HPV = new HUDPropertiesView(level);
@@ -37,6 +33,10 @@ public class LevelView extends ScrollPane {
 				}
 			}
 		});
+	}
+	
+	public void setLevel(Level level) {
+		this.level = level;
 	}
 	
 	/**
@@ -48,5 +48,4 @@ public class LevelView extends ScrollPane {
 		this.getChildren().add(e);
 		level.addEntity(e);
 	}
-	
 }

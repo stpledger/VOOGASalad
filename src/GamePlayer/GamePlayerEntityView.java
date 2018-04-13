@@ -1,8 +1,9 @@
-//package GamePlayer;
+package GamePlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -15,12 +16,10 @@ import engine.components.Sprite;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
-import frontend.components.EntityBuilderView;
 import engine.systems.InputHandler;
 import frontend.components.Level;
-import javafx.beans.property.SetProperty;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
+import javafx.scene.control.ComboBox;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -30,48 +29,71 @@ import javafx.stage.Stage;
  * @author Ryan Fu
  *
  */
-/**public class GamePlayerEntityView {
+
+/**
+ *
+ */
+public class GamePlayerEntityView {
 	
 	private File gameFile;
 	//private Group entityRoot;
-	private Map<Integer, Map<String, Component>> entityMap;
+	private Map<Level,Map<Integer,Map<String,Component>>> levelMap;
 	private DataGameState gameState;
 	private GameInitializer gameInitializer;
 	public SystemManager systemManager;
 	public RenderManager renderManager;
-	private Level one;
-	private Consumer onMenuLevelSelect;
+	//private Consumer onMenuLevelSelect;
 	private InputHandler inputHandler;
+	private Map<Integer, Group> levelEntityMap;
+	private Map<Integer, Map<String, Component>> entityMap;
 	
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
 		//Changed the code enclosed to load a random level and create an entity map
-		Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
-		for(Level level : levelMap.keySet()) {
+		levelMap = gameState.getGameState();
+		for(Level level : levelMap.keySet()) {  //add's each 
 			entityMap = levelMap.get(level);
 			break;
 		}
+		//method tht builds the entire levelEntityMap;
+		levelEntityMap = createEntityGroupMap(levelMap);
 //This is mainly for debugging purposes not entirely sure how you will get specific levels out of the mao
 // because they arent ordered probably will have to iterate through levels and look at levelnum of each
 		initializeGamePlayerEntityView();
-<<<<<<< HEAD
-	}**/
-=======
 	}
 
->>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
-	
 	/**
-	 * Return a Group that adds all the entity image objects 
+	 * returns the levelEntityMap;
 	 * @return
 	 */
-<<<<<<< HEAD
-	/**public Group createEntityGroup() {
-=======
-	//Make Entity Group accept a Hashmap for individual Levels
-	public Group createEntityGroup() {
->>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
+	public Map<Integer, Group> getlevelEntityMap(){
+		return levelEntityMap;
+	}
+	
+//**************************************************************************
+	//TESTING PURPOSED FOR LEVEL SELECTOR
+	/**
+	 * Method that builds the entire map of level with groups of sprite images
+	 * @param levelMap 
+	 * 
+	 */
+	private Map<Integer, Group> createEntityGroupMap(Map<Level, Map<Integer, Map<String, Component>>> levelMap){
+		int count = 1;
+		Map<Integer, Group> levelEntityMap = new HashMap<Integer, Group>();
+		for(Level level : levelMap.keySet()) {  //add's each 
+			levelEntityMap.put(count, createIndividualEntityGroup(levelMap.get(level)));
+			count++;
+		}
+		return levelEntityMap;
+	}
+	
+	/**
+	 * Method that creates all the groups for each level in a levelMap.
+	 * @param entityMap
+	 * @return
+	 */
+	public Group createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap) {
 		Group entityRoot = new Group();
 		Map<String, Component> entityComponents;
 //Changed enclosed code to only load sprites for 
@@ -80,9 +102,8 @@ import javafx.stage.Stage;
 			if(entityComponents.containsKey("Sprite")) {
 				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
-
-				image.setX(200);
-				image.setY(200);
+//				image.setX(200);
+//				image.setY(200);
 				//image.setImage(new Image("mystery.jpg"));
 				System.out.print(image.getX());
 				//System.exit(0);
@@ -91,19 +112,39 @@ import javafx.stage.Stage;
 		}
 //entities that have sprites and setup sprite images
 		return entityRoot;
-	}**/
+	}
 	
+	//**************************************************************************
+
+	/**
+	 * Return a Group that adds all the entity image objects 
+	 * @return
+	 */
+	//Make Entity Group accept a Hashmap for individual Levels
+	public Group createEntityGroup() {
+		Group entityRoot = new Group();
+		Map<String, Component> entityComponents;
+//Changed enclosed code to only load sprites for 
+		for(Integer i : entityMap.keySet()) {
+			entityComponents = entityMap.get(i);
+			if(entityComponents.containsKey("Sprite")) {
+				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
+				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
+				image.setX(200);
+				image.setY(200);
+				//image.setImage(new Image("mystery.jpg"));
+				System.out.print(image.getX());
+				//System.exit(0);
+				entityRoot.getChildren().add(image);
+			}
+		}
+		return entityRoot;
+	}
+
 	/**
 	 * initialize the Game Initializer to create the systemManager and renderManager.
-	 * @throws FileNotFoundException 
+	 * @throws FileNotFoundException
 	 */
-<<<<<<< HEAD
-	/**private void initializeGamePlayerEntityView() {
-		gameInitializer = new GameInitializer(entityMap);
-		systemManager = gameInitializer.getSM();
-		renderManager = gameInitializer.getRM();
-	}**/
-=======
 	private void initializeGamePlayerEntityView() {
 		try {
 			gameInitializer = new GameInitializer(entityMap);
@@ -116,37 +157,19 @@ import javafx.stage.Stage;
 		systemManager = gameInitializer.getSM();
 		renderManager = gameInitializer.getRM();
 	}
-	
-	/**
-	 * Getter Method for the levelMap
-	 * @return Returns Map<Level,Map<Integer,Map<String,Component>>> levelMap
-	 */
-	public Map<Level,Map<Integer,Map<String,Component>>> getLevelMap(){
-		return levelMap;
-	}
-	
-	public SystemManager getSystemManager() {
-		return systemManager;
-	}
-	
+
+	public SystemManager getSystemManager() { return systemManager; }
+
 	public RenderManager getRenderManager() {
 		return renderManager;
 	}
->>>>>>> 5a8cb25e4995b2deaf23b47c9c4cc00e0f9bc0a4
 
 	public void setInput(KeyCode code){
 		inputHandler.addCode(code);
 	}
-<<<<<<< HEAD
-	
-	
-//}
 
-=======
-
-
-	public void removeInput(KeyCode code) {
-		inputHandler.removeCode(code);
-	}
+//
+//	public void removeInput(KeyCode code) {
+//		//inputHandler.removeCode(code);
+//	}
 }
->>>>>>> 5ffe0488334c8d3bdd3e798934c76a03d31a2a22

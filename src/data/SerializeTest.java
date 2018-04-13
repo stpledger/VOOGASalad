@@ -2,8 +2,10 @@ package data;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+
 import engine.components.*;
 import frontend.components.Level;
+import javafx.scene.input.KeyCode;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class SerializeTest {
 
@@ -57,7 +60,7 @@ public class SerializeTest {
         params.add("Mario.png");
 
         try {
-            Sprite entity1Sprite = new Sprite(1, "Mario.png");
+            Sprite entity1Sprite = new Sprite(1, "mario.png");
             entity1Components.put("Sprite", entity1Sprite);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -69,6 +72,11 @@ public class SerializeTest {
 //__________________________________________________
         Acceleration entity2Acceleration = new Acceleration(2,4,10);
         entity2Components.put("Acceleration", entity2Acceleration);
+
+        KeyInput k = new KeyInput(0, KeyCode.SPACE, e -> {
+            System.out.println("lambda executed");
+            entity1Position.setXPos(entity1Position.getXPos()+10); });
+        entity1Components.put(k.KEY, k);
 
 
         params.clear();
@@ -87,10 +95,10 @@ public class SerializeTest {
 
 
         params.clear();
-        params.add("Mario.png");
+        params.add("mario.png");
 
         try {
-            Sprite entity2Sprite = new Sprite(2, "Mario.png");
+            Sprite entity2Sprite = new Sprite(2, "mario.png");
             entity2Components.put("Sprite", entity2Sprite);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
