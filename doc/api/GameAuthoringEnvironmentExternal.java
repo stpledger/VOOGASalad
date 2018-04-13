@@ -1,4 +1,6 @@
-package voogasalad_oneclassonemethod;
+package doc.api;
+
+import frontend.gamestate.GameState;
 
 /**
  * This is an interface to represent how other modules will interact with our part of the program.
