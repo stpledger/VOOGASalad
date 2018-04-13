@@ -32,8 +32,8 @@ public class Sprite extends Component {
 	public Sprite(int pid, String path) throws FileNotFoundException {
 	    super(pid, KEY);
 		filename = path;
-		Image im = new Image(filename);
-		image = new ImageView(im);
+		setImage(filename);
+
 	}
 
 	public String getName() { return filename; }
@@ -44,7 +44,11 @@ public class Sprite extends Component {
 	}
 
 	public void setImage(String im) throws RuntimeException {
-		image  = new ImageView(new Image(FILE_PATH + im));
+		try {
+			image  = new ImageView(new Image(FILE_PATH + im));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
