@@ -127,8 +127,11 @@ public class GamePlayerController {
 	 * @param level to be loaded
 	 */
 	public void changeGameLevel(int level) {
+		gameRoot = levelEntityGroupMap.get(level);
+		//gameView.initializeGamePlayerEntityView(level);
+
 		pane.getChildren().clear();
-		pane.getChildren().addAll(levelEntityGroupMap.get(level));
+		pane.getChildren().addAll(gameRoot);
 	}
 	
 	public Map<Integer, Group> getGameLevelRoot(){

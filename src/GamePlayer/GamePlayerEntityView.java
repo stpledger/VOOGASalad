@@ -7,13 +7,14 @@ import java.util.Map;
 
 import data.DataGameState;
 import data.DataRead;
-import engine.components.Component;
-import engine.components.Dimension;
-import engine.components.Position;
-import engine.components.Sprite;
+import engine.components.*;
+import engine.setup.EntityManager;
 import engine.setup.GameInitializer;
+import engine.setup.RenderManager;
+import engine.setup.SystemManager;
 import engine.systems.InputHandler;
 import frontend.components.Level;
+import frontend.entities.Entity;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -32,8 +33,9 @@ public class GamePlayerEntityView {
 	private DataGameState gameState;
 	private File gameFile;
 
-	private GameInitializer gameInitializer;
+	private GameInitializer GI;
 	private InputHandler inputHandler;
+	private RenderManager RM;
 
 	
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
@@ -43,8 +45,8 @@ public class GamePlayerEntityView {
 
 		levelEntityMap = createEntityGroupMap(levelMap);
 
-		for(Level level : levelMap.keySet()) {
-			entityMap = levelMap.get(level);
+		for (Level l : levelMap.keySet()) {
+			entityMap = levelMap.get(l);
 			break;
 		}
 
@@ -115,23 +117,26 @@ public class GamePlayerEntityView {
 	 * initialize the Game Initializer to create the systemManager and renderManager.
 	 * @throws FileNotFoundException
 	 */
-	private void initializeGamePlayerEntityView() {
+	public void initializeGamePlayerEntityView() {
+
 		try {
-			gameInitializer = new GameInitializer(entityMap);
+			GI  = new GameInitializer(entityMap);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println("You made it this far");
 			e.printStackTrace();
 		}
-		inputHandler = gameInitializer.getIH();
+
+		inputHandler = GI.getIH();
+		RM = GI.getRM();
 	}
 
 	public void execute (double time) {
-		gameInitializer.execute(time);
+		SystemManager.execute(time);
 	}
 
 	public void render() {
-		gameInitializer.render();
+		RM.renderObjects();
+		RM.garbageCollect();
 	}
 
 	public void setInput(KeyCode code){

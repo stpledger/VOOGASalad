@@ -9,7 +9,7 @@ import java.util.Map;
  *
  * @author fitzj
  */
-public class Position extends ShowableComponent {
+public class Position extends ShowableComponent implements Cloneable {
 	private double xPos;
 	private double yPos;
 
@@ -44,6 +44,16 @@ public class Position extends ShowableComponent {
 	}
 
 	public static String getKey() { return KEY; }
+
+	@Override
+	public Position clone() {
+		try {
+			return (Position)super.clone();
+		} catch (CloneNotSupportedException e) {
+			System.out.println("Cannot clone");
+		}
+		return null;
+	}
 
 	@Override
 	public Map<String, String> getParameters(){
