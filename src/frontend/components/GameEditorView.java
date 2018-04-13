@@ -10,9 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
-
 import javax.imageio.ImageIO;
-
 import frontend.entities.Entity;
 import frontend.gamestate.*;
 import javafx.application.Platform;
@@ -30,6 +28,7 @@ import GamePlayer.Main;
 import engine.components.Component;
 import engine.components.Position;
 import engine.components.Sprite;
+import data.DataWrite;
 
 /**
  * 
@@ -41,12 +40,13 @@ public class GameEditorView extends BorderPane {
 	private ArrayList<Tab> tabsList;
 	private Object[] clipboard;
 	private String activeTool;
-	private IGameState state;
+	private GameState state;
 	private TabPane tabPane;
 	private Toolbar toolbar;
 	private File gameFile;
 	private int nextID  = 0;
 	
+	private final int BLOCK_DEFAULT_WIDTH = 50;
 	/**
 	 * Default Constructor
 	 */
@@ -62,8 +62,10 @@ public class GameEditorView extends BorderPane {
 		addLevel(); // add the first level
 		this.setCenter(tabPane);
 		tabPane.setOnMouseClicked((e) -> {
-			if (e.getButton().equals(MouseButton.PRIMARY)) 
-				addEntity.accept(e);
+			if (e.getButton().equals(MouseButton.PRIMARY)) {
+				if (e.getClickCount() == 1)
+					addEntity.accept(e);
+			}
 		}); // Add a new Entity OnClick
 	}
 	
@@ -79,7 +81,15 @@ public class GameEditorView extends BorderPane {
 		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", GAME_FILE_EXTENSION));
 		gameFile = fileChooser.showOpenDialog(new Stage());};
 	//Handles save game call from toolbar
-	Consumer saveGame = (e)->{System.out.println("Save Game!");state.save();};
+	Consumer saveGame = (e)->{
+		DataWrite dr = new DataWrite();
+		try {
+			dr.saveFile(this.state, "MyFirstGame");
+		} catch (Exception ex) {
+			// TODO better exception
+			ex.printStackTrace();
+		}
+	};
 	//Handles the add new level call from toolbar
 	Consumer newLevel = (e)->{addLevel();};
 	//Handles the show settings call from toolbar
@@ -127,6 +137,7 @@ public class GameEditorView extends BorderPane {
 		Tab t = tabsList.get(tabsList.size()-1);
 		t.setText("Level " + (tabsList.indexOf(t)+1));
 		Level level = new Level(tabsList.indexOf(t)+1);
+		state.addLevel(level);
 		t.setContent(new LevelView(level,tabsList.indexOf(t)+1));
 		t.setOnClosed(e -> {
 			tabsList.remove(t);
@@ -160,7 +171,9 @@ public class GameEditorView extends BorderPane {
 			entity = (Entity) entityConstructor.newInstance(nextID); 
 			System.out.println(entity + " created with ID " + entity.getID());
 			//Set the X,Y position of the mouseEvent to the X,Y position of the object
-			entity.setPosition(mouseEvent.getX(), mouseEvent.getY() - this.tabPane.getTabMaxHeight());
+			entity.setFitWidth(BLOCK_DEFAULT_WIDTH);
+			entity.setFitHeight(BLOCK_DEFAULT_WIDTH);
+			entity.setPosition(mouseEvent.getX() - entity.getFitWidth() / 2, mouseEvent.getY() - this.tabPane.getTabMaxHeight() - entity.getFitHeight() / 2);
 			entity.add(new Position(nextID, entity.getX(), entity.getY()));
 			//Get all of the inputs for components
 			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; 
@@ -189,7 +202,7 @@ public class GameEditorView extends BorderPane {
 			}
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity); //add the entity to the level
 			nextID++; //Increment id's by one
-		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException | IOException e1) {
 			e1.printStackTrace();
 		} 

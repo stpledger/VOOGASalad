@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.thoughtworks.xstream.annotations.XStreamOmitField;
+//import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import frontend.entities.Entity;
 
 public class Level {
@@ -16,7 +15,8 @@ public class Level {
 	private String levelText;
 	private double levelTime;
 	private double levelDistance;
-	@XStreamOmitField
+	
+	//@XStreamOmitField
 	private transient List<Entity> entityList;
 	private Map<String,Boolean> HUDprops;
 	private Map<String,String> GProps;
@@ -33,6 +33,7 @@ public class Level {
 			if (entity.getID() == other.getID()) return;
 		}
 		this.entityList.add(entity);
+		System.out.println("Added!");
 	}
 	
 	public void removeEntity(Entity entity) {
@@ -102,21 +103,17 @@ public class Level {
 	public void addHUDProp(String prop, Boolean bool) {
 		this.HUDprops.put(prop, bool);
 	}
-	
-	public void removeHUDProp(String prop) {
-		this.HUDprops.remove(prop);
-	}
-
-	public Map<String,String> getGProps() {
-		return this.GProps;
-	}
 
 	public void setGProps(Map<String,String> gProps) {
-		this.GProps = gProps;
+		GProps = gProps;
 	}
 	
 	public void addGProp(String prop, String value) {
 		this.GProps.put(prop, value);
+	}
+	
+	public void removeHUDProp(String prop) {
+		this.HUDprops.remove(prop);
 	}
 	
 	public void removeGProp(String prop) {

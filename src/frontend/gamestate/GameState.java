@@ -1,18 +1,19 @@
 package frontend.gamestate;
 
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
 
 import data.DataWrite;
 import engine.components.Component;
+
+import java.util.ArrayList;
 import frontend.components.Level;
+import frontend.entities.Entity;
 
 /**
  * Keeps track of the current state of the authoring environment, so that the author can save/load games dynamically. 
  *
  * @author Dylan Powers
+ * @author Hemanth Yakkali(hy115)
  *
  */
 public class GameState implements IGameState {
@@ -30,11 +31,12 @@ public class GameState implements IGameState {
 	@Override
 	public void save() {
 		try {
-			DataWrite.saveFile(this,"Testing");
-			System.out.print("Saving gamestate");
+			DataWrite.saveFile(this,"Test");
+			System.out.println("saved!");
 		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.print("Couldn't save gamestate");
+			// TODO Auto-generated catch block
+			//e.printStackTrace();
+			System.out.print("didnt work");
 		}
 	}
 	
@@ -44,7 +46,6 @@ public class GameState implements IGameState {
 	 */
 	@Override
 	public void addLevel(Level level) {
-		System.out.print("Level added");
 		if(!state.contains(level)) {
 			state.add(level);
 		}
@@ -61,8 +62,17 @@ public class GameState implements IGameState {
 		}
 	}
 	
-	public List<Level> getLevels()
-	{
+	public List<Level> getLevels() {
 		return state;
+	}
+	
+	public void printState() {
+		for (Level level : this.state) {
+			for (Entity e : level.getEntityList()) {
+				for (Component c : e.getComponentList()) {
+					System.out.println(e.type() + " has component " + c.getKey());
+				}
+			}
+		}
 	}
 }

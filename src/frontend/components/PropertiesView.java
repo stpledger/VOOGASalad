@@ -21,6 +21,7 @@ public abstract class PropertiesView {
 	private final int HEIGHT = 450;
 	private final int WIDTH = 450;
 	private GridPane root;
+	private Stage stage;
 	private final String RESOURCES = "resources/";
 	private ResourceBundle buttonProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"buttons");
 	
@@ -38,10 +39,14 @@ public abstract class PropertiesView {
 	 * Opens the Property Editor window.
 	 */
 	public void open() {
-		Stage stage = new Stage();
+		stage = new Stage();
 		stage.setTitle(this.title());
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		stage.show();
+	}
+	
+	public void close() {
+		stage.close();
 	}
 	
 	/**
