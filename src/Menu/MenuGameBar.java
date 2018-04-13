@@ -3,6 +3,7 @@ package Menu;
 import java.util.Map;
 import java.util.Set;
 
+import GamePlayer.GamePlayerController;
 import engine.components.Component;
 import frontend.components.Level;
 import javafx.collections.FXCollections;
@@ -23,8 +24,8 @@ public class MenuGameBar extends MenuBar{
 	
 	private LevelSelector levelMenu;
 
-	public MenuGameBar() {
-				levelMenu = new LevelSelector();
+	public MenuGameBar(GamePlayerController g) {
+				levelMenu = new LevelSelector(g);
 				//Set<Level> levelKeySet = levelMap.keySet();
 				//size = levelKeySet.size();
 				//levelList = createLevelList(levelMap); //levelList now is a list of each level as a combobox.
@@ -32,20 +33,4 @@ public class MenuGameBar extends MenuBar{
 				
 	}
 	
-	private ObservableList<Map<Integer, Map<String, Component>>> createLevelList(Map<Level,Map<Integer,Map<String,Component>>> levelMap) {
-		ObservableList<Map<Integer, Map<String, Component>>> levelList = FXCollections.observableArrayList();
-		Set<Level> levelKeySet = levelMap.keySet();
-		while (levelKeySet.iterator().hasNext()) {
-			//Adds each level to the LevelList
-			levelList.add(levelMap.get(levelKeySet.iterator().next()));
-		}
-		return levelList;
-	}
-	
-	/**
-	 * Listener to select the correct map
-	 */
-	private void selectFileListener() {
-		
-	}
 }
