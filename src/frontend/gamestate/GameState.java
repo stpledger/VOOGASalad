@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.ArrayList;
+
+import data.DataWrite;
 import engine.components.Component;
 import frontend.components.Level;
 
@@ -27,7 +29,13 @@ public class GameState implements IGameState {
 	
 	@Override
 	public void save() {
-		
+		try {
+			DataWrite.saveFile(this,"Testing");
+			System.out.print("Saving gamestate");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.print("Couldn't save gamestate");
+		}
 	}
 	
 	/**
@@ -36,6 +44,7 @@ public class GameState implements IGameState {
 	 */
 	@Override
 	public void addLevel(Level level) {
+		System.out.print("Level added");
 		if(!state.contains(level)) {
 			state.add(level);
 		}
