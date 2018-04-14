@@ -1,9 +1,6 @@
 package engine.components;
 
 
-import javafx.geometry.Pos;
-
-import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Component {

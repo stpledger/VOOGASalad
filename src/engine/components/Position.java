@@ -57,10 +57,10 @@ public class Position extends Component implements Cloneable {
 
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String, String>(){{
-			put("Position X", Double.toString(xPos));
-			put("Position Y", Double.toString(yPos));
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Position X", Double.toString(xPos));
+		res.put("Position Y", Double.toString(yPos));
+		
 		return res;
 	}
 

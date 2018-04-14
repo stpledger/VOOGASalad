@@ -49,10 +49,10 @@ public class Velocity extends Component {
 
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String, String>(){{
-			put("Velocity X", Double.toString(XVel));
-			put("Velocity Y", Double.toString(YVel));
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Velocity X", Double.toString(XVel));
+		res.put("Velocity Y", Double.toString(YVel));
+		
 		return res;
 	}
 }
