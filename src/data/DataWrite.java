@@ -15,7 +15,7 @@ public class DataWrite {
  *  or the player
  */
 	private static final String XML_FILETYPE=".xml";
-	private static final String GAME_FILEPATH = "\\games\\";
+	private static final String GAME_FILEPATH = "games/";
 	
     
 	/*creates an xml file from an authoiring environment 
@@ -36,7 +36,7 @@ public class DataWrite {
     /*does the backend work to create new files in the game directory
      */
     private static File createFile(DataGameState dataGameState, String name) throws Exception {
-        File xmlFile = new File(name+XML_FILETYPE);
+        File xmlFile = new File(GAME_FILEPATH+name+XML_FILETYPE);
         FileOutputStream fos = new FileOutputStream(xmlFile);
         XStream xstream = new XStream(new DomDriver()); 
         xstream.toXML(dataGameState, fos);
