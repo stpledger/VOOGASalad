@@ -32,4 +32,14 @@ public class KeyInput extends Component {
 
 	public static String getKey() { return KEY; }
 
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String,String> res = new HashMap<String, String>(){{
+			for(Map.Entry<KeyCode,Consumer> entry : codes.entrySet()) {
+				put("Key Code", entry.getKey().getName());
+			}
+		}};
+		return res;
+	}
+
 }

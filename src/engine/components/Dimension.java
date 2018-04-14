@@ -10,7 +10,7 @@ import java.util.Map;
  * @author Yameng
  */
 
-public class Dimension extends ShowableComponent{
+public class Dimension extends Component {
 	private double height,width;
 	public static String KEY = "Dimension";
 	

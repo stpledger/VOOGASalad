@@ -9,7 +9,7 @@ import java.util.Map;
  *
  * @author fitzj
  */
-public class Position extends ShowableComponent {
+public class Position extends Component {
 	private double xPos;
 	private double yPos;
 

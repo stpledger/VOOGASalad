@@ -8,7 +8,7 @@ import java.util.HashMap;
  * @author Yameng
  * @author fitzj
  */
-public class Acceleration extends ShowableComponent {
+public class Acceleration extends Component {
 
 public static String KEY = "Acceleration";
 	

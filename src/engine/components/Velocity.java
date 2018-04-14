@@ -9,7 +9,7 @@ import java.util.Map;
  *  @author fitzj
  *  @author Yameng
  **/
-public class Velocity extends ShowableComponent {
+public class Velocity extends Component {
 
 	private double XVel; //X velocity associated with an entity that has this VelocityComponent
 	private double YVel; //Y velocity associated with an entity that has this VelocityComponent

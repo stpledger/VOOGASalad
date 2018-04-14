@@ -13,4 +13,8 @@ public class Player extends Component {
 
     public static String getKey() { return KEY; }
 
+    @Override
+    public Map<String, String> getParameters(){
+        return null;
+    }
 }
