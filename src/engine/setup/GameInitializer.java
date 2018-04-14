@@ -61,6 +61,8 @@ public class GameInitializer {
 
     public RenderManager getRM() { return RM; }
 
+    public SystemManager getSM() { return SM; }
+    
     public List<ISystem> getSystems() {		// For testing
     		return systems;
     }

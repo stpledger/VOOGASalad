@@ -36,7 +36,6 @@ public class GamePlayerEntityView {
 	private GameInitializer GI;
 	private InputHandler inputHandler;
 	private RenderManager RM;
-
 	
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
@@ -60,7 +59,7 @@ public class GamePlayerEntityView {
 	public Map<Integer, Group> getlevelEntityMap(){
 		return levelEntityMap;
 	}
-
+	
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
 	 * @param levelMap 
@@ -131,7 +130,7 @@ public class GamePlayerEntityView {
 	}
 
 	public void execute (double time) {
-		SystemManager.execute(time);
+		GI.getSM().execute(time);
 	}
 
 	public void render() {

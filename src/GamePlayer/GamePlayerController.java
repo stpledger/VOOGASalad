@@ -104,7 +104,7 @@ public class GamePlayerController {
 
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
-
+		
 
 		levelEntityGroupMap = gameView.getlevelEntityMap();
 		gameRoot = levelEntityGroupMap.get(1);
