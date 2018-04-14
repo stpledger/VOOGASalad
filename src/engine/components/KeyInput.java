@@ -33,7 +33,7 @@ public class KeyInput extends Component {
 	@Override
 	public Map<String, String> getParameters(){
 		Map<String,String> res = new HashMap<String, String>(){{
-			for(Map.Entry<KeyCode,Consumer> entry : codes.entrySet()) {
+			for(Map.Entry<KeyCode,Runnable> entry : codes.entrySet()) {
 				put("Key Code", entry.getKey().getName());
 			}
 		}};
