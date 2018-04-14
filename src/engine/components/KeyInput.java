@@ -11,9 +11,8 @@ public class KeyInput extends Component {
 
 	public static String KEY = "KeyInput";
 
-	public KeyInput(int pid, KeyCode code, Runnable con) {
+	public KeyInput(int pid) {
 		super(pid, KEY);
-		codes.put(code, con);
 	}
 
 	public boolean containsCode (KeyCode key) {

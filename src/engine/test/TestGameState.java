@@ -34,7 +34,8 @@ public class TestGameState {
 		Velocity v = new Velocity(0, 0, 0);
 
 		Acceleration a = new Acceleration(0, 0, 40);
-		KeyInput k = new KeyInput(0, KeyCode.RIGHT, (Runnable & Serializable) () -> {
+		KeyInput k = new KeyInput(0);
+		k.addCode( KeyCode.RIGHT, (Runnable & Serializable) () -> {
 			v.setXVel(+50);
 		});
 		k.addCode(KeyCode.UP, (Runnable & Serializable)() ->
