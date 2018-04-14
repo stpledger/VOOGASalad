@@ -30,6 +30,7 @@ public class DataGameState {
             Map<Integer, Map<String, Component>> entityMap = new HashMap<>();
             for (Entity entity : level.getEntityList()) {
                 Map<String, Component> componentMap = new HashMap<>();
+                System.out.print(" YO ");
                 for (Component component :entity.getComponentList()) {
                     componentMap.put(component.getKeyKey(), component);
                 }
