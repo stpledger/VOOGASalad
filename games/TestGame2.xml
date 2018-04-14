@@ -26,8 +26,8 @@
               <engine.components.Position>
                 <pid>2</pid>
                 <keykey>Position</keykey>
-                <xPos>100.0</xPos>
-                <yPos>50.0</yPos>
+                <xPos>0.0</xPos>
+                <yPos>0.0</yPos>
               </engine.components.Position>
             </entry>
             <entry>
@@ -35,8 +35,8 @@
               <engine.components.Dimension>
                 <pid>2</pid>
                 <keykey>Dimension</keykey>
-                <height>100.0</height>
-                <width>50.0</width>
+                <height>500.0</height>
+                <width>20.0</width>
               </engine.components.Dimension>
             </entry>
             <entry>
@@ -53,8 +53,8 @@
               <engine.components.Velocity>
                 <pid>2</pid>
                 <keykey>Velocity</keykey>
-                <XVel>1.0</XVel>
-                <YVel>-1.0</YVel>
+                <XVel>20.0</XVel>
+                <YVel>0.0</YVel>
               </engine.components.Velocity>
             </entry>
           </map>
@@ -90,19 +90,6 @@
                 <xPos>10.0</xPos>
                 <yPos>30.0</yPos>
               </engine.components.Position>
-            </entry>
-            <entry>
-              <string>KeyInput</string>
-              <engine.components.KeyInput>
-                <pid>1</pid>
-                <keykey>KeyInput</keykey>
-                <codes>
-                  <entry>
-                    <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-                    <null/>
-                  </entry>
-                </codes>
-              </engine.components.KeyInput>
             </entry>
             <entry>
               <string>Acceleration</string>

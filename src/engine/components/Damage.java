@@ -1,6 +1,9 @@
 package engine.components;
 
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This component defines poisons points of the game object.
  * The entity with this component can harm other entities it collides with,
@@ -9,14 +12,14 @@ package engine.components;
  * and changes according to game logic.
  * @author Yameng
  */
-public class Damage extends Component {
+public class Damage extends ShowableComponent {
 	private double damage;
 	private double lifetime;
 	public static String KEY = "Damage";
 
 
 	public Damage(int pid, double damage, double lifetime) {
-		super(pid);
+		super(pid, KEY);
 		this.damage = damage;
 		this.lifetime = lifetime;
 	}
@@ -45,4 +48,12 @@ public class Damage extends Component {
 		return KEY;
 	}
 
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String,String> res = new HashMap<String, String>(){{
+			put("Damage", Double.toString(damage));
+			put("Lifetime", Double.toString(lifetime));
+		}};
+		return res;
+	}
 }
