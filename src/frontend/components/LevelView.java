@@ -46,7 +46,6 @@ public class LevelView extends BorderPane {
 		this.setupButtons();
 	}
 	
-
 	/**
 	 * Sets up mouse click events
 	 * @param levelNum Level number
