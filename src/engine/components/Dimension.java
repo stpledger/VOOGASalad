@@ -1,6 +1,8 @@
 package engine.components;
 
 
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * This component defines dimensions of the sprite. It consists of height and width of the sprite.
@@ -8,12 +10,12 @@ package engine.components;
  * @author Yameng
  */
 
-public class Dimension extends Component{
+public class Dimension extends ShowableComponent{
 	private double height,width;
 	public static String KEY = "Dimension";
 	
 	public Dimension(int pid, double w, double h) {
-		super(pid);
+		super(pid, KEY);
 		this.height = h;
 		this.width = w;
 	}
@@ -47,4 +49,12 @@ public class Dimension extends Component{
 		return KEY;
 	}
 
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String,String> res = new HashMap<String, String>(){{
+			put("Dimension X", Double.toString(width));
+			put("Dimension Y", Double.toString(height));
+		}};
+		return res;
+	}
 }

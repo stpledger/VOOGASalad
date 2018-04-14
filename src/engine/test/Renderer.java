@@ -24,7 +24,7 @@ public class Renderer implements Runnable {
 	@Override
 	public void run() {
 		entities.forEach((key, map) -> {
-			if(map.containsKey(Sprite.KEY) && map.containsKey(Position.KEY) && map.containsKey(Dimension.KEY)) {
+			if(map.containsKey(Sprite.KEY) && map.containsKey(Position.getKey()) && map.containsKey(Dimension.getKey())) {
 				Sprite s = (Sprite) map.get(Sprite.KEY);
 				Position p = (Position) map.get(Position.KEY);
 				Dimension d = (Dimension) map.get(Dimension.KEY);
