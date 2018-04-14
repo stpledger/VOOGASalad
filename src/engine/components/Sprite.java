@@ -5,10 +5,8 @@ import java.io.FileNotFoundException;
 import javax.imageio.ImageIO;
 
 import javafx.embed.swing.SwingFXUtils;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import java.util.*;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
@@ -22,7 +20,8 @@ import javafx.scene.image.ImageView;
  * @author Yameng
  */
 public class Sprite extends Component {
-	public static final String FILE_PATH ="File:data/";
+	public static final String FILE_PATH ="File:";
+	public static final String IMAGE_PATH ="data\\";
 	public static String KEY = "Sprite";
 	private String filename;
 
@@ -32,19 +31,26 @@ public class Sprite extends Component {
 	public Sprite(int pid, String path) throws FileNotFoundException {
 	    super(pid, KEY);
 		filename = path;
-		Image im = new Image(filename);
-		image = new ImageView(im);
+		setImage(filename);
 	}
 
 	public String getName() { return filename; }
 
 	public ImageView getImage() {
-		if (image == null) image= new ImageView(new Image("File:data/"+filename));
+		if (image == null) setImage(filename);
 		return image;
 	}
 
 	public void setImage(String im) throws RuntimeException {
-		image  = new ImageView(new Image(FILE_PATH + im));
+		try {
+			image = new ImageView(new Image(FILE_PATH + im));
+			if(image==null)
+				image = new ImageView(new Image(FILE_PATH + IMAGE_PATH+ im));
+		}
+			catch (Exception el){
+				el.printStackTrace();
+
+			}
 
 	}
 

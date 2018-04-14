@@ -12,7 +12,6 @@ public class Health extends Component {
 	private double health;
 	public static String KEY = "Health";
 	
-	
 	public Health(int pid, double health) {
 		super(pid, KEY);
 		this.health = health;
