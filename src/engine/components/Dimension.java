@@ -51,10 +51,10 @@ public class Dimension extends Component {
 
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String, String>(){{
-			put("Dimension X", Double.toString(width));
-			put("Dimension Y", Double.toString(height));
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Dimension X", Double.toString(width));
+		res.put("Dimension Y", Double.toString(height));
+		
 		return res;
 	}
 }

@@ -11,6 +11,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import javax.imageio.ImageIO;
+
+import data.DataRead;
 import frontend.entities.Entity;
 import frontend.gamestate.*;
 import javafx.application.Platform;
@@ -191,9 +193,7 @@ public class GameEditorView extends BorderPane {
 				Object[] args = tempArr.toArray(); //Convert the temp array to an array of objects
 				componentArrayList.add((Component) componentConstructor.newInstance(args)); //Add a new instance to arraylist.
 				if(k.equals(Sprite.class)) { //Check if this is the image
-					File imageFile = new File((String) entityComponents.get(k)[0]);
-					Image image = null;
-					image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
+					Image image = DataRead.loadImage((String) entityComponents.get(k)[0]);
 					entity.setImage(image);
 				}
 			}
@@ -203,8 +203,8 @@ public class GameEditorView extends BorderPane {
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity); //add the entity to the level
 			nextID++; //Increment id's by one
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException | IOException e1) {
-			e1.printStackTrace();
+				| NoSuchMethodException | SecurityException el) {
+			el.printStackTrace();
 		} 
 	};
 	
