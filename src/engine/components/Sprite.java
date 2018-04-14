@@ -1,5 +1,4 @@
 package engine.components;
-import java.io.File;
 import java.io.FileNotFoundException;
 
 
@@ -28,24 +27,19 @@ public class Sprite extends Component {
 	private String filename;
 
 	@XStreamOmitField
-	private ImageView image;
+	private transient ImageView image;
 
 	public Sprite(int pid, String path) throws FileNotFoundException {
-		super(pid, KEY);
-		this.filename = path;
-		try {
-			setImage(filename);
-		}
-		catch (RuntimeException e) {
-			System.out.println("Can not find image files");
-		}
-
+	    super(pid, KEY);
+		filename = path;
+		Image im = new Image(filename);
+		image = new ImageView(im);
 	}
 
 	public String getName() { return filename; }
 
 	public ImageView getImage() {
-		image= new ImageView(new Image("File:data/"+filename));
+		if (image == null) image= new ImageView(new Image("File:data/"+filename));
 		return image;
 	}
 

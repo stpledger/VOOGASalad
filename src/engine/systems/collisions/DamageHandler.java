@@ -13,6 +13,7 @@ public class DamageHandler {
 	}
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
+		//System.out.println("in damage handler");
 		if(collider.containsKey(DamageLauncher.KEY) || player.containsKey(DamageLauncher.KEY)) {
 			if(player.containsKey(DamageLauncher.KEY)) {
 				DamageLauncher launcher = (DamageLauncher)player.get(DamageLauncher.KEY);
@@ -23,6 +24,7 @@ public class DamageHandler {
 					Damage damage = (Damage)collider.get(Damage.KEY);
 					damage.setLifetime(damage.getLifetime() + newLifetime);
 					damage.setDamage(damage.getDamage() + newDamage);
+					System.out.println(damage.getDamage() + newDamage);
 				}
 				else {
 					Damage damage = new Damage(newPid,newDamage,newLifetime);

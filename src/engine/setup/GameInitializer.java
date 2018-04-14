@@ -53,21 +53,16 @@ public class GameInitializer {
         SM.setActives(RM.renderObjects());
     }
 
-    public SystemManager getSM () {
-        return SM;
+    public void execute (double time) {
+        SM.execute(time);
     }
 
-    public RenderManager getRM() {
-        return RM;
-    }
-
-    public EntityManager getEM() {
-    		return EM;
-    }
 
     public InputHandler getIH() {
          return IH;
          }
+
+    public RenderManager getRM() { return RM; }
 
     public List<ISystem> getSystems() {		// For testing
     		return systems;
