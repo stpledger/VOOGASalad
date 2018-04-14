@@ -61,7 +61,7 @@ public class EntityBuilderView{
 	private Stage stage;
 	private File imageFile;
 	private Image image;
-	private List<ComponentForm> activeForms;
+	private List<EntityComponentForm> activeForms;
 	private List<String> imageExtensions = Arrays.asList(new String[] {".jpg",".png",".jpeg"});
 	private BiConsumer<String, Map<Class, Object[]>> onClose;
 	private Map<Class, Object[]> componentAttributes = new HashMap<Class, Object[]>();
@@ -221,6 +221,12 @@ public class EntityBuilderView{
 			//Create Save Button
 			Button saveButton = new Button("Save");
 			saveButton.setOnMouseClicked((e)->{
+					for(EntityComponentForm componentForm : activeForms) {
+						Object[] tempArr = componentForm.buildComponent();
+						if(tempArr != null) {
+						componentAttributes.put(componentForm.getClass(), tempArr);
+						}
+					}
 					onClose.accept(myEntityType, componentAttributes);
 					stage.close();
 				});
@@ -237,9 +243,11 @@ public class EntityBuilderView{
 			int currentRow = 0;
 			this.activeForms = new ArrayList<>();
 			for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + myEntityType).keySet()) {
-				ComponentForm cf = new ComponentForm(property);
-				this.activeForms.add(cf);
-				gridPane.add(cf, 0, currentRow++);
+				if(!property.equals("Sprite") && !property.equals("Position")) {
+					EntityComponentForm cf = new EntityComponentForm(property);
+					this.activeForms.add(cf);
+					gridPane.add(cf, 0, currentRow++);
+				}
 			}
 			return gridPane;
 	}

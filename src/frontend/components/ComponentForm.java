@@ -88,6 +88,32 @@ public class ComponentForm extends GridPane {
 		}
 		return null;
 	}
+	/**
+	 * Builds the necessary Object Array to build a component based upon the data that is inside of the text fields.
+	 * Should be performed only when the user clicks the submit button.
+	 * @return a component that accurately represents the data in this wrapper class
+	 */
+	public Object[] sudoBuildComponent() {
+		if (!validComponent()) return null;
+		String fullName =  COMPONENT_PREFIX + this.name;
+		Object[] params = new Object[fields.size() + 1];
+		// first argument is always the entity ID
+		params[0] = this.entity;
+		try {
+			Class<?> clazz = Class.forName(fullName);
+			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
+			Class<?>[] types = cons.getParameterTypes();
+			for (int i = 1; i < types.length; i++) {
+				String text = fields.get(i-1).getText();
+				params[i] = cast(types[i], text);
+			}
+			return params;
+		} catch (ClassNotFoundException | IllegalArgumentException e) {
+			// TODO better exception
+			e.printStackTrace();
+		}
+		return null;
+	} 
 	
 	/**
 	 * Check if the user fully entered something in this form. If the form has multiple text boxes, then
