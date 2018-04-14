@@ -53,7 +53,7 @@ public class SystemManager {
         }
     }
 
-    public static void execute (double time) {
+    public void execute (double time) {
         for (ISystem s: systems) {
             s.execute(time);
         }

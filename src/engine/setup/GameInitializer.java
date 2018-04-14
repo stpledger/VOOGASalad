@@ -3,10 +3,7 @@ package engine.setup;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-import engine.components.Component;
-import engine.components.EntityType;
-import engine.components.KeyInput;
-import engine.components.Position;
+import engine.components.*;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
 import javafx.beans.property.SetProperty;
@@ -29,6 +26,7 @@ public class GameInitializer {
         systems.add(new Accelerate());
         systems.add(new Motion());
         IH = new InputHandler();
+        systems.add((new ArtificialIntelligence()));
         systems.add(c);
         systems.add(new Animate());
         systems.add(IH);
@@ -63,6 +61,8 @@ public class GameInitializer {
          }
 
     public RenderManager getRM() { return RM; }
+
+    public SystemManager getSM() { return SM; }
 
     public List<ISystem> getSystems() {		// For testing
     		return systems;

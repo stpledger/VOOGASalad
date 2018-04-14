@@ -52,6 +52,7 @@ public class Motion implements ISystem {
      */
     public void execute(double time) {
         for (int pid : activeComponents) {
+
             Map<String, Component> components = handledComponents.get(pid);
 
             Velocity v = (Velocity) components.get(Velocity.KEY);
