@@ -26,9 +26,9 @@ public class TestGameState {
 	public TestGameState() throws FileNotFoundException {
 		System.out.println("TestGameState");
 		entities = new HashMap<>();
-		Sprite s = new Sprite(0,"mario.png");
-		Sprite s2 = new Sprite(1,"mario.png");
-		Sprite s3 = new Sprite(2,"mario.png");
+		Sprite s = new Sprite(0,"Waluigi.png");
+		Sprite s2 = new Sprite(1,"Waluigi.png");
+		Sprite s3 = new Sprite(2,"Waluigi.png");
 
 		Position p = new Position(0, 100, 100);
 		Dimension d = new Dimension(0, 100, 100);
@@ -52,14 +52,14 @@ public class TestGameState {
 		});
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
-        Player play = new Player(0, 3, 0);
-        Position respawn = p.clone();
-        play.setRespawn(respawn);
+
+		Player play = new Player(0, 3, 0);
+        play.setRespawn(p.clone());
 		k.addCode(KeyCode.R, (Runnable & Serializable) () ->
 		{
-			p.setXPos(respawn.getXPos());
-			p.setYPos(respawn.getYPos());
+			play.respawn(p, v, a);
 		});
+
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(Position.getKey(), p);
 		mario.put(Dimension.getKey(), d);
@@ -95,7 +95,15 @@ public class TestGameState {
 		Health h3 = new Health(2,10);
 		DamageLauncher launcher3 = new DamageLauncher(0,2,2);
 
+		AI ai = new AI(2);
+		ai.setAction( (Consumer & Serializable) (time) -> {
+			Double myTime = (Double) time;
+			v3.setXVel((p.getXPos() - p3.getXPos()) * myTime * 10);
+			v3.setYVel((p.getYPos() - p3.getYPos()) * myTime * 10);
+		});
+
 		Map<String, Component> mario3 = new HashMap<>();
+		mario3.put(AI.KEY, ai);
 		mario3.put(Position.getKey(), p3);
 		mario3.put(Dimension.getKey(), d3);
 		mario3.put(Sprite.KEY, s3);

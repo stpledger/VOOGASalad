@@ -25,6 +25,7 @@ public class GameInitializer {
         systems.add(new Accelerate(EM));
         systems.add(new Motion());
         IH = new InputHandler();
+        systems.add((new ArtificialIntelligence()));
         systems.add(c);
         systems.add(new Animate(EM));
         systems.add(IH);
@@ -62,7 +63,7 @@ public class GameInitializer {
     public RenderManager getRM() { return RM; }
 
     public SystemManager getSM() { return SM; }
-    
+
     public List<ISystem> getSystems() {		// For testing
     		return systems;
     }
