@@ -17,6 +17,7 @@ public class InternalEngine implements Engine {
 	private List<ISystem> systems;
 	
 	public InternalEngine(List<ISystem> systems) {
+		System.out.println("InternalEngine");
 		this.systems = systems;
 	}
 

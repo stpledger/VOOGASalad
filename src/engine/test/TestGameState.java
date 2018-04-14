@@ -24,6 +24,7 @@ public class TestGameState {
 	private InputHandler ih;
 
 	public TestGameState() throws FileNotFoundException {
+		System.out.println("TestGameState");
 		entities = new HashMap<>();
 		Sprite s = new Sprite(0,"mario.png");
 		Sprite s2 = new Sprite(1,"mario.png");
