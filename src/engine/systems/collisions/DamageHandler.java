@@ -27,7 +27,7 @@ public class DamageHandler {
 					Damage damage = (Damage)collider.get(Damage.KEY);
 					damage.setLifetime(damage.getLifetime() + newLifetime);
 					damage.setDamage(damage.getDamage() + newDamage);
-					System.out.println(damage.getDamage() + newDamage);
+					//System.out.println(damage.getDamage() + newDamage);
 				}
 				else {
 					Damage damage = new Damage(newPid,newDamage,newLifetime);

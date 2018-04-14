@@ -1,6 +1,5 @@
 package engine.test;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.HashMap;
@@ -26,7 +25,7 @@ public class TestGameState {
 	public TestGameState() throws FileNotFoundException {
 		System.out.println("TestGameState");
 		entities = new HashMap<>();
-		Sprite s = new Sprite(0,"mario.png");
+		Sprite s = new Sprite(0,"Mario.png");
 		Sprite s2 = new Sprite(1,"mario.png"); 
 		Sprite s3 = new Sprite(2,"mario.png");
 
@@ -122,7 +121,7 @@ public class TestGameState {
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);
 		state.put(l,entities);
-		DataGameState dState = new DataGameState(state);
+		DataGameState dState = new DataGameState(state, "Demo");
 		try {
 			DataWrite.saveFile(dState, "Demo");
 		} catch (Exception e) {
