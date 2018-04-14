@@ -4,9 +4,7 @@ import java.util.*;
 
 import engine.components.Component;
 import engine.components.Dimension;
-import engine.components.EntityType;
-import engine.components.KeyInput;
-import engine.components.Player;
+
 import engine.components.Position;
 import engine.components.Velocity;
 import engine.setup.EntityManager;
@@ -20,7 +18,7 @@ public class Collision extends DefaultSystem{
 	
 	public Collision(EntityManager em) {
 		colliders = new HashMap<>();
-		handler = new CollisionHandler();
+		handler = new CollisionHandler(em);
 		this.em = em;
 	}
 
@@ -91,26 +89,26 @@ public class Collision extends DefaultSystem{
 							else if(leftbot) {
 								if(botOverlap>leftOverlap) {
 									p1.setXPos(p2.getXPos() - d2.getWidth()/2-d1.getWidth()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
 									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 								}
 								else {
 									p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
 									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 								}
 
 							}
 							else if (rightbot) {
 								if(botOverlap>rightOverlap) {
 									p1.setXPos(p2.getXPos() + d2.getWidth()/2+d1.getWidth()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
 									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 								}
 								else {
 									p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
 									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 								}
 
 							}
@@ -118,11 +116,11 @@ public class Collision extends DefaultSystem{
 								if(topOverlap<leftOverlap) {
 									p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
 									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 								}
 								else {
 									p1.setXPos(p2.getXPos() - d1.getWidth()/2-d2.getWidth()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
 									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 								}
 							}
@@ -130,11 +128,11 @@ public class Collision extends DefaultSystem{
 								if(topOverlap<rightOverlap) {
 									p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
 									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 								}
 								else {
 									p1.setXPos(p2.getXPos() + d1.getWidth()/2+d2.getWidth()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
 									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 								}
 							}
@@ -177,7 +175,7 @@ public class Collision extends DefaultSystem{
 		}
 		
 
-		Velocity velocity = (Velocity)EntityManager.getComponent(pid, componentName);
+		Velocity velocity = (Velocity)em.getComponent(pid, componentName);
 		colliders.put(pid, velocity);
 	}
 

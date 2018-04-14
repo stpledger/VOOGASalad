@@ -8,8 +8,11 @@ import engine.components.DamageLauncher;
 import engine.setup.EntityManager;
 
 public class DamageHandler {
-	public DamageHandler() {
-		
+	
+	private EntityManager em;
+	
+	public DamageHandler(EntityManager em) {
+		this.em = em;
 	}
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
@@ -29,7 +32,7 @@ public class DamageHandler {
 				else {
 					Damage damage = new Damage(newPid,newDamage,newLifetime);
 					Component damageComponent = (Component)damage;
-					EntityManager.addComponent(colliderID, Damage.KEY, damageComponent);
+					em.addComponent(colliderID, Damage.KEY, damageComponent);
 				}
 			}
 		}
@@ -47,7 +50,7 @@ public class DamageHandler {
 			else {
 				Damage damage = new Damage(newPid,newDamage,newLifetime);
 				Component damageComponent = (Component)damage;
-				EntityManager.addComponent(playerID, Damage.KEY, damageComponent);
+				em.addComponent(playerID, Damage.KEY, damageComponent);
 			}
 		}
 	}
