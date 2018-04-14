@@ -16,10 +16,12 @@ public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();
 	private Map<Integer, Velocity> colliders;
 	private CollisionHandler handler;
+	private EntityManager em;
 	
-	public Collision() {
+	public Collision(EntityManager em) {
 		colliders = new HashMap<>();
 		handler = new CollisionHandler();
+		this.em = em;
 	}
 
 	@Override
@@ -80,11 +82,11 @@ public class Collision extends DefaultSystem{
 							if(toponly) {
 								p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
 								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+								//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 							} else if(botonly) {
 								p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
 								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+								//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 							}
 							else if(leftbot) {
 								if(botOverlap>leftOverlap) {
@@ -138,12 +140,12 @@ public class Collision extends DefaultSystem{
 							}
 							else if(leftonly) {
 								p1.setXPos(p2.getXPos() - d1.getWidth()/2-d2.getWidth()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+								//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
 								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 							}
 							else if(rightonly) {
 								p1.setXPos(p2.getXPos() + d2.getWidth()/2+d1.getWidth()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+								//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
 								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 							}
 
