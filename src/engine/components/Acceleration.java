@@ -1,5 +1,7 @@
 package engine.components;
 
+import java.util.Map;
+import java.util.HashMap;
 
 /**
  * Component housing acceleration information. Can be used to apply gravity, force, etc
@@ -19,7 +21,7 @@ public static String KEY = "Acceleration";
 	 * @param yAcc		Initial y acceleration
 	 */
 	public Acceleration(int pid, double xAcc, double yAcc) {
-		super(pid);
+		super(pid, KEY);
 		this.xAcc = xAcc;
 		this.yAcc = yAcc;
 	}
@@ -39,11 +41,17 @@ public static String KEY = "Acceleration";
 	public void setyAcc(double yAcc) {
 		this.yAcc = yAcc;
 	}
-	
-	public String getKey() {
-		return KEY;
-	}
 
+	public static String getKey() { return KEY; }
+
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String,String> res = new HashMap<String,String>(){{
+			put("Acceleration X", Double.toString(xAcc));
+			put("Acceleration Y", Double.toString(yAcc));
+		}};
+		return res;
+	}
 }
 
 

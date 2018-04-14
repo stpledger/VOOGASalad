@@ -4,7 +4,6 @@ package frontend.entities;
  * 
  * @author Hemanth Yakkali(hy115)
  *
- */
 public class Enemy extends Entity {
 	
 	private final String TYPE = "Enemy";
@@ -18,7 +17,7 @@ public class Enemy extends Entity {
 		super(ID);
 		addDefaultComponents();
 	}
-
+	
 	@Override
 	public void addDefaultComponents() {
 		this.setHealth(INITIAL_HEALTH);
@@ -29,4 +28,9 @@ public class Enemy extends Entity {
 		//TODO add method to set sprite
 	}
 
+	@Override
+	public String type() {
+		return TYPE;
+	}
 }
+**/

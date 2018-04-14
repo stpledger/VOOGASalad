@@ -1,6 +1,8 @@
 package engine.components;
 
 
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Component for an entitie's health. Contains one double to represent this value.
@@ -10,9 +12,8 @@ public class Health extends Component {
 	private double health;
 	public static String KEY = "Health";
 	
-	
 	public Health(int pid, double health) {
-		super(pid);
+		super(pid, KEY);
 		this.health = health;
 	}
 	
@@ -24,8 +25,15 @@ public class Health extends Component {
 		this.health = health;
 	}
 	
-	public String getKey() {
+	public static String getKey() {
 		return KEY;
 	}
 
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String,String> res = new HashMap<String, String>(){{
+			put("Health", Double.toString(health));
+		}};
+		return res;
+	}
 }

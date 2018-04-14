@@ -24,6 +24,7 @@ public class PauseMenu extends Popup {
 		pane.setAlignment(Pos.CENTER);
 		pane.getChildren().addAll(new Label("Paused"), new Button("Sound"), new Button("Difficulty"), new Button("Settings"), fileBtn, saveBtn);
 		this.getContent().add(pane);
-		
+		pane.getStylesheets().add("./GamePlayer/playstyle.css");
+		pane.setFillWidth(true);
 	}
 }

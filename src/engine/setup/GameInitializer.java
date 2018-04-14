@@ -19,64 +19,51 @@ public class GameInitializer {
     private SystemManager SM;
     private RenderManager RM;
     private InputHandler IH;
+
     private EntityManager EM;
-    
+
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
-    		EM = new EntityManager(entities);
+        EM = new EntityManager(entities);
+        Collision c = new Collision();
         systems = new ArrayList<>();
         systems.add(new Accelerate());
         systems.add(new Motion());
-        IH = new InputHandler(); 
-        Collision collision = new Collision();
-        //systems.add(collision);
+        IH = new InputHandler();
+        systems.add(c);
         systems.add(new Animate());
-        SM = new SystemManager(systems, collision);
-        
+        systems.add(IH);
+        SM = new SystemManager(systems, c);
+
+
         double renderDistance = 300.0;
         double renderCenterX = 50;
         double renderCenterY = 50;
         RM = new RenderManager(renderDistance, renderCenterX, renderCenterY);
 
+
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
             if (components.containsKey(Position.KEY)) {
                 Position p = (Position) components.get(Position.KEY);
-
                 RM.add(p);
-                
-                /**if (components.containsKey(Sprite.getKey())) {
-                    Sprite s = (Sprite) components.get(Sprite.getKey());
-                    try {
-                        s.setImage(s.getName());
-                        s.getImage().setX(p.getXPos());
-                        s.getImage().setY(p.getYPos());
-                    } catch (Exception e) {
-                        throw new FileNotFoundException();
-                    }
-                }**/
             }
-            
             SM.addEntity(id, components);
         }
 
         SM.setActives(RM.renderObjects());
     }
 
-    public SystemManager getSM () {
-        return SM;
+    public void execute (double time) {
+        SM.execute(time);
     }
 
-    public RenderManager getRM() {
-        return RM;
-    }
 
-    public EntityManager getEM() {
-    		return EM;
-    }
-     public InputHandler getIH() {
+    public InputHandler getIH() {
          return IH;
          }
-     
+
+    public RenderManager getRM() { return RM; }
+
     public List<ISystem> getSystems() {		// For testing
     		return systems;
     }

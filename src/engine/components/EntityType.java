@@ -1,5 +1,8 @@
 package engine.components;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * This component defines type fof entity,like "player","block" etc
  * @author Yameng
@@ -10,7 +13,7 @@ public class EntityType extends Component{
 	public static String KEY = "EntityType";
 	
 	public EntityType(int pid, String type) {
-		super(pid);
+		super(pid, KEY);
 		this.type = type;
 	}
 
@@ -30,7 +33,15 @@ public class EntityType extends Component{
 		return type;
 	}
 
-	public String getKey() {
+	public static String getKey() {
 		return KEY;
+	}
+
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String,String> res = new HashMap<String, String>(){{
+			put("Entity Type", type);
+		}};
+		return res;
 	}
 }

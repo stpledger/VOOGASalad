@@ -1,10 +1,8 @@
 package frontend.entities;
-
 /**
  * A class to represent the player object, and its default components.
  * @author Dylan Powers
  * @author Hemanth Yakkali(hy115)
- *
  */
 public class Player extends Entity {
 
@@ -37,4 +35,8 @@ public class Player extends Entity {
 		// TODO add method to set sprite
 	}
 
+	@Override
+	public String type() {
+		return TYPE;
+	}
 }

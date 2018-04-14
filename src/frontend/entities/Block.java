@@ -11,6 +11,7 @@ public class Block extends Entity{
 	private final double BLOCK_HEALTH = 50;
 	private final double BLOCK_DIMENSION = 25;
 
+
 	public Block(int ID) {
 		super(ID);
 		addDefaultComponents();
@@ -22,6 +23,11 @@ public class Block extends Entity{
 		this.setEntityType(TYPE);
 		this.setDimension(BLOCK_DIMENSION, BLOCK_DIMENSION);
 		// TODO add method to set sprite
+	}
+
+	@Override
+	public String type() {
+		return TYPE;
 	}
 	
 }

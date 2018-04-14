@@ -1,25 +1,34 @@
 package frontend.components;
 
 import java.io.File;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import javax.imageio.ImageIO;
+import frontend.entities.Entity;
 import frontend.gamestate.*;
 import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import GamePlayer.Main;
+import engine.components.Component;
+import engine.components.Position;
+import engine.components.Sprite;
+import data.DataWrite;
 
 /**
  * 
@@ -27,15 +36,17 @@ import GamePlayer.Main;
  *
  */
 public class GameEditorView extends BorderPane {
-	private static final String GAME_FILE_EXTENSION = ".vooga";
+	private static final String GAME_FILE_EXTENSION = ".xml";
 	private ArrayList<Tab> tabsList;
-	private Object clipboard;
+	private Object[] clipboard;
 	private String activeTool;
-	private IGameState state;
+	private GameState state;
 	private TabPane tabPane;
 	private Toolbar toolbar;
 	private File gameFile;
+	private int nextID  = 0;
 	
+	private final int BLOCK_DEFAULT_WIDTH = 50;
 	/**
 	 * Default Constructor
 	 */
@@ -50,12 +61,18 @@ public class GameEditorView extends BorderPane {
 		state = new GameState();
 		addLevel(); // add the first level
 		this.setCenter(tabPane);
+		tabPane.setOnMouseClicked((e) -> {
+			if (e.getButton().equals(MouseButton.PRIMARY)) {
+				if (e.getClickCount() == 1)
+					addEntity.accept(e);
+			}
+		}); // Add a new Entity OnClick
 	}
 	
 	/**
 	 * Below are all of the consumers to be passed to the toolbar
 	 */
-	//Handles new game call from toolbar
+	// Handles new game call from toolbar
 	Consumer newGame = (e)->{System.out.println("New Game!");}; 
 	//Handles load game call from toolbar
 	Consumer loadGame = (e)->{
@@ -64,7 +81,15 @@ public class GameEditorView extends BorderPane {
 		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", GAME_FILE_EXTENSION));
 		gameFile = fileChooser.showOpenDialog(new Stage());};
 	//Handles save game call from toolbar
-	Consumer saveGame = (e)->{System.out.println("Save Game!");};
+	Consumer saveGame = (e)->{
+		DataWrite dr = new DataWrite();
+		try {
+			dr.saveFile(this.state, "MyFirstGame");
+		} catch (Exception ex) {
+			// TODO better exception
+			ex.printStackTrace();
+		}
+	};
 	//Handles the add new level call from toolbar
 	Consumer newLevel = (e)->{addLevel();};
 	//Handles the show settings call from toolbar
@@ -83,12 +108,6 @@ public class GameEditorView extends BorderPane {
 		});
 		
 		};
-	//Handles the call for the addTool in toolbar
-	Consumer addTool = (e)->{System.out.println("Add Tool!");};
-	//Handles the call for the deleteTool in toolbar
-	Consumer deleteTool = (e)->{System.out.println("Delete Tool!");};
-	//Handles thecall for the editTool in Toolbar
-	Consumer editTool = (e)->{System.out.println("edit Tool!");};
 	//All of the consumers are added to the consumerMap below
 	private Map<String, Consumer> consumerMap = new HashMap<String, Consumer>(){{
 		this.put("newGame", newGame);
@@ -97,11 +116,8 @@ public class GameEditorView extends BorderPane {
 		this.put("addLevel", newLevel);
 		this.put("showSettings", showSettings);
 		this.put("play", play);
-		this.put("addTool", addTool);
-		this.put("deleteTool", deleteTool);
-		this.put("editTool", editTool);
-		
 	}};
+	
 	
 	/**
 	 * called whenever there is any change to the tabslist
@@ -121,13 +137,11 @@ public class GameEditorView extends BorderPane {
 		Tab t = tabsList.get(tabsList.size()-1);
 		t.setText("Level " + (tabsList.indexOf(t)+1));
 		Level level = new Level(tabsList.indexOf(t)+1);
+		state.addLevel(level);
 		t.setContent(new LevelView(level,tabsList.indexOf(t)+1));
-		t.setOnClosed(new EventHandler<Event>() { //Handles tab closed events
-			@Override
-			public void handle(Event e) {
-				tabsList.remove(t);
-				updateTabs.accept(tabsList);
-			}
+		t.setOnClosed(e -> {
+			tabsList.remove(t);
+			updateTabs.accept(tabsList);
 		});
 		tabPane.getTabs().add(t);
 	}
@@ -137,26 +151,61 @@ public class GameEditorView extends BorderPane {
 	 * @param o
 	 */
 	public void setClipboard(Object o) {
-		//TODO: add argument check because this is being called from the controller
-		clipboard = o;
-		System.out.println(o.toString());
+		clipboard = (Object[]) o;
 	}
 	
-	//TODO: change these class names
-	public void addTool() {setTool("add");}
-	public void deleteTool() {setTool("delete");}
-	public void editTool() {setTool("edit");}
+	/**
+	 * Consumer to handle adding a new entity to the current level
+	 */
+	private Consumer<MouseEvent> addEntity = (mouseEvent) -> {
+		Object[] clipboardCopy =  clipboard; //Create a copy of the clipboard
+		ArrayList<Component> componentArrayList = new ArrayList<Component>();
+		Entity entity = null;
+		try {
+			//Get the class of the entityType
+			Class<?> entityType = (Class<?>) clipboardCopy[0]; 
+			//Get Constructor for entityType
+			Constructor<?> entityConstructor = entityType.getConstructor(int.class);
+			//Create a new instance of the entity
+			System.out.println("About to create entity with ID " + nextID);
+			entity = (Entity) entityConstructor.newInstance(nextID); 
+			System.out.println(entity + " created with ID " + entity.getID());
+			//Set the X,Y position of the mouseEvent to the X,Y position of the object
+			entity.setFitWidth(BLOCK_DEFAULT_WIDTH);
+			entity.setFitHeight(BLOCK_DEFAULT_WIDTH);
+			entity.setPosition(mouseEvent.getX() - entity.getFitWidth() / 2, mouseEvent.getY() - this.tabPane.getTabMaxHeight() - entity.getFitHeight() / 2);
+			entity.add(new Position(nextID, entity.getX(), entity.getY()));
+			//Get all of the inputs for components
+			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; 
+			//iterate through all the properties we have for new components
+			for(Class k :entityComponents.keySet()) { 
+				 // get the constructor for the type of component
+				Constructor<?> componentConstructor = k.getDeclaredConstructors()[0];
+				//Create a temporary arraylist
+				ArrayList<Object> tempArr = new ArrayList<Object>() {{ 
+					 //Add the pId to the temporary arraylist
+					this.add(nextID);
+					//add all the arguments for the component to the arraylist
+					this.addAll(Arrays.asList(entityComponents.get(k))); 
+				}};
+				Object[] args = tempArr.toArray(); //Convert the temp array to an array of objects
+				componentArrayList.add((Component) componentConstructor.newInstance(args)); //Add a new instance to arraylist.
+				if(k.equals(Sprite.class)) { //Check if this is the image
+					File imageFile = new File((String) entityComponents.get(k)[0]);
+					Image image = null;
+					image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
+					entity.setImage(image);
+				}
+			}
+			for(Component c : componentArrayList) { //Add all the components
+				entity.add(c);
+			}
+			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity); //add the entity to the level
+			nextID++; //Increment id's by one
+			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+				| NoSuchMethodException | SecurityException | IOException e1) {
+			e1.printStackTrace();
+		} 
+	};
 	
-	public void setTool(Object o) {
-		activeTool = o.toString();
-		switch(o.toString()) {
-		case "edit":
-			this.setCursor(javafx.scene.Cursor.OPEN_HAND);
-			break;
-		case "add":
-		case "delete":
-			this.setCursor(javafx.scene.Cursor.HAND);
-			break;
-		}
-	}
 }

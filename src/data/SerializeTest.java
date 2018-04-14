@@ -2,8 +2,10 @@ package data;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+
 import engine.components.*;
 import frontend.components.Level;
+import javafx.scene.input.KeyCode;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -12,6 +14,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 public class SerializeTest {
 
@@ -34,7 +37,7 @@ public class SerializeTest {
         params.add("1");
         params.add("3");
 
-        Acceleration entity1Acceleration = new Acceleration(1,1,3);
+        Acceleration entity1Acceleration = new Acceleration(1,1,0);
         entity1Components.put("Acceleration", entity1Acceleration);
 
 
@@ -57,7 +60,7 @@ public class SerializeTest {
         params.add("Mario.png");
 
         try {
-            Sprite entity1Sprite = new Sprite(1, "Mario.png");
+            Sprite entity1Sprite = new Sprite(1, "mario.png");
             entity1Components.put("Sprite", entity1Sprite);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -71,26 +74,30 @@ public class SerializeTest {
         entity2Components.put("Acceleration", entity2Acceleration);
 
 
+
         params.clear();
         params.add("100");
         params.add("50");
 
-        Position entity2Position = new Position(2, 100,50);
-        entity2Components.put("Position", entity2Position);
+        Position entity2Position = new Position(2, 0,0);
+        entity2Components.put(Position.KEY, entity2Position);
+
+        Dimension d = new Dimension (2, 20, 500);
+        entity2Components.put(Dimension.KEY, d);
 
         params.clear();
         params.add("1");
         params.add("-1");
 
-        Velocity entity2Velocity = new Velocity(2, 1,-1);
+        Velocity entity2Velocity = new Velocity(2, 20,0);
         entity2Components.put("Velocity", entity2Velocity);
 
 
         params.clear();
-        params.add("Mario.png");
+        params.add("m ario.png");
 
         try {
-            Sprite entity2Sprite = new Sprite(2, "Mario.png");
+            Sprite entity2Sprite = new Sprite(2, "mario.png");
             entity2Components.put("Sprite", entity2Sprite);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -108,7 +115,7 @@ public class SerializeTest {
 
         File xml = new File("sdf");
         try {
-             xml =DataWrite.saveFile(state, "TestGame1");
+            xml =DataWrite.saveFile(state, "TestGame3");
         } catch (Exception e) {
             e.printStackTrace();
         }

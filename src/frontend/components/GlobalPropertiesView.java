@@ -17,6 +17,7 @@ public class GlobalPropertiesView extends PropertiesView {
 	public GlobalPropertiesView(Level level){
 		super();
 		this.level = level;
+		fill();
 	}
 
 	@Override
@@ -36,7 +37,7 @@ public class GlobalPropertiesView extends PropertiesView {
 			Label label = new Label(globalProps.getString(property));
 			getRoot().addRow(currentRow++, label);
 		}
-		getRoot().addColumn(1,titleInput,titleInput,pathInput);
+		getRoot().addColumn(1,titleInput,livesInput,pathInput);
 		getRoot().add(MenuItemBuilder.buildButton(this.getButtonProps().getString("Submit"), e-> {
 			level.addGProp(globalProps.getString("Title"), titleInput.getText());
 			level.addGProp(globalProps.getString("Lives"), livesInput.getText());

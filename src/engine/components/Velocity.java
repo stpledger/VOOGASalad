@@ -1,6 +1,8 @@
 package engine.components;
 
 
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *  Velocity component class
@@ -20,7 +22,7 @@ public class Velocity extends Component {
      * @param YVel 		entity's initial YVel
      **/
     public Velocity (int pid, double XVel, double YVel) {
-        super(pid);
+        super(pid, KEY);
     	this.XVel = XVel;
         this.YVel = YVel;
     }
@@ -41,8 +43,16 @@ public class Velocity extends Component {
 		YVel = yVel;
 	}
 	
-	public String getKey() {
+	public static String getKey() {
 		return KEY;
 	}
 
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String,String> res = new HashMap<String, String>(){{
+			put("Velocity X", Double.toString(XVel));
+			put("Velocity Y", Double.toString(YVel));
+		}};
+		return res;
+	}
 }

@@ -3,7 +3,9 @@ package frontend.entities;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
+import frontend.components.LocalPropertiesView;
 import engine.components.Component;
 import engine.components.Damage;
 import engine.components.Dimension;
@@ -12,6 +14,7 @@ import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 
 /**
  * 
@@ -19,7 +22,8 @@ import javafx.scene.image.ImageView;
  * @author Dylan Powers
  *
  */
-public abstract class Entity extends ImageView{
+
+public abstract class Entity extends ImageView {
 
 	/**
 	 * Unique ID to the entity
@@ -31,26 +35,54 @@ public abstract class Entity extends ImageView{
      */
     private List<Component> components;
     
+
     /**
      * The constructor simply sets the ID of the entity and initializes its list of components
      * @param ID which identifies an entity
     **/
-    public Entity (int ID) {
+    public Entity(int ID) {
         this.ID = ID;
         components = new ArrayList<>();
+        Consumer<List<Component>> onSubmit = (componentsToAdd) -> {
+        		for (Component c : componentsToAdd) {
+        			this.add(c);
+        		}
+        };
+        this.setOnMouseClicked(e -> {
+        		if (e.getButton().equals(MouseButton.SECONDARY)) {
+        			LocalPropertiesView LPV = new LocalPropertiesView(this.getID(), this.type(), onSubmit);
+        			LPV.open();
+        		}
+        }); 
     }
     
     /**
      * Adds components that are inherent to the specific entity.
      */
     protected abstract void addDefaultComponents();
-
+   
+    /**
+     * Gets the names of all of the components.
+     * @return the names of all of the components
+     *
+     */
+    public List<String> getNames() {
+    		List<String> ans = new ArrayList<>();
+    		for (Component c : this.components) {
+    			ans.add(c.getKeyKey());
+    		}
+    		return ans;
+    }
     /**
      * 
      * @param c Component object
      */
     public void add(Component c) {
-        components.add(c);
+    		if (c != null) {
+    			if (this.contains(c))
+    				this.removeByName(c.getKeyKey());
+    			this.components.add(c);
+    		}
     }
     
     /**
@@ -59,6 +91,45 @@ public abstract class Entity extends ImageView{
      */
     public void remove (Component c) {
         components.remove(c);
+    }
+
+    /**
+     * Remove a component based upon its String value.
+     * @param name the name of the component to remove
+     */
+    private void removeByName(String name) {
+    		for (Component c : this.components) {
+    			if (c.getKeyKey().equals(name)) {
+    				this.remove(c);
+    				return;
+    			}
+    		}
+    }
+    
+    /**
+     * Checks (by name) if the current entity already contains a given component.
+     * @param c the component to check
+     * @return true iff the component already belongs to this entity
+     */
+    private boolean contains(Component c) {
+    		for (Component existing : this.components) {
+    			if (existing.getKeyKey() == c.getKeyKey())
+    				return true;
+    		}
+    		return false;
+    }
+    
+    /**
+     * Checks (explicitly) by name if the current entity already contains this component.
+     * @param name the name of the component to check
+     * @return true iff the component already belongs to this entity
+     */
+    private boolean contains(String name) {
+    		for (Component existing : this.components) {
+    			if (existing.getKeyKey().equals(name))
+    				return true;
+    		}
+    		return false;
     }
     
     /**
@@ -92,8 +163,10 @@ public abstract class Entity extends ImageView{
 	 * @param x X position
 	 * @param y Y position
 	 */
-    protected void setPosition(double x, double y) {
-		this.add(new Position(this.getID(),x,y));
+    public void setPosition(double x, double y) {
+		this.add(new Position(this.getID(), x, y));
+		this.setLayoutX(x);
+		this.setLayoutY(y);
 	}
 	
 	/**
@@ -118,15 +191,21 @@ public abstract class Entity extends ImageView{
 	 * @return Unique ID of the entity
 	 */
     public int getID() {
-    	return this.ID;
+    		return this.ID;
     }
+    
+    /**
+     * @return type of this entity
+     */
+    public abstract String type();
     
     /**
      * 
      * @return List of components which define the entity
      */
+
     public List<Component> getComponentList(){
-    	return this.components;
+    		return this.components;
     }
 
 }

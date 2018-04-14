@@ -6,8 +6,11 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 import frontend.gamestate.GameState;
 
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class DataWrite {
 
@@ -15,10 +18,13 @@ public class DataWrite {
  *  or the player
  */
 	private static final String XML_FILETYPE=".xml";
-	private static final String GAME_FILEPATH = "\\games\\";
-	
-    
-	/*creates an xml file from an authoiring environment 
+	private static final String GAME_FILEPATH = "games\\";
+	private static final String IMAGE_DATAPATH = "data\\";
+    private static final String PERIOD = ".";
+
+
+
+    /*creates an xml file from an authoiring environment
 	 * this method converts authoring gamestate to player gamestate 
 	 * then writes to xml
 	 */
@@ -36,12 +42,36 @@ public class DataWrite {
     /*does the backend work to create new files in the game directory
      */
     private static File createFile(DataGameState dataGameState, String name) throws Exception {
-        File xmlFile = new File(System.getProperty("user.dir")+GAME_FILEPATH+name+XML_FILETYPE);
+        File xmlFile = new File(GAME_FILEPATH+name+XML_FILETYPE);
         FileOutputStream fos = new FileOutputStream(xmlFile);
         XStream xstream = new XStream(new DomDriver()); 
         xstream.toXML(dataGameState, fos);
+        System.out.print(xmlFile.getAbsolutePath() + "File saved here");
         return xmlFile;
     }
+
+    public static String writeImage(File imageFile) throws IOException {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(imageFile);
+            String filePath = IMAGE_DATAPATH + imageFile.getName();
+            File fileDest = new File(filePath);
+            ImageIO.write(image, getFileType(imageFile), fileDest);
+            return filePath;
+        }
+        catch(Exception e)
+        {
+            throw new IOException();
+        }
+
+    }
+
+    public static String getFileType(File file)
+    {
+        int fIndex = file.getName().indexOf(PERIOD);
+        return (fIndex == -1) ? "" : file.getName().substring(fIndex + 1);
+    }
+
 
 
 }
