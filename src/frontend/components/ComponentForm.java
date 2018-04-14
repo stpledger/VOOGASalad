@@ -7,6 +7,7 @@ import java.util.List;
 
 import engine.components.*;
 import frontend.entities.Entity;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -28,12 +29,30 @@ public class ComponentForm extends GridPane {
 	 * @param name the name of the component
 	 * @param numFields the number of fields necessary for this component
 	 */
-	public ComponentForm(int entity, String name, int numFields) {
+	public ComponentForm(int entity, String name) {
 		this.entity = entity;
 		this.name = name;
 		fields = new ArrayList<>();
 		int col = 0;
 		this.add(new Label(name), col++, 0);
+		this.numFields = getNumFields(name);
+		for (int i = 0; i < (numFields-1); i++) {
+			TextField tf = new TextField();
+			fields.add(tf);
+			this.add(tf, col++, 0);
+		}
+	}
+	/**
+	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
+	 * @param name the name of the component
+	 * @param numFields the number of fields necessary for this component
+	 */
+	public ComponentForm(String name) {
+		this.name = name;
+		fields = new ArrayList<>();
+		int col = 0;
+		this.add(new Label(name), col++, 0);
+		this.numFields = getNumFields(name);
 		for (int i = 0; i < (numFields-1); i++) {
 			TextField tf = new TextField();
 			fields.add(tf);
@@ -97,5 +116,29 @@ public class ComponentForm extends GridPane {
 		else
 			reflectValue = text;
 		return reflectValue;
+	}
+	
+	/**
+	 * Given a name of a component class in the engine, find the number of fields that it takes and their types.
+	 * This is required for generating the appropriate amount of text boxes
+	 * @param component the String name of the component in need of identification
+	 */
+	private int getNumFields(String component) {
+		// strip dashes which may have been there due to user-friendliness
+		String fullName = COMPONENT_PREFIX + component.replace("-",  "");
+		try {
+			Class clazz = Class.forName(fullName);
+			Constructor cons = clazz.getDeclaredConstructors()[0];
+			// subtract one because the first parameter is ALWAYS the parent ID of the entity
+			int prop = cons.getParameterCount() - 1;
+			return cons.getParameterCount();
+		} catch (ClassNotFoundException e) {
+			// TODO better exception
+			Alert a = new Alert(Alert.AlertType.ERROR);
+			a.setContentText("Class " + component + " does not exist.");
+			e.printStackTrace();
+			a.showAndWait();
+		}
+		return 0;
 	}
 }
