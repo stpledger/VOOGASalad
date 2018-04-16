@@ -30,7 +30,7 @@ public class Collision extends DefaultSystem{
 	public void execute(double time) {
 
 		colliders.forEach((key1, vel) -> {
-			handledComponents.forEach((key2, map) -> {				// Hooooorrible code, refactor
+			handledComponents.forEach((key2, map) -> {
 
 				if(key1 != key2) {
 
@@ -39,118 +39,98 @@ public class Collision extends DefaultSystem{
 					Position p1 = (Position) handledComponents.get(key1).get(Position.KEY);
 					Position p2 = (Position) handledComponents.get(key2).get(Position.KEY);
 
-					//System.out.println("p1 "+p1.getXPos());
-					//System.out.println(p2.getXPos()+"  "+d2.getWidth());
-
 					double topOverlap = p1.getYPos() + d1.getHeight() - p2.getYPos();
 					double leftOverlap = p1.getXPos() + d1.getWidth() - p2.getXPos();
 					double botOverlap = p2.getYPos() + d2.getHeight() - p1.getYPos();
 					double rightOverlap = p2.getXPos() + d2.getWidth() - p1.getXPos();
 
-
 					boolean top = (topOverlap > 0) && (p1.getYPos() < p2.getYPos());
 					boolean left = (leftOverlap > 0) && (p1.getXPos() < p2.getXPos());
 					boolean bot = (botOverlap > 0) && (p1.getYPos() > p2.getYPos());
-					boolean right = (rightOverlap > 0) && (p1.getXPos() > p2.getXPos());// && (p1.getYPos()==p2.getYPos() | (p1.getYPos()-p2.getYPos()<d1.getHeight()/2+d2.getHeight()/2));
-					//System.out.println("Printing"+(p1.getXPos() > p2.getXPos()) +"  "+ (p1.getYPos()==p2.getYPos() | (p1.getYPos()-p2.getYPos()<d1.getHeight()/2+d2.getHeight()/2)));
-					boolean righttop = (top==true) &&(right==true);
-					boolean rightbot = (bot==true) && (right==true);
-					boolean lefttop = (top==true) &&(left==true);
-					boolean leftbot = (bot==true) && (left==true);
-					boolean rightonly = (right==true) && (p1.getYPos()==p2.getYPos());
-					boolean leftonly= (left==true) && (p1.getYPos()==p2.getYPos());
-					boolean toponly =(top==true) && (p1.getXPos()==p2.getXPos());
-					boolean botonly =(bot==true) && (p1.getXPos()==p2.getXPos());
-
-					if(righttop || rightbot || lefttop ||  leftbot || rightonly || leftonly || toponly || botonly) {
-						handler.handle(handledComponents, key1, key2);// Signal collision
-						//System.out.println("collision");
+					boolean right = (rightOverlap > 0) && (p1.getXPos() > p2.getXPos());
+					
+					CollisionDirection cd = null;
+					
+					if(top) {
+						if(right) cd = CollisionDirection.TopRight;
+						else if(left) cd = CollisionDirection.TopLeft;
+						else if((p1.getXPos()==p2.getXPos())) cd = CollisionDirection.Top;
+					} else if(bot) {
+						if(right) cd = CollisionDirection.BotRight;
+						else if(left) cd = CollisionDirection.BotLeft;
+						else if((p1.getXPos()==p2.getXPos())) cd = CollisionDirection.Bot;
+					} else if(right && (p1.getYPos()==p2.getYPos())) {
+						cd = CollisionDirection.Right;
+					} else if((p1.getYPos()==p2.getYPos())){
+						cd = CollisionDirection.Left;
 					}
 
-					List<Double> lengths = new ArrayList<>();
-					lengths.add(topOverlap);
-					lengths.add(botOverlap);
-					lengths.add(leftOverlap);
-					lengths.add(rightOverlap);
-
-					Collections.sort(lengths);
-
-					for(int i = 0; i < lengths.size(); i++) {
-						if(lengths.get(i) > 0) {
-							if(toponly) {
-								p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-								//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-							} else if(botonly) {
+					if(cd != null) {
+						handler.handle(handledComponents, key1, key2);
+						
+						switch (cd) {
+						
+						case Top:
+							p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
+							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+							break;
+							
+						case Bot:
+							p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
+							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+							break;
+							
+						case Left:
+							p1.setXPos(p2.getXPos() - d1.getWidth()/2-d2.getWidth()/2);
+							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							break;
+							
+						case Right:
+							p1.setXPos(p2.getXPos() + d2.getWidth()/2+d1.getWidth()/2);
+							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							break;
+							
+						case BotLeft:
+							if(botOverlap>leftOverlap) {
+								p1.setXPos(p2.getXPos() - d2.getWidth()/2-d1.getWidth()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							} else {
 								p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
 								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-								//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 							}
-							else if(leftbot) {
-								if(botOverlap>leftOverlap) {
-									p1.setXPos(p2.getXPos() - d2.getWidth()/2-d1.getWidth()/2);
-									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-								}
-								else {
-									p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-								}
-
-							}
-							else if (rightbot) {
-								if(botOverlap>rightOverlap) {
-									p1.setXPos(p2.getXPos() + d2.getWidth()/2+d1.getWidth()/2);
-									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-								}
-								else {
-									p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-								}
-
-							}
-							else if (lefttop) {
-								if(topOverlap<leftOverlap) {
-									p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-								}
-								else {
-									p1.setXPos(p2.getXPos() - d1.getWidth()/2-d2.getWidth()/2);
-									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-								}
-							}
-							else if (righttop) {
-								if(topOverlap<rightOverlap) {
-									p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-								}
-								else {
-									p1.setXPos(p2.getXPos() + d1.getWidth()/2+d2.getWidth()/2);
-									//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-									((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-								}
-							}
-							else if(leftonly) {
-								p1.setXPos(p2.getXPos() - d1.getWidth()/2-d2.getWidth()/2);
-								//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-							}
-							else if(rightonly) {
+							break;
+							
+						case BotRight:
+							if(botOverlap>rightOverlap) {
 								p1.setXPos(p2.getXPos() + d2.getWidth()/2+d1.getWidth()/2);
-								//((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							} else {
+								p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+							}
+							break;
+	
+						case TopLeft:
+							if(topOverlap<leftOverlap) {
+								p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+							} else {
+								p1.setXPos(p2.getXPos() - d1.getWidth()/2-d2.getWidth()/2);
 								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 							}
-
+							break;
+							
+						case TopRight:
+							if(topOverlap<rightOverlap) {
+								p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+							} else {
+								p1.setXPos(p2.getXPos() + d1.getWidth()/2+d2.getWidth()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							}
+							break;
 						}
-
 					}
-
 				}
 			});
 		});
