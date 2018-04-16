@@ -27,20 +27,20 @@ public class DataWrite {
  *  or the player
  */
 	private static final String XML_FILETYPE=".xml";
-	private static final String GAME_FILEPATH = "games\\";
-	private static final String IMAGE_DATAPATH = "images\\";
+	private static final String GAME_FILEPATH = "games/";
+	private static final String IMAGE_DATAPATH = "images/";
 	private static final String DATA_DATAPTH = "data";
     private static final String PERIOD = ".";
-    private static final String PLAYER = "\\Player";
+    private static final String PLAYER = "/Player";
     private static final String ERROR ="Error";
     private static final String WRITE_ERROR = "Could not write file";
     private static final String IMAGE_GETTER="getImageFile";
     private static final String SOUND_GETTER="getSoundFile";
-    private static final String SOUND_DATAPATH = "sounds\\";
-    private static final String SLASH = "\\";
+    private static final String SOUND_DATAPATH = "sounds/";
+    private static final String SLASH = "/";
     private static final String DEFAULT_IMAGEPATH = DATA_DATAPTH + SLASH +IMAGE_DATAPATH;
     private static final Set<Object> DATA_COMPONENTS = new HashSet<>(Arrays.asList(new Object[]{Sprite.class}));
-    private static final String SAVE_PATH = "saves\\";
+    private static final String SAVE_PATH = "saves/";
 
 
     //creates an xml file from an authoiring environment this method converts authoring gamestate to player
@@ -82,7 +82,7 @@ public class DataWrite {
         File imageFile = new File(DEFAULT_IMAGEPATH+imageName);
         try {
             BufferedImage image = ImageIO.read(imageFile);
-            String filePath = GAME_FILEPATH+gameName+ SLASH +DEFAULT_IMAGEPATH+ imageName;
+            String filePath = GAME_FILEPATH + gameName + SLASH + DEFAULT_IMAGEPATH + imageName;
             File fileDest = new File(filePath);
             ImageIO.write(image, getFileType(imageFile), fileDest);
             return filePath;
@@ -96,21 +96,23 @@ public class DataWrite {
 
     //makes a folder system or cleans one out for data to be written
     private static void makeFolders(String name) {
-        String gameDir = GAME_FILEPATH+name;
+        String gameDir = GAME_FILEPATH + name;
         String saveDir = gameDir + SLASH + SAVE_PATH;
         String dataDir = gameDir + SLASH + DATA_DATAPTH;
         String imageDir = dataDir + SLASH + IMAGE_DATAPATH;
-        String soundDir = dataDir +SLASH + SOUND_DATAPATH;
+        String soundDir = dataDir + SLASH + SOUND_DATAPATH;
 
         File gameFolder = new File(gameDir);
         if (!gameFolder.exists()) {
-            gameFolder.mkdir();
             File dataFolder = new File(dataDir);
+            gameFolder.mkdir();
             File saveFolder = new File(saveDir);
             saveFolder.mkdir();
             dataFolder.mkdir();
+
             File imageFolder = new File(imageDir);
             imageFolder.mkdir();
+
             File soundFolder = new File(soundDir);
             soundFolder.mkdir();
         }
@@ -123,7 +125,7 @@ public class DataWrite {
     //writes the xml to the folder created above
     private static void writeGame(DataGameState dataGameState) {
         String name = dataGameState.getGameName();
-        File game = new File(GAME_FILEPATH+name+ PLAYER + XML_FILETYPE);
+        File game = new File(GAME_FILEPATH + name+ PLAYER + XML_FILETYPE);
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(game);
@@ -145,7 +147,7 @@ public class DataWrite {
                           try {
                               writeImage(name, (String) method.invoke(component, null));
                           } catch (IOException | IllegalAccessException | InvocationTargetException e) {
-                              e.printStackTrace();
+                              ErrorStatement(WRITE_ERROR);
                           }
 //                   if (method.getName().equals(SOUND_GETTER))
 //                       try {

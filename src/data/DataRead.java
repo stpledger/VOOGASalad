@@ -26,12 +26,12 @@ import java.util.*;
 public class DataRead {
     private static final String EMPTY_GAME = "Empty";
     private static final String FAIL_MESSAGE ="File could not be loaded";
-    private static final String IMAGE_PATH = "data\\images\\";
-    private static final String SOUND_PATH = "data\\sounds\\";
-    private static final String GAME_PATH = "games\\";
-    private static final String EMPTY_IMAGE ="File:data\\images\\picture-placeholder.png";
+    private static final String IMAGE_PATH = "data/images/";
+    private static final String SOUND_PATH = "data/sounds/";
+    private static final String GAME_PATH = "games/";
+    private static final String EMPTY_IMAGE ="File:data/images/picture-placeholder.png";
     private static final String ERROR ="Error";
-    private static final String SLASH = "\\";
+    private static final String SLASH = "/";
     private static final String FILE ="File:";
     private static final String PERIOD = ".";
     private static final Set<String> ACCEPTED_IMAGE_FILES = new HashSet<>(Arrays.asList(new String []{"jpg","png","gif"}));
