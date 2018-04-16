@@ -39,7 +39,7 @@ public class GlobalPropertiesView extends PropertiesView {
 			getRoot().addRow(currentRow++, label);
 		}
 		getRoot().addColumn(1,titleInput,livesInput,pathInput);
-		getRoot().add(MenuItemBuilder.buildButton(this.getButtonProps().getString("Submit"), e-> {
+		getRoot().add(this.getButtonFactory().makeButton(this.getButtonProps().getString("Submit"), e-> {
 			for(Level level : levels) {
 				level.addGProp(globalProps.getString("Title"), titleInput.getText());
 				level.addGProp(globalProps.getString("Lives"), livesInput.getText());
