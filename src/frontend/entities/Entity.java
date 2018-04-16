@@ -20,6 +20,7 @@ import javafx.scene.input.MouseButton;
  * 
  * @author Hemanth Yakkali
  * @author Dylan Powers
+ * @author Collin Brown
  *
  */
 
@@ -54,9 +55,26 @@ public abstract class Entity extends ImageView {
         			LPV.open();
         		}
         }); 
+        setUpDaddy();
     }
     
     /**
+     * Method to set up the Drag and Drop Dynamic Youtility(Daddy) which is responsible for moving elements around the screen
+     */
+    private void setUpDaddy() {
+    	
+		this.setOnMouseDragged((mouseEvent)->{
+			//Gets the change
+			double orgMouseX = mouseEvent.getX();
+            double orgMouseY = mouseEvent.getY();
+             
+            this.setX(orgMouseX);
+            this.setTranslateY(orgMouseY);
+		});
+		
+	}
+
+	/**
      * Adds components that are inherent to the specific entity.
      */
     protected abstract void addDefaultComponents();

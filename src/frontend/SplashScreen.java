@@ -23,6 +23,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class SplashScreen extends VBox {
 	Properties properties;
 	Consumer changeScene;
