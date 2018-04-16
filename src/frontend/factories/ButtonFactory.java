@@ -1,10 +1,10 @@
-package frontend.components;
+package frontend.factories;
 
 import java.util.function.Consumer;
 
 import javafx.scene.control.Button;
 
-public class PropertiesButton implements IButton{
+public class ButtonFactory implements IButton{
 
 	@Override
 	public Button makeButton(String text, Consumer<Void> event) {

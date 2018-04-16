@@ -3,7 +3,6 @@ package frontend.components;
 import java.util.function.Consumer;
 
 import frontend.entities.Entity;
-import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.input.ClipboardContent;
@@ -13,7 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
+
 /**
  *  
  * @author Hemanth Yakkali((hy115)
@@ -74,4 +73,5 @@ public class LevelView extends BorderPane {
 	public Level getLevel() {
 		return this.level;
 	}
+
 }
