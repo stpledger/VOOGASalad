@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 public class HUDPropertiesView extends PropertiesView{
 	
 	private ArrayList<Level> levels;
+	private final String NAME = "HUD Properties";
 	
 	public HUDPropertiesView(ArrayList<Level> levelArray) {
 		super();
@@ -24,7 +25,7 @@ public class HUDPropertiesView extends PropertiesView{
 	@Override
 	protected void fill() {
 		int currentRow = 0;
-		ResourceBundle HUDProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"HUDProperties");
+		ResourceBundle HUDProps = ResourceBundle.getBundle(this.getResourcesFilePath()+NAME);
 		CheckBox livesBox = new CheckBox();
 		CheckBox healthBox = new CheckBox();
 		CheckBox timeBox = new CheckBox();
@@ -34,7 +35,7 @@ public class HUDPropertiesView extends PropertiesView{
 			getRoot().addRow(currentRow++,label);
 		}		
 		getRoot().addColumn(1, healthBox,livesBox,levelBox,timeBox);
-		getRoot().add(MenuItemBuilder.buildButton(this.getButtonProps().getString("Submit"), e-> {
+		getRoot().add(this.getButtonFactory().makeButton(this.getButtonProps().getString("Submit"), e-> {
 			for(Level level : levels) {
 				level.addHUDProp(HUDProps.getString("Lives"), livesBox.isSelected());
 				level.addHUDProp(HUDProps.getString("Health"), healthBox.isSelected());
@@ -46,7 +47,7 @@ public class HUDPropertiesView extends PropertiesView{
 
 	@Override
 	protected String title() {
-		return "HUD Properties";
+		return NAME;
 	}
 
 }

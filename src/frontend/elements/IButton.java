@@ -1,4 +1,4 @@
-package frontend.components;
+package frontend.elements;
 
 import java.util.function.Consumer;
 
@@ -6,6 +6,6 @@ import javafx.scene.control.Button;
 
 public interface IButton {
 	
-	public Button makeElement(String text, Consumer<Void> event);
+	public Button makeButton(String text, Consumer<Void> event);
 
 }

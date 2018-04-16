@@ -5,12 +5,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import engine.components.Component;
-import frontend.entities.Entity;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import java.util.function.Consumer;
-import java.lang.reflect.Constructor;
 
 /**
  * Opens up the Local Properties window so that an editor can edit certain features of an entity,
@@ -53,8 +49,7 @@ public class LocalPropertiesView extends PropertiesView {
 			this.activeForms.add(cf);
 			getRoot().add(cf, 0, currentRow++);
 		}
-		Button submit = new Button(SUBMIT_TEXT);
-		submit.setOnAction(e -> {
+		Button submit = this.getButtonFactory().makeButton(SUBMIT_TEXT, e -> {
 			List<Component> componentsToAdd = new ArrayList<>();
 			for (PropertiesComponentForm cf : this.activeForms) {
 				componentsToAdd.add(cf.buildComponent());
