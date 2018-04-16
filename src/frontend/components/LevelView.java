@@ -10,8 +10,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 /**
  *  
@@ -40,24 +38,22 @@ public class LevelView extends BorderPane {
 		this.pane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.pane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.pane.setContent((contentPane));
+		this.setTop(toolbar);
 		this.setCenter((pane));
 		this.getStyleClass().add("level-view-wrapper");
 		this.setupMouseClick(levelNum);
 		this.setupButtons();
 	}
 	
-
 	/**
 	 * Sets up mouse click events
 	 * @param levelNum Level number
 	 */
 	private void setupMouseClick(int levelNum) {
 		this.setOnMouseClicked(e-> {		
-			if(e.getButton().equals(MouseButton.PRIMARY)) {
-				if (e.getClickCount() == 2) {
-					LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
-					lView.open();
-				}
+			if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount()==2) {
+				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
+				lView.open();
 			}
 		});
 	}
@@ -66,17 +62,16 @@ public class LevelView extends BorderPane {
 	 * Sets up buttons for each level view
 	 */
 	private void setupButtons() {
-		this.HUDButton = MenuItemBuilder.buildButton("HUD Properties", e->{
+		IButton button = new PropertiesButton();
+		this.HUDButton = button.makeButton("HUD Properties", e->{
 			HUDPropertiesView HPV = new HUDPropertiesView(level);
 			HPV.open();
 		});
-		this.GButton = MenuItemBuilder.buildButton("Global Properties", e->{
+		this.GButton = button.makeButton("Global Properties", e->{
 			GlobalPropertiesView GPV = new GlobalPropertiesView(level);
 			GPV.open();
 		});
-		toolbar.getChildren().add(this.GButton);
-		toolbar.getChildren().add(this.HUDButton);
-		this.setTop(toolbar);
+		toolbar.getChildren().addAll(this.GButton,this.HUDButton);
 	}
 	
 	/**
