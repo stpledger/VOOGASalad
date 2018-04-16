@@ -34,7 +34,7 @@ public class TestGameState {
 		Velocity v = new Velocity(0, 0, 0);
 
 		Acceleration a = new Acceleration(0, 0, 40);
-		KeyInput k = new KeyInput(0, KeyCode.RIGHT, (Runnable & Serializable) () -> {
+		/**KeyInput k = new KeyInput(0, KeyCode.RIGHT, (Runnable & Serializable) () -> {
 			v.setXVel(+50);
 		});
 		k.addCode(KeyCode.UP, (Runnable & Serializable)() ->
@@ -48,16 +48,16 @@ public class TestGameState {
 		k.addCode(KeyCode.LEFT,(Runnable & Serializable) () ->
 		{ 
 			v.setXVel(-50);
-		});
+		});**/
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
 
 		Player play = new Player(0, 3, 0);
         play.setRespawn(p.clone());
-		k.addCode(KeyCode.R, (Runnable & Serializable) () ->
+		/**k.addCode(KeyCode.R, (Runnable & Serializable) () ->
 		{
 			play.respawn(p, v, a);
-		});
+		});**/
 
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(Position.getKey(), p);
@@ -65,7 +65,7 @@ public class TestGameState {
 		mario.put(Sprite.KEY, s);
 		mario.put(Velocity.getKey(), v);
 		mario.put(Acceleration.getKey(), a);
-		mario.put(KeyInput.getKey(), k);
+		//mario.put(KeyInput.getKey(), k);
 		mario.put(Health.getKey(), h);
 		mario.put(DamageLauncher.getKey(), launcher);
         mario.put(Player.getKey(), play);

@@ -36,6 +36,7 @@ public class GamePlayerEntityView {
 	private GameInitializer GI;
 	private InputHandler inputHandler;
 	private RenderManager RM;
+	private SystemManager SM;
 
 	
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
@@ -128,10 +129,11 @@ public class GamePlayerEntityView {
 
 		inputHandler = GI.getIH();
 		RM = GI.getRM();
+		SM = GI.getSM();
 	}
 
 	public void execute (double time) {
-		SystemManager.execute(time);
+		SM.execute(time);
 	}
 
 	public void render() {
