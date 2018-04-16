@@ -78,7 +78,7 @@ public class LevelView extends BorderPane {
 	
 	/**
 	 * Adds entity to the level view both to be seen graphically and to the specific 
-	 * level object
+	 * level object 
 	 * @param e Entity to be added to the LevelView
 	 */
 	public void addEntity(Entity e) {
