@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
-
 import data.DataGameState;
 import data.DataRead;
 import engine.components.Component;
@@ -12,11 +11,15 @@ import engine.components.Dimension;
 import engine.components.Position;
 import engine.components.Sprite;
 import engine.setup.GameInitializer;
+import engine.setup.RenderManager;
+import engine.setup.SystemManager;
 import engine.systems.InputHandler;
 import frontend.components.Level;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.stage.Stage;
+
 
 /**
  * Class that controls how the entity objects are displayed
@@ -24,18 +27,15 @@ import javafx.scene.input.KeyCode;
  *
  */
 public class GamePlayerEntityView {
-
+	private File gameFile;
+	//private Group entityRoot;
 	private Map<Level,Map<Integer,Map<String,Component>>> levelMap;
 	private Map<Integer, Map<String, Component>> entityMap;
 	private Map<Integer, Group> levelEntityMap;
-
 	private DataGameState gameState;
-	private File gameFile;
-
 	private GameInitializer gameInitializer;
 	private InputHandler inputHandler;
 
-	
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
@@ -47,7 +47,10 @@ public class GamePlayerEntityView {
 			entityMap = levelMap.get(level);
 			break;
 		}
-
+		//method tht builds the entire levelEntityMap;
+	//	levelEntityMap = createEntityGroupMap(levelMap);
+		//This is mainly for debugging purposes not entirely sure how you will get specific levels out of the mao
+		// because they arent ordered probably will have to iterate through levels and look at levelnum of each
 		initializeGamePlayerEntityView();
 	}
 
@@ -58,6 +61,8 @@ public class GamePlayerEntityView {
 	public Map<Integer, Group> getlevelEntityMap(){
 		return levelEntityMap;
 	}
+	//**************************************************************************
+	//TESTING PURPOSED FOR LEVEL SELECTOR
 
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
@@ -75,16 +80,46 @@ public class GamePlayerEntityView {
 
 		return levelEntityMap;
 	}
-	
+
 	/**
 	 * Method that creates all the groups for each level in a levelMap.
 	 * @param entityMap
 	 * @return
 	 */
-	private Group createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap) {
+
+	public Group createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap) {
+		Group entityRoot = new Group();
+		Map<String, Component> entityComponents;
+		//Changed enclosed code to only load sprites for 
+		for(Integer i : entityMap.keySet()) {
+			entityComponents = entityMap.get(i);
+			if(entityComponents.containsKey("Sprite")) {
+				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
+				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
+				//				image.setX(200);
+				//				image.setY(200);
+				//image.setImage(new Image("mystery.jpg"));
+				System.out.print(image.getX());
+				//System.exit(0);
+				entityRoot.getChildren().add(image);
+			}
+		}
+		//entities that have sprites and setup sprite images
+		return entityRoot;
+	}
+	//**************************************************************************
+
+
+	/**
+	 * Return a Group that adds all the entity image objects 
+	 * @return
+	 */
+	//Make Entity Group accept a Hashmap for individual Levels
+	public Group createEntityGroup() {
 
 		Group entityRoot = new Group();
 		Map<String, Component> entityComponents;
+		//Changed enclosed code to only load sprites for 
 
 		for(Integer i : entityMap.keySet()) {
 			entityComponents = entityMap.get(i);
