@@ -190,6 +190,7 @@ public class GameEditorView extends BorderPane {
 					this.add(nextID);
 					//add all the arguments for the component to the arraylist
 					this.addAll(Arrays.asList(entityComponents.get(k))); 
+					System.out.println(this.toString());
 				}};
 				Object[] args = tempArr.toArray(); //Convert the temp array to an array of objects
 				componentArrayList.add((Component) componentConstructor.newInstance(args)); //Add a new instance to arraylist.
