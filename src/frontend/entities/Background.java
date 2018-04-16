@@ -1,5 +1,10 @@
 package frontend.entities;
 
+/**
+ * 
+ * @author Hemanth Yakkali
+ *
+ */
 public class Background extends Entity{
 	
 	private final String TYPE = "Background";
@@ -7,7 +12,6 @@ public class Background extends Entity{
 
 	public Background(int ID) {
 		super(ID);
-		addDefaultComponents();
 	}
 
 	@Override
