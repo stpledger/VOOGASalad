@@ -1,5 +1,6 @@
 package frontend.components;
 
+import java.io.File;
 import java.util.function.Consumer;
 
 import javafx.scene.Parent;
@@ -25,7 +26,19 @@ public class MainView {
 	private static double ideHeight = 600;
 	private static double ideWidth = 1200;
 	private double toolbarHeight = 25;
-	
+	/**
+	 * Creates an instance of GameAuthoringEnvironment Based on a file
+	 * @param selectedFile the selected file to load a game from
+	 */
+	public MainView(File selectedFile) {
+		border = new BorderPane();
+		gameEditorView = new GameEditorView();
+		componentView = new EntityView(clipboardHandler);
+	}
+	/**
+	 * Creates a new instance of GameAuthoringEnvironment
+	 * 
+	 */
 	public MainView() {
 		border = new BorderPane();
 		gameEditorView = new GameEditorView();
