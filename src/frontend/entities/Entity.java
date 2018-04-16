@@ -34,8 +34,7 @@ public abstract class Entity extends ImageView {
     /**
      * List of components which define the entity
      */
-    private List<Component> components;
-    
+    private List<Component> components;    
 
     /**
      * The constructor simply sets the ID of the entity and initializes its list of components
@@ -56,6 +55,7 @@ public abstract class Entity extends ImageView {
         		}
         }); 
         setUpDaddy();
+        addDefaultComponents();
     }
     
     /**
