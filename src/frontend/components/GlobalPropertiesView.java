@@ -1,5 +1,6 @@
 package frontend.components;
 
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.Label;
@@ -12,11 +13,11 @@ import javafx.scene.control.TextField;
  */
 public class GlobalPropertiesView extends PropertiesView {
 
-	private Level level;
+	private ArrayList<Level> levels;
 	
-	public GlobalPropertiesView(Level level){
+	public GlobalPropertiesView(ArrayList<Level> ls){
 		super();
-		this.level = level;
+		this.levels = ls;
 		fill();
 	}
 
@@ -38,10 +39,12 @@ public class GlobalPropertiesView extends PropertiesView {
 			getRoot().addRow(currentRow++, label);
 		}
 		getRoot().addColumn(1,titleInput,livesInput,pathInput);
-		getRoot().add(MenuItemBuilder.buildButton(this.getButtonProps().getString("Submit"), e-> {
-			level.addGProp(globalProps.getString("Title"), titleInput.getText());
-			level.addGProp(globalProps.getString("Lives"), livesInput.getText());
-			level.addGProp(globalProps.getString("Filepath"), pathInput.getText());
+		getRoot().add(this.getButtonFactory().makeButton(this.getButtonProps().getString("Submit"), e-> {
+			for(Level level : levels) {
+				level.addGProp(globalProps.getString("Title"), titleInput.getText());
+				level.addGProp(globalProps.getString("Lives"), livesInput.getText());
+				level.addGProp(globalProps.getString("Filepath"), pathInput.getText());
+			}
 		}), 0, currentRow++);
 	}
 

@@ -17,11 +17,13 @@ import frontend.entities.Entity;
 import frontend.gamestate.*;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -46,7 +48,8 @@ public class GameEditorView extends BorderPane {
 	private TabPane tabPane;
 	private Toolbar toolbar;
 	private File gameFile;
-	private int nextID  = 0;
+	private int nextID  = 0; //The next ID to be used
+	boolean drag = false; 
 	
 	private final int BLOCK_DEFAULT_WIDTH = 50;
 	/**
@@ -63,12 +66,6 @@ public class GameEditorView extends BorderPane {
 		state = new GameState();
 		addLevel(); // add the first level
 		this.setCenter(tabPane);
-		tabPane.setOnMouseClicked((e) -> {
-			if (e.getButton().equals(MouseButton.PRIMARY)) {
-				if (e.getClickCount() == 1)
-					addEntity.accept(e);
-			}
-		}); // Add a new Entity OnClick
 	}
 	
 	/**
@@ -95,7 +92,23 @@ public class GameEditorView extends BorderPane {
 	//Handles the add new level call from toolbar
 	Consumer newLevel = (e)->{addLevel();};
 	//Handles the show settings call from toolbar
-	Consumer showSettings = (e)->{System.out.println("Show Settings!");};
+	Consumer showSettings = (e)->{
+		ArrayList<Level> levelArray = new ArrayList<Level>();
+		for(Tab t: tabsList) {
+			levelArray.add(((LevelView) t.getContent()).getLevel());
+		}
+			GlobalPropertiesView GPV = new GlobalPropertiesView(levelArray);
+			GPV.open();
+	};
+	//Handles the HUD Settings call from toolbar
+	Consumer hudSettings = (e) -> {
+		ArrayList<Level> levelArray = new ArrayList<Level>();
+		for(Tab t: tabsList) {
+			levelArray.add(((LevelView) t.getContent()).getLevel());
+		}
+		HUDPropertiesView HPV = new HUDPropertiesView(levelArray);
+		HPV.open();
+	};
 	//Handles the play game call from toolbar
 	Consumer play = (e)->{
 		Platform.runLater(new Runnable() {
@@ -117,6 +130,7 @@ public class GameEditorView extends BorderPane {
 		this.put("saveGame", saveGame);
 		this.put("addLevel", newLevel);
 		this.put("showSettings", showSettings);
+		this.put("hudSettings", hudSettings);
 		this.put("play", play);
 	}};
 	
@@ -140,13 +154,28 @@ public class GameEditorView extends BorderPane {
 		t.setText("Level " + (tabsList.indexOf(t)+1));
 		Level level = new Level(tabsList.indexOf(t)+1);
 		state.addLevel(level);
-		t.setContent(new LevelView(level,tabsList.indexOf(t)+1));
+		LevelView l = new LevelView(level, tabsList.indexOf(t)+1, addEntity);
+		t.setContent(l);
 		t.setOnClosed(e -> {
 			tabsList.remove(t);
 			updateTabs.accept(tabsList);
+			
 		});
+		this.setOnDragDetected((e)->{
+			
+		});
+		((ScrollPane) ((BorderPane) t.getContent()).getCenter()).getContent().setOnMouseReleased((e)->{
+				if (e.getButton().equals(MouseButton.PRIMARY) && !drag) {
+						addEntity.accept(e);
+				}
+				drag = false;
+		}); // Add a new Entity OnClick
+		((ScrollPane) ((BorderPane) t.getContent()).getCenter()).getContent().setOnDragDetected((e)->{
+			drag = true;
+			});// don't add new element if drag detected
 		tabPane.getTabs().add(t);
 	}
+	
 	
 	/**
 	 * Set the element in the clipboard
@@ -160,52 +189,58 @@ public class GameEditorView extends BorderPane {
 	 * Consumer to handle adding a new entity to the current level
 	 */
 	private Consumer<MouseEvent> addEntity = (mouseEvent) -> {
-		Object[] clipboardCopy =  clipboard; //Create a copy of the clipboard
-		ArrayList<Component> componentArrayList = new ArrayList<Component>();
-		Entity entity = null;
-		try {
-			//Get the class of the entityType
-			Class<?> entityType = (Class<?>) clipboardCopy[0]; 
-			//Get Constructor for entityType
-			Constructor<?> entityConstructor = entityType.getConstructor(int.class);
-			//Create a new instance of the entity
-			System.out.println("About to create entity with ID " + nextID);
-			entity = (Entity) entityConstructor.newInstance(nextID); 
-			System.out.println(entity + " created with ID " + entity.getID());
-			//Set the X,Y position of the mouseEvent to the X,Y position of the object
-			entity.setFitWidth(BLOCK_DEFAULT_WIDTH);
-			entity.setFitHeight(BLOCK_DEFAULT_WIDTH);
-			entity.setPosition(mouseEvent.getX() - entity.getFitWidth() / 2, mouseEvent.getY() - this.tabPane.getTabMaxHeight() - entity.getFitHeight() / 2);
-			entity.add(new Position(nextID, entity.getX(), entity.getY()));
-			//Get all of the inputs for components
-			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; 
-			//iterate through all the properties we have for new components
-			for(Class k :entityComponents.keySet()) { 
-				 // get the constructor for the type of component
-				Constructor<?> componentConstructor = k.getDeclaredConstructors()[0];
-				//Create a temporary arraylist
-				ArrayList<Object> tempArr = new ArrayList<Object>() {{ 
-					 //Add the pId to the temporary arraylist
-					this.add(nextID);
-					//add all the arguments for the component to the arraylist
-					this.addAll(Arrays.asList(entityComponents.get(k))); 
-				}};
-				Object[] args = tempArr.toArray(); //Convert the temp array to an array of objects
-				componentArrayList.add((Component) componentConstructor.newInstance(args)); //Add a new instance to arraylist.
-				if(k.equals(Sprite.class)) { //Check if this is the image
-					Image image = DataRead.loadImage((String) entityComponents.get(k)[0]);
-					entity.setImage(image);
+
+			Object[] clipboardCopy =  clipboard; //Create a copy of the clipboard
+			ArrayList<Component> componentArrayList = new ArrayList<Component>();
+			Entity entity = null;
+			try {
+				//Get the class of the entityType
+				Class<?> entityType = (Class<?>) clipboardCopy[0]; 
+				//Get Constructor for entityType
+				Constructor<?> entityConstructor = entityType.getConstructor(int.class);
+				//Create a new instance of the entity
+				 //Set the X,Y position of the mouseEvent to the X,Y position of the object
+				System.out.println("About to create entity with ID " + nextID);
+				entity = (Entity) entityConstructor.newInstance(nextID); 
+				System.out.println(entity + " created with ID " + entity.getID());
+				//Set the X,Y position of the mouseEvent to the X,Y position of the object
+				entity.setFitWidth(BLOCK_DEFAULT_WIDTH);
+				entity.setFitHeight(BLOCK_DEFAULT_WIDTH);
+				entity.setPosition(mouseEvent.getX() - entity.getFitWidth() / 2, mouseEvent.getY() - this.tabPane.getTabMaxHeight() - entity.getFitHeight() / 2);
+				entity.add(new Position(nextID, entity.getX(), entity.getY()));
+				//Get all of the inputs for components
+				Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; 
+				//iterate through all the properties we have for new components
+				for(Class k :entityComponents.keySet()) { 
+					 // get the constructor for the type of component
+					Constructor<?> componentConstructor = k.getDeclaredConstructors()[0];
+					//Create a temporary arraylist
+					ArrayList<Object> tempArr = new ArrayList<Object>() {{ 
+						 //Add the pId to the temporary arraylist
+						this.add(nextID);
+						//add all the arguments for the component to the arraylist
+						this.addAll(Arrays.asList(entityComponents.get(k))); 
+						System.out.println(this.toString());
+					}};
+					Object[] args = tempArr.toArray(); //Convert the temp array to an array of objects
+					componentArrayList.add((Component) componentConstructor.newInstance(args)); //Add a new instance to arraylist.
+					if(k.equals(Sprite.class)) { //Check if this is the image
+						File imageFile = new File((String) entityComponents.get(k)[0]);
+						Image image = null;
+						image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
+						entity.setImage(image);
+					}
 				}
-			}
-			for(Component c : componentArrayList) { //Add all the components
-				entity.add(c);
-			}
-			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity); //add the entity to the level
-			nextID++; //Increment id's by one
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
-				| NoSuchMethodException | SecurityException el) {
-			el.printStackTrace();
-		} 
+				for(Component c : componentArrayList) { //Add all the components
+					entity.add(c);
+				}
+				((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity); //add the entity to the level
+				nextID++; //Increment id's by one
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+					| NoSuchMethodException | SecurityException | IOException e1) {
+				System.out.println("Error creating entity");
+				e1.printStackTrace();
+			} 
 	};
 	
 }
