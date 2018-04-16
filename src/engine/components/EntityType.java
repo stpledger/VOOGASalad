@@ -39,9 +39,9 @@ public class EntityType extends Component{
 
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String, String>(){{
-			put("Entity Type", type);
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Entity Type", type);
+
 		return res;
 	}
 }

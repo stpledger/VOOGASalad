@@ -19,9 +19,13 @@ import engine.setup.SystemManager;
 public class HealthDamage implements ISystem {
 	private Map<Integer, Map<String, Component>> handledComponents;
 	private Set<Integer> activeComponents;
-
-	public HealthDamage() {
+	private EntityManager em;
+	private SystemManager sm;
+	
+	public HealthDamage(EntityManager em, SystemManager sm) {
 		handledComponents = new HashMap<>();
+		this.em = em;
+		this.sm = sm;
 	}
 
 	public void addComponent(int pid, Map<String, Component> components) {
@@ -52,9 +56,9 @@ public class HealthDamage implements ISystem {
 		
 
 		Map<String, Component> map = new HashMap<>();
-		map.put(componentName,EntityManager.getComponent(pid, componentName));
+		map.put(componentName,em.getComponent(pid, componentName));
 		if(componentName.equals(Health.KEY)) {
-			Component component = EntityManager.getComponent(pid,Damage.KEY);
+			Component component = em.getComponent(pid,Damage.KEY);
 			if(component == null) {
 				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Damage.KEY + " component!");
 				return;
@@ -62,7 +66,7 @@ public class HealthDamage implements ISystem {
 			map.put(Damage.KEY, component);
 		}
 		else {
-			Component component = EntityManager.getComponent(pid,Health.KEY);
+			Component component = em.getComponent(pid,Health.KEY);
 			if(component == null) {
 				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Health.KEY + " component!");
 				return;
@@ -105,13 +109,13 @@ public class HealthDamage implements ISystem {
 				Component dComponent = (Component)d;
 				map.put(Damage.KEY, dComponent);
 				if(d.getLifetime() == 0) {
-					EntityManager.removeComponent(key, Damage.KEY, dComponent);
+					em.removeComponent(key, Damage.KEY, dComponent);
 				}
 
 			}
 			
 			if(h.getHealth() <= 0) {
-				SystemManager.removeEntity(key);
+				sm.removeEntity(key);
 				System.out.println("removing");
 			}
 			

@@ -46,10 +46,10 @@ public class DamageLauncher extends Component {
 
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String, String>(){{
-			put("Damage", Double.toString(damage));
-			put("Lifetime", Double.toString(lifetime));
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Damage", Double.toString(damage));
+		res.put("Lifetime", Double.toString(lifetime));
+		
 		return res;
 	}
 }

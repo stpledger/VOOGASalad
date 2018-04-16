@@ -92,19 +92,6 @@
               </engine.components.Position>
             </entry>
             <entry>
-              <string>KeyInput</string>
-              <engine.components.KeyInput>
-                <pid>1</pid>
-                <keykey>KeyInput</keykey>
-                <codes>
-                  <entry>
-                    <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
-                    <null/>
-                  </entry>
-                </codes>
-              </engine.components.KeyInput>
-            </entry>
-            <entry>
               <string>Acceleration</string>
               <engine.components.Acceleration>
                 <pid>1</pid>

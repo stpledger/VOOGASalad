@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 //import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import frontend.entities.Entity;
 
 public class Level {
@@ -16,8 +17,10 @@ public class Level {
 	private double levelTime;
 	private double levelDistance;
 	
-	//@XStreamOmitField
+	@XStreamOmitField
 	private transient List<Entity> entityList;
+
+
 	private Map<String,Boolean> HUDprops;
 	private Map<String,String> GProps;
 	

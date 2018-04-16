@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import engine.components.*;
+import engine.setup.EntityManager;
 
 public class CollisionHandler {
 	private String PLAYER = "player";
@@ -11,9 +12,9 @@ public class CollisionHandler {
 	private DamageHandler damageHandler;
 	private SpriteHandler spriteHandler;
 	
-	public CollisionHandler() {
+	public CollisionHandler(EntityManager em) {
 		velocityHandler = new VelocityHandler();
-		damageHandler = new DamageHandler();
+		damageHandler = new DamageHandler(em);
 		spriteHandler = new SpriteHandler();
 	}
 

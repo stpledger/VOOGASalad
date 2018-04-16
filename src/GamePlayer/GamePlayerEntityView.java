@@ -8,13 +8,10 @@ import java.util.Map;
 import data.DataGameState;
 import data.DataRead;
 import engine.components.*;
-import engine.setup.EntityManager;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
-import engine.setup.SystemManager;
 import engine.systems.InputHandler;
 import frontend.components.Level;
-import frontend.entities.Entity;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -36,7 +33,6 @@ public class GamePlayerEntityView {
 	private GameInitializer GI;
 	private InputHandler inputHandler;
 	private RenderManager RM;
-
 	
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
@@ -60,7 +56,7 @@ public class GamePlayerEntityView {
 	public Map<Integer, Group> getlevelEntityMap(){
 		return levelEntityMap;
 	}
-
+	
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
 	 * @param levelMap 
@@ -131,7 +127,7 @@ public class GamePlayerEntityView {
 	}
 
 	public void execute (double time) {
-		SystemManager.execute(time);
+		GI.getSM().execute(time);
 	}
 
 	public void render() {
