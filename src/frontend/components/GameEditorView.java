@@ -88,7 +88,23 @@ public class GameEditorView extends BorderPane {
 	//Handles the add new level call from toolbar
 	Consumer newLevel = (e)->{addLevel();};
 	//Handles the show settings call from toolbar
-	Consumer showSettings = (e)->{System.out.println("Show Settings!");};
+	Consumer showSettings = (e)->{
+		ArrayList<Level> levelArray = new ArrayList<Level>();
+		for(Tab t: tabsList) {
+			levelArray.add(((LevelView) t.getContent()).getLevel());
+		}
+			GlobalPropertiesView GPV = new GlobalPropertiesView(levelArray);
+			GPV.open();
+	};
+	//Handles the HUD Settings call from toolbar
+	Consumer hudSettings = (e) -> {
+		ArrayList<Level> levelArray = new ArrayList<Level>();
+		for(Tab t: tabsList) {
+			levelArray.add(((LevelView) t.getContent()).getLevel());
+		}
+		HUDPropertiesView HPV = new HUDPropertiesView(levelArray);
+		HPV.open();
+	};
 	//Handles the play game call from toolbar
 	Consumer play = (e)->{
 		Platform.runLater(new Runnable() {
@@ -110,6 +126,7 @@ public class GameEditorView extends BorderPane {
 		this.put("saveGame", saveGame);
 		this.put("addLevel", newLevel);
 		this.put("showSettings", showSettings);
+		this.put("hudSettings", hudSettings);
 		this.put("play", play);
 	}};
 	
