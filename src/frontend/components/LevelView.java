@@ -63,14 +63,17 @@ public class LevelView extends BorderPane {
 	 */
 	private void setupButtons() {
 		IButton button = new PropertiesButton();
-		this.HUDButton = button.makeButton("HUD Properties", e->{
-			HUDPropertiesView HPV = new HUDPropertiesView(level);
-			HPV.open();
-		});
-		this.GButton = button.makeButton("Global Properties", e->{
-			GlobalPropertiesView GPV = new GlobalPropertiesView(level);
-			GPV.open();
-		});
+		
+		ElementFactory factory = new ElementFactory();
+		this.HUDButton = factory.makeElement("Jesus");
+//		this.HUDButton = button.makeButton("HUD Properties", e->{
+//			HUDPropertiesView HPV = new HUDPropertiesView(level);
+//			HPV.open();
+//		});
+//		this.GButton = button.makeButton("Global Properties", e->{
+//			GlobalPropertiesView GPV = new GlobalPropertiesView(level);
+//			GPV.open();
+//		});
 		toolbar.getChildren().addAll(this.GButton,this.HUDButton);
 	}
 	
