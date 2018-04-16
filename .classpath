@@ -1,17 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry excluding="doc/|src/|games/|lib/" kind="src" path=""/>
-	<classpathentry kind="src" path="games"/>
-	<classpathentry kind="src" path="lib"/>
-	<classpathentry kind="src" path="doc"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.launching.macosx.MacOSXType/Java SE 8 [1.8.0_144]"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
->>>>>>> .classpath
-	<classpathentry kind="lib" path="/Users/hyakkali/Downloads/xstream-1.4.10/lib/xstream-1.4.10.jar"/>
-	<classpathentry kind="lib" path="/Users/hyakkali/Downloads/xstream-1.4.10/lib/xstream-benchmark-1.4.10.jar"/>
-	<classpathentry kind="lib" path="/Users/hyakkali/Downloads/xstream-1.4.10/lib/xstream-hibernate-1.4.10.jar"/>
-	<classpathentry kind="lib" path="/Users/hyakkali/Downloads/xstream-1.4.10/lib/xstream-jmh-1.4.10.jar"/>
->>>>>>> .classpath
 	<classpathentry kind="output" path="bin"/>
 </classpath>
