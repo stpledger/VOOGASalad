@@ -1,4 +1,4 @@
-package frontend.elements;
+package frontend.factories;
 
 import java.util.function.Consumer;
 
