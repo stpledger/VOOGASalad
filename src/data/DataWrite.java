@@ -5,6 +5,7 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import engine.components.Component;
 import engine.components.Sprite;
+import engine.setup.SystemManager;
 import frontend.components.Level;
 import frontend.gamestate.GameState;
 import javafx.scene.control.Alert;
@@ -39,6 +40,7 @@ public class DataWrite {
     private static final String SLASH = "\\";
     private static final String DEFAULT_IMAGEPATH = DATA_DATAPTH + SLASH +IMAGE_DATAPATH;
     private static final Set<Object> DATA_COMPONENTS = new HashSet<>(Arrays.asList(new Object[]{Sprite.class}));
+    private static final String SAVE_PATH = "saves\\";
 
 
     //creates an xml file from an authoiring environment this method converts authoring gamestate to player
@@ -48,8 +50,22 @@ public class DataWrite {
         createFile(dataGameState);
     }
 
+    public static void saveGame( DataGameState dataGameState, String saveName){
+        String name = dataGameState.getGameName();
+        File game = new File(GAME_FILEPATH+name+ SLASH + SAVE_PATH + saveName + XML_FILETYPE);
+        System.out.print(game.getAbsolutePath());
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(game);
+        } catch (FileNotFoundException e) {
+            ErrorStatement(WRITE_ERROR);
+        }
+        XStream xstream = new XStream(new DomDriver());
+        xstream.toXML(dataGameState, fos);
+    }
+
     //creates an xml file from an authoiring environment
-    public static void saveFile(DataGameState dataGameState, String fileName) throws Exception{
+    public static void saveFile(DataGameState dataGameState) throws Exception{
         createFile(dataGameState);
     }
 
@@ -78,11 +94,10 @@ public class DataWrite {
 
     }
 
-
-
     //makes a folder system or cleans one out for data to be written
     private static void makeFolders(String name) {
         String gameDir = GAME_FILEPATH+name;
+        String saveDir = gameDir + SLASH + SAVE_PATH;
         String dataDir = gameDir + SLASH + DATA_DATAPTH;
         String imageDir = dataDir + SLASH + IMAGE_DATAPATH;
         String soundDir = dataDir +SLASH + SOUND_DATAPATH;
@@ -91,6 +106,8 @@ public class DataWrite {
         if (!gameFolder.exists()) {
             gameFolder.mkdir();
             File dataFolder = new File(dataDir);
+            File saveFolder = new File(saveDir);
+            saveFolder.mkdir();
             dataFolder.mkdir();
             File imageFolder = new File(imageDir);
             imageFolder.mkdir();
@@ -102,7 +119,6 @@ public class DataWrite {
             makeFolders(name);
         }
     }
-
 
     //writes the xml to the folder created above
     private static void writeGame(DataGameState dataGameState) {
@@ -117,7 +133,6 @@ public class DataWrite {
         XStream xstream = new XStream(new DomDriver());
         xstream.toXML(dataGameState, fos);
     }
-
 
     //TODO make this method more efficient possibly??
     private static void writeResources(DataGameState dataGameState) {

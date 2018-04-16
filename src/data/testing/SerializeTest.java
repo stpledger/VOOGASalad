@@ -119,7 +119,7 @@ public class SerializeTest {
 
         File xml = new File("sdf");
         try {
-            DataWrite.saveFile(state, "Files!");
+            DataWrite.saveFile(state);
         } catch (Exception e) {
             e.printStackTrace();
         }

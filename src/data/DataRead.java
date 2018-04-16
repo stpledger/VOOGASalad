@@ -140,10 +140,7 @@ public class DataRead {
     public static Image importFromURL(URL imageURL, String name) throws IOException{
         BufferedImage image = ImageIO.read(imageURL);
         File fileDest = new File(IMAGE_PATH + name);
-        System.out.println(fileDest.getAbsolutePath());
-
-        if(!ACCEPTED_IMAGE_FILES.contains(getFileType(fileDest))) {
-            System.out.print("Wrong type");
+        if(!ACCEPTED_IMAGE_FILES.contains(getFileType(fileDest).toLowerCase())) {
             throw new IOException();
         }
         ImageIO.write(image, getFileType(fileDest), fileDest);
