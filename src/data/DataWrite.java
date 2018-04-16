@@ -45,20 +45,20 @@ public class DataWrite {
     // gamestate then writes to xml
     public static void saveFile(GameState gameState, String fileName) throws Exception{
         DataGameState dataGameState = new DataGameState(gameState, fileName);
-        createFile(dataGameState, fileName);
+        createFile(dataGameState);
     }
 
     //creates an xml file from an authoiring environment
     public static void saveFile(DataGameState dataGameState, String fileName) throws Exception{
-        createFile(dataGameState, fileName);
+        createFile(dataGameState);
     }
 
 
     // does the backend work to create new files in the game directory
-    private static void createFile(DataGameState dataGameState, String name) throws Exception {
-        makeFolders(name);
-        writeGame(dataGameState, name);
-        writeResources(dataGameState, name);
+    private static void createFile(DataGameState dataGameState) throws Exception {
+        makeFolders(dataGameState.getGameName());
+        writeGame(dataGameState);
+        writeResources(dataGameState);
     }
 
     // Utility for adding imaged into a specified directory instead of a random directory in the user's computer
@@ -105,7 +105,8 @@ public class DataWrite {
 
 
     //writes the xml to the folder created above
-    private static void writeGame(DataGameState dataGameState, String name) {
+    private static void writeGame(DataGameState dataGameState) {
+        String name = dataGameState.getGameName();
         File game = new File(GAME_FILEPATH+name+ PLAYER + XML_FILETYPE);
         FileOutputStream fos = null;
         try {
@@ -119,7 +120,8 @@ public class DataWrite {
 
 
     //TODO make this method more efficient possibly??
-    private static void writeResources(DataGameState dataGameState, String name) {
+    private static void writeResources(DataGameState dataGameState) {
+        String name = dataGameState.getGameName();
         List<Component> componentList = dataGameState.getComponents();
             for(Component component : componentList) {
               if(DATA_COMPONENTS.contains(component.getClass())) {

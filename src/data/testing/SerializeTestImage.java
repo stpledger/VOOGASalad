@@ -1,3 +1,10 @@
+
+
+////proves that you cant serialize an image
+
+
+
+
 //package data.testing;
 //
 //import data.DataGameState;
@@ -17,7 +24,6 @@
 //import java.io.File;
 //import java.util.HashMap;
 //import java.util.Map;
-////proves that you cant serialize an image
 //public class SerializeTestImage extends Application {
 //
 //    public static void main(String[] args) {
