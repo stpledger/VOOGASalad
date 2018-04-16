@@ -1,5 +1,6 @@
 package frontend.entities;
 
+import java.awt.MouseInfo;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,9 @@ import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.TransferMode;
 
 /**
  * 
@@ -54,26 +57,18 @@ public abstract class Entity extends ImageView {
         			LPV.open();
         		}
         }); 
-        setUpDaddy();
+        this.setOnMouseDragged(e -> {
+    			this.setTranslateX(e.getX() + this.getTranslateX() - this.getFitWidth()/2);
+    		    this.setTranslateY(e.getY() + this.getTranslateY() - this.getFitHeight()/2);
+    		    e.consume();
+        });
+        this.setOnMouseDragExited(e -> {
+        	this.setPosition(this.getX(), this.getY());
+        });
         addDefaultComponents();
     }
-    
-    /**
-     * Method to set up the Drag and Drop Dynamic Youtility(Daddy) which is responsible for moving elements around the screen
-     */
-    private void setUpDaddy() {
-    	
-		this.setOnMouseDragged((mouseEvent)->{
-			//Gets the change
-			double orgMouseX = mouseEvent.getX();
-            double orgMouseY = mouseEvent.getY();
-             
-            this.setX(orgMouseX);
-            this.setTranslateY(orgMouseY);
-		});
-		
-	}
 
+    
 	/**
      * Adds components that are inherent to the specific entity.
      */

@@ -6,8 +6,11 @@ import frontend.entities.Entity;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -23,6 +26,8 @@ public class LevelView extends BorderPane {
 	private AnchorPane contentPane;
 	private Level level;
 	Consumer<MouseEvent> addEntity;
+	private Double lastX = null;
+    private Double lastY = null;
 	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
@@ -34,7 +39,6 @@ public class LevelView extends BorderPane {
 		this.pane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.pane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.pane.setContent((contentPane));
-		this.setTop(toolbar);
 		this.setCenter((pane));
 		this.getStyleClass().add("level-view-wrapper");
 		this.setupMouseClick(levelNum);
@@ -54,25 +58,6 @@ public class LevelView extends BorderPane {
 	}
 	
 	/**
-<<<<<<< HEAD
-=======
-	 * Sets up buttons for each level view
-	 */
-	private void setupButtons() {
-		IButton button = new PropertiesButton();
-		this.HUDButton = button.makeButton("HUD Properties", e->{
-			HUDPropertiesView HPV = new HUDPropertiesView(level);
-			HPV.open();
-		});
-		this.GButton = button.makeButton("Global Properties", e->{
-			GlobalPropertiesView GPV = new GlobalPropertiesView(level);
-			GPV.open();
-		});
-		toolbar.getChildren().addAll(this.GButton,this.HUDButton);
-	}
-	
-	/**
->>>>>>> 154ca4ff43e14ca9e7cd8beb5b990c529b8366c7
 	 * Adds entity to the level view both to be seen graphically and to the specific 
 	 * level object
 	 * @param e Entity to be added to the LevelView
