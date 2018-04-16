@@ -23,6 +23,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class SplashScreen extends VBox {
 	Properties properties;
 	Consumer changeScene;
@@ -55,8 +60,11 @@ public class SplashScreen extends VBox {
 	}
 
 	public void playGame() {
+		
 	}
-	
+	/**
+	 * Creates a new gameAuthoringEnviornment view based on the 
+	 */
 	public void loadAuthor() {
 		FileChooser fileChooser = new FileChooser();
 		File selectedFile = fileChooser.showOpenDialog(null);
