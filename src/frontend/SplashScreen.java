@@ -55,8 +55,11 @@ public class SplashScreen extends VBox {
 	}
 
 	public void playGame() {
+		
 	}
-	
+	/**
+	 * Creates a new gameAuthoringEnviornment view based on the 
+	 */
 	public void loadAuthor() {
 		FileChooser fileChooser = new FileChooser();
 		File selectedFile = fileChooser.showOpenDialog(null);

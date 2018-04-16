@@ -1,5 +1,6 @@
 package frontend.components;
 
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.scene.control.CheckBox;
@@ -12,11 +13,11 @@ import javafx.scene.control.Label;
  */
 public class HUDPropertiesView extends PropertiesView{
 	
-	private Level level;
+	private ArrayList<Level> levels;
 	
-	public HUDPropertiesView(Level level) {
+	public HUDPropertiesView(ArrayList<Level> levelArray) {
 		super();
-		this.level = level;
+		this.levels = levelArray;
 		this.fill();
 	}
 
@@ -34,10 +35,12 @@ public class HUDPropertiesView extends PropertiesView{
 		}		
 		getRoot().addColumn(1, healthBox,livesBox,levelBox,timeBox);
 		getRoot().add(MenuItemBuilder.buildButton(this.getButtonProps().getString("Submit"), e-> {
-			level.addHUDProp(HUDProps.getString("Lives"), livesBox.isSelected());
-			level.addHUDProp(HUDProps.getString("Health"), healthBox.isSelected());
-			level.addHUDProp(HUDProps.getString("Time"), timeBox.isSelected());
-			level.addHUDProp(HUDProps.getString("Levels"), levelBox.isSelected());
+			for(Level level : levels) {
+				level.addHUDProp(HUDProps.getString("Lives"), livesBox.isSelected());
+				level.addHUDProp(HUDProps.getString("Health"), healthBox.isSelected());
+				level.addHUDProp(HUDProps.getString("Time"), timeBox.isSelected());
+				level.addHUDProp(HUDProps.getString("Levels"), levelBox.isSelected());
+			}
 		}), 0, currentRow++);
 	}
 

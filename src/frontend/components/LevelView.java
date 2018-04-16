@@ -23,10 +23,7 @@ public class LevelView extends BorderPane {
 	
 	private ScrollPane pane;
 	private AnchorPane contentPane;
-	private HBox toolbar;
 	private Level level;
-	private Button HUDButton;
-	private Button GButton;
 	Consumer<MouseEvent> addEntity;
 	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
@@ -34,7 +31,6 @@ public class LevelView extends BorderPane {
 		this.addEntity = aE;
 		this.level = level;
 		this.pane = new ScrollPane();
-		this.toolbar = new HBox();
 		this.contentPane = new AnchorPane();
 		this.contentPane.setMinSize(600, 600);
 		this.pane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -43,7 +39,6 @@ public class LevelView extends BorderPane {
 		this.setCenter((pane));
 		this.getStyleClass().add("level-view-wrapper");
 		this.setupMouseClick(levelNum);
-		this.setupButtons();
 	}
 	
 
@@ -63,23 +58,6 @@ public class LevelView extends BorderPane {
 	}
 	
 	/**
-	 * Sets up buttons for each level view
-	 */
-	private void setupButtons() {
-		this.HUDButton = MenuItemBuilder.buildButton("HUD Properties", e->{
-			HUDPropertiesView HPV = new HUDPropertiesView(level);
-			HPV.open();
-		});
-		this.GButton = MenuItemBuilder.buildButton("Global Properties", e->{
-			GlobalPropertiesView GPV = new GlobalPropertiesView(level);
-			GPV.open();
-		});
-		toolbar.getChildren().add(this.GButton);
-		toolbar.getChildren().add(this.HUDButton);
-		this.setTop(toolbar);
-	}
-	
-	/**
 	 * Adds entity to the level view both to be seen graphically and to the specific 
 	 * level object
 	 * @param e Entity to be added to the LevelView
@@ -87,5 +65,13 @@ public class LevelView extends BorderPane {
 	public void addEntity(Entity e) {
 		this.contentPane.getChildren().add(e);
 		level.addEntity(e);
+	}
+	
+	/**
+	 * Retrieves the level attributed to this levelView
+	 * @return the level in this levelView
+	 */
+	public Level getLevel() {
+		return this.level;
 	}
 }
