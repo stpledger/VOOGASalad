@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import frontend.factories.ButtonFactory;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -24,7 +25,8 @@ public abstract class PropertiesView {
 	private Stage stage;
 	private final String RESOURCES = "resources/";
 	private ResourceBundle buttonProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"buttons");
-	
+	private ButtonFactory bFactory = new ButtonFactory();
+
 	/**
 	 * Initialize the root of this window as a {@code GridPane}.
 	 */
@@ -122,5 +124,9 @@ public abstract class PropertiesView {
 	
 	protected ResourceBundle getButtonProps() {
 		return this.buttonProps;
+	}
+	
+	protected ButtonFactory getButtonFactory() {
+		return this.bFactory;
 	}
 }

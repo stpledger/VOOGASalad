@@ -18,7 +18,7 @@ public class LevelStatus {
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
 		if(collider.containsKey(Win.KEY)) {
-		player.get(Player.KEY).get	
+		//pler.get(Player.KEY).get	
 		}
 	}
 	

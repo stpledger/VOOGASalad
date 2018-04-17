@@ -38,7 +38,8 @@ public class LevelPropertiesView extends PropertiesView{
 			Label label = new Label(levelProps.getString(property));
 			this.getRoot().add(label, 0, currentRow++);
 		}
-		getRoot().add(MenuItemBuilder.buildButton(this.getButtonProps().getString("Submit"), e-> {
+		
+		getRoot().add(this.getButtonFactory().makeButton(this.getButtonProps().getString("Submit"), e-> {
 			level.setLevelInfo(infoText.getText());
 			level.setLevelDifficulty(diffText.getText());
 			level.setLevelTime(Double.parseDouble(timeNumber.getText()));

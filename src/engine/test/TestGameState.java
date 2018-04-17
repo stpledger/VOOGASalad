@@ -36,19 +36,19 @@ public class TestGameState {
 		Acceleration a = new Acceleration(0, 0, 40);
 		KeyInput k = new KeyInput(0);
 		k.addCode( KeyCode.RIGHT, (Runnable & Serializable) () -> {
-			v.setXVel(+50);
+			v.setXVel(v.getXVel()+20);
 		});
 		k.addCode(KeyCode.UP, (Runnable & Serializable)() ->
 		{ 
-			v.setYVel(-50);
+			v.setYVel(v.getYVel()-20);
 		});
 		k.addCode(KeyCode.DOWN,(Runnable & Serializable) () ->
 		{ 
-			v.setYVel(+50);
+			v.setYVel(v.getYVel()+20);
 		});
 		k.addCode(KeyCode.LEFT,(Runnable & Serializable) () ->
 		{ 
-			v.setXVel(-50);
+			v.setXVel(v.getXVel()-20);
 		});
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);

@@ -7,6 +7,7 @@ import java.util.List;
 
 import engine.components.*;
 import frontend.entities.Entity;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -15,25 +16,40 @@ import javafx.scene.layout.GridPane;
  * @author dylanpowers
  *
  */
-public class ComponentForm extends GridPane {
+public class PropertiesComponentForm extends AbstractComponentForm {
 
-	private final String COMPONENT_PREFIX = "engine.components.";
+	
 	private int entity;
-	private String name;
-	private int numFields;
-	private List<TextField> fields;
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
 	 * @param entity the entity that the component should be added to
 	 * @param name the name of the component
 	 * @param numFields the number of fields necessary for this component
 	 */
-	public ComponentForm(int entity, String name, int numFields) {
+	public PropertiesComponentForm(int entity, String name) {
 		this.entity = entity;
 		this.name = name;
 		fields = new ArrayList<>();
 		int col = 0;
 		this.add(new Label(name), col++, 0);
+		this.numFields = getNumFields(name);
+		for (int i = 0; i < (numFields-1); i++) {
+			TextField tf = new TextField();
+			fields.add(tf);
+			this.add(tf, col++, 0);
+		}
+	}
+	/**
+	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
+	 * @param name the name of the component
+	 * @param numFields the number of fields necessary for this component
+	 */
+	public PropertiesComponentForm(String name) {
+		this.name = name;
+		fields = new ArrayList<>();
+		int col = 0;
+		this.add(new Label(name), col++, 0);
+		this.numFields = getNumFields(name);
 		for (int i = 0; i < (numFields-1); i++) {
 			TextField tf = new TextField();
 			fields.add(tf);
@@ -68,34 +84,5 @@ public class ComponentForm extends GridPane {
 			e.printStackTrace();
 		}
 		return null;
-	}
-	
-	/**
-	 * Check if the user fully entered something in this form. If the form has multiple text boxes, then
-	 * the user should have input two separate things. If not, the program should alert them of this.
-	 * @return true if the user fully entered everything that they should enter
-	 */
-	private boolean validComponent() {
-		for (TextField tf : this.fields) {
-			if (tf.getText() == null || tf.getText().trim().isEmpty())
-				return false;
-		}
-		return true;
-	}
-	
-	/**
-	 * Casts the {@code String} in the {@code TextField} to the appropriate class based upon the types
-	 * declared in the constructor.
-	 * @param desiredType the type that the {@code String} should be cast to
-	 * @param text the text to be cast
-	 * @return an Object representing the casted class
-	 */
-	private Object cast(Class<?> desiredType, String text) {
-		Object reflectValue;
-		if (desiredType.equals(double.class))
-			reflectValue = Double.parseDouble(text);
-		else
-			reflectValue = text;
-		return reflectValue;
 	}
 }
