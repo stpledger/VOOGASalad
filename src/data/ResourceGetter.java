@@ -6,8 +6,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -113,7 +111,7 @@ class Browser extends Region {
 
     private void setImageName(String name){
         try {
-            DataRead.importFromURL(imageURL,name);
+            DataRead.importImage(imageURL,name);
             close.accept(null);
         } catch (IOException e) {
             messager.setText(NAMING_ERROR);

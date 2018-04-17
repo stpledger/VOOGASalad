@@ -1,6 +1,5 @@
 package frontend.components;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import java.util.function.BiConsumer;
 import javax.imageio.ImageIO;
 
 import data.DataRead;
-import data.DataWrite;
 import engine.components.Sprite;
 import frontend.MainApplication;
 import javafx.embed.swing.SwingFXUtils;

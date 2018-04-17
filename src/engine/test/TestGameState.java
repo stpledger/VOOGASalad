@@ -63,23 +63,6 @@ public class TestGameState {
 		mario.put(Health.getKey(), h);
 		mario.put(DamageLauncher.getKey(), launcher);
         mario.put(Player.getKey(), play);
-//		EntityType type2 = new EntityType(1,"enermy");
-//		Position p2 = new Position(1, 200, 100);
-//		Dimension d2 = new Dimension(1, 100, 100);
-//		Velocity v2 = new Velocity(1, 0, 0);
-//		Acceleration a2 = new Acceleration(1, 0, 0);
-//		Health h2 = new Health(0,10);
-//		DamageLauncher launcher2 = new DamageLauncher(0,2,2);
-//
-//		Map<String, Component> mario2 = new HashMap<>();
-//		mario2.put(Position.getKey(), p2);
-//		mario2.put(Dimension.getKey(), d2);
-//		mario2.put(Sprite.getKey(), s2);
-//		mario2.put(Velocity.getKey(), v2);
-//		mario2.put(type2.getKey(), type);
-//		mario2.put(Acceleration.getKey(), a2);
-//		mario2.put(Health.getKey(), h2);
-//		mario2.put(DamageLauncher.getKey(), launcher2);
 
 		EntityType type3 = new EntityType(2,"enermy");
 		Position p3 = new Position(2, 300, 100);
@@ -100,7 +83,6 @@ public class TestGameState {
 		mario3.put(DamageLauncher.getKey(), launcher3);
 
 		entities.put(0, mario);
-		//entities.put(1, mario2);
 		entities.put(2, mario3);
 		GameInitializer gi = new GameInitializer(entities);
 		ih = gi.getIH();
@@ -109,7 +91,7 @@ public class TestGameState {
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);
 		state.put(l,entities);
-		DataGameState dState = new DataGameState(state, "Demo");
+		DataGameState dState = new DataGameState(state, "DemoDemo");
 		try {
 			DataWrite.saveFile(dState);
 		} catch (Exception e) {

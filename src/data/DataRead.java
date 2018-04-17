@@ -1,10 +1,8 @@
 package data;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import engine.components.Component;
-import engine.components.Sprite;
 import frontend.components.Level;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
@@ -23,7 +21,7 @@ import java.util.*;
  */
 
 
-public class DataRead {
+public class DataRead  {
     private static final String EMPTY_GAME = "Empty";
     private static final String FAIL_MESSAGE ="File could not be loaded";
     private static final String IMAGE_PATH = "data/images/";
@@ -35,30 +33,15 @@ public class DataRead {
     private static final String FILE ="File:";
     private static final String PERIOD = ".";
     private static final Set<String> ACCEPTED_IMAGE_FILES = new HashSet<>(Arrays.asList(new String []{"jpg","png","gif"}));
+    private static final String SPACE ="";
 
     private static String path = "";
 
 
-    /*loads a game file and return it to the public method if
-     * the game file doesnt exist in the right form it returns an empty state
-     */
-    private static DataGameState buildState(File xml) {
-        try {
-            XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
-            DataGameState gameState = (DataGameState)xstream.fromXML(xml);
-            path=GAME_PATH+gameState.getGameName()+SLASH;
-            return gameState;
-        }
-        catch(Exception e){
-            ErrorStatement(FAIL_MESSAGE);
-            return new DataGameState(EMPTY_GAME);
-        }
-    }
-    
     /* receives a gamestate and loads it to the player
      * from buildState
      */
-    public static DataGameState loadFile(File xml) {
+    public static DataGameState loadPlayerFile(File xml) {
         try {
             return buildState(xml);
         } catch (IllegalStateException e) {
@@ -72,7 +55,7 @@ public class DataRead {
      */
     public static Map<Level, Map<Integer, List<Component>>> loadAuthorFile(File xml) {
         try {
-            DataGameState tempState = loadFile(xml);
+            DataGameState tempState = loadPlayerFile(xml);
             return tempState.getGameStateAuthoring();
         } 
         catch (IllegalStateException e) {
@@ -81,27 +64,10 @@ public class DataRead {
         }
     }
 
-    /*prints an error to the screen 
-     */
-    private static void ErrorStatement(String error)  {
-        try {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle(ERROR);
-            alert.setContentText(error);
-            alert.showAndWait();
-        }
-        catch (Error el )
-        {
-            System.out.print("Applicationb not defined");
-        }
-    }
-
     /* removing all autonomy of file reading and writing from all other files by doing myself
      */
-    public static Image loadImage(String name)throws RuntimeException
-    {
+    public static Image loadImage(String name)throws RuntimeException {
         try {
-            System.out.println(FILE+path+IMAGE_PATH+name);
             return new Image(FILE+path+IMAGE_PATH+name);
         }
         catch (Exception e) {
@@ -122,22 +88,13 @@ public class DataRead {
         }
     }
 
-    public static void importFromWeb()
-    {
+    public static void webImport() {
         ResourceGetter imageGetter = new ResourceGetter();
         imageGetter.selectImage();
     }
 
-
-    // util file for finding filetype
-    private static String getFileType(File file) {
-        int fIndex = file.getName().indexOf(PERIOD);
-        return (fIndex == -1) ? "" : file.getName().substring(fIndex + 1);
-    }
-
-
     //TODO undo duplicate dode
-    public static Image importFromURL(URL imageURL, String name) throws IOException{
+    public static Image importImage(URL imageURL, String name) throws IOException{
         BufferedImage image = ImageIO.read(imageURL);
         File fileDest = new File(IMAGE_PATH + name);
         if(!ACCEPTED_IMAGE_FILES.contains(getFileType(fileDest).toLowerCase())) {
@@ -147,9 +104,40 @@ public class DataRead {
         return SwingFXUtils.toFXImage(image, null);
     }
 
+    // util file for finding filetype
+    private static String getFileType(File file) {
+        int fIndex = file.getName().indexOf(PERIOD);
+        return (fIndex == -1) ? SPACE : file.getName().substring(fIndex + 1);
+    }
 
-//    public Image loadImage(File imageFile)
-//    {
-//
-//    }
+    /*prints an error to the screen
+     */
+    private static void ErrorStatement(String error)  {
+        try {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle(ERROR);
+            alert.setContentText(error);
+            alert.showAndWait();
+        }
+        catch (Error el )
+        {
+            System.out.print("Applicationb not defined");
+        }
+    }
+
+    /*loads a game file and return it to the public method if
+     * the game file doesnt exist in the right form it returns an empty state
+     */
+    private static DataGameState buildState(File xml) {
+        try {
+            XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
+            DataGameState gameState = (DataGameState)xstream.fromXML(xml);
+            path=GAME_PATH+gameState.getGameName()+SLASH;
+            return gameState;
+        }
+        catch(Exception e){
+            ErrorStatement(FAIL_MESSAGE);
+            return new DataGameState(EMPTY_GAME);
+        }
+    }
 }
