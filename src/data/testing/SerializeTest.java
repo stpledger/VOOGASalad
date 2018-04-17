@@ -1,8 +1,11 @@
-package data;
+package data.testing;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import data.DataGameState;
+import data.DataRead;
+import data.DataWrite;
 import engine.components.*;
 import frontend.components.Level;
 import javafx.scene.input.KeyCode;
@@ -60,10 +63,11 @@ public class SerializeTest {
         params.add("Mario.png");
 
         try {
-            Sprite entity1Sprite = new Sprite(1, "mario.png");
+            Sprite entity1Sprite = new Sprite(1, "Mario.png");
             entity1Components.put("Sprite", entity1Sprite);
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
+
+
         }
 
         params.clear();
@@ -97,7 +101,7 @@ public class SerializeTest {
         params.add("m ario.png");
 
         try {
-            Sprite entity2Sprite = new Sprite(2, "mario.png");
+            Sprite entity2Sprite = new Sprite(2, "Mario.png");
             entity2Components.put("Sprite", entity2Sprite);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
@@ -111,16 +115,14 @@ public class SerializeTest {
         Map<Level,Map<Integer,Map<String,Component>>> testState = new HashMap<>();
         testState.put(level1,level1State);
         testState.put(level2,level2State);
-        DataGameState state = new DataGameState(testState);
+        DataGameState state = new DataGameState(testState, "Files!");
 
         File xml = new File("sdf");
         try {
-            xml =DataWrite.saveFile(state, "TestGame3");
+            DataWrite.saveFile(state);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        DataGameState testDeserialize = new DataGameState();
-        testDeserialize = DataRead.loadFile(xml);
 
     }
 

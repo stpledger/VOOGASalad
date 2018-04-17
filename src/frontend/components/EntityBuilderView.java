@@ -1,6 +1,5 @@
 package frontend.components;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -19,6 +18,7 @@ import java.util.function.BiConsumer;
 
 import javax.imageio.ImageIO;
 
+import data.DataRead;
 import data.DataWrite;
 import engine.components.Component;
 import engine.components.Sprite;
@@ -142,8 +142,10 @@ public class EntityBuilderView{
 				//TODO:copy the image to the data folder
 				//Build the spriteComponent for a given entity
 				try {
-					componentAttributes.put(Sprite.class, new Object[] {DataWrite.writeImage(imageFile)});
-				} catch (IOException e1) {
+					componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
+					DataRead.importImage( imageFile);
+				}
+				catch (Exception e1) {
 					e1.printStackTrace();
 				}
 

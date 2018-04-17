@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import frontend.entities.Entity;
 
@@ -18,6 +19,8 @@ public class Level {
 	
 	@XStreamOmitField
 	private transient List<Entity> entityList;
+
+
 	private Map<String,Boolean> HUDprops;
 	private Map<String,String> GProps;
 	
