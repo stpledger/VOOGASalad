@@ -1,33 +1,34 @@
 package engine.actions
 
-import engine.components.KeyInput
-import javafx.scene.input.KeyCode
-
 import java.lang.reflect.Method
 import java.util.function.Consumer
 
-class GroovyPractice {
+class ScriptReader {
 
-    static void main (String [] args) {
+    HashMap entities
+    int index
+    String className, methodName
+    def myBinding, shell, number
 
-        def map = new HashMap()
-        def map2 = new HashMap()
-        map2.put("KeyInput", new KeyInput(1))
-        map.put(1, map2)
+    public ScriptReader(HashMap entities) {
+        this.entities = entities
+        myBinding = new Binding()
+        myBinding.setVariable("entities", entities)
+        shell = new GroovyShell(myBinding)
+    }
 
-        def myBinding = new Binding()
-        myBinding.setVariable("map", map)
-        def shell = new GroovyShell(myBinding)
+    public void readCommand (String command) {
+        String arguments = command
 
-        def className
-        def methodName
-        def number
-        def index = 0
+        Class clazz = readArguments(arguments)
+        def methodParams = getMethodParams(clazz)
+        Method method = clazz.getDeclaredMethod(methodName, methodParams)
 
-        def arguments = """1 KeyInput addCode P 
-        System.out.println(map.get(1).get("KeyInput").getParentID())
-"""
+        def invokeArgs = getInvokeArgs(methodParams, arguments)
+        doMethod(method, invokeArgs, methodParams)
+    }
 
+    private Class readArguments (String arguments) {
         for (int i = 0; i < arguments.length(); i++) {
             if (arguments.substring(i, i+1).equals(" ") && number == null) {
                 number = arguments.substring(0, i).toInteger()
@@ -43,20 +44,23 @@ class GroovyPractice {
                 break
             }
         }
+        return entities.get(number).get(className).class
+    }
 
-        def ki = (map.get(number).get(className)).class
+    private def getMethodParams (Class clazz) {
         def methodParams;
 
-        Method[] declaredMethods = ki.getDeclaredMethods();
+        Method[] declaredMethods = clazz.getDeclaredMethods();
 
         for (Method declaredMethod: declaredMethods) {
             if (declaredMethod.getName().equals(methodName)) {
                 methodParams = declaredMethod.getParameterTypes()
             }
         }
+        return methodParams
+    }
 
-        Method myMethod = ki.getDeclaredMethod(methodName, methodParams)
-
+    private def getInvokeArgs(def methodParams, String arguments) {
         def invokeArgs = new Object[methodParams.size()]
         def newIndex = index + 1
 
@@ -75,7 +79,10 @@ class GroovyPractice {
                 newIndex++
             }
         }
+        return invokeArgs
+    }
 
+    private void doMethod(Method myMethod, def invokeArgs, def methodParams) {
         for (int i = 0; i < methodParams.length; i++) {
             Class clazz = methodParams[i]
             if (clazz == javafx.scene.input.KeyCode) {
@@ -90,18 +97,9 @@ class GroovyPractice {
                     }
                 }
             }
-            else invokeArgs[i] = clazz.newInstance(invokeArgs[i])
+            else invokeArgs[i] = Double.parseDouble(invokeArgs[i]).doubleValue()
         }
 
-        myMethod.invoke(map.get(number).get(className), invokeArgs)
-
-        map.get(number).get(className).action(KeyCode.P)
-
+        myMethod.invoke(entities.get(number).get(className), invokeArgs)
     }
-
-    /**
-     * Ideal way to have a user input information to a component:
-     * componentID componentType typeMethod args[]
-     */
-
 }
