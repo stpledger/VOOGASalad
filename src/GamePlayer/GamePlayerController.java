@@ -77,14 +77,19 @@ public class GamePlayerController {
 		myScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
 				pauseMenu.show(myStage);
+			// SORRY
 			} else {
-				gameView.setInput(e.getCode());
+				if(gameView != null) {
+					gameView.setInput(e.getCode());
+				}
 			}
 		});
 
 		myScene.setOnKeyReleased(e -> {
 			if(e.getCode() != KeyCode.ESCAPE) {
-				gameView.removeInput(e.getCode());
+				if(gameView != null) {
+					gameView.removeInput(e.getCode());
+				}
 			}
 		});
 		return myScene;
@@ -100,6 +105,7 @@ public class GamePlayerController {
 
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
+		
 
 		levelEntityGroupMap = gameView.getlevelEntityMap();
 		gameRoot = levelEntityGroupMap.get(1);

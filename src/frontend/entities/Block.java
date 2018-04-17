@@ -14,7 +14,6 @@ public class Block extends Entity{
 
 	public Block(int ID) {
 		super(ID);
-		addDefaultComponents();
 	}
 
 	@Override
@@ -24,7 +23,7 @@ public class Block extends Entity{
 		this.setDimension(BLOCK_DIMENSION, BLOCK_DIMENSION);
 		// TODO add method to set sprite
 	}
-	
+
 	@Override
 	public String type() {
 		return TYPE;

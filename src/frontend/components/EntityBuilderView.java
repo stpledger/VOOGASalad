@@ -1,20 +1,31 @@
 package frontend.components;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
 
 import javax.imageio.ImageIO;
+
+import data.DataRead;
+import data.DataWrite;
+import engine.components.Component;
 import engine.components.Sprite;
 import frontend.MainApplication;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Menu;
@@ -24,6 +35,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -38,6 +50,8 @@ public class EntityBuilderView{
 	private final int HEIGHT = 600;
 	private final int WIDTH = 800;
 	private final int LEFT_PANEL_WIDTH = 200;
+	private final String PROPERTIES_PACKAGE = "resources.menus.Entity/";
+	private final String COMPONENT_PREFIX = "engine.components.";
 	private TopMenu topMenu;
 	private BottomMenu bottomMenu;
 	private LeftPanel leftPanel;
@@ -47,6 +61,7 @@ public class EntityBuilderView{
 	private Stage stage;
 	private File imageFile;
 	private Image image;
+	private List<EntityComponentForm> activeForms;
 	private List<String> imageExtensions = Arrays.asList(new String[] {".jpg",".png",".jpeg"});
 	private BiConsumer<String, Map<Class, Object[]>> onClose;
 	private Map<Class, Object[]> componentAttributes = new HashMap<Class, Object[]>();
@@ -103,7 +118,11 @@ public class EntityBuilderView{
 			for(String et : entityTypes) {
 				MenuItem menuItem = new MenuItem();
 				menuItem.setText(et);
-				menuItem.setOnAction((e)->{myEntityType = et; typeMenu.setText(et);});
+				menuItem.setOnAction((e)->{
+					myEntityType = et;
+					typeMenu.setText(et);			
+					root.setCenter(fillComponentsForms());
+					});
 				typeMenu.getItems().add(menuItem);
 			}
 			this.getMenus().add(typeMenu);
@@ -120,9 +139,17 @@ public class EntityBuilderView{
 				fileChooser.setTitle("Open Image File");
 				fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
 				imageFile = fileChooser.showOpenDialog(stage);
+				//TODO:copy the image to the data folder
 				//Build the spriteComponent for a given entity
-				componentAttributes.put(Sprite.class, new Object[] {imageFile.getAbsolutePath()});
-                try {
+				try {
+					componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
+					DataRead.importImage( imageFile);
+				}
+				catch (Exception e1) {
+					e1.printStackTrace();
+				}
+
+				try {
 					image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 				} catch (IOException e1) {
 					System.out.println("Error loading image");
@@ -142,6 +169,7 @@ public class EntityBuilderView{
 			imageMenu.getItems().add(removeImage);
 			this.getMenus().add(imageMenu);
 			}
+
 	}
 	/**
 	 * ScrollPane that holds the current properties of an Entity
@@ -195,12 +223,35 @@ public class EntityBuilderView{
 			//Create Save Button
 			Button saveButton = new Button("Save");
 			saveButton.setOnMouseClicked((e)->{
+					for(EntityComponentForm componentForm : activeForms) {
+						Object[] tempArr = componentForm.buildComponent();
+						if(tempArr != null) {
+						componentAttributes.put(componentForm.getClass(), tempArr);
+						}
+					}
 					onClose.accept(myEntityType, componentAttributes);
 					stage.close();
 				});
 			saveButton.getStyleClass().add("entity-builder-view-button");
 			this.getChildren().add(saveButton);
 		}
+	}
+	/**
+	 * Creates the forms and returns them as a GridPane
+	 * @return gridPane a gridpane filled with the necessary forms
+	 */
+	public Node fillComponentsForms() {
+			GridPane gridPane = new GridPane();
+			int currentRow = 0;
+			this.activeForms = new ArrayList<>();
+			for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + myEntityType).keySet()) {
+				if(!property.equals("Sprite") && !property.equals("Position")) {
+					EntityComponentForm cf = new EntityComponentForm(property);
+					this.activeForms.add(cf);
+					gridPane.add(cf, 0, currentRow++);
+				}
+			}
+			return gridPane;
 	}
 
 

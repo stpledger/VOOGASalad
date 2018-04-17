@@ -1,8 +1,10 @@
 package frontend.entities;
 
+import java.awt.MouseInfo;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import frontend.components.LocalPropertiesView;
 import engine.components.Component;
@@ -13,12 +15,15 @@ import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.TransferMode;
 
 /**
  * 
  * @author Hemanth Yakkali
  * @author Dylan Powers
+ * @author Collin Brown
  *
  */
 
@@ -32,8 +37,7 @@ public abstract class Entity extends ImageView {
     /**
      * List of components which define the entity
      */
-    private List<Component> components;
-    
+    private List<Component> components;    
 
     /**
      * The constructor simply sets the ID of the entity and initializes its list of components
@@ -42,19 +46,46 @@ public abstract class Entity extends ImageView {
     public Entity(int ID) {
         this.ID = ID;
         components = new ArrayList<>();
+        Consumer<List<Component>> onSubmit = (componentsToAdd) -> {
+        		for (Component c : componentsToAdd) {
+        			this.add(c);
+        		}
+        };
         this.setOnMouseClicked(e -> {
         		if (e.getButton().equals(MouseButton.SECONDARY)) {
-        			LocalPropertiesView LPV = new LocalPropertiesView(this);
+        			LocalPropertiesView LPV = new LocalPropertiesView(this.getID(), this.type(), onSubmit);
         			LPV.open();
         		}
         }); 
+        this.setOnMouseDragged(e -> {
+    			this.setTranslateX(e.getX() + this.getTranslateX() - this.getFitWidth()/2);
+    		    this.setTranslateY(e.getY() + this.getTranslateY() - this.getFitHeight()/2);
+    		    e.consume();
+        });
+        this.setOnMouseDragExited(e -> {
+        	this.setPosition(this.getX(), this.getY());
+        });
+        addDefaultComponents();
     }
+
     
-    /**
+	/**
      * Adds components that are inherent to the specific entity.
      */
     protected abstract void addDefaultComponents();
    
+    /**
+     * Gets the names of all of the components.
+     * @return the names of all of the components
+     *
+     */
+    public List<String> getNames() {
+    		List<String> ans = new ArrayList<>();
+    		for (Component c : this.components) {
+    			ans.add(c.getKeyKey());
+    		}
+    		return ans;
+    }
     /**
      * 
      * @param c Component object
@@ -64,7 +95,6 @@ public abstract class Entity extends ImageView {
     			if (this.contains(c))
     				this.removeByName(c.getKeyKey());
     			this.components.add(c);
-    			
     		}
     }
     

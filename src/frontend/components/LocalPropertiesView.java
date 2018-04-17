@@ -5,12 +5,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import engine.components.Component;
-import frontend.entities.Entity;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import java.util.function.Consumer;
-import java.lang.reflect.Constructor;
 
 /**
  * Opens up the Local Properties window so that an editor can edit certain features of an entity,
@@ -24,18 +20,20 @@ public class LocalPropertiesView extends PropertiesView {
 	private final String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final String COMPONENT_PREFIX = "engine.components.";
 	private final String SUBMIT_TEXT = "Submit Changes";
-	private List<ComponentForm> activeForms;
-	private List<Component> existingComponents;
-	private Entity entity;
+	private List<PropertiesComponentForm> activeForms;
+	private Consumer<List<Component>> onSubmit;
+	private int entityID;
 	private String type;
 	
 	/**
 	 * Initialize the object with a given broadcast method
 	 * @param entityNumber
 	 */
-	public LocalPropertiesView(Entity entity) {
+	public LocalPropertiesView(int entityID, String type, Consumer<List<Component>> onSubmit) {
 		super();
-		this.entity = entity;
+		this.entityID = entityID;
+		this.type = type;
+		this.onSubmit = onSubmit;
 		this.fill();
 	}
 	
@@ -46,17 +44,18 @@ public class LocalPropertiesView extends PropertiesView {
 	protected void fill() {
 		int currentRow = 0;
 		this.activeForms = new ArrayList<>();
-		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + entity.type()).keySet()) {
-			ComponentForm cf = new ComponentForm(this.entity.getID(), property, numFields(property));
+		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + type).keySet()) {
+			PropertiesComponentForm cf = new PropertiesComponentForm(this.entityID, property);
 			this.activeForms.add(cf);
 			getRoot().add(cf, 0, currentRow++);
 		}
-		Button submit = new Button(SUBMIT_TEXT);
-		submit.setOnAction(e -> {
+		Button submit = this.getButtonFactory().makeButton(SUBMIT_TEXT, e -> {
 			List<Component> componentsToAdd = new ArrayList<>();
-			for (ComponentForm cf : this.activeForms) {
+			for (PropertiesComponentForm cf : this.activeForms) {
 				componentsToAdd.add(cf.buildComponent());
 			}
+			onSubmit.accept(componentsToAdd);
+			this.close();
 		});
 		getRoot().add(submit, 0, currentRow);
 	}
@@ -67,30 +66,7 @@ public class LocalPropertiesView extends PropertiesView {
 	 */
 	@Override
 	public String title() {
-		return String.format("Entity %d Local Properties", this.entity.getID());
-	}
-	
-	/**
-	 * Given a name of a component class in the engine, find the number of fields that it takes and their types.
-	 * This is required for generating the appropriate amount of text boxes
-	 * @param component the String name of the component in need of identification
-	 */
-	private int numFields(String component) {
-		// strip dashes which may have been there due to user-friendliness
-		String fullName = COMPONENT_PREFIX + component.replace("-",  "");
-		try {
-			Class clazz = Class.forName(fullName);
-			Constructor cons = clazz.getDeclaredConstructors()[0];
-			// subtract one because the first parameter is ALWAYS the parent ID of the entity
-			int prop = cons.getParameterCount() - 1;
-			return cons.getParameterCount();
-		} catch (ClassNotFoundException e) {
-			// TODO better exception
-			Alert a = new Alert(Alert.AlertType.ERROR);
-			a.setContentText("Class " + component + " does not exist.");
-			a.showAndWait();
-		}
-		return 0;
+		return String.format("Entity %d Local Properties", this.entityID);
 	}
 	
 }

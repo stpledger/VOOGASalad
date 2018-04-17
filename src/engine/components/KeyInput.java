@@ -13,9 +13,8 @@ public class KeyInput extends Component {
 
 	public static String KEY = "KeyInput";
 
-	public KeyInput(int pid, KeyCode code, Consumer con) {
+	public KeyInput(int pid) {
 		super(pid, KEY);
-		codes.put(code, con);
 	}
 
 	public boolean containsCode (KeyCode key) {
@@ -38,5 +37,15 @@ public class KeyInput extends Component {
 	}
 
 	public static String getKey() { return KEY; }
+
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String,String> res = new HashMap<>();
+		for(Map.Entry<KeyCode,Consumer> entry : codes.entrySet()) {
+			res.put("Key Code", entry.getKey().getName());
+		}
+		
+		return res;
+	}
 
 }

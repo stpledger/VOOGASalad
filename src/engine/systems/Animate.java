@@ -3,7 +3,6 @@ package engine.systems;
 import engine.components.*;
 
 import engine.setup.EntityManager;
-import javafx.geometry.Pos;
 import javafx.scene.image.ImageView;
 
 import java.util.Set;
@@ -13,7 +12,13 @@ import java.util.HashMap;
 public class Animate implements ISystem {
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents;
-
+    private EntityManager em;
+    
+    public Animate(EntityManager em) {
+    	this.em = em;
+    }
+    
+    
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
         if (components.containsKey(Position.KEY) && components.containsKey(Sprite.KEY)) {
@@ -42,9 +47,9 @@ public class Animate implements ISystem {
 		
 
 		Map<String, Component> map = new HashMap<>();
-		map.put(componentName,EntityManager.getComponent(pid, componentName));
+		map.put(componentName, em.getComponent(pid, componentName));
 		if(componentName.equals(Position.KEY)) {
-			Component component = EntityManager.getComponent(pid,Sprite.KEY);
+			Component component = em.getComponent(pid,Sprite.KEY);
 			if(component == null) {
 				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Sprite.KEY + " component!");
 				return;
@@ -52,7 +57,7 @@ public class Animate implements ISystem {
 			map.put(Sprite.KEY, component);
 		}
 		else {
-			Component component = EntityManager.getComponent(pid,Position.KEY);
+			Component component = em.getComponent(pid,Position.KEY);
 			if(component == null) {
 				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Position.KEY + " component!");
 				return;
