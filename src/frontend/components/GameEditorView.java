@@ -31,6 +31,7 @@ import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 import GamePlayer.Main;
 import engine.components.Component;
+import engine.components.EntityType;
 import engine.components.Position;
 import engine.components.Sprite;
 import data.DataRead;
@@ -69,7 +70,7 @@ public class GameEditorView extends BorderPane {
 	}
 	
 	//Consumers for the toolbar
-	Consumer newGame = (e)->{System.out.println("New Game!");}; 
+	Consumer newGame = (e)->{newGameMethod(); addLevel();}; 
 	Consumer loadGame = (e)->{ loadGameMethod();};
 	Consumer newLevel = (e)->{addLevel();};
 	Consumer saveGame = (e)-> { saveGameMethod(); };
@@ -107,27 +108,56 @@ public class GameEditorView extends BorderPane {
 		t.setText("Level " + (tabsList.indexOf(t)+1));
 		Level level = new Level(tabsList.indexOf(t)+1);
 		state.addLevel(level);
-		LevelView l = new LevelView(level, tabsList.indexOf(t)+1, addEntity);
-		t.setContent(l);
+		LevelView levelView = new LevelView(level, tabsList.indexOf(t)+1, addEntity);
+		t.setContent(levelView);
 		t.setOnClosed(e -> {
 			tabsList.remove(t);
 			updateTabs.accept(tabsList);
-			
 		});
-		this.setOnDragDetected((e)->{
-			
-		});
-		((ScrollPane) ((BorderPane) t.getContent()).getCenter()).getContent().setOnMouseReleased((e)->{
-				if (e.getButton().equals(MouseButton.PRIMARY) && !drag) {
-						addEntity.accept(e);
-				}
+		levelView.getContent().setOnMouseReleased((e)->{
+				if (e.getButton().equals(MouseButton.PRIMARY) && !drag) addEntity.accept(e);
 				drag = false;
-		}); // Add a new Entity OnClick
-		((ScrollPane) ((BorderPane) t.getContent()).getCenter()).getContent().setOnDragDetected((e)->{
+		});
+		levelView.getContent().setOnDragDetected((e)->{
 			drag = true;
-			});// don't add new element if drag detected
+			});
 		tabPane.getTabs().add(t);
 	}
+	
+	/**
+	 * Creates a new LevelView based on an existing LevelView
+	 * @param l Level to be added to current view
+	 * @return LevelView object just instantiated
+	 */
+	public LevelView loadLevel(Level l){
+		tabsList.add(new Tab());
+		Tab t = tabsList.get(tabsList.size()-1);
+		t.setText("Level " + (tabsList.indexOf(t)+1));
+		Level level = l;
+		state.addLevel(level);
+		LevelView levelView = new LevelView(level, tabsList.indexOf(t)+1, addEntity);
+		t.setContent(levelView);
+		t.setOnClosed(e -> {
+			tabsList.remove(t);
+			updateTabs.accept(tabsList);
+		});
+		levelView.getContent().setOnMouseReleased((e)->{
+				if (e.getButton().equals(MouseButton.PRIMARY) && !drag) addEntity.accept(e);
+				drag = false;
+		});
+		levelView.getContent().setOnDragDetected((e)->{
+			drag = true;
+			});
+		tabPane.getTabs().add(t);
+		return levelView;
+	}
+	
+	private void newGameMethod() {
+		state = new GameState();
+		tabsList = new ArrayList<Tab>();
+		tabPane.getTabs().clear();
+	}
+	
 	/**
 	 * Opens a new thread to play the game on
 	 */
@@ -189,13 +219,51 @@ public class GameEditorView extends BorderPane {
 		gameFile = fileChooser.showOpenDialog(new Stage());
 		System.out.println(gameFile.getPath());
 		DataRead dr = new DataRead();
-		tabsList = new ArrayList<Tab>();
 		Map<Level, Map<Integer, List<Component>>> authorData = dr.loadAuthorFile(gameFile);
-		System.out.println(authorData.size());
-		for(Entry<Level, Map<Integer, List<Component>>> level : authorData.entrySet()) {
+		newGameMethod();
+		for(Level level : authorData.keySet()) {
+			LevelView levelView = loadLevel(level);
+			Map<Integer, List<Component>> entities = authorData.get(level);
+			System.out.println("Number of entities in level: " + entities.keySet().size());
+			for(Integer entityID : entities.keySet()) {
+				List<Component> componentList = entities.get(entityID);
+				try {
+					Entity entity = createEntityFromComponentList(entityID, componentList);
+						System.out.println(entity.toString());
+						levelView.addEntity(entity);
+				} catch (Exception e) {
+					System.out.println("Error creating entity: " + entityID);
+				}
+				
+				
+			}
+			
 		}
 	}
 
+
+	private Entity createEntityFromComponentList(Integer entityID, List<Component> componentList) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
+		Entity entity = null;
+		for(Component c : componentList) {
+			if(c.getKeyKey().equals("EntityType")) {
+				String entityType = ((EntityType)c).getType();
+					Class entityTypeClass = Class.forName("frontend.entities." + entityType);
+					entity = createEntityFromType(entityTypeClass, entityID);	
+			}
+		}
+		for(Component c : componentList) {
+			entity.add(c);
+			if(c.getKeyKey().equals("Sprite")) {
+				Image image = DataRead.loadImage(((Sprite) c).getName());	
+				entity.setImage(image);
+			} else if(c.getKeyKey().equals("Position")) {
+				Position p = (Position) c;
+				entity.setX(p.getXPos());
+				entity.setY(p.getYPos());
+			}
+		}
+		return entity;
+	}
 
 	/**
 	 * Set the element in the clipboard
@@ -210,51 +278,79 @@ public class GameEditorView extends BorderPane {
 	 */
 	private Consumer<MouseEvent> addEntity = (mouseEvent) -> {
 		Object[] clipboardCopy =  clipboard; //Create a copy of the clipboard
-		ArrayList<Component> componentArrayList = new ArrayList<Component>();
 		Entity entity = null;
 		try {
 			//Get the class of the entityType
 			Class<?> entityType = (Class<?>) clipboardCopy[0]; 
-			//Get Constructor for entityType
-			Constructor<?> entityConstructor = entityType.getConstructor(int.class);
-			//Create a new instance of the entity
-			System.out.println("About to create entity with ID " + nextID);
-			entity = (Entity) entityConstructor.newInstance(nextID); 
-			System.out.println(entity + " created with ID " + entity.getID());
-			//Set the X,Y position of the mouseEvent to the X,Y position of the object
-			entity.setFitWidth(BLOCK_DEFAULT_WIDTH);
-			entity.setFitHeight(BLOCK_DEFAULT_WIDTH);
+			entity = createEntityFromType(entityType, nextID);
+			//Set the position
 			entity.setPosition(mouseEvent.getX() - entity.getFitWidth() / 2, mouseEvent.getY() - this.tabPane.getTabMaxHeight() - entity.getFitHeight() / 2);
-			entity.add(new Position(nextID, entity.getX(), entity.getY()));
-			//Get all of the inputs for components
+			
+			//Add all the components
 			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; 
-			//iterate through all the properties we have for new components
-			for(Class k :entityComponents.keySet()) { 
-				 // get the constructor for the type of component
-				Constructor<?> componentConstructor = k.getDeclaredConstructors()[0];
-				//Create a temporary arraylist
-				ArrayList<Object> tempArr = new ArrayList<Object>() {{ 
-					 //Add the pId to the temporary arraylist
-					this.add(nextID);
-					//add all the arguments for the component to the arraylist
-					this.addAll(Arrays.asList(entityComponents.get(k))); 
-				}};
-				Object[] args = tempArr.toArray(); //Convert the temp array to an array of objects
-				componentArrayList.add((Component) componentConstructor.newInstance(args)); //Add a new instance to arraylist.
-				if(k.equals(Sprite.class)) { //Check if this is the image
-					Image image = DataRead.loadImage((String) entityComponents.get(k)[0]);
-					entity.setImage(image);
-				}
-			}
-			for(Component c : componentArrayList) { //Add all the components
-				entity.add(c);
-			}
-			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity); //add the entity to the level
+			entity = addEntityComponentsFromMap(entity, entityComponents);
+			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity);
 			nextID++; //Increment id's by one
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException el) {
 			el.printStackTrace();
 		}
 	};
+	
+	/**
+	 * Creates an Entity object from the Class representing its type and an ID
+	 * @param entityType class representing the type of entity to make
+	 * @param ID int representing the ID of an entity
+	 * @return
+	 * @throws NoSuchMethodException
+	 * @throws SecurityException
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	private Entity createEntityFromType(Class<?> entityType, int ID) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		Constructor<?> entityConstructor = entityType.getConstructor(int.class);
+		Entity entity = (Entity) entityConstructor.newInstance(nextID); 
+		entity.setFitWidth(BLOCK_DEFAULT_WIDTH);
+		entity.setFitHeight(BLOCK_DEFAULT_WIDTH);
+		return entity;
+	}
+	/**
+	 * Takes in a Map<Class, Object[]> and creates components in an entity
+	 * @param e Entity object to recieve the new components
+	 * @param entityComponents Map<Class, Object[]> which represents the components to be built
+	 * @return Entity with components added by this class
+	 * @throws InstantiationException
+	 * @throws IllegalAccessException
+	 * @throws IllegalArgumentException
+	 * @throws InvocationTargetException
+	 */
+	private Entity addEntityComponentsFromMap(Entity e, Map<Class, Object[]> entityComponents) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		ArrayList<Component> componentArrayList = new ArrayList<Component>();
+		Entity entity = e;
+		for(Class k :entityComponents.keySet()) { 
+			 // get the constructor for the type of component
+			Constructor<?> componentConstructor = k.getDeclaredConstructors()[0];
+			//Create a temporary arraylist
+			ArrayList<Object> tempArr = new ArrayList<Object>() {{ 
+				 //Add the pId to the temporary arraylist
+				this.add(nextID);
+				//add all the arguments for the component to the arraylist
+				this.addAll(Arrays.asList(entityComponents.get(k))); 
+			}};
+			
+			Object[] args = tempArr.toArray(); //Convert the temp array to an array of objects
+			componentArrayList.add((Component) componentConstructor.newInstance(args)); //Add a new instance to arraylist.
+			if(k.equals(Sprite.class)) { //Check if this is the image
+				Image image = DataRead.loadImage((String) entityComponents.get(k)[0]);
+				entity.setImage(image);
+			}
+		}
+		for(Component c : componentArrayList) { //Add all the components
+			entity.add(c);
+		}
+		return entity;
+	}
 	
 }
