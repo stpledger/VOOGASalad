@@ -19,7 +19,6 @@ public class Player extends Entity {
 	 */
 	public Player(int ID) {
 		super(ID);
-		addDefaultComponents();
 	}
 
 	/**

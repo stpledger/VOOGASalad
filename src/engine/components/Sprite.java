@@ -2,16 +2,13 @@ package engine.components;
 import java.io.FileNotFoundException;
 
 
-import javax.imageio.ImageIO;
-
-import javafx.embed.swing.SwingFXUtils;
+import data.DataRead;
 
 import java.util.*;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -41,24 +38,24 @@ public class Sprite extends Component {
 		return image;
 	}
 
-	public void setImage(String im) throws RuntimeException {
+	public void setImage(String im) {
+
 		try {
-			image = new ImageView(new Image(FILE_PATH + im));
-			if(image==null)
-				image = new ImageView(new Image(FILE_PATH + IMAGE_PATH+ im));
+			image =new ImageView(DataRead.loadImage(im));
+		} catch(RuntimeException e) {
+			System.out.print("Cant load image no Application");
 		}
-			catch (Exception el){
-				el.printStackTrace();
-
-			}
-
+	}
+	public String getImageFile()
+	{
+		return filename;
 	}
 
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String, String>(){{
-			put("Image", filename);
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Image", filename);
+		
 		return res;
 	}
 }

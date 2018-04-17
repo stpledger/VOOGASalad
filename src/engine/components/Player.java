@@ -1,9 +1,5 @@
 package engine.components;
 
-
-import javafx.geometry.Pos;
-
-import java.util.HashMap;
 import java.util.Map;
 
 public class Player extends Component {
@@ -22,17 +18,13 @@ public class Player extends Component {
 
     public static String getKey() { return KEY; }
 
-    @Override
-    public Map<String, String> getParameters(){
-        return null;
+
+    public Position getRespawn () {
+        return respawn;
     }
 
     public void setRespawn(Position p) {
         respawn = p;
-    }
-
-    public Position getRespawn() {
-        return respawn;
     }
 
     public int getLives() {
@@ -51,4 +43,19 @@ public class Player extends Component {
     public void setScore(int score) {
         this.score = score;
     }
+
+
+    public void respawn (Position p, Velocity v, Acceleration a) {
+       p.setXPos(respawn.getXPos());
+       p.setYPos(respawn.getYPos());
+       v.setXVel(0); v.setYVel(0);
+       a.setxAcc(0); a.setyAcc(40);
+    }
+
+	@Override
+	public Map<String, String> getParameters() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

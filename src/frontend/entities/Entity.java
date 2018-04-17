@@ -1,5 +1,6 @@
 package frontend.entities;
 
+import java.awt.MouseInfo;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,12 +15,15 @@ import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.TransferMode;
 
 /**
  * 
  * @author Hemanth Yakkali
  * @author Dylan Powers
+ * @author Collin Brown
  *
  */
 
@@ -33,8 +37,7 @@ public abstract class Entity extends ImageView {
     /**
      * List of components which define the entity
      */
-    private List<Component> components;
-    
+    private List<Component> components;    
 
     /**
      * The constructor simply sets the ID of the entity and initializes its list of components
@@ -54,9 +57,19 @@ public abstract class Entity extends ImageView {
         			LPV.open();
         		}
         }); 
+        this.setOnMouseDragged(e -> {
+    			this.setTranslateX(e.getX() + this.getTranslateX() - this.getFitWidth()/2);
+    		    this.setTranslateY(e.getY() + this.getTranslateY() - this.getFitHeight()/2);
+    		    e.consume();
+        });
+        this.setOnMouseDragExited(e -> {
+        	this.setPosition(this.getX(), this.getY());
+        });
+        addDefaultComponents();
     }
+
     
-    /**
+	/**
      * Adds components that are inherent to the specific entity.
      */
     protected abstract void addDefaultComponents();

@@ -31,9 +31,9 @@ public class Health extends Component {
 
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String, String>(){{
-			put("Health", Double.toString(health));
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Health", Double.toString(health));
+		
 		return res;
 	}
 }
