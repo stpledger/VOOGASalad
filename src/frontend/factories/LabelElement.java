@@ -1,23 +1,21 @@
 package frontend.factories;
 
-import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 
 /**
  * 
  * @author Hemanth Yakkali(hy115)
  *
  */
-public class ButtonElement extends Button implements Element{
-	
-	public ButtonElement(String text) {
-		super();
+public class LabelElement extends Label implements Element{
+
+	public LabelElement(String text) {
 		this.handleText(text);
 	}
-
+	
 	@Override
 	public void handleText(String text) {
 		this.setText(text);
 	}
-	
-	
+
 }

@@ -1,14 +1,11 @@
 package frontend.components;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import engine.components.Component;
 import frontend.factories.ElementType;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
 
 /**
  * 
@@ -17,11 +14,11 @@ import javafx.scene.control.Label;
  */
 public class HUDPropertiesView extends PropertiesView{
 	
-	private ArrayList<Level> levels;
+	private List<Level> levels;
 	private final String NAME = "HUD Properties";
-	private final String RESOURCE_NAME = "HUDProperties";
+	private final int SUBMIT_POSITION = 4;
 	
-	public HUDPropertiesView(ArrayList<Level> levelArray) {
+	public HUDPropertiesView(List<Level> levelArray) {
 		super();
 		this.levels = levelArray;
 		this.fill();
@@ -29,19 +26,12 @@ public class HUDPropertiesView extends PropertiesView{
 
 	@Override
 	protected void fill() {
-		int currentRow = 0;
-		ResourceBundle HUDProps = ResourceBundle.getBundle(this.getResourcesFilePath()+RESOURCE_NAME);
-		CheckBox livesBox = new CheckBox();
-		CheckBox healthBox = new CheckBox();
-		CheckBox timeBox = new CheckBox();
-		CheckBox levelBox = new CheckBox();
-		for (String property : HUDProps.keySet()) {
-			Label label = new Label(HUDProps.getString(property));
-			getRoot().addRow(currentRow++,label);
-		}		
-		getRoot().addColumn(1, healthBox,livesBox,levelBox,timeBox);
-		
+		ResourceBundle HUDProps = ResourceBundle.getBundle(this.getResourcesFilePath()+NAME.replace(" ", ""));
 		try {
+			CheckBox livesBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Lives"));
+			CheckBox healthBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Health"));
+			CheckBox timeBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Time"));
+			CheckBox levelBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Levels"));
 			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, NAME);
 			submit.setOnAction(e->{
 				for(Level level : levels) {
@@ -51,10 +41,11 @@ public class HUDPropertiesView extends PropertiesView{
 					level.addHUDProp(HUDProps.getString("Levels"), levelBox.isSelected());
 				}
 			});
-			getRoot().add(submit, 0, currentRow++);
-		} catch (Exception e1) {
-			e1.printStackTrace();
-		}
+			getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox);
+			getRoot().add(submit, 0, SUBMIT_POSITION);
+		} catch (Exception e2) {
+			e2.printStackTrace();
+		}	
 	}
 
 	@Override

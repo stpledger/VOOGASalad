@@ -2,6 +2,11 @@ package frontend.factories;
 
 import javafx.scene.control.MenuItem;
 
+/**
+ * 
+ * @author Hemanth Yakkali(hy115)
+ *
+ */
 public class MenuItemElement extends MenuItem implements Element{
 	
 	public MenuItemElement(String text) {
