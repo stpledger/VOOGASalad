@@ -1,14 +1,8 @@
 package engine.actions
 
 import engine.components.KeyInput
-import groovy.lang.GroovyClassLoader
-import groovy.util.Eval;
-
-import engine.components.AI
 import javafx.scene.input.KeyCode
-import org.codehaus.groovy.tools.GroovyClass
 
-import javax.xml.crypto.dsig.keyinfo.KeyName
 import java.lang.reflect.Method
 import java.util.function.Consumer
 
@@ -21,54 +15,84 @@ class GroovyPractice {
         map2.put("KeyInput", new KeyInput(1, null, null))
         map.put(1, map2)
 
-        /**def action = 'println map.get(1).getParentID()'
-
+        def myBinding = new Binding()
+        myBinding.setVariable("map", map)
         def shell = new GroovyShell()
-        def script = shell.parse(action)**/
-        def name;
 
-        def arguments = """KeyInput addCode KeyCode.SPACE 
-            new Consumer() {
-                @Override
-                void accept(Object o) {
-                  println map.get(1).get(name).getParentID()
-                }
-            }"""
+        def className
+        def methodName
+        def index = 0
+
+        def arguments = """KeyInput addCode P 'System.out.println(map.get(1).get("KeyInput").getParentID())'"""
+
+        //def action = 'System.out.println(map.get(1).get("KeyInput").getParentID())'
 
         for (int i = 0; i < arguments.length(); i++) {
-            if (arguments.substring(i, i+1).equals(" ")) {
-                name = arguments.substring(0, i)
+            if (arguments.substring(i, i+1).equals(" ") && className == null) {
+                className = arguments.substring(0, i)
+                index = i
+            }
+            else if (arguments.substring(i, i+1).equals(" ") && className!=null && methodName == null) {
+                methodName = arguments.substring(index+1, i)
+                index = i
                 break
             }
         }
 
-        def ki = (map.get(1).get(name)).class
-
+        def ki = (map.get(1).get(className)).class
         def methodParams;
 
         Method[] declaredMethods = ki.getDeclaredMethods();
 
         for (Method declaredMethod: declaredMethods) {
-            if (declaredMethod.getName().equals("addCode")) {
+            if (declaredMethod.getName().equals(methodName)) {
                 methodParams = declaredMethod.getParameterTypes()
             }
         }
 
-        Method myMethod = ki.getDeclaredMethod("addCode", methodParams)
+        Method myMethod = ki.getDeclaredMethod(methodName, methodParams)
 
         def invokeArgs = new Object[methodParams.size()]
+        def newIndex = index + 1
 
-        invokeArgs[0] = KeyCode.SPACE
-        invokeArgs[1] = new Consumer() {
-            @Override
-            void accept(Object o) {
-                println map.get(1).get(name).getParentID()
+        for (int i = 0; i < invokeArgs.length; i++) {
+            while (newIndex < arguments.length()) {
+                if (arguments.substring(newIndex, newIndex+1).equals(" ")) {
+                    invokeArgs[i] = arguments.substring(index+1, newIndex)
+                    index = newIndex
+                    newIndex++
+                    break
+                }
+                else if (i==invokeArgs.length-1) {
+                    invokeArgs[i] = arguments.substring(newIndex)
+                    break
+                }
+                newIndex++
             }
         }
 
-        myMethod.invoke(map.get(1).get(name), invokeArgs)
+        for (int i = 0; i < methodParams.length; i++) {
+            Class clazz = methodParams[i]
+            if (clazz == javafx.scene.input.KeyCode) {
+                invokeArgs[i] = clazz.getKeyCode(invokeArgs[i])
+            }
+            else if (clazz == java.util.function.Consumer) {
+                def action = invokeArgs[i]
+                def script = shell.parse(action)
+                script.binding = myBinding
+                invokeArgs[i] = new Consumer() {
+                    @Override
+                    void accept(Object o) {
+                        script.run()
+                    }
+                }
+            }
+            else invokeArgs[i] = clazz.newInstance(invokeArgs[i])
+        }
 
-        map.get(1).get(name).action(KeyCode.SPACE);
+        myMethod.invoke(map.get(1).get(className), invokeArgs)
+
+        map.get(1).get(className).action(KeyCode.P);
 
     }
 
