@@ -96,17 +96,13 @@ public class GamePlayerController {
 	 * @throws FileNotFoundException 
 	 */
 	public void initializeGameStart() throws FileNotFoundException {
-		MenuGameBar menuBar = new MenuGameBar(this);
-		pane.setBottom(menuBar);
-
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
-
 		levelEntityGroupMap = gameView.getlevelEntityMap();
-		gameRoot = levelEntityGroupMap.get(1);
-
+		MenuGameBar menuBar = new MenuGameBar(this);
+		pane.setBottom(menuBar);
+		gameRoot = levelEntityGroupMap.get(1);  //level 1
 		pane.getChildren().addAll(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
-
 		initializeGameAnimation(); //begins the animation cycle
 
 	}
@@ -129,6 +125,7 @@ public class GamePlayerController {
 	 */
 	public void changeGameLevel(int level) {
 		pane.getChildren().clear();
+		System.out.println(level);
 		pane.getChildren().addAll(levelEntityGroupMap.get(level));
 	}
 	

@@ -40,17 +40,12 @@ public class GamePlayerEntityView {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
 		levelMap = gameState.getGameState();
-
 		levelEntityMap = createEntityGroupMap(levelMap);
 
 		for(Level level : levelMap.keySet()) {
-			entityMap = levelMap.get(level);
+			entityMap = levelMap.get(level);  //currently entityMap is the first level map of integer to components
 			break;
 		}
-		//method tht builds the entire levelEntityMap;
-	//	levelEntityMap = createEntityGroupMap(levelMap);
-		//This is mainly for debugging purposes not entirely sure how you will get specific levels out of the mao
-		// because they arent ordered probably will have to iterate through levels and look at levelnum of each
 		initializeGamePlayerEntityView();
 	}
 
@@ -75,9 +70,12 @@ public class GamePlayerEntityView {
 
 		for(Level level : levelMap.keySet()) {
 			levelEntityMap.put(count, createIndividualEntityGroup(levelMap.get(level)));
+			//levelEntityMap.put(count+1, createIndividualEntityGroup(levelMap.get(level))); //TESTING DELETE
+			System.out.println(levelEntityMap.get(count));
 			count++;
 		}
-
+		//Testing purposes
+		//TEsting purposes
 		return levelEntityMap;
 	}
 
@@ -96,11 +94,7 @@ public class GamePlayerEntityView {
 			if(entityComponents.containsKey("Sprite")) {
 				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
-				//				image.setX(200);
-				//				image.setY(200);
-				//image.setImage(new Image("mystery.jpg"));
 				System.out.print(image.getX());
-				//System.exit(0);
 				entityRoot.getChildren().add(image);
 			}
 		}
@@ -109,42 +103,6 @@ public class GamePlayerEntityView {
 	}
 	//**************************************************************************
 
-
-	/**
-	 * Return a Group that adds all the entity image objects 
-	 * @return
-	 */
-	//Make Entity Group accept a Hashmap for individual Levels
-	public Group createEntityGroup() {
-
-		Group entityRoot = new Group();
-		Map<String, Component> entityComponents;
-		//Changed enclosed code to only load sprites for 
-
-		for(Integer i : entityMap.keySet()) {
-			entityComponents = entityMap.get(i);
-
-			if(entityComponents.containsKey(Sprite.KEY)) {
-				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
-				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
-
-				if (entityComponents.containsKey(Position.KEY)) {
-					Position p = (Position) entityComponents.get(Position.KEY);
-					image.setX(p.getXPos());
-					image.setY(p.getYPos());
-				}
-
-				if (entityComponents.containsKey(Dimension.KEY)) {
-					Dimension d = (Dimension) entityComponents.get(Dimension.KEY);
-					image.setFitHeight(d.getHeight());
-					image.setFitWidth(d.getWidth());
-				}
-
-				entityRoot.getChildren().add(image);
-			}
-		}
-		return entityRoot;
-	}
 
 	/**
 	 * initialize the Game Initializer to create the systemManager and renderManager.
