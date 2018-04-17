@@ -15,6 +15,11 @@ public class VelocityHandler {
                 //pVel.setXVel(cVel.getXVel());
                 //pVel.setYVel(cVel.getYVel());
             }
+            else {
+            	//e.g. hitting blocks stops player from moving
+            	pVel.setXVel(0);
+            	pVel.setYVel(0);
+            }
         }
 
     }
