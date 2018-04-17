@@ -14,13 +14,13 @@ public class Player extends Component {
 
     private int lives;
     private int score;
-
+    private int level;
     private Position respawn;
 
-    public Player(int pid, int lives, int score) {
+    public Player(int pid, int lives) {
         super(pid, KEY);
         this.lives = lives;
-        this.score = score;
+        
     }
 
     public static String getKey() { return KEY; }
@@ -41,18 +41,8 @@ public class Player extends Component {
     public void setLives(int lives) {
         this.lives = lives;
     }
-
-
-    public int getScore() {
-        return score;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-
-    public void respawn (Position p, Velocity v, Acceleration a) {
+   
+     public void respawn (Position p, Velocity v, Acceleration a) {
        p.setXPos(respawn.getXPos());
        p.setYPos(respawn.getYPos());
        v.setXVel(0); v.setYVel(0);

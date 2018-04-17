@@ -15,7 +15,7 @@ public class GameInitializer {
     private SystemManager SM;
     private RenderManager RM;
     private InputHandler IH;
-
+    private LevelStatus LS;
     private EntityManager EM;
 
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {

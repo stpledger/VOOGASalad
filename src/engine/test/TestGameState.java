@@ -124,7 +124,7 @@ public class TestGameState {
 		state.put(l,entities);
 		DataGameState dState = new DataGameState(state, "Demo");
 		try {
-			DataWrite.saveFile(dState, "Demo");
+			DataWrite.saveFile(dState);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
