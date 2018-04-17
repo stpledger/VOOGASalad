@@ -1,7 +1,7 @@
 package frontend.entities;
 
 /**
- * 
+ *
  * @author Hemanth Yakkali(hy115)
  *
 public class Enemy extends Entity {

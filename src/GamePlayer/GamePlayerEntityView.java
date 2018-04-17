@@ -11,14 +11,11 @@ import engine.components.Dimension;
 import engine.components.Position;
 import engine.components.Sprite;
 import engine.setup.GameInitializer;
-import engine.setup.RenderManager;
-import engine.setup.SystemManager;
 import engine.systems.InputHandler;
 import frontend.components.Level;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
 
 
 /**
@@ -38,7 +35,7 @@ public class GamePlayerEntityView {
 
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
-		gameState = DataRead.loadFile(gameFile);
+		gameState = DataRead.loadPlayerFile(gameFile);
 		levelMap = gameState.getGameState();
 
 		levelEntityMap = createEntityGroupMap(levelMap);
