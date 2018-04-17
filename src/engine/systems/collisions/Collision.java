@@ -76,7 +76,6 @@ public class Collision extends DefaultSystem{
 
 					if(cd != null) {
 						handler.handle(handledComponents, key1, key2);
-						System.out.println(cd.name());
 						switch (cd) {
 						
 						case Top:
@@ -98,48 +97,7 @@ public class Collision extends DefaultSystem{
 							p1.setXPos(p2.getXPos() + d2.getWidth());
 							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 							break;
-							
-							
-						/*case BotLeft:
-							if(botOverlap>leftOverlap) {
-								p1.setXPos(p2.getXPos() - d2.getWidth()/2-d1.getWidth()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-							} else {
-								p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-							}
-							break;
-							
-						case BotRight:
-							if(botOverlap>rightOverlap) {
-								p1.setXPos(p2.getXPos() + d2.getWidth()/2+d1.getWidth()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-							} else {
-								p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-							}
-							break;
-	
-						case TopLeft:
-							if(topOverlap<leftOverlap) {
-								p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-							} else {
-								p1.setXPos(p2.getXPos() - d1.getWidth()/2-d2.getWidth()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-							}
-							break;
-							
-						case TopRight:
-							if(topOverlap<rightOverlap) {
-								p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-							} else {
-								p1.setXPos(p2.getXPos() + d1.getWidth()/2+d2.getWidth()/2);
-								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-							}
-							break;
-						}*/
+						
 						}
 					}
 				}
