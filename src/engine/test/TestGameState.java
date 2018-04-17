@@ -53,7 +53,7 @@ public class TestGameState {
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
 
-		Player play = new Player(0, 3, 0);
+		Player play = new Player(0, 3);
         play.setRespawn(p.clone());
 		k.addCode(KeyCode.R, (Runnable & Serializable) () ->
 		{
@@ -78,7 +78,8 @@ public class TestGameState {
 		Velocity v3 = new Velocity(2, 0, 0);
 		Acceleration a3 = new Acceleration(2, 0, 0);
 		Health h3 = new Health(2,10);
-		DamageLauncher launcher3 = new DamageLauncher(0,2,2);
+		DamageLauncher launcher3 = new DamageLauncher(0,2,2); 
+		Win win3 = new Win(2);
 
 		AI ai = new AI(2);
 		ai.setAction( (Consumer & Serializable) (time) -> {
@@ -96,6 +97,7 @@ public class TestGameState {
 		mario3.put(Acceleration.getKey(), a3);
 		mario3.put(Health.getKey(), h3);
 		mario3.put(DamageLauncher.getKey(), launcher3);
+		mario3.put(Win.KEY, win3);
 
 		entities.put(0, mario);
 
