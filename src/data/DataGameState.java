@@ -48,10 +48,9 @@ public class DataGameState {
         gameName = gName;
     }
 
-    /*returns a map in a form that player and authoring engine can take 
+    /*returns a map in a form that player and authoring engine can take
      */
-    public Map<Level,Map<Integer, Map<String, Component>>> getGameState()
-    {
+    public Map<Level,Map<Integer, Map<String, Component>>> getGameState() {
         return gameState;
     }
 
@@ -72,11 +71,13 @@ public class DataGameState {
 	        return authoringState;
 	}
 
+	//gets name gets .... the name of the file
 	public String getGameName()
     {
         return gameName;
     }
 
+    //returns the list of all components in the gamestate for data writing
     public List<Component> getComponents() {
         List<Component> componentList = new ArrayList<>();
         for(Map<Integer, Map<String,Component>> level : gameState.values())

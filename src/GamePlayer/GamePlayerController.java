@@ -77,6 +77,7 @@ public class GamePlayerController {
 		myScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
 				pauseMenu.show(myStage);
+			// SORRY
 			} else {
 				if(gameView != null) {
 					gameView.setInput(e.getCode());
