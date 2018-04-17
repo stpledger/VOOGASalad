@@ -93,13 +93,18 @@ public class GamePlayerEntityView {
 		//Changed enclosed code to only load sprites for 
 		for(Integer i : entityMap.keySet()) {
 			entityComponents = entityMap.get(i);
-			if(entityComponents.containsKey("Sprite")) {
-				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
+			if(entityComponents.containsKey(Sprite.KEY)) {
+				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
 				//				image.setX(200);
 				//				image.setY(200);
 				//image.setImage(new Image("mystery.jpg"));
 				System.out.print(image.getX());
+				if(entityComponents.containsKey(Dimension.KEY)) {
+					Dimension dim = (Dimension) entityComponents.get(Dimension.KEY);
+					image.setFitHeight(dim.getHeight());
+					image.setFitWidth(dim.getWidth());
+				}
 				//System.exit(0);
 				entityRoot.getChildren().add(image);
 			}
