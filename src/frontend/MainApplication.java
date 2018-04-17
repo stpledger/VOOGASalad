@@ -1,19 +1,15 @@
 package frontend;
 
 import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+
 import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
 
-import frontend.components.MainView;
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 
 /**
