@@ -100,11 +100,19 @@ public class GamePlayerEntityView {
 				//				image.setY(200);
 				//image.setImage(new Image("mystery.jpg"));
 				System.out.print(image.getX());
+				
+				
+				//	JACK ADDED THIS .............
+				
 				if(entityComponents.containsKey(Dimension.KEY)) {
 					Dimension dim = (Dimension) entityComponents.get(Dimension.KEY);
 					image.setFitHeight(dim.getHeight());
 					image.setFitWidth(dim.getWidth());
 				}
+				
+				//	Sizes images correctly	.................
+				
+				
 				//System.exit(0);
 				entityRoot.getChildren().add(image);
 			}
