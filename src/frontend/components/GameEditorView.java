@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Consumer;
 import javax.imageio.ImageIO;
 
@@ -32,6 +33,7 @@ import GamePlayer.Main;
 import engine.components.Component;
 import engine.components.Position;
 import engine.components.Sprite;
+import data.DataRead;
 import data.DataWrite;
 
 /**
@@ -40,10 +42,9 @@ import data.DataWrite;
  *
  */
 public class GameEditorView extends BorderPane {
-	private static final String GAME_FILE_EXTENSION = ".xml";
+	//private static final String GAME_FILE_EXTENSION = "*.xml";
 	private ArrayList<Tab> tabsList;
 	private Object[] clipboard;
-	private String activeTool;
 	private GameState state;
 	private TabPane tabPane;
 	private Toolbar toolbar;
@@ -61,69 +62,21 @@ public class GameEditorView extends BorderPane {
 		toolbar = new Toolbar("GameEditor", consumerMap);
 		this.setTop(toolbar);
 		tabPane = new TabPane();
-		activeTool = "move";
 		tabsList = new ArrayList<Tab>();
 		state = new GameState();
 		addLevel(); // add the first level
 		this.setCenter(tabPane);
 	}
 	
-	/**
-	 * Below are all of the consumers to be passed to the toolbar
-	 */
-	// Handles new game call from toolbar
+	//Consumers for the toolbar
 	Consumer newGame = (e)->{System.out.println("New Game!");}; 
-	//Handles load game call from toolbar
-	Consumer loadGame = (e)->{
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Open Image File");
-		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", GAME_FILE_EXTENSION));
-		gameFile = fileChooser.showOpenDialog(new Stage());};
-	//Handles save game call from toolbar
-	Consumer saveGame = (e)->{
-		DataWrite dr = new DataWrite();
-		try {
-			dr.saveFile(this.state, "MyFirstGame");
-		} catch (Exception ex) {
-			// TODO better exception
-			ex.printStackTrace();
-		}
-	};
-	//Handles the add new level call from toolbar
+	Consumer loadGame = (e)->{ loadGameMethod();};
 	Consumer newLevel = (e)->{addLevel();};
-	//Handles the show settings call from toolbar
-	Consumer showSettings = (e)->{
-		ArrayList<Level> levelArray = new ArrayList<Level>();
-		for(Tab t: tabsList) {
-			levelArray.add(((LevelView) t.getContent()).getLevel());
-		}
-			GlobalPropertiesView GPV = new GlobalPropertiesView(levelArray);
-			GPV.open();
-	};
-	//Handles the HUD Settings call from toolbar
-	Consumer hudSettings = (e) -> {
-		ArrayList<Level> levelArray = new ArrayList<Level>();
-		for(Tab t: tabsList) {
-			levelArray.add(((LevelView) t.getContent()).getLevel());
-		}
-		HUDPropertiesView HPV = new HUDPropertiesView(levelArray);
-		HPV.open();
-	};
-	//Handles the play game call from toolbar
-	Consumer play = (e)->{
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				try { 
-					new Main().start(new Stage());
-				} catch (Exception e) { 
-					System.out.println("Error Running Game");
-				}
-			}	
-		});
-		
-		};
-	//All of the consumers are added to the consumerMap below
+	Consumer saveGame = (e)-> { saveGameMethod(); };
+	Consumer showSettings = (e)->{showSettingsMethod();};
+	Consumer hudSettings = (e) -> { hudSettingsMethod();};
+	Consumer play = (e)->{playMethod();};
+	
 	private Map<String, Consumer> consumerMap = new HashMap<String, Consumer>(){{
 		this.put("newGame", newGame);
 		this.put("loadGame", loadGame);
@@ -175,8 +128,75 @@ public class GameEditorView extends BorderPane {
 			});// don't add new element if drag detected
 		tabPane.getTabs().add(t);
 	}
-	
-	
+	/**
+	 * Opens a new thread to play the game on
+	 */
+	private void playMethod() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				try { 
+					new Main().start(new Stage());
+				} catch (Exception e) { 
+					System.out.println("Error Running Game");
+				}
+			}	
+		});	
+	}
+	/**
+	 * Shows the HUD Settings Menu
+	 */
+	private void hudSettingsMethod() {
+		ArrayList<Level> levelArray = new ArrayList<Level>();
+		for(Tab t: tabsList) {
+			levelArray.add(((LevelView) t.getContent()).getLevel());
+		}
+		HUDPropertiesView HPV = new HUDPropertiesView(levelArray);
+		HPV.open();	
+	}
+
+	/**
+	 * Shows the GlobalPropertiesView Panel
+	 */
+	private void showSettingsMethod() {
+		ArrayList<Level> levelArray = new ArrayList<Level>();
+		for(Tab t: tabsList) {
+			levelArray.add(((LevelView) t.getContent()).getLevel());
+		}
+			GlobalPropertiesView GPV = new GlobalPropertiesView(levelArray);
+			GPV.open();
+	}
+
+	/**
+	 * Saves the Current instance of the game
+	 */
+	private void saveGameMethod() {
+		DataWrite dr = new DataWrite();
+		try {
+			dr.saveFile(this.state, "MyFirstGame");
+		} catch (Exception ex) {
+			// TODO better exception
+			ex.printStackTrace();
+		}
+	}
+
+	/**
+	 * Opens a file chooser and loads the chosen file to the gameAuthoringEnvironment
+	 */
+	private void loadGameMethod() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Image File");
+		gameFile = fileChooser.showOpenDialog(new Stage());
+		System.out.println(gameFile.getPath());
+		DataRead dr = new DataRead();
+		tabsList = new ArrayList<Tab>();
+		Map<Level, Map<Integer, List<Component>>> authorData = dr.loadAuthorFile(gameFile);
+		System.out.println(authorData.size());
+		for(Entry<Level, Map<Integer, List<Component>>> level : authorData.entrySet()) {
+		}
+	}
+
+
 	/**
 	 * Set the element in the clipboard
 	 * @param o
