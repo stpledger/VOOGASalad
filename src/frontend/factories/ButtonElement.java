@@ -2,6 +2,11 @@ package frontend.factories;
 
 import javafx.scene.control.Button;
 
+/**
+ * 
+ * @author Hemanth Yakkali(hy115)
+ *
+ */
 public class ButtonElement extends Button implements Element{
 	
 	public ButtonElement(String text) {

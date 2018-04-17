@@ -2,6 +2,11 @@ package frontend.factories;
 
 import javafx.scene.control.Label;
 
+/**
+ * 
+ * @author Hemanth Yakkali(hy115)
+ *
+ */
 public class LabelElement extends Label implements Element{
 
 	public LabelElement(String text) {

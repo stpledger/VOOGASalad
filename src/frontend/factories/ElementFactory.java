@@ -1,5 +1,10 @@
 package frontend.factories;
 
+/**
+ * 
+ * @author Hemanth Yakkali(hy115)
+ *
+ */
 public class ElementFactory {
 	
 	private final String PACKAGE_NAME = "frontend.factories.";
