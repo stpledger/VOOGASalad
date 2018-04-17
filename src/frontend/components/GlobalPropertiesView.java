@@ -3,6 +3,8 @@ package frontend.components;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import frontend.factories.ElementType;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -14,6 +16,7 @@ import javafx.scene.control.TextField;
 public class GlobalPropertiesView extends PropertiesView {
 
 	private ArrayList<Level> levels;
+	private final String NAME = "Global Properties";
 	
 	public GlobalPropertiesView(ArrayList<Level> ls){
 		super();
@@ -23,7 +26,7 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	@Override
 	protected String title() {
-		return "Global Properties";
+		return NAME;
 	}
 
 	@Override
@@ -39,13 +42,19 @@ public class GlobalPropertiesView extends PropertiesView {
 			getRoot().addRow(currentRow++, label);
 		}
 		getRoot().addColumn(1,titleInput,livesInput,pathInput);
-		getRoot().add(this.getButtonFactory().makeButton(this.getButtonProps().getString("Submit"), e-> {
-			for(Level level : levels) {
-				level.addGProp(globalProps.getString("Title"), titleInput.getText());
-				level.addGProp(globalProps.getString("Lives"), livesInput.getText());
-				level.addGProp(globalProps.getString("Filepath"), pathInput.getText());
-			}
-		}), 0, currentRow++);
+		try {
+			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, NAME);
+			submit.setOnAction(e->{
+				for(Level level : levels) {
+					level.addGProp(globalProps.getString("Title"), titleInput.getText());
+					level.addGProp(globalProps.getString("Lives"), livesInput.getText());
+					level.addGProp(globalProps.getString("Filepath"), pathInput.getText());
+				}
+			});
+			getRoot().add(submit, 0, currentRow++);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
 	}
 
 }
