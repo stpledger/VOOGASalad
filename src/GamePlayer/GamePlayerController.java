@@ -124,7 +124,8 @@ public class GamePlayerController {
 	 * @param level to be loaded
 	 */
 	public void changeGameLevel(int level) {
-		pane.getChildren().clear();
+		int lastIndex = pane.getChildren().size()-1;
+		pane.getChildren().remove(lastIndex); 
 		System.out.println(level);
 		pane.getChildren().addAll(levelEntityGroupMap.get(level));
 	}

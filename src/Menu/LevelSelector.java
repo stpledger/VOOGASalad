@@ -29,7 +29,6 @@ public class LevelSelector extends Menu {
 		levelEntityGroupMap = g.getGameLevelRoot();
 		System.out.println(levelEntityGroupMap);
 		this.setText(MENU_TITLE);
-		//this.getItems().addAll(new MenuItem("level1"),new MenuItem("level1"),new MenuItem("level1"));
 		createLevelMenu();
 	}
 	
@@ -46,7 +45,8 @@ public class LevelSelector extends Menu {
 			MenuItem currentMenu = new MenuItem("Level " + levelCount);
 			currentMenu.setOnAction(new EventHandler<ActionEvent>() { //event listener when the menu is selected.
 			    public void handle(ActionEvent t) {
-			    		mainController.changeGameLevel(levelCount);
+			    		int level = obtainLevelInteger(currentMenu.getText());
+			    		mainController.changeGameLevel(level);
 			    }
 			});
 			this.getItems().add(currentMenu);
@@ -54,5 +54,16 @@ public class LevelSelector extends Menu {
 		}
 	}
 	
+	/**
+	 * Helper method that converts a 2-word string "level + int" and obtains just the level
+	 * @param s
+	 * @return
+	 */
+	private int obtainLevelInteger(String s) {
+		String[] stringArray = new String[2];
+		stringArray = s.split("\\s+"); //splits by whitespace
+		int num = Integer.parseInt(stringArray[1]);
+		return num;
+	}
 
 }
