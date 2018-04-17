@@ -7,6 +7,7 @@ import engine.components.Component;
 import engine.components.Position;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
+import engine.systems.collisions.LevelStatus;
 
 public class GameInitializer {
 
@@ -15,12 +16,12 @@ public class GameInitializer {
     private SystemManager SM;
     private RenderManager RM;
     private InputHandler IH;
-    private LevelStatus LS;
+    private Collision c;
     private EntityManager EM;
 
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
         EM = new EntityManager(entities, SM);
-        Collision c = new Collision(EM);
+         c = new Collision(EM);
         systems = new ArrayList<>();
         systems.add(new Accelerate(EM));
         systems.add(new Motion());
@@ -29,6 +30,7 @@ public class GameInitializer {
         systems.add(c);
         systems.add(new Animate(EM));
         systems.add(IH);
+        
         SM = new SystemManager(systems, c, EM);
         EM.setSM(SM);
 
@@ -59,6 +61,9 @@ public class GameInitializer {
     public InputHandler getIH() {
          return IH;
          }
+    public Collision getC() {
+    	return c;
+    }
 
     public RenderManager getRM() { return RM; }
 

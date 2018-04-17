@@ -1,4 +1,4 @@
-package engine.systems;
+package engine.systems.collisions;
 
 import java.util.Map;
 
@@ -6,20 +6,26 @@ import engine.components.Component;
 import engine.components.Player;
 import engine.components.Win;
 import javafx.beans.property.DoubleProperty;
-//need to check if player collided with a win component or if lives is less than zero
+import javafx.beans.property.SimpleDoubleProperty;
 
 public class LevelStatus {
 	double level;
+	private DoubleProperty levelStatus =new SimpleDoubleProperty();
 	public LevelStatus() {
 		level =1;
+		levelStatus.set(level);
 	}
 	
-	private DoubleProperty levelStatus;
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
-		if(collider.containsKey(Win.KEY)) {
-		//pler.get(Player.KEY).get	
+		if(((Player)player.get(Player.KEY)).getLives()<0) {
+			level =-1;  //GAME OVER (health system updated lives
+			updateStatus(level);
 		}
+		else if(collider.containsKey(Win.KEY)) {
+	    updateStatus(level++);
+		}
+		
 	}
 	
 	public void updateStatus(double stat) {
@@ -30,6 +36,7 @@ public class LevelStatus {
 	}
 }
 
+//code for the player to keep track of the level status, check if this works
 //LevelStatus l = new LevelStatus();
 //l.getUpdate().addListener((o,ov,nv) -> {
 //   some action based on the value of nv like -1 game over, from 1 to 2 change to level to etc. 

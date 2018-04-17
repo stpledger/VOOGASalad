@@ -6,8 +6,8 @@ import java.util.Map;
 public class Win extends Component{
 	public static String KEY = "WIN";
 	
-	public Win(int pid, String keykey) {
-		super(pid, keykey);
+	public Win(int pid) {
+		super(pid, KEY);
 		// TODO Auto-generated constructor stub
 	}
 	
