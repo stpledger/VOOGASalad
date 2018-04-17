@@ -1,3 +1,31 @@
+/*
+* Splash Screen
+*/
+.root {
+	primary-color: #1CFEBA;
+ 	secondary-color: #7E7F7B;
+ 	tertiary-color: #3A3A38;
+}
+
+.splash-screen-wrapper {
+	-fx-background-color: tertiary-color;
+}
+
+.splash-screen-button {
+	-fx-background-color: transparent;
+	-fx-text-fill: primary-color;
+	-fx-font-weight: bold;
+}
+
+.splash-screen-button:hover {
+	-fx-background-color: secondary-color;
+	-fx-text-fill: black;
+}
+
+/*
+* Game Authoring Environment
+*/
+
 .toolbar {
 	-fx-background-color: #c4c4c4;
 }
