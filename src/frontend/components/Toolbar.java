@@ -65,6 +65,7 @@ public class Toolbar extends MenuBar{
 	private Menu createMenu(String s, Properties p) {
 		Menu m = new Menu();
 		m.setText(s);
+		this.applyCss();
 		Set<Object> items = p.keySet();
 		for(Object o : items) {
 			MenuItem menuItem = new MenuItem();

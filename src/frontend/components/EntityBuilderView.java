@@ -88,6 +88,7 @@ public class EntityBuilderView{
 		root.setTop(topMenu);
 		root.setLeft(leftPanel);
 		root.setBottom(bottomMenu);
+		root.getStyleClass().add("entity-builder-view");
 		
 	}
 
@@ -181,6 +182,7 @@ public class EntityBuilderView{
 			this.setWidth(LEFT_PANEL_WIDTH);
 			vBox = new VBox();
 			this.setContent(vBox);
+			this.getStyleClass().add("left-panel");
 			buildPanel();
 		}
 		/**
@@ -242,6 +244,7 @@ public class EntityBuilderView{
 	 */
 	public Node fillComponentsForms() {
 			GridPane gridPane = new GridPane();
+			gridPane.getStyleClass().add("component-form");
 			int currentRow = 0;
 			this.activeForms = new ArrayList<>();
 			for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + myEntityType).keySet()) {

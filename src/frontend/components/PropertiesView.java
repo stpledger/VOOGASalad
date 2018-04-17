@@ -35,6 +35,7 @@ public abstract class PropertiesView {
 		root.setAlignment(Pos.CENTER);
 		root.setHgap(GRID_SEPARATION);
 		root.setVgap(GRID_SEPARATION);
+		root.setStyle("properties-view");
 	}
 
 	/**
