@@ -19,9 +19,8 @@ import javafx.scene.layout.BorderPane;
  * @author Collin Brown(cdb55)
  *
  */
-public class LevelView extends BorderPane {
+public class LevelView extends ScrollPane {
 	
-	private ScrollPane pane;
 	private AnchorPane contentPane;
 	private Level level;
 	Consumer<MouseEvent> addEntity;
@@ -32,13 +31,11 @@ public class LevelView extends BorderPane {
 		this.getStyleClass().add("level-view");
 		this.addEntity = aE;
 		this.level = level;
-		this.pane = new ScrollPane();
 		this.contentPane = new AnchorPane();
 		this.contentPane.setMinSize(600, 600);
-		this.pane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
-		this.pane.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		this.pane.setContent((contentPane));
-		this.setCenter((pane));
+		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
+		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
+		this.setContent((contentPane));
 		this.getStyleClass().add("level-view-wrapper");
 		this.setupMouseClick(levelNum);
 	}
