@@ -1,6 +1,5 @@
 package data;
 
-import frontend.components.MenuItemBuilder;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -64,10 +63,10 @@ class Browser extends Region {
         VBox view = new VBox();
         HBox menu = new HBox();
 
-        Button back = MenuItemBuilder.buildButton(BACK_BUTTON, e->{back();});
-        select = MenuItemBuilder.buildButton(LOAD_BUTTON, e->{setImageName(messager.getText());});
+        Button back = new Button(BACK_BUTTON); back.setOnAction( e->{setImageName(messager.getText());});
+        select =new Button(LOAD_BUTTON); select.setOnAction(e->{setImageName(messager.getText());});
         select.setDisable(true);
-        Button forward= MenuItemBuilder.buildButton(FORWARD_BUTTON, e->{forward();});
+        Button forward= new Button(FORWARD_BUTTON); forward.setOnAction(e->{forward();});
 
         messager = new Messager();
 

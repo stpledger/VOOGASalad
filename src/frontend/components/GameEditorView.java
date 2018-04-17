@@ -17,11 +17,13 @@ import frontend.entities.Entity;
 import frontend.gamestate.*;
 import javafx.application.Platform;
 import javafx.embed.swing.SwingFXUtils;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -46,7 +48,8 @@ public class GameEditorView extends BorderPane {
 	private TabPane tabPane;
 	private Toolbar toolbar;
 	private File gameFile;
-	private int nextID  = 0;
+	private int nextID  = 0; //The next ID to be used
+	boolean drag = false; 
 	
 	private final int BLOCK_DEFAULT_WIDTH = 50;
 	/**
@@ -63,12 +66,6 @@ public class GameEditorView extends BorderPane {
 		state = new GameState();
 		addLevel(); // add the first level
 		this.setCenter(tabPane);
-		tabPane.setOnMouseClicked((e) -> {
-			if (e.getButton().equals(MouseButton.PRIMARY)) {
-				if (e.getClickCount() == 1)
-					addEntity.accept(e);
-			}
-		}); // Add a new Entity OnClick
 	}
 	
 	/**
@@ -95,7 +92,23 @@ public class GameEditorView extends BorderPane {
 	//Handles the add new level call from toolbar
 	Consumer newLevel = (e)->{addLevel();};
 	//Handles the show settings call from toolbar
-	Consumer showSettings = (e)->{System.out.println("Show Settings!");};
+	Consumer showSettings = (e)->{
+		ArrayList<Level> levelArray = new ArrayList<Level>();
+		for(Tab t: tabsList) {
+			levelArray.add(((LevelView) t.getContent()).getLevel());
+		}
+			GlobalPropertiesView GPV = new GlobalPropertiesView(levelArray);
+			GPV.open();
+	};
+	//Handles the HUD Settings call from toolbar
+	Consumer hudSettings = (e) -> {
+		ArrayList<Level> levelArray = new ArrayList<Level>();
+		for(Tab t: tabsList) {
+			levelArray.add(((LevelView) t.getContent()).getLevel());
+		}
+		HUDPropertiesView HPV = new HUDPropertiesView(levelArray);
+		HPV.open();
+	};
 	//Handles the play game call from toolbar
 	Consumer play = (e)->{
 		Platform.runLater(new Runnable() {
@@ -117,6 +130,7 @@ public class GameEditorView extends BorderPane {
 		this.put("saveGame", saveGame);
 		this.put("addLevel", newLevel);
 		this.put("showSettings", showSettings);
+		this.put("hudSettings", hudSettings);
 		this.put("play", play);
 	}};
 	
@@ -140,13 +154,28 @@ public class GameEditorView extends BorderPane {
 		t.setText("Level " + (tabsList.indexOf(t)+1));
 		Level level = new Level(tabsList.indexOf(t)+1);
 		state.addLevel(level);
-		t.setContent(new LevelView(level,tabsList.indexOf(t)+1));
+		LevelView l = new LevelView(level, tabsList.indexOf(t)+1, addEntity);
+		t.setContent(l);
 		t.setOnClosed(e -> {
 			tabsList.remove(t);
 			updateTabs.accept(tabsList);
+			
 		});
+		this.setOnDragDetected((e)->{
+			
+		});
+		((ScrollPane) ((BorderPane) t.getContent()).getCenter()).getContent().setOnMouseReleased((e)->{
+				if (e.getButton().equals(MouseButton.PRIMARY) && !drag) {
+						addEntity.accept(e);
+				}
+				drag = false;
+		}); // Add a new Entity OnClick
+		((ScrollPane) ((BorderPane) t.getContent()).getCenter()).getContent().setOnDragDetected((e)->{
+			drag = true;
+			});// don't add new element if drag detected
 		tabPane.getTabs().add(t);
 	}
+	
 	
 	/**
 	 * Set the element in the clipboard
@@ -205,7 +234,7 @@ public class GameEditorView extends BorderPane {
 			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException el) {
 			el.printStackTrace();
-		} 
+		}
 	};
 	
 }
