@@ -6,5 +6,6 @@ public enum ElementType {
 	ToolBar,
 	TextField,
 	NumberField,
-	CheckBox
+	CheckBox,
+	Label
 }

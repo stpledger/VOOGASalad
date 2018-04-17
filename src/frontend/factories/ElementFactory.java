@@ -10,6 +10,7 @@ public class ElementFactory {
 	public Element buildElement(ElementType elementName, String text) throws Exception {
 		String builderName = PACKAGE_NAME+elementName+ELEMENT;
 		Class<?> elementClass = Class.forName(builderName);
+		//TODO extend element factory to make toolbars
 		return (Element) elementClass.getConstructor(text.getClass()).newInstance(text);		
 	}
 

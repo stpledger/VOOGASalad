@@ -28,18 +28,20 @@ public class LevelPropertiesView extends PropertiesView{
 
 	@Override
 	protected String title() {
+		//TODO make final variable for this
 		return "Level "+levelNum+" Properties";
 	}
 
 	@Override
 	protected void fill() {
-		int currentRow = 0;
 		ResourceBundle levelProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"LevelProperties");
-		for (String property : levelProps.keySet()) {
-			Label label = new Label(levelProps.getString(property));
-			this.getRoot().add(label, 0, currentRow++);
-		}
 		try {
+			int currentRow = 0;
+			for (String property : levelProps.keySet()) {
+				Label label = (Label) eFactory.buildElement(ElementType.Label,levelProps.getString(property));
+				this.getRoot().add(label, 0, currentRow++);
+			}
+			//TODO update text to be something meaningful from properties files
 			TextField infoText = (TextField) eFactory.buildElement(ElementType.TextField,text);
 			TextField diffText = (TextField) eFactory.buildElement(ElementType.TextField,text);
 			NumberField timeNumber = (NumberField) eFactory.buildElement(ElementType.NumberField,text);

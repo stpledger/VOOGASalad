@@ -1,6 +1,5 @@
 package frontend.components;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -18,6 +17,7 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	private List<Level> levels;
 	private final String NAME = "Global Properties";
+	private final String SUBMIT = "Submit";
 	
 	public GlobalPropertiesView(List<Level> ls){
 		super();
@@ -32,19 +32,19 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	@Override
 	protected void fill() {
-		int currentRow = 0;
-		ResourceBundle globalProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"GlobalProperties");
-
-		TextField titleInput = new TextField();
-		NumberField livesInput = new NumberField();
-		TextField pathInput = new TextField();
-		for(String property:globalProps.keySet()) {
-			Label label = new Label(globalProps.getString(property));
-			getRoot().addRow(currentRow++, label);
-		}
-		getRoot().addColumn(1,titleInput,livesInput,pathInput);
+		ResourceBundle globalProps = ResourceBundle.getBundle(this.getResourcesFilePath()+NAME.replace(" ", ""));
 		try {
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, NAME);
+			int currentRow = 0;
+			//TODO update text to be something meaningful from properties files
+			TextField titleInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, NAME);
+			NumberField livesInput = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField, NAME);
+			TextField pathInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, NAME);
+			for(String property:globalProps.keySet()) {
+				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label, globalProps.getString(property));
+				getRoot().addRow(currentRow++, label);
+			}
+			getRoot().addColumn(1,titleInput,livesInput,pathInput);
+			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, SUBMIT);
 			submit.setOnAction(e->{
 				for(Level level : levels) {
 					level.addGProp(globalProps.getString("Title"), titleInput.getText());
