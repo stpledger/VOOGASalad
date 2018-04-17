@@ -17,19 +17,30 @@ class GroovyPractice {
 
         def myBinding = new Binding()
         myBinding.setVariable("map", map)
-        def shell = new GroovyShell()
+        def shell = new GroovyShell(myBinding)
 
         def className
         def methodName
+        def number
         def index = 0
 
-        def arguments = """KeyInput addCode P 'System.out.println(map.get(1).get("KeyInput").getParentID())'"""
+        def arguments = """1 KeyInput addCode P 
+        'System.out.println(map.get(1).get("KeyInput").getParentID())'
+"""
 
-        //def action = 'System.out.println(map.get(1).get("KeyInput").getParentID())'
+        /**def action = """System.out.println(map.get(1).get("KeyInput").getParentID());
+System.out.println("hello");
+System.out.println("hello mom");
+    """
+        println action.class**/
 
         for (int i = 0; i < arguments.length(); i++) {
-            if (arguments.substring(i, i+1).equals(" ") && className == null) {
-                className = arguments.substring(0, i)
+            if (arguments.substring(i, i+1).equals(" ") && number == null) {
+                number = arguments.substring(0, i).toInteger()
+                index = i
+            }
+            else if (arguments.substring(i, i+1).equals(" ") && number!=null && className == null) {
+                className = arguments.substring(index+1, i)
                 index = i
             }
             else if (arguments.substring(i, i+1).equals(" ") && className!=null && methodName == null) {
@@ -39,7 +50,7 @@ class GroovyPractice {
             }
         }
 
-        def ki = (map.get(1).get(className)).class
+        def ki = (map.get(number).get(className)).class
         def methodParams;
 
         Method[] declaredMethods = ki.getDeclaredMethods();
@@ -78,27 +89,25 @@ class GroovyPractice {
             }
             else if (clazz == java.util.function.Consumer) {
                 def action = invokeArgs[i]
-                def script = shell.parse(action)
-                script.binding = myBinding
                 invokeArgs[i] = new Consumer() {
                     @Override
                     void accept(Object o) {
-                        script.run()
+                        shell.evaluate(action)
                     }
                 }
             }
             else invokeArgs[i] = clazz.newInstance(invokeArgs[i])
         }
 
-        myMethod.invoke(map.get(1).get(className), invokeArgs)
+        myMethod.invoke(map.get(number).get(className), invokeArgs)
 
-        map.get(1).get(className).action(KeyCode.P);
+        map.get(number).get(className).action(KeyCode.P);
 
     }
 
     /**
      * Ideal way to have a user input information to a component:
-     * componentObject componentMethod args[]
+     * componentID componentType typeMethod args[]
      */
 
 }
