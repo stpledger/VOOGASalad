@@ -40,57 +40,67 @@ public class Collision extends DefaultSystem{
 					Position p2 = (Position) handledComponents.get(key2).get(Position.KEY);
 
 					double topOverlap = p1.getYPos() + d1.getHeight() - p2.getYPos();
-					double leftOverlap = p1.getXPos() + d1.getWidth() - p2.getXPos();
 					double botOverlap = p2.getYPos() + d2.getHeight() - p1.getYPos();
+					double leftOverlap = p1.getXPos() + d1.getWidth() - p2.getXPos();
 					double rightOverlap = p2.getXPos() + d2.getWidth() - p1.getXPos();
 
-					boolean top = (topOverlap > 0) && (p1.getYPos() < p2.getYPos());
-					boolean left = (leftOverlap > 0) && (p1.getXPos() < p2.getXPos());
-					boolean bot = (botOverlap > 0) && (p1.getYPos() > p2.getYPos());
-					boolean right = (rightOverlap > 0) && (p1.getXPos() > p2.getXPos());
+					boolean to = topOverlap >= 0 && topOverlap <= d1.getHeight();
+					boolean bo = botOverlap >= 0 && botOverlap <= d2.getHeight();
+					boolean lo = leftOverlap >= 0 && leftOverlap <= d1.getWidth();
+					boolean ro = rightOverlap >= 0 && rightOverlap <= d2.getWidth();
+					
+					List<Double> overlaps = new ArrayList<>();
+					if(bo && !to && (lo || ro)) {
+						overlaps.add(botOverlap);
+					} 
+					if(to && !bo && (lo || ro)) {
+						overlaps.add(topOverlap);
+					}
+					if(lo && !ro && (to || bo)) {
+						overlaps.add(leftOverlap);
+					}
+					if(ro && !lo && (to || bo)) {
+						overlaps.add(rightOverlap);
+					}
+					
+					Collections.sort(overlaps);
 					
 					CollisionDirection cd = null;
 					
-					if(top) {
-						if(right) cd = CollisionDirection.TopRight;
-						else if(left) cd = CollisionDirection.TopLeft;
-						else if((p1.getXPos()==p2.getXPos())) cd = CollisionDirection.Top;
-					} else if(bot) {
-						if(right) cd = CollisionDirection.BotRight;
-						else if(left) cd = CollisionDirection.BotLeft;
-						else if((p1.getXPos()==p2.getXPos())) cd = CollisionDirection.Bot;
-					} else if(right && (p1.getYPos()==p2.getYPos())) {
-						cd = CollisionDirection.Right;
-					} else if((p1.getYPos()==p2.getYPos())){
-						cd = CollisionDirection.Left;
+					if(overlaps.size() > 0) {
+						if(overlaps.get(0) == topOverlap) cd = CollisionDirection.Top;
+						else if(overlaps.get(0) == botOverlap) cd = CollisionDirection.Bot;
+						else if(overlaps.get(0) == rightOverlap) cd = CollisionDirection.Right;
+						else if(overlaps.get(0) == leftOverlap) cd = CollisionDirection.Left;
 					}
 
 					if(cd != null) {
 						handler.handle(handledComponents, key1, key2);
-						
+						System.out.println(cd.name());
 						switch (cd) {
 						
 						case Top:
-							p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
+							p1.setYPos(p2.getYPos() - d1.getHeight());
 							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
 							break;
 							
 						case Bot:
-							p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
+							p1.setYPos(p2.getYPos() + d2.getHeight());
 							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
 							break;
 							
 						case Left:
-							p1.setXPos(p2.getXPos() - d1.getWidth()/2-d2.getWidth()/2);
+							p1.setXPos(p2.getXPos() - d1.getWidth());
 							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 							break;
 							
 						case Right:
-							p1.setXPos(p2.getXPos() + d2.getWidth()/2+d1.getWidth()/2);
+							p1.setXPos(p2.getXPos() + d2.getWidth());
 							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 							break;
 							
-						case BotLeft:
+							
+						/*case BotLeft:
 							if(botOverlap>leftOverlap) {
 								p1.setXPos(p2.getXPos() - d2.getWidth()/2-d1.getWidth()/2);
 								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
@@ -129,6 +139,7 @@ public class Collision extends DefaultSystem{
 								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
 							}
 							break;
+						}*/
 						}
 					}
 				}

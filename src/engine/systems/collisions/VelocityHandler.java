@@ -12,8 +12,8 @@ public class VelocityHandler {
             if (collider.containsKey(Velocity.KEY)) {
                 Velocity cVel = (Velocity) collider.get(Velocity.KEY);
 
-                pVel.setXVel(cVel.getXVel());
-                pVel.setYVel(cVel.getYVel());
+                //pVel.setXVel(cVel.getXVel());
+                //pVel.setYVel(cVel.getYVel());
             }
         }
 

@@ -5,8 +5,8 @@ public enum CollisionDirection {
 	Left,
 	Right,
 	Bot,
-	TopLeft,
-	TopRight,
-	BotLeft,
-	BotRight
+	//TopLeft,
+	//TopRight,
+	//BotLeft,
+	//BotRight
 }
