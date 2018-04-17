@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 
 import javax.imageio.ImageIO;
 
+import data.DataRead;
 import javafx.embed.swing.SwingFXUtils;
 
 import java.util.*;
@@ -41,17 +42,17 @@ public class Sprite extends Component {
 		return image;
 	}
 
-	public void setImage(String im) throws RuntimeException {
+	public void setImage(String im) {
+
 		try {
-			image = new ImageView(new Image(FILE_PATH + im));
-			if(image==null)
-				image = new ImageView(new Image(FILE_PATH + IMAGE_PATH+ im));
+			image =new ImageView(DataRead.loadImage(im));
+		} catch(RuntimeException e) {
+			System.out.print("Cant load image no Application");
 		}
-			catch (Exception el){
-				el.printStackTrace();
-
-			}
-
+	}
+	public String getImageFile()
+	{
+		return filename;
 	}
 
 }

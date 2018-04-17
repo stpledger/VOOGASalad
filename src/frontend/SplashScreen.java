@@ -46,6 +46,8 @@ public class SplashScreen extends VBox {
 		this.setWidth(200);
 		this.setHeight(200);
 		this.setAlignment(Pos.CENTER);
+		this.getStyleClass().add("root");
+		this.getStyleClass().add("splash-screen-wrapper");
 		
 		//Create the buttons
 		for(String key: properties.stringPropertyNames()) {
@@ -91,6 +93,7 @@ public class SplashScreen extends VBox {
 	public Button buildButton(String name, Method method) {
 		Button b = new Button();
 		b.setText(properties.getProperty(name));
+		b.setMinWidth(this.getSplashWidth());
 		b.getStyleClass().add("splash-screen-button");
 		b.setOnMouseClicked((e)->{
 		try {

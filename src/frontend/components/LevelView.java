@@ -5,8 +5,11 @@ import java.util.function.Consumer;
 import frontend.entities.Entity;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 
@@ -22,6 +25,8 @@ public class LevelView extends BorderPane {
 	private AnchorPane contentPane;
 	private Level level;
 	Consumer<MouseEvent> addEntity;
+	private Double lastX = null;
+    private Double lastY = null;
 	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
