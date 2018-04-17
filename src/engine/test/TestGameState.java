@@ -53,7 +53,7 @@ public class TestGameState {
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
 
-		Player play = new Player(0, 3, 0);
+		Player play = new Player(0, 3);
         play.setRespawn(p.clone());
 		k.addCode(KeyCode.R, (Runnable & Serializable) () ->
 		{
