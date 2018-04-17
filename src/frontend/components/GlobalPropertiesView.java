@@ -1,6 +1,7 @@
 package frontend.components;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import frontend.factories.ElementType;
@@ -15,10 +16,10 @@ import javafx.scene.control.TextField;
  */
 public class GlobalPropertiesView extends PropertiesView {
 
-	private ArrayList<Level> levels;
+	private List<Level> levels;
 	private final String NAME = "Global Properties";
 	
-	public GlobalPropertiesView(ArrayList<Level> ls){
+	public GlobalPropertiesView(List<Level> ls){
 		super();
 		this.levels = ls;
 		fill();
