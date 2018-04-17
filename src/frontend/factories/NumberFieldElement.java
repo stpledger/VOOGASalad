@@ -1,19 +1,22 @@
 package frontend.factories;
 
-import java.util.function.Consumer;
-
 import frontend.components.NumberField;
 
+/**
+ * 
+ * @author Hemanth Yakkali(hy115)
+ *
+ */
 public class NumberFieldElement extends NumberField implements Element{
 	
 	public NumberFieldElement(String text) {
 		super();
-		this.setPromptText(text);
+		this.handleText(text);
 	}
 
 	@Override
-	public void addEvent(Consumer<Void> event) {
-		this.setOnAction(e->event.accept(null));
+	public void handleText(String text) {
+		this.setPromptText(text);
 	}
 	
 }

@@ -19,7 +19,6 @@ import java.util.function.Consumer;
 public class LocalPropertiesView extends PropertiesView {
 	
 	private final String PROPERTIES_PACKAGE = "resources.menus.Entity/";
-	private final String COMPONENT_PREFIX = "engine.components.";
 	private final String SUBMIT_TEXT = "Submit Changes";
 	private List<PropertiesComponentForm> activeForms;
 	private Consumer<List<Component>> onSubmit;

@@ -1,23 +1,22 @@
 package frontend.factories;
 
-import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 
 /**
  * 
  * @author Hemanth Yakkali(hy115)
  *
  */
-public class ButtonElement extends Button implements Element{
+public class CheckBoxElement extends CheckBox implements Element{
 	
-	public ButtonElement(String text) {
+	public CheckBoxElement(String text) {
 		super();
 		this.handleText(text);
 	}
 
 	@Override
 	public void handleText(String text) {
-		this.setText(text);
+		this.setText(text);	
 	}
-	
-	
+
 }

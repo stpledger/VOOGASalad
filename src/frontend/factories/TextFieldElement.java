@@ -1,17 +1,22 @@
 package frontend.factories;
 
-import java.util.function.Consumer;
-
 import javafx.scene.control.TextField;
 
+/**
+ * 
+ * @author Hemanth Yakkali(hy115)
+ *
+ */
 public class TextFieldElement extends TextField implements Element{
 	
 	public TextFieldElement(String text) {
 		super();
-		this.setPromptText(text);
+		this.handleText(text);
 	}
 
 	@Override
-	public void addEvent(Consumer<Void> event) {}
+	public void handleText(String text) {
+		this.setPromptText(text);
+	}
 
 }

@@ -1,9 +1,12 @@
 package frontend.factories;
 
-import java.util.function.Consumer;
-
+/**
+ * 
+ * @author Hemanth Yakkali(hy115)
+ *
+ */
 public interface Element {
 	
-	public void addEvent(Consumer<Void> event);
+	public void handleText(String text);
 
 }
