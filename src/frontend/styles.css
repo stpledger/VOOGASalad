@@ -13,8 +13,8 @@
 }
 
 .splash-screen-button {
-	-fx-background-color: transparent;
 	-fx-text-fill: primary-color;
+	-fx-background-color: transparent;
 	-fx-font-weight: bold;
 }
 
@@ -54,7 +54,7 @@
 
 /*
 * =============================================================
-* Entity View
+* Properties View
 * =============================================================
 */
 .entity-builder-view > .left-panel{
@@ -62,6 +62,20 @@
 }
 .properties-view {
 	-fx-background-color: tertiary-color;
+}
+
+.component-form{
+	-fx-background-color: tertiary-color;
+	-fx-text-fill: primary-color;
+}
+.component-text-field{
+	-fx-background-color: secondary-color;
+	-fx-text-fill: primary-color;
+}
+
+.component-form-label{
+	-fx-text-fill: primary-color;
+	-fx-font-weight: bold;
 }
 
 /*

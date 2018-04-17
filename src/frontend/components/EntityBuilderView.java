@@ -88,6 +88,9 @@ public class EntityBuilderView{
 		root.setTop(topMenu);
 		root.setLeft(leftPanel);
 		root.setBottom(bottomMenu);
+		GridPane tempGridPane = new GridPane();
+		tempGridPane.getStyleClass().add("component-form");
+		root.setCenter(tempGridPane);
 		root.getStyleClass().add("entity-builder-view");
 		
 	}
