@@ -17,6 +17,8 @@ public abstract class Component {
 	 * Constructs component with entity parent ID
 	 * @param pid	ID of parent. Can not be changed externally.
 	 */
+	
+	
 	public Component(int pid, String keykey) {
 		this.keykey = keykey;
 		this.pid = pid;
@@ -28,6 +30,6 @@ public abstract class Component {
 
 	public String getKeyKey() { return keykey; }
 
-	//public abstract Map<String,String> getParameters();
+	public abstract Map<String,String> getParameters();
 
 }

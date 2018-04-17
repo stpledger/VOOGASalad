@@ -10,38 +10,40 @@ import engine.components.Component;
 
 public class SystemManager {
 
-    private static List<ISystem> systems;
-    private static Collision collision;
+    private List<ISystem> systems;
+    private Collision collision;
+    private EntityManager em;
     
-    public SystemManager (List<ISystem> systems, Collision collision) {
+    public SystemManager (List<ISystem> systems, Collision collision, EntityManager em) {
         this.systems = systems;
         this.collision = collision;
+        this.em = em;
     }
 
     public void addSystem(ISystem system) {
     		systems.add(system);
     }
     
-    public static void addEntity(int pid, Map<String, Component> components) {
+    public void addEntity(int pid, Map<String, Component> components) {
         for (ISystem s : systems) {
             s.addComponent(pid, components);
         }
     }
 
-    public static void removeEntity (int pid) {
+    public void removeEntity (int pid) {
         for (ISystem s : systems) {
             s.removeComponent(pid);
         }
     }
 
-    public static void addComponent(int pid, String componentName) {
-    		collision.update(EntityManager.getEntities());
+    public void addComponent(int pid, String componentName) {
+    		collision.update(em.getEntities());
     		for(ISystem s : systems) {
 			s.addComponent(pid, componentName);
 		}
     }
-    public static void removeComponent(int pid, String componentName) {
-    		collision.update(EntityManager.getEntities());
+    public void removeComponent(int pid, String componentName) {
+    		collision.update(em.getEntities());
     		for(ISystem s : systems) {
     			s.removeComponent(pid, componentName);
     		}

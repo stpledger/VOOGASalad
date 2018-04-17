@@ -9,7 +9,7 @@ import java.util.Map;
  *  @author fitzj
  *  @author Yameng
  **/
-public class Velocity extends ShowableComponent {
+public class Velocity extends Component {
 
 	private double XVel; //X velocity associated with an entity that has this VelocityComponent
 	private double YVel; //Y velocity associated with an entity that has this VelocityComponent
@@ -49,10 +49,10 @@ public class Velocity extends ShowableComponent {
 
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String, String>(){{
-			put("Velocity X", Double.toString(XVel));
-			put("Velocity Y", Double.toString(YVel));
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Velocity X", Double.toString(XVel));
+		res.put("Velocity Y", Double.toString(YVel));
+		
 		return res;
 	}
 }

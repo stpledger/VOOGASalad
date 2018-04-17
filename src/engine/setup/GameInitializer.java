@@ -4,13 +4,9 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 import engine.components.Component;
-import engine.components.EntityType;
-import engine.components.KeyInput;
 import engine.components.Position;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
-import javafx.beans.property.SetProperty;
-import javafx.scene.input.KeyCode;
 
 public class GameInitializer {
 
@@ -23,16 +19,18 @@ public class GameInitializer {
     private EntityManager EM;
 
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
-        EM = new EntityManager(entities);
-        Collision c = new Collision();
+        EM = new EntityManager(entities, SM);
+        Collision c = new Collision(EM);
         systems = new ArrayList<>();
-        systems.add(new Accelerate());
+        systems.add(new Accelerate(EM));
         systems.add(new Motion());
         IH = new InputHandler();
+        systems.add((new ArtificialIntelligence()));
         systems.add(c);
-        systems.add(new Animate());
+        systems.add(new Animate(EM));
         systems.add(IH);
-        SM = new SystemManager(systems, c);
+        SM = new SystemManager(systems, c, EM);
+        EM.setSM(SM);
 
 
         double renderDistance = 300.0;
@@ -57,14 +55,14 @@ public class GameInitializer {
         SM.execute(time);
     }
 
-    public void render() {
-        RM.garbageCollect();
-        RM.renderObjects();
-    }
 
     public InputHandler getIH() {
          return IH;
          }
+
+    public RenderManager getRM() { return RM; }
+
+    public SystemManager getSM() { return SM; }
 
     public List<ISystem> getSystems() {		// For testing
     		return systems;

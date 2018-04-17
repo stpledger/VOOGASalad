@@ -17,7 +17,11 @@
               <engine.components.EntityType>
                 <pid>0</pid>
                 <keykey>EntityType</keykey>
+<<<<<<< HEAD
                 <type>Block</type>
+=======
+                <type>Player</type>
+>>>>>>> 16baaf649b2c87ad0d79ac87ce65b3ab2cbd3f28
               </engine.components.EntityType>
             </entry>
             <entry>
@@ -25,6 +29,7 @@
               <engine.components.Sprite>
                 <pid>0</pid>
                 <keykey>Sprite</keykey>
+<<<<<<< HEAD
                 <filename>mountain.jpg</filename>
               </engine.components.Sprite>
             </entry>
@@ -37,23 +42,79 @@
               </engine.components.Health>
             </entry>
             <entry>
+=======
+                <filename>Waluigi.png</filename>
+              </engine.components.Sprite>
+            </entry>
+            <entry>
+>>>>>>> 16baaf649b2c87ad0d79ac87ce65b3ab2cbd3f28
               <string>Position</string>
               <engine.components.Position>
                 <pid>0</pid>
                 <keykey>Position</keykey>
+<<<<<<< HEAD
                 <xPos>0.0</xPos>
                 <yPos>0.0</yPos>
               </engine.components.Position>
             </entry>
             <entry>
+=======
+                <xPos>100.0</xPos>
+                <yPos>100.0</yPos>
+              </engine.components.Position>
+            </entry>
+            <entry>
+              <string>Health</string>
+              <engine.components.Health>
+                <pid>0</pid>
+                <keykey>Health</keykey>
+                <health>100.0</health>
+              </engine.components.Health>
+            </entry>
+            <entry>
+>>>>>>> 16baaf649b2c87ad0d79ac87ce65b3ab2cbd3f28
               <string>Dimension</string>
               <engine.components.Dimension>
                 <pid>0</pid>
                 <keykey>Dimension</keykey>
+<<<<<<< HEAD
                 <height>25.0</height>
                 <width>25.0</width>
               </engine.components.Dimension>
             </entry>
+=======
+                <height>50.0</height>
+                <width>100.0</width>
+              </engine.components.Dimension>
+            </entry>
+            <entry>
+              <string>Damage</string>
+              <engine.components.Damage>
+                <pid>0</pid>
+                <keykey>Damage</keykey>
+                <damage>10.0</damage>
+                <lifetime>20.0</lifetime>
+              </engine.components.Damage>
+            </entry>
+            <entry>
+              <string>Acceleration</string>
+              <engine.components.Acceleration>
+                <pid>0</pid>
+                <keykey>Acceleration</keykey>
+                <xAcc>100.0</xAcc>
+                <yAcc>0.0</yAcc>
+              </engine.components.Acceleration>
+            </entry>
+            <entry>
+              <string>Velocity</string>
+              <engine.components.Velocity>
+                <pid>0</pid>
+                <keykey>Velocity</keykey>
+                <XVel>-100.0</XVel>
+                <YVel>50.0</YVel>
+              </engine.components.Velocity>
+            </entry>
+>>>>>>> 16baaf649b2c87ad0d79ac87ce65b3ab2cbd3f28
           </map>
         </entry>
         <entry>
@@ -64,7 +125,11 @@
               <engine.components.EntityType>
                 <pid>1</pid>
                 <keykey>EntityType</keykey>
+<<<<<<< HEAD
                 <type>Block</type>
+=======
+                <type>Player</type>
+>>>>>>> 16baaf649b2c87ad0d79ac87ce65b3ab2cbd3f28
               </engine.components.EntityType>
             </entry>
             <entry>
@@ -72,7 +137,11 @@
               <engine.components.Sprite>
                 <pid>1</pid>
                 <keykey>Sprite</keykey>
+<<<<<<< HEAD
                 <filename>mountain.jpg</filename>
+=======
+                <filename>Waluigi.png</filename>
+>>>>>>> 16baaf649b2c87ad0d79ac87ce65b3ab2cbd3f28
               </engine.components.Sprite>
             </entry>
             <entry>
@@ -80,7 +149,11 @@
               <engine.components.Health>
                 <pid>1</pid>
                 <keykey>Health</keykey>
+<<<<<<< HEAD
                 <health>50.0</health>
+=======
+                <health>100.0</health>
+>>>>>>> 16baaf649b2c87ad0d79ac87ce65b3ab2cbd3f28
               </engine.components.Health>
             </entry>
             <entry>
@@ -97,10 +170,26 @@
               <engine.components.Dimension>
                 <pid>1</pid>
                 <keykey>Dimension</keykey>
+<<<<<<< HEAD
                 <height>25.0</height>
                 <width>25.0</width>
               </engine.components.Dimension>
             </entry>
+=======
+                <height>50.0</height>
+                <width>25.0</width>
+              </engine.components.Dimension>
+            </entry>
+            <entry>
+              <string>Damage</string>
+              <engine.components.Damage>
+                <pid>1</pid>
+                <keykey>Damage</keykey>
+                <damage>10.0</damage>
+                <lifetime>20.0</lifetime>
+              </engine.components.Damage>
+            </entry>
+>>>>>>> 16baaf649b2c87ad0d79ac87ce65b3ab2cbd3f28
           </map>
         </entry>
         <entry>
@@ -111,7 +200,11 @@
               <engine.components.EntityType>
                 <pid>2</pid>
                 <keykey>EntityType</keykey>
+<<<<<<< HEAD
                 <type>Block</type>
+=======
+                <type>Player</type>
+>>>>>>> 16baaf649b2c87ad0d79ac87ce65b3ab2cbd3f28
               </engine.components.EntityType>
             </entry>
             <entry>
@@ -119,7 +212,11 @@
               <engine.components.Sprite>
                 <pid>2</pid>
                 <keykey>Sprite</keykey>
+<<<<<<< HEAD
                 <filename>mountain.jpg</filename>
+=======
+                <filename>Waluigi.png</filename>
+>>>>>>> 16baaf649b2c87ad0d79ac87ce65b3ab2cbd3f28
               </engine.components.Sprite>
             </entry>
             <entry>
@@ -127,7 +224,11 @@
               <engine.components.Health>
                 <pid>2</pid>
                 <keykey>Health</keykey>
+<<<<<<< HEAD
                 <health>50.0</health>
+=======
+                <health>100.0</health>
+>>>>>>> 16baaf649b2c87ad0d79ac87ce65b3ab2cbd3f28
               </engine.components.Health>
             </entry>
             <entry>
@@ -144,10 +245,26 @@
               <engine.components.Dimension>
                 <pid>2</pid>
                 <keykey>Dimension</keykey>
+<<<<<<< HEAD
                 <height>25.0</height>
                 <width>25.0</width>
               </engine.components.Dimension>
             </entry>
+=======
+                <height>50.0</height>
+                <width>25.0</width>
+              </engine.components.Dimension>
+            </entry>
+            <entry>
+              <string>Damage</string>
+              <engine.components.Damage>
+                <pid>2</pid>
+                <keykey>Damage</keykey>
+                <damage>10.0</damage>
+                <lifetime>20.0</lifetime>
+              </engine.components.Damage>
+            </entry>
+>>>>>>> 16baaf649b2c87ad0d79ac87ce65b3ab2cbd3f28
           </map>
         </entry>
       </map>
