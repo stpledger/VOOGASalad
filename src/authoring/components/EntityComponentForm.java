@@ -7,7 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class EntityComponentForm extends AbstractComponentForm{
-	
+
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
 	 * @param name the name of the component
@@ -25,7 +25,7 @@ public class EntityComponentForm extends AbstractComponentForm{
 			this.add(tf, col++, 0);
 		}
 	}
-	
+
 	/**
 	 * Builds the necessary Object Array to build a component based upon the data that is inside of the text fields.
 	 * Should be performed only when the user clicks the submit button.

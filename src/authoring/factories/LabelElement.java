@@ -12,7 +12,7 @@ public class LabelElement extends Label implements Element{
 	public LabelElement(String text) {
 		this.handleText(text);
 	}
-	
+
 	@Override
 	public void handleText(String text) {
 		this.setText(text);

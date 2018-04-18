@@ -8,7 +8,7 @@ import javafx.scene.control.TextField;
  *
  */
 public class TextFieldElement extends TextField implements Element{
-	
+
 	public TextFieldElement(String text) {
 		super();
 		this.handleText(text);

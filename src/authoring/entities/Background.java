@@ -6,7 +6,7 @@ package authoring.entities;
  *
  */
 public class Background extends Entity{
-	
+
 	private final String TYPE = "Background";
 	private final double BKGRND_DIMENSION = 50;
 
@@ -24,5 +24,5 @@ public class Background extends Entity{
 	public String type() {
 		return TYPE;
 	}
-	
+
 }
