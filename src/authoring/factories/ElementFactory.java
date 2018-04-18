@@ -2,7 +2,7 @@ package authoring.factories;
 
 public class ElementFactory {
 
-	private final String PACKAGE_NAME = "frontend.factories.";
+	private final String PACKAGE_NAME = "authoring.factories.";
 	private final String ELEMENT = "Element";
 
 	public ElementFactory() {}

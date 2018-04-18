@@ -250,7 +250,7 @@ public class GameEditorView extends BorderPane {
 		for(Component c : componentList) {
 			if(c.getKeyKey().equals("EntityType")) {
 				String entityType = ((EntityType)c).getType();
-				Class entityTypeClass = Class.forName("frontend.entities." + entityType);
+				Class entityTypeClass = Class.forName("authoring.entities." + entityType);
 				entity = createEntityFromType(entityTypeClass, entityID);	
 			}
 		}
