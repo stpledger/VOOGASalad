@@ -11,6 +11,7 @@ import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
 import engine.systems.InputHandler;
+import engine.systems.collisions.LevelStatus;
 import frontend.components.Level;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
@@ -33,6 +34,7 @@ public class GamePlayerEntityView {
 	private GameInitializer GI;
 	private InputHandler inputHandler;
 	private RenderManager RM;
+    private LevelStatus LS;
 
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
@@ -174,7 +176,14 @@ public class GamePlayerEntityView {
 		inputHandler = GI.getIH();
 		RM = GI.getRM();
 
+		//added code for listening if level should change, not sure this is the best place to put it, but it works
+		LS = GI.getC().getCH().getLS();
+		LS.getUpdate().addListener((o,oldVal,newVal) -> {
+	   //  some action based on the value of newVal like -1 game over, from 1 to 2 change to level two etc. 
+	  });
+
 	}
+	
 
 	public void execute (double time) {
 		GI.getSM().execute(time);
@@ -184,7 +193,7 @@ public class GamePlayerEntityView {
 		RM.renderObjects();
 		RM.garbageCollect();
 	}
-
+    
 	public void setInput(KeyCode code){
 		inputHandler.addCode(code);
 	}
