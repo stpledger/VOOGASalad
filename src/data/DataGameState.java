@@ -1,11 +1,12 @@
 package data;
 
 import engine.components.Component;
-import frontend.components.Level;
-import frontend.entities.Entity;
-import frontend.gamestate.GameState;
 
 import java.util.*;
+
+import authoring.entities.Entity;
+import authoring.gamestate.GameState;
+import authoring.gamestate.Level;
 /**
  * @author Conrad 
  * @author Collin Brown(cdb55)
