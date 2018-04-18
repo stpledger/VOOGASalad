@@ -17,6 +17,7 @@ import javax.imageio.ImageIO;
 
 //import com.sun.beans.finder.ClassFinder;
 
+import data.DataRead;
 import engine.components.Sprite;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -85,14 +86,8 @@ public class EntityView extends BorderPane {
 	 */
 	public void saveEntity(String entityType, Map<Class, Object[]> componentAttributes) {
 	//Turn the imageFile into a usableImage
-		BufferedImage bufferedImage = null;
-			File f = new File((String) componentAttributes.get(Sprite.class)[0]);
-			try {
-				Image image = SwingFXUtils.toFXImage(ImageIO.read(f), null);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			Image image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
+
     //Check to see if a tab exists for the type
         if(tabsList.isEmpty() || !tabsList.contains(entityType)) { 
         	addTab(entityType);

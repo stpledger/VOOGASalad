@@ -77,6 +77,7 @@ public class GamePlayerController {
 		myScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
 				pauseMenu.show(myStage);
+			// SORRY
 			} else {
 				gameView.setInput(e.getCode());
 			}
@@ -95,17 +96,13 @@ public class GamePlayerController {
 	 * @throws FileNotFoundException 
 	 */
 	public void initializeGameStart() throws FileNotFoundException {
-		MenuGameBar menuBar = new MenuGameBar(this);
-		pane.setBottom(menuBar);
-
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
-
 		levelEntityGroupMap = gameView.getlevelEntityMap();
-		gameRoot = levelEntityGroupMap.get(1);
-
+		MenuGameBar menuBar = new MenuGameBar(this);
+		pane.setBottom(menuBar);
+		gameRoot = levelEntityGroupMap.get(1);  //level 1
 		pane.getChildren().addAll(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
-
 		initializeGameAnimation(); //begins the animation cycle
 
 	}
@@ -127,11 +124,18 @@ public class GamePlayerController {
 	 * @param level to be loaded
 	 */
 	public void changeGameLevel(int level) {
+<<<<<<< HEAD
 		gameRoot = levelEntityGroupMap.get(level);
 		//gameView.initializeGamePlayerEntityView(level);
 
 		pane.getChildren().clear();
 		pane.getChildren().addAll(gameRoot);
+=======
+		int lastIndex = pane.getChildren().size()-1;
+		pane.getChildren().remove(lastIndex); 
+		System.out.println(level);
+		pane.getChildren().addAll(levelEntityGroupMap.get(level));
+>>>>>>> aad2f0ace99a522a363ca65887e1d73b45223b7a
 	}
 	
 	public Map<Integer, Group> getGameLevelRoot(){

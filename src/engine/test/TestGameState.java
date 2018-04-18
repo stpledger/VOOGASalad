@@ -114,9 +114,9 @@ public class TestGameState {
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);
 		state.put(l,entities);
-		DataGameState dState = new DataGameState(state);
+		DataGameState dState = new DataGameState(state, "Demo");
 		try {
-			DataWrite.saveFile(dState, "Demo");
+			DataWrite.saveFile(dState);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.imageio.ImageIO;
+
+import data.DataRead;
 import engine.components.Sprite;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -92,13 +94,7 @@ public class EntityTab extends Tab{
 			this.setHeight(boxDimension);
 			//Create the ImageView
 			componentAttributes = m;
-			File f = new File((String) componentAttributes.get(Sprite.class)[0]);
-			try {
-				image = SwingFXUtils.toFXImage(ImageIO.read(f), null);
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
+			image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 			type = t;
 			componentAttributes = m;
 			imageView = new ImageView(image);

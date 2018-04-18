@@ -12,6 +12,7 @@ import java.util.function.BiConsumer;
 
 import javax.imageio.ImageIO;
 
+import data.DataRead;
 import data.DataWrite;
 import engine.components.Sprite;
 import frontend.MainApplication;
@@ -124,8 +125,10 @@ public class EntityBuilderView{
 				imageFile = fileChooser.showOpenDialog(stage);
 				//Build the spriteComponent for a given entity
 				try {
-					componentAttributes.put(Sprite.class, new Object[] {DataWrite.writeImage(imageFile)});
-				} catch (IOException e1) {
+					componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
+					DataRead.importImage( imageFile);
+				}
+				catch (Exception e1) {
 					e1.printStackTrace();
 				}
 
