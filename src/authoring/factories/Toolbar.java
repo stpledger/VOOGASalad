@@ -32,7 +32,7 @@ import javafx.util.Pair;
 public class Toolbar extends MenuBar{
 	private String toolbarName;
 	private Map<String,Consumer> consumerMap;
-	
+
 	/**
 	 * Creates a Toolbar based on all of the .properties files saved in the directory src/res/~name~
 	 * @param name
@@ -44,7 +44,7 @@ public class Toolbar extends MenuBar{
 		this.getStyleClass().add("toolbar");
 		addMenus(getMenuProperties());
 	}
-	
+
 	/**
 	 * Add all of the menus outlined in the resources.menus package to the menuBar
 	 * @param menuProperties
@@ -53,7 +53,7 @@ public class Toolbar extends MenuBar{
 		ArrayList<Pair<String,Properties>> tempMenuProperties = menuProperties;
 		for(Pair<String, Properties> p: tempMenuProperties) {
 			this.getMenus().add((createMenu(p.getKey(),p.getValue())));
-			}
+		}
 	}
 
 	/**
@@ -74,7 +74,7 @@ public class Toolbar extends MenuBar{
 		}
 		return m;
 	}
-	
+
 	/**
 	 * Get all of the properties files located in the resources.menus folder
 	 * @return An ArrayList of Pairs that has the name of the menu and the properties of that menu
@@ -96,5 +96,4 @@ public class Toolbar extends MenuBar{
 		return menuProperties;	
 	}
 }
-	
-	
+

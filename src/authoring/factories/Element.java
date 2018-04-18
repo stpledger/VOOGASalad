@@ -6,7 +6,7 @@ package authoring.factories;
  *
  */
 public interface Element {
-	
+
 	public void handleText(String text);
 
 }

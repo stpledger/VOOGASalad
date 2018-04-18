@@ -12,7 +12,7 @@ public class Player extends Entity {
 	private final double INITIAL_LIFETIME = 20;
 	private final double PLAYER_WIDTH = 25;
 	private final double PLAYER_HEIGHT = 50;
-	
+
 	/**
 	 * Construct the object with the given ID.
 	 * @param ID the ID of this object.
@@ -30,7 +30,7 @@ public class Player extends Entity {
 		this.setEntityType(TYPE);
 		this.setDimension(PLAYER_WIDTH, PLAYER_HEIGHT);
 		this.setDamage(INITIAL_DAMAGE,INITIAL_LIFETIME);
-		
+
 		// TODO add method to set sprite
 	}
 

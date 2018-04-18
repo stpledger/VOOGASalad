@@ -18,7 +18,7 @@ import javafx.scene.layout.GridPane;
  */
 public class PropertiesComponentForm extends AbstractComponentForm {
 
-	
+
 	private int entity;
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
@@ -56,7 +56,7 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 			this.add(tf, col++, 0);
 		}
 	}
-	
+
 	/**
 	 * Builds the necessary component based upon the data that is inside of the text fields.
 	 * Should be performed only when the user clicks the submit button.

@@ -6,7 +6,7 @@ package authoring.factories;
  *
  */
 public class NumberFieldElement extends NumberField implements Element{
-	
+
 	public NumberFieldElement(String text) {
 		super();
 		this.handleText(text);
@@ -16,5 +16,5 @@ public class NumberFieldElement extends NumberField implements Element{
 	public void handleText(String text) {
 		this.setPromptText(text);
 	}
-	
+
 }

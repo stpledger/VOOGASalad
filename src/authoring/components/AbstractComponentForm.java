@@ -12,9 +12,9 @@ public abstract class AbstractComponentForm extends GridPane {
 	protected String name;
 	protected int numFields;
 	protected List<TextField> fields;
-	
+
 	protected abstract Object buildComponent();
-	
+
 	/**
 	 * Check if the user fully entered something in this form. If the form has multiple text boxes, then
 	 * the user should have input two separate things. If not, the program should alert them of this.
@@ -27,7 +27,7 @@ public abstract class AbstractComponentForm extends GridPane {
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Casts the {@code String} in the {@code TextField} to the appropriate class based upon the types
 	 * declared in the constructor.
@@ -43,9 +43,9 @@ public abstract class AbstractComponentForm extends GridPane {
 			reflectValue = text;
 		return reflectValue;
 	}
-	
 
-	
+
+
 	/**
 	 * Given a name of a component class in the engine, find the number of fields that it takes and their types.
 	 * This is required for generating the appropriate amount of text boxes
