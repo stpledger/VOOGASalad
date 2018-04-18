@@ -121,10 +121,6 @@ public abstract class PropertiesView {
 		return this.RESOURCES;
 	}
 	
-	protected ResourceBundle getButtonProps() {
-		return this.buttonProps;
-	}
-	
 	protected ElementFactory getElementFactory() {
 		return this.eFactory;
 	}
