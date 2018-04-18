@@ -134,7 +134,7 @@ public abstract class Entity extends ImageView {
 	 * @param name the name of the component to check
 	 * @return true iff the component already belongs to this entity
 	 */
-	private boolean contains(String name) {
+	public boolean contains(String name) {
 		for (Component existing : this.components) {
 			if (existing.getKeyKey().equals(name))
 				return true;
