@@ -26,7 +26,7 @@ public class Sprite extends Component {
 	private transient ImageView image;
 
 	public Sprite(int pid, String path) throws FileNotFoundException {
-	    super(pid, KEY);
+	    super(pid);
 		filename = path;
 		setImage(filename);
 	}
@@ -57,6 +57,11 @@ public class Sprite extends Component {
 		res.put("Image", filename);
 		
 		return res;
+	}
+
+	@Override
+	public String getKey() {
+		return KEY;
 	}
 }
 

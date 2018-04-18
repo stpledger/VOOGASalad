@@ -19,9 +19,9 @@ public class InputHandler implements ISystem {
 
 	@Override
 	public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey(KeyInput.getKey())) {
+		if (components.containsKey(KeyInput.KEY)) {
 			Map<String, Component> newComponents = new HashMap<>();
-			newComponents.put(KeyInput.getKey(), components.get(KeyInput.getKey()));
+			newComponents.put(KeyInput.KEY, components.get(KeyInput.KEY));
 			handledComponents.put(pid, newComponents);
 		}
 	}
@@ -42,7 +42,7 @@ public class InputHandler implements ISystem {
 	public void execute(double time) {
 		for (int id : handledComponents.keySet()) {
 			Map<String, Component> components = handledComponents.get(id);
-			KeyInput k = (KeyInput) components.get(KeyInput.getKey());
+			KeyInput k = (KeyInput) components.get(KeyInput.KEY);
 			for (KeyCode key : activeCodes) {
 				if (k.containsCode(key)) {
 					k.action(key);

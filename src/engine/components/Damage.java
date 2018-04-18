@@ -15,11 +15,12 @@ import java.util.Map;
 public class Damage extends Component {
 	private double damage;
 	private double lifetime;
+	
 	public static String KEY = "Damage";
 
 
 	public Damage(int pid, double damage, double lifetime) {
-		super(pid, KEY);
+		super(pid);
 		this.damage = damage;
 		this.lifetime = lifetime;
 	}
@@ -44,7 +45,7 @@ public class Damage extends Component {
 		this.lifetime = lifetime;
 	}
 	
-	public static String getKey() {
+	public String getKey() {
 		return KEY;
 	}
 

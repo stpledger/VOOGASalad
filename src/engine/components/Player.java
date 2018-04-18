@@ -9,12 +9,12 @@ public class Player extends Component {
     private Position respawn;
 
     public Player(int pid, int lives) {
-        super(pid, KEY);
+        super(pid);
         this.lives = lives;
         
     }
 
-    public static String getKey() { return KEY; }
+    public String getKey() { return KEY; }
 
 
     public Position getRespawn () {

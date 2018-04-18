@@ -8,10 +8,13 @@ import engine.systems.collisions.CollisionDirection;
 public class CollisionAction extends Component {
 
 	public static String KEY = "CollisionAction";
+	
+	
+	
 	private Map<CollisionDirection, Runnable> directions;
 	
 	public CollisionAction(int pid) {
-		super(pid, KEY);
+		super(pid);
 		directions = new HashMap<>();
 	}
 
@@ -27,7 +30,7 @@ public class CollisionAction extends Component {
 		directions.get(cd).run();
 	}
 
-	public static String getKey() {
+	public String getKey() {
 		return KEY;
 	}
 	

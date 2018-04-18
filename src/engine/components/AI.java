@@ -10,7 +10,7 @@ public class AI extends Component {
     private Consumer action;
 
     public AI (int pid) {
-        super(pid, KEY);
+        super(pid);
     }
 
     public void setAction (Consumer action) {
@@ -25,5 +25,9 @@ public class AI extends Component {
 	public Map<String, String> getParameters() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public String getKey() {
+		return KEY;
 	}
 }

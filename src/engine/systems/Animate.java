@@ -91,7 +91,7 @@ public class Animate implements ISystem {
             if (handledComponents.keySet().contains(pid)) {
                 Map<String, Component> components = handledComponents.get(pid);
                 Sprite s = (Sprite) components.get(Sprite.KEY);
-                Position p = (Position) components.get(Position.getKey());
+                Position p = (Position) components.get(Position.KEY);
 
                 ImageView im = s.getImage();
                 im.setX(p.getXPos());

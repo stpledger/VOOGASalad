@@ -12,7 +12,7 @@ public class KeyInput extends Component {
 	public static String KEY = "KeyInput";
 
 	public KeyInput(int pid) {
-		super(pid, KEY);
+		super(pid);
 	}
 
 	public boolean containsCode (KeyCode key) {
@@ -27,7 +27,7 @@ public class KeyInput extends Component {
 		codes.get(key).run();
 	}
 
-	public static String getKey() { return KEY; }
+	public String getKey() { return KEY; }
 
 	@Override
 	public Map<String, String> getParameters(){

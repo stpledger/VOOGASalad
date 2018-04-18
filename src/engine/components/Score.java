@@ -7,7 +7,7 @@ public class Score extends Component{
     private double score;
 
 	public Score(int pid) {
-		super(pid, KEY);
+		super(pid);
 		this.score=0;
 	}
     
@@ -17,6 +17,12 @@ public class Score extends Component{
 	public Map<String, String> getParameters() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+
+
+	public String getKey() {
+		return KEY;
 	}
 
 }

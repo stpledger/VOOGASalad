@@ -13,7 +13,7 @@ public class Health extends Component {
 	public static String KEY = "Health";
 	
 	public Health(int pid, double health) {
-		super(pid, KEY);
+		super(pid);
 		this.health = health;
 	}
 	
@@ -25,7 +25,7 @@ public class Health extends Component {
 		this.health = health;
 	}
 	
-	public static String getKey() {
+	public String getKey() {
 		return KEY;
 	}
 
