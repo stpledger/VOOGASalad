@@ -24,7 +24,6 @@ public abstract class PropertiesView {
 	private GridPane root;
 	private Stage stage;
 	private final String RESOURCES = "resources.views.Properties/";
-	private ResourceBundle buttonProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"buttons");
 	private ElementFactory eFactory = new ElementFactory();
 
 	/**
