@@ -2,11 +2,17 @@ package engine.components;
 
 import javafx.scene.input.KeyCode;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
+/**
+ * This is the component class that allows the designer to assign an action to an entity based on a key code/key input,
+ * such that the user can decide what should be done by the entity either by a preset selection or writing in his/her
+ * own code
+ *
+ * @author cndracos
+ */
 public class KeyInput extends Component {
 
 	private Map<KeyCode, Consumer> codes = new HashMap<>();
@@ -35,8 +41,6 @@ public class KeyInput extends Component {
 	public void action(KeyCode key) {
 		codes.get(key).accept(null);
 	}
-
-	public static String getKey() { return KEY; }
 
 	@Override
 	public Map<String, String> getParameters(){

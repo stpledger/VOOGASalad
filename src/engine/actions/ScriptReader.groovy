@@ -1,5 +1,9 @@
 package engine.actions
 
+import engine.components.Position
+import org.codehaus.groovy.control.CompilerConfiguration
+import org.codehaus.groovy.control.customizers.ImportCustomizer
+
 import java.lang.reflect.Method
 import java.util.function.Consumer
 
@@ -12,12 +16,16 @@ class ScriptReader {
 
     public ScriptReader(HashMap entities) {
         this.entities = entities
+
         myBinding = new Binding()
         myBinding.setVariable("entities", entities)
+
+        myBinding.setVariable("Position", Position)
+
         shell = new GroovyShell(myBinding)
     }
 
-    public void readCommand (String command) {
+    void readCommand (String command) {
         String arguments = command
 
         Class clazz = readArguments(arguments)
@@ -102,4 +110,5 @@ class ScriptReader {
 
         myMethod.invoke(entities.get(number).get(className), invokeArgs)
     }
+
 }

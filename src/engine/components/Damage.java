@@ -45,10 +45,6 @@ public class Damage extends Component {
 	public void setLifetime(double lifetime) {
 		this.lifetime = lifetime;
 	}
-	
-	public static String getKey() {
-		return KEY;
-	}
 
 	@Override
 	public Map<String, String> getParameters(){
