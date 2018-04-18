@@ -48,7 +48,7 @@ public class LevelPropertiesView extends PropertiesView{
 			TextField diffText = (TextField) eFactory.buildElement(ElementType.TextField,text);
 			NumberField timeNumber = (NumberField) eFactory.buildElement(ElementType.NumberField,text);
 			NumberField distNumber = (NumberField) eFactory.buildElement(ElementType.NumberField,text);
-			Button button = (Button) eFactory.buildElement(ElementType.Button,text);
+			Button button = (Button) eFactory.buildElement(ElementType.Button,levelProps.getString("Submit"));
 			button.setOnAction(e->{
 				level.setLevelInfo(infoText.getText());
 				level.setLevelDifficulty(diffText.getText());

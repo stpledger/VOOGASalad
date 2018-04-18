@@ -46,7 +46,7 @@ public class GlobalPropertiesView extends PropertiesView {
 				getRoot().addRow(currentRow++, label);
 			}
 			getRoot().addColumn(1,titleInput,livesInput,pathInput);
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, SUBMIT);
+			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, globalProps.getString("Submit"));
 			submit.setOnAction(e->{
 				for(Level level : levels) {
 					level.addGProp(globalProps.getString("Title"), titleInput.getText());
