@@ -17,12 +17,12 @@ public class MainView {
 	private Toolbar toolbar;
 	private GameEditorView gameEditorView;
 	private EntityView componentView;
-	
+
 	//Consumer to handle transferring clipboard transfers
 	Consumer clipboardHandler = (e)->{
 		gameEditorView.setClipboard(e);
 	};
-	
+
 	//GUI Constants
 	private static double ideHeight = 600;
 	private static double ideWidth = 1200;
@@ -45,7 +45,7 @@ public class MainView {
 		gameEditorView = new GameEditorView();
 		componentView = new EntityView(clipboardHandler);
 	}
-	
+
 	/**
 	 * creates the ViewComponents and adds them to the borderPane 
 	 */
@@ -55,9 +55,9 @@ public class MainView {
 		border.setLeft(componentView);
 		border.setCenter(gameEditorView);
 		return border;
-		
+
 	}
-	
+
 	/**
 	 * Returns the Toolbar object
 	 * @return
@@ -65,7 +65,7 @@ public class MainView {
 	public Toolbar getToolbar() {
 		return toolbar;
 	}
-	
+
 	/**
 	 * Returns the gameEnvironmentView object
 	 * @return
@@ -73,7 +73,7 @@ public class MainView {
 	public GameEditorView getGameEnvironmentView() {
 		return gameEditorView;
 	}
-	
+
 	/**
 	 * Returns the ComponentView object
 	 * @return
@@ -81,7 +81,7 @@ public class MainView {
 	public EntityView getComponentView() {
 		return componentView;
 	}
-	
+
 	/**
 	 * Returns the height of the gameAuthoringEnvironment
 	 * @return
@@ -89,7 +89,7 @@ public class MainView {
 	public static double getIDEHeight() {
 		return ideHeight;
 	}
-	
+
 	/**
 	 * Sets the height of the gameAuthoringEnvironment
 	 * @param ideHeight
@@ -97,7 +97,7 @@ public class MainView {
 	public static void setIDEHeight(double ideHeight) {
 		MainView.ideHeight = ideHeight;
 	}
-	
+
 	/**
 	 * Gets the width of the gameAuthroingEnvironment
 	 * @return
@@ -105,7 +105,7 @@ public class MainView {
 	public static double getIDEWidth() {
 		return ideWidth;
 	}
-	
+
 	/**
 	 * Sets the width of the GameAuthoringEnvironment
 	 * @param ideWidth

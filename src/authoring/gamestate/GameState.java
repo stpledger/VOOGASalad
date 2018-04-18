@@ -26,7 +26,7 @@ public class GameState implements IGameState {
 	public GameState() {
 		state = new ArrayList<>();
 	}
-	
+
 	@Override
 	public void save() {
 		try {
@@ -38,7 +38,7 @@ public class GameState implements IGameState {
 			System.out.print("didnt work");
 		}
 	}
-	
+
 	/**
 	 * Updates the current state by adding a new level object to the list of levels.
 	 * @param level The level object to add
@@ -60,16 +60,16 @@ public class GameState implements IGameState {
 			state.remove(level);
 		}
 	}
-	
+
 	public List<Level> getLevels() {
 		return state;
 	}
-	
+
 	public void printState() {
 		for (Level level : this.state) {
 			for (Entity e : level.getEntityList()) {
 				for (Component c : e.getComponentList()) {
-//					System.out.println(e.type() + " has component " + c.getKey());
+					//					System.out.println(e.type() + " has component " + c.getKey());
 				}
 			}
 		}

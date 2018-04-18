@@ -17,13 +17,13 @@ import javafx.scene.layout.AnchorPane;
  *
  */
 public class LevelView extends ScrollPane {
-	
+
 	private AnchorPane contentPane;
 	private Level level;
 	Consumer<MouseEvent> addEntity;
 	private Double lastX = null;
-    private Double lastY = null;
-	
+	private Double lastY = null;
+
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
 		this.addEntity = aE;
@@ -36,7 +36,7 @@ public class LevelView extends ScrollPane {
 		this.getStyleClass().add("level-view-wrapper");
 		this.setupMouseClick(levelNum);
 	}
-	
+
 	/**
 	 * Sets up mouse click events
 	 * @param levelNum Level number
@@ -49,7 +49,7 @@ public class LevelView extends ScrollPane {
 			}
 		});
 	}
-	
+
 	/**
 	 * Adds entity to the level view both to be seen graphically and to the specific 
 	 * level object
@@ -59,7 +59,7 @@ public class LevelView extends ScrollPane {
 		this.contentPane.getChildren().add(e);
 		level.addEntity(e);
 	}
-	
+
 	/**
 	 * Retrieves the level attributed to this levelView
 	 * @return the level in this levelView
