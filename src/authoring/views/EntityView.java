@@ -107,7 +107,7 @@ public class EntityView extends BorderPane {
 	 * @return a String array of classes from a given package
 	 */
 	protected String[] getEntitiesInEntitiesPackage() {
-		String pckgName = "frontend/entities";
+		String pckgName = "authoring/entities";
 		ClassLoader cld = Thread.currentThread().getContextClassLoader();
 		if (cld == null) {
 			throw new IllegalStateException("Can't get class loader.");

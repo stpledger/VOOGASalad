@@ -116,7 +116,7 @@ public class EntityTab extends Tab{
 				}
 
 				private Class getEntityFromPackage(String type) throws ClassNotFoundException {
-					return Class.forName("frontend.entities." + type);
+					return Class.forName("authoring.entities." + type);
 				}
 			});
 		}
