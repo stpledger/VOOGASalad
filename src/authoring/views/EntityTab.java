@@ -41,8 +41,8 @@ public class EntityTab extends Tab{
 		this.getStyleClass().add("entity-tab");
 		assemble();
 	}
-	
-	
+
+
 	/**
 	 * builds the ScrollPane and the FlowPane within it
 	 */
@@ -66,7 +66,7 @@ public class EntityTab extends Tab{
 	public Node getNode() {
 		return pane;
 	}
-	
+
 	/**
 	 * Gets the observable property of the currently selected element
 	 * @return
@@ -74,8 +74,8 @@ public class EntityTab extends Tab{
 	public ObjectProperty getSelectedElementProperty() {
 		return selectedElement;
 	}
-	
-	
+
+
 	/**
 	 *	The ComponentBox holds the properties and images of various gameObjects
 	 */
@@ -86,7 +86,7 @@ public class EntityTab extends Tab{
 		private ImageView imageView;
 		Map<Class, Object[]> componentAttributes = new HashMap<Class,Object[]>();
 		private double boxDimension = (myEntityViewWidth - SCROLLBAR_WIDTH)/3;
-		
+
 		public EntityBox(String t, Map<Class, Object[]> m) {
 			//Create the VBox
 			this.getStyleClass().add("entity-box");
@@ -102,7 +102,7 @@ public class EntityTab extends Tab{
 			imageView.setFitWidth(boxDimension-20);
 			this.getChildren().add(imageView);
 			//Create a textbox with the name;
-			
+
 			//Set onClick method to add the item to clipboard
 			this.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
@@ -120,6 +120,6 @@ public class EntityTab extends Tab{
 				}
 			});
 		}
-		        
-}
+
+	}
 }

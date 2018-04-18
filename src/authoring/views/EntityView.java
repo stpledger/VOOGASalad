@@ -1,4 +1,4 @@
-	package authoring.views;
+package authoring.views;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -35,7 +35,7 @@ public class EntityView extends BorderPane {
 	private ArrayList<String> entityTypes = new ArrayList<String>();
 	private TabPane tabPane = new TabPane();
 	private Consumer clipboardHandler;
-	
+
 	public EntityView(Consumer ch) {
 		super();
 		clipboardHandler = ch;
@@ -48,27 +48,27 @@ public class EntityView extends BorderPane {
 	/**
 	 * Located Below are all the consumers to handle toolbar events
 	 */
-		BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
-		//Consumer for Creating a new Entity(Opens EntityBuilderView)
-		Consumer newEntity = (e) -> {
-			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
-		};
-		Consumer saveEntities = (e) -> {System.out.println("Save Entites!");};
-		Consumer loadEntities = (e)->{System.out.println("Load Entitites!");};
-		private Map<String, Consumer> consumerMap = new HashMap<String,Consumer>(){{
-			this.put("newEntity", newEntity);
-			this.put("saveEntities", saveEntities);
-			this.put("loadEntities", loadEntities);
-		}};
-	
-	
+	BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
+	//Consumer for Creating a new Entity(Opens EntityBuilderView)
+	Consumer newEntity = (e) -> {
+		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
+	};
+	Consumer saveEntities = (e) -> {System.out.println("Save Entites!");};
+	Consumer loadEntities = (e)->{System.out.println("Load Entitites!");};
+	private Map<String, Consumer> consumerMap = new HashMap<String,Consumer>(){{
+		this.put("newEntity", newEntity);
+		this.put("saveEntities", saveEntities);
+		this.put("loadEntities", loadEntities);
+	}};
+
+
 	private void addTab(String type) {
-			ClipboardListener c = new ClipboardListener();
-			EntityTab temp = new EntityTab(type, entityViewWidth);
-			temp.getSelectedElementProperty().addListener(c);
-			tabPane.getTabs().add(temp);
+		ClipboardListener c = new ClipboardListener();
+		EntityTab temp = new EntityTab(type, entityViewWidth);
+		temp.getSelectedElementProperty().addListener(c);
+		tabPane.getTabs().add(temp);
 	}
-	
+
 	/**
 	 * Opens the window to delete an entity
 	 */
@@ -78,7 +78,7 @@ public class EntityView extends BorderPane {
 	 * Opens the window to edit an entity
 	 */
 	public void editEntity() {
-		
+
 	}
 	/**
 	 * Called when a EntityBuilderView is closed
@@ -86,63 +86,63 @@ public class EntityView extends BorderPane {
 	 * @param componentAttributes Image file corresponding to the Sprite Image for this object.
 	 */
 	public void saveEntity(String entityType, Map<Class, Object[]> componentAttributes) {
-	//Turn the imageFile into a usableImage
-			Image image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
+		//Turn the imageFile into a usableImage
+		Image image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 
-    //Check to see if a tab exists for the type
-        if(tabsList.isEmpty() || !tabsList.contains(entityType)) { 
-        	addTab(entityType);
-        	tabsList.add(entityType);
-        }   
-    //Add the entityBox
-        for(Tab tab : tabPane.getTabs()) {
-        	if(tab.getText().equals(entityType)) {
-        		((EntityTab) tab).addNewEntity(entityType, componentAttributes);
-        	}
-        }
-    }
-	
+		//Check to see if a tab exists for the type
+		if(tabsList.isEmpty() || !tabsList.contains(entityType)) { 
+			addTab(entityType);
+			tabsList.add(entityType);
+		}   
+		//Add the entityBox
+		for(Tab tab : tabPane.getTabs()) {
+			if(tab.getText().equals(entityType)) {
+				((EntityTab) tab).addNewEntity(entityType, componentAttributes);
+			}
+		}
+	}
+
 	/**
 	 * Gets all of the class names from a given package. Useful when determining which properties can be changed.
 	 * @return a String array of classes from a given package
 	 */
 	protected String[] getEntitiesInEntitiesPackage() {
 		String pckgName = "frontend/entities";
-        ClassLoader cld = Thread.currentThread().getContextClassLoader();
-        if (cld == null) {
-            throw new IllegalStateException("Can't get class loader.");
-        }
- 
-        URL resource = cld.getResource(pckgName.replace('.', '/'));
-        if (resource == null) {
-            throw new RuntimeException("Package " + pckgName + " not found on classpath.");
-        }
-        File directory = new File(resource.getFile());
-        if (!directory.exists()) {
-            throw new IllegalArgumentException("Could not get directory resource for package " + pckgName + ".");
-        }
-        List<String> classes = new ArrayList<String>();
-        for (String filename : directory.list()) {
-            if (filename.endsWith(".class") && !filename.startsWith("Entity")) { //Check to make sure its a class file and not the superclass
-                String classname = buildClassname(pckgName, filename);
-                String clazz = classname.replace(".java", "");
+		ClassLoader cld = Thread.currentThread().getContextClassLoader();
+		if (cld == null) {
+			throw new IllegalStateException("Can't get class loader.");
+		}
+
+		URL resource = cld.getResource(pckgName.replace('.', '/'));
+		if (resource == null) {
+			throw new RuntimeException("Package " + pckgName + " not found on classpath.");
+		}
+		File directory = new File(resource.getFile());
+		if (!directory.exists()) {
+			throw new IllegalArgumentException("Could not get directory resource for package " + pckgName + ".");
+		}
+		List<String> classes = new ArrayList<String>();
+		for (String filename : directory.list()) {
+			if (filename.endsWith(".class") && !filename.startsWith("Entity")) { //Check to make sure its a class file and not the superclass
+				String classname = buildClassname(pckgName, filename);
+				String clazz = classname.replace(".java", "");
 				// Strip everything except for the word following the last period (the actual class name)
-               classes.add(clazz.substring(clazz.lastIndexOf(".") + 1));
-            }
-        }
-        return classes.toArray(new String[classes.size()]);
+				classes.add(clazz.substring(clazz.lastIndexOf(".") + 1));
+			}
+		}
+		return classes.toArray(new String[classes.size()]);
 	}
-	
+
 	/**
 	 * Builds the class name to fully represent a given class
 	 * @param pckgName the package to look for the class ine
 	 * @param fileName the name of the class file
 	 * @return a String representing the fully-qualified class name
 	 */
-    private String buildClassname(String pckgName, String fileName) {
-    		String className = pckgName + '.' + fileName.replace(".class", "");
-        return className;
-    }
+	private String buildClassname(String pckgName, String fileName) {
+		String className = pckgName + '.' + fileName.replace(".class", "");
+		return className;
+	}
 
 	private class ClipboardListener implements ChangeListener{
 

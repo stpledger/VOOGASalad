@@ -55,7 +55,7 @@ public class GameEditorView extends BorderPane {
 	private File gameFile;
 	private int nextID  = 0; //The next ID to be used
 	boolean drag = false; 
-	
+
 	private final int BLOCK_DEFAULT_WIDTH = 50;
 	/**
 	 * Default Constructor
@@ -71,7 +71,7 @@ public class GameEditorView extends BorderPane {
 		addLevel(); // add the first level
 		this.setCenter(tabPane);
 	}
-	
+
 	//Consumers for the toolbar
 	Consumer newGame = (e)->{newGameMethod(); addLevel();}; 
 	Consumer loadGame = (e)->{ loadGameMethod();};
@@ -80,7 +80,7 @@ public class GameEditorView extends BorderPane {
 	Consumer showSettings = (e)->{showSettingsMethod();};
 	Consumer hudSettings = (e) -> { hudSettingsMethod();};
 	Consumer play = (e)->{playMethod();};
-	
+
 	private Map<String, Consumer> consumerMap = new HashMap<String, Consumer>(){{
 		this.put("newGame", newGame);
 		this.put("loadGame", loadGame);
@@ -90,8 +90,8 @@ public class GameEditorView extends BorderPane {
 		this.put("hudSettings", hudSettings);
 		this.put("play", play);
 	}};
-	
-	
+
+
 	/**
 	 * called whenever there is any change to the tabslist
 	 * TODO: This might not even need to be a lambda but gotta flex for Duval.
@@ -101,7 +101,7 @@ public class GameEditorView extends BorderPane {
 			t.setText("Level " + (l.indexOf(t)+1));
 		}
 	};
-	
+
 	/**
 	 * Creates a new LevelView
 	 */
@@ -118,15 +118,15 @@ public class GameEditorView extends BorderPane {
 			updateTabs.accept(tabsList);
 		});
 		levelView.getContent().setOnMouseReleased((e)->{
-				if (e.getButton().equals(MouseButton.PRIMARY) && !drag) addEntity.accept(e);
-				drag = false;
+			if (e.getButton().equals(MouseButton.PRIMARY) && !drag) addEntity.accept(e);
+			drag = false;
 		});
 		levelView.getContent().setOnDragDetected((e)->{
 			drag = true;
-			});
+		});
 		tabPane.getTabs().add(t);
 	}
-	
+
 	/**
 	 * Creates a new LevelView based on an existing LevelView
 	 * @param l Level to be added to current view
@@ -145,22 +145,22 @@ public class GameEditorView extends BorderPane {
 			updateTabs.accept(tabsList);
 		});
 		levelView.getContent().setOnMouseReleased((e)->{
-				if (e.getButton().equals(MouseButton.PRIMARY) && !drag) addEntity.accept(e);
-				drag = false;
+			if (e.getButton().equals(MouseButton.PRIMARY) && !drag) addEntity.accept(e);
+			drag = false;
 		});
 		levelView.getContent().setOnDragDetected((e)->{
 			drag = true;
-			});
+		});
 		tabPane.getTabs().add(t);
 		return levelView;
 	}
-	
+
 	private void newGameMethod() {
 		state = new GameState();
 		tabsList = new ArrayList<Tab>();
 		tabPane.getTabs().clear();
 	}
-	
+
 	/**
 	 * Opens a new thread to play the game on
 	 */
@@ -196,8 +196,8 @@ public class GameEditorView extends BorderPane {
 		for(Tab t: tabsList) {
 			levelArray.add(((LevelView) t.getContent()).getLevel());
 		}
-			GlobalPropertiesView GPV = new GlobalPropertiesView(levelArray);
-			GPV.open();
+		GlobalPropertiesView GPV = new GlobalPropertiesView(levelArray);
+		GPV.open();
 	}
 
 	/**
@@ -232,15 +232,15 @@ public class GameEditorView extends BorderPane {
 				List<Component> componentList = entities.get(entityID);
 				try {
 					Entity entity = createEntityFromComponentList(entityID, componentList);
-						System.out.println(entity.toString());
-						levelView.addEntity(entity);
+					System.out.println(entity.toString());
+					levelView.addEntity(entity);
 				} catch (Exception e) {
 					System.out.println("Error creating entity: " + entityID);
 				}
-				
-				
+
+
 			}
-			
+
 		}
 	}
 
@@ -250,8 +250,8 @@ public class GameEditorView extends BorderPane {
 		for(Component c : componentList) {
 			if(c.getKeyKey().equals("EntityType")) {
 				String entityType = ((EntityType)c).getType();
-					Class entityTypeClass = Class.forName("frontend.entities." + entityType);
-					entity = createEntityFromType(entityTypeClass, entityID);	
+				Class entityTypeClass = Class.forName("frontend.entities." + entityType);
+				entity = createEntityFromType(entityTypeClass, entityID);	
 			}
 		}
 		for(Component c : componentList) {
@@ -275,7 +275,7 @@ public class GameEditorView extends BorderPane {
 	public void setClipboard(Object o) {
 		clipboard = (Object[]) o;
 	}
-	
+
 	/**
 	 * Consumer to handle adding a new entity to the current level
 	 */
@@ -288,18 +288,18 @@ public class GameEditorView extends BorderPane {
 			entity = createEntityFromType(entityType, nextID);
 			//Set the position
 			entity.setPosition(mouseEvent.getX() - entity.getFitWidth() / 2, mouseEvent.getY() - this.tabPane.getTabMaxHeight() - entity.getFitHeight() / 2);
-			
+
 			//Add all the components
 			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; 
 			entity = addEntityComponentsFromMap(entity, entityComponents);
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity);
 			nextID++; //Increment id's by one
-			} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
+		} catch (InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException el) {
 			el.printStackTrace();
 		}
 	};
-	
+
 	/**
 	 * Creates an Entity object from the Class representing its type and an ID
 	 * @param entityType class representing the type of entity to make
@@ -333,16 +333,16 @@ public class GameEditorView extends BorderPane {
 		ArrayList<Component> componentArrayList = new ArrayList<Component>();
 		Entity entity = e;
 		for(Class k :entityComponents.keySet()) { 
-			 // get the constructor for the type of component
+			// get the constructor for the type of component
 			Constructor<?> componentConstructor = k.getDeclaredConstructors()[0];
 			//Create a temporary arraylist
 			ArrayList<Object> tempArr = new ArrayList<Object>() {{ 
-				 //Add the pId to the temporary arraylist
+				//Add the pId to the temporary arraylist
 				this.add(nextID);
 				//add all the arguments for the component to the arraylist
 				this.addAll(Arrays.asList(entityComponents.get(k))); 
 			}};
-			
+
 			Object[] args = tempArr.toArray(); //Convert the temp array to an array of objects
 			componentArrayList.add((Component) componentConstructor.newInstance(args)); //Add a new instance to arraylist.
 			if(k.equals(Sprite.class)) { //Check if this is the image
@@ -355,5 +355,5 @@ public class GameEditorView extends BorderPane {
 		}
 		return entity;
 	}
-	
+
 }
