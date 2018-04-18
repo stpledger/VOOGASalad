@@ -8,6 +8,12 @@ import engine.components.Position;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
 
+/**
+ * This is the class which is created when the player first decides to run a game. It creates the managers and loads
+ * the components into the appropriate systems, setting up the game to be run smoothly.
+ *
+ * @author cndracos
+ */
 public class GameInitializer {
 
     private List<ISystem> systems;
@@ -18,6 +24,11 @@ public class GameInitializer {
 
     private EntityManager EM;
 
+    /**
+     * Creates the managers and systems, then reads in the entities. Sets up the rendering system and input handler
+     *
+     * @param entities
+     */
     public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
         EM = new EntityManager(entities, SM);
         Collision c = new Collision(EM);
@@ -52,13 +63,13 @@ public class GameInitializer {
     }
 
     public void execute (double time) {
-        SM.execute(time);
+        SM.execute(time); //runs all functions of the systems
     }
 
 
     public InputHandler getIH() {
-         return IH;
-         }
+         return IH; //gives the input handler to the player to pass in keycodes
+    }
 
     public RenderManager getRM() { return RM; }
 

@@ -9,6 +9,7 @@ import data.DataRead;
 import engine.components.*;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
+import engine.setup.SystemManager;
 import engine.systems.InputHandler;
 import frontend.components.Level;
 import javafx.scene.Group;
@@ -32,8 +33,6 @@ public class GamePlayerEntityView {
 	private GameInitializer GI;
 	private InputHandler inputHandler;
 	private RenderManager RM;
-	
-	private GameInitializer gameInitializer;
 
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
@@ -174,6 +173,7 @@ public class GamePlayerEntityView {
 
 		inputHandler = GI.getIH();
 		RM = GI.getRM();
+
 	}
 
 	public void execute (double time) {
