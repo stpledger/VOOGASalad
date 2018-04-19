@@ -4,6 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import authoring.entities.Entity;
 import engine.components.*;
@@ -18,7 +19,7 @@ import javafx.scene.layout.GridPane;
  */
 public class PropertiesComponentForm extends AbstractComponentForm {
 
-
+	private final String PROP_FILE = "authoring.properties.Components.properties";
 	private int entity;
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
@@ -44,16 +45,12 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 	 * @param name the name of the component
 	 * @param numFields the number of fields necessary for this component
 	 */
-	public PropertiesComponentForm(String name) {
-		this.name = name;
-		fields = new ArrayList<>();
-		int col = 0;
-		this.add(new Label(name), col++, 0);
-		this.numFields = getNumFields(name);
-		for (int i = 0; i < (numFields-1); i++) {
-			TextField tf = new TextField();
-			fields.add(tf);
-			this.add(tf, col++, 0);
+	public PropertiesComponentForm(int entity, String name, Map<String, String> existingValues) {
+		this(entity, name);
+		int index = 0;
+		for (String param : existingValues.keySet()) {
+			System.out.println("Value " + index + " is " + param + " for key " + existingValues.get(param));
+			fields.get(index++).setText(existingValues.get(param));
 		}
 	}
 

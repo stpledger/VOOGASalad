@@ -2,17 +2,13 @@ package engine.components;
 import java.io.FileNotFoundException;
 
 
-import javax.imageio.ImageIO;
-
 import data.DataRead;
-import javafx.embed.swing.SwingFXUtils;
 
 import java.util.*;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**
@@ -55,4 +51,12 @@ public class Sprite extends Component {
 		return filename;
 	}
 
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String,String> res = new HashMap<>();
+		res.put("Image", filename);
+		
+		return res;
+	}
 }
+

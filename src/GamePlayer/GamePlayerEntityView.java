@@ -8,11 +8,9 @@ import java.util.Map;
 import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataRead;
-import engine.components.Component;
-import engine.components.Dimension;
-import engine.components.Position;
-import engine.components.Sprite;
+import engine.components.*;
 import engine.setup.GameInitializer;
+import engine.setup.RenderManager;
 import engine.systems.InputHandler;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
@@ -31,9 +29,11 @@ public class GamePlayerEntityView {
 	private Map<Integer, Map<String, Component>> entityMap;
 	private Map<Integer, Group> levelEntityMap;
 	private DataGameState gameState;
-	private GameInitializer gameInitializer;
-	private InputHandler inputHandler;
 
+	private GameInitializer GI;
+	private InputHandler inputHandler;
+	private RenderManager RM;
+	
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
 		gameState = DataRead.loadPlayerFile(gameFile);
@@ -41,8 +41,8 @@ public class GamePlayerEntityView {
 
 		levelEntityMap = createEntityGroupMap(levelMap);
 
-		for(Level level : levelMap.keySet()) {
-			entityMap = levelMap.get(level);
+		for (Level l : levelMap.keySet()) {
+			entityMap = levelMap.get(l);
 			break;
 		}
 		//method tht builds the entire levelEntityMap;
@@ -59,9 +59,6 @@ public class GamePlayerEntityView {
 	public Map<Integer, Group> getlevelEntityMap(){
 		return levelEntityMap;
 	}
-	//**************************************************************************
-	//TESTING PURPOSED FOR LEVEL SELECTOR
-
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
 	 * @param levelMap 
@@ -148,23 +145,26 @@ public class GamePlayerEntityView {
 	 * initialize the Game Initializer to create the systemManager and renderManager.
 	 * @throws FileNotFoundException
 	 */
-	private void initializeGamePlayerEntityView() {
+	public void initializeGamePlayerEntityView() {
+
 		try {
-			gameInitializer = new GameInitializer(entityMap);
+			GI  = new GameInitializer(entityMap);
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			System.out.println("You made it this far");
 			e.printStackTrace();
 		}
-		inputHandler = gameInitializer.getIH();
+
+		inputHandler = GI.getIH();
+		RM = GI.getRM();
 	}
 
 	public void execute (double time) {
-		gameInitializer.execute(time);
+		GI.getSM().execute(time);
 	}
 
 	public void render() {
-		gameInitializer.render();
+		RM.renderObjects();
+		RM.garbageCollect();
 	}
 
 	public void setInput(KeyCode code){
