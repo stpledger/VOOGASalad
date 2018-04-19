@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import authoring.views.properties.LocalPropertiesView;
+import data.DataRead;
 import engine.components.Component;
 import engine.components.Damage;
 import engine.components.Dimension;
@@ -13,6 +14,7 @@ import engine.components.EntityType;
 import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 
@@ -92,6 +94,16 @@ public abstract class Entity extends ImageView {
 			if (this.contains(c))
 				this.removeByName(c.getKeyKey());
 			this.components.add(c);
+		}
+	}
+	
+	/**
+	 * Adds all the components in the list to the entity
+	 * @param componentList List<Component>
+	 */
+	public void addAll(List<Component> componentList) {
+		for(Component c: componentList) {
+			this.add(c);
 		}
 	}
 
