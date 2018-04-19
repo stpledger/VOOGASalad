@@ -89,6 +89,10 @@ public class EntityBuilderView{
 		root.setTop(topMenu);
 		root.setLeft(leftPanel);
 		root.setBottom(bottomMenu);
+		GridPane tempGridPane = new GridPane();
+		tempGridPane.getStyleClass().add("component-form");
+		root.setCenter(tempGridPane);
+		root.getStyleClass().add("entity-builder-view");
 		
 	}
 
@@ -175,13 +179,11 @@ public class EntityBuilderView{
 	/**
 	 * ScrollPane that holds the current properties of an Entity
 	 */
-	private class LeftPanel extends ScrollPane {
-		private VBox vBox;
+	private class LeftPanel extends VBox {
 		private ImageView imageView;
 		public LeftPanel() {
 			this.setWidth(LEFT_PANEL_WIDTH);
-			vBox = new VBox();
-			this.setContent(vBox);
+			this.getStyleClass().add("left-panel");
 			buildPanel();
 		}
 		/**
@@ -193,7 +195,7 @@ public class EntityBuilderView{
 			imageView.setFitWidth(LEFT_PANEL_WIDTH);
 			imageView.setFitHeight(LEFT_PANEL_WIDTH);
 			imageView.setImage(new Image("mario.png"));
-			vBox.getChildren().add(imageView);
+			this.getChildren().add(imageView);
 			
 		}
 		
@@ -209,6 +211,7 @@ public class EntityBuilderView{
 	 * Bottom Menu of the EntityBuilderView
 	 */
 	private class BottomMenu extends HBox {
+
 		public BottomMenu() {
 			this.setAlignment(Pos.CENTER_RIGHT);
 			this.getStyleClass().add("toolbar");
@@ -221,13 +224,16 @@ public class EntityBuilderView{
 		 * Builds the menu
 		 */
 		private void buildMenu() {
-			//Create Save Button
 			Button saveButton = new Button("Save");
 			saveButton.setOnMouseClicked((e)->{
 					for(EntityComponentForm componentForm : activeForms) {
 						Object[] tempArr = componentForm.buildComponent();
 						if(tempArr != null) {
-						componentAttributes.put(componentForm.getClass(), tempArr);
+						try {
+							componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
+						} catch (ClassNotFoundException e1) {
+							System.out.println("Error Trying to Save New Entity");
+						}
 						}
 					}
 					onClose.accept(myEntityType, componentAttributes);
@@ -243,6 +249,7 @@ public class EntityBuilderView{
 	 */
 	public Node fillComponentsForms() {
 			GridPane gridPane = new GridPane();
+			gridPane.getStyleClass().add("component-form");
 			int currentRow = 0;
 			this.activeForms = new ArrayList<>();
 			for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + myEntityType).keySet()) {
