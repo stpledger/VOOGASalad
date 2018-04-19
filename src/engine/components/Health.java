@@ -24,10 +24,6 @@ public class Health extends Component {
 	public void setHealth(double health) {
 		this.health = health;
 	}
-	
-	public static String getKey() {
-		return KEY;
-	}
 
 	@Override
 	public Map<String, String> getParameters(){
