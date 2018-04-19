@@ -36,7 +36,6 @@ public class LevelView extends ScrollPane {
 		this.setContent((contentPane));
 		this.getStyleClass().add("level-view-wrapper");
 		this.setupMouseClick(levelNum);
-		this.contentPane.getStyleClass().add("level-content-view");
 	}
 
 	/**
