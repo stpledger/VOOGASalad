@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataWrite;
 import engine.Engine;
@@ -13,7 +14,6 @@ import engine.InternalEngine;
 import engine.components.*;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
-import frontend.components.Level;
 import javafx.scene.input.KeyCode;
 
 public class TestGameState {

@@ -5,8 +5,8 @@ import java.util.Set;
 
 import GamePlayer.GamePlayerController;
 import GamePlayer.GamePlayerEntityView;
+import authoring.gamestate.Level;
 import engine.components.Component;
-import frontend.components.Level;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
