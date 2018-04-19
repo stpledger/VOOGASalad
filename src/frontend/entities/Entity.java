@@ -53,7 +53,7 @@ public abstract class Entity extends ImageView {
         };
         this.setOnMouseClicked(e -> {
         		if (e.getButton().equals(MouseButton.SECONDARY)) {
-        			LocalPropertiesView LPV = new LocalPropertiesView(this.getID(), this.type(), onSubmit);
+        			LocalPropertiesView LPV = new LocalPropertiesView(this, onSubmit);
         			LPV.open();
         		}
         }); 
@@ -137,7 +137,7 @@ public abstract class Entity extends ImageView {
      * @param name the name of the component to check
      * @return true iff the component already belongs to this entity
      */
-    private boolean contains(String name) {
+    public boolean contains(String name) {
     		for (Component existing : this.components) {
     			if (existing.getKeyKey().equals(name))
     				return true;
@@ -219,6 +219,19 @@ public abstract class Entity extends ImageView {
 
     public List<Component> getComponentList(){
     		return this.components;
+    }
+    
+    /**
+     * Get a component by name
+     */
+    public Component get(String name) {
+    		for (Component c : this.components) {
+    			System.out.println(c.getKeyKey() + " exists.");
+    			if (c.getKeyKey().equals(name)) {
+    				return c;
+    			}
+    		}
+    		return null;
     }
 
 }

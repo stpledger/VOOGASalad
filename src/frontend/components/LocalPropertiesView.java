@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import engine.components.Component;
+import frontend.entities.Entity;
 import frontend.factories.ElementType;
 import javafx.scene.control.Button;
 import java.util.function.Consumer;
@@ -23,17 +24,17 @@ public class LocalPropertiesView extends PropertiesView {
 	private final String SUBMIT_TEXT = "Submit Changes";
 	private List<PropertiesComponentForm> activeForms;
 	private Consumer<List<Component>> onSubmit;
-	private int entityID;
+	private Entity entity;
 	private String type;
 	
 	/**
 	 * Initialize the object with a given broadcast method
 	 * @param entityNumber
 	 */
-	public LocalPropertiesView(int entityID, String type, Consumer<List<Component>> onSubmit) {
+	public LocalPropertiesView(Entity entity, Consumer<List<Component>> onSubmit) {
 		super();
-		this.entityID = entityID;
-		this.type = type;
+		this.entity = entity;
+		this.type = entity.type();
 		this.onSubmit = onSubmit;
 		this.fill();
 	}
@@ -46,7 +47,13 @@ public class LocalPropertiesView extends PropertiesView {
 		int currentRow = 0;
 		this.activeForms = new ArrayList<>();
 		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + type).keySet()) {
-			PropertiesComponentForm cf = new PropertiesComponentForm(this.entityID, property);
+			PropertiesComponentForm cf;
+			if (!entity.contains(property)) {
+				cf = new PropertiesComponentForm(entity.getID(), property);
+			} else {
+				System.out.println(entity.get(property).getParameters());
+				cf = new PropertiesComponentForm(entity.getID(), property, entity.get(property).getParameters());
+			}
 			this.activeForms.add(cf);
 			getRoot().add(cf, 0, currentRow++);
 		}
@@ -74,7 +81,7 @@ public class LocalPropertiesView extends PropertiesView {
 	 */
 	@Override
 	public String title() {
-		return String.format("Entity %d Local Properties", this.entityID);
+		return String.format("Entity %d Local Properties", this.entity.getID());
 	}
 	
 }
