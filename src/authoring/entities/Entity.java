@@ -50,7 +50,7 @@ public abstract class Entity extends ImageView {
 		};
 		this.setOnMouseClicked(e -> {
 			if (e.getButton().equals(MouseButton.SECONDARY)) {
-				LocalPropertiesView LPV = new LocalPropertiesView(this.getID(), this.type(), onSubmit);
+				LocalPropertiesView LPV = new LocalPropertiesView(this, onSubmit);
 				LPV.open();
 			}
 		}); 
@@ -202,6 +202,20 @@ public abstract class Entity extends ImageView {
 	 */
 	public int getID() {
 		return this.ID;
+	}
+	
+	/**
+	 * Get a component by name.
+	 * @param name the name of the component needed
+	 * @return component defined by this string name
+	 */
+	public Component get(String name) {
+		for (Component c : this.components) {
+			if (c.getKeyKey().equals(name)) {
+				return c;
+			}
+		}
+		return null;
 	}
 
 	/**
