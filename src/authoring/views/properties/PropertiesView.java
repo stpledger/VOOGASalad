@@ -37,6 +37,7 @@ public abstract class PropertiesView {
 	public void open() {
 		stage = new Stage();
 		stage.setTitle(this.title());
+		root.getStyleClass().add("properties-view");
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		stage.getScene().getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		stage.show();

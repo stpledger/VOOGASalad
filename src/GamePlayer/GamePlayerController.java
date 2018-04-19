@@ -79,13 +79,17 @@ public class GamePlayerController {
 				pauseMenu.show(myStage);
 			// SORRY
 			} else {
-				gameView.setInput(e.getCode());
+				if(gameView != null) {
+					gameView.setInput(e.getCode());
+				}
 			}
 		});
 
 		myScene.setOnKeyReleased(e -> {
 			if(e.getCode() != KeyCode.ESCAPE) {
-				gameView.removeInput(e.getCode());
+				if(gameView != null) {
+					gameView.removeInput(e.getCode());
+				}
 			}
 		});
 		return myScene;
@@ -101,6 +105,7 @@ public class GamePlayerController {
 
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
+		
 
 		levelEntityGroupMap = gameView.getlevelEntityMap();
 		gameRoot = levelEntityGroupMap.get(1);
@@ -128,8 +133,11 @@ public class GamePlayerController {
 	 * @param level to be loaded
 	 */
 	public void changeGameLevel(int level) {
+		gameRoot = levelEntityGroupMap.get(level);
+		//gameView.initializeGamePlayerEntityView(level);
+
 		pane.getChildren().clear();
-		pane.getChildren().addAll(levelEntityGroupMap.get(level));
+		pane.getChildren().addAll(gameRoot);
 	}
 	
 	public Map<Integer, Group> getGameLevelRoot(){

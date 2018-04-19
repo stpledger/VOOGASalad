@@ -17,10 +17,13 @@ public class EntityComponentForm extends AbstractComponentForm{
 		this.name = name;
 		fields = new ArrayList<>();
 		int col = 0;
-		this.add(new Label(name), col++, 0);
+		Label label = new Label(name);
+		label.getStyleClass().add("component-form-label");
+		this.add(label, col++, 0);
 		this.numFields = getNumFields(name);
 		for (int i = 0; i < (numFields-1); i++) {
 			TextField tf = new TextField();
+			tf.getStyleClass().add("component-text-field");
 			fields.add(tf);
 			this.add(tf, col++, 0);
 		}
@@ -35,7 +38,6 @@ public class EntityComponentForm extends AbstractComponentForm{
 		if (!validComponent()) return null;
 		String fullName =  COMPONENT_PREFIX + this.name;
 		Object[] params = new Object[fields.size()];
-		System.out.println(fields.size());
 		try {
 			Class<?> clazz = Class.forName(fullName);
 			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
@@ -50,5 +52,9 @@ public class EntityComponentForm extends AbstractComponentForm{
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public String getName() {
+		return this.name;
 	} 
 }

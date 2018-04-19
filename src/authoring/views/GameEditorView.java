@@ -117,6 +117,7 @@ public class GameEditorView extends BorderPane {
 			tabsList.remove(t);
 			updateTabs.accept(tabsList);
 		});
+
 		levelView.getContent().setOnMouseReleased((e)->{
 			if (e.getButton().equals(MouseButton.PRIMARY) && !drag) addEntity.accept(e);
 			drag = false;
@@ -353,6 +354,7 @@ public class GameEditorView extends BorderPane {
 		for(Component c : componentArrayList) { //Add all the components
 			entity.add(c);
 		}
+		nextID++;
 		return entity;
 	}
 

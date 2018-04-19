@@ -43,8 +43,8 @@ public class SplashScreen extends VBox {
 		}
 		
 		//Set the basics
-		this.setWidth(200);
-		this.setHeight(200);
+		this.setWidth(400);
+		this.setHeight(300);
 		this.setAlignment(Pos.CENTER);
 		this.getStyleClass().add("root");
 		this.getStyleClass().add("splash-screen-wrapper");
