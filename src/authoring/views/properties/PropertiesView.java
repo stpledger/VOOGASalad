@@ -19,6 +19,7 @@ public abstract class PropertiesView {
 	private GridPane root;
 	private Stage stage;
 	private final String RESOURCES = "resources.views.Properties/";
+	private final String BUTTON_RESOURCES = "resources.views.Properties/ButtonProperties";
 	private ElementFactory eFactory = new ElementFactory();
 
 	/**
@@ -69,6 +70,10 @@ public abstract class PropertiesView {
 	
 	protected String getResourcesFilePath() {
 		return this.RESOURCES;
+	}
+	
+	protected String getButtonResourcesFilePath() {
+		return this.BUTTON_RESOURCES;
 	}
 	
 	protected ElementFactory getElementFactory() {

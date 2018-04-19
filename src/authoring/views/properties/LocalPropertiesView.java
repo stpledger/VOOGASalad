@@ -58,9 +58,9 @@ public class LocalPropertiesView extends PropertiesView {
 			this.activeForms.add(cf);
 			getRoot().add(cf, 0, currentRow++);
 		}
-		Button submit;
+		
 		try {
-			submit = (Button) this.getElementFactory().buildElement(ElementType.Button, SUBMIT_TEXT);
+			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, SUBMIT_TEXT);
 			submit.setOnAction(e->{
 				List<Component> componentsToAdd = new ArrayList<>();
 				for (PropertiesComponentForm cf : this.activeForms) {

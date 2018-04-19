@@ -1,5 +1,7 @@
 package authoring.entities;
 
+import java.io.FileNotFoundException;
+
 /**
  * 
  * @author Hemanth Yakkali
@@ -21,7 +23,11 @@ public class Block extends Entity{
 		this.setHealth(BLOCK_HEALTH);
 		this.setEntityType(TYPE);
 		this.setDimension(BLOCK_DIMENSION, BLOCK_DIMENSION);
-		// TODO add method to set sprite
+		try {
+			this.setSprite("data/images/block.png");
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

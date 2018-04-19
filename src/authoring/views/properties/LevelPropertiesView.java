@@ -37,6 +37,7 @@ public class LevelPropertiesView extends PropertiesView{
 	@Override
 	protected void fill() {
 		ResourceBundle levelProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"LevelProperties");
+		ResourceBundle buttonProps = ResourceBundle.getBundle(this.getButtonResourcesFilePath());
 		try {
 			int currentRow = 0;
 			for (String property : levelProps.keySet()) {
@@ -48,7 +49,7 @@ public class LevelPropertiesView extends PropertiesView{
 			TextField diffText = (TextField) eFactory.buildElement(ElementType.TextField,text);
 			NumberField timeNumber = (NumberField) eFactory.buildElement(ElementType.NumberField,text);
 			NumberField distNumber = (NumberField) eFactory.buildElement(ElementType.NumberField,text);
-			Button button = (Button) eFactory.buildElement(ElementType.Button,levelProps.getString("Submit"));
+			Button button = (Button) eFactory.buildElement(ElementType.Button,buttonProps.getString("Submit"));
 			button.setOnAction(e->{
 				level.setLevelInfo(infoText.getText());
 				level.setLevelDifficulty(diffText.getText());
