@@ -99,7 +99,7 @@ public class SplashScreen extends VBox {
 		try {
 			method.invoke(this, null);
 		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
-			
+			e1.printStackTrace();
 		}});
 		return b;	
 	}

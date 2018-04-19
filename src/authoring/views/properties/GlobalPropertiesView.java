@@ -19,7 +19,6 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	private List<Level> levels;
 	private final String NAME = "Global Properties";
-	private final String SUBMIT = "Submit";
 	
 	public GlobalPropertiesView(List<Level> ls){
 		super();
@@ -35,24 +34,26 @@ public class GlobalPropertiesView extends PropertiesView {
 	@Override
 	protected void fill() {
 		ResourceBundle globalProps = ResourceBundle.getBundle(this.getResourcesFilePath()+NAME.replace(" ", ""));
+		ResourceBundle buttonProps = ResourceBundle.getBundle(this.getButtonResourcesFilePath());
 		try {
 			int currentRow = 0;
-			//TODO update text to be something meaningful from properties files
-			TextField titleInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, NAME);
-			NumberField livesInput = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField, NAME);
-			TextField pathInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, NAME);
+			TextField titleInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, globalProps.getString("Title").split(",")[1]);
+			NumberField livesInput = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField, globalProps.getString("Lives").split(",")[1]);
+			TextField pathInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, globalProps.getString("Filepath").split(",")[1]);
 			for(String property:globalProps.keySet()) {
-				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label, globalProps.getString(property));
+				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label, globalProps.getString(property).split(",")[0]);
 				getRoot().addRow(currentRow++, label);
 			}
-			getRoot().addColumn(1,titleInput,livesInput,pathInput);
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, globalProps.getString("Submit"));
+			getRoot().addColumn(1,livesInput,titleInput,pathInput);
+			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, buttonProps.getString("Submit"));
 			submit.setOnAction(e->{
 				for(Level level : levels) {
-					level.addGProp(globalProps.getString("Title"), titleInput.getText());
-					level.addGProp(globalProps.getString("Lives"), livesInput.getText());
-					level.addGProp(globalProps.getString("Filepath"), pathInput.getText());
+					level.addGProp(globalProps.getString("Title").split(",")[0], titleInput.getText());
+					level.addGProp(globalProps.getString("Lives").split(",")[0], livesInput.getText());
+					level.addGProp(globalProps.getString("Filepath").split(",")[0], pathInput.getText());
 				}
+				this.makeAlert(this.title()+" has been saved!");
+				this.close();
 			});
 			getRoot().add(submit, 0, currentRow++);
 		} catch (Exception e1) {

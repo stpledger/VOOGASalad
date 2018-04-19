@@ -7,6 +7,10 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import authoring.entities.Background;
+import authoring.entities.Block;
+import authoring.entities.Enemy;
+import authoring.entities.Player;
 import data.DataRead;
 import engine.components.Sprite;
 import javafx.beans.property.ObjectProperty;
@@ -37,6 +41,12 @@ public class EntityTab extends Tab{
 	public EntityTab(String name, double entityViewWidth) {
 		super(name);
 		myEntityViewWidth = entityViewWidth;
+		
+		Block block = new Block(0);
+		Enemy enemy = new Enemy(0);
+		Player player = new Player(0);
+		Background bgrnd =  new Background(0);
+		
 		this.setClosable(false);
 		this.getStyleClass().add("entity-tab");
 		assemble();
@@ -96,7 +106,6 @@ public class EntityTab extends Tab{
 			componentAttributes = m;
 			image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 			type = t;
-			componentAttributes = m;
 			imageView = new ImageView(image);
 			imageView.setFitHeight(boxDimension-20);
 			imageView.setFitWidth(boxDimension-20);

@@ -4,6 +4,8 @@ import authoring.MainApplication;
 import authoring.factories.ElementFactory;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 /**
@@ -19,6 +21,7 @@ public abstract class PropertiesView {
 	private GridPane root;
 	private Stage stage;
 	private final String RESOURCES = "resources.views.Properties/";
+	private final String BUTTON_RESOURCES = "resources.views.Properties/ButtonProperties";
 	private ElementFactory eFactory = new ElementFactory();
 
 	/**
@@ -47,6 +50,13 @@ public abstract class PropertiesView {
 		stage.close();
 	}
 	
+	protected Alert makeAlert(String content) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setContentText(content);
+		alert.show();
+		return alert;
+	}
+	
 	/**
 	 * Fills the window with the appropriate names and fields.
 	 * @param fields a map with component names that map {@code true} if the box should be strictly numeric, and {@code false} if not.
@@ -69,6 +79,10 @@ public abstract class PropertiesView {
 	
 	protected String getResourcesFilePath() {
 		return this.RESOURCES;
+	}
+	
+	protected String getButtonResourcesFilePath() {
+		return this.BUTTON_RESOURCES;
 	}
 	
 	protected ElementFactory getElementFactory() {
