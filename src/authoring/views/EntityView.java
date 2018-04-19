@@ -29,7 +29,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
 public class EntityView extends BorderPane {
-	private double entityViewWidth = 300;
+	public final static  int ENITITY_VIEW_WIDTH = 300;
 	private ArrayList<String> tabsList = new ArrayList<String>();
 	private Object clipboard;
 	private ArrayList<String> entityTypes = new ArrayList<String>();
@@ -39,7 +39,7 @@ public class EntityView extends BorderPane {
 	public EntityView(Consumer ch) {
 		super();
 		clipboardHandler = ch;
-		this.setPrefWidth(entityViewWidth);
+		this.setPrefWidth(ENITITY_VIEW_WIDTH);
 		this.getStyleClass().add("entity-view");
 		this.setTop(new Toolbar("Entities", consumerMap));
 		this.setCenter(tabPane);
@@ -64,7 +64,7 @@ public class EntityView extends BorderPane {
 
 	private void addTab(String type) {
 		ClipboardListener c = new ClipboardListener();
-		EntityTab temp = new EntityTab(type, entityViewWidth);
+		EntityTab temp = new EntityTab(type, ENITITY_VIEW_WIDTH);
 		temp.getSelectedElementProperty().addListener(c);
 		tabPane.getTabs().add(temp);
 	}
