@@ -1,5 +1,6 @@
 package authoring.views.properties;
 
+import authoring.MainApplication;
 import authoring.factories.ElementFactory;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -37,6 +38,7 @@ public abstract class PropertiesView {
 		stage = new Stage();
 		stage.setTitle(this.title());
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
+		stage.getScene().getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		stage.show();
 	}
 	

@@ -58,6 +58,10 @@
 .level-view-wrapper{
 }
 
+.level-content-view{
+	-fx-background-color:blue;
+}
+
 .entity-builder-view-button{
 	-fx-background-color: transparent;
 	-fx-font-weight: bold;
