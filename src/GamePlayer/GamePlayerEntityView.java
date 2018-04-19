@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
+
+import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataRead;
 import engine.components.Component;
@@ -12,7 +14,6 @@ import engine.components.Position;
 import engine.components.Sprite;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
-import frontend.components.Level;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
