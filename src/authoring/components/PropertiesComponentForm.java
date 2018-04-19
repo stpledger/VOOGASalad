@@ -19,7 +19,7 @@ import javafx.scene.layout.GridPane;
  */
 public class PropertiesComponentForm extends AbstractComponentForm {
 
-
+	private final String PROP_FILE = "authoring.properties.Components.properties";
 	private int entity;
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
