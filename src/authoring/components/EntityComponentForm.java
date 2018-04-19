@@ -52,5 +52,9 @@ public class EntityComponentForm extends AbstractComponentForm{
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public String getName() {
+		return this.name;
 	} 
 }

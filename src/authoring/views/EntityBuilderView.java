@@ -211,6 +211,7 @@ public class EntityBuilderView{
 	 * Bottom Menu of the EntityBuilderView
 	 */
 	private class BottomMenu extends HBox {
+
 		public BottomMenu() {
 			this.setAlignment(Pos.CENTER_RIGHT);
 			this.getStyleClass().add("toolbar");
@@ -223,13 +224,16 @@ public class EntityBuilderView{
 		 * Builds the menu
 		 */
 		private void buildMenu() {
-			//Create Save Button
 			Button saveButton = new Button("Save");
 			saveButton.setOnMouseClicked((e)->{
 					for(EntityComponentForm componentForm : activeForms) {
 						Object[] tempArr = componentForm.buildComponent();
 						if(tempArr != null) {
-						componentAttributes.put(componentForm.getClass(), tempArr);
+						try {
+							componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
+						} catch (ClassNotFoundException e1) {
+							System.out.println("Error Trying to Save New Entity");
+						}
 						}
 					}
 					onClose.accept(myEntityType, componentAttributes);

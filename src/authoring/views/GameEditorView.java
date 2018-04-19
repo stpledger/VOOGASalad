@@ -354,6 +354,7 @@ public class GameEditorView extends BorderPane {
 		for(Component c : componentArrayList) { //Add all the components
 			entity.add(c);
 		}
+		nextID++;
 		return entity;
 	}
 
