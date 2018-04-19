@@ -83,7 +83,7 @@ public class EntityView extends BorderPane {
 	/**
 	 * Called when a EntityBuilderView is closed
 	 * @param entityType String representing the type of entity that this object represents
-	 * @param componentAttributes Image file corresponding to the Sprite Image for this object.
+	 * @param componentAttributes Map<Class, Object[]> representing the class of a component and an object[] representing all the arguments the component takes in
 	 */
 	public void saveEntity(String entityType, Map<Class, Object[]> componentAttributes) {
 		//Turn the imageFile into a usableImage

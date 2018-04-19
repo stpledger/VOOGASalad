@@ -53,15 +53,16 @@ public class EntityBuilderView{
 	private final int LEFT_PANEL_WIDTH = 200;
 	private final String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final String COMPONENT_PREFIX = "engine.components.";
-	private TopMenu topMenu;
+	private MenuBar topMenu;
 	private BottomMenu bottomMenu;
-	private LeftPanel leftPanel;
+	private VBox leftPanel;
 	private BorderPane root;
 	private ArrayList<String> entityTypes;
 	private String myEntityType;
 	private Stage stage;
 	private File imageFile;
 	private Image image;
+	private ImageView entityPreview = new ImageView(new Image("no_image"));
 	private List<EntityComponentForm> activeForms;
 	private List<String> imageExtensions = Arrays.asList(new String[] {".jpg",".png",".jpeg"});
 	private BiConsumer<String, Map<Class, Object[]>> onClose;
@@ -82,17 +83,17 @@ public class EntityBuilderView{
 	 * Builds the view to be displayed
 	 */
 	private void build() {
-		root = new BorderPane();
-		topMenu = new TopMenu();
-		bottomMenu = new BottomMenu();
-		leftPanel = new LeftPanel();
-		root.setTop(topMenu);
-		root.setLeft(leftPanel);
-		root.setBottom(bottomMenu);
+		this.root = new BorderPane();
+		this.topMenu = buildTopBar();
+		this.bottomMenu = new BottomMenu();
+		this.leftPanel = buildLeftPanel();
+		this.root.setTop(topMenu);
+		this.root.setLeft(leftPanel);
+		this.root.setBottom(bottomMenu);
 		GridPane tempGridPane = new GridPane();
 		tempGridPane.getStyleClass().add("component-form");
-		root.setCenter(tempGridPane);
-		root.getStyleClass().add("entity-builder-view");
+		this.root.setCenter(tempGridPane);
+		this.root.getStyleClass().add("entity-builder-view");
 		
 	}
 
@@ -107,19 +108,60 @@ public class EntityBuilderView{
 		stage.setScene(s);
 		stage.show();
 	}
-
-	private class TopMenu extends MenuBar {
-		public TopMenu() {
-			this.getStyleClass().add("toolbar");
-			this.setWidth(WIDTH);
-			buildMenu();
+	
+	/**
+	 * Builds the top menu Bar of the EntityBuilderView
+	 * @return MenuBar representing the toolbar
+	 */
+	private MenuBar buildTopBar() {
+			MenuBar menuBar = new MenuBar();
+			menuBar.getStyleClass().add("toolbar");
+			menuBar.setMinWidth(WIDTH);
+			menuBar.getMenus().add(buildTypeMenu());
+			menuBar.getMenus().add(buildImageMenu());
+			return menuBar;
 		}
 
-		private void buildMenu() {
-			//Create Entity Type selector
+	/**
+	 * Builds a menu for managing images of entities
+	 * @return a Menu for handling adding and removing images
+	 */
+	private Menu buildImageMenu() {
+		Menu imageMenu = new Menu();
+		imageMenu.setText("Image");
+		MenuItem addImage = new MenuItem();
+		addImage.setText("Add");
+		addImage.setOnAction((e)->{
+			FileChooser fileChooser = new FileChooser();
+			fileChooser.setTitle("Open Image File");
+			fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
+			imageFile = fileChooser.showOpenDialog(stage);
+			try {
+				componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
+				DataRead.importImage( imageFile);
+				image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
+			} catch (Exception e1){
+				System.out.println("Error loading image");
+			}
+			updateEntityPreview(image);
+		});
+		return imageMenu;
+		}
+	/**
+	 * Updates the image previews 
+	 * @param i
+	 */
+	private void updateEntityPreview(Image i) {
+		entityPreview = new ImageView(i);
+		entityPreview.setFitHeight(LEFT_PANEL_WIDTH);
+		entityPreview.setFitWidth(LEFT_PANEL_WIDTH);
+		//TODO: Make this handle things other than squares
+		
+	}
+		private Menu buildTypeMenu() {
 			Menu typeMenu = new Menu();
 			typeMenu.setText("Object Type");
-			typeMenu.getStyleClass().add(".entity-builder-combo-box"); //TODO: Make the arrow reappear so people know we mean business
+			typeMenu.getStyleClass().add(".entity-builder-combo-box"); 
 			for(String et : entityTypes) {
 				MenuItem menuItem = new MenuItem();
 				menuItem.setText(et);
@@ -129,83 +171,19 @@ public class EntityBuilderView{
 					root.setCenter(fillComponentsForms());
 					});
 				typeMenu.getItems().add(menuItem);
-			}
-			this.getMenus().add(typeMenu);
-			
-			//Create the Image Menu
-			Menu imageMenu = new Menu();
-			imageMenu.setText("Image");
-			//Menu item for loading a new image
-			MenuItem addImage = new MenuItem();
-			addImage.setText("Add");
-			addImage.setOnAction((e)->{
-				//Handles choosing a new file
-				FileChooser fileChooser = new FileChooser();
-				fileChooser.setTitle("Open Image File");
-				fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
-				imageFile = fileChooser.showOpenDialog(stage);
-				//TODO:copy the image to the data folder
-				//Build the spriteComponent for a given entity
-				try {
-					componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
-					DataRead.importImage( imageFile);
-				}
-				catch (Exception e1) {
-					e1.printStackTrace();
-				}
-
-				try {
-					image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
-				} catch (IOException e1) {
-					System.out.println("Error loading image");
-				}
-				leftPanel.setNewImage(image);
-			});
-			imageMenu.getItems().add(addImage);	
-			
-			//Menu item for removing an image
-			MenuItem removeImage = new MenuItem();
-			removeImage.setText("Remove");
-			removeImage.setOnAction((e)->{
-				imageFile = null;
-				image = null;
-				leftPanel.setNewImage(new Image("Mario.png"));
-			});
-			imageMenu.getItems().add(removeImage);
-			this.getMenus().add(imageMenu);
-			}
-
-	}
-	/**
-	 * ScrollPane that holds the current properties of an Entity
-	 */
-	private class LeftPanel extends VBox {
-		private ImageView imageView;
-		public LeftPanel() {
-			this.setWidth(LEFT_PANEL_WIDTH);
-			this.getStyleClass().add("left-panel");
-			buildPanel();
+			}	
+			return typeMenu;
 		}
-		/**
-		 * Builds the left-side Panel
-		 */
-		private void buildPanel() {
-			//Create an Image View
-			imageView = new ImageView();
-			imageView.setFitWidth(LEFT_PANEL_WIDTH);
-			imageView.setFitHeight(LEFT_PANEL_WIDTH);
-			imageView.setImage(new Image("mario.png"));
-			this.getChildren().add(imageView);
+	
+	
+	private VBox buildLeftPanel() {
+		VBox vBox = new VBox();
+		entityPreview = new ImageView();
+		vBox.setMinWidth(LEFT_PANEL_WIDTH);
+		vBox.getStyleClass().add("left-panel");
+		vBox.getChildren().add(entityPreview);
+		}
 			
-		}
-		
-		/**
-		 * Set the current image being displayed in the properties panel
-		 */
-		public void setNewImage(Image i) {
-			imageView.setImage(i);
-		}
-	}
 	
 	/**
 	 * Bottom Menu of the EntityBuilderView

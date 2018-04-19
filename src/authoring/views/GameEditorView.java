@@ -238,8 +238,11 @@ public class GameEditorView extends BorderPane {
 		}
 	}
 
-
-	private Entity createEntityFromComponentList(Integer entityID, List<Component> componentList) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
+	/**
+	 * Creates a component with the ID and a List of components
+	 * @return entity 
+	 */
+	private Entity createEntityFromComponentList(Integer entityID, List<Component> componentList) throws Exception{
 		Entity entity = null;
 		for(Component c : componentList) {
 			if(c.getKeyKey().equals("EntityType")) {
