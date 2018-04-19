@@ -3,8 +3,7 @@ package engine.systems.collisions;
 import java.util.Map;
 
 import engine.components.Component;
-import engine.components.Damage;
-import engine.components.DamageLauncher;
+import engine.components.groups.Damage;
 import engine.setup.EntityManager;
 
 public class DamageHandler {
@@ -17,7 +16,7 @@ public class DamageHandler {
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
 		//System.out.println("in damage handler");
-		if(collider.containsKey(DamageLauncher.KEY) || player.containsKey(DamageLauncher.KEY)) {
+		if(collider.containsKey(Damage.KEY) || player.containsKey(DamageLauncher.KEY)) {
 			if(player.containsKey(DamageLauncher.KEY)) {
 				DamageLauncher launcher = (DamageLauncher)player.get(DamageLauncher.KEY);
 				int newPid = launcher.getParentID();

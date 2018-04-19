@@ -35,8 +35,8 @@ import authoring.views.properties.GlobalPropertiesView;
 import authoring.views.properties.HUDPropertiesView;
 import engine.components.Component;
 import engine.components.EntityType;
-import engine.components.Position;
 import engine.components.Sprite;
+import engine.components.groups.Position;
 import data.DataRead;
 import data.DataWrite;
 
@@ -250,7 +250,7 @@ public class GameEditorView extends BorderPane {
 		Entity entity = null;
 		for(Component c : componentList) {
 			if(c.getKey().equals("EntityType")) {
-				String entityType = ((EntityType)c).getType();
+				String entityType = ((EntityType)c).getData();
 				Class entityTypeClass = Class.forName("authoring.entities." + entityType);
 				entity = createEntityFromType(entityTypeClass, entityID);	
 			}
@@ -258,7 +258,7 @@ public class GameEditorView extends BorderPane {
 		for(Component c : componentList) {
 			entity.add(c);
 			if(c.getKey().equals("Sprite")) {
-				Image image = DataRead.loadImage(((Sprite) c).getName());	
+				Image image = DataRead.loadImage(((Sprite) c).getData());	
 				entity.setImage(image);
 			} else if(c.getKey().equals("Position")) {
 				Position p = (Position) c;

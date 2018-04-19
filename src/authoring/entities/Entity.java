@@ -7,12 +7,12 @@ import java.util.function.Consumer;
 
 import authoring.views.properties.LocalPropertiesView;
 import engine.components.Component;
-import engine.components.Damage;
-import engine.components.Dimension;
 import engine.components.EntityType;
 import engine.components.Health;
-import engine.components.Position;
 import engine.components.Sprite;
+import engine.components.groups.Damage;
+import engine.components.groups.Dimension;
+import engine.components.groups.Position;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 

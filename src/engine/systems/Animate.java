@@ -1,7 +1,7 @@
 package engine.systems;
 
 import engine.components.*;
-
+import engine.components.groups.Position;
 import engine.setup.EntityManager;
 import javafx.scene.image.ImageView;
 

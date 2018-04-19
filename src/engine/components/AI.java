@@ -9,7 +9,7 @@ import java.util.function.Consumer;
  *
  * @author cndracos
  */
-public class AI extends Component {
+public class AI {
 
     public static String KEY = "AI";
 
@@ -27,7 +27,6 @@ public class AI extends Component {
         action.accept(time);
     }
 
-	@Override
 	public Map<String, String> getParameters() {
 		// TODO Auto-generated method stub
 		return null;

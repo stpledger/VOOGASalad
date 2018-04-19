@@ -2,8 +2,8 @@ package engine.actions;
 
 import engine.components.Component;
 import engine.components.KeyInput;
-import engine.components.Position;
-import engine.components.Velocity;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
 import javafx.scene.input.KeyCode;
 
 import java.util.HashMap;

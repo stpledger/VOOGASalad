@@ -1,28 +1,15 @@
 package engine.components;
 
-import java.util.Map;
-
-public class Score extends Component{
-    private static String KEY ="Score";
-    private double score;
-
-	public Score(int pid) {
-		super(pid);
-		this.score=0;
-	}
-    
+public class Score extends SingleDataComponent {
 	
-	
-	@Override
-	public Map<String, String> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
+	public Score(int pid, double data) {
+		super(pid, data);
 	}
 
-
+	public static final String KEY = "Score";
 
 	public String getKey() {
 		return KEY;
 	}
-
+	
 }

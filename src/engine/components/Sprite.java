@@ -4,8 +4,6 @@ import java.io.FileNotFoundException;
 
 import data.DataRead;
 
-import java.util.*;
-
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 
@@ -16,29 +14,27 @@ import javafx.scene.image.ImageView;
  * @author fitzj
  * @author Yameng
  */
-public class Sprite extends Component {
+public class Sprite extends SingleStringComponent {
 	public static final String FILE_PATH ="File:";
 	public static final String IMAGE_PATH ="data\\";
+	
 	public static String KEY = "Sprite";
-	private String filename;
 
 	@XStreamOmitField
 	private transient ImageView image;
 
 	public Sprite(int pid, String path) throws FileNotFoundException {
-	    super(pid);
-		filename = path;
-		setImage(filename);
+	    super(pid, path);
+		setData(path);
 	}
 
-	public String getName() { return filename; }
-
 	public ImageView getImage() {
-		if (image == null) setImage(filename);
+		if (image == null) setData(getData());
 		return image;
 	}
 
-	public void setImage(String im) {
+	@Override
+	public void setData(String im) {
 
 		try {
 			image =new ImageView(DataRead.loadImage(im));
@@ -46,20 +42,7 @@ public class Sprite extends Component {
 			System.out.print("Cant load image no Application");
 		}
 	}
-	public String getImageFile()
-	{
-		return filename;
-	}
-
-	@Override
-	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<>();
-		res.put("Image", filename);
-		
-		return res;
-	}
-
-	@Override
+	
 	public String getKey() {
 		return KEY;
 	}

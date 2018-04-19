@@ -9,6 +9,8 @@ import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataRead;
 import engine.components.*;
+import engine.components.groups.Dimension;
+import engine.components.groups.Position;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;

@@ -3,10 +3,10 @@ package engine.systems.collisions;
 import java.util.*;
 
 import engine.components.Component;
-import engine.components.Dimension;
+import engine.components.groups.Dimension;
 
-import engine.components.Position;
-import engine.components.Velocity;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
 import engine.setup.EntityManager;
 import engine.systems.DefaultSystem;
 
@@ -81,22 +81,22 @@ public class Collision extends DefaultSystem{
 						
 						case Top:
 							p1.setYPos(p2.getYPos() - d1.getHeight());
-							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+							((Velocity)handledComponents.get(p1.getPID()).get(Velocity.KEY)).setYVel(0);
 							break;
 							
 						case Bot:
 							p1.setYPos(p2.getYPos() + d2.getHeight());
-							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+							((Velocity)handledComponents.get(p1.getPID()).get(Velocity.KEY)).setYVel(0);
 							break;
 							
 						case Left:
 							p1.setXPos(p2.getXPos() - d1.getWidth());
-							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							((Velocity)handledComponents.get(p1.getPID()).get(Velocity.KEY)).setXVel(0);
 							break;
 							
 						case Right:
 							p1.setXPos(p2.getXPos() + d2.getWidth());
-							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							((Velocity)handledComponents.get(p1.getPID()).get(Velocity.KEY)).setXVel(0);
 							break;
 						
 						}
