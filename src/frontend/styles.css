@@ -8,7 +8,8 @@
 * =============================================================
 * Splash Screen
 * =============================================================
-*/.splash-screen-wrapper {
+*/
+.splash-screen-wrapper {
 	-fx-background-color: tertiary-color;
 }
 
@@ -16,6 +17,7 @@
 	-fx-text-fill: primary-color;
 	-fx-background-color: transparent;
 	-fx-font-weight: bold;
+	-fx-font-size: 20px;
 }
 
 .splash-screen-button:hover {
@@ -57,25 +59,24 @@
 * Properties View
 * =============================================================
 */
-.entity-builder-view > .left-panel{
-	-fx-background-color: tertiary-color;
-}
-.properties-view {
-	-fx-background-color: tertiary-color;
-}
+
+
 
 .component-form{
 	-fx-background-color: tertiary-color;
 	-fx-text-fill: primary-color;
+ 	-fx-padding: 5px;
 }
 .component-text-field{
 	-fx-background-color: secondary-color;
 	-fx-text-fill: primary-color;
+ 	-fx-padding: 5px;
 }
 
 .component-form-label{
 	-fx-text-fill: primary-color;
 	-fx-font-weight: bold;
+	-fx-padding: 5px;
 }
 
 /*
@@ -109,6 +110,10 @@
 	-fx-stroke: primary-color;
 	-fx-stroke-width: 5;
 
+}
+
+.left-panel-vbox Label{
+	-fx-background-color: tertiary-color;
 }
 
 /*

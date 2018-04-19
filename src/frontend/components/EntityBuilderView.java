@@ -178,13 +178,10 @@ public class EntityBuilderView{
 	/**
 	 * ScrollPane that holds the current properties of an Entity
 	 */
-	private class LeftPanel extends ScrollPane {
-		private VBox vBox;
+	private class LeftPanel extends VBox {
 		private ImageView imageView;
 		public LeftPanel() {
 			this.setWidth(LEFT_PANEL_WIDTH);
-			vBox = new VBox();
-			this.setContent(vBox);
 			this.getStyleClass().add("left-panel");
 			buildPanel();
 		}
@@ -197,7 +194,7 @@ public class EntityBuilderView{
 			imageView.setFitWidth(LEFT_PANEL_WIDTH);
 			imageView.setFitHeight(LEFT_PANEL_WIDTH);
 			imageView.setImage(new Image("mario.png"));
-			vBox.getChildren().add(imageView);
+			this.getChildren().add(imageView);
 			
 		}
 		

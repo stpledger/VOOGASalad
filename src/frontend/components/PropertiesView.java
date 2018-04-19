@@ -35,7 +35,6 @@ public abstract class PropertiesView {
 		root.setAlignment(Pos.CENTER);
 		root.setHgap(GRID_SEPARATION);
 		root.setVgap(GRID_SEPARATION);
-		root.setStyle("properties-view");
 	}
 
 	/**
@@ -44,6 +43,7 @@ public abstract class PropertiesView {
 	public void open() {
 		stage = new Stage();
 		stage.setTitle(this.title());
+		root.getStyleClass().add("properties-view");
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		stage.show();
 	}
