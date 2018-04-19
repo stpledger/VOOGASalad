@@ -6,10 +6,7 @@ import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
 
-<<<<<<< HEAD:src/frontend/MainApplication.java
-=======
-import authoring.views.MainView;
->>>>>>> f0565b805adfe90d13c6ab762acd1b7af2b28029:src/authoring/MainApplication.java
+
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;

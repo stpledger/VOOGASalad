@@ -11,6 +11,7 @@ import java.util.Map;
 public abstract class Component {
 	
 	private int pid;
+
 	
 	/**
 	 * Constructs component with entity parent ID
@@ -19,6 +20,7 @@ public abstract class Component {
 	
 	
 	public Component(int pid) {
+
 		this.pid = pid;
 	}
 	
@@ -28,6 +30,7 @@ public abstract class Component {
 
 	public abstract String getKey();
 	
+
 	public abstract Map<String,String> getParameters();
 
 }

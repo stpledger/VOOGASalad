@@ -2,6 +2,13 @@ package engine.components;
 
 import java.util.Map;
 
+/**
+ * This is the player component that defines which entity on the screen is the 'player', or the person the user
+ * is controlling/following around. It can respawn, have a score and lives such that the game can run smoothly
+ * by following this component and the entity which contains it
+ *
+ * @author cndracos
+ */
 public class Player extends Component {
     public static String KEY = "Player";
 

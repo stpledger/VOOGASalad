@@ -248,7 +248,7 @@ public class GameEditorView extends BorderPane {
 	private Entity createEntityFromComponentList(Integer entityID, List<Component> componentList) throws NoSuchMethodException, SecurityException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException {
 		Entity entity = null;
 		for(Component c : componentList) {
-			if(c.getKeyKey().equals("EntityType")) {
+			if(c.getKey().equals("EntityType")) {
 				String entityType = ((EntityType)c).getType();
 				Class entityTypeClass = Class.forName("authoring.entities." + entityType);
 				entity = createEntityFromType(entityTypeClass, entityID);	
@@ -256,10 +256,10 @@ public class GameEditorView extends BorderPane {
 		}
 		for(Component c : componentList) {
 			entity.add(c);
-			if(c.getKeyKey().equals("Sprite")) {
+			if(c.getKey().equals("Sprite")) {
 				Image image = DataRead.loadImage(((Sprite) c).getName());	
 				entity.setImage(image);
-			} else if(c.getKeyKey().equals("Position")) {
+			} else if(c.getKey().equals("Position")) {
 				Position p = (Position) c;
 				entity.setX(p.getXPos());
 				entity.setY(p.getYPos());

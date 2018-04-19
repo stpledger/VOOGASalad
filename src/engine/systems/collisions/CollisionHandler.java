@@ -8,13 +8,11 @@ import engine.setup.EntityManager;
 
 public class CollisionHandler {
 	private String PLAYER = "player";
-	private VelocityHandler velocityHandler;
 	private DamageHandler damageHandler;
 	private SpriteHandler spriteHandler;
 	private LevelStatus levelStatus;
 	
 	public CollisionHandler(EntityManager em) {
-		velocityHandler = new VelocityHandler();
 		damageHandler = new DamageHandler(em);
 		spriteHandler = new SpriteHandler();
 		levelStatus = new LevelStatus();
@@ -41,7 +39,7 @@ public class CollisionHandler {
 	}
 	
 	private void handleCollision(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
-		velocityHandler.handle(playerID, player, colliderID, collider);
+		//System.out.println("In Collision handler");
 		damageHandler.handle(playerID, player, colliderID, collider);
 		//spriteHandler.handle(playerID, player, colliderID, collider);
 		levelStatus.handle(playerID, player, colliderID, collider);

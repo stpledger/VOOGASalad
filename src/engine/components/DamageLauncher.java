@@ -44,6 +44,7 @@ public class DamageLauncher extends Component {
 		return KEY;
 	}
 
+
 	@Override
 	public Map<String, String> getParameters(){
 		Map<String,String> res = new HashMap<>();

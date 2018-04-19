@@ -45,6 +45,7 @@ public class Position extends Component implements Cloneable {
 
 	public String getKey() { return KEY; }
 
+
 	@Override
 	public Position clone() {
 		try {
