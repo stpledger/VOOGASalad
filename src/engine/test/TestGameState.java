@@ -74,6 +74,7 @@ public class TestGameState {
 
 
 		EntityType type3 = new EntityType(2,"enermy");
+
 		Position p3 = new Position(2, 300, 100);
 		Dimension d3 = new Dimension(2, 100, 100);
 		Velocity v3 = new Velocity(2, 0, 0);
@@ -102,6 +103,7 @@ public class TestGameState {
 
 
 		entities.put(0, mario);
+
 
 		entities.put(2, mario3);
 		GameInitializer gi = new GameInitializer(entities);

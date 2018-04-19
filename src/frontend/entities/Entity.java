@@ -1,3 +1,4 @@
+
 package frontend.entities;
 
 import java.io.FileNotFoundException;

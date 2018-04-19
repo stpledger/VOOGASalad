@@ -32,6 +32,7 @@ public class GamePlayerEntityView {
 	private DataGameState gameState;
 	private File gameFile;
 
+
 	private GameInitializer GI;
 	private InputHandler inputHandler;
 	private RenderManager RM;
@@ -62,9 +63,6 @@ public class GamePlayerEntityView {
 	public Map<Integer, Group> getlevelEntityMap(){
 		return levelEntityMap;
 	}
-
-	//**************************************************************************
-	//TESTING PURPOSED FOR LEVEL SELECTOR
 
 	/**
 	 * Method that builds the entire map of level with groups of sprite images

@@ -42,6 +42,7 @@ public abstract class PropertiesView {
 	public void open() {
 		stage = new Stage();
 		stage.setTitle(this.title());
+		root.getStyleClass().add("properties-view");
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		stage.show();
 	}
@@ -119,10 +120,6 @@ public abstract class PropertiesView {
 	
 	protected String getResourcesFilePath() {
 		return this.RESOURCES;
-	}
-	
-	protected ResourceBundle getButtonProps() {
-		return this.buttonProps;
 	}
 	
 	protected ElementFactory getElementFactory() {
