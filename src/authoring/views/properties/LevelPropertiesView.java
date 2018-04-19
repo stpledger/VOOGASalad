@@ -30,7 +30,6 @@ public class LevelPropertiesView extends PropertiesView{
 
 	@Override
 	protected String title() {
-		//TODO make final variable for this
 		return "Level "+levelNum+" Properties";
 	}
 
@@ -55,6 +54,8 @@ public class LevelPropertiesView extends PropertiesView{
 				level.setLevelDifficulty(diffText.getText());
 				level.setLevelTime(Double.parseDouble(timeNumber.getText()));
 				level.setLevelDistance(Double.parseDouble(distNumber.getText()));
+				this.makeAlert(this.title()+" has been updated!");
+				this.close();
 			});
 			getRoot().addColumn(1,diffText,timeNumber,infoText,distNumber);
 			getRoot().add(button, 0, currentRow++);

@@ -6,8 +6,6 @@ import java.util.ResourceBundle;
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -54,9 +52,7 @@ public class GlobalPropertiesView extends PropertiesView {
 					level.addGProp(globalProps.getString("Lives").split(",")[0], livesInput.getText());
 					level.addGProp(globalProps.getString("Filepath").split(",")[0], pathInput.getText());
 				}
-				Alert alert = new Alert(AlertType.CONFIRMATION);
-				alert.setContentText(NAME+" has been saved!");
-				alert.show();
+				this.makeAlert(this.title()+" has been saved!");
 				this.close();
 			});
 			getRoot().add(submit, 0, currentRow++);

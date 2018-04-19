@@ -42,6 +42,8 @@ public class HUDPropertiesView extends PropertiesView{
 					level.addHUDProp(HUDProps.getString("Time"), timeBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Levels"), levelBox.isSelected());
 				}
+				this.makeAlert(this.title()+" has been updated!");
+				this.close();
 			});
 			getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox);
 			getRoot().add(submit, 0, SUBMIT_POSITION);

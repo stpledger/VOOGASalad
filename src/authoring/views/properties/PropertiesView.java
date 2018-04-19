@@ -4,6 +4,8 @@ import authoring.MainApplication;
 import authoring.factories.ElementFactory;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 /**
@@ -46,6 +48,13 @@ public abstract class PropertiesView {
 	
 	public void close() {
 		stage.close();
+	}
+	
+	protected Alert makeAlert(String content) {
+		Alert alert = new Alert(AlertType.CONFIRMATION);
+		alert.setContentText(content);
+		alert.show();
+		return alert;
 	}
 	
 	/**

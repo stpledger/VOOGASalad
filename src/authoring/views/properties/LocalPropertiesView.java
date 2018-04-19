@@ -22,7 +22,6 @@ import authoring.entities.Entity;
 public class LocalPropertiesView extends PropertiesView {
 	
 	private final String PROPERTIES_PACKAGE = "resources.menus.Entity/";
-	private final String SUBMIT_TEXT = "Submit Changes";
 	private List<PropertiesComponentForm> activeForms;
 	private Consumer<List<Component>> onSubmit;
 	private Entity entity;
@@ -46,6 +45,7 @@ public class LocalPropertiesView extends PropertiesView {
 	@Override
 	protected void fill() {
 		int currentRow = 0;
+		ResourceBundle buttonProps = ResourceBundle.getBundle(this.getButtonResourcesFilePath());
 		this.activeForms = new ArrayList<>();
 		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + type).keySet()) {
 			PropertiesComponentForm cf;
@@ -60,13 +60,14 @@ public class LocalPropertiesView extends PropertiesView {
 		}
 		
 		try {
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, SUBMIT_TEXT);
+			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, buttonProps.getString("Submit"));
 			submit.setOnAction(e->{
 				List<Component> componentsToAdd = new ArrayList<>();
 				for (PropertiesComponentForm cf : this.activeForms) {
 					componentsToAdd.add(cf.buildComponent());
 				}
 				onSubmit.accept(componentsToAdd);
+				this.makeAlert(this.title()+" has been updated!");
 				this.close();
 			});
 			getRoot().add(submit, 0, currentRow);
