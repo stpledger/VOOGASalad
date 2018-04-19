@@ -2,6 +2,7 @@ package authoring.views;
 
 import java.util.function.Consumer;
 
+import authoring.MainApplication;
 import authoring.entities.Entity;
 import authoring.gamestate.Level;
 import authoring.views.properties.LevelPropertiesView;
@@ -29,7 +30,7 @@ public class LevelView extends ScrollPane {
 		this.addEntity = aE;
 		this.level = level;
 		this.contentPane = new AnchorPane();
-		this.contentPane.setMinSize(600, 600);
+		this.contentPane.setMinSize(1000, 600);
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setContent((contentPane));

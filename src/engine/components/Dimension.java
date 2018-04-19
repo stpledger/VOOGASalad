@@ -44,10 +44,6 @@ public class Dimension extends Component {
 	public void setWidth(double width) {
 		this.width = width;
 	}
-	
-	public static String getKey() {
-		return KEY;
-	}
 
 	@Override
 	public Map<String, String> getParameters(){
