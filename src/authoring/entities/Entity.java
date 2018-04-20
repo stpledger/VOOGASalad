@@ -32,6 +32,9 @@ import javafx.scene.input.TransferMode;
 
 public abstract class Entity extends ImageView {
 
+	public final static int ENTITY_WIDTH = 50;
+	public final static int ENTITY_HEIGHT = 50;
+	
 	/**
 	 * Unique ID to the entity
 	 */
@@ -49,6 +52,8 @@ public abstract class Entity extends ImageView {
 	public Entity(int ID) {
 		this.ID = ID;
 		components = new ArrayList<>();
+		this.setFitWidth(ENTITY_WIDTH);
+		this.setFitHeight(ENTITY_HEIGHT);
 		Consumer<List<Component>> onSubmit = (componentsToAdd) -> {
 			for (Component c : componentsToAdd) {
 				this.add(c);
@@ -63,13 +68,6 @@ public abstract class Entity extends ImageView {
 		});
 		this.setOnMouseDragged(e -> {
 			this.setPosition(e.getX() + this.getLayoutX() - this.getFitWidth()/2, e.getY() + this.getLayoutY() - this.getFitHeight()/2);
-			e.consume();
-		});
-		this.setOnDragDetected(e -> {
-			Dragboard db = this.startDragAndDrop(TransferMode.ANY);
-			ClipboardContent cc = new ClipboardContent();
-			cc.putString(this.type());
-			db.setContent(cc);
 			e.consume();
 		});
 		addDefaultComponents();

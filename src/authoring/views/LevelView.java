@@ -5,10 +5,18 @@ import java.util.function.Consumer;
 import authoring.entities.Entity;
 import authoring.gamestate.Level;
 import authoring.views.properties.LevelPropertiesView;
+import authoring.grid.Grid;
+import authoring.grid.Cell;
+import javafx.event.EventHandler;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.TilePane;
 
 /**
  *  
@@ -18,7 +26,7 @@ import javafx.scene.layout.AnchorPane;
  */
 public class LevelView extends ScrollPane {
 
-	private AnchorPane contentPane;
+	private Grid content;
 	private Level level;
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
@@ -26,12 +34,11 @@ public class LevelView extends ScrollPane {
 		this.getStyleClass().add("level-view");
 		this.addEntity = aE;
 		this.level = level;
-		this.contentPane = new AnchorPane();
-		this.contentPane.setMinSize(1000, 600);
-		this.contentPane.getStyleClass().add("level-view-content");
+		this.content = new Grid();
+		this.content.getStyleClass().add("level-view-content");
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		this.setContent((contentPane));
+		this.setContent((content));
 		this.setupMouseClick(levelNum);
 		this.setupMouseDrag();
 	}
@@ -49,14 +56,10 @@ public class LevelView extends ScrollPane {
 		});
 	}
 	/**
-	 * Sets the onMouseReleased method for the contentpane to handle dragging.
+	 * Sets the onMouseReleased method for the content to handle dragging.
 	 */
 	private void setupMouseDrag() {
-		contentPane.setOnMouseReleased((e)->{
-			if (e.getButton().equals(MouseButton.PRIMARY) && !drag) addEntity.accept(e);
-			this.drag = false;
-		});	
-		contentPane.setOnDragDetected((e)->{
+		content.setOnDragDetected((e)->{
 			this.drag = true;
 		});
 	}
@@ -67,7 +70,7 @@ public class LevelView extends ScrollPane {
 	 * @param e Entity to be added to the LevelView
 	 */
 	public void addEntity(Entity e) {
-		this.contentPane.getChildren().add(e);
+		this.content.getChildren().add(e);
 		level.addEntity(e);
 	}
 

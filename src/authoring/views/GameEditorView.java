@@ -274,11 +274,10 @@ public class GameEditorView extends BorderPane {
 			entity.setPosition(mouseEvent.getX() - entity.getFitWidth() / 2, mouseEvent.getY() - this.tabPane.getTabMaxHeight() - entity.getFitHeight() / 2);
 
 			//Add all the components
-			entity = addEntityComponentsFromMap(entity, entityComponents);
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity);
 			nextEntityID++; //Increment id's by one
 		} catch (Exception e) {
-			System.out.println("Error adding entity");
+			e.printStackTrace();
 		}
 	};
 

@@ -33,6 +33,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -234,6 +235,9 @@ public class EntityBuilderView{
 				stage.close();
 			});
 		saveButton.getStyleClass().add("entity-builder-view-button");
+		Tooltip tt = new Tooltip();
+		tt.setText("Save this entity as a template.");
+		saveButton.setTooltip(tt);
 		return saveButton;
 	}
 	
