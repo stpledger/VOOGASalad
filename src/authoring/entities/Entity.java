@@ -14,7 +14,11 @@ import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.TransferMode;
 
 /**
  * 
@@ -53,14 +57,18 @@ public abstract class Entity extends ImageView {
 				LocalPropertiesView LPV = new LocalPropertiesView(this, onSubmit);
 				LPV.open();
 			}
-		}); 
-		this.setOnMouseDragged(e -> {
-			this.setTranslateX(e.getX() + this.getTranslateX() - this.getFitWidth()/2);
-			this.setTranslateY(e.getY() + this.getTranslateY() - this.getFitHeight()/2);
 			e.consume();
 		});
-		this.setOnMouseDragExited(e -> {
-			this.setPosition(this.getX(), this.getY());
+		this.setOnMouseDragged(e -> {
+			this.setPosition(e.getX() + this.getLayoutX() - this.getFitWidth()/2, e.getY() + this.getLayoutY() - this.getFitHeight()/2);
+			e.consume();
+		});
+		this.setOnDragDetected(e -> {
+			Dragboard db = this.startDragAndDrop(TransferMode.ANY);
+			ClipboardContent cc = new ClipboardContent();
+			cc.putString(this.type());
+			db.setContent(cc);
+			e.consume();
 		});
 		addDefaultComponents();
 	}
@@ -174,6 +182,7 @@ public abstract class Entity extends ImageView {
 	 * @param y Y position
 	 */
 	public void setPosition(double x, double y) {
+		this.removeByName("Position");
 		this.add(new Position(this.getID(), x, y));
 		this.setLayoutX(x);
 		this.setLayoutY(y);
