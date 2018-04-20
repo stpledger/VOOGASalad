@@ -16,7 +16,11 @@ import engine.components.Position;
 import engine.components.Sprite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
+import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
+import javafx.scene.input.TransferMode;
 
 /**
  * 
@@ -28,6 +32,9 @@ import javafx.scene.input.MouseButton;
 
 public abstract class Entity extends ImageView {
 
+	public final static int ENTITY_WIDTH = 50;
+	public final static int ENTITY_HEIGHT = 50;
+	
 	/**
 	 * Unique ID to the entity
 	 */
@@ -45,6 +52,8 @@ public abstract class Entity extends ImageView {
 	public Entity(int ID) {
 		this.ID = ID;
 		components = new ArrayList<>();
+		this.setFitWidth(ENTITY_WIDTH);
+		this.setFitHeight(ENTITY_HEIGHT);
 		Consumer<List<Component>> onSubmit = (componentsToAdd) -> {
 			for (Component c : componentsToAdd) {
 				this.add(c);
@@ -55,14 +64,11 @@ public abstract class Entity extends ImageView {
 				LocalPropertiesView LPV = new LocalPropertiesView(this, onSubmit);
 				LPV.open();
 			}
-		}); 
-		this.setOnMouseDragged(e -> {
-			this.setTranslateX(e.getX() + this.getTranslateX() - this.getFitWidth()/2);
-			this.setTranslateY(e.getY() + this.getTranslateY() - this.getFitHeight()/2);
 			e.consume();
 		});
-		this.setOnMouseDragExited(e -> {
-			this.setPosition(this.getX(), this.getY());
+		this.setOnMouseDragged(e -> {
+			this.setPosition(e.getX() + this.getLayoutX() - this.getFitWidth()/2, e.getY() + this.getLayoutY() - this.getFitHeight()/2);
+			e.consume();
 		});
 		addDefaultComponents();
 	}
@@ -186,6 +192,7 @@ public abstract class Entity extends ImageView {
 	 * @param y Y position
 	 */
 	public void setPosition(double x, double y) {
+		this.removeByName("Position");
 		this.add(new Position(this.getID(), x, y));
 		this.setLayoutX(x);
 		this.setLayoutY(y);

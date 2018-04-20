@@ -31,14 +31,11 @@ import javafx.scene.layout.BorderPane;
 public class EntityView extends BorderPane {
 	public final static  int ENITITY_VIEW_WIDTH = 300;
 	private ArrayList<String> tabsList = new ArrayList<String>();
-	private Object clipboard;
 	private ArrayList<String> entityTypes = new ArrayList<String>();
 	private TabPane tabPane = new TabPane();
-	private Consumer clipboardHandler;
 
-	public EntityView(Consumer ch) {
+	public EntityView() {
 		super();
-		clipboardHandler = ch;
 		this.setPrefWidth(ENITITY_VIEW_WIDTH);
 		this.getStyleClass().add("entity-view");
 		this.setTop(new Toolbar("Entities", buildToolbarConsumerMap()));
@@ -146,14 +143,6 @@ public class EntityView extends BorderPane {
 	private String buildClassname(String pckgName, String fileName) {
 		String className = pckgName + '.' + fileName.replace(".class", "");
 		return className;
-	}
-
-	private class ClipboardListener implements ChangeListener{
-
-		@Override
-		public void changed(ObservableValue clipboardObject, Object oldValue, Object newValue) {
-			clipboardHandler.accept(newValue);
-		}
 	}
 
 }

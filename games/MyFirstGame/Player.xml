@@ -5,6 +5,82 @@
         <levelNum>1</levelNum>
         <levelTime>0.0</levelTime>
         <levelDistance>0.0</levelDistance>
+<<<<<<< HEAD
+        <HUDprops>
+          <entry>
+            <string>Health</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Lives</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Levels</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Time</string>
+            <boolean>true</boolean>
+          </entry>
+        </HUDprops>
+        <GProps>
+          <entry>
+            <string>Game Title:</string>
+            <string>99999</string>
+          </entry>
+          <entry>
+            <string>Lives:</string>
+            <string></string>
+          </entry>
+          <entry>
+            <string>File path:</string>
+            <string></string>
+          </entry>
+        </GProps>
+      </authoring.gamestate.Level>
+      <map/>
+    </entry>
+    <entry>
+      <authoring.gamestate.Level>
+        <levelNum>2</levelNum>
+        <levelTime>0.0</levelTime>
+        <levelDistance>0.0</levelDistance>
+        <HUDprops>
+          <entry>
+            <string>Health</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Lives</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Levels</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Time</string>
+            <boolean>true</boolean>
+          </entry>
+        </HUDprops>
+        <GProps>
+          <entry>
+            <string>Game Title:</string>
+            <string>99999</string>
+          </entry>
+          <entry>
+            <string>Lives:</string>
+            <string></string>
+          </entry>
+          <entry>
+            <string>File path:</string>
+            <string></string>
+          </entry>
+        </GProps>
+      </authoring.gamestate.Level>
+      <map/>
+=======
         <HUDprops/>
         <GProps>
           <entry>
@@ -370,6 +446,7 @@
           </map>
         </entry>
       </map>
+>>>>>>> e86aa0f9256e3668beea04f3c01008eecc11f537
     </entry>
   </gameState>
   <gameName>MyFirstGame</gameName>
