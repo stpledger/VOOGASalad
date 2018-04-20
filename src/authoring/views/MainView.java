@@ -18,11 +18,6 @@ public class MainView {
 	private GameEditorView gameEditorView;
 	private EntityView componentView;
 
-	//Consumer to handle transferring clipboard transfers
-	Consumer clipboardHandler = (e)->{
-		gameEditorView.setClipboard(e);
-	};
-
 	//GUI Constants
 	private static double ideHeight = 600;
 	private static double ideWidth = 1200;
@@ -34,7 +29,7 @@ public class MainView {
 	public MainView(File selectedFile) {
 		border = new BorderPane();
 		gameEditorView = new GameEditorView();
-		componentView = new EntityView(clipboardHandler);
+		componentView = new EntityView();
 	}
 	/**
 	 * Creates a new instance of GameAuthoringEnvironment
@@ -43,7 +38,7 @@ public class MainView {
 	public MainView() {
 		border = new BorderPane();
 		gameEditorView = new GameEditorView();
-		componentView = new EntityView(clipboardHandler);
+		componentView = new EntityView();
 	}
 
 	/**

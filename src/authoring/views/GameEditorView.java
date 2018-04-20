@@ -47,7 +47,6 @@ import data.DataWrite;
 public class GameEditorView extends BorderPane {
 	//private static final String GAME_FILE_EXTENSION = "*.xml";
 	private ArrayList<Tab> levelTabsList;
-	private Object[] clipboard;
 	private GameState state;
 	private TabPane tabPane;
 	private Toolbar toolbar;
@@ -168,7 +167,8 @@ public class GameEditorView extends BorderPane {
 				try { 
 					new Main().start(new Stage());
 				} catch (Exception e) { 
-					System.out.println("Error Running Game");
+					// TODO better exception here
+					e.printStackTrace();
 				}
 			}	
 		});	
@@ -233,7 +233,6 @@ public class GameEditorView extends BorderPane {
 					System.out.println("Error creating entity: " + entityID);
 				}
 			}
-
 		}
 	}
 
@@ -265,33 +264,20 @@ public class GameEditorView extends BorderPane {
 	}
 
 	/**
-	 * Set the element in the clipboard
-	 * @param o
-	 */
-	public void setClipboard(Object o) {
-		clipboard = (Object[]) o;
-	}
-
-	/**
 	 * Consumer to handle adding a new entity to the current level
 	 */
 	private Consumer<MouseEvent> addEntity = (mouseEvent) -> {
-		Object[] clipboardCopy =  clipboard; //Create a copy of the clipboard
 		Entity entity = null;
 		try {
 			//Get the class of the entityType
-			Class<?> entityType = (Class<?>) clipboardCopy[0]; 
-			entity = createEntityFromType(entityType, nextEntityID);
 			//Set the position
 			entity.setPosition(mouseEvent.getX() - entity.getFitWidth() / 2, mouseEvent.getY() - this.tabPane.getTabMaxHeight() - entity.getFitHeight() / 2);
 
 			//Add all the components
-			Map<Class, Object[]> entityComponents = (Map<Class, Object[]>) clipboardCopy[1]; 
-			entity = addEntityComponentsFromMap(entity, entityComponents);
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity);
 			nextEntityID++; //Increment id's by one
 		} catch (Exception e) {
-			System.out.println("Error adding entity");
+			e.printStackTrace();
 		}
 	};
 
