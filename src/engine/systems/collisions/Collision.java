@@ -76,7 +76,7 @@ public class Collision extends DefaultSystem{
 
 					if(cd != null) {
 						handler.handle(handledComponents, key1, key2);
-						System.out.println(cd.name());
+						//System.out.println(cd.name());
 						switch (cd) {
 						
 						case Top:
@@ -162,7 +162,7 @@ public class Collision extends DefaultSystem{
 		}
 		
 		if(colliders.containsKey(pid)) {
-			System.out.println("Collision System tries adding duplicate " + componentName + " component for entity " + pid + " !");
+			//System.out.println("Collision System tries adding duplicate " + componentName + " component for entity " + pid + " !");
 		}
 		
 
@@ -176,7 +176,7 @@ public class Collision extends DefaultSystem{
 		}
 		
 		if(!colliders.containsKey(pid)) {
-			System.out.println("Collision System tries remove " + componentName + " component from non-existing entity " + pid + " !");
+			//System.out.println("Collision System tries remove " + componentName + " component from non-existing entity " + pid + " !");
 		}
 		
 
@@ -202,5 +202,7 @@ public class Collision extends DefaultSystem{
 	public void update(Map<Integer, Map<String, Component>> handledComponents) {
 		this.handledComponents = handledComponents;
 	}
-	
+	public CollisionHandler getCH() {
+		return handler;
+	}
 }

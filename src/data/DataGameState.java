@@ -38,7 +38,7 @@ public class DataGameState {
             for (Entity entity : level.getEntityList()) {
                 Map<String, Component> componentMap = new HashMap<>();
                 for (Component component :entity.getComponentList()) {
-                    componentMap.put(component.getKeyKey(), component);
+                    componentMap.put(component.getKey(), component);
                 }
                 entityMap.put(entity.getID(),componentMap);
             }

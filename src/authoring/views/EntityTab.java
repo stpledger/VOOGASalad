@@ -7,6 +7,10 @@ import java.util.Map;
 
 import javax.imageio.ImageIO;
 
+import authoring.entities.Background;
+import authoring.entities.Block;
+import authoring.entities.Enemy;
+import authoring.entities.Player;
 import data.DataRead;
 import engine.components.Sprite;
 import javafx.beans.property.ObjectProperty;
@@ -30,6 +34,7 @@ import javafx.scene.layout.VBox;
  */
 public class EntityTab extends Tab{
 	public static final double SCROLLBAR_WIDTH = 20;
+	public static final double VIEW_WIDTH = 0;
 	private ObjectProperty selectedElement = new SimpleObjectProperty();
 	FlowPane pane;
 	ScrollPane externalPane;
@@ -37,6 +42,12 @@ public class EntityTab extends Tab{
 	public EntityTab(String name, double entityViewWidth) {
 		super(name);
 		myEntityViewWidth = entityViewWidth;
+		
+		Block block = new Block(0);
+		Enemy enemy = new Enemy(0);
+		Player player = new Player(0);
+		Background bgrnd =  new Background(0);
+		
 		this.setClosable(false);
 		this.getStyleClass().add("entity-tab");
 		assemble();
@@ -76,50 +87,4 @@ public class EntityTab extends Tab{
 	}
 
 
-	/**
-	 *	The ComponentBox holds the properties and images of various gameObjects
-	 */
-	private class EntityBox extends VBox {
-		private String name;
-		private String type;
-		private Image image;
-		private ImageView imageView;
-		Map<Class, Object[]> componentAttributes = new HashMap<Class,Object[]>();
-		private double boxDimension = (myEntityViewWidth - SCROLLBAR_WIDTH)/3;
-
-		public EntityBox(String t, Map<Class, Object[]> m) {
-			//Create the VBox
-			this.getStyleClass().add("entity-box");
-			this.setWidth(boxDimension);
-			this.setHeight(boxDimension);
-			//Create the ImageView
-			componentAttributes = m;
-			image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
-			type = t;
-			componentAttributes = m;
-			imageView = new ImageView(image);
-			imageView.setFitHeight(boxDimension-20);
-			imageView.setFitWidth(boxDimension-20);
-			this.getChildren().add(imageView);
-			//Create a textbox with the name;
-
-			//Set onClick method to add the item to clipboard
-			this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent arg0) {
-					try {
-						selectedElement.setValue(new Object[] {getEntityFromPackage(type), componentAttributes});
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-
-				private Class getEntityFromPackage(String type) throws ClassNotFoundException {
-					return Class.forName("authoring.entities." + type);
-				}
-			});
-		}
-
-	}
 }

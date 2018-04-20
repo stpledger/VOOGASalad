@@ -30,13 +30,13 @@ public class LevelPropertiesView extends PropertiesView{
 
 	@Override
 	protected String title() {
-		//TODO make final variable for this
 		return "Level "+levelNum+" Properties";
 	}
 
 	@Override
 	protected void fill() {
 		ResourceBundle levelProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"LevelProperties");
+		ResourceBundle buttonProps = ResourceBundle.getBundle(this.getButtonResourcesFilePath());
 		try {
 			int currentRow = 0;
 			for (String property : levelProps.keySet()) {
@@ -48,12 +48,14 @@ public class LevelPropertiesView extends PropertiesView{
 			TextField diffText = (TextField) eFactory.buildElement(ElementType.TextField,text);
 			NumberField timeNumber = (NumberField) eFactory.buildElement(ElementType.NumberField,text);
 			NumberField distNumber = (NumberField) eFactory.buildElement(ElementType.NumberField,text);
-			Button button = (Button) eFactory.buildElement(ElementType.Button,levelProps.getString("Submit"));
+			Button button = (Button) eFactory.buildElement(ElementType.Button,buttonProps.getString("Submit"));
 			button.setOnAction(e->{
 				level.setLevelInfo(infoText.getText());
 				level.setLevelDifficulty(diffText.getText());
 				level.setLevelTime(Double.parseDouble(timeNumber.getText()));
 				level.setLevelDistance(Double.parseDouble(distNumber.getText()));
+				this.makeAlert(this.title()+" has been updated!");
+				this.close();
 			});
 			getRoot().addColumn(1,diffText,timeNumber,infoText,distNumber);
 			getRoot().add(button, 0, currentRow++);

@@ -26,10 +26,6 @@ public class CollisionAction extends Component {
 	public void action(CollisionDirection cd) {
 		directions.get(cd).run();
 	}
-
-	public static String getKey() {
-		return KEY;
-	}
 	
 	@Override
 	public Map<String, String> getParameters() {
