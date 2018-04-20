@@ -17,7 +17,6 @@ public class HUDPropertiesView extends PropertiesView{
 	
 	private List<Level> levels;
 	private final String NAME = "HUD Properties";
-	private final int SUBMIT_POSITION = 4;
 	
 	public HUDPropertiesView(List<Level> levelArray) {
 		super();
@@ -46,7 +45,7 @@ public class HUDPropertiesView extends PropertiesView{
 				this.close();
 			});
 			getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox);
-			getRoot().add(submit, 0, SUBMIT_POSITION);
+			getRoot().add(submit, 0, getRoot().getChildren().size());
 		} catch (Exception e2) {
 			e2.printStackTrace();
 		}	
