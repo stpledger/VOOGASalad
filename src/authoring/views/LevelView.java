@@ -21,7 +21,7 @@ public class LevelView extends ScrollPane {
 	private AnchorPane contentPane;
 	private Level level;
 	Consumer<MouseEvent> addEntity;
-
+	boolean drag = false; 
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
 		this.addEntity = aE;
@@ -33,6 +33,7 @@ public class LevelView extends ScrollPane {
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setContent((contentPane));
 		this.setupMouseClick(levelNum);
+		this.setupMouseDrag();
 	}
 
 	/**
@@ -45,6 +46,18 @@ public class LevelView extends ScrollPane {
 				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
 				lView.open();
 			}
+		});
+	}
+	/**
+	 * Sets the onMouseReleased method for the contentpane to handle dragging.
+	 */
+	private void setupMouseDrag() {
+		contentPane.setOnMouseReleased((e)->{
+			if (e.getButton().equals(MouseButton.PRIMARY) && !drag) addEntity.accept(e);
+			this.drag = false;
+		});	
+		contentPane.setOnDragDetected((e)->{
+			this.drag = true;
 		});
 	}
 
