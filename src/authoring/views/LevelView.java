@@ -21,20 +21,17 @@ public class LevelView extends ScrollPane {
 	private AnchorPane contentPane;
 	private Level level;
 	Consumer<MouseEvent> addEntity;
-	private Double lastX = null;
-	private Double lastY = null;
 	boolean drag = false; 
-
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
 		this.addEntity = aE;
 		this.level = level;
 		this.contentPane = new AnchorPane();
-		this.contentPane.setMinSize(600, 800);
+		this.contentPane.setMinSize(1000, 600);
+		this.contentPane.getStyleClass().add("level-view-content");
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setContent((contentPane));
-		this.getStyleClass().add("level-view-wrapper");
 		this.setupMouseClick(levelNum);
 		this.setupMouseDrag();
 	}

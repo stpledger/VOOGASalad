@@ -41,31 +41,35 @@ public class EntityView extends BorderPane {
 		clipboardHandler = ch;
 		this.setPrefWidth(ENITITY_VIEW_WIDTH);
 		this.getStyleClass().add("entity-view");
-		this.setTop(new Toolbar("Entities", consumerMap));
+		this.setTop(new Toolbar("Entities", buildToolbarConsumerMap()));
 		this.setCenter(tabPane);
 		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
 	}
+	
 	/**
-	 * Located Below are all the consumers to handle toolbar events
+	 * Builds the consumers for the toolbar
+	 * @return Map<String, Consumer> 
 	 */
-	BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
-	//Consumer for Creating a new Entity(Opens EntityBuilderView)
-	Consumer newEntity = (e) -> {
-		EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
-	};
-	Consumer saveEntities = (e) -> {System.out.println("Save Entites!");};
-	Consumer loadEntities = (e)->{System.out.println("Load Entitites!");};
-	private Map<String, Consumer> consumerMap = new HashMap<String,Consumer>(){{
-		this.put("newEntity", newEntity);
-		this.put("saveEntities", saveEntities);
-		this.put("loadEntities", loadEntities);
-	}};
-
-
+	private Map<String, Consumer> buildToolbarConsumerMap() {
+		Map<String, Consumer> consumerMap = new HashMap<String,Consumer>();
+		BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
+		Consumer newEntity = (e) -> {
+			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
+		};
+		Consumer saveEntities = (e) -> {System.out.println("Save Entites!");};
+		Consumer loadEntities = (e)->{System.out.println("Load Entitites!");};
+		consumerMap.put("newEntity", newEntity);
+		consumerMap.put("saveEntities", saveEntities);
+		consumerMap.put("loadEntities", loadEntities);
+		return consumerMap;
+	}
+	
+	/**
+	 * Adds a new tab
+	 * @param type
+	 */
 	private void addTab(String type) {
-		ClipboardListener c = new ClipboardListener();
 		EntityTab temp = new EntityTab(type, ENITITY_VIEW_WIDTH);
-		temp.getSelectedElementProperty().addListener(c);
 		tabPane.getTabs().add(temp);
 	}
 

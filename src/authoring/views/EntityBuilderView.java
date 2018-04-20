@@ -143,6 +143,7 @@ public class EntityBuilderView{
 				updateEntityPreview(image);
 			} catch (Exception e1){
 				System.out.println("Error loading image");
+
 			}
 		});
 		imageMenu.getItems().add(addImage);

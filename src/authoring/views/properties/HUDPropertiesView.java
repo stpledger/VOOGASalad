@@ -28,12 +28,13 @@ public class HUDPropertiesView extends PropertiesView{
 	@Override
 	protected void fill() {
 		ResourceBundle HUDProps = ResourceBundle.getBundle(this.getResourcesFilePath()+NAME.replace(" ", ""));
+		ResourceBundle buttonProps = ResourceBundle.getBundle(this.getButtonResourcesFilePath());
 		try {
 			CheckBox livesBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Lives"));
 			CheckBox healthBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Health"));
 			CheckBox timeBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Time"));
 			CheckBox levelBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Levels"));
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button,HUDProps.getString("Submit") );
+			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button,buttonProps.getString("Submit") );
 			submit.setOnAction(e->{
 				for(Level level : levels) {
 					level.addHUDProp(HUDProps.getString("Lives"), livesBox.isSelected());
@@ -41,6 +42,8 @@ public class HUDPropertiesView extends PropertiesView{
 					level.addHUDProp(HUDProps.getString("Time"), timeBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Levels"), levelBox.isSelected());
 				}
+				this.makeAlert(this.title()+" has been updated!");
+				this.close();
 			});
 			getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox);
 			getRoot().add(submit, 0, SUBMIT_POSITION);

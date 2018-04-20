@@ -35,65 +35,52 @@ public class TestGameState {
 
 		Acceleration a = new Acceleration(0, 0, 40);
 		KeyInput k = new KeyInput(0);
-		k.addCode( KeyCode.RIGHT, (Runnable & Serializable) () -> {
+		k.addCode( KeyCode.RIGHT, (Consumer & Serializable) (e) -> {
 			v.setXVel(v.getXVel()+20);
 		});
-		k.addCode(KeyCode.UP, (Runnable & Serializable)() ->
+		k.addCode(KeyCode.UP, (Consumer & Serializable)(e) ->
 		{ 
 			v.setYVel(v.getYVel()-20);
 		});
-		k.addCode(KeyCode.DOWN,(Runnable & Serializable) () ->
+		k.addCode(KeyCode.DOWN,(Consumer & Serializable) (e) ->
 		{ 
 			v.setYVel(v.getYVel()+20);
 		});
-		k.addCode(KeyCode.LEFT,(Runnable & Serializable) () ->
-		{ 
-			v.setXVel(v.getXVel()-20);
+		k.addCode(KeyCode.LEFT,(Consumer & Serializable) (e) ->
+		{
+			v.setXVel(-20);
 		});
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
 
-		Player play = new Player(0, 3, 0);
+		Player play = new Player(0, 3);
         play.setRespawn(p.clone());
-		k.addCode(KeyCode.R, (Runnable & Serializable) () ->
+		/**k.addCode(KeyCode.R, (Runnable & Serializable) () ->
 		{
 			play.respawn(p, v, a);
-		});
+		});**/
 
 		Map<String, Component> mario = new HashMap<>();
-		mario.put(Position.getKey(), p);
-		mario.put(Dimension.getKey(), d);
+		mario.put(Position.KEY, p);
+		mario.put(Dimension.KEY, d);
 		mario.put(Sprite.KEY, s);
-		mario.put(Velocity.getKey(), v);
-		mario.put(Acceleration.getKey(), a);
-		mario.put(KeyInput.getKey(), k);
-		mario.put(Health.getKey(), h);
-		mario.put(DamageLauncher.getKey(), launcher);
-        mario.put(Player.getKey(), play);
 
-		Position p2 = new Position(1, 100, 300);
-		Dimension d2 = new Dimension(1, 100, 100);
-		Velocity v2 = new Velocity(1, 0, 0);
-		Acceleration a2 = new Acceleration(1, 0, 0);
-		Health h2 = new Health(0,10);
-		DamageLauncher launcher2 = new DamageLauncher(0,2,2);
+		mario.put(Velocity.KEY, v);
+		mario.put(Acceleration.KEY, a);
+		//mario.put(KeyInput.getKey(), k);
+		mario.put(Health.KEY, h);
+		mario.put(DamageLauncher.KEY, launcher);
+        mario.put(Player.KEY, play);
 
-		Map<String, Component> mario2 = new HashMap<>();
-		mario2.put(Position.getKey(), p2);
-		mario2.put(Dimension.getKey(), d2);
-		mario2.put(Sprite.KEY, s2);
-		mario2.put(Velocity.getKey(), v2);
-		//mario2.put(type2.getKey(), type);
-		mario2.put(Acceleration.getKey(), a2);
-		mario2.put(Health.getKey(), h2);
-		mario2.put(DamageLauncher.getKey(), launcher2);
 
+		EntityType type3 = new EntityType(2,"enermy");
 		Position p3 = new Position(2, 300, 100);
 		Dimension d3 = new Dimension(2, 100, 100);
 		Velocity v3 = new Velocity(2, 0, 0);
 		Acceleration a3 = new Acceleration(2, 0, 0);
 		Health h3 = new Health(2,10);
-		DamageLauncher launcher3 = new DamageLauncher(0,2,2);
+		DamageLauncher launcher3 = new DamageLauncher(0,2,2); 
+		Win win3 = new Win(2);
 
 		AI ai = new AI(2);
 		ai.setAction( (Consumer & Serializable) (time) -> {
@@ -104,16 +91,17 @@ public class TestGameState {
 
 		Map<String, Component> mario3 = new HashMap<>();
 		mario3.put(AI.KEY, ai);
-		mario3.put(Position.getKey(), p3);
-		mario3.put(Dimension.getKey(), d3);
+		mario3.put(Position.KEY, p3);
+		mario3.put(Dimension.KEY, d3);
 		mario3.put(Sprite.KEY, s3);
-		mario3.put(Velocity.getKey(), v3);
-		mario3.put(Acceleration.getKey(), a3);
-		mario3.put(Health.getKey(), h3);
-		mario3.put(DamageLauncher.getKey(), launcher3);
+		mario3.put(Velocity.KEY, v3);
+		mario3.put(Acceleration.KEY, a3);
+		mario3.put(Health.KEY, h3);
+		mario3.put(DamageLauncher.KEY, launcher3);
+		mario3.put(Win.KEY, win3);
+
 
 		entities.put(0, mario);
-		entities.put(1, mario2);
 		entities.put(2, mario3);
 		GameInitializer gi = new GameInitializer(entities);
 		ih = gi.getIH();

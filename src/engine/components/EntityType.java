@@ -33,10 +33,6 @@ public class EntityType extends Component{
 		return type;
 	}
 
-	public static String getKey() {
-		return KEY;
-	}
-
 	@Override
 	public Map<String, String> getParameters(){
 		Map<String,String> res = new HashMap<>();

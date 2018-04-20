@@ -42,8 +42,6 @@ public static String KEY = "Acceleration";
 		this.yAcc = yAcc;
 	}
 
-	public static String getKey() { return KEY; }
-
 	@Override
 	public Map<String, String> getParameters(){
 		Map<String,String> res = new HashMap<>();

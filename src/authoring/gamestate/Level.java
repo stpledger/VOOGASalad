@@ -21,7 +21,6 @@ public class Level {
 	@XStreamOmitField
 	private transient List<Entity> entityList;
 
-
 	private Map<String,Boolean> HUDprops;
 	private Map<String,String> GProps;
 
