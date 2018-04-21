@@ -2,32 +2,21 @@ package GamePlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 
 import java.util.Map;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.function.Consumer;
 
 import HUD.SampleToolBar;
 import Menu.MenuGameBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
-import engine.systems.InputHandler;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.SetProperty;
-import javafx.beans.property.SimpleSetProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -42,9 +31,12 @@ public class GamePlayerController {
 	private Stage myStage;
 	private Scene myScene;
 	private Group gameRoot;
+	private Group originGameRoot;
+	private Timeline myTimeline;
+	private ScrollPane myScroll;
 
-	private BorderPane pane = new BorderPane();
-	private PauseMenu pauseMenu = new PauseMenu();
+	private BorderPane myPane = new BorderPane();
+	private PauseMenu pauseMenu = new PauseMenu(this);
 	private GamePlayerEntityView gameView;
 
 	private File currentFile;
@@ -70,10 +62,14 @@ public class GamePlayerController {
 				e.printStackTrace(); //fix this or you will fail
 			}
 		});
-		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
+		//myPane.setTop(sampleBar);
+		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
 				pauseMenu.show(myStage);
+				//myTimeline.pause();
+			// SORRY
+
 			} else {
 				gameView.setInput(e.getCode());
 			}
@@ -93,16 +89,18 @@ public class GamePlayerController {
 	 */
 	public void initializeGameStart() throws FileNotFoundException {
 		SampleToolBar sampleBar = new SampleToolBar(this);
-		pane.setTop(sampleBar);
+		myPane.setTop(sampleBar);
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		levelEntityGroupMap = gameView.getlevelEntityMap();
 		MenuGameBar menuBar = new MenuGameBar(this);
-		pane.setBottom(menuBar);
+		myPane.setBottom(menuBar);
 		gameRoot = levelEntityGroupMap.get(1);  //level 1
-		pane.getChildren().addAll(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
+		originGameRoot = new Group();
+		originGameRoot.getChildren().add(gameRoot);
+		//initializeScroll();
+		myPane.setCenter(originGameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		initializeGameAnimation(); //begins the animation cycle
-
 	}
 	
 	/**
@@ -127,20 +125,23 @@ public class GamePlayerController {
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
+		myTimeline = animation;
 	}
 	/**
 	 * Changes the display of the gave.
 	 * @param level to be loaded
 	 */
 	public void changeGameLevel(int level) {
-		int lastIndex = pane.getChildren().size()-1;
-		pane.getChildren().remove(lastIndex); 
-		animation.pause();
-		//gameView.reinitializeGameEngine(level);
-		animation.play();
-		
+		/*int lastIndex = myPane.getChildren().size()-1;
+		myPane.getChildren().remove(lastIndex);
 		System.out.println(level);
-		pane.getChildren().addAll(levelEntityGroupMap.get(level));
+		myPane.getChildren().addAll(levelEntityGroupMap.get(level));*/
+		gameRoot = levelEntityGroupMap.get(level);
+		originGameRoot.getChildren().clear();
+		originGameRoot.getChildren().add(gameRoot);
+
+
+		//myScroll.setContent(levelEntityGroupMap.get(level));
 	}
 	
 	public Map<Integer, Group> getGameLevelRoot(){
@@ -158,5 +159,16 @@ public class GamePlayerController {
 			gameView.render();
 			renderTime = 0;
 		}
+		gameView.updateScroll(gameRoot);
+	}
+
+	public void saveGame(){
+		gameView.saveGame();
+	}
+
+	private void initializeScroll(){
+		myScroll = new ScrollPane(gameRoot);
+		myScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+		myScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 	}
 }

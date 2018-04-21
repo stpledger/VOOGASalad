@@ -15,10 +15,7 @@ import engine.components.Velocity;
  */
 
 public class Motion implements ISystem {
-	//private static final int VELOCITY_INDEX = 0;
-    //private static final int POSITION_INDEX = 1;
-
-    private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
+	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents;
 
 
@@ -51,12 +48,12 @@ public class Motion implements ISystem {
      * Apply changes in velocities to positions
      */
     public void execute(double time) {
+    		System.out.println("execute");
         for (int pid : activeComponents) {
             Map<String, Component> components = handledComponents.get(pid);
 
             Velocity v = (Velocity) components.get(Velocity.KEY);
             Position p = (Position) components.get(Position.KEY);
-
             p.setXPos(p.getXPos() + v.getXVel()*time);
             p.setYPos(p.getYPos() + v.getYVel()*time);
         }

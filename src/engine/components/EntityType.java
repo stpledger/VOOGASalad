@@ -36,4 +36,12 @@ public class EntityType extends Component{
 	public static String getKey() {
 		return KEY;
 	}
+
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String,String> res = new HashMap<String, String>(){{
+			put("Entity Type", type);
+		}};
+		return res;
+	}
 }

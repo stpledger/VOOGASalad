@@ -17,6 +17,7 @@ public class TestPlayer {
 	TestGameState tgs;
 	
 	public TestPlayer() {
+		System.out.println("start TestPlayer");
 		try {
 			tgs = new TestGameState();
 		} catch (FileNotFoundException e) {
@@ -32,7 +33,7 @@ public class TestPlayer {
 			IH.addCode(event.getCode());
 		});
 		Renderer r = new Renderer(root, tgs.getEntities());
-		tgs.run(r);
+		//tgs.run(r);
 		return s;
 	}
 

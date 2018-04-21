@@ -12,7 +12,7 @@ import java.util.Map;
  * and changes according to game logic.
  * @author Yameng
  */
-public class Damage extends ShowableComponent {
+public class Damage extends Component {
 	private double damage;
 	private double lifetime;
 	public static String KEY = "Damage";
