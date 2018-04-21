@@ -23,8 +23,8 @@ public class Grid extends TilePane {
 	 * @param height the desired height of the grid
 	 */
 	public Grid(int width, int height) {
-		this.numRows = width/Entity.ENTITY_HEIGHT;
-		this.numCols = height/Entity.ENTITY_WIDTH;
+		this.numRows = height/Entity.ENTITY_HEIGHT;
+		this.numCols = width/Entity.ENTITY_WIDTH;
 		
 		for(int i=0;i<this.numCols*this.numRows;i++) {
 			Cell c = new Cell();
@@ -47,24 +47,26 @@ public class Grid extends TilePane {
 	 * Adds new row of cells to the grid
 	 */
 	public void addRow() {
-		for(int i=0;i<this.numRows;i++) {
+		for(int i=0;i<this.numCols;i++) {
 			Cell c = new Cell();
 			this.getChildren().add(c);
 		}
 		this.setPrefHeight(this.getHeight()+Entity.ENTITY_HEIGHT);
+		this.numRows++;
 	}
 	
 	/**
 	 * Adds new column of cells to the grid
 	 */
 	public void addCol() {
-		int index = this.numRows;
-		for(int i=0;i<this.numCols;i++) {
+		int index = this.numCols;
+		for(int i=0;i<this.numRows;i++) {
 			Cell c = new Cell();
 			this.getChildren().add(index,c);
-			index+=this.numRows+1; //add one because width of grid increases by one ENTITY_WIDTH
+			index+=this.numCols+1; //add one because width of grid increases by one ENTITY_WIDTH
 		}
 		this.setPrefWidth(this.getWidth()+Entity.ENTITY_WIDTH);
+		this.numCols++;
 	}
 
 }
