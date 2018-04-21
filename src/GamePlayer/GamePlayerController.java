@@ -44,6 +44,7 @@ public class GamePlayerController {
 	private FileUploadButton fileBtn;
 	private Map<Integer, Group> levelEntityGroupMap; //map that is used to store the initial group for each level.
 
+	private Timeline animation;
 	
 	public GamePlayerController(Stage stage) {
 		myStage = stage;
@@ -109,7 +110,7 @@ public class GamePlayerController {
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
 				e -> step(SECOND_DELAY));
 
-		Timeline animation = new Timeline();
+		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();

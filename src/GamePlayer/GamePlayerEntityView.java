@@ -38,16 +38,20 @@ public class GamePlayerEntityView {
 	private DataGameState gameState;
 	private GameInitializer GI;
 	private InputHandler inputHandler;
-	private RenderManager RM;
+	private Map<Integer, Map<Integer,Map<String,Component>>> intLevelMap;
 
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
 		gameState = DataRead.loadFile(gameFile);
 		levelMap = gameState.getGameState();
 		levelEntityMap = createEntityGroupMap(levelMap);
+		System.out.println(levelMap.size());
+		int count = 0;
 		for(Level level : levelMap.keySet()) {
 			entityMap = levelMap.get(level);  //currently entityMap is the first level map of integer to components
+			//intLevelMap.put(1, entityMap);
 			break;
+//			count++;
 		}
 		initializeGamePlayerEntityView();
 	}
@@ -106,6 +110,30 @@ public class GamePlayerEntityView {
 	}
 	//**************************************************************************
 
+	/**
+	 * When a level change is invoked, reinitalize the GameInitializer to add functionality.
+	 * @param level
+	 */
+	public void reinitializeGameEngine(int levelNum) {
+		int count = 1;
+		Map<Integer, Map<String, Component>> currentLevel = null;
+		for(Level level : levelMap.keySet()) {
+			if (count == levelNum) {
+				
+				currentLevel = levelMap.get(level);
+				System.out.println(currentLevel);
+				break;
+			}
+			count++;
+		}
+		try {
+			System.out.println(currentLevel);
+			gameInitializer = new GameInitializer(currentLevel); //reinitializes the level.
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			System.out.println("Level Does Not Currently Exist Yet");
+		} 
+	}
 
 	/**
 	 * initialize the Game Initializer to create the systemManager and renderManager.
@@ -114,7 +142,8 @@ public class GamePlayerEntityView {
 	public void initializeGamePlayerEntityView() {
 
 		try {
-			GI  = new GameInitializer(entityMap);
+			gameInitializer = new GameInitializer(entityMap);
+			//gameInitializer = new GameInitializer(intLevelMap.get(0)); //gets the first level map.
 		} catch (FileNotFoundException e) {
 			System.out.println("You made it this far");
 			e.printStackTrace();
