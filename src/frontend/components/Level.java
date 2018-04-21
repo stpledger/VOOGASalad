@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-//import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import frontend.entities.Entity;
 
@@ -24,8 +24,8 @@ public class Level {
 	private Map<String,Boolean> HUDprops;
 	private Map<String,String> GProps;
 	
-	public Level(int level) {
-		this.setLevelNum(level);
+	public Level(int levelNum) {
+		this.levelNum = levelNum;
 		this.entityList = new ArrayList<Entity>();
 		this.HUDprops = new HashMap<>();
 		this.GProps = new HashMap<>();

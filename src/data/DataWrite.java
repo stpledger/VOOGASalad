@@ -27,6 +27,7 @@ public class DataWrite {
  *  or the player
  */
 	private static final String XML_FILETYPE=".xml";
+
 	private static final String GAME_FILEPATH = "games/";
 	private static final String IMAGE_DATAPATH = "images/";
 	private static final String DATA_DATAPTH = "data";

@@ -42,17 +42,13 @@ public class Velocity extends Component {
 	public void setYVel(double yVel) {
 		YVel = yVel;
 	}
-	
-	public static String getKey() {
-		return KEY;
-	}
 
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String, String>(){{
-			put("Velocity X", Double.toString(XVel));
-			put("Velocity Y", Double.toString(YVel));
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Velocity X", Double.toString(XVel));
+		res.put("Velocity Y", Double.toString(YVel));
+		
 		return res;
 	}
 }

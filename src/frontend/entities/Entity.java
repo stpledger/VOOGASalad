@@ -20,6 +20,7 @@ import javafx.scene.input.MouseButton;
  * 
  * @author Hemanth Yakkali
  * @author Dylan Powers
+ * @author Collin Brown
  *
  */
 
@@ -33,8 +34,7 @@ public abstract class Entity extends ImageView {
     /**
      * List of components which define the entity
      */
-    private List<Component> components;
-    
+    private List<Component> components;    
 
     /**
      * The constructor simply sets the ID of the entity and initializes its list of components
@@ -54,9 +54,19 @@ public abstract class Entity extends ImageView {
         			LPV.open();
         		}
         }); 
+        this.setOnMouseDragged(e -> {
+    			this.setTranslateX(e.getX() + this.getTranslateX() - this.getFitWidth()/2);
+    		    this.setTranslateY(e.getY() + this.getTranslateY() - this.getFitHeight()/2);
+    		    e.consume();
+        });
+        this.setOnMouseDragExited(e -> {
+        	this.setPosition(this.getX(), this.getY());
+        });
+        addDefaultComponents();
     }
+
     
-    /**
+	/**
      * Adds components that are inherent to the specific entity.
      */
     protected abstract void addDefaultComponents();
@@ -69,7 +79,7 @@ public abstract class Entity extends ImageView {
     public List<String> getNames() {
     		List<String> ans = new ArrayList<>();
     		for (Component c : this.components) {
-    			ans.add(c.getKeyKey());
+    			ans.add(c.getKey());
     		}
     		return ans;
     }
@@ -80,7 +90,7 @@ public abstract class Entity extends ImageView {
     public void add(Component c) {
     		if (c != null) {
     			if (this.contains(c))
-    				this.removeByName(c.getKeyKey());
+    				this.removeByName(c.getKey());
     			this.components.add(c);
     		}
     }
@@ -99,7 +109,7 @@ public abstract class Entity extends ImageView {
      */
     private void removeByName(String name) {
     		for (Component c : this.components) {
-    			if (c.getKeyKey().equals(name)) {
+    			if (c.getKey().equals(name)) {
     				this.remove(c);
     				return;
     			}
@@ -113,7 +123,7 @@ public abstract class Entity extends ImageView {
      */
     private boolean contains(Component c) {
     		for (Component existing : this.components) {
-    			if (existing.getKeyKey() == c.getKeyKey())
+    			if (existing.getKey() == c.getKey())
     				return true;
     		}
     		return false;
@@ -126,7 +136,7 @@ public abstract class Entity extends ImageView {
      */
     private boolean contains(String name) {
     		for (Component existing : this.components) {
-    			if (existing.getKeyKey().equals(name))
+    			if (existing.getKey().equals(name))
     				return true;
     		}
     		return false;

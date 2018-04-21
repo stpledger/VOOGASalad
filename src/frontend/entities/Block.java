@@ -14,7 +14,6 @@ public class Block extends Entity{
 
 	public Block(int ID) {
 		super(ID);
-		addDefaultComponents();
 	}
 
 	@Override

@@ -70,7 +70,7 @@ public class GameState implements IGameState {
 		for (Level level : this.state) {
 			for (Entity e : level.getEntityList()) {
 				for (Component c : e.getComponentList()) {
-					System.out.println(e.type() + " has component " + c.getKeyKey());
+//					System.out.println(e.type() + " has component " + c.getKey());
 				}
 			}
 		}

@@ -19,6 +19,12 @@ public class Accelerate implements ISystem{
 	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
 	private Set<Integer> activeComponents;
     
+	private EntityManager em;
+	
+	public Accelerate(EntityManager em) {
+		this.em = em;
+	}
+	
 	/**
 	 * Adds acceleration and velocity components from <String, Component> Map
 	 * 
@@ -58,9 +64,9 @@ public class Accelerate implements ISystem{
     		
 
     		Map<String, Component> map = new HashMap<>();
-    		map.put(componentName,EntityManager.getComponent(pid, componentName));
+    		map.put(componentName, em.getComponent(pid, componentName));
     		if(componentName.equals(Acceleration.KEY)) {
-    			Component component = EntityManager.getComponent(pid,Velocity.KEY);
+    			Component component = em.getComponent(pid,Velocity.KEY);
     			if(component == null) {
     				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Velocity.KEY + " component!");
     				return;
@@ -68,7 +74,7 @@ public class Accelerate implements ISystem{
     			map.put(Velocity.KEY, component);
     		}
     		else {
-    			Component component = EntityManager.getComponent(pid,Acceleration.KEY);
+    			Component component = em.getComponent(pid,Acceleration.KEY);
     			if(component == null) {
     				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Acceleration.KEY + " component!");
     				return;
