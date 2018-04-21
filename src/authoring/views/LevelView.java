@@ -16,6 +16,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
 /**
@@ -30,17 +31,26 @@ public class LevelView extends ScrollPane {
 	private Level level;
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
+	private HBox toolbar;
+	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
 		this.addEntity = aE;
 		this.level = level;
 		this.content = new Grid();
 		this.content.getStyleClass().add("level-view-content");
+		this.toolbar = new HBox(200);
+		this.content.getChildren().add(toolbar);
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setContent((content));
 		this.setupMouseClick(levelNum);
 		this.setupMouseDrag();
+		Button button = new Button("Cocks");
+		button.setOnAction(e->{
+			this.content.addRow();
+		});
+		toolbar.getChildren().add(button);
 	}
 
 	/**
