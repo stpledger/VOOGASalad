@@ -1,12 +1,15 @@
 package GamePlayer;
 
+import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import data.DataGameState;
 import data.DataRead;
+import data.DataWrite;
 import engine.components.*;
+import engine.components.Component;
 import engine.setup.EntityManager;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
@@ -15,6 +18,7 @@ import engine.systems.InputHandler;
 import frontend.components.Level;
 import frontend.entities.Entity;
 import javafx.scene.Group;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
@@ -32,13 +36,7 @@ public class GamePlayerEntityView {
 	private Map<Integer, Map<String, Component>> entityMap;
 	private Map<Integer, Group> levelEntityMap;
 	private DataGameState gameState;
-<<<<<<< HEAD
-	private File gameFile;
-
 	private GameInitializer GI;
-=======
-	private GameInitializer gameInitializer;
->>>>>>> aad2f0ace99a522a363ca65887e1d73b45223b7a
 	private InputHandler inputHandler;
 	private RenderManager RM;
 
@@ -47,14 +45,8 @@ public class GamePlayerEntityView {
 		gameState = DataRead.loadFile(gameFile);
 		levelMap = gameState.getGameState();
 		levelEntityMap = createEntityGroupMap(levelMap);
-
-<<<<<<< HEAD
-		for (Level l : levelMap.keySet()) {
-			entityMap = levelMap.get(l);
-=======
 		for(Level level : levelMap.keySet()) {
 			entityMap = levelMap.get(level);  //currently entityMap is the first level map of integer to components
->>>>>>> aad2f0ace99a522a363ca65887e1d73b45223b7a
 			break;
 		}
 		initializeGamePlayerEntityView();
@@ -105,7 +97,7 @@ public class GamePlayerEntityView {
 			if(entityComponents.containsKey("Sprite")) {
 				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
-				System.out.print(image.getX());
+				//System.out.print(image.getX());
 				entityRoot.getChildren().add(image);
 			}
 		}
@@ -147,6 +139,21 @@ public class GamePlayerEntityView {
 
 	public void removeInput (KeyCode code) {
 		inputHandler.removeCode(code);
+	}
+
+	public void saveGame(){
+		DataWrite dw = new DataWrite();
+		dw.saveGame(gameState, "test");
+	}
+
+	// used to update the bounds of the scrollpane so the view shifts with the user's character
+	public void updateScroll(Group gameRoot){
+		//pane.setVvalue(pane.getVvalue() + 1);
+		//System.out.println(pane.getHvalue());
+		//pane.setHvalue(pane.getHvalue() + 1);
+		//System.out.println(pane.getHvalue());
+		gameRoot.setLayoutX(gameRoot.getTranslateX() + 1);
+		//System.out.println(gameRoot.getTranslateX());
 	}
 
 }
