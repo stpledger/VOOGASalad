@@ -57,14 +57,12 @@ public class GameInitializer {
         SM.execute(time);
     }
 
-    public void render() {
-        RM.garbageCollect();
-        RM.renderObjects();
-    }
 
     public InputHandler getIH() {
          return IH;
          }
+
+    public RenderManager getRM() { return RM; }
 
     public List<ISystem> getSystems() {		// For testing
     		return systems;

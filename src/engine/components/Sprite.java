@@ -55,4 +55,12 @@ public class Sprite extends Component {
 		return filename;
 	}
 
+	@Override
+	public Map<String, String> getParameters(){
+		Map<String,String> res = new HashMap<String, String>(){{
+			put("Image", filename);
+		}};
+		return res;
+	}
 }
+

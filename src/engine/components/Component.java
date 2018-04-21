@@ -28,6 +28,6 @@ public abstract class Component {
 
 	public String getKeyKey() { return keykey; }
 
-	//public abstract Map<String,String> getParameters();
+	public abstract Map<String,String> getParameters();
 
 }

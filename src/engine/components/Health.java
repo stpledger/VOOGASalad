@@ -8,7 +8,7 @@ import java.util.Map;
  * Component for an entitie's health. Contains one double to represent this value.
  * @author fitzj
  */
-public class Health extends ShowableComponent {
+public class Health extends Component {
 	private double health;
 	public static String KEY = "Health";
 	
