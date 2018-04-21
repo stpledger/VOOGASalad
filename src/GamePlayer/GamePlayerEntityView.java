@@ -113,7 +113,7 @@ public class GamePlayerEntityView {
 
 	/**
 	 * When a level change is invoked, reinitalize the GameInitializer to add functionality.
-	 * @param level
+	 * @param levelNum
 	 */
 	public void reinitializeGameEngine(int levelNum) {
 		int count = 1;
