@@ -55,6 +55,10 @@ public class FileUploadButton extends Button {
 			return uploadedFile;
 		}
 		
+		public Boolean isFile() {
+			return (uploadedFile!=null);
+		}
+		
 		public BooleanProperty getFileBooleanProperty() {
 			return fileBoolean;
 		}

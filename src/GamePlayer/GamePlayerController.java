@@ -39,7 +39,6 @@ public class GamePlayerController {
 	public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private double renderTime;
-
 	private Stage myStage;
 	private Scene myScene;
 	private Group gameRoot;
@@ -61,24 +60,20 @@ public class GamePlayerController {
 	
 	
 	public Scene intializeStartScene() {
-		SampleToolBar sampleBar = new SampleToolBar();
-//		MenuGameBar menuBar = new MenuGameBar(this);
-//		pane.setBottom(menuBar);
 		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			try{
 				initializeGameStart();
+				//initializeLevelFile();
 			}
 			catch(FileNotFoundException e){
 				e.printStackTrace(); //fix this or you will fail
 			}
 		});
-		pane.setTop(sampleBar);
 		myScene = new Scene(pane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
 				pauseMenu.show(myStage);
-			// SORRY
 			} else {
 				gameView.setInput(e.getCode());
 			}
@@ -97,6 +92,8 @@ public class GamePlayerController {
 	 * @throws FileNotFoundException 
 	 */
 	public void initializeGameStart() throws FileNotFoundException {
+		SampleToolBar sampleBar = new SampleToolBar(this);
+		pane.setTop(sampleBar);
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		levelEntityGroupMap = gameView.getlevelEntityMap();
@@ -107,6 +104,17 @@ public class GamePlayerController {
 		initializeGameAnimation(); //begins the animation cycle
 
 	}
+	
+	/**
+	 * Takes in an organized map of Levels and stores the file in the current
+	 * Game File for the controller to operate. From here, future level changes
+	 * can be accessed and changed from this file.
+	 */
+	public void initializeLevelFile() {
+		
+		
+	}
+	
 
 	/**
 	 * Begins the animation cycle count of the animation after game has started
