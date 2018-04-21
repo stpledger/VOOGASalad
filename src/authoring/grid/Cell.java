@@ -43,6 +43,5 @@ public class Cell extends Pane {
 			}
 		});
 	}
-
 	
 }

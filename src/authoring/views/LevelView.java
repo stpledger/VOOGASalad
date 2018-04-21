@@ -3,12 +3,16 @@ package authoring.views;
 import java.util.function.Consumer;
 
 import authoring.entities.Entity;
+import authoring.factories.ElementFactory;
+import authoring.factories.ElementType;
 import authoring.gamestate.Level;
 import authoring.views.properties.LevelPropertiesView;
 import authoring.grid.Grid;
 import authoring.grid.Cell;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -16,6 +20,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 
 /**
@@ -30,17 +35,28 @@ public class LevelView extends ScrollPane {
 	private Level level;
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
+	private HBox toolbar;
+	private ElementFactory eFactory;
+	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
+		this.eFactory = new ElementFactory();
 		this.addEntity = aE;
 		this.level = level;
 		this.content = new Grid();
 		this.content.getStyleClass().add("level-view-content");
+//		this.toolbar = new HBox(200);
+//		this.content.getChildren().add(toolbar);
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setContent((content));
 		this.setupMouseClick(levelNum);
 		this.setupMouseDrag();
+//		Button button = new Button("Cocks");
+//		button.setOnAction(e->{
+//			this.content.addRow();
+//		});
+//		toolbar.getChildren().add(button);
 	}
 
 	/**
@@ -52,6 +68,27 @@ public class LevelView extends ScrollPane {
 			if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount()==2) {
 				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
 				lView.open();
+			} else if(e.getButton().equals(MouseButton.SECONDARY)) {
+				ContextMenu cMenu = new ContextMenu();
+				try {
+					MenuItem addCol = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Add Column");
+					MenuItem addRow = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Add Row");
+					MenuItem cancel = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Cancel");
+					addCol.setOnAction(e1->{
+						this.content.addCol();
+					});
+					addRow.setOnAction(e1->{
+						this.content.addRow();
+					});
+					cancel.setOnAction(e1->{
+						cMenu.hide();
+					});
+					cMenu.getItems().addAll(addCol,addRow,cancel);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+				cMenu.show(this, e.getScreenX(), e.getScreenY());
+				cMenu.setAutoHide(true);
 			}
 		});
 	}
