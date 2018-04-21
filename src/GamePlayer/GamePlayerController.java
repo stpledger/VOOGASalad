@@ -59,7 +59,7 @@ public class GamePlayerController {
 				//initializeLevelFile();
 			}
 			catch(FileNotFoundException e){
-				e.printStackTrace(); //fix this or you will fail
+				System.out.println("File Does Not Exist");
 			}
 		});
 		//myPane.setTop(sampleBar);
@@ -68,7 +68,6 @@ public class GamePlayerController {
 			if(e.getCode() == KeyCode.ESCAPE) {
 				pauseMenu.show(myStage);
 				//myTimeline.pause();
-			// SORRY
 
 			} else {
 				gameView.setInput(e.getCode());
@@ -101,16 +100,6 @@ public class GamePlayerController {
 		//initializeScroll();
 		myPane.setCenter(originGameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		initializeGameAnimation(); //begins the animation cycle
-	}
-	
-	/**
-	 * Takes in an organized map of Levels and stores the file in the current
-	 * Game File for the controller to operate. From here, future level changes
-	 * can be accessed and changed from this file.
-	 */
-	public void initializeLevelFile() {
-		
-		
 	}
 	
 
@@ -160,6 +149,16 @@ public class GamePlayerController {
 			renderTime = 0;
 		}
 		gameView.updateScroll(gameRoot);
+	}
+	
+	public void restartGame() {
+		try{
+			initializeGameStart();
+			//initializeLevelFile();
+		}
+			catch(FileNotFoundException e){
+			System.out.println("File Does Not Exist");
+		}
 	}
 
 	public void saveGame(){
