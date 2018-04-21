@@ -4,7 +4,7 @@ import Menu.LevelSelector;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
-import labelComponents.timeLabel;
+import labels.TimeLabel;
 
 public class SampleToolBar extends ToolBar implements IHUD{
 
@@ -18,7 +18,7 @@ public class SampleToolBar extends ToolBar implements IHUD{
 		label1.setText("Lives");
 		Label label2 = new Label();
 		label2.setText("Score");
-		timeLabel label3 = new timeLabel(0);
+		TimeLabel label3 = new TimeLabel(0);
 		toolbarLayout.getChildren().addAll(label1, label2, label3);
 		//label4.textProperty().bind(observable); //bind to the time of the game
 		this.getItems().add(toolbarLayout);
