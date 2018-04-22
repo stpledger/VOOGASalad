@@ -34,8 +34,7 @@ public class GameState implements IGameState {
 			System.out.println("saved!");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			System.out.print("didnt work");
+			e.printStackTrace();
 		}
 	}
 

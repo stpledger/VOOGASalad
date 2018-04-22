@@ -1,7 +1,6 @@
 package authoring.views;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -9,27 +8,22 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.function.Consumer;
-import javax.imageio.ImageIO;
 
 import data.DataRead;
 import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.FileChooser.ExtensionFilter;
 import GamePlayer.Main;
 import authoring.entities.Entity;
 import authoring.factories.Toolbar;
-import authoring.gamestate.*;
+import authoring.gamestate.GameState;
+import authoring.gamestate.Level;
 import authoring.views.properties.GlobalPropertiesView;
 import authoring.views.properties.HUDPropertiesView;
 import authoring.views.properties.LevelPropertiesView;
@@ -258,8 +252,6 @@ public class GameEditorView extends BorderPane {
 				Class<?> entityTypeClass = Class.forName("authoring.entities." + entityType);
 				entity = createEntityFromType(entityTypeClass, entityID);	
 			}
-		}
-		for(Component c : componentList) {
 			entity.add(c);
 			if(c.getKey().equals("Sprite")) {
 				Image image = DataRead.loadImage(((Sprite) c).getName());	
