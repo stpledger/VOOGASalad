@@ -8,20 +8,11 @@ import authoring.factories.ElementType;
 import authoring.gamestate.Level;
 import authoring.views.properties.LevelPropertiesView;
 import authoring.grid.Grid;
-import authoring.grid.Cell;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 
 /**
  *  
@@ -35,8 +26,9 @@ public class LevelView extends ScrollPane {
 	private Level level;
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
-	private HBox toolbar;
 	private ElementFactory eFactory;
+	private final int ADD_FIVE = 5;
+	private final int ADD_ONE = 1;
 	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
@@ -45,18 +37,11 @@ public class LevelView extends ScrollPane {
 		this.level = level;
 		this.content = new Grid();
 		this.content.getStyleClass().add("level-view-content");
-//		this.toolbar = new HBox(200);
-//		this.content.getChildren().add(toolbar);
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setContent((content));
 		this.setupMouseClick(levelNum);
 		this.setupMouseDrag();
-//		Button button = new Button("Cocks");
-//		button.setOnAction(e->{
-//			this.content.addRow();
-//		});
-//		toolbar.getChildren().add(button);
 	}
 
 	/**
@@ -73,17 +58,25 @@ public class LevelView extends ScrollPane {
 				try {
 					MenuItem addCol = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Add Column");
 					MenuItem addRow = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Add Row");
+					MenuItem addFiveCol = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Add 5 Columns");
+					MenuItem addFiveRow = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Add 5 Rows");
 					MenuItem cancel = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Cancel");
 					addCol.setOnAction(e1->{
-						this.content.addCol();
+						this.content.addCol(ADD_ONE);
 					});
 					addRow.setOnAction(e1->{
-						this.content.addRow();
+						this.content.addRow(ADD_ONE);
+					});
+					addFiveCol.setOnAction(e1->{
+						this.content.addCol(ADD_FIVE);
+					});
+					addFiveRow.setOnAction(e1->{
+						this.content.addRow(ADD_FIVE);
 					});
 					cancel.setOnAction(e1->{
 						cMenu.hide();
 					});
-					cMenu.getItems().addAll(addCol,addRow,cancel);
+					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}

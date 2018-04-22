@@ -17,6 +17,7 @@ import authoring.entities.Entity;
  * such as poison, health, velocity, etc. 
  * @author Collin Brown (cdb55)
  * @author Dylan Powers (ddp19)
+ * @author Hemanth Yakkali
  *
  */
 public class LocalPropertiesView extends PropertiesView {
@@ -36,7 +37,6 @@ public class LocalPropertiesView extends PropertiesView {
 		this.entity = entity;
 		this.type = entity.type();
 		this.onSubmit = onSubmit;
-		this.fill();
 	}
 	
 	/**
@@ -45,7 +45,6 @@ public class LocalPropertiesView extends PropertiesView {
 	@Override
 	protected void fill() {
 		int currentRow = 0;
-		ResourceBundle buttonProps = ResourceBundle.getBundle(this.getButtonResourcesFilePath());
 		this.activeForms = new ArrayList<>();
 		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + type).keySet()) {
 			PropertiesComponentForm cf;
@@ -60,7 +59,7 @@ public class LocalPropertiesView extends PropertiesView {
 		}
 		
 		try {
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, buttonProps.getString("Submit"));
+			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, this.getButtonBundle().getString("Submit"));
 			submit.setOnAction(e->{
 				List<Component> componentsToAdd = new ArrayList<>();
 				for (PropertiesComponentForm cf : this.activeForms) {

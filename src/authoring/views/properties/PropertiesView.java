@@ -1,5 +1,7 @@
 package authoring.views.properties;
 
+import java.util.ResourceBundle;
+
 import authoring.MainApplication;
 import authoring.factories.ElementFactory;
 import javafx.geometry.Pos;
@@ -44,6 +46,7 @@ public abstract class PropertiesView {
 		stage.setScene(new Scene(root, WIDTH, HEIGHT));
 		stage.getScene().getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		stage.show();
+		this.fill();
 	}
 	
 	public void close() {
@@ -77,12 +80,14 @@ public abstract class PropertiesView {
 		return this.root;
 	}
 	
-	protected String getResourcesFilePath() {
-		return this.RESOURCES;
+	protected ResourceBundle getResourcesBundle(String props) {
+		ResourceBundle bundle = ResourceBundle.getBundle(this.RESOURCES+props);
+		return bundle;
 	}
 	
-	protected String getButtonResourcesFilePath() {
-		return this.BUTTON_RESOURCES;
+	protected ResourceBundle getButtonBundle() {
+		ResourceBundle bundle = ResourceBundle.getBundle(this.BUTTON_RESOURCES);
+		return bundle;
 	}
 	
 	protected ElementFactory getElementFactory() {

@@ -2,7 +2,6 @@ package authoring.views.properties;
 
 import java.util.ResourceBundle;
 
-import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
@@ -18,14 +17,11 @@ public class LevelPropertiesView extends PropertiesView{
 	private int levelNum;
 	private Level level;
 	private String text = "text";
-	ElementFactory eFactory;
 	
 	public LevelPropertiesView(Level level, int levelNum) {
 		super();
 		this.levelNum = levelNum;
 		this.level = level;
-		this.eFactory = new ElementFactory();
-		this.fill();
 	}
 
 	@Override
@@ -35,20 +31,19 @@ public class LevelPropertiesView extends PropertiesView{
 
 	@Override
 	protected void fill() {
-		ResourceBundle levelProps = ResourceBundle.getBundle(this.getResourcesFilePath()+"LevelProperties");
-		ResourceBundle buttonProps = ResourceBundle.getBundle(this.getButtonResourcesFilePath());
+		ResourceBundle levelProps = this.getResourcesBundle(this.title().replaceAll("[0-9]", "").replaceAll(" ", ""));
 		try {
 			int currentRow = 0;
 			for (String property : levelProps.keySet()) {
-				Label label = (Label) eFactory.buildElement(ElementType.Label,levelProps.getString(property));
+				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label,levelProps.getString(property));
 				this.getRoot().add(label, 0, currentRow++);
 			}
 			//TODO update text to be something meaningful from properties files
-			TextField infoText = (TextField) eFactory.buildElement(ElementType.TextField,text);
-			TextField diffText = (TextField) eFactory.buildElement(ElementType.TextField,text);
-			NumberField timeNumber = (NumberField) eFactory.buildElement(ElementType.NumberField,text);
-			NumberField distNumber = (NumberField) eFactory.buildElement(ElementType.NumberField,text);
-			Button button = (Button) eFactory.buildElement(ElementType.Button,buttonProps.getString("Submit"));
+			TextField infoText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,text);
+			TextField diffText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,text);
+			NumberField timeNumber = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField,text);
+			NumberField distNumber = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField,text);
+			Button button = (Button) this.getElementFactory().buildElement(ElementType.Button,this.getButtonBundle().getString("Submit"));
 			button.setOnAction(e->{
 				level.setLevelInfo(infoText.getText());
 				level.setLevelDifficulty(diffText.getText());
