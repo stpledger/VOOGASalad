@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import data.DataRead;
 import javafx.application.Platform;
@@ -45,6 +46,8 @@ public class GameEditorView extends BorderPane {
 	private TabPane tabPane;
 	private Toolbar toolbar;
 	private int nextEntityID  = 0;
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	private Consumer<MouseEvent> addEntity = mouseEvent -> { addEntityMethod(mouseEvent);};
 	private Consumer<List<Tab>> updateTabs = tabList -> { updateTabsMethod(tabList); };
@@ -162,8 +165,7 @@ public class GameEditorView extends BorderPane {
 				try { 
 					new Main().start(new Stage());
 				} catch (Exception e) { 
-					// TODO better exception here
-					e.printStackTrace();
+					LOGGER.severe(e.getMessage());
 				}
 			}	
 		});	
@@ -201,8 +203,7 @@ public class GameEditorView extends BorderPane {
 		try {
 			dr.saveFile(this.state, "MyFirstGame");
 		} catch (Exception ex) {
-			// TODO better exception
-			ex.printStackTrace();
+			LOGGER.severe(ex.getMessage());
 		}
 	}
 
@@ -226,6 +227,7 @@ public class GameEditorView extends BorderPane {
 					levelView.addEntity(entity);
 				} catch (Exception e) {
 					System.out.println("Error creating entity: " + entityID);
+					LOGGER.severe(e.getMessage());
 				}
 			}
 		}
@@ -277,6 +279,7 @@ public class GameEditorView extends BorderPane {
 			nextEntityID++;
 		} catch (Exception e) {
 			System.out.println("Error creating new entity");
+			LOGGER.severe(e.getMessage());
 		}
 	}
 
