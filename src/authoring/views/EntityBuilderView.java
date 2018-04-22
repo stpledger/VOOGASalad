@@ -13,10 +13,13 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
+import javax.swing.GroupLayout.Alignment;
 
 import authoring.MainApplication;
 import authoring.components.EntityComponentForm;
@@ -36,6 +39,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -48,25 +52,25 @@ import javafx.stage.Stage;
  * @author Collin Brown(cdb55)
  *
  */
-public class EntityBuilderView{
-	private final int HEIGHT = 600;
-	private final int WIDTH = 800;
+public class EntityBuilderView extends Stage{
 	private final int LEFT_PANEL_WIDTH = 200;
 	private final String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final String COMPONENT_PREFIX = "engine.components.";
+	private Properties tooltipProperties;
 	private MenuBar topMenu;
 	private HBox bottomMenu;
 	private VBox leftPanel;
-	private BorderPane root;
+	private GridPane currentForms;
+	private VBox root;
 	private ArrayList<String> entityTypes;
 	private String myEntityType;
-	private Stage stage;
 	private File imageFile;
 	private Image image;
 	private ImageView entityPreview;
 	private List<EntityComponentForm> activeForms;
 	private List<String> imageExtensions = Arrays.asList(new String[] {".jpg",".png",".jpeg"});
 	private BiConsumer<String, Map<Class, Object[]>> onClose;
+	private Consumer<MouseEvent> saveOnClick = (e)->{save();};
 	private Map<Class, Object[]> componentAttributes = new HashMap<Class, Object[]>();
 	
 	/**
@@ -84,16 +88,22 @@ public class EntityBuilderView{
 	 * Builds the view to be displayed
 	 */
 	private void build() {
-		this.root = new BorderPane();
-		this.topMenu = buildTopBar();
+		tooltipProperties = new Properties();
+		try {
+			tooltipProperties.load(new FileInputStream("src/resources/tooltips/EntityBuilderViewTooltips.properties"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		this.root = new VBox();
+		this.root.setAlignment(Pos.CENTER);
+		this.topMenu = buildTypeComboBox();
 		this.bottomMenu = buildBottomMenu();
 		this.leftPanel = buildLeftPanel();
-		this.root.setTop(topMenu);
-		this.root.setLeft(leftPanel);
-		this.root.setBottom(bottomMenu);
-		GridPane tempGridPane = new GridPane();
-		tempGridPane.getStyleClass().add("component-form");
-		this.root.setCenter(tempGridPane);
+		this.root.getChildren().add(topMenu);
+		this.root.getChildren().add(entityPreview);
+		this.root.getChildren().add(leftPanel);
+		this.root.getChildren().add(bottomMenu);
+		
 		this.root.getStyleClass().add("entity-builder-view");
 		
 	}
@@ -102,22 +112,20 @@ public class EntityBuilderView{
 	 * Opens the Property Editor window.
 	 */
 	private void open() {
-		stage = new Stage();
-		Scene s = new Scene(root, WIDTH, HEIGHT);
-		stage.setTitle("Entity Builder");
+		Scene s = new Scene(root);
+		this.setTitle("Entity Builder");
 		s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
-		stage.setScene(s);
-		stage.show();
+		this.setScene(s);
+		this.show();
 	}
 	
 	/**
 	 * Builds the top menu Bar of the EntityBuilderView
 	 * @return MenuBar representing the toolbar
 	 */
-	private MenuBar buildTopBar() {
+	private MenuBar buildTypeComboBox() {
 			MenuBar menuBar = new MenuBar();
 			menuBar.getStyleClass().add("toolbar");
-			menuBar.setMinWidth(WIDTH);
 			menuBar.getMenus().add(buildTypeMenu());
 			menuBar.getMenus().add(buildImageMenu());
 			return menuBar;
@@ -136,7 +144,7 @@ public class EntityBuilderView{
 			FileChooser fileChooser = new FileChooser();
 			fileChooser.setTitle("Open Image File");
 			fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
-			imageFile = fileChooser.showOpenDialog(stage);
+			imageFile = fileChooser.showOpenDialog(this);
 			try {
 				componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
 				DataRead.importImage( imageFile);
@@ -176,11 +184,14 @@ public class EntityBuilderView{
 			menuItem.setText(et);
 			menuItem.setOnAction((e)->{
 				myEntityType = et;
-				typeMenu.setText(et);			
-				root.setCenter(fillComponentsForms());
+				typeMenu.setText(et);
+				this.root.getChildren().remove(bottomMenu);
+				root.getChildren().add(fillComponentsForms());
+				this.root.getChildren().add(bottomMenu);
+				this.sizeToScene();
 				});
 			typeMenu.getItems().add(menuItem);
-		}	
+		}
 		return typeMenu;
 	}
 	
@@ -206,58 +217,58 @@ public class EntityBuilderView{
 	 */
 	private HBox buildBottomMenu() {
 			HBox hBox = new HBox();
-			hBox.setAlignment(Pos.CENTER_RIGHT);
+			hBox.setAlignment(Pos.CENTER);
 			hBox.getStyleClass().add("toolbar");
-			hBox.setPrefWidth(WIDTH);
-			hBox.getChildren().add(buildSaveButton());
+			
+			hBox.getChildren().add(buttonBuilder("save", saveOnClick));
 			return hBox;
 			
 		}
+	
+	private Button buttonBuilder(String name, Consumer onClick) {
+		Button button = new Button(name);
+		button.setTooltip(new Tooltip(tooltipProperties.getProperty(name)));
+		button.setOnMouseClicked((e)->onClick.accept(e));
+		button.getStyleClass().addAll("entity-builder-view-button",name);
+		return button;
 		
-	/**
-	 * Builds the save button
-	 * @return Button save button
-	 */
-	private Button buildSaveButton() {
-		Button saveButton = new Button("Save");
-		saveButton.setOnMouseClicked((e)->{
-				for(EntityComponentForm componentForm : activeForms) {
-					Object[] tempArr = componentForm.buildComponent();
-					if(tempArr != null) {
-					try {
-						componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
-					} catch (ClassNotFoundException e1) {
-						System.out.println("Error Trying to Save New Entity");
-					}
-					}
-				}
-				onClose.accept(myEntityType, componentAttributes);
-				stage.close();
-			});
-		saveButton.getStyleClass().add("entity-builder-view-button");
-		Tooltip tt = new Tooltip();
-		tt.setText("Save this entity as a template.");
-		saveButton.setTooltip(tt);
-		return saveButton;
 	}
+	/**
+	 * Saves the current entity
+	 */
+	private void save(){
+		for(EntityComponentForm componentForm : activeForms) {
+			Object[] tempArr = componentForm.buildComponent();
+			if(tempArr != null) {
+			try {
+				componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
+			} catch (ClassNotFoundException e1) {
+				System.out.println("Error Trying to Save New Entity");
+			}}
+		}
+		onClose.accept(myEntityType, componentAttributes);
+		this.close();
+			}
 	
 	/**
 	 * Creates the forms and returns them as a GridPane
 	 * @return gridPane a gridpane filled with the necessary forms
 	 */
 	public Node fillComponentsForms() {
-			GridPane gridPane = new GridPane();
-			gridPane.getStyleClass().add("component-form");
+			this.root.getChildren().remove(currentForms);
+			currentForms = new GridPane();
+			currentForms.getStyleClass().add("component-form");
 			int currentRow = 0;
 			this.activeForms = new ArrayList<>();
 			for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + myEntityType).keySet()) {
 				if(!property.equals("Sprite") && !property.equals("Position")) {
 					EntityComponentForm cf = new EntityComponentForm(property);
+					cf.setAlignment(Pos.CENTER);
 					this.activeForms.add(cf);
-					gridPane.add(cf, 0, currentRow++);
+					currentForms.add(cf, 0, currentRow++);
 				}
 			}
-			return gridPane;
+			return currentForms;
 	}
 
 
