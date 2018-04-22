@@ -15,10 +15,11 @@ import java.util.logging.LogRecord;
 public class HtmlFormatter extends Formatter{
 	private static final String DEFAULT_OPEN_TAG = "\t<td>";
 	private static final String DEFAULT_CLOSE_TAG = "</td>\\n";
+	private static final int STRING_BUFFER_LENGTH = 100;
 
 	@Override
 	public String format(LogRecord record) {
-		StringBuffer stringBuffer = new StringBuffer(1000);
+		StringBuffer stringBuffer = new StringBuffer(STRING_BUFFER_LENGTH);
 		stringBuffer.append("<tr>\n");
 		
 		if(record.getLevel().intValue() >= Level.WARNING.intValue()) {
