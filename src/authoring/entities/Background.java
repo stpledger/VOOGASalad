@@ -7,8 +7,8 @@ package authoring.entities;
  */
 public class Background extends Entity{
 
-	private final String TYPE = "Background";
-	private final double BKGRND_DIMENSION = 50;
+	private final static String TYPE = "Background";
+	private final static double BKGRND_DIMENSION = 50;
 
 	public Background(int ID) {
 		super(ID);

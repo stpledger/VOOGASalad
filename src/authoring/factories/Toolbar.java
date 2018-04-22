@@ -33,7 +33,7 @@ public class Toolbar extends MenuBar{
 		super();
 		this.consumerMap = cm;
 		this.toolbarName = name;
-		this.menuProps = new ArrayList<Pair<String,Properties>>();
+		this.menuProps = new ArrayList<>();
 		this.getStyleClass().add("toolbar");
 		addMenus(getMenuProperties());
 	}
