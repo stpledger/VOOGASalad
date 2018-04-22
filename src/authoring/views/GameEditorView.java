@@ -252,8 +252,6 @@ public class GameEditorView extends BorderPane {
 				Class<?> entityTypeClass = Class.forName("authoring.entities." + entityType);
 				entity = createEntityFromType(entityTypeClass, entityID);	
 			}
-		}
-		for(Component c : componentList) {
 			entity.add(c);
 			if(c.getKey().equals("Sprite")) {
 				Image image = DataRead.loadImage(((Sprite) c).getName());	
