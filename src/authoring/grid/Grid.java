@@ -45,28 +45,34 @@ public class Grid extends TilePane {
 
 	/**
 	 * Adds new row of cells to the grid
+	 * @param numTimes Number of rows to add
 	 */
-	public void addRow() {
-		for(int i=0;i<this.numCols;i++) {
-			Cell c = new Cell();
-			this.getChildren().add(c);
+	public void addRow(int numTimes) {
+		for(int j=0;j<numTimes;j++) {
+			for(int i=0;i<this.numCols;i++) {
+				Cell c = new Cell();
+				this.getChildren().add(c);
+			}
+			this.setPrefHeight(this.getPrefHeight()+Entity.ENTITY_HEIGHT);
+			this.numRows++;
 		}
-		this.setPrefHeight(this.getHeight()+Entity.ENTITY_HEIGHT);
-		this.numRows++;
 	}
 	
 	/**
-	 * Adds new column of cells to the grid
+	 * Adds a number of new columns to the grid
+	 * @param numTimes Number of columns to add 
 	 */
-	public void addCol() {
-		int index = this.numCols;
-		for(int i=0;i<this.numRows;i++) {
-			Cell c = new Cell();
-			this.getChildren().add(index,c);
-			index+=this.numCols+1; //add one because width of grid increases by one ENTITY_WIDTH
+	public void addCol(int numTimes) {
+		for(int j=0;j<numTimes;j++) {
+			int index = this.numCols;
+			for(int i=0;i<this.numRows;i++) {
+				Cell c = new Cell();
+				this.getChildren().add(index,c);
+				index+=this.numCols+1; //add one because width of grid increases by one ENTITY_WIDTH
+			}
+			this.setPrefWidth(this.getPrefWidth()+Entity.ENTITY_WIDTH);
+			this.numCols++;
 		}
-		this.setPrefWidth(this.getWidth()+Entity.ENTITY_WIDTH);
-		this.numCols++;
 	}
 
 }

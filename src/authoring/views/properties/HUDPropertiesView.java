@@ -21,19 +21,17 @@ public class HUDPropertiesView extends PropertiesView{
 	public HUDPropertiesView(List<Level> levelArray) {
 		super();
 		this.levels = levelArray;
-		this.fill();
 	}
 
 	@Override
 	protected void fill() {
-		ResourceBundle HUDProps = ResourceBundle.getBundle(this.getResourcesFilePath()+NAME.replace(" ", ""));
-		ResourceBundle buttonProps = ResourceBundle.getBundle(this.getButtonResourcesFilePath());
+		ResourceBundle HUDProps = this.getResourcesBundle(this.NAME.replace(" ", ""));
 		try {
 			CheckBox livesBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Lives"));
 			CheckBox healthBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Health"));
 			CheckBox timeBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Time"));
 			CheckBox levelBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Levels"));
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button,buttonProps.getString("Submit") );
+			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button,this.getButtonBundle().getString("Submit") );
 			submit.setOnAction(e->{
 				for(Level level : levels) {
 					level.addHUDProp(HUDProps.getString("Lives"), livesBox.isSelected());

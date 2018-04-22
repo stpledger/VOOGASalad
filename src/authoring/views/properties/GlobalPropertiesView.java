@@ -23,7 +23,6 @@ public class GlobalPropertiesView extends PropertiesView {
 	public GlobalPropertiesView(List<Level> ls){
 		super();
 		this.levels = ls;
-		fill();
 	}
 
 	@Override
@@ -33,8 +32,7 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	@Override
 	protected void fill() {
-		ResourceBundle globalProps = ResourceBundle.getBundle(this.getResourcesFilePath()+NAME.replace(" ", ""));
-		ResourceBundle buttonProps = ResourceBundle.getBundle(this.getButtonResourcesFilePath());
+		ResourceBundle globalProps = this.getResourcesBundle(this.NAME.replace(" ", ""));
 		try {
 			int currentRow = 0;
 			TextField titleInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, globalProps.getString("Title").split(",")[1]);
@@ -45,7 +43,7 @@ public class GlobalPropertiesView extends PropertiesView {
 				getRoot().addRow(currentRow++, label);
 			}
 			getRoot().addColumn(1,livesInput,titleInput,pathInput);
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, buttonProps.getString("Submit"));
+			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, this.getButtonBundle().getString("Submit"));
 			submit.setOnAction(e->{
 				for(Level level : levels) {
 					level.addGProp(globalProps.getString("Title").split(",")[0], titleInput.getText());
