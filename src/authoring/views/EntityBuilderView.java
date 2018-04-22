@@ -140,7 +140,8 @@ public class EntityBuilderView extends Stage{
 	private ComboBox buildTypeComboBox() {
 		ComboBox<String> comboBox = new ComboBox();
 		comboBox.setPromptText("Object Type");
-		comboBox.getStyleClass().add(".entity-builder-combo-box"); 
+		comboBox.getStyleClass().add("entity-builder-combo-box"); 
+		comboBox.setStyle("-fx-prompt-text-fill: red;");
 		for(String et : entityTypes) {
 			comboBox.getItems().add(et);
 		}
