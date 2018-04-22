@@ -56,7 +56,7 @@ public class EntityBuilderView extends Stage{
 	private BiConsumer<String, Map<Class, Object[]>> onClose;
 	private Consumer<MouseEvent> saveOnClick = e -> {save();};
 	private Consumer<MouseEvent> addImageOnClick = e -> {addImage();};
-	private Map<Class, Object[]> componentAttributes = new HashMap<Class, Object[]>();
+	private Map<Class, Object[]> componentAttributes = new HashMap<>();
 	
 	/**
 	 * The constructor of the popup window for creating new entities
