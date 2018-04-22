@@ -28,6 +28,9 @@ public class SplashScreen extends VBox {
 	Properties properties;
 	Consumer changeScene;
 	
+	private static final int SPLASH_SCREEN_HEIGHT = 300;
+	private static final int SPLASH_SCREEN_WIDTH = 400;
+	
 	public SplashScreen(Consumer<Scene> cs) {
 		//Load the menu properties
 		 properties = new Properties();
@@ -38,18 +41,16 @@ public class SplashScreen extends VBox {
 			System.out.println("Error Loading SplashScreen");
 		}
 		
-		//Set the basics
-		this.setWidth(400);
-		this.setHeight(300);
+		this.setWidth(SPLASH_SCREEN_WIDTH);
+		this.setHeight(SPLASH_SCREEN_HEIGHT);
 		this.setAlignment(Pos.CENTER);
 		this.getStyleClass().add("root");
 		this.getStyleClass().add("splash-screen-wrapper");
 		
-		//Create the buttons
 		for(String key: properties.stringPropertyNames()) {
 			try {
 				this.getChildren().add(buildButton(key, this.getClass().getMethod(key)));
-			} catch (NoSuchMethodException | SecurityException e) {
+			} catch (Exception e) {
 				System.out.println("Error creating button " + key);
 				e.printStackTrace();
 			}
@@ -60,6 +61,7 @@ public class SplashScreen extends VBox {
 	public void playGame() {
 		
 	}
+	
 	/**
 	 * Creates a new gameAuthoringEnviornment view based on the 
 	 */
