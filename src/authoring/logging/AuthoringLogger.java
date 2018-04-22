@@ -19,8 +19,8 @@ public class AuthoringLogger {
 	private static final String LOGGING_TEXT_FILE_NAME = "Logging.txt";
 	private static final String LOGGING_HTML_FILE_NAME = "Logging.html";
 	
-	public AuthoringLogger() {
-		
+	private AuthoringLogger() {
+		//
 	}
 	
 	/**
