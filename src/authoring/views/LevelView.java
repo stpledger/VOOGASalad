@@ -8,20 +8,11 @@ import authoring.factories.ElementType;
 import authoring.gamestate.Level;
 import authoring.views.properties.LevelPropertiesView;
 import authoring.grid.Grid;
-import authoring.grid.Cell;
-import javafx.event.EventHandler;
-import javafx.scene.control.Button;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.TilePane;
 
 /**
  *  
@@ -35,7 +26,6 @@ public class LevelView extends ScrollPane {
 	private Level level;
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
-	private HBox toolbar;
 	private ElementFactory eFactory;
 	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
@@ -45,18 +35,11 @@ public class LevelView extends ScrollPane {
 		this.level = level;
 		this.content = new Grid();
 		this.content.getStyleClass().add("level-view-content");
-//		this.toolbar = new HBox(200);
-//		this.content.getChildren().add(toolbar);
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setContent((content));
 		this.setupMouseClick(levelNum);
 		this.setupMouseDrag();
-//		Button button = new Button("Cocks");
-//		button.setOnAction(e->{
-//			this.content.addRow();
-//		});
-//		toolbar.getChildren().add(button);
 	}
 
 	/**
