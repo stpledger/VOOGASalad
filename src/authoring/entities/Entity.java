@@ -50,7 +50,7 @@ public abstract class Entity extends ImageView {
 		components = new ArrayList<>();
 		this.setFitWidth(ENTITY_WIDTH);
 		this.setFitHeight(ENTITY_HEIGHT);
-		Consumer<List<Component>> onSubmit = (componentsToAdd) -> {
+		Consumer<List<Component>> onSubmit = componentsToAdd -> {
 			for (Component c : componentsToAdd) {
 				this.add(c);
 			}
@@ -93,8 +93,9 @@ public abstract class Entity extends ImageView {
 	 */
 	public void add(Component c) {
 		if (c != null) {
-			if (this.contains(c))
+			if (this.contains(c)) {
 				this.removeByName(c.getKey());
+			}
 			this.components.add(c);
 		}
 	}
@@ -137,8 +138,9 @@ public abstract class Entity extends ImageView {
 	 */
 	private boolean contains(Component c) {
 		for (Component existing : this.components) {
-			if (existing.getKey() == c.getKey())
+			if (existing.getKey() == c.getKey()) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -150,8 +152,9 @@ public abstract class Entity extends ImageView {
 	 */
 	public boolean contains(String name) {
 		for (Component existing : this.components) {
-			if (existing.getKey().equals(name))
+			if (existing.getKey().equals(name)) {
 				return true;
+			}
 		}
 		return false;
 	}
