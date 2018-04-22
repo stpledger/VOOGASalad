@@ -62,7 +62,7 @@ public class EntityBuilderView extends Stage{
 	private VBox leftPanel;
 	private GridPane currentForms;
 	private VBox root;
-	private ArrayList<String> entityTypes;
+	private List<String> entityTypes;
 	private String myEntityType;
 	private File imageFile;
 	private Image image;
@@ -78,7 +78,7 @@ public class EntityBuilderView extends Stage{
 	 * @param eTypes All of the possible types of entities
 	 * @param oC A BiConsumer that will handle the closing of an EntityBuilderView window that requires a string of the type of entity and a Map of Component Classes and an object[] of their argumetns
 	 */
-	public EntityBuilderView (ArrayList<String> eTypes, BiConsumer<String, Map<Class,Object[]>> oC) {
+	public EntityBuilderView (List<String> eTypes, BiConsumer<String, Map<Class,Object[]>> oC) {
 		onClose = oC;
 		entityTypes = eTypes;
 		this.build();
