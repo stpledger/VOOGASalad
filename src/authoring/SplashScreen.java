@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 
 import java.util.Properties;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import authoring.views.MainView;
 
@@ -18,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import sun.rmi.runtime.Log;
 
 /**
  * 
@@ -27,14 +29,16 @@ import javafx.stage.FileChooser;
 public class SplashScreen extends VBox {
 	Properties properties;
 	Consumer changeScene;
-	
+
 	private static final int SPLASH_SCREEN_HEIGHT = 300;
 	private static final int SPLASH_SCREEN_WIDTH = 400;
 	
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
 	public SplashScreen(Consumer<Scene> cs) {
-		//Load the menu properties
 		 properties = new Properties();
 		 changeScene = cs;
+		 
 		try {
 			properties.load(new FileInputStream("src/resources/menus/SplashScreen/SplashScreen.properties"));
 		} catch (IOException e) {
@@ -51,15 +55,14 @@ public class SplashScreen extends VBox {
 			try {
 				this.getChildren().add(buildButton(key, this.getClass().getMethod(key)));
 			} catch (Exception e) {
-				System.out.println("Error creating button " + key);
-				e.printStackTrace();
+				System.out.println("Error creating button " + key);	
+				LOGGER.severe(e.getMessage());
 			}
 		}
 		
 	}
 
 	public void playGame() {
-		
 	}
 	
 	/**
@@ -96,8 +99,8 @@ public class SplashScreen extends VBox {
 		b.setOnMouseClicked((e)->{
 		try {
 			method.invoke(this, null);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
-			e1.printStackTrace();
+		} catch (Exception e1) {
+			LOGGER.severe(e1.getMessage());
 		}});
 		return b;	
 	}
