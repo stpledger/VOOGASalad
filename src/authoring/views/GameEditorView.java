@@ -45,11 +45,11 @@ public class GameEditorView extends BorderPane {
 	private TabPane tabPane;
 	private Toolbar toolbar;
 	private int nextEntityID  = 0;
-	
+
 	private Consumer<MouseEvent> addEntity = mouseEvent -> { addEntityMethod(mouseEvent);};
 	private Consumer<List<Tab>> updateTabs = tabList -> { updateTabsMethod(tabList); };
 	private static final int BLOCK_DEFAULT_WIDTH = 50;
-	
+
 	/**
 	 * Default Constructor creates a Borderpane with a toolbar in the top, tabPane in the center, and a gamestate object
 	 */
@@ -78,8 +78,8 @@ public class GameEditorView extends BorderPane {
 		Consumer<?> play = e->{playMethod();};
 		Consumer<?> newLevel = e->{addLevel();};
 		Consumer<?> levelSettings = e->{showLevelSettings();};
-		
-		
+
+
 		Map<String, Consumer> consumerMap = new HashMap<>();
 		consumerMap.put("newGame", newGame);
 		consumerMap.put("loadGame", loadGame);
@@ -91,7 +91,7 @@ public class GameEditorView extends BorderPane {
 		consumerMap.put("levelSettings", levelSettings);
 		return consumerMap;
 	}
-	
+
 	/**
 	 * Update the numbers of the level tabs
 	 * @param tabList
@@ -109,11 +109,11 @@ public class GameEditorView extends BorderPane {
 		levelTabsList.add(new Tab());
 		Tab t = levelTabsList.get(levelTabsList.size()-1);
 		t.setText("Level " + (levelTabsList.indexOf(t)+1));
-		
+
 		Level level = new Level(levelTabsList.indexOf(t)+1);
 		state.addLevel(level);
 		LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, addEntity);
-		
+
 		t.setContent(levelView);
 		t.setOnClosed(e -> {
 			levelTabsList.remove(t);
@@ -131,17 +131,17 @@ public class GameEditorView extends BorderPane {
 		levelTabsList.add(new Tab());
 		Tab t = levelTabsList.get(levelTabsList.size()-1);
 		t.setText("Level " + (levelTabsList.indexOf(t)+1));
-		
+
 		Level level = l;
 		state.addLevel(level);
 		LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, addEntity);
-		
+
 		t.setContent(levelView);
 		t.setOnClosed(e -> {
 			levelTabsList.remove(t);
 			updateTabs.accept(levelTabsList);
 		});
-		
+
 		tabPane.getTabs().add(t);
 		return levelView;
 	}
@@ -168,7 +168,7 @@ public class GameEditorView extends BorderPane {
 			}	
 		});	
 	}
-	
+
 	/**
 	 * Shows the HUD Settings Menu
 	 */
@@ -264,7 +264,7 @@ public class GameEditorView extends BorderPane {
 		}
 		return entity;
 	}
-	
+
 	/**
 	 * Adds an entity to the LevelView
 	 * @param mouseEvent
@@ -309,7 +309,7 @@ public class GameEditorView extends BorderPane {
 	private Entity addEntityComponentsFromMap(Entity e, Map<Class, Object[]> entityComponents) throws Exception {
 		ArrayList<Component> componentArrayList = new ArrayList<>();
 		Entity entity = e;
-		
+
 		for(Class<?> componentClass :entityComponents.keySet()) { 
 			Constructor<?> componentConstructor = componentClass.getDeclaredConstructors()[0];
 			ArrayList<Object> tempComponentAttributeArray = new ArrayList<Object>() {{ 
@@ -319,7 +319,7 @@ public class GameEditorView extends BorderPane {
 
 			Object[] componentArguments = tempComponentAttributeArray.toArray();
 			componentArrayList.add((Component) componentConstructor.newInstance(componentArguments));
-			
+
 			if(componentClass.equals(Sprite.class)) {
 				Image image = DataRead.loadImage((String) entityComponents.get(componentClass)[0]);
 				entity.setImage(image);

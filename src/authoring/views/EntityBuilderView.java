@@ -57,7 +57,7 @@ public class EntityBuilderView extends Stage{
 	private Consumer<MouseEvent> saveOnClick = e -> {save();};
 	private Consumer<MouseEvent> addImageOnClick = e -> {addImage();};
 	private Map<Class, Object[]> componentAttributes = new HashMap<>();
-	
+
 	/**
 	 * The constructor of the popup window for creating new entities
 	 * @param eTypes All of the possible types of entities
@@ -89,7 +89,7 @@ public class EntityBuilderView extends Stage{
 		updateEntityPreview(new Image("no_image.jpg"));
 		this.root.getChildren().addAll(typeComboBox, addImageMenu, entityPreview, saveMenu);
 		this.root.getStyleClass().add("entity-builder-view");
-		
+
 	}
 
 	/**
@@ -102,8 +102,8 @@ public class EntityBuilderView extends Stage{
 		this.setScene(s);
 		this.show();
 	}
-	
-	
+
+
 	/**
 	 * Updates the image preview for the entity
 	 * @param i image to add
@@ -113,9 +113,9 @@ public class EntityBuilderView extends Stage{
 		entityPreview.setFitHeight(LEFT_PANEL_WIDTH);
 		entityPreview.setFitWidth(LEFT_PANEL_WIDTH);
 		//TODO: Make this handle things other than squares
-		
+
 	}
-	
+
 	/**
 	 * Builds the menu to select the Type of Entity
 	 * @return Menu typeMenu
@@ -129,29 +129,29 @@ public class EntityBuilderView extends Stage{
 			comboBox.getItems().add(et);
 		}
 		comboBox.setOnAction(e -> {
-				myEntityType = ((String) comboBox.getSelectionModel().getSelectedItem());
-				root.getChildren().remove(saveMenu);
-				root.getChildren().add(fillComponentsForms());
-				root.getChildren().add(saveMenu);
-				this.sizeToScene();
+			myEntityType = ((String) comboBox.getSelectionModel().getSelectedItem());
+			root.getChildren().remove(saveMenu);
+			root.getChildren().add(fillComponentsForms());
+			root.getChildren().add(saveMenu);
+			this.sizeToScene();
 		});
 		return comboBox;
 	}
-	
-			
-	
+
+
+
 	/**
 	 * Builds the menu on the buttom of the screen containing the save button
 	 * @return HBox bottomMenu
 	 */
 	private HBox buildSingleButtonMenu(String name, Consumer onClick) {
-			HBox hBox = new HBox();
-			hBox.setAlignment(Pos.CENTER);
-			hBox.getStyleClass().add("toolbar");
-			hBox.getChildren().add(buttonBuilder(name, onClick));
-			return hBox;
-			
-		}
+		HBox hBox = new HBox();
+		hBox.setAlignment(Pos.CENTER);
+		hBox.getStyleClass().add("toolbar");
+		hBox.getChildren().add(buttonBuilder(name, onClick));
+		return hBox;
+
+	}
 	/**
 	 * Builds a button using a string as a name and a Consumer for the onClick method. CSS is based on the name and Tooltip and Text are based on properties files
 	 * @param name the name of the button
@@ -164,9 +164,9 @@ public class EntityBuilderView extends Stage{
 		button.setOnMouseClicked(e ->onClick.accept(e));
 		button.getStyleClass().addAll("entity-builder-view-button",name);
 		return button;
-		
+
 	}
-	
+
 	/**
 	 * Saves the current entity
 	 */
@@ -174,15 +174,15 @@ public class EntityBuilderView extends Stage{
 		for(EntityComponentForm componentForm : activeForms) {
 			Object[] tempArr = componentForm.buildComponent();
 			if(tempArr != null) {
-			try {
-				componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
-			} catch (ClassNotFoundException e1) {
-				System.out.println("Error Trying to Save New Entity");
-			}}
+				try {
+					componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
+				} catch (ClassNotFoundException e1) {
+					System.out.println("Error Trying to Save New Entity");
+				}}
 		}
 		onClose.accept(myEntityType, componentAttributes);
 		this.close();
-			}
+	}
 	/**
 	 * adds an image to the preview
 	 */
@@ -201,27 +201,27 @@ public class EntityBuilderView extends Stage{
 
 		}
 	}
-	
+
 	/**
 	 * Creates the forms and returns them as a GridPane
 	 * @return gridPane a gridpane filled with the necessary forms
 	 */
 	public Node fillComponentsForms() {
-			this.root.getChildren().remove(currentForms);
-			currentForms = new GridPane();
-			currentForms.getStyleClass().add("component-form");
-			int currentRow = 0;
-			this.activeForms = new ArrayList<>();
-			for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + myEntityType).keySet()) {
-				if(!property.equals("Sprite") && !property.equals("Position")) {
-					EntityComponentForm cf = new EntityComponentForm(property);
-					cf.setAlignment(Pos.CENTER);
-					this.activeForms.add(cf);
-					currentRow++;
-					currentForms.add(cf, 0, currentRow);
-				}
+		this.root.getChildren().remove(currentForms);
+		currentForms = new GridPane();
+		currentForms.getStyleClass().add("component-form");
+		int currentRow = 0;
+		this.activeForms = new ArrayList<>();
+		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + myEntityType).keySet()) {
+			if(!property.equals("Sprite") && !property.equals("Position")) {
+				EntityComponentForm cf = new EntityComponentForm(property);
+				cf.setAlignment(Pos.CENTER);
+				this.activeForms.add(cf);
+				currentRow++;
+				currentForms.add(cf, 0, currentRow);
 			}
-			return currentForms;
+		}
+		return currentForms;
 	}
 
 

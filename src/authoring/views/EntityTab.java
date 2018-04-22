@@ -27,20 +27,14 @@ public class EntityTab extends Tab{
 	FlowPane pane;
 	ScrollPane externalPane;
 	double myEntityViewWidth;
+
 	public EntityTab(String name, double entityViewWidth) {
 		super(name);
-		myEntityViewWidth = entityViewWidth;
-		
-		Block block = new Block(0);
-		Enemy enemy = new Enemy(0);
-		Player player = new Player(0);
-		Background bgrnd =  new Background(0);
-		
+		myEntityViewWidth = entityViewWidth;		
 		this.setClosable(false);
 		this.getStyleClass().add("entity-tab");
 		assemble();
 	}
-
 
 	/**
 	 * builds the ScrollPane and the FlowPane within it
@@ -54,10 +48,10 @@ public class EntityTab extends Tab{
 		externalPane.setContent(pane);
 		this.setContent(externalPane);
 	}
+
 	public void addNewEntity(String type, Map<Class, Object[]> componentAttributes) {
 		pane.getChildren().add(new EntityBox(type, componentAttributes));
 	}
-
 
 	/**
 	 * Returns the graphic representation of the ComponentTab
