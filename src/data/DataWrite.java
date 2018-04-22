@@ -3,11 +3,11 @@ package data;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import authoring.gamestate.GameState;
+import authoring.gamestate.Level;
 import engine.components.Component;
 import engine.components.Sprite;
 import engine.setup.SystemManager;
-import frontend.components.Level;
-import frontend.gamestate.GameState;
 import javafx.scene.control.Alert;
 
 

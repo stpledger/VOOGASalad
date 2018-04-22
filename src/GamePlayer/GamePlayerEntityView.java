@@ -5,22 +5,21 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
+
+import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataRead;
 import data.DataWrite;
 import engine.components.*;
-<<<<<<< HEAD
 import engine.components.Component;
 import engine.components.Dimension;
 import engine.setup.EntityManager;
-=======
->>>>>>> bd55055367480e8f3d9bb3db1566c23d797353aa
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
 import engine.systems.InputHandler;
 import engine.systems.collisions.LevelStatus;
-import frontend.components.Level;
+
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
@@ -38,11 +37,11 @@ public class GamePlayerEntityView {
 	private Map<Integer, Map<String, Component>> entityMap;
 	private Map<Integer, Group> levelEntityMap;
 	private DataGameState gameState;
+	private File gameFile;
 	private GameInitializer gameInitializer;
 	private InputHandler inputHandler;
 	private RenderManager renderManager;
 	private Map<Integer, Map<Integer,Map<String,Component>>> intLevelMap;
-	private File gameFile;
 	private LevelStatus LS;
 
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
@@ -68,9 +67,6 @@ public class GamePlayerEntityView {
 	public Map<Integer, Group> getlevelEntityMap(){
 		return levelEntityMap;
 	}
-
-	//**************************************************************************
-	//TESTING PURPOSED FOR LEVEL SELECTOR
 
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
