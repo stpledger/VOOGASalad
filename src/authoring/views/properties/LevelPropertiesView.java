@@ -1,6 +1,7 @@
 package authoring.views.properties;
 
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
@@ -17,6 +18,8 @@ public class LevelPropertiesView extends PropertiesView{
 	private int levelNum;
 	private Level level;
 	private String text = "text";
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	public LevelPropertiesView(Level level, int levelNum) {
 		super();
@@ -55,7 +58,7 @@ public class LevelPropertiesView extends PropertiesView{
 			getRoot().addColumn(1,diffText,timeNumber,infoText,distNumber);
 			getRoot().add(button, 0, currentRow++);
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.severe(e.toString());
 		}
 	}
 }

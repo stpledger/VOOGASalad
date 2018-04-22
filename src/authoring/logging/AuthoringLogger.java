@@ -9,6 +9,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class AuthoringLogger {
 	private static final String LOGGING_TEXT_FILE_NAME = "Logging.txt";
 	private static final String LOGGING_HTML_FILE_NAME = "Logging.html";
@@ -17,6 +23,10 @@ public class AuthoringLogger {
 		
 	}
 	
+	/**
+	 * Sets up the Authoring Logger
+	 * @throws IOException
+	 */
 	static public void setup() throws IOException{
 		Logger globalLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 		

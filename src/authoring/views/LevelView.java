@@ -1,6 +1,7 @@
 package authoring.views;
 
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import authoring.entities.Entity;
 import authoring.factories.ElementFactory;
@@ -29,6 +30,8 @@ public class LevelView extends ScrollPane {
 	private ElementFactory eFactory;
 	private static final int ADD_FIVE = 5;
 	private static final int ADD_ONE = 1;
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
@@ -78,7 +81,7 @@ public class LevelView extends ScrollPane {
 					});
 					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
 				} catch (Exception e1) {
-					e1.printStackTrace();
+					LOGGER.warning(e1.toString());
 				}
 				cMenu.show(this, e.getScreenX(), e.getScreenY());
 				cMenu.setAutoHide(true);

@@ -2,6 +2,7 @@ package authoring.views.properties;
 
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import authoring.factories.ElementType;
 import authoring.gamestate.Level;
@@ -17,6 +18,8 @@ public class HUDPropertiesView extends PropertiesView{
 	
 	private List<Level> levels;
 	private final String NAME = "HUD Properties";
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	public HUDPropertiesView(List<Level> levelArray) {
 		super();
@@ -45,7 +48,7 @@ public class HUDPropertiesView extends PropertiesView{
 			getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox);
 			getRoot().add(submit, 0, getRoot().getChildren().size());
 		} catch (Exception e2) {
-			e2.printStackTrace();
+			LOGGER.severe(e2.toString());
 		}	
 	}
 
