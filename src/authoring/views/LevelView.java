@@ -27,6 +27,8 @@ public class LevelView extends ScrollPane {
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
 	private ElementFactory eFactory;
+	private final int ADD_FIVE = 5;
+	private final int ADD_ONE = 1;
 	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
@@ -56,17 +58,25 @@ public class LevelView extends ScrollPane {
 				try {
 					MenuItem addCol = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Add Column");
 					MenuItem addRow = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Add Row");
+					MenuItem addFiveCol = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Add 5 Columns");
+					MenuItem addFiveRow = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Add 5 Rows");
 					MenuItem cancel = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Cancel");
 					addCol.setOnAction(e1->{
-						this.content.addCol();
+						this.content.addCol(ADD_ONE);
 					});
 					addRow.setOnAction(e1->{
-						this.content.addRow();
+						this.content.addRow(ADD_ONE);
+					});
+					addFiveCol.setOnAction(e1->{
+						this.content.addCol(ADD_FIVE);
+					});
+					addFiveRow.setOnAction(e1->{
+						this.content.addRow(ADD_FIVE);
 					});
 					cancel.setOnAction(e1->{
 						cMenu.hide();
 					});
-					cMenu.getItems().addAll(addCol,addRow,cancel);
+					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
