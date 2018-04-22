@@ -112,6 +112,10 @@
 
 }
 
+.save {
+	-fx-background-color: secondary-color;
+}
+
 .left-panel-vbox Label{
 	-fx-background-color: tertiary-color;
 }
