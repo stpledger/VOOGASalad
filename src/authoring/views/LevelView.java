@@ -27,8 +27,8 @@ public class LevelView extends ScrollPane {
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
 	private ElementFactory eFactory;
-	private final int ADD_FIVE = 5;
-	private final int ADD_ONE = 1;
+	private static final int ADD_FIVE = 5;
+	private static final int ADD_ONE = 1;
 	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
@@ -49,7 +49,7 @@ public class LevelView extends ScrollPane {
 	 * @param levelNum Level number
 	 */
 	private void setupMouseClick(int levelNum) {
-		this.setOnMouseClicked(e-> {		
+		this.setOnMouseClicked(e -> {		
 			if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount()==2) {
 				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
 				lView.open();
@@ -89,7 +89,7 @@ public class LevelView extends ScrollPane {
 	 * Sets the onMouseReleased method for the content to handle dragging.
 	 */
 	private void setupMouseDrag() {
-		content.setOnDragDetected((e)->{
+		content.setOnDragDetected(e -> {
 			this.drag = true;
 		});
 	}
