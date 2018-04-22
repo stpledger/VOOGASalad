@@ -21,7 +21,6 @@ public class HUDPropertiesView extends PropertiesView{
 	public HUDPropertiesView(List<Level> levelArray) {
 		super();
 		this.levels = levelArray;
-		this.fill();
 	}
 
 	@Override

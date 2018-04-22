@@ -23,7 +23,6 @@ public class GlobalPropertiesView extends PropertiesView {
 	public GlobalPropertiesView(List<Level> ls){
 		super();
 		this.levels = ls;
-		fill();
 	}
 
 	@Override

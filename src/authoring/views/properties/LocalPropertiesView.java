@@ -37,7 +37,6 @@ public class LocalPropertiesView extends PropertiesView {
 		this.entity = entity;
 		this.type = entity.type();
 		this.onSubmit = onSubmit;
-		this.fill();
 	}
 	
 	/**
