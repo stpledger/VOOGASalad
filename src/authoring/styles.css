@@ -103,18 +103,20 @@
 .level-view-wrapper{
 }
 
+.entity-builder-view{
+	-fx-background-color: tertiary-color;
+}
+
 .entity-builder-view-button{
 	-fx-background-color: transparent;
 	-fx-font-weight: bold;
 	-fx-text-fill: primary-color;
 	-fx-stroke: primary-color;
 	-fx-stroke-width: 5;
-
-}
-
-.save {
 	-fx-background-color: secondary-color;
+
 }
+
 
 .left-panel-vbox Label{
 	-fx-background-color: tertiary-color;
