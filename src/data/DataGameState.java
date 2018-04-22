@@ -39,7 +39,7 @@ public class DataGameState {
             this.gameState.put(level,entityMap);
         }
     }
-
+    
     /*creates an empty gamestate which holds the place of a null values
      * useful for errors when loading gamefiles
      */
