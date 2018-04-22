@@ -179,19 +179,21 @@ public class EntityBuilderView extends Stage{
 	 * Saves the current entity
 	 */
 	private void save(){
+		try {
 		for(EntityComponentForm componentForm : activeForms) {
 			Object[] tempArr = componentForm.buildComponent();
 			if(tempArr != null) {
-			try {
+			
 				componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
-			} catch (ClassNotFoundException e1) {
-				System.out.println("Error Trying to Save New Entity");
-				LOGGER.warning(e1.getMessage());
-			}}
+			}
 		}
 		onClose.accept(myEntityType, componentAttributes);
 		this.close();
-			}
+		}
+		 catch (Exception e1) {
+			LOGGER.warning(e1.toString());
+		 }
+	}
 	/**
 	 * adds an image to the preview
 	 */
@@ -206,8 +208,7 @@ public class EntityBuilderView extends Stage{
 			Image image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 			updateEntityPreview(image);
 		} catch (Exception e1){
-			System.out.println("Error loading image");
-			LOGGER.severe(e1.getMessage());
+			LOGGER.severe(e1.toString());
 
 		}
 	}
