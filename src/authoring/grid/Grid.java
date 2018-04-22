@@ -45,6 +45,7 @@ public class Grid extends TilePane {
 
 	/**
 	 * Adds new row of cells to the grid
+	 * @param numTimes Number of rows to add
 	 */
 	public void addRow(int numTimes) {
 		for(int j=0;j<numTimes;j++) {
@@ -58,7 +59,8 @@ public class Grid extends TilePane {
 	}
 	
 	/**
-	 * Adds new column of cells to the grid
+	 * Adds a number of new columns to the grid
+	 * @param numTimes Number of columns to add 
 	 */
 	public void addCol(int numTimes) {
 		for(int j=0;j<numTimes;j++) {
