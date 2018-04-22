@@ -3,25 +3,21 @@ package authoring;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+
 import java.util.Properties;
 import java.util.function.Consumer;
 
-import javax.imageio.ImageIO;
-
 import authoring.views.MainView;
-import javafx.beans.property.Property;
-import javafx.embed.swing.SwingFXUtils;
+
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Stage;
 
 /**
  * 

@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import authoring.views.properties.LocalPropertiesView;
-import data.DataRead;
+
 import engine.components.Component;
 import engine.components.Damage;
 import engine.components.Dimension;
@@ -14,13 +14,9 @@ import engine.components.EntityType;
 import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
-import javafx.scene.image.Image;
+
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.TransferMode;
 
 /**
  * 

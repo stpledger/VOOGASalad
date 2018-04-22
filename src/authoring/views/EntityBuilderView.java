@@ -34,6 +34,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+
 /**
  * 
  * @author Collin Brown(cdb55)
@@ -192,7 +193,7 @@ public class EntityBuilderView extends Stage{
 		File imageFile = fileChooser.showOpenDialog(this);
 		try {
 			componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
-			DataRead.importImage( imageFile);
+			DataRead.loadImage(imageFile);
 			Image image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 			updateEntityPreview(image);
 		} catch (Exception e1){
