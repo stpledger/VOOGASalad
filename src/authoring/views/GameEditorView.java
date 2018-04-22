@@ -1,7 +1,6 @@
 package authoring.views;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -9,30 +8,25 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.function.Consumer;
-import javax.imageio.ImageIO;
 
 import data.DataRead;
 import javafx.application.Platform;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.stage.FileChooser.ExtensionFilter;
 import GamePlayer.Main;
 import authoring.entities.Entity;
 import authoring.factories.Toolbar;
-import authoring.gamestate.*;
+import authoring.gamestate.GameState;
+import authoring.gamestate.Level;
 import authoring.views.properties.GlobalPropertiesView;
 import authoring.views.properties.HUDPropertiesView;
+import authoring.views.properties.LevelPropertiesView;
 import engine.components.Component;
 import engine.components.EntityType;
 import engine.components.Position;
@@ -75,33 +69,34 @@ public class GameEditorView extends BorderPane {
 	 */
 	private Map<String,Consumer> buildToolbarFunctionMap(){
 		//Consumers for the toolbar
-		Consumer<?> newGame = (e)->{newGameMethod(); addLevel();}; 
-		Consumer<?> loadGame = (e)->{ loadGameMethod();};
-		Consumer<?> newLevel = (e)->{addLevel();};
-		Consumer<?> saveGame = (e)-> { saveGameMethod(); };
-		Consumer<?> showSettings = (e)->{showSettingsMethod();};
-		Consumer<?> hudSettings = (e) -> { hudSettingsMethod();};
-		Consumer<?> play = (e)->{playMethod();};
+		Consumer<?> newGame = e->{newGameMethod(); addLevel();}; 
+		Consumer<?> loadGame = e->{ loadGameMethod();};
+		Consumer<?> saveGame = e-> { saveGameMethod(); };
+		Consumer<?> showSettings = e->{showSettingsMethod();};
+		Consumer<?> hudSettings = e -> { hudSettingsMethod();};
+		Consumer<?> play = e->{playMethod();};
+		Consumer<?> newLevel = e->{addLevel();};
+		Consumer<?> levelSettings = e->{showLevelSettings();};
 		
 		
 		Map<String, Consumer> consumerMap = new HashMap<String, Consumer>();
 		consumerMap.put("newGame", newGame);
 		consumerMap.put("loadGame", loadGame);
 		consumerMap.put("saveGame", saveGame);
-		consumerMap.put("addLevel", newLevel);
 		consumerMap.put("showSettings", showSettings);
 		consumerMap.put("hudSettings", hudSettings);
 		consumerMap.put("play", play);
+		consumerMap.put("addLevel", newLevel);
+		consumerMap.put("levelSettings", levelSettings);
 		return consumerMap;
 	}
-
 
 
 	/**
 	 * called whenever there is any change to the tabslist
 	 * TODO: This might not even need to be a lambda but gotta flex for Duval.
 	 */
-	Consumer<List<Tab>> updateTabs = (l) -> {
+	Consumer<List<Tab>> updateTabs = l -> {
 		for(Tab t : l) {
 			t.setText("Level " + (l.indexOf(t)+1));
 		}
@@ -235,6 +230,15 @@ public class GameEditorView extends BorderPane {
 			}
 		}
 	}
+	/**
+	 * Opens the levelPropertiesView
+	 */
+	private void showLevelSettings() {
+		Level level = ((LevelView) this.tabPane.getSelectionModel().getSelectedItem().getContent()).getLevel();
+		LevelPropertiesView lView = new LevelPropertiesView(level, level.getLevelNum());
+		lView.open();
+	}
+
 
 	/**
 	 * Creates a component with the ID and a List of components
@@ -248,8 +252,6 @@ public class GameEditorView extends BorderPane {
 				Class<?> entityTypeClass = Class.forName("authoring.entities." + entityType);
 				entity = createEntityFromType(entityTypeClass, entityID);	
 			}
-		}
-		for(Component c : componentList) {
 			entity.add(c);
 			if(c.getKey().equals("Sprite")) {
 				Image image = DataRead.loadImage(((Sprite) c).getName());	
@@ -269,15 +271,11 @@ public class GameEditorView extends BorderPane {
 	private Consumer<MouseEvent> addEntity = (mouseEvent) -> {
 		Entity entity = null;
 		try {
-			//Get the class of the entityType
-			//Set the position
 			entity.setPosition(mouseEvent.getX() - entity.getFitWidth() / 2, mouseEvent.getY() - this.tabPane.getTabMaxHeight() - entity.getFitHeight() / 2);
-
-			//Add all the components
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity);
-			nextEntityID++; //Increment id's by one
+			nextEntityID++;
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Error creating new entity");
 		}
 	};
 

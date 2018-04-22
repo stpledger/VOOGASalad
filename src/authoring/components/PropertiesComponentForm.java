@@ -3,15 +3,12 @@ package authoring.components;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import authoring.entities.Entity;
-import engine.components.*;
-import javafx.scene.control.Alert;
+import engine.components.Component;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+
 /**
  * A wrapper class for forms that contains the label name and the text fields necessary, and can build components upon completion.
  * @author dylanpowers

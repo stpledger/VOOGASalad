@@ -1,8 +1,6 @@
 package authoring.views;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,17 +10,11 @@ import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import javax.imageio.ImageIO;
-
 import authoring.factories.Toolbar;
-
-//import com.sun.beans.finder.ClassFinder;
 
 import data.DataRead;
 import engine.components.Sprite;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.embed.swing.SwingFXUtils;
+
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;

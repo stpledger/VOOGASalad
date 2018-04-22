@@ -2,12 +2,6 @@ package authoring.views;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,58 +13,49 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
-import javax.swing.GroupLayout.Alignment;
 
 import authoring.MainApplication;
 import authoring.components.EntityComponentForm;
 import data.DataRead;
-import data.DataWrite;
-import engine.components.Component;
 import engine.components.Sprite;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
+
 /**
  * 
  * @author Collin Brown(cdb55)
  *
  */
 public class EntityBuilderView extends Stage{
-	private final int LEFT_PANEL_WIDTH = 200;
-	private final String PROPERTIES_PACKAGE = "resources.menus.Entity/";
-	private final String COMPONENT_PREFIX = "engine.components.";
+	private final static int LEFT_PANEL_WIDTH = 200;
+	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
+	private final static String COMPONENT_PREFIX = "engine.components.";
 	private Properties tooltipProperties;
-	private MenuBar topMenu;
-	private HBox bottomMenu;
-	private VBox leftPanel;
+	private HBox saveMenu;
 	private GridPane currentForms;
 	private VBox root;
-	private ArrayList<String> entityTypes;
+	private List<String> entityTypes;
 	private String myEntityType;
-	private File imageFile;
-	private Image image;
 	private ImageView entityPreview;
 	private List<EntityComponentForm> activeForms;
 	private List<String> imageExtensions = Arrays.asList(new String[] {".jpg",".png",".jpeg"});
 	private BiConsumer<String, Map<Class, Object[]>> onClose;
-	private Consumer<MouseEvent> saveOnClick = (e)->{save();};
+	private Consumer<MouseEvent> saveOnClick = e -> {save();};
+	private Consumer<MouseEvent> addImageOnClick = e -> {addImage();};
 	private Map<Class, Object[]> componentAttributes = new HashMap<Class, Object[]>();
 	
 	/**
@@ -78,9 +63,9 @@ public class EntityBuilderView extends Stage{
 	 * @param eTypes All of the possible types of entities
 	 * @param oC A BiConsumer that will handle the closing of an EntityBuilderView window that requires a string of the type of entity and a Map of Component Classes and an object[] of their argumetns
 	 */
-	public EntityBuilderView (ArrayList<String> eTypes, BiConsumer<String, Map<Class,Object[]>> oC) {
-		onClose = oC;
-		entityTypes = eTypes;
+	public EntityBuilderView (List<String> eTypes, BiConsumer<String, Map<Class,Object[]>> oC) {
+		this.onClose = oC;
+		this.entityTypes = (ArrayList<String>) eTypes;
 		this.build();
 		this.open();
 	}
@@ -89,6 +74,7 @@ public class EntityBuilderView extends Stage{
 	 */
 	private void build() {
 		tooltipProperties = new Properties();
+		HBox addImageMenu = new HBox();
 		try {
 			tooltipProperties.load(new FileInputStream("src/resources/tooltips/EntityBuilderViewTooltips.properties"));
 		} catch (Exception e) {
@@ -96,14 +82,12 @@ public class EntityBuilderView extends Stage{
 		}
 		this.root = new VBox();
 		this.root.setAlignment(Pos.CENTER);
-		this.topMenu = buildTypeComboBox();
-		this.bottomMenu = buildBottomMenu();
-		this.leftPanel = buildLeftPanel();
-		this.root.getChildren().add(topMenu);
-		this.root.getChildren().add(entityPreview);
-		this.root.getChildren().add(leftPanel);
-		this.root.getChildren().add(bottomMenu);
-		
+		ComboBox<String> typeComboBox = buildTypeComboBox();
+		this.saveMenu = buildSingleButtonMenu("save", saveOnClick);
+		addImageMenu = buildSingleButtonMenu("addImage", addImageOnClick);
+		this.entityPreview = new ImageView();
+		updateEntityPreview(new Image("no_image.jpg"));
+		this.root.getChildren().addAll(typeComboBox, addImageMenu, entityPreview, saveMenu);
 		this.root.getStyleClass().add("entity-builder-view");
 		
 	}
@@ -119,45 +103,6 @@ public class EntityBuilderView extends Stage{
 		this.show();
 	}
 	
-	/**
-	 * Builds the top menu Bar of the EntityBuilderView
-	 * @return MenuBar representing the toolbar
-	 */
-	private MenuBar buildTypeComboBox() {
-			MenuBar menuBar = new MenuBar();
-			menuBar.getStyleClass().add("toolbar");
-			menuBar.getMenus().add(buildTypeMenu());
-			menuBar.getMenus().add(buildImageMenu());
-			return menuBar;
-		}
-
-	/**
-	 * Builds a menu for managing images of entities
-	 * @return a Menu for handling adding and removing images
-	 */
-	private Menu buildImageMenu() {
-		Menu imageMenu = new Menu();
-		imageMenu.setText("Image");
-		MenuItem addImage = new MenuItem();
-		addImage.setText("Add");
-		addImage.setOnAction((e)->{
-			FileChooser fileChooser = new FileChooser();
-			fileChooser.setTitle("Open Image File");
-			fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
-			imageFile = fileChooser.showOpenDialog(this);
-			try {
-				componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
-				DataRead.importImage( imageFile);
-				image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
-				updateEntityPreview(image);
-			} catch (Exception e1){
-				System.out.println("Error loading image");
-
-			}
-		});
-		imageMenu.getItems().add(addImage);
-		return imageMenu;
-		}
 	
 	/**
 	 * Updates the image preview for the entity
@@ -175,64 +120,53 @@ public class EntityBuilderView extends Stage{
 	 * Builds the menu to select the Type of Entity
 	 * @return Menu typeMenu
 	 */
-	private Menu buildTypeMenu() {
-		Menu typeMenu = new Menu();
-		typeMenu.setText("Object Type");
-		typeMenu.getStyleClass().add(".entity-builder-combo-box"); 
+	private ComboBox buildTypeComboBox() {
+		ComboBox<String> comboBox = new ComboBox();
+		comboBox.setPromptText("Object Type");
+		comboBox.getStyleClass().add("entity-builder-combo-box"); 
+		comboBox.setStyle("-fx-prompt-text-fill: red;");
 		for(String et : entityTypes) {
-			MenuItem menuItem = new MenuItem();
-			menuItem.setText(et);
-			menuItem.setOnAction((e)->{
-				myEntityType = et;
-				typeMenu.setText(et);
-				this.root.getChildren().remove(bottomMenu);
-				root.getChildren().add(fillComponentsForms());
-				this.root.getChildren().add(bottomMenu);
-				this.sizeToScene();
-				});
-			typeMenu.getItems().add(menuItem);
+			comboBox.getItems().add(et);
 		}
-		return typeMenu;
+		comboBox.setOnAction(e -> {
+				myEntityType = ((String) comboBox.getSelectionModel().getSelectedItem());
+				root.getChildren().remove(saveMenu);
+				root.getChildren().add(fillComponentsForms());
+				root.getChildren().add(saveMenu);
+				this.sizeToScene();
+		});
+		return comboBox;
 	}
 	
-	/**
-	 * Constructs a left panel containing entityPreview
-	 * @return VBox leftPanel
-	 */
-	private VBox buildLeftPanel() {
-		VBox vBox = new VBox();
-		entityPreview = new ImageView();
-		vBox.setMinWidth(LEFT_PANEL_WIDTH);
-		vBox.getStyleClass().add("left-panel");
-		entityPreview = new ImageView();
-		updateEntityPreview(new Image("no_image.jpg"));
-		vBox.getChildren().add(entityPreview);
-		return vBox;
-		}
 			
 	
 	/**
 	 * Builds the menu on the buttom of the screen containing the save button
 	 * @return HBox bottomMenu
 	 */
-	private HBox buildBottomMenu() {
+	private HBox buildSingleButtonMenu(String name, Consumer onClick) {
 			HBox hBox = new HBox();
 			hBox.setAlignment(Pos.CENTER);
 			hBox.getStyleClass().add("toolbar");
-			
-			hBox.getChildren().add(buttonBuilder("save", saveOnClick));
+			hBox.getChildren().add(buttonBuilder(name, onClick));
 			return hBox;
 			
 		}
-	
+	/**
+	 * Builds a button using a string as a name and a Consumer for the onClick method. CSS is based on the name and Tooltip and Text are based on properties files
+	 * @param name the name of the button
+	 * @param onClick the consumer to be called on click
+	 * @return Button
+	 */
 	private Button buttonBuilder(String name, Consumer onClick) {
 		Button button = new Button(name);
 		button.setTooltip(new Tooltip(tooltipProperties.getProperty(name)));
-		button.setOnMouseClicked((e)->onClick.accept(e));
+		button.setOnMouseClicked(e ->onClick.accept(e));
 		button.getStyleClass().addAll("entity-builder-view-button",name);
 		return button;
 		
 	}
+	
 	/**
 	 * Saves the current entity
 	 */
@@ -249,6 +183,24 @@ public class EntityBuilderView extends Stage{
 		onClose.accept(myEntityType, componentAttributes);
 		this.close();
 			}
+	/**
+	 * adds an image to the preview
+	 */
+	private void addImage() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Image File");
+		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
+		File imageFile = fileChooser.showOpenDialog(this);
+		try {
+			componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
+			DataRead.loadImage(imageFile);
+			Image image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
+			updateEntityPreview(image);
+		} catch (Exception e1){
+			System.out.println("Error loading image");
+
+		}
+	}
 	
 	/**
 	 * Creates the forms and returns them as a GridPane
@@ -265,7 +217,8 @@ public class EntityBuilderView extends Stage{
 					EntityComponentForm cf = new EntityComponentForm(property);
 					cf.setAlignment(Pos.CENTER);
 					this.activeForms.add(cf);
-					currentForms.add(cf, 0, currentRow++);
+					currentRow++;
+					currentForms.add(cf, 0, currentRow);
 				}
 			}
 			return currentForms;

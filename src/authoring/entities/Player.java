@@ -6,12 +6,12 @@ package authoring.entities;
  */
 public class Player extends Entity {
 
-	private final String TYPE = "Player";
-	private final double INITIAL_HEALTH = 100;
-	private final double INITIAL_DAMAGE = 10;
-	private final double INITIAL_LIFETIME = 20;
-	private final double PLAYER_WIDTH = 25;
-	private final double PLAYER_HEIGHT = 50; 
+	private final static String TYPE = "Player";
+	private final static double INITIAL_HEALTH = 100;
+	private final static double INITIAL_DAMAGE = 10;
+	private final static double INITIAL_LIFETIME = 20;
+	private final static double PLAYER_WIDTH = 25;
+	private final static double PLAYER_HEIGHT = 50;
 
 	/**
 	 * Construct the object with the given ID.

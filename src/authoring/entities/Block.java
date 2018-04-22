@@ -9,10 +9,9 @@ import java.io.FileNotFoundException;
  */
 public class Block extends Entity{
 
-	private final String TYPE =  "Block";
-	private final double BLOCK_HEALTH = 50;
-	private final double BLOCK_DIMENSION = 25;
-
+	private final static String TYPE =  "Block";
+	private final static double BLOCK_HEALTH = 50;
+	private final static double BLOCK_DIMENSION = 25;
 
 	public Block(int ID) {
 		super(ID);
