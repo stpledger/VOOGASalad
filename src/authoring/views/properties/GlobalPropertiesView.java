@@ -2,6 +2,7 @@ package authoring.views.properties;
 
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
@@ -19,6 +20,8 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	private List<Level> levels;
 	private static final String NAME = "Global Properties";
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	public GlobalPropertiesView(List<Level> ls){
 		super();
@@ -57,7 +60,7 @@ public class GlobalPropertiesView extends PropertiesView {
 			currentRow++;
 			getRoot().add(submit, 0, currentRow);
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			LOGGER.severe(e1.toString());
 		}
 	}
 

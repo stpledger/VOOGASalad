@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import authoring.factories.Toolbar;
 
@@ -26,6 +27,8 @@ public class EntityView extends BorderPane {
 	private ArrayList<String> tabsList = new ArrayList<>();
 	private ArrayList<String> entityTypes = new ArrayList<>();
 	private TabPane tabPane = new TabPane();
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public EntityView() {
 		super();

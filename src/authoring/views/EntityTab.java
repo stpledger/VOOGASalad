@@ -1,6 +1,7 @@
 package authoring.views;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 import authoring.entities.Background;
 import authoring.entities.Block;
@@ -23,10 +24,15 @@ import javafx.scene.layout.FlowPane;
 public class EntityTab extends Tab{
 	public static final double SCROLLBAR_WIDTH = 20;
 	public static final double VIEW_WIDTH = 0;
+	
 	private ObjectProperty selectedElement = new SimpleObjectProperty();
+	
+	
 	FlowPane pane;
 	ScrollPane externalPane;
+	
 	double myEntityViewWidth;
+	
 	public EntityTab(String name, double entityViewWidth) {
 		super(name);
 		myEntityViewWidth = entityViewWidth;
