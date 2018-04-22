@@ -9,16 +9,24 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class AuthoringLogger {
 	private static final String LOGGING_TEXT_FILE_NAME = "Logging.txt";
 	private static final String LOGGING_HTML_FILE_NAME = "Logging.html";
 	
-	static private FileHandler fileTxt;
-	static private SimpleFormatter simpleFormatter;
+	public AuthoringLogger() {
+		
+	}
 	
-	static private FileHandler fileHTML;
-	static private Formatter formatterHTML;
-	
+	/**
+	 * Sets up the Authoring Logger
+	 * @throws IOException
+	 */
 	static public void setup() throws IOException{
 		Logger globalLogger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 		
@@ -29,14 +37,14 @@ public class AuthoringLogger {
 		}
 		
 		com.sun.media.jfxmedia.logging.Logger.setLevel(Level.INFO.intValue());
-		fileTxt = new FileHandler(LOGGING_TEXT_FILE_NAME);
-		fileHTML = new FileHandler(LOGGING_HTML_FILE_NAME);
+		FileHandler fileTxt = new FileHandler(LOGGING_TEXT_FILE_NAME);
+		FileHandler fileHTML = new FileHandler(LOGGING_HTML_FILE_NAME);
 		
-		simpleFormatter = new SimpleFormatter();
+		SimpleFormatter simpleFormatter = new SimpleFormatter();
 		fileTxt.setFormatter(simpleFormatter);
 		globalLogger.addHandler(fileTxt);
 		
-		formatterHTML = new HtmlFormatter();
+		Formatter formatterHTML = new HtmlFormatter();
 		fileHTML.setFormatter(formatterHTML);
 		globalLogger.addHandler(fileHTML);
 	}
