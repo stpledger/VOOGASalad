@@ -1,31 +1,19 @@
 package authoring.views;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
 
 import authoring.entities.Background;
 import authoring.entities.Block;
 import authoring.entities.Enemy;
 import authoring.entities.Player;
-import data.DataRead;
-import engine.components.Sprite;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Tab;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 
 /**
  * 
