@@ -39,7 +39,7 @@ public class DataGameState {
             this.gameState.put(level,entityMap);
         }
     }
-    
+
     /*creates an empty gamestate which holds the place of a null values
      * useful for errors when loading gamefiles
      */
@@ -61,17 +61,18 @@ public class DataGameState {
         Map<Level, Map<Integer,List<Component>>> authoringState = new HashMap<>();
 
         for(Level level : gameState.keySet()) {
+            Map<Integer, List<Component>> entityMap = new HashMap<>();
             for (Integer integer : gameState.get(level).keySet()) {
-                Map<Integer, List<Component>> componentList = new HashMap<>();
                 List<Component> components = new ArrayList(gameState.get(level).get(integer).values());
-                componentList.put(integer, components);
-	                authoringState.put(level,componentList);
-	            }
-	        }
-	        return authoringState;
-	}
+                entityMap.put(integer, components);
+                authoringState.put(level,entityMap);
+            }
+        }
+        return authoringState;
+    }
 
-	//gets name gets .... the name of the file
+
+    //gets name gets .... the name of the file
 	public String getGameName()
     {
         return gameName;
