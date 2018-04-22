@@ -81,7 +81,7 @@ public class LevelView extends ScrollPane {
 					});
 					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
 				} catch (Exception e1) {
-					LOGGER.warning(e1.toString());
+					 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 				}
 				cMenu.show(this, e.getScreenX(), e.getScreenY());
 				cMenu.setAutoHide(true);
