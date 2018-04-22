@@ -38,7 +38,6 @@ public class MainApplication extends Application {
 		mainStage.getIcons().add(image);
         mainStage.setScene(s);
         mainStage.sizeToScene();
-        mainStage.setResizable(false);
         mainStage.show();
         mainStage.centerOnScreen();
 	}

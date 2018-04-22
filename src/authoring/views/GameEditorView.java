@@ -20,7 +20,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.BorderPane;
@@ -75,13 +74,13 @@ public class GameEditorView extends BorderPane {
 	 */
 	private Map<String,Consumer> buildToolbarFunctionMap(){
 		//Consumers for the toolbar
-		Consumer<?> newGame = (e)->{newGameMethod(); addLevel();}; 
-		Consumer<?> loadGame = (e)->{ loadGameMethod();};
-		Consumer<?> newLevel = (e)->{addLevel();};
-		Consumer<?> saveGame = (e)-> { saveGameMethod(); };
-		Consumer<?> showSettings = (e)->{showSettingsMethod();};
-		Consumer<?> hudSettings = (e) -> { hudSettingsMethod();};
-		Consumer<?> play = (e)->{playMethod();};
+		Consumer<?> newGame = e->{newGameMethod(); addLevel();}; 
+		Consumer<?> loadGame = e->{ loadGameMethod();};
+		Consumer<?> newLevel = e->{addLevel();};
+		Consumer<?> saveGame = e-> { saveGameMethod(); };
+		Consumer<?> showSettings = e->{showSettingsMethod();};
+		Consumer<?> hudSettings = e -> { hudSettingsMethod();};
+		Consumer<?> play = e->{playMethod();};
 		
 		
 		Map<String, Consumer> consumerMap = new HashMap<String, Consumer>();
@@ -101,7 +100,7 @@ public class GameEditorView extends BorderPane {
 	 * called whenever there is any change to the tabslist
 	 * TODO: This might not even need to be a lambda but gotta flex for Duval.
 	 */
-	Consumer<List<Tab>> updateTabs = (l) -> {
+	Consumer<List<Tab>> updateTabs = l -> {
 		for(Tab t : l) {
 			t.setText("Level " + (l.indexOf(t)+1));
 		}
@@ -269,15 +268,11 @@ public class GameEditorView extends BorderPane {
 	private Consumer<MouseEvent> addEntity = (mouseEvent) -> {
 		Entity entity = null;
 		try {
-			//Get the class of the entityType
-			//Set the position
 			entity.setPosition(mouseEvent.getX() - entity.getFitWidth() / 2, mouseEvent.getY() - this.tabPane.getTabMaxHeight() - entity.getFitHeight() / 2);
-
-			//Add all the components
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity);
-			nextEntityID++; //Increment id's by one
+			nextEntityID++;
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Error creating new entity");
 		}
 	};
 
