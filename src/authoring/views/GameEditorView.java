@@ -32,6 +32,7 @@ import authoring.factories.Toolbar;
 import authoring.gamestate.*;
 import authoring.views.properties.GlobalPropertiesView;
 import authoring.views.properties.HUDPropertiesView;
+import authoring.views.properties.LevelPropertiesView;
 import engine.components.Component;
 import engine.components.EntityType;
 import engine.components.Position;
@@ -76,24 +77,25 @@ public class GameEditorView extends BorderPane {
 		//Consumers for the toolbar
 		Consumer<?> newGame = e->{newGameMethod(); addLevel();}; 
 		Consumer<?> loadGame = e->{ loadGameMethod();};
-		Consumer<?> newLevel = e->{addLevel();};
 		Consumer<?> saveGame = e-> { saveGameMethod(); };
 		Consumer<?> showSettings = e->{showSettingsMethod();};
 		Consumer<?> hudSettings = e -> { hudSettingsMethod();};
 		Consumer<?> play = e->{playMethod();};
+		Consumer<?> newLevel = e->{addLevel();};
+		Consumer<?> levelSettings = e->{showLevelSettings();};
 		
 		
 		Map<String, Consumer> consumerMap = new HashMap<String, Consumer>();
 		consumerMap.put("newGame", newGame);
 		consumerMap.put("loadGame", loadGame);
 		consumerMap.put("saveGame", saveGame);
-		consumerMap.put("addLevel", newLevel);
 		consumerMap.put("showSettings", showSettings);
 		consumerMap.put("hudSettings", hudSettings);
 		consumerMap.put("play", play);
+		consumerMap.put("addLevel", newLevel);
+		consumerMap.put("levelSettings", levelSettings);
 		return consumerMap;
 	}
-
 
 
 	/**
@@ -234,6 +236,15 @@ public class GameEditorView extends BorderPane {
 			}
 		}
 	}
+	/**
+	 * Opens the levelPropertiesView
+	 */
+	private void showLevelSettings() {
+		Level level = ((LevelView) this.tabPane.getSelectionModel().getSelectedItem().getContent()).getLevel();
+		LevelPropertiesView lView = new LevelPropertiesView(level, level.getLevelNum());
+		lView.open();
+	}
+
 
 	/**
 	 * Creates a component with the ID and a List of components
