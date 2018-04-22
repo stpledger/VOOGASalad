@@ -8,11 +8,15 @@ import engine.components.DamageLauncher;
 import engine.setup.EntityManager;
 
 public class DamageHandler {
-	public DamageHandler() {
-		
+	
+	private EntityManager em;
+	
+	public DamageHandler(EntityManager em) {
+		this.em = em;
 	}
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
+		//System.out.println("in damage handler");
 		if(collider.containsKey(DamageLauncher.KEY) || player.containsKey(DamageLauncher.KEY)) {
 			if(player.containsKey(DamageLauncher.KEY)) {
 				DamageLauncher launcher = (DamageLauncher)player.get(DamageLauncher.KEY);
@@ -23,11 +27,12 @@ public class DamageHandler {
 					Damage damage = (Damage)collider.get(Damage.KEY);
 					damage.setLifetime(damage.getLifetime() + newLifetime);
 					damage.setDamage(damage.getDamage() + newDamage);
+					//System.out.println(damage.getDamage() + newDamage);
 				}
 				else {
 					Damage damage = new Damage(newPid,newDamage,newLifetime);
 					Component damageComponent = (Component)damage;
-					EntityManager.addComponent(colliderID, Damage.KEY, damageComponent);
+					em.addComponent(colliderID, Damage.KEY, damageComponent);
 				}
 			}
 		}
@@ -45,7 +50,7 @@ public class DamageHandler {
 			else {
 				Damage damage = new Damage(newPid,newDamage,newLifetime);
 				Component damageComponent = (Component)damage;
-				EntityManager.addComponent(playerID, Damage.KEY, damageComponent);
+				em.addComponent(playerID, Damage.KEY, damageComponent);
 			}
 		}
 	}

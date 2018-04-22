@@ -12,7 +12,7 @@ import java.util.Map;
  * and changes according to game logic.
  * @author Yameng
  */
-public class DamageLauncher extends ShowableComponent {
+public class DamageLauncher extends Component {
 	private double damage;
 	private double lifetime;
 	public static String KEY = "DamageLauncher";
@@ -39,17 +39,13 @@ public class DamageLauncher extends ShowableComponent {
 	public void decrementLife() {
 		lifetime--;
 	}
-	
-	public static String getKey() {
-		return KEY;
-	}
 
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String, String>(){{
-			put("Damage", Double.toString(damage));
-			put("Lifetime", Double.toString(lifetime));
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Damage", Double.toString(damage));
+		res.put("Lifetime", Double.toString(lifetime));
+		
 		return res;
 	}
 }

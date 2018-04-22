@@ -1,6 +1,8 @@
-package voogasalad_oneclassonemethod;
+package api;
 
 import java.util.List;
+
+import frontend.gamestate.GameState;
 
 /**
  * This class defines method that only the GAE will use. These are things that we would expect users

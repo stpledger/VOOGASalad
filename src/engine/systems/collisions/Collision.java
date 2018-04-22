@@ -4,7 +4,7 @@ import java.util.*;
 
 import engine.components.Component;
 import engine.components.Dimension;
-import engine.components.EntityType;
+
 import engine.components.Position;
 import engine.components.Velocity;
 import engine.setup.EntityManager;
@@ -14,64 +14,134 @@ public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();
 	private Map<Integer, Velocity> colliders;
 	private CollisionHandler handler;
+	private EntityManager em;
 	
-	public Collision() {
+	public Collision(EntityManager em) {
 		colliders = new HashMap<>();
-		handler = new CollisionHandler();
+		handler = new CollisionHandler(em);
+		this.em = em;
 	}
 
 	@Override
 	public Map<Integer, Map<String, Component>> getHandledComponent(){
 		return handledComponents;
 	}
-	
+
 	public void execute(double time) {
+
 		colliders.forEach((key1, vel) -> {
-			handledComponents.forEach((key2, map) -> {				// Hooooorrible code, refactor
-				
+			handledComponents.forEach((key2, map) -> {
+
 				if(key1 != key2) {
+
 					Dimension d1 = (Dimension) handledComponents.get(key1).get(Dimension.KEY);
 					Dimension d2 = (Dimension) handledComponents.get(key2).get(Dimension.KEY);
 					Position p1 = (Position) handledComponents.get(key1).get(Position.KEY);
 					Position p2 = (Position) handledComponents.get(key2).get(Position.KEY);
-					
+
 					double topOverlap = p1.getYPos() + d1.getHeight() - p2.getYPos();
-					double leftOverlap = p1.getXPos() + d1.getWidth() - p2.getXPos();
 					double botOverlap = p2.getYPos() + d2.getHeight() - p1.getYPos();
+					double leftOverlap = p1.getXPos() + d1.getWidth() - p2.getXPos();
 					double rightOverlap = p2.getXPos() + d2.getWidth() - p1.getXPos();
+
+					boolean to = topOverlap >= 0 && topOverlap <= d1.getHeight();
+					boolean bo = botOverlap >= 0 && botOverlap <= d2.getHeight();
+					boolean lo = leftOverlap >= 0 && leftOverlap <= d1.getWidth();
+					boolean ro = rightOverlap >= 0 && rightOverlap <= d2.getWidth();
 					
-					boolean top = (topOverlap > 0) && (p1.getYPos() < p2.getYPos());
-					boolean left = (leftOverlap > 0) && (p1.getXPos() < p2.getXPos());
-					boolean bot = (botOverlap > 0) && (p1.getYPos() > p2.getYPos());
-					boolean right = (rightOverlap > 0) && (p1.getXPos() > p2.getXPos());
-					
-					if(top || bot || left || right) {
-						handler.handle(handledComponents, key1, key2);// Signal collision
-						System.out.println("collision!");
+					List<Double> overlaps = new ArrayList<>();
+					if(bo && !to && (lo || ro)) {
+						overlaps.add(botOverlap);
+					} 
+					if(to && !bo && (lo || ro)) {
+						overlaps.add(topOverlap);
 					}
+					if(lo && !ro && (to || bo)) {
+						overlaps.add(leftOverlap);
+					}
+					if(ro && !lo && (to || bo)) {
+						overlaps.add(rightOverlap);
+					}
+					
+					Collections.sort(overlaps);
+					
+					CollisionDirection cd = null;
+					
+					if(overlaps.size() > 0) {
+						if(overlaps.get(0) == topOverlap) cd = CollisionDirection.Top;
+						else if(overlaps.get(0) == botOverlap) cd = CollisionDirection.Bot;
+						else if(overlaps.get(0) == rightOverlap) cd = CollisionDirection.Right;
+						else if(overlaps.get(0) == leftOverlap) cd = CollisionDirection.Left;
+					}
+
+					if(cd != null) {
+						handler.handle(handledComponents, key1, key2);
+						//System.out.println(cd.name());
+						switch (cd) {
 						
-					List<Double> lengths = new ArrayList<>();
-					lengths.add(topOverlap);
-					lengths.add(botOverlap);
-					lengths.add(leftOverlap);
-					lengths.add(rightOverlap);
-					
-					Collections.sort(lengths);
-					
-					for(int i = 0; i < lengths.size(); i++) {
-						if(lengths.get(i) > 0) {
-							if(lengths.get(i) == topOverlap && top) {
-								p1.setYPos(p2.getYPos() - d1.getHeight()); 		// Change velocity
-							} else if(lengths.get(i) == botOverlap && bot) {
-								p1.setYPos(p2.getYPos() + d2.getHeight());
-							} else if(lengths.get(i) == leftOverlap && left) {
-								p1.setXPos(p2.getXPos() - d1.getWidth());
-							} else if(right) {
-								p1.setXPos(p2.getXPos() + d2.getWidth());
+						case Top:
+							p1.setYPos(p2.getYPos() - d1.getHeight());
+							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+							break;
+							
+						case Bot:
+							p1.setYPos(p2.getYPos() + d2.getHeight());
+							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+							break;
+							
+						case Left:
+							p1.setXPos(p2.getXPos() - d1.getWidth());
+							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							break;
+							
+						case Right:
+							p1.setXPos(p2.getXPos() + d2.getWidth());
+							((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							break;
+							
+							
+						/*case BotLeft:
+							if(botOverlap>leftOverlap) {
+								p1.setXPos(p2.getXPos() - d2.getWidth()/2-d1.getWidth()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							} else {
+								p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
 							}
+							break;
+							
+						case BotRight:
+							if(botOverlap>rightOverlap) {
+								p1.setXPos(p2.getXPos() + d2.getWidth()/2+d1.getWidth()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							} else {
+								p1.setYPos(p2.getYPos() + d2.getHeight()/2+d1.getHeight()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+							}
+							break;
+	
+						case TopLeft:
+							if(topOverlap<leftOverlap) {
+								p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+							} else {
+								p1.setXPos(p2.getXPos() - d1.getWidth()/2-d2.getWidth()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							}
+							break;
+							
+						case TopRight:
+							if(topOverlap<rightOverlap) {
+								p1.setYPos(p2.getYPos() - d1.getHeight()/2-d2.getHeight()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
+							} else {
+								p1.setXPos(p2.getXPos() + d1.getWidth()/2+d2.getWidth()/2);
+								((Velocity)handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
+							}
+							break;
+						}*/
 						}
 					}
-					
 				}
 			});
 		});
@@ -92,11 +162,11 @@ public class Collision extends DefaultSystem{
 		}
 		
 		if(colliders.containsKey(pid)) {
-			System.out.println("Collision System tries adding duplicate " + componentName + " component for entity " + pid + " !");
+			//System.out.println("Collision System tries adding duplicate " + componentName + " component for entity " + pid + " !");
 		}
 		
 
-		Velocity velocity = (Velocity)EntityManager.getComponent(pid, componentName);
+		Velocity velocity = (Velocity)em.getComponent(pid, componentName);
 		colliders.put(pid, velocity);
 	}
 
@@ -106,7 +176,7 @@ public class Collision extends DefaultSystem{
 		}
 		
 		if(!colliders.containsKey(pid)) {
-			System.out.println("Collision System tries remove " + componentName + " component from non-existing entity " + pid + " !");
+			//System.out.println("Collision System tries remove " + componentName + " component from non-existing entity " + pid + " !");
 		}
 		
 
@@ -120,16 +190,19 @@ public class Collision extends DefaultSystem{
 
 	
 	public void addComponent(int pid, Map<String, Component> components) {
-		handledComponents.put(pid, components);
+	handledComponents.put(pid, components);
 
 		if(components.containsKey(Velocity.KEY)) {
 			colliders.put(pid, (Velocity) components.get(Velocity.KEY));
 		}
+
 	}
 
 	@Override
 	public void update(Map<Integer, Map<String, Component>> handledComponents) {
 		this.handledComponents = handledComponents;
 	}
-	
+	public CollisionHandler getCH() {
+		return handler;
+	}
 }

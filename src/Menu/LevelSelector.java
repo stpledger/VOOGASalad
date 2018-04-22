@@ -5,8 +5,8 @@ import java.util.Set;
 
 import GamePlayer.GamePlayerController;
 import GamePlayer.GamePlayerEntityView;
+import authoring.gamestate.Level;
 import engine.components.Component;
-import frontend.components.Level;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
@@ -35,7 +35,7 @@ public class LevelSelector extends Menu {
 	
 	/**
 	 * Method that creates each MenuItem for a given file;
-	 * @param levelMap
+	 * @param
 	 */
 	public void createLevelMenu() {
 		Set<Integer> levelKeySet = levelEntityGroupMap.keySet();
@@ -46,7 +46,7 @@ public class LevelSelector extends Menu {
 			MenuItem currentMenu = new MenuItem("Level" + levelCount);
 			currentMenu.setOnAction(new EventHandler<ActionEvent>() { //event listener when the menu is selected.
 			    public void handle(ActionEvent t) {
-			    		mainController.changeGameLevel(levelEntityGroupMap.get(levelCount));
+			    		mainController.changeGameLevel(levelCount);
 			    }
 			});
 			this.getItems().add(currentMenu);

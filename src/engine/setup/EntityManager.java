@@ -4,22 +4,28 @@ import java.util.Map;
 import engine.components.Component;
 
 public class EntityManager {
-	private static Map<Integer, Map<String, Component>> entities;
+	private Map<Integer, Map<String, Component>> entities;
+	private SystemManager sm;
 	
-    public EntityManager(Map<Integer, Map<String, Component>> entities) {
+    public EntityManager(Map<Integer, Map<String, Component>> entities, SystemManager sm) {
     		this.entities = entities;
+    		this.sm = sm;
 	}
+    
+    public void setSM(SystemManager sm) {
+    	this.sm = sm;
+    }
 
-	public static boolean hasComponent(int pid, String component) {
+	public boolean hasComponent(int pid, String component) {
     		Map<String,Component> components = entities.get(pid);
     		return components.containsKey(component);
     }
     
-    public static Map<Integer, Map<String, Component>> getEntities(){
+    public Map<Integer, Map<String, Component>> getEntities(){
     		return entities;
     }
     
-    public static void addComponent(int pid, String componentName, Component component) {
+    public void addComponent(int pid, String componentName, Component component) {
     		if(!entities.containsKey(pid)) {
     			System.out.println("Missing entity in EntityManager!");
     			return;
@@ -32,10 +38,10 @@ public class EntityManager {
     		}
     		
     		map.put(componentName,component);
-    		SystemManager.addComponent(pid,componentName);
+    		sm.addComponent(pid,componentName);
     }
     
-    public static void removeComponent(int pid, String componentName, Component component) {
+    public void removeComponent(int pid, String componentName, Component component) {
     		if(!entities.containsKey(pid)) {
 			System.out.println("Missing entity in EntityManager!");
 			return;
@@ -48,10 +54,10 @@ public class EntityManager {
 		}
 		
 		map.remove(componentName);
-		SystemManager.removeComponent(pid,componentName);
+		sm.removeComponent(pid,componentName);
     }
     
-    public static Component getComponent(int pid, String componentName) {
+    public Component getComponent(int pid, String componentName) {
     		return entities.get(pid).get(componentName);
     }
     

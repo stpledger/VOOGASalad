@@ -4,8 +4,8 @@ import java.util.Map;
 import java.util.Set;
 
 import GamePlayer.GamePlayerController;
+import authoring.gamestate.Level;
 import engine.components.Component;
-import frontend.components.Level;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Menu;

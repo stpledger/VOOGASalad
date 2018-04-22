@@ -7,13 +7,12 @@ import javafx.stage.Stage;
 public class Main extends Application {
 
 	private static final String TITLE = "VoogaSalad";
-
-	private static Stage mainStage;
+	private Stage mainStage;
 
 	public static void main(String[] args) {
 		launch(args);
 	}
-
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception{
 		GamePlayerController gamePlayer = new GamePlayerController(primaryStage);
@@ -23,9 +22,5 @@ public class Main extends Application {
 		mainStage.show();
 	}
 
-
-	public Stage getMainStage() {
-		return mainStage;
-	}
 
 }
