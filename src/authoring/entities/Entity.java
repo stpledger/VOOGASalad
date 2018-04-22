@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import authoring.views.properties.LocalPropertiesView;
-import data.DataRead;
+
 import engine.components.Component;
 import engine.components.Damage;
 import engine.components.Dimension;
@@ -14,13 +14,9 @@ import engine.components.EntityType;
 import engine.components.Health;
 import engine.components.Position;
 import engine.components.Sprite;
-import javafx.scene.image.Image;
+
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
-import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.TransferMode;
 
 /**
  * 
@@ -54,7 +50,7 @@ public abstract class Entity extends ImageView {
 		components = new ArrayList<>();
 		this.setFitWidth(ENTITY_WIDTH);
 		this.setFitHeight(ENTITY_HEIGHT);
-		Consumer<List<Component>> onSubmit = (componentsToAdd) -> {
+		Consumer<List<Component>> onSubmit = componentsToAdd -> {
 			for (Component c : componentsToAdd) {
 				this.add(c);
 			}
@@ -97,8 +93,9 @@ public abstract class Entity extends ImageView {
 	 */
 	public void add(Component c) {
 		if (c != null) {
-			if (this.contains(c))
+			if (this.contains(c)) {
 				this.removeByName(c.getKey());
+			}
 			this.components.add(c);
 		}
 	}
@@ -141,8 +138,9 @@ public abstract class Entity extends ImageView {
 	 */
 	private boolean contains(Component c) {
 		for (Component existing : this.components) {
-			if (existing.getKey() == c.getKey())
+			if (existing.getKey() == c.getKey()) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -154,8 +152,9 @@ public abstract class Entity extends ImageView {
 	 */
 	public boolean contains(String name) {
 		for (Component existing : this.components) {
-			if (existing.getKey().equals(name))
+			if (existing.getKey().equals(name)) {
 				return true;
+			}
 		}
 		return false;
 	}

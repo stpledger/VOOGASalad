@@ -1,7 +1,6 @@
 package authoring.views;
 
 import java.io.File;
-import java.util.function.Consumer;
 
 import authoring.factories.Toolbar;
 import javafx.scene.Parent;

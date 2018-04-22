@@ -110,7 +110,7 @@ class Browser extends Region {
 
     private void setImageName(String name){
         try {
-            DataRead.importImage(imageURL,name);
+            DataWrite.writeImage(imageURL,name);
             close.accept(null);
         } catch (IOException e) {
             messager.setText(NAMING_ERROR);
