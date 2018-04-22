@@ -11,6 +11,7 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 
@@ -44,6 +45,8 @@ public class EntityBuilderView extends Stage{
 	private final static int LEFT_PANEL_WIDTH = 200;
 	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final static String COMPONENT_PREFIX = "engine.components.";
+	
+	
 	private Properties tooltipProperties;
 	private HBox saveMenu;
 	private GridPane currentForms;
@@ -51,11 +54,16 @@ public class EntityBuilderView extends Stage{
 	private List<String> entityTypes;
 	private String myEntityType;
 	private ImageView entityPreview;
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
 	private List<EntityComponentForm> activeForms;
 	private List<String> imageExtensions = Arrays.asList(new String[] {".jpg",".png",".jpeg"});
+	
 	private BiConsumer<String, Map<Class, Object[]>> onClose;
 	private Consumer<MouseEvent> saveOnClick = e -> {save();};
 	private Consumer<MouseEvent> addImageOnClick = e -> {addImage();};
+	
 	private Map<Class, Object[]> componentAttributes = new HashMap<>();
 	
 	/**
@@ -78,7 +86,7 @@ public class EntityBuilderView extends Stage{
 		try {
 			tooltipProperties.load(new FileInputStream("src/resources/tooltips/EntityBuilderViewTooltips.properties"));
 		} catch (Exception e) {
-			e.printStackTrace();
+			LOGGER.severe(e.getMessage());
 		}
 		this.root = new VBox();
 		this.root.setAlignment(Pos.CENTER);
@@ -178,6 +186,7 @@ public class EntityBuilderView extends Stage{
 				componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
 			} catch (ClassNotFoundException e1) {
 				System.out.println("Error Trying to Save New Entity");
+				LOGGER.warning(e1.getMessage());
 			}}
 		}
 		onClose.accept(myEntityType, componentAttributes);
@@ -198,6 +207,7 @@ public class EntityBuilderView extends Stage{
 			updateEntityPreview(image);
 		} catch (Exception e1){
 			System.out.println("Error loading image");
+			LOGGER.severe(e1.getMessage());
 
 		}
 	}
