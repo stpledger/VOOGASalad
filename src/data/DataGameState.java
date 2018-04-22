@@ -67,19 +67,17 @@ public class DataGameState {
         Map<Level, Map<Integer,List<Component>>> authoringState = new HashMap<>();
 
         for(Level level : gameState.keySet()) {
-        	Map<Integer, List<Component>> entityMap = new HashMap<>();
+            Map<Integer, List<Component>> entityMap = new HashMap<>();
             for (Integer integer : gameState.get(level).keySet()) {
-            	System.out.println(integer);
                 List<Component> components = new ArrayList(gameState.get(level).get(integer).values());
                 entityMap.put(integer, components);
-	                authoringState.put(level,entityMap);
-	                System.out.println("Authoring State Size: " + authoringState.keySet().size());
-	            }
-	        }
-	        return authoringState;
-	}
+                authoringState.put(level,entityMap);
+            }
+        }
+        return authoringState;
+    }
 
-	//gets name gets .... the name of the file
+    //gets name gets .... the name of the file
 	public String getGameName()
     {
         return gameName;
