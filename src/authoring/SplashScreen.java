@@ -9,6 +9,7 @@ import java.lang.reflect.Method;
 
 import java.util.Properties;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import authoring.views.MainView;
 
@@ -18,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import sun.rmi.runtime.Log;
 
 /**
  * 
@@ -27,39 +29,42 @@ import javafx.stage.FileChooser;
 public class SplashScreen extends VBox {
 	Properties properties;
 	Consumer changeScene;
+
+	private static final int SPLASH_SCREEN_HEIGHT = 300;
+	private static final int SPLASH_SCREEN_WIDTH = 400;
+	
+	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	public SplashScreen(Consumer<Scene> cs) {
-		//Load the menu properties
 		 properties = new Properties();
 		 changeScene = cs;
+		 
 		try {
 			properties.load(new FileInputStream("src/resources/menus/SplashScreen/SplashScreen.properties"));
 		} catch (IOException e) {
 			System.out.println("Error Loading SplashScreen");
 		}
 		
-		//Set the basics
-		this.setWidth(400);
-		this.setHeight(300);
+		this.setWidth(SPLASH_SCREEN_WIDTH);
+		this.setHeight(SPLASH_SCREEN_HEIGHT);
 		this.setAlignment(Pos.CENTER);
 		this.getStyleClass().add("root");
 		this.getStyleClass().add("splash-screen-wrapper");
 		
-		//Create the buttons
 		for(String key: properties.stringPropertyNames()) {
 			try {
 				this.getChildren().add(buildButton(key, this.getClass().getMethod(key)));
-			} catch (NoSuchMethodException | SecurityException e) {
-				System.out.println("Error creating button " + key);
-				e.printStackTrace();
+			} catch (Exception e) {
+				System.out.println("Error creating button " + key);	
+				LOGGER.severe(e.getMessage());
 			}
 		}
 		
 	}
 
 	public void playGame() {
-		
 	}
+	
 	/**
 	 * Creates a new gameAuthoringEnviornment view based on the 
 	 */
@@ -94,8 +99,8 @@ public class SplashScreen extends VBox {
 		b.setOnMouseClicked((e)->{
 		try {
 			method.invoke(this, null);
-		} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException e1) {
-			e1.printStackTrace();
+		} catch (Exception e1) {
+			LOGGER.severe(e1.getMessage());
 		}});
 		return b;	
 	}
