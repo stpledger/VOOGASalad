@@ -44,10 +44,11 @@ public class GameEditorView extends BorderPane {
 	private GameState state;
 	private TabPane tabPane;
 	private Toolbar toolbar;
-	private File gameFile;
 	private int nextEntityID  = 0;
-
-	private final int BLOCK_DEFAULT_WIDTH = 50;
+	
+	private Consumer<MouseEvent> addEntity = mouseEvent -> { addEntityMethod(mouseEvent);};
+	private Consumer<List<Tab>> updateTabs = tabList -> { updateTabsMethod(tabList); };
+	private static final int BLOCK_DEFAULT_WIDTH = 50;
 	
 	/**
 	 * Default Constructor creates a Borderpane with a toolbar in the top, tabPane in the center, and a gamestate object
@@ -57,7 +58,7 @@ public class GameEditorView extends BorderPane {
 		this.toolbar = new Toolbar("GameEditor", buildToolbarFunctionMap());
 		this.setTop(toolbar);
 		this.tabPane = new TabPane();
-		this.levelTabsList = new ArrayList<Tab>();
+		this.levelTabsList = new ArrayList<>();
 		this.state = new GameState();
 		this.setCenter(tabPane);
 		addLevel();
@@ -79,7 +80,7 @@ public class GameEditorView extends BorderPane {
 		Consumer<?> levelSettings = e->{showLevelSettings();};
 		
 		
-		Map<String, Consumer> consumerMap = new HashMap<String, Consumer>();
+		Map<String, Consumer> consumerMap = new HashMap<>();
 		consumerMap.put("newGame", newGame);
 		consumerMap.put("loadGame", loadGame);
 		consumerMap.put("saveGame", saveGame);
@@ -90,17 +91,16 @@ public class GameEditorView extends BorderPane {
 		consumerMap.put("levelSettings", levelSettings);
 		return consumerMap;
 	}
-
-
+	
 	/**
-	 * called whenever there is any change to the tabslist
-	 * TODO: This might not even need to be a lambda but gotta flex for Duval.
+	 * Update the numbers of the level tabs
+	 * @param tabList
 	 */
-	Consumer<List<Tab>> updateTabs = l -> {
-		for(Tab t : l) {
-			t.setText("Level " + (l.indexOf(t)+1));
+	private void updateTabsMethod(List<Tab> tabList) {
+		for(Tab t : tabList) {
+			t.setText("Level " + (tabList.indexOf(t)+1));
 		}
-	};
+	}
 
 	/**
 	 * Creates a new LevelView
@@ -148,7 +148,7 @@ public class GameEditorView extends BorderPane {
 
 	private void newGameMethod() {
 		state = new GameState();
-		levelTabsList = new ArrayList<Tab>();
+		levelTabsList = new ArrayList<>();
 		tabPane.getTabs().clear();
 	}
 
@@ -173,7 +173,7 @@ public class GameEditorView extends BorderPane {
 	 * Shows the HUD Settings Menu
 	 */
 	private void hudSettingsMethod() {
-		ArrayList<Level> levelArray = new ArrayList<Level>();
+		ArrayList<Level> levelArray = new ArrayList<>();
 		for(Tab t: levelTabsList) {
 			levelArray.add(((LevelView) t.getContent()).getLevel());
 		}
@@ -212,7 +212,7 @@ public class GameEditorView extends BorderPane {
 	private void loadGameMethod() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Image File");
-		gameFile = fileChooser.showOpenDialog(new Stage());
+		File gameFile = fileChooser.showOpenDialog(new Stage());
 		DataRead dr = new DataRead();
 		Map<Level, Map<Integer, List<Component>>> authorData = dr.loadAuthorFile(gameFile);
 		newGameMethod();
@@ -264,11 +264,12 @@ public class GameEditorView extends BorderPane {
 		}
 		return entity;
 	}
-
+	
 	/**
-	 * Consumer to handle adding a new entity to the current level
+	 * Adds an entity to the LevelView
+	 * @param mouseEvent
 	 */
-	private Consumer<MouseEvent> addEntity = (mouseEvent) -> {
+	private void addEntityMethod(MouseEvent mouseEvent) {
 		Entity entity = null;
 		try {
 			entity.setPosition(mouseEvent.getX() - entity.getFitWidth() / 2, mouseEvent.getY() - this.tabPane.getTabMaxHeight() - entity.getFitHeight() / 2);
@@ -277,7 +278,7 @@ public class GameEditorView extends BorderPane {
 		} catch (Exception e) {
 			System.out.println("Error creating new entity");
 		}
-	};
+	}
 
 	/**
 	 * Creates an Entity object from the Class representing its type and an ID
@@ -306,7 +307,7 @@ public class GameEditorView extends BorderPane {
 	 * @throws Exception
 	 */
 	private Entity addEntityComponentsFromMap(Entity e, Map<Class, Object[]> entityComponents) throws Exception {
-		ArrayList<Component> componentArrayList = new ArrayList<Component>();
+		ArrayList<Component> componentArrayList = new ArrayList<>();
 		Entity entity = e;
 		
 		for(Class<?> componentClass :entityComponents.keySet()) { 
