@@ -25,8 +25,7 @@ public class LocalPropertiesView extends PropertiesView {
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
-	private final String PROPERTIES_PACKAGE = "resources.menus.Entity/";
-	private List<PropertiesComponentForm> activeForms;
+	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private Consumer<List<Component>> onSubmit;
 	private Entity entity;
 	private String type;
@@ -48,7 +47,8 @@ public class LocalPropertiesView extends PropertiesView {
 	@Override
 	protected void fill() {
 		int currentRow = 0;
-		this.activeForms = new ArrayList<>();
+		List<PropertiesComponentForm> activeForms = new ArrayList<>();
+		
 		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + type).keySet()) {
 			PropertiesComponentForm cf;
 			if (!entity.contains(property)) {
@@ -57,15 +57,16 @@ public class LocalPropertiesView extends PropertiesView {
 				System.out.println(entity.get(property).getParameters());
 				cf = new PropertiesComponentForm(entity.getID(), property, entity.get(property).getParameters());
 			}
-			this.activeForms.add(cf);
-			getRoot().add(cf, 0, currentRow++);
+			activeForms.add(cf);
+			currentRow++;
+			getRoot().add(cf, 0, currentRow);
 		}
 		
 		try {
 			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, this.getButtonBundle().getString("Submit"));
 			submit.setOnAction(e->{
 				List<Component> componentsToAdd = new ArrayList<>();
-				for (PropertiesComponentForm cf : this.activeForms) {
+				for (PropertiesComponentForm cf : activeForms) {
 					componentsToAdd.add(cf.buildComponent());
 				}
 				onSubmit.accept(componentsToAdd);

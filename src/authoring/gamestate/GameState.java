@@ -36,8 +36,7 @@ public class GameState implements IGameState {
 			DataWrite.saveFile(this,"Test");
 			System.out.println("saved!");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 	}
 
