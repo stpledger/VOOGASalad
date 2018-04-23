@@ -21,7 +21,7 @@ import javafx.scene.Scene;
 public class MainApplication extends Application {
 	Stage mainStage; 
 	
-	Consumer<Scene> changeScene = (newScene) -> {
+	Consumer<Scene> changeScene = newScene -> {
 		mainStage.setScene(newScene);
 		mainStage.sizeToScene();
 		mainStage.centerOnScreen();

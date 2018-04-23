@@ -25,8 +25,7 @@ public class LocalPropertiesView extends PropertiesView {
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-	private final String PROPERTIES_PACKAGE = "resources.menus.Entity/";
-	private List<PropertiesComponentForm> activeForms;
+	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private Consumer<List<Component>> onSubmit;
 	private Entity entity;
 	private String type;

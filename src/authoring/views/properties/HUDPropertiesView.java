@@ -22,9 +22,9 @@ public class HUDPropertiesView extends PropertiesView{
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
-	public HUDPropertiesView(List<Level> levelArray) {
+	public HUDPropertiesView(List<Level> levels) {
 		super();
-		this.levels = levelArray;
+		this.levels = levels;
 	}
 
 	@Override

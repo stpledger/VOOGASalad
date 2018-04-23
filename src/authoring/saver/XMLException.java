@@ -8,7 +8,7 @@ package authoring.saver;
 public class XMLException extends RuntimeException {
 	// serialization
 	private static final long serialVersionUID = 1L;
-	private static final String ERROR_MESSAGE = new String("Incorrect XML format. Please refer to documentation for correct format.\n");
+	private static final String ERROR_MESSAGE = "Incorrect XML format. Please refer to documentation for correct format.\n";
 	
 	/**
 	 * Create an exception based upon a different caught exception
