@@ -86,7 +86,7 @@ public class EntityBuilderView extends Stage{
 		try {
 			tooltipProperties.load(new FileInputStream("src/resources/tooltips/EntityBuilderViewTooltips.properties"));
 		} catch (Exception e) {
-			LOGGER.severe(e.getMessage());
+			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
 		}
 		this.root = new VBox();
 		this.root.setAlignment(Pos.CENTER);
@@ -191,7 +191,7 @@ public class EntityBuilderView extends Stage{
 		this.close();
 		}
 		 catch (Exception e1) {
-			LOGGER.warning(e1.toString());
+			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		 }
 	}
 	/**
@@ -208,7 +208,7 @@ public class EntityBuilderView extends Stage{
 			Image image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 			updateEntityPreview(image);
 		} catch (Exception e1){
-			LOGGER.severe(e1.toString());
+			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 
 		}
 	}
