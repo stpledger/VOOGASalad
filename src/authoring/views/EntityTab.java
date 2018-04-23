@@ -1,7 +1,6 @@
 package authoring.views;
 
 import java.util.Map;
-import java.util.logging.Logger;
 
 import authoring.entities.Background;
 import authoring.entities.Block;
