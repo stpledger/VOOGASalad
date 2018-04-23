@@ -101,7 +101,7 @@ public class DataWrite {
             entityFolder.mkdir();
         }
         try {
-            FileOutputStream fos = new FileOutputStream(ENTITY_PATH+entity.getName());
+            FileOutputStream fos = new FileOutputStream(ENTITY_PATH + entity.getName());
             serialize(entity, fos);
         } catch (FileNotFoundException e) {
             // e.printStackTrace();

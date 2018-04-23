@@ -143,7 +143,7 @@ public class EntityBuilderView{
 				//Build the spriteComponent for a given entity
 				try {
 					componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
-					DataRead.importImage( imageFile);
+					DataWrite.writeImage( imageFile);
 				}
 				catch (Exception e1) {
 					e1.printStackTrace();

@@ -33,6 +33,7 @@ public abstract class Entity extends ImageView {
 	 * Unique ID to the entity
 	 */
     private int ID;
+    private String name;
     
     /**
      * List of components which define the entity
@@ -220,5 +221,10 @@ public abstract class Entity extends ImageView {
     public List<Component> getComponentList(){
     		return this.components;
     }
+
+    public String getName()
+	{
+		return name;
+	}
 
 }

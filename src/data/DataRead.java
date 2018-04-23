@@ -78,6 +78,8 @@ public class DataRead  {
         }
     }
 
+   // public static List<DataGameState> getGames
+
     public static Image loadImage(File file) {
         try {
             BufferedImage image = ImageIO.read(file);
