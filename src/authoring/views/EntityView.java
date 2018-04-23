@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.logging.Logger;
 
 import authoring.factories.Toolbar;
 
@@ -37,13 +36,13 @@ public class EntityView extends BorderPane {
 		this.setCenter(tabPane);
 		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
 	}
-	
+
 	/**
 	 * Builds the consumers for the toolbar
 	 * @return Map<String, Consumer> 
 	 */
 	private Map<String, Consumer> buildToolbarConsumerMap() {
-		Map<String, Consumer> consumerMap = new HashMap<String,Consumer>();
+		Map<String, Consumer> consumerMap = new HashMap<>();
 		BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
 		Consumer newEntity = e -> {
 			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
@@ -55,7 +54,7 @@ public class EntityView extends BorderPane {
 		consumerMap.put("loadEntities", loadEntities);
 		return consumerMap;
 	}
-	
+
 	/**
 	 * Adds a new tab
 	 * @param type
@@ -64,7 +63,7 @@ public class EntityView extends BorderPane {
 		EntityTab temp = new EntityTab(type, ENITITY_VIEW_WIDTH);
 		tabPane.getTabs().add(temp);
 	}
-	
+
 	/**
 	 * Called when a EntityBuilderView is closed
 	 * @param entityType String representing the type of entity that this object represents
