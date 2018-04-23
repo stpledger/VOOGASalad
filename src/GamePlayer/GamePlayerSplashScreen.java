@@ -1,11 +1,15 @@
 package GamePlayer;
 
+import java.util.Map;
+
 import buttons.FileUploadButton;
+import data.DataGameState;
 import data.DataRead;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -20,6 +24,7 @@ public class GamePlayerSplashScreen{
 	private Stage mySplashStage;
 	private GridPane myGridPane;
 	private ScrollPane myScrollPane;
+	private Map<Image, DataGameState> imageGameStateMap;
 	private final int WIDTH_SIZE = 800;
 	private final int HEIGHT_SIZE = 500;
 	private final int ROW_NUM = 2;
@@ -27,6 +32,7 @@ public class GamePlayerSplashScreen{
 	public FileUploadButton fileBtn;
 	
 	public GamePlayerSplashScreen(Stage stage) {
+		//imageGameStateMap = DataRead.getAllGames();
 		mySplashStage = stage;
 		splashScene = initializeSplashScreen();
 	}
