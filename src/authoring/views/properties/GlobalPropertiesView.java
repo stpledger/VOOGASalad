@@ -60,7 +60,7 @@ public class GlobalPropertiesView extends PropertiesView {
 			currentRow++;
 			getRoot().add(submit, 0, currentRow);
 		} catch (Exception e1) {
-			LOGGER.severe(e1.toString());
+			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}
 	}
 
