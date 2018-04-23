@@ -67,7 +67,6 @@ public abstract class AbstractComponentForm extends GridPane {
 			int prop = cons.getParameterCount() - 1;
 			return cons.getParameterCount();
 		} catch (ClassNotFoundException e) {
-			// TODO better exception
 			Alert a = new Alert(Alert.AlertType.ERROR);
 			a.setContentText("Class " + component + " does not exist.");
 			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
