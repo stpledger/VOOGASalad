@@ -5,6 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
+
+import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataRead;
 import data.DataWrite;
@@ -15,13 +17,12 @@ import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
 import engine.systems.InputHandler;
-import frontend.components.Level;
-import frontend.entities.Entity;
+import engine.systems.collisions.LevelStatus;
+
 import javafx.scene.Group;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
 
 
 /**
@@ -30,20 +31,20 @@ import javafx.stage.Stage;
  *
  */
 public class GamePlayerEntityView {
-	private File gameFile;
 	//private Group entityRoot;
 	private Map<Level,Map<Integer,Map<String,Component>>> levelMap;
 	private Map<Integer, Map<String, Component>> entityMap;
 	private Map<Integer, Group> levelEntityMap;
 	private DataGameState gameState;
-	private GameInitializer gameInitializer;
+	private File gameFile;
+	private GameInitializer GI;
 	private InputHandler inputHandler;
-	private RenderManager renderManager;
-	private Map<Integer, Map<Integer,Map<String,Component>>> intLevelMap;
+	private RenderManager RM;
+    private LevelStatus LS;
 
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
-		gameState = DataRead.loadFile(gameFile);
+		gameState = DataRead.loadPlayerFile(gameFile);
 		levelMap = gameState.getGameState();
 		levelEntityMap = createEntityGroupMap(levelMap);
 		System.out.println(levelMap.size());
@@ -64,8 +65,6 @@ public class GamePlayerEntityView {
 	public Map<Integer, Group> getlevelEntityMap(){
 		return levelEntityMap;
 	}
-	//**************************************************************************
-	//TESTING PURPOSED FOR LEVEL SELECTOR
 
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
@@ -99,10 +98,27 @@ public class GamePlayerEntityView {
 		//Changed enclosed code to only load sprites for 
 		for(Integer i : entityMap.keySet()) {
 			entityComponents = entityMap.get(i);
-			if(entityComponents.containsKey("Sprite")) {
-				Sprite spriteComponent = (Sprite) entityComponents.get("Sprite");
+			if(entityComponents.containsKey(Sprite.KEY)) {
+				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
-				//System.out.print(image.getX());
+				//				image.setX(200);
+				//				image.setY(200);
+				//image.setImage(new Image("mystery.jpg"));
+				System.out.print(image.getX());
+				
+				
+				//	JACK ADDED THIS .............
+				
+				if(entityComponents.containsKey(Dimension.KEY)) {
+					Dimension dim = (Dimension) entityComponents.get(Dimension.KEY);
+					image.setFitHeight(dim.getHeight());
+					image.setFitWidth(dim.getWidth());
+				}
+				
+				//	Sizes images correctly	.................
+				
+				
+				//System.exit(0);
 				entityRoot.getChildren().add(image);
 			}
 		}
@@ -150,19 +166,27 @@ public class GamePlayerEntityView {
 			e.printStackTrace();
 		}
 
-		inputHandler = gameInitializer.getIH();
-		renderManager = gameInitializer.getRM();
+		inputHandler = GI.getIH();
+		RM = GI.getRM();
+
+		//added code for listening if level should change, not sure this is the best place to put it, but it works
+		LS = GI.getC().getCH().getLS();
+		LS.getUpdate().addListener((o,oldVal,newVal) -> {
+	   //  some action based on the value of newVal like -1 game over, from 1 to 2 change to level two etc. 
+	  });
+
 	}
+	
 
 	public void execute (double time) {
-		SystemManager.execute(time);
+		GI.getSM().execute(time);
 	}
 
 	public void render() {
 		renderManager.renderObjects();
 		renderManager.garbageCollect();
 	}
-
+    
 	public void setInput(KeyCode code){
 		inputHandler.addCode(code);
 	}

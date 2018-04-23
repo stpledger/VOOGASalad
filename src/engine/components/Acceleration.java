@@ -42,14 +42,12 @@ public static String KEY = "Acceleration";
 		this.yAcc = yAcc;
 	}
 
-	public static String getKey() { return KEY; }
-
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String,String>(){{
-			put("Acceleration X", Double.toString(xAcc));
-			put("Acceleration Y", Double.toString(yAcc));
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Acceleration X", Double.toString(xAcc));
+		res.put("Acceleration Y", Double.toString(yAcc));
+		
 		return res;
 	}
 }

@@ -44,17 +44,13 @@ public class Dimension extends Component {
 	public void setWidth(double width) {
 		this.width = width;
 	}
-	
-	public static String getKey() {
-		return KEY;
-	}
 
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String, String>(){{
-			put("Dimension X", Double.toString(width));
-			put("Dimension Y", Double.toString(height));
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Dimension X", Double.toString(width));
+		res.put("Dimension Y", Double.toString(height));
+		
 		return res;
 	}
 }

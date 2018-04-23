@@ -1,13 +1,10 @@
 package data;
 
-import frontend.components.MenuItemBuilder;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
@@ -66,10 +63,10 @@ class Browser extends Region {
         VBox view = new VBox();
         HBox menu = new HBox();
 
-        Button back = MenuItemBuilder.buildButton(BACK_BUTTON, e->{back();});
-        select = MenuItemBuilder.buildButton(LOAD_BUTTON, e->{setImageName(messager.getText());});
+        Button back = new Button(BACK_BUTTON); back.setOnAction( e->{setImageName(messager.getText());});
+        select =new Button(LOAD_BUTTON); select.setOnAction(e->{setImageName(messager.getText());});
         select.setDisable(true);
-        Button forward= MenuItemBuilder.buildButton(FORWARD_BUTTON, e->{forward();});
+        Button forward= new Button(FORWARD_BUTTON); forward.setOnAction(e->{forward();});
 
         messager = new Messager();
 
@@ -113,7 +110,7 @@ class Browser extends Region {
 
     private void setImageName(String name){
         try {
-            DataRead.importFromURL(imageURL,name);
+            DataWrite.writeImage(imageURL,name);
             close.accept(null);
         } catch (IOException e) {
             messager.setText(NAMING_ERROR);

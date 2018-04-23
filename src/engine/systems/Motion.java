@@ -48,8 +48,8 @@ public class Motion implements ISystem {
      * Apply changes in velocities to positions
      */
     public void execute(double time) {
-    		System.out.println("execute");
         for (int pid : activeComponents) {
+
             Map<String, Component> components = handledComponents.get(pid);
 
             Velocity v = (Velocity) components.get(Velocity.KEY);

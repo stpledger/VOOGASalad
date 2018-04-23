@@ -65,13 +65,17 @@ public class GamePlayerController {
 				pauseMenu.show(myStage);
 				//myTimeline.pause();
 			} else {
-				gameView.setInput(e.getCode());
+				if(gameView != null) {
+					gameView.setInput(e.getCode());
+				}
 			}
 		});
 
 		myScene.setOnKeyReleased(e -> {
 			if(e.getCode() != KeyCode.ESCAPE) {
-				gameView.removeInput(e.getCode());
+				if(gameView != null) {
+					gameView.removeInput(e.getCode());
+				}
 			}
 		});
 		//return myScene;

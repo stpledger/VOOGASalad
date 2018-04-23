@@ -1,11 +1,17 @@
 package data;
 
 import engine.components.Component;
-import frontend.components.Level;
-import frontend.entities.Entity;
-import frontend.gamestate.GameState;
 
 import java.util.*;
+
+import authoring.entities.Entity;
+import authoring.gamestate.GameState;
+import authoring.gamestate.Level;
+/**
+ * @author Conrad 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class DataGameState {
     private Map<Level,Map<Integer, Map<String, Component>>> gameState;
     private String gameName = "data";
@@ -32,7 +38,7 @@ public class DataGameState {
             for (Entity entity : level.getEntityList()) {
                 Map<String, Component> componentMap = new HashMap<>();
                 for (Component component :entity.getComponentList()) {
-                    componentMap.put(component.getKeyKey(), component);
+                    componentMap.put(component.getKey(), component);
                 }
                 entityMap.put(entity.getID(),componentMap);
             }
@@ -48,10 +54,9 @@ public class DataGameState {
         gameName = gName;
     }
 
-    /*returns a map in a form that player and authoring engine can take 
+    /*returns a map in a form that player and authoring engine can take
      */
-    public Map<Level,Map<Integer, Map<String, Component>>> getGameState()
-    {
+    public Map<Level,Map<Integer, Map<String, Component>>> getGameState() {
         return gameState;
     }
 
@@ -62,21 +67,23 @@ public class DataGameState {
         Map<Level, Map<Integer,List<Component>>> authoringState = new HashMap<>();
 
         for(Level level : gameState.keySet()) {
+            Map<Integer, List<Component>> entityMap = new HashMap<>();
             for (Integer integer : gameState.get(level).keySet()) {
-                Map<Integer, List<Component>> componentList = new HashMap<>();
                 List<Component> components = new ArrayList(gameState.get(level).get(integer).values());
-                componentList.put(integer, components);
-	                authoringState.put(level,componentList);
-	            }
-	        }
-	        return authoringState;
-	}
+                entityMap.put(integer, components);
+                authoringState.put(level,entityMap);
+            }
+        }
+        return authoringState;
+    }
 
+    //gets name gets .... the name of the file
 	public String getGameName()
     {
         return gameName;
     }
 
+    //returns the list of all components in the gamestate for data writing
     public List<Component> getComponents() {
         List<Component> componentList = new ArrayList<>();
         for(Map<Integer, Map<String,Component>> level : gameState.values())

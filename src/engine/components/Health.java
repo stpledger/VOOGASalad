@@ -24,16 +24,12 @@ public class Health extends Component {
 	public void setHealth(double health) {
 		this.health = health;
 	}
-	
-	public static String getKey() {
-		return KEY;
-	}
 
 	@Override
 	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<String, String>(){{
-			put("Health", Double.toString(health));
-		}};
+		Map<String,String> res = new HashMap<>();
+		res.put("Health", Double.toString(health));
+		
 		return res;
 	}
 }
