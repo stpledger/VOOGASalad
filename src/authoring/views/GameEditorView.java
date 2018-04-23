@@ -4,7 +4,6 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +39,7 @@ import data.DataWrite;
  *
  */
 public class GameEditorView extends BorderPane {
-	//private static final String GAME_FILE_EXTENSION = "*.xml";
+
 	private ArrayList<Tab> levelTabsList;
 	private GameState state;
 	private TabPane tabPane;
@@ -197,9 +196,8 @@ public class GameEditorView extends BorderPane {
 	 * Saves the Current instance of the game
 	 */
 	private void saveGameMethod() {
-		DataWrite dr = new DataWrite();
 		try {
-			dr.saveFile(this.state, "MyFirstGame");
+			DataWrite.saveFile(this.state, "MyFirstGame");
 		} catch (Exception ex) {
 			LOGGER.log(java.util.logging.Level.SEVERE, ex.getMessage(), ex);
 		}
@@ -212,8 +210,7 @@ public class GameEditorView extends BorderPane {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Image File");
 		File gameFile = fileChooser.showOpenDialog(new Stage());
-		DataRead dr = new DataRead();
-		Map<Level, Map<Integer, List<Component>>> authorData = dr.loadAuthorFile(gameFile);
+		Map<Level, Map<Integer, List<Component>>> authorData = DataRead.loadAuthorFile(gameFile);
 		newGameMethod();
 		for(Level level : authorData.keySet()) {
 			LevelView levelView = loadLevel(level);
@@ -296,36 +293,6 @@ public class GameEditorView extends BorderPane {
 		Entity entity = (Entity) entityConstructor.newInstance(nextEntityID); 
 		entity.setFitWidth(BLOCK_DEFAULT_WIDTH);
 		entity.setFitHeight(BLOCK_DEFAULT_WIDTH);
-		return entity;
-	}
-	/**
-	 * Takes in a Map<Class, Object[]> and creates components in an entity
-	 * @param e Entity object to recieve the new components
-	 * @param entityComponents Map<Class, Object[]> which represents the components to be built
-	 * @return Entity with components added by this class
-	 * @throws Exception
-	 */
-	private Entity addEntityComponentsFromMap(Entity e, Map<Class, Object[]> entityComponents) throws Exception {
-		ArrayList<Component> componentArrayList = new ArrayList<>();
-		Entity entity = e;
-
-		for(Class<?> componentClass :entityComponents.keySet()) { 
-			Constructor<?> componentConstructor = componentClass.getDeclaredConstructors()[0];
-			ArrayList<Object> tempComponentAttributeArray = new ArrayList<Object>() {{ 
-				this.add(nextEntityID);
-				this.addAll(Arrays.asList(entityComponents.get(componentClass))); 
-			}};
-
-			Object[] componentArguments = tempComponentAttributeArray.toArray();
-			componentArrayList.add((Component) componentConstructor.newInstance(componentArguments));
-
-			if(componentClass.equals(Sprite.class)) {
-				Image image = DataRead.loadImage((String) entityComponents.get(componentClass)[0]);
-				entity.setImage(image);
-			}
-		}
-		entity.addAll(componentArrayList);
-		nextEntityID++;
 		return entity;
 	}
 

@@ -2,7 +2,6 @@ package authoring.components;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
