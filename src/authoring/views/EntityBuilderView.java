@@ -209,7 +209,6 @@ public class EntityBuilderView extends Stage{
 			updateEntityPreview(image);
 		} catch (Exception e1){
 			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
-
 		}
 	}
 	
