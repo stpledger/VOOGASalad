@@ -3,13 +3,14 @@ package data;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import authoring.entities.Entity;
+import authoring.gamestate.GameState;
+import authoring.gamestate.Level;
 import engine.components.Component;
 import engine.components.Sprite;
 import engine.setup.SystemManager;
-import frontend.components.Level;
-import frontend.gamestate.GameState;
-import javafx.scene.control.Alert;
 
+import javafx.scene.control.Alert;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -19,7 +20,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.*;
+
+import static engine.components.Sprite.IMAGE_PATH;
 
 public class DataWrite {
 
@@ -41,7 +45,9 @@ public class DataWrite {
     private static final String SLASH = "/";
     private static final String DEFAULT_IMAGEPATH = DATA_DATAPTH + SLASH +IMAGE_DATAPATH;
     private static final Set<Object> DATA_COMPONENTS = new HashSet<>(Arrays.asList(new Object[]{Sprite.class}));
+    private static final Set<String> ACCEPTED_IMAGE_FILES = new HashSet<>(Arrays.asList(new String []{"jpg","png","gif"}));
     private static final String SAVE_PATH = "saves/";
+    private static final String ENTITY_PATH = "entity/";
 
 
     //creates an xml file from an authoiring environment this method converts authoring gamestate to player
@@ -51,25 +57,62 @@ public class DataWrite {
         createFile(dataGameState);
     }
 
+    //creates an xml file from an authoiring environment
+    public static void saveFile(DataGameState dataGameState) throws Exception{
+        createFile(dataGameState);
+    }
+
     public static void saveGame( DataGameState dataGameState, String saveName){
         String name = dataGameState.getGameName();
         File game = new File(GAME_FILEPATH+name+ SLASH + SAVE_PATH + saveName + XML_FILETYPE);
-        System.out.print(game.getAbsolutePath());
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(game);
         } catch (FileNotFoundException e) {
             ErrorStatement(WRITE_ERROR);
         }
-        XStream xstream = new XStream(new DomDriver());
-        xstream.toXML(dataGameState, fos);
+        serialize(dataGameState, fos);
     }
 
-    //creates an xml file from an authoiring environment
-    public static void saveFile(DataGameState dataGameState) throws Exception{
-        createFile(dataGameState);
+    public static void writeImage(File file) {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(file);
+            File fileDest = new File(IMAGE_PATH + file.getName());
+            ImageIO.write(image, getFileType(file), fileDest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
+    public static void writeImage(URL imageURL, String name) throws IOException{
+        BufferedImage image = ImageIO.read(imageURL);
+        File fileDest = new File(IMAGE_PATH + name);
+        if(!ACCEPTED_IMAGE_FILES.contains(getFileType(fileDest).toLowerCase())) {
+            throw new IOException();
+        }
+        ImageIO.write(image, getFileType(fileDest), fileDest);
+    }
+
+    public static void saveEntity(Entity entity) {
+        File entityFolder = new File(ENTITY_PATH);
+        if (!entityFolder.exists()) {
+            entityFolder.mkdir();
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(ENTITY_PATH+entity.getNames());
+            serialize(entity, fos);
+        } catch (FileNotFoundException e) {
+            // e.printStackTrace();
+            System.out.print("Cannot load");
+        }
+    }
+
+    public static void webImport() {
+        ResourceGetter imageGetter = new ResourceGetter();
+        imageGetter.selectImage();
+    }
 
     // does the backend work to create new files in the game directory
     private static void createFile(DataGameState dataGameState) throws Exception {
@@ -79,7 +122,7 @@ public class DataWrite {
     }
 
     // Utility for adding imaged into a specified directory instead of a random directory in the user's computer
-    private static String writeImage(String gameName, String imageName) throws IOException {
+    public static String writeImage(String gameName, String imageName) throws IOException {
         File imageFile = new File(DEFAULT_IMAGEPATH+imageName);
         try {
             BufferedImage image = ImageIO.read(imageFile);
@@ -160,15 +203,11 @@ public class DataWrite {
             }
     }
 
-
-
-
     // util file for finding filetype
     private static String getFileType(File file) {
         int fIndex = file.getName().indexOf(PERIOD);
         return (fIndex == -1) ? "" : file.getName().substring(fIndex + 1);
     }
-
 
     //destroy a directory TO BE KEPT PRIVATE!!!!!!!!!
     //DO NOT FUCK WITH THIS METHOD IT WILL FUCK YOUR SHIT UP
@@ -194,9 +233,9 @@ public class DataWrite {
         alert.showAndWait();
     }
 
-
-
-
-
+    private static void serialize(Object o, FileOutputStream fos) {
+        XStream xstream = new XStream(new DomDriver());
+        xstream.toXML(o, fos);
+    }
 }
 

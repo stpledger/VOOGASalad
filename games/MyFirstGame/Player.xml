@@ -1,13 +1,102 @@
 <data.DataGameState>
   <gameState>
     <entry>
-      <frontend.components.Level>
+      <authoring.gamestate.Level>
         <levelNum>1</levelNum>
         <levelTime>0.0</levelTime>
         <levelDistance>0.0</levelDistance>
+<<<<<<< HEAD
+        <HUDprops>
+          <entry>
+            <string>Health</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Lives</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Levels</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Time</string>
+            <boolean>true</boolean>
+          </entry>
+        </HUDprops>
+        <GProps>
+          <entry>
+            <string>Game Title:</string>
+            <string>99999</string>
+          </entry>
+          <entry>
+            <string>Lives:</string>
+            <string></string>
+          </entry>
+          <entry>
+            <string>File path:</string>
+            <string></string>
+          </entry>
+        </GProps>
+      </authoring.gamestate.Level>
+      <map/>
+    </entry>
+    <entry>
+      <authoring.gamestate.Level>
+        <levelNum>2</levelNum>
+        <levelTime>0.0</levelTime>
+        <levelDistance>0.0</levelDistance>
+        <HUDprops>
+          <entry>
+            <string>Health</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Lives</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Levels</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Time</string>
+            <boolean>true</boolean>
+          </entry>
+        </HUDprops>
+        <GProps>
+          <entry>
+            <string>Game Title:</string>
+            <string>99999</string>
+          </entry>
+          <entry>
+            <string>Lives:</string>
+            <string></string>
+          </entry>
+          <entry>
+            <string>File path:</string>
+            <string></string>
+          </entry>
+        </GProps>
+      </authoring.gamestate.Level>
+      <map/>
+=======
         <HUDprops/>
-        <GProps/>
-      </frontend.components.Level>
+        <GProps>
+          <entry>
+            <string>Game Title:</string>
+            <string>3</string>
+          </entry>
+          <entry>
+            <string>Lives:</string>
+            <string>1</string>
+          </entry>
+          <entry>
+            <string>File path:</string>
+            <string>score</string>
+          </entry>
+        </GProps>
+      </authoring.gamestate.Level>
       <map>
         <entry>
           <int>0</int>
@@ -17,11 +106,7 @@
               <engine.components.EntityType>
                 <pid>0</pid>
                 <keykey>EntityType</keykey>
-<<<<<<< HEAD
                 <type>Player</type>
-=======
-                <type>Block</type>
->>>>>>> 4269d4bbb13648726c0f5ac1976cfb6721aa17b7
               </engine.components.EntityType>
             </entry>
             <entry>
@@ -29,8 +114,7 @@
               <engine.components.Sprite>
                 <pid>0</pid>
                 <keykey>Sprite</keykey>
-<<<<<<< HEAD
-                <filename>Waluigi.png</filename>
+                <filename>mario.png</filename>
               </engine.components.Sprite>
             </entry>
             <entry>
@@ -38,48 +122,25 @@
               <engine.components.Position>
                 <pid>0</pid>
                 <keykey>Position</keykey>
-                <xPos>100.0</xPos>
-                <yPos>100.0</yPos>
+                <xPos>219.0</xPos>
+                <yPos>164.33333333333331</yPos>
               </engine.components.Position>
             </entry>
             <entry>
-=======
-                <filename>mountain.jpg</filename>
-              </engine.components.Sprite>
-            </entry>
-            <entry>
->>>>>>> 4269d4bbb13648726c0f5ac1976cfb6721aa17b7
               <string>Health</string>
               <engine.components.Health>
                 <pid>0</pid>
                 <keykey>Health</keykey>
-<<<<<<< HEAD
                 <health>100.0</health>
               </engine.components.Health>
             </entry>
             <entry>
-=======
-                <health>50.0</health>
-              </engine.components.Health>
-            </entry>
-            <entry>
-              <string>Position</string>
-              <engine.components.Position>
-                <pid>0</pid>
-                <keykey>Position</keykey>
-                <xPos>0.0</xPos>
-                <yPos>0.0</yPos>
-              </engine.components.Position>
-            </entry>
-            <entry>
->>>>>>> 4269d4bbb13648726c0f5ac1976cfb6721aa17b7
               <string>Dimension</string>
               <engine.components.Dimension>
                 <pid>0</pid>
                 <keykey>Dimension</keykey>
-<<<<<<< HEAD
                 <height>50.0</height>
-                <width>100.0</width>
+                <width>25.0</width>
               </engine.components.Dimension>
             </entry>
             <entry>
@@ -91,105 +152,6 @@
                 <lifetime>20.0</lifetime>
               </engine.components.Damage>
             </entry>
-            <entry>
-              <string>Acceleration</string>
-              <engine.components.Acceleration>
-                <pid>0</pid>
-                <keykey>Acceleration</keykey>
-                <xAcc>100.0</xAcc>
-                <yAcc>0.0</yAcc>
-              </engine.components.Acceleration>
-            </entry>
-            <entry>
-              <string>Velocity</string>
-              <engine.components.Velocity>
-                <pid>0</pid>
-                <keykey>Velocity</keykey>
-                <XVel>-100.0</XVel>
-                <YVel>50.0</YVel>
-              </engine.components.Velocity>
-            </entry>
-=======
-                <height>25.0</height>
-                <width>25.0</width>
-              </engine.components.Dimension>
-            </entry>
->>>>>>> 4269d4bbb13648726c0f5ac1976cfb6721aa17b7
-          </map>
-        </entry>
-        <entry>
-          <int>1</int>
-          <map>
-            <entry>
-              <string>EntityType</string>
-              <engine.components.EntityType>
-                <pid>1</pid>
-                <keykey>EntityType</keykey>
-<<<<<<< HEAD
-                <type>Player</type>
-=======
-                <type>Block</type>
->>>>>>> 4269d4bbb13648726c0f5ac1976cfb6721aa17b7
-              </engine.components.EntityType>
-            </entry>
-            <entry>
-              <string>Sprite</string>
-              <engine.components.Sprite>
-                <pid>1</pid>
-                <keykey>Sprite</keykey>
-<<<<<<< HEAD
-                <filename>Waluigi.png</filename>
-=======
-                <filename>mountain.jpg</filename>
->>>>>>> 4269d4bbb13648726c0f5ac1976cfb6721aa17b7
-              </engine.components.Sprite>
-            </entry>
-            <entry>
-              <string>Health</string>
-              <engine.components.Health>
-                <pid>1</pid>
-                <keykey>Health</keykey>
-<<<<<<< HEAD
-                <health>100.0</health>
-=======
-                <health>50.0</health>
->>>>>>> 4269d4bbb13648726c0f5ac1976cfb6721aa17b7
-              </engine.components.Health>
-            </entry>
-            <entry>
-              <string>Position</string>
-              <engine.components.Position>
-                <pid>1</pid>
-                <keykey>Position</keykey>
-                <xPos>0.0</xPos>
-                <yPos>0.0</yPos>
-              </engine.components.Position>
-            </entry>
-            <entry>
-              <string>Dimension</string>
-              <engine.components.Dimension>
-                <pid>1</pid>
-                <keykey>Dimension</keykey>
-<<<<<<< HEAD
-                <height>50.0</height>
-                <width>25.0</width>
-              </engine.components.Dimension>
-            </entry>
-            <entry>
-              <string>Damage</string>
-              <engine.components.Damage>
-                <pid>1</pid>
-                <keykey>Damage</keykey>
-                <damage>10.0</damage>
-                <lifetime>20.0</lifetime>
-              </engine.components.Damage>
-            </entry>
-=======
-                <height>25.0</height>
-                <width>25.0</width>
-              </engine.components.Dimension>
-            </entry>
->>>>>>> 4269d4bbb13648726c0f5ac1976cfb6721aa17b7
           </map>
         </entry>
         <entry>
@@ -200,11 +162,7 @@
               <engine.components.EntityType>
                 <pid>2</pid>
                 <keykey>EntityType</keykey>
-<<<<<<< HEAD
-                <type>Player</type>
-=======
                 <type>Block</type>
->>>>>>> 4269d4bbb13648726c0f5ac1976cfb6721aa17b7
               </engine.components.EntityType>
             </entry>
             <entry>
@@ -212,40 +170,266 @@
               <engine.components.Sprite>
                 <pid>2</pid>
                 <keykey>Sprite</keykey>
-<<<<<<< HEAD
-                <filename>Waluigi.png</filename>
-=======
-                <filename>mountain.jpg</filename>
->>>>>>> 4269d4bbb13648726c0f5ac1976cfb6721aa17b7
+                <filename>mystery.jpg</filename>
               </engine.components.Sprite>
-            </entry>
-            <entry>
-              <string>Health</string>
-              <engine.components.Health>
-                <pid>2</pid>
-                <keykey>Health</keykey>
-<<<<<<< HEAD
-                <health>100.0</health>
-=======
-                <health>50.0</health>
->>>>>>> 4269d4bbb13648726c0f5ac1976cfb6721aa17b7
-              </engine.components.Health>
             </entry>
             <entry>
               <string>Position</string>
               <engine.components.Position>
                 <pid>2</pid>
                 <keykey>Position</keykey>
-                <xPos>0.0</xPos>
-                <yPos>0.0</yPos>
+                <xPos>222.33333333333337</xPos>
+                <yPos>312.3333333333333</yPos>
               </engine.components.Position>
+            </entry>
+            <entry>
+              <string>Health</string>
+              <engine.components.Health>
+                <pid>2</pid>
+                <keykey>Health</keykey>
+                <health>100.0</health>
+              </engine.components.Health>
             </entry>
             <entry>
               <string>Dimension</string>
               <engine.components.Dimension>
                 <pid>2</pid>
                 <keykey>Dimension</keykey>
-<<<<<<< HEAD
+                <height>20.0</height>
+                <width>20.0</width>
+              </engine.components.Dimension>
+            </entry>
+          </map>
+        </entry>
+        <entry>
+          <int>4</int>
+          <map>
+            <entry>
+              <string>EntityType</string>
+              <engine.components.EntityType>
+                <pid>4</pid>
+                <keykey>EntityType</keykey>
+                <type>Block</type>
+              </engine.components.EntityType>
+            </entry>
+            <entry>
+              <string>Sprite</string>
+              <engine.components.Sprite>
+                <pid>4</pid>
+                <keykey>Sprite</keykey>
+                <filename>mystery.jpg</filename>
+              </engine.components.Sprite>
+            </entry>
+            <entry>
+              <string>Position</string>
+              <engine.components.Position>
+                <pid>4</pid>
+                <keykey>Position</keykey>
+                <xPos>291.0</xPos>
+                <yPos>315.6666666666667</yPos>
+              </engine.components.Position>
+            </entry>
+            <entry>
+              <string>Health</string>
+              <engine.components.Health>
+                <pid>4</pid>
+                <keykey>Health</keykey>
+                <health>100.0</health>
+              </engine.components.Health>
+            </entry>
+            <entry>
+              <string>Dimension</string>
+              <engine.components.Dimension>
+                <pid>4</pid>
+                <keykey>Dimension</keykey>
+                <height>20.0</height>
+                <width>20.0</width>
+              </engine.components.Dimension>
+            </entry>
+          </map>
+        </entry>
+        <entry>
+          <int>6</int>
+          <map>
+            <entry>
+              <string>EntityType</string>
+              <engine.components.EntityType>
+                <pid>6</pid>
+                <keykey>EntityType</keykey>
+                <type>Block</type>
+              </engine.components.EntityType>
+            </entry>
+            <entry>
+              <string>Sprite</string>
+              <engine.components.Sprite>
+                <pid>6</pid>
+                <keykey>Sprite</keykey>
+                <filename>mystery.jpg</filename>
+              </engine.components.Sprite>
+            </entry>
+            <entry>
+              <string>Position</string>
+              <engine.components.Position>
+                <pid>6</pid>
+                <keykey>Position</keykey>
+                <xPos>407.0</xPos>
+                <yPos>302.3333333333333</yPos>
+              </engine.components.Position>
+            </entry>
+            <entry>
+              <string>Health</string>
+              <engine.components.Health>
+                <pid>6</pid>
+                <keykey>Health</keykey>
+                <health>100.0</health>
+              </engine.components.Health>
+            </entry>
+            <entry>
+              <string>Dimension</string>
+              <engine.components.Dimension>
+                <pid>6</pid>
+                <keykey>Dimension</keykey>
+                <height>20.0</height>
+                <width>20.0</width>
+              </engine.components.Dimension>
+            </entry>
+          </map>
+        </entry>
+        <entry>
+          <int>8</int>
+          <map>
+            <entry>
+              <string>EntityType</string>
+              <engine.components.EntityType>
+                <pid>8</pid>
+                <keykey>EntityType</keykey>
+                <type>Block</type>
+              </engine.components.EntityType>
+            </entry>
+            <entry>
+              <string>Sprite</string>
+              <engine.components.Sprite>
+                <pid>8</pid>
+                <keykey>Sprite</keykey>
+                <filename>mystery.jpg</filename>
+              </engine.components.Sprite>
+            </entry>
+            <entry>
+              <string>Position</string>
+              <engine.components.Position>
+                <pid>8</pid>
+                <keykey>Position</keykey>
+                <xPos>340.33333333333337</xPos>
+                <yPos>294.3333333333333</yPos>
+              </engine.components.Position>
+            </entry>
+            <entry>
+              <string>Health</string>
+              <engine.components.Health>
+                <pid>8</pid>
+                <keykey>Health</keykey>
+                <health>100.0</health>
+              </engine.components.Health>
+            </entry>
+            <entry>
+              <string>Dimension</string>
+              <engine.components.Dimension>
+                <pid>8</pid>
+                <keykey>Dimension</keykey>
+                <height>20.0</height>
+                <width>20.0</width>
+              </engine.components.Dimension>
+            </entry>
+          </map>
+        </entry>
+        <entry>
+          <int>10</int>
+          <map>
+            <entry>
+              <string>EntityType</string>
+              <engine.components.EntityType>
+                <pid>10</pid>
+                <keykey>EntityType</keykey>
+                <type>Block</type>
+              </engine.components.EntityType>
+            </entry>
+            <entry>
+              <string>Sprite</string>
+              <engine.components.Sprite>
+                <pid>10</pid>
+                <keykey>Sprite</keykey>
+                <filename>mystery.jpg</filename>
+              </engine.components.Sprite>
+            </entry>
+            <entry>
+              <string>Position</string>
+              <engine.components.Position>
+                <pid>10</pid>
+                <keykey>Position</keykey>
+                <xPos>167.66666666666669</xPos>
+                <yPos>281.6666666666667</yPos>
+              </engine.components.Position>
+            </entry>
+            <entry>
+              <string>Health</string>
+              <engine.components.Health>
+                <pid>10</pid>
+                <keykey>Health</keykey>
+                <health>100.0</health>
+              </engine.components.Health>
+            </entry>
+            <entry>
+              <string>Dimension</string>
+              <engine.components.Dimension>
+                <pid>10</pid>
+                <keykey>Dimension</keykey>
+                <height>20.0</height>
+                <width>20.0</width>
+              </engine.components.Dimension>
+            </entry>
+          </map>
+        </entry>
+        <entry>
+          <int>12</int>
+          <map>
+            <entry>
+              <string>EntityType</string>
+              <engine.components.EntityType>
+                <pid>12</pid>
+                <keykey>EntityType</keykey>
+                <type>Player</type>
+              </engine.components.EntityType>
+            </entry>
+            <entry>
+              <string>Sprite</string>
+              <engine.components.Sprite>
+                <pid>12</pid>
+                <keykey>Sprite</keykey>
+                <filename>mario.png</filename>
+              </engine.components.Sprite>
+            </entry>
+            <entry>
+              <string>Position</string>
+              <engine.components.Position>
+                <pid>12</pid>
+                <keykey>Position</keykey>
+                <xPos>351.0</xPos>
+                <yPos>206.33333333333331</yPos>
+              </engine.components.Position>
+            </entry>
+            <entry>
+              <string>Health</string>
+              <engine.components.Health>
+                <pid>12</pid>
+                <keykey>Health</keykey>
+                <health>100.0</health>
+              </engine.components.Health>
+            </entry>
+            <entry>
+              <string>Dimension</string>
+              <engine.components.Dimension>
+                <pid>12</pid>
+                <keykey>Dimension</keykey>
                 <height>50.0</height>
                 <width>25.0</width>
               </engine.components.Dimension>
@@ -253,21 +437,16 @@
             <entry>
               <string>Damage</string>
               <engine.components.Damage>
-                <pid>2</pid>
+                <pid>12</pid>
                 <keykey>Damage</keykey>
                 <damage>10.0</damage>
                 <lifetime>20.0</lifetime>
               </engine.components.Damage>
             </entry>
-=======
-                <height>25.0</height>
-                <width>25.0</width>
-              </engine.components.Dimension>
-            </entry>
->>>>>>> 4269d4bbb13648726c0f5ac1976cfb6721aa17b7
           </map>
         </entry>
       </map>
+>>>>>>> e86aa0f9256e3668beea04f3c01008eecc11f537
     </entry>
   </gameState>
   <gameName>MyFirstGame</gameName>

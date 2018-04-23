@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
+import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataWrite;
 import engine.Engine;
@@ -14,7 +15,6 @@ import engine.InternalEngine;
 import engine.components.*;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
-import frontend.components.Level;
 import javafx.scene.input.KeyCode;
 
 public class TestGameState {
@@ -65,6 +65,7 @@ public class TestGameState {
 		mario.put(Position.KEY, p);
 		mario.put(Dimension.KEY, d);
 		mario.put(Sprite.KEY, s);
+
 		mario.put(Velocity.KEY, v);
 		mario.put(Acceleration.KEY, a);
 		mario.put(KeyInput.KEY, k);
@@ -102,7 +103,6 @@ public class TestGameState {
 
 		Conditional co1 = new Conditional(0);
 		Supplier su1 = (Supplier & Serializable) () -> p3.getXPos();
-
 		Supplier su2 = (Supplier & Serializable) () -> p.getYPos();
 
 		co1.setCondition(su1, su2);
@@ -126,6 +126,7 @@ public class TestGameState {
 
 		entities.put(0, mario);
 		//entities.put(1, mario2);
+		entities.put(0, mario);
 		entities.put(2, mario3);
 		GameInitializer gi = new GameInitializer(entities);
 		ih = gi.getIH();
@@ -134,7 +135,6 @@ public class TestGameState {
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);
 		state.put(l,entities);
-
 		DataGameState dState = new DataGameState(state, "DemoDemo");
 		try {
 			DataWrite.saveFile(dState);
