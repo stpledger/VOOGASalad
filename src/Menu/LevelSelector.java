@@ -12,6 +12,7 @@ import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.Pane;
 
 /**
  * Class for Selecting the corresponding level
@@ -21,7 +22,7 @@ import javafx.scene.control.MenuItem;
 public class LevelSelector extends Menu {
 	private final String MENU_TITLE = "Level";
 	private GamePlayerController mainController;
-	private  Map<Integer, Group> levelEntityGroupMap;
+	private  Map<Integer, Pane> levelEntityGroupMap;
 	private int levelCount;
 	
 	public LevelSelector(GamePlayerController g) {
