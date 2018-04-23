@@ -8,10 +8,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class FileUploadButton extends Button {
 	
+		private Stage myStage;
 		private final String BUTTON_NAME = "Upload"; //change to a resource file
 		private File uploadedFile;
 		private BooleanProperty fileBoolean;

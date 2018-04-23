@@ -2,10 +2,10 @@ package GamePlayer;
 
 import buttons.FileUploadButton;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -15,28 +15,35 @@ import javafx.stage.Stage;
  * @author Ryan
  */
 
-public class GamePlayerSplashScreen extends Application{
-	private Stage splashStage;
+public class GamePlayerSplashScreen{
+	private Scene splashScene;
+	private Stage mySplashStage;
 	private GridPane myGridPane;
+	private ScrollPane myScrollPane;
 	private final int WIDTH_SIZE = 800;
 	private final int HEIGHT_SIZE = 500;
+	private final int ROW_NUM = 2;
+	private final int COL_NUM = 3;
 	private FileUploadButton fileBtn;
-//	
-//	public GamePlayerSplashScreen(Stage stage) {
-//		splashStage = stage;
-//		splashStage.setResizable(false);
-//		myGridPane = new GridPane();
+	
+	public GamePlayerSplashScreen(Stage stage) {
+		mySplashStage = stage;
+		splashScene = initializeSplashScreen();
+	}
+//
+//	public static void main(String[] args) {
+//		launch(args);
 //	}
-
-	public static void main(String[] args) {
-		launch(args);
+//	
+//	@Override
+//	public void start(Stage primaryStage) throws Exception{
+//		primaryStage.setScene(initializeSplashScreen());
+//		primaryStage.show();
+//	}
+	public Scene getSplashScene() {
+		return splashScene;
 	}
 	
-	@Override
-	public void start(Stage primaryStage) throws Exception{
-		primaryStage.setScene(initializeSplashScreen());
-		primaryStage.show();
-	}
 	/**
 	 * Initializes the Splash Screen with Components to select File
 	 * @return
@@ -49,16 +56,40 @@ public class GamePlayerSplashScreen extends Application{
 		fileBtn = new FileUploadButton();
 		fileBtn.setMaxSize(WIDTH_SIZE/3, HEIGHT_SIZE/2);
 		myGridPane.add(fileBtn, 2, 1);
-		Scene currentStage= new Scene(myGridPane,WIDTH_SIZE,HEIGHT_SIZE);		
-		return currentStage;
+		assignGameSelectButtons();
+		myScrollPane = new ScrollPane(myGridPane);
+		myScrollPane.setHbarPolicy(ScrollBarPolicy.NEVER);
+		Scene currentScene= new Scene(myScrollPane,WIDTH_SIZE,HEIGHT_SIZE);		
+		return currentScene;
+	}
+	
+	/**
+	 * Adds button to each of the 5 grid panes in order for them to be selected, each button should take
+	 * in a parameter for the file and the name of the game.
+	 * Button Parameters: File, Name, Image
+	 */
+	private void assignGameSelectButtons() {
+		int count = 1;
+		for (int i = 0; i<ROW_NUM; i++) {
+			for (int k = 0; k<COL_NUM; k++) {
+				Button currentButton = new Button("Game "+ count);
+				currentButton.setMaxSize(WIDTH_SIZE/3, HEIGHT_SIZE/2);
+				myGridPane.add(currentButton, k, i);
+				count++;
+				if (count==6) {
+					break;
+				}
+			}
+		}
+		
 	}
 	
 	private GridPane setupGridSpacing(GridPane gridPane) {
-		for (int i = 0; i<3; i++) {
-			gridPane.getColumnConstraints().add(new ColumnConstraints(WIDTH_SIZE/3));
+		for (int i = 0; i<COL_NUM; i++) {
+			gridPane.getColumnConstraints().add(new ColumnConstraints(WIDTH_SIZE/COL_NUM));
 		}
-		for (int i = 0; i<2; i++) {
-			gridPane.getRowConstraints().add(new RowConstraints(HEIGHT_SIZE/2));
+		for (int i = 0; i<ROW_NUM; i++) {
+			gridPane.getRowConstraints().add(new RowConstraints(HEIGHT_SIZE/ROW_NUM));
 		}
 		
 		return gridPane;

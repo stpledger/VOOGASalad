@@ -34,6 +34,8 @@ public class GamePlayerController {
 	private Group originGameRoot;
 	private Timeline myTimeline;
 	private ScrollPane myScroll;
+	private GamePlayerSplashScreen gamePlayerSplash;
+	private Scene mySplashScene;
 
 	private BorderPane myPane = new BorderPane();
 	private PauseMenu pauseMenu = new PauseMenu(this);
@@ -52,9 +54,13 @@ public class GamePlayerController {
 	
 	
 	public Scene intializeStartScene() {
+		gamePlayerSplash = new GamePlayerSplashScreen(myStage);
+		mySplashScene = gamePlayerSplash.getSplashScene();
+		
 		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			try{
+				myStage.setScene(myScene);
 				initializeGameStart();
 				//initializeLevelFile();
 			}
@@ -80,6 +86,7 @@ public class GamePlayerController {
 			}
 		});
 		return myScene;
+		//return mySplashScene;
 	}
 	
 	/**
