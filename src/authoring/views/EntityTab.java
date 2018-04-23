@@ -1,9 +1,11 @@
 package authoring.views;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+import authoring.factories.ElementFactory;
+import authoring.factories.ElementType;
+
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;

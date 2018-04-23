@@ -50,7 +50,6 @@ public class EntityBuilderView extends Stage{
 	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final static String COMPONENT_PREFIX = "engine.components.";
 	
-	
 	private Properties tooltipProperties;
 	private HBox saveMenu;
 	private GridPane currentForms;
@@ -59,6 +58,7 @@ public class EntityBuilderView extends Stage{
 	private String myEntityType = null;
 	private ImageView entityPreview;
 	private ElementFactory eFactory;
+	private boolean hasImage;
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
@@ -149,8 +149,6 @@ public class EntityBuilderView extends Stage{
 		});
 		return comboBox;
 	}
-
-
 
 	/**
 	 * Builds the menu on the buttom of the screen containing the save button
