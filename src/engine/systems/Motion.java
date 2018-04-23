@@ -16,7 +16,7 @@ import engine.components.Velocity;
 
 public class Motion implements ISystem {
 	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
-    private Set<Integer> activeComponents;
+    private Set<Integer> activeComponents = new HashSet<>();
 
 
     public void addComponent(int pid, Map<String, Component> components) {
@@ -40,8 +40,9 @@ public class Motion implements ISystem {
 
     @Override
     public void setActives(Set<Integer> actives) {
-        activeComponents = actives;
-        activeComponents.retainAll(handledComponents.keySet());
+        Set<Integer> myActives = new HashSet<>(actives);
+        myActives.retainAll(handledComponents.keySet());
+        activeComponents = myActives;
     }
 
     /**
@@ -49,7 +50,6 @@ public class Motion implements ISystem {
      */
     public void execute(double time) {
         for (int pid : activeComponents) {
-
             Map<String, Component> components = handledComponents.get(pid);
 
             Velocity v = (Velocity) components.get(Velocity.KEY);

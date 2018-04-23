@@ -18,7 +18,6 @@ import engine.components.Position;
 import engine.components.Sprite;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.MouseButton;
 
 /**

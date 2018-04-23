@@ -1,27 +1,22 @@
 package engine.systems;
 
-import engine.components.AI;
 import engine.components.Component;
+import engine.components.Conditional;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-/**
- * System which calls the AI components' actions if they are within rendering dinstance
- *
- * @author cndracos
- */
-public class ArtificialIntelligence implements  ISystem{
+public class ConditionChecker implements ISystem {
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents = new HashSet<>();
 
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
-        if (components.containsKey(AI.KEY)) {
+        if (components.containsKey(Conditional.KEY)) {
             Map<String, Component> newComponents = new HashMap<>();
-            newComponents.put(AI.KEY,components.get(AI.KEY));
+            newComponents.put(Conditional.KEY, components.get(Conditional.KEY));
             handledComponents.put(pid, newComponents);
         }
     }
@@ -44,23 +39,23 @@ public class ArtificialIntelligence implements  ISystem{
     public void execute(double time) {
         for (int id : activeComponents) {
             Map<String, Component> components = handledComponents.get(id);
-            AI ai = (AI) components.get(AI.KEY);
-            ai.doAction(time); //calls the AI action
+            Conditional c = (Conditional) components.get(Conditional.KEY);
+            c.evaluate();
         }
     }
 
     @Override
     public void addComponent(int pid, String componentName) {
-        //get back to this
+        //do something ya?
     }
 
     @Override
     public void removeComponent(int pid, String componentName) {
-        //get back to this
+        //do something ya?
     }
 
     @Override
     public Map<Integer, Map<String, Component>> getHandledComponent() {
-        return handledComponents;
+        return null;
     }
 }

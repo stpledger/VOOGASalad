@@ -9,7 +9,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
@@ -28,9 +27,9 @@ import org.w3c.dom.Document;
 public class XMLParser {
 	private static DocumentBuilder DOCUMENT_BUILDER;
 	// message that we want to display when the user picks a file in the incorrect format
-	public static final String ERROR_MESSAGE = "XML file does not properly represent %s";
+	public final static String ERROR_MESSAGE = "XML file does not properly represent %s";
 	// name of the root attribute that denotes the type of file we want to parse
-	private final String FOLDER_PATH = "data/";
+	private final static String FOLDER_PATH = "data/";
 	
 	public XMLParser() {
 		DOCUMENT_BUILDER = getDocumentBuilder();
