@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import java.util.Properties;
@@ -19,7 +18,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
-import sun.rmi.runtime.Log;
 
 /**
  * 
@@ -42,7 +40,7 @@ public class SplashScreen extends VBox {
 		try {
 			properties.load(new FileInputStream("src/resources/menus/SplashScreen/SplashScreen.properties"));
 		} catch (IOException e) {
-			System.out.println("Error Loading SplashScreen");
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 		
 		this.setWidth(SPLASH_SCREEN_WIDTH);
@@ -56,7 +54,7 @@ public class SplashScreen extends VBox {
 				this.getChildren().add(buildButton(key, this.getClass().getMethod(key)));
 			} catch (Exception e) {
 				System.out.println("Error creating button " + key);	
-				LOGGER.severe(e.getMessage());
+				LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 			}
 		}
 		
@@ -96,11 +94,11 @@ public class SplashScreen extends VBox {
 		b.setText(properties.getProperty(name));
 		b.setMinWidth(this.getSplashWidth());
 		b.getStyleClass().add("splash-screen-button");
-		b.setOnMouseClicked((e)->{
+		b.setOnMouseClicked(e -> {
 		try {
 			method.invoke(this, null);
 		} catch (Exception e1) {
-			LOGGER.severe(e1.getMessage());
+			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}});
 		return b;	
 	}
