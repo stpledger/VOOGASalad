@@ -21,7 +21,7 @@ public class SwitchGameButton extends Button{
 	private void setSwitchEvent() {
 		this.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				switchBoolean.setValue(true);
+				setSwitchBoolean();
 			}
 		});
 	}

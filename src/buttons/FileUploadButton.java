@@ -48,7 +48,7 @@ public class FileUploadButton extends Button {
 	        if (file != null) {
 	        		uploadedFile = file;
 	        		System.out.println("File Uploaded");
-	        		fileBoolean.setValue(true); //game file has been uploaded
+	        		setFileBoolean(); //game file has been uploaded
 	        }
 	       
 		}

@@ -48,13 +48,13 @@ public class GamePlayerController {
 	private Map<Integer, Group> levelEntityGroupMap; //map that is used to store the initial group for each level.
 
 	private Timeline animation;
-	
+
 	public GamePlayerController(Stage stage) {
 		myStage = stage;
 		myStage.setResizable(false);
 	}
-	
-	
+
+
 	public Scene intializeStartScene() {
 		gamePlayerSplash = new GamePlayerSplashScreen(myStage);
 		mySplashScene = gamePlayerSplash.getSplashScene();
@@ -77,8 +77,8 @@ public class GamePlayerController {
 		//return myScene;
 		return mySplashScene;
 	}
-	
-	
+
+
 	/**
 	 * Helper Method to establish button listener connection to the controller
 	 */
@@ -93,15 +93,15 @@ public class GamePlayerController {
 				System.out.println("File Does Not Exist");
 			}
 		});
-		
+
 		switchBtn = pauseMenu.switchBtn;
 		switchBtn.getSwitchBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+			pauseMenu.hide();
 			myStage.setScene(mySplashScene);
-			switchBtn.setSwitchBoolean(); //changes boolean value back to false
-			fileBtn.setFileBoolean();
+			//switchBtn.setSwitchBoolean(); //changes boolean value back to false
 		});
 	}
-	
+
 	/**
 	 * Method that begins displaying the game
 	 * @throws FileNotFoundException 
@@ -121,7 +121,7 @@ public class GamePlayerController {
 		myPane.setCenter(originGameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		initializeGameAnimation(); //begins the animation cycle
 	}
-	
+
 
 	/**
 	 * Begins the animation cycle count of the animation after game has started
@@ -129,7 +129,6 @@ public class GamePlayerController {
 	public void initializeGameAnimation() {
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
 				e -> step(SECOND_DELAY));
-
 		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
@@ -152,39 +151,39 @@ public class GamePlayerController {
 
 		//myScroll.setContent(levelEntityGroupMap.get(level));
 	}
-	
+
 	public Map<Integer, Group> getGameLevelRoot(){
 		return levelEntityGroupMap;
 	}
-	
+
 	/**
 	 * Step method that repeats the animation by checking entities using render and system Manager
 	 * @param elapsedTime
 	 */
 	private void step (double elapsedTime) {
 		if (!pauseMenu.isShowing()) {
-	    renderTime+=elapsedTime;
-		gameView.execute(elapsedTime);
-		if (renderTime>15) {
-			gameView.render();
-			renderTime = 0;
-		}
-		gameView.updateScroll(gameRoot);
+			renderTime+=elapsedTime;
+			gameView.execute(elapsedTime);
+			if (renderTime>15) {
+				gameView.render();
+				renderTime = 0;
+			}
+			gameView.updateScroll(gameRoot);
 		}
 	}
-	
-	
+
+
 	public void restartGame() {
 		try{
 			initializeGameStart();
 			//initializeLevelFile();
 		}
-			catch(FileNotFoundException e){
+		catch(FileNotFoundException e){
 			System.out.println("File Does Not Exist");
 		}
 	}
-	
-	
+
+
 
 	public void saveGame(){
 		gameView.saveGame();
