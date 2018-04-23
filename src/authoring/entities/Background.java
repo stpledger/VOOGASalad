@@ -2,7 +2,7 @@ package authoring.entities;
 
 /**
  * 
- * @author Hemanth Yakkali
+ * @author Hemanth Yakkali(hy115)
  *
  */
 public class Background extends Entity{

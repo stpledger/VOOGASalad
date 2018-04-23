@@ -23,8 +23,7 @@ public class EntityBox extends VBox {
 	private Image image;
 	private ImageView imageView;
 	
-	
-	Map<Class, Object[]> componentAttributes = new HashMap<Class,Object[]>();
+	Map<Class, Object[]> componentAttributes = new HashMap<>();
 	
 	private double boxDimension = (EntityView.ENITITY_VIEW_WIDTH - EntityTab.SCROLLBAR_WIDTH)/PROPORTION;
 

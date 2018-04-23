@@ -5,4 +5,4 @@
  * @author Ryan
  *
  */
-package labelComponents;
+package labels;
