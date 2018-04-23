@@ -60,5 +60,6 @@ public class EntityManager {
     public Component getComponent(int pid, String componentName) {
     		return entities.get(pid).get(componentName);
     }
+
     
 }
