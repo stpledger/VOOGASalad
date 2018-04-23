@@ -1,6 +1,7 @@
 package authoring.entities;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -17,6 +18,7 @@ import engine.components.Position;
 import engine.components.Sprite;
 
 import javafx.scene.image.ImageView;
+import javafx.scene.input.DataFormat;
 import javafx.scene.input.MouseButton;
 
 /**
@@ -27,7 +29,7 @@ import javafx.scene.input.MouseButton;
  *
  */
 
-public abstract class Entity extends ImageView {
+public abstract class Entity extends ImageView implements Serializable {
 
 	public final static int ENTITY_WIDTH = 50;
 	public final static int ENTITY_HEIGHT = 50;
@@ -243,6 +245,11 @@ public abstract class Entity extends ImageView {
 	 * @return type of this entity
 	 */
 	public abstract String type();
+	
+	/**
+	 * @return the name of this entity
+	 */
+	public abstract String name();
 
 	/**
 	 * 
