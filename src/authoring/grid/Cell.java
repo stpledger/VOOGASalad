@@ -20,6 +20,7 @@ public class Cell extends Pane {
 	 * To initialize a blank cell
 	 */
 	public Cell() {
+		this.setEntity(null);
 		this.setPrefWidth(Entity.ENTITY_WIDTH);
 		this.setPrefHeight(Entity.ENTITY_HEIGHT);
 		this.setStyle("-fx-border-color: black");
@@ -44,12 +45,12 @@ public class Cell extends Pane {
 			}
 		});
 	}
-	
-	/**
-	 * Adds an entity to this cell. 
-	 * @param entity the entity to be added
-	 */
-	public void addEntity(Entity entity) {
+
+	public Entity getEntity() {
+		return entity;
+	}
+
+	public void setEntity(Entity entity) {
 		this.entity = entity;
 	}
 	

@@ -24,9 +24,9 @@ public class GlobalPropertiesView extends PropertiesView {
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
-	public GlobalPropertiesView(List<Level> ls){
+	public GlobalPropertiesView(List<Level> levels){
 		super();
-		this.levels = ls;
+		this.levels = levels;
 	}
 
 	@Override
