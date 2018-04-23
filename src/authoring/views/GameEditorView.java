@@ -111,7 +111,7 @@ public class GameEditorView extends BorderPane {
 	 */
 	public void addLevel(){
 		try {
-			Tab t = (Tab) this.eFactory.buildElement(ElementType.Tab, "Level " + (levelTabsList.size()));
+			Tab t = (Tab) this.eFactory.buildElement(ElementType.Tab, "Level " + (levelTabsList.size()+1));
 			levelTabsList.add(t);
 			Level level = new Level(levelTabsList.indexOf(t)+1);
 			state.addLevel(level);

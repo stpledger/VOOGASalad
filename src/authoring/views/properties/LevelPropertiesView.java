@@ -35,7 +35,7 @@ public class LevelPropertiesView extends PropertiesView{
 
 	@Override
 	protected void fill() {
-		ResourceBundle levelProps = LevelPropertiesView.getResourcesBundle(this.title().replaceAll("[0-9]", "").replaceAll(" ", ""));
+		ResourceBundle levelProps = this.getResourcesBundle(this.title().replaceAll("[0-9]", "").replaceAll(" ", ""));
 		try {
 			int currentRow = 0;
 			for (String property : levelProps.keySet()) {
