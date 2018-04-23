@@ -40,7 +40,7 @@ public class DataRead  {
     private static String path = "";
     private static final Class CLASS = "Entity".getClass();
     private static final String SAVE_PATH = "saves/";
-
+    private static final String PLAYER_TARGET = "Player.xml";
 
     /* receives a gamestate and loads it to the player
      * from buildState
@@ -70,7 +70,7 @@ public class DataRead  {
 
     public static Image loadImage(String name)throws RuntimeException {
         try {
-            return new Image(DataRead.class.getClassLoader().getResourceAsStream(name));
+            return  new Image(FILE+path+IMAGE_PATH+name);
         }
         catch (Exception e) {
             ErrorStatement(FAIL_MESSAGE);
@@ -95,6 +95,7 @@ public class DataRead  {
         Map<Image, DataGameState> games =new HashMap<>();
         File file = new File(GAME_PATH);
         for(File game : file.listFiles()){
+          game = new File(game.getAbsolutePath() + SLASH + PLAYER_TARGET);
           DataGameState playable = loadPlayerFile(game);
           Image icon = getIcons().get(0);
           games.put(icon, playable);
