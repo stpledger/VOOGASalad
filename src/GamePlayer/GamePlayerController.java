@@ -64,7 +64,6 @@ public class GamePlayerController {
 			if(e.getCode() == KeyCode.ESCAPE) {
 				pauseMenu.show(myStage);
 				//myTimeline.pause();
-
 			} else {
 				gameView.setInput(e.getCode());
 			}
@@ -99,6 +98,7 @@ public class GamePlayerController {
 		switchBtn.getSwitchBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			myStage.setScene(mySplashScene);
 			switchBtn.setSwitchBoolean(); //changes boolean value back to false
+			fileBtn.setFileBoolean();
 		});
 	}
 	
@@ -162,6 +162,7 @@ public class GamePlayerController {
 	 * @param elapsedTime
 	 */
 	private void step (double elapsedTime) {
+		if (!pauseMenu.isShowing()) {
 	    renderTime+=elapsedTime;
 		gameView.execute(elapsedTime);
 		if (renderTime>15) {
@@ -169,6 +170,7 @@ public class GamePlayerController {
 			renderTime = 0;
 		}
 		gameView.updateScroll(gameRoot);
+		}
 	}
 	
 	
