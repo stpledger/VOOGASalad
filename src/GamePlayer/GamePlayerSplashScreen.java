@@ -3,6 +3,7 @@ package GamePlayer;
 import java.util.Map;
 
 import buttons.FileUploadButton;
+import buttons.GameSelectButton;
 import data.DataGameState;
 import data.DataRead;
 import javafx.scene.Scene;
@@ -80,6 +81,28 @@ public class GamePlayerSplashScreen{
 		}
 		
 	}
+	
+//	/**
+//	 * Method to dynamically create Game Select Buttons, Use when DataRead.getAllGames is working.
+//	 */
+//	private void assignGameSelectButtons() {
+//		int row = 0;
+//		int col = 0;
+//		for (Image image: imageGameStateMap.keySet()) {  //attains each image and the corresponding game file
+//			DataGameState currentDataGameState = imageGameStateMap.get(image);
+//			String nameOfGame = currentDataGameState.getGameName();
+//			GameSelectButton currentButton = new GameSelectButton(nameOfGame, currentDataGameState, image);
+//			currentButton.setMaxSize(WIDTH_SIZE/COL_NUM, HEIGHT_SIZE/ROW_NUM);
+//			myGridPane.add(currentButton, col, row);
+//			if (col == 2) { //if maximum number of columns is reached
+//				col=0; 		//reset number of columns
+//				row++;		//increment the number of rows
+//			}else {
+//				col++; 		//if not, increment the number of columns
+//			}
+//		}
+//		
+//	}
 	
 	private GridPane setupGridSpacing(GridPane gridPane) {
 		for (int i = 0; i<COL_NUM; i++) {
