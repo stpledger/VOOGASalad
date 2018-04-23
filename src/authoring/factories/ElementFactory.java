@@ -1,5 +1,7 @@
 package authoring.factories;
 
+import java.util.function.Consumer;
+
 public class ElementFactory {
 
 	private final static String PACKAGE_NAME = "authoring.factories.";

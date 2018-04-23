@@ -28,7 +28,7 @@ public class HUDPropertiesView extends PropertiesView{
 
 	@Override
 	protected void fill() {
-		ResourceBundle HUDProps = this.getResourcesBundle(this.NAME.replace(" ", ""));
+		ResourceBundle HUDProps = HUDPropertiesView.getResourcesBundle(this.NAME.replace(" ", ""));
 		try {
 			CheckBox livesBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Lives"));
 			CheckBox healthBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Health"));
