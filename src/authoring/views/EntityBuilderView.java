@@ -14,7 +14,6 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
-import authoring.saver.XMLParser;
 import authoring.MainApplication;
 import authoring.components.EntityComponentForm;
 import authoring.factories.ClickElementType;
@@ -28,8 +27,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tooltip;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -49,7 +46,7 @@ public class EntityBuilderView extends Stage {
 	private final static int LEFT_PANEL_WIDTH = 200;
 	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final static String COMPONENT_PREFIX = "engine.components.";
-	
+
 	private Properties tooltipProperties;
 	private HBox saveMenu;
 	private GridPane currentForms;
@@ -59,16 +56,17 @@ public class EntityBuilderView extends Stage {
 	private ImageView entityPreview;
 	private ElementFactory eFactory;
 	private boolean hasImage;
-	
+	private Map<String, Object[]> componentValues;
+
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+
 	private List<EntityComponentForm> activeForms;
 	private List<String> imageExtensions = Arrays.asList(new String[] {".jpg",".png",".jpeg"});
-	
+
 	private BiConsumer<String, Map<Class, Object[]>> onClose;
 	private Consumer<MouseEvent> saveOnClick = e -> {save();};
 	private Consumer<MouseEvent> addImageOnClick = e -> {addImage();};
-	
+
 	private Map<Class, Object[]> componentAttributes = new HashMap<>();
 
 	/**
@@ -185,38 +183,22 @@ public class EntityBuilderView extends Stage {
 	 */
 	private void save(){
 		try {
-		Map<String, Object[]> componentValues = new HashMap<>();
-		for(EntityComponentForm componentForm : activeForms) {
-			Object[] tempArr = componentForm.buildComponent();
-			if(tempArr != null) {
-				componentValues.put(componentForm.getName(), tempArr);
-				componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
+			this.componentValues = new HashMap<>();
+			for(EntityComponentForm componentForm : activeForms) {
+				Object[] tempArr = componentForm.buildComponent();
+				if(tempArr != null) {
+					componentValues.put(componentForm.getName(), tempArr);
+					componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
+				}
+				onClose.accept(myEntityType, componentAttributes);
+				this.close();
 			}
-			onClose.accept(myEntityType, componentAttributes);
-			this.close();
-			}
-			 catch (Exception e1) {
-				 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
-			 }
-		} 
-	}
-	private boolean validInputCheck() {
-		if(myEntityType == null || !hasImage) {
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setContentText("Missing Input: Please Fill All Fields");
-			alert.showAndWait();
-			return false;
 		}
-		onClose.accept(myEntityType, componentAttributes);
-		XMLParser saver = new XMLParser();
-		saver.writeXML(componentValues, "Test");
-		this.close();
+		catch (Exception e1) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}
-		 catch (Exception e1) {
-			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
-		 }
-	}
-	
+	} 
+
 	/**
 	 * adds an image to the preview
 	 */
@@ -232,7 +214,7 @@ public class EntityBuilderView extends Stage {
 			updateEntityPreview(image);
 			hasImage = true;
 		} catch (Exception e1){
-			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}
 	}
 
