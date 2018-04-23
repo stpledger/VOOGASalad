@@ -2,8 +2,10 @@ package data;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import authoring.entities.Entity;
+import authoring.gamestate.Level;
 import engine.components.Component;
-import frontend.components.Level;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -12,9 +14,10 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.net.URL;
+import java.util.*;
+
+import static engine.components.Sprite.IMAGE_PATH;
 
 /*
     @Author Conrad defines methods for reading in various information from 
@@ -22,41 +25,28 @@ import java.util.Map;
  */
 
 
-public class DataRead {
+public class DataRead  {
     private static final String EMPTY_GAME = "Empty";
     private static final String FAIL_MESSAGE ="File could not be loaded";
-    private static final String IMAGE_PATH = "data\\images\\";
-    private static final String SOUND_PATH = "data\\sounds\\";
-    private static final String GAME_PATH = "games\\";
-    private static final String EMPTY_IMAGE ="File:data\\images\\picture-placeholder.png";
+    private static final String IMAGE_PATH = "data/images/";
+    private static final String SOUND_PATH = "data/sounds/";
+    private static final String GAME_PATH = "games/";
+    private static final String EMPTY_IMAGE ="File:data/images/picture-placeholder.png";
     private static final String ERROR ="Error";
-    private static final String SLASH = "\\";
+    private static final String SLASH = "/";
     private static final String FILE ="File:";
     private static final String PERIOD = ".";
-
+    private static final String SPACE ="";
+    private static final String ENTITY_PATH = "entityDir";
     private static String path = "";
+    private static final Class CLASS = "Entity".getClass();
+    private static final String SAVE_PATH = "saves/";
 
 
-    /*loads a game file and return it to the public method if
-     * the game file doesnt exist in the right form it returns an empty state
-     */
-    private static DataGameState buildState(File xml) {
-        try {
-            XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
-            DataGameState gameState = (DataGameState)xstream.fromXML(xml);
-            path=GAME_PATH+gameState.getGameName()+SLASH;
-            return gameState;
-        }
-        catch(Exception e){
-            ErrorStatement(FAIL_MESSAGE);
-            return new DataGameState(EMPTY_GAME);
-        }
-    }
-    
     /* receives a gamestate and loads it to the player
      * from buildState
      */
-    public static DataGameState loadFile(File xml) {
+    public static DataGameState loadPlayerFile(File xml) {
         try {
             return buildState(xml);
         } catch (IllegalStateException e) {
@@ -64,22 +54,68 @@ public class DataRead {
             return new DataGameState(EMPTY_GAME);
         }
     }
-    
+
     /*return a map for the gamestate to be sent to authoring that can be built into their 
      *version of game state
      */
     public static Map<Level, Map<Integer, List<Component>>> loadAuthorFile(File xml) {
         try {
-            DataGameState tempState = loadFile(xml);
+            DataGameState tempState = loadPlayerFile(xml);
             return tempState.getGameStateAuthoring();
         } 
         catch (IllegalStateException e) {
-            ErrorStatement(FAIL_MESSAGE);
+            ErrorStatement(FAIL_MESSAGE + e.getMessage());
             return new HashMap<Level,Map<Integer,List<Component>>>();
         }
     }
 
-    /*prints an error to the screen 
+    public static Image loadImage(String name)throws RuntimeException {
+        try {
+            return new Image(FILE+path+IMAGE_PATH+name);
+        }
+        catch (Exception e) {
+            ErrorStatement(FAIL_MESSAGE);
+            return new Image(EMPTY_IMAGE);
+        }
+    }
+
+    public static Image loadImage(File file) {
+        try {
+            BufferedImage image = ImageIO.read(file);
+            DataWrite.writeImage(file);
+            return SwingFXUtils.toFXImage(image, null);
+        } catch (IOException e) {
+            ErrorStatement(FAIL_MESSAGE);
+            return new Image(EMPTY_IMAGE);
+        }
+    }
+
+    public static List<DataGameState> getSaves(){
+        List<DataGameState> saves = new ArrayList<DataGameState>();
+        File file = new File(path + SLASH + SAVE_PATH);
+        for(File save : file.listFiles()){
+            saves.add((DataGameState)deserialize(save));
+        }
+        return saves;
+    }
+
+    public static List<Entity> getEntityList(){
+        List<Entity> entitySelect = new ArrayList<Entity>();
+        File f = new File(ENTITY_PATH);
+        for(File entityFile : f.listFiles()){
+            entitySelect.add((Entity)deserialize(entityFile));
+        }
+        return entitySelect;
+    }
+
+    // util file for finding filetype
+
+    private static String getFileType(File file) {
+        int fIndex = file.getName().indexOf(PERIOD);
+        return (fIndex == -1) ? SPACE : file.getName().substring(fIndex + 1);
+    }
+
+    /*prints an error to the screen
      */
     private static void ErrorStatement(String error)  {
         try {
@@ -90,45 +126,28 @@ public class DataRead {
         }
         catch (Error el )
         {
-            System.out.print("Applicationb not defined");
+            System.out.print("Application not defined");
         }
     }
 
-    /* removing all autonomy of file reading and writing from all other files by doing myself
+    /*loads a game file and return it to the public method if
+     * the game file doesnt exist in the right form it returns an empty state
      */
-    public static Image loadImage(String name)throws RuntimeException
+    private static DataGameState buildState(File xml) {
+        try {
+            DataGameState gameState = (DataGameState)deserialize(xml);
+            path=GAME_PATH+gameState.getGameName()+SLASH;
+            return gameState;
+        }
+        catch(Exception e){
+            ErrorStatement(FAIL_MESSAGE);
+            return new DataGameState(EMPTY_GAME);
+        }
+    }
+
+    private static Object deserialize(File xml)
     {
-        try {
-            System.out.println(FILE+path+IMAGE_PATH+name);
-            return new Image(FILE+path+IMAGE_PATH+name);
-        }
-        catch (Exception e) {
-            ErrorStatement(FAIL_MESSAGE);
-            return new Image(EMPTY_IMAGE);
-        }
+        XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
+        return xstream.fromXML(xml);
     }
-
-    public static Image importImage(File file) {
-        try {
-            BufferedImage image = ImageIO.read(file);
-            File fileDest = new File(IMAGE_PATH + file.getName());
-            ImageIO.write(image, getFileType(file), fileDest);
-            return SwingFXUtils.toFXImage(image, null);
-        } catch (IOException e) {
-            ErrorStatement(FAIL_MESSAGE);
-            return new Image(EMPTY_IMAGE);
-        }
-
-    }
-
-    // util file for finding filetype
-    private static String getFileType(File file) {
-        int fIndex = file.getName().indexOf(PERIOD);
-        return (fIndex == -1) ? "" : file.getName().substring(fIndex + 1);
-    }
-
-//    public Image loadImage(File imageFile)
-//    {
-//
-//    }
 }

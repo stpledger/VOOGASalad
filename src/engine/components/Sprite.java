@@ -2,17 +2,13 @@ package engine.components;
 import java.io.FileNotFoundException;
 
 
-import javax.imageio.ImageIO;
-
 import data.DataRead;
-import javafx.embed.swing.SwingFXUtils;
 
 import java.util.*;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 /**

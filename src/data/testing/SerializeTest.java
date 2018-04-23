@@ -3,11 +3,11 @@ package data.testing;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataRead;
 import data.DataWrite;
 import engine.components.*;
-import frontend.components.Level;
 import javafx.scene.input.KeyCode;
 
 import java.io.File;
@@ -119,7 +119,7 @@ public class SerializeTest {
 
         File xml = new File("sdf");
         try {
-            DataWrite.saveFile(state, "Files!");
+            DataWrite.saveFile(state);
         } catch (Exception e) {
             e.printStackTrace();
         }
