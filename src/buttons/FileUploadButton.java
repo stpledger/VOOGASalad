@@ -8,10 +8,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 
 public class FileUploadButton extends Button {
 	
+		private Stage myStage;
 		private final String BUTTON_NAME = "Upload"; //change to a resource file
 		private File uploadedFile;
 		private BooleanProperty fileBoolean;
@@ -46,7 +48,7 @@ public class FileUploadButton extends Button {
 	        if (file != null) {
 	        		uploadedFile = file;
 	        		System.out.println("File Uploaded");
-	        		fileBoolean.setValue(true); //game file has been uploaded
+	        		setFileBoolean(); //game file has been uploaded
 	        }
 	       
 		}
@@ -55,8 +57,16 @@ public class FileUploadButton extends Button {
 			return uploadedFile;
 		}
 		
+		public Boolean isFile() {
+			return (uploadedFile!=null);
+		}
+		
 		public BooleanProperty getFileBooleanProperty() {
 			return fileBoolean;
+		}
+		
+		public void setFileBoolean() {
+			fileBoolean.setValue(!fileBoolean.getValue());
 		}
 		
 }	

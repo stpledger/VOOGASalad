@@ -33,8 +33,9 @@ public class ScriptTester {
         mario2.put(Velocity.KEY, v2);
         mario2.put(KeyInput.KEY, k2);
         entities.put(2, mario2);
+        entities.put(2, mario2);
 
-        SR.readCommand("2 KeyInput addCode P def p2 = entities.get(2).get(Position.KEY); p2.setXPos(20)");
+        SR.readCommand("2 Position setXPos 20");
 
         k2.action(KeyCode.P);
 
