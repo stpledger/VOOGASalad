@@ -4,8 +4,8 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import authoring.entities.Entity;
+import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
-import authoring.factories.ElementType;
 import authoring.gamestate.Level;
 import authoring.views.properties.LevelPropertiesView;
 import authoring.grid.Grid;
@@ -58,19 +58,19 @@ public class LevelView extends ScrollPane {
 			} else if(e.getButton().equals(MouseButton.SECONDARY)) {
 				ContextMenu cMenu = new ContextMenu();
 				try {
-					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ElementType.MenuItem, "Add Column", e1->{
+					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e1->{
 						this.content.addCol(ADD_ONE);
 					});
-					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ElementType.MenuItem, "Add Row", e1->{
+					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e1->{
 						this.content.addRow(ADD_ONE);
 					});
-					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ElementType.MenuItem, "Add 5 Columns", e1->{
+					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add 5 Columns", e1->{
 						this.content.addCol(ADD_FIVE);
 					});
-					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ElementType.MenuItem, "Add 5 Rows", e1->{
+					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add 5 Rows", e1->{
 						this.content.addRow(ADD_FIVE);
 					});
-					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ElementType.MenuItem, "Cancel", e1->{
+					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Cancel", e1->{
 						cMenu.hide();
 					});
 					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);

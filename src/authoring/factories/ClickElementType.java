@@ -5,12 +5,7 @@ package authoring.factories;
  * @author Hemanth Yakkali(hy115)
  *
  */
-public enum ElementType {
+public enum ClickElementType {
 	Button,
 	MenuItem,
-	TextField,
-	NumberField,
-	CheckBox,
-	Label,
-	Tab,
 }

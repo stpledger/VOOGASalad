@@ -6,7 +6,7 @@ import javafx.scene.layout.TilePane;
 /**
  * A container class for all of the cells in a grid, which each represent entities if they are filled.
  * @author Dylan Powers
- * @author Hemanth Yakkali
+ * @author Hemanth Yakkali(hy115)
  *
  */
 public class Grid extends TilePane {

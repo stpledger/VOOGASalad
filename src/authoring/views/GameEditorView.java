@@ -21,6 +21,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import GamePlayer.Main;
 import authoring.entities.Entity;
+import authoring.factories.ElementFactory;
+import authoring.factories.ElementType;
 import authoring.factories.Toolbar;
 import authoring.gamestate.GameState;
 import authoring.gamestate.Level;
@@ -44,6 +46,7 @@ public class GameEditorView extends BorderPane {
 	private GameState state;
 	private TabPane tabPane;
 	private Toolbar toolbar;
+	private ElementFactory eFactory;
 	private int nextEntityID  = 0;
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private Consumer<MouseEvent> addEntity = mouseEvent -> { addEntityMethod(mouseEvent);};
@@ -61,6 +64,7 @@ public class GameEditorView extends BorderPane {
 		this.levelTabsList = new ArrayList<>();
 		this.state = new GameState();
 		this.setCenter(tabPane);
+		this.eFactory = new ElementFactory();
 		addLevel();
 	}
 
@@ -106,20 +110,21 @@ public class GameEditorView extends BorderPane {
 	 * Creates a new LevelView
 	 */
 	public void addLevel(){
-		levelTabsList.add(new Tab());
-		Tab t = levelTabsList.get(levelTabsList.size()-1);
-		t.setText("Level " + (levelTabsList.indexOf(t)+1));
-
-		Level level = new Level(levelTabsList.indexOf(t)+1);
-		state.addLevel(level);
-		LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, addEntity);
-
-		t.setContent(levelView);
-		t.setOnClosed(e -> {
-			levelTabsList.remove(t);
-			updateTabs.accept(levelTabsList);
-		});
-		tabPane.getTabs().add(t);
+		try {
+			Tab t = (Tab) this.eFactory.buildElement(ElementType.Tab, "Level " + (levelTabsList.size()));
+			levelTabsList.add(t);
+			Level level = new Level(levelTabsList.indexOf(t)+1);
+			state.addLevel(level);
+			LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, addEntity);
+			t.setContent(levelView);
+			t.setOnClosed(e -> {
+				levelTabsList.remove(t);
+				updateTabs.accept(levelTabsList);
+			});
+			tabPane.getTabs().add(t);
+		} catch (Exception e) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
+		}
 	}
 
 	/**
@@ -172,7 +177,7 @@ public class GameEditorView extends BorderPane {
 	 * Shows the HUD Settings Menu
 	 */
 	private void hudSettingsMethod() {
-		ArrayList<Level> levelArray = new ArrayList<>();
+		List<Level> levelArray = new ArrayList<>();
 		for(Tab t: levelTabsList) {
 			levelArray.add(((LevelView) t.getContent()).getLevel());
 		}
@@ -184,7 +189,7 @@ public class GameEditorView extends BorderPane {
 	 * Shows the GlobalPropertiesView Panel
 	 */
 	private void showSettingsMethod() {
-		ArrayList<Level> levelArray = new ArrayList<Level>();
+		List<Level> levelArray = new ArrayList<Level>();
 		for(Tab t: levelTabsList) {
 			levelArray.add(((LevelView) t.getContent()).getLevel());
 		}

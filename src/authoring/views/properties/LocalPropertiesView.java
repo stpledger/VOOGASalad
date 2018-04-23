@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import authoring.components.PropertiesComponentForm;
-import authoring.factories.ElementType;
+import authoring.factories.ClickElementType;
 import authoring.entities.Entity;
 
 /**
@@ -18,7 +18,7 @@ import authoring.entities.Entity;
  * such as poison, health, velocity, etc. 
  * @author Collin Brown (cdb55)
  * @author Dylan Powers (ddp19)
- * @author Hemanth Yakkali
+ * @author Hemanth Yakkali(hy115)
  *
  */
 public class LocalPropertiesView extends PropertiesView {
@@ -62,7 +62,7 @@ public class LocalPropertiesView extends PropertiesView {
 		}
 
 		try {
-			Button submit = (Button) this.getElementFactory().buildClickElement(ElementType.Button, this.getButtonBundle().getString("Submit"), e->{
+			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getButtonBundle().getString("Submit"), e->{
 				List<Component> componentsToAdd = new ArrayList<>();
 				for (PropertiesComponentForm cf : this.activeForms) {
 					componentsToAdd.add(cf.buildComponent());

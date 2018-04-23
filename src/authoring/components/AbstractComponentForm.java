@@ -9,6 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public abstract class AbstractComponentForm extends GridPane {
+	//TODO make getters and setters rather than protected
 	protected final String COMPONENT_PREFIX = "engine.components.";
 	protected String name;
 	protected int numFields;

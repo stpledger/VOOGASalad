@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
+import authoring.factories.ClickElementType;
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
@@ -47,7 +48,7 @@ public class GlobalPropertiesView extends PropertiesView {
 				getRoot().addRow(currentRow, label);
 			}
 			getRoot().addColumn(1,livesInput,titleInput,pathInput);
-			Button submit = (Button) this.getElementFactory().buildClickElement(ElementType.Button, this.getButtonBundle().getString("Submit"), e->{
+			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getButtonBundle().getString("Submit"), e->{
 				for(Level level : levels) {
 					level.addGProp(globalProps.getString("Title").split(",")[0], titleInput.getText());
 					level.addGProp(globalProps.getString("Lives").split(",")[0], livesInput.getText());

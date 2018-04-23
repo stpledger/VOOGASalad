@@ -4,7 +4,7 @@ import java.util.function.Consumer;
 
 /**
  * 
- * @author Hemanth Yakkali
+ * @author Hemanth Yakkali(hy115)
  *
  */
 public interface ClickableElement extends Element{

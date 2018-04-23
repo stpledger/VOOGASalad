@@ -1,12 +1,6 @@
 package authoring.views;
 
 import java.util.Map;
-import java.util.logging.Logger;
-
-import authoring.entities.Background;
-import authoring.entities.Block;
-import authoring.entities.Enemy;
-import authoring.entities.Player;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -26,7 +20,6 @@ public class EntityTab extends Tab{
 	public static final double VIEW_WIDTH = 0;
 	
 	private ObjectProperty selectedElement = new SimpleObjectProperty();
-	
 	
 	FlowPane pane;
 	ScrollPane externalPane;

@@ -15,8 +15,8 @@ import javafx.scene.control.TextField;
  */
 public class PropertiesComponentForm extends AbstractComponentForm {
 
-	private final String PROP_FILE = "authoring.properties.Components.properties";
 	private int entity;
+	
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
 	 * @param entity the entity that the component should be added to
@@ -26,7 +26,7 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 	public PropertiesComponentForm(int entity, String name) {
 		this.entity = entity;
 		this.name = name;
-		fields = new ArrayList<>();
+		this.fields = new ArrayList<>();
 		int col = 0;
 		this.add(new Label(name), col++, 0);
 		this.numFields = getNumFields(name);

@@ -17,6 +17,8 @@ import javax.imageio.ImageIO;
 
 import authoring.MainApplication;
 import authoring.components.EntityComponentForm;
+import authoring.factories.ClickElementType;
+import authoring.factories.ElementFactory;
 import data.DataRead;
 import engine.components.Sprite;
 import javafx.embed.swing.SwingFXUtils;
@@ -54,6 +56,7 @@ public class EntityBuilderView extends Stage{
 	private List<String> entityTypes;
 	private String myEntityType;
 	private ImageView entityPreview;
+	private ElementFactory eFactory;
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
@@ -74,6 +77,7 @@ public class EntityBuilderView extends Stage{
 	public EntityBuilderView (List<String> eTypes, BiConsumer<String, Map<Class,Object[]>> oC) {
 		this.onClose = oC;
 		this.entityTypes = (ArrayList<String>) eTypes;
+		this.eFactory = new ElementFactory();
 		this.build();
 		this.open();
 	}
@@ -121,7 +125,6 @@ public class EntityBuilderView extends Stage{
 		entityPreview.setFitHeight(LEFT_PANEL_WIDTH);
 		entityPreview.setFitWidth(LEFT_PANEL_WIDTH);
 		//TODO: Make this handle things other than squares
-
 	}
 
 	/**
@@ -167,12 +170,15 @@ public class EntityBuilderView extends Stage{
 	 * @return Button
 	 */
 	private Button buttonBuilder(String name, Consumer onClick) {
-		Button button = new Button(name);
-		button.setTooltip(new Tooltip(tooltipProperties.getProperty(name)));
-		button.setOnMouseClicked(e ->onClick.accept(e));
-		button.getStyleClass().addAll("entity-builder-view-button",name);
+		Button button = null;
+		try {
+			button = (Button) this.eFactory.buildClickElement(ClickElementType.Button, name, e ->onClick.accept(e));
+			button.setTooltip(new Tooltip(tooltipProperties.getProperty(name)));
+			button.getStyleClass().addAll("entity-builder-view-button",name);
+		} catch (Exception e) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+		}
 		return button;
-
 	}
 
 	/**
