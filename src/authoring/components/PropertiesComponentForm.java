@@ -1,7 +1,6 @@
 package authoring.components;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -16,7 +15,7 @@ import javafx.scene.control.TextField;
  */
 public class PropertiesComponentForm extends AbstractComponentForm {
 
-	private final String PROP_FILE = "authoring.properties.Components.properties";
+	private static final String PROP_FILE = "authoring.properties.Components.properties";
 	private int entity;
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
@@ -29,12 +28,14 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 		this.name = name;
 		fields = new ArrayList<>();
 		int col = 0;
-		this.add(new Label(name), col++, 0);
+		col++;
+		this.add(new Label(name), col , 0);
 		this.numFields = getNumFields(name);
 		for (int i = 0; i < (numFields-1); i++) {
 			TextField tf = new TextField();
 			fields.add(tf);
-			this.add(tf, col++, 0);
+			col++;
+			this.add(tf, col, 0);
 		}
 	}
 	/**
@@ -47,7 +48,8 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 		int index = 0;
 		for (String param : existingValues.keySet()) {
 			System.out.println("Value " + index + " is " + param + " for key " + existingValues.get(param));
-			fields.get(index++).setText(existingValues.get(param));
+			index++;
+			fields.get(index).setText(existingValues.get(param));
 		}
 	}
 
@@ -57,7 +59,9 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 	 * @return a component that accurately represents the data in this wrapper class
 	 */
 	public Component buildComponent() {
-		if (!validComponent()) return null;
+		if (!validComponent()) {
+			return null;
+		}
 		String fullName =  COMPONENT_PREFIX + this.name;
 		Object[] params = new Object[fields.size() + 1];
 		// first argument is always the entity ID

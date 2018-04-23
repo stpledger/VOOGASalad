@@ -187,7 +187,7 @@ public class GameEditorView extends BorderPane {
 	 * Shows the GlobalPropertiesView Panel
 	 */
 	private void showSettingsMethod() {
-		ArrayList<Level> levelArray = new ArrayList<Level>();
+		ArrayList<Level> levelArray = new ArrayList<>();
 		for(Tab t: levelTabsList) {
 			levelArray.add(((LevelView) t.getContent()).getLevel());
 		}

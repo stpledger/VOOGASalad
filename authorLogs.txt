@@ -1,9 +1,7 @@
-Apr 22, 2018 8:46:28 PM authoring.views.EntityBuilderView save
+Apr 22, 2018 9:14:17 PM authoring.views.EntityBuilderView save
 SEVERE: java.lang.NullPointerException
 java.lang.NullPointerException
-	at authoring.views.EntityView.saveEntity(EntityView.java:75)
-	at authoring.views.EntityView.lambda$0(EntityView.java:47)
-	at authoring.views.EntityBuilderView.save(EntityBuilderView.java:190)
+	at authoring.views.EntityBuilderView.save(EntityBuilderView.java:183)
 	at authoring.views.EntityBuilderView.lambda$0(EntityBuilderView.java:64)
 	at authoring.views.EntityBuilderView.lambda$3(EntityBuilderView.java:172)
 	at com.sun.javafx.event.CompositeEventHandler.dispatchBubblingEvent(CompositeEventHandler.java:86)
