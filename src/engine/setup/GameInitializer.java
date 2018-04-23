@@ -55,7 +55,6 @@ public class GameInitializer {
         SM.execute(time);
     }
 
-
     public InputHandler getIH() {
          return IH;
          }
@@ -67,7 +66,4 @@ public class GameInitializer {
     public List<ISystem> getSystems() {		// For testing
     		return systems;
     }
-    
-
-    
 }
