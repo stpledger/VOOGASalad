@@ -1,6 +1,8 @@
 package buttons;
 
 
+import GamePlayer.GamePlayerController;
+import Menu.PauseMenu;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -14,26 +16,18 @@ import javafx.scene.control.Button;
 public class SaveGameButton extends Button{
 	
 	private final String BUTTON_NAME = "Save Game"; //change to a resource file
+	private PauseMenu pauseMenu;
+
 	
-	public SaveGameButton() {
+	public SaveGameButton(PauseMenu p) {
+		pauseMenu = p;
 		this.setText(BUTTON_NAME);
-		this.setSaveEvent();
-	}
-	/*
-	 * private method to set the action event to speed
-	 */
-	private void setSaveEvent() {
-		this.setOnAction(new EventHandler<ActionEvent>() {
-			@Override public void handle(ActionEvent e) {
-				saveGame(); //activate the file upload method
-			}
-		});
+		this.setOnAction(e -> saveGame());
 	}
 
 	//save the current state of the Game
 	private void saveGame() {
-
-       
+       pauseMenu.saveGame();
 	}
 	
 

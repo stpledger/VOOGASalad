@@ -89,8 +89,9 @@ public class HealthDamage implements ISystem {
 	}
 
 	public void setActives(Set<Integer> actives) {
-		activeComponents = actives;
-		activeComponents.retainAll(handledComponents.keySet());
+		Set<Integer> myActives = new HashSet<>(actives);
+		myActives.retainAll(handledComponents.keySet());
+		activeComponents = myActives;
 	}
 
 	public void execute(double time) {

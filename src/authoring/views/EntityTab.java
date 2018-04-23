@@ -1,27 +1,19 @@
 package authoring.views;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Logger;
 
-import javax.imageio.ImageIO;
+import authoring.factories.ElementFactory;
+import authoring.factories.ElementType;
 
-import data.DataRead;
-import engine.components.Sprite;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.control.Tab;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 
 /**
  * 
@@ -30,18 +22,24 @@ import javafx.scene.layout.VBox;
  */
 public class EntityTab extends Tab{
 	public static final double SCROLLBAR_WIDTH = 20;
-	private ObjectProperty selectedElement = new SimpleObjectProperty();
+	public static final double VIEW_WIDTH = 0;
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
+	private ElementFactory eFactory;
+	
 	FlowPane pane;
 	ScrollPane externalPane;
+	
 	double myEntityViewWidth;
+
 	public EntityTab(String name, double entityViewWidth) {
 		super(name);
-		myEntityViewWidth = entityViewWidth;
+		myEntityViewWidth = entityViewWidth;		
 		this.setClosable(false);
 		this.getStyleClass().add("entity-tab");
 		assemble();
 	}
-
 
 	/**
 	 * builds the ScrollPane and the FlowPane within it
@@ -55,10 +53,28 @@ public class EntityTab extends Tab{
 		externalPane.setContent(pane);
 		this.setContent(externalPane);
 	}
-	public void addNewEntity(String type, Map<Class, Object[]> componentAttributes) {
-		pane.getChildren().add(new EntityBox(type, componentAttributes));
-	}
 
+	public void addNewEntity(String type, Map<Class, Object[]> componentAttributes) {
+		EntityBox eb = new EntityBox(type, componentAttributes);
+		eb.setOnMouseClicked(mouseEvent -> {
+			if(mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+				ContextMenu cMenu = new ContextMenu();
+				try {
+					MenuItem delete = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Delete");
+					delete.setOnAction(e -> {
+						removeEntity(eb);
+					});
+					cMenu.getItems().add(delete);
+					
+					cMenu.setAutoHide(true);
+				} catch (Exception e1) {
+					LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+				}
+				cMenu.show(pane, mouseEvent.getScreenX(), mouseEvent.getScreenY());
+			}
+		});
+		pane.getChildren().add(eb);
+	}
 
 	/**
 	 * Returns the graphic representation of the ComponentTab
@@ -66,60 +82,14 @@ public class EntityTab extends Tab{
 	public Node getNode() {
 		return pane;
 	}
-
+	
 	/**
-	 * Gets the observable property of the currently selected element
-	 * @return
+	 * Removes and entity from the entityView
+	 * @param eb the entitBox to be removed
 	 */
-	public ObjectProperty getSelectedElementProperty() {
-		return selectedElement;
+	private void removeEntity(EntityBox eb) {
+		pane.getChildren().remove(eb);
 	}
 
 
-	/**
-	 *	The ComponentBox holds the properties and images of various gameObjects
-	 */
-	private class EntityBox extends VBox {
-		private String name;
-		private String type;
-		private Image image;
-		private ImageView imageView;
-		Map<Class, Object[]> componentAttributes = new HashMap<Class,Object[]>();
-		private double boxDimension = (myEntityViewWidth - SCROLLBAR_WIDTH)/3;
-
-		public EntityBox(String t, Map<Class, Object[]> m) {
-			//Create the VBox
-			this.getStyleClass().add("entity-box");
-			this.setWidth(boxDimension);
-			this.setHeight(boxDimension);
-			//Create the ImageView
-			componentAttributes = m;
-			image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
-			type = t;
-			componentAttributes = m;
-			imageView = new ImageView(image);
-			imageView.setFitHeight(boxDimension-20);
-			imageView.setFitWidth(boxDimension-20);
-			this.getChildren().add(imageView);
-			//Create a textbox with the name;
-
-			//Set onClick method to add the item to clipboard
-			this.setOnMouseClicked(new EventHandler<MouseEvent>() {
-				@Override
-				public void handle(MouseEvent arg0) {
-					try {
-						selectedElement.setValue(new Object[] {getEntityFromPackage(type), componentAttributes});
-					} catch (ClassNotFoundException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-				}
-
-				private Class getEntityFromPackage(String type) throws ClassNotFoundException {
-					return Class.forName("authoring.entities." + type);
-				}
-			});
-		}
-
-	}
 }

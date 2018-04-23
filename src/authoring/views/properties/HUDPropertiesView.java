@@ -1,8 +1,11 @@
 package authoring.views.properties;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
+import authoring.factories.ClickElementType;
 import authoring.factories.ElementType;
 import authoring.gamestate.Level;
 import javafx.scene.control.Button;
@@ -16,36 +19,37 @@ import javafx.scene.control.CheckBox;
 public class HUDPropertiesView extends PropertiesView{
 	
 	private List<Level> levels;
-	private final String NAME = "HUD Properties";
-	private final int SUBMIT_POSITION = 4;
+	private static final String NAME = "HUD Properties";
 	
-	public HUDPropertiesView(List<Level> levelArray) {
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
+	public HUDPropertiesView(List<Level> levels) {
 		super();
-		this.levels = levelArray;
-		this.fill();
+		this.levels = new ArrayList<>(levels);
 	}
 
 	@Override
 	protected void fill() {
-		ResourceBundle HUDProps = ResourceBundle.getBundle(this.getResourcesFilePath()+NAME.replace(" ", ""));
+		ResourceBundle HUDProps = this.getResourcesBundle(this.title().replace(" ", ""));
 		try {
 			CheckBox livesBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Lives"));
 			CheckBox healthBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Health"));
 			CheckBox timeBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Time"));
 			CheckBox levelBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Levels"));
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button,HUDProps.getString("Submit") );
-			submit.setOnAction(e->{
+			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button,this.getButtonBundle().getString("Submit"), e->{
 				for(Level level : levels) {
 					level.addHUDProp(HUDProps.getString("Lives"), livesBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Health"), healthBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Time"), timeBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Levels"), levelBox.isSelected());
 				}
+				this.makeAlert(this.title()+" has been updated!");
+				this.close();
 			});
 			getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox);
-			getRoot().add(submit, 0, SUBMIT_POSITION);
+			getRoot().add(submit, 0, getRoot().getChildren().size());
 		} catch (Exception e2) {
-			e2.printStackTrace();
+			 LOGGER.log(java.util.logging.Level.SEVERE, e2.toString(), e2);
 		}	
 	}
 

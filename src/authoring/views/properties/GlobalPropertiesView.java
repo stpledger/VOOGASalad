@@ -1,8 +1,11 @@
 package authoring.views.properties;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
+import authoring.factories.ClickElementType;
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
@@ -18,13 +21,13 @@ import javafx.scene.control.TextField;
 public class GlobalPropertiesView extends PropertiesView {
 
 	private List<Level> levels;
-	private final String NAME = "Global Properties";
-	private final String SUBMIT = "Submit";
+	private static final String NAME = "Global Properties";
 	
-	public GlobalPropertiesView(List<Level> ls){
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
+	public GlobalPropertiesView(List<Level> levels){
 		super();
-		this.levels = ls;
-		fill();
+		this.levels = new ArrayList<>(levels);
 	}
 
 	@Override
@@ -34,29 +37,31 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	@Override
 	protected void fill() {
-		ResourceBundle globalProps = ResourceBundle.getBundle(this.getResourcesFilePath()+NAME.replace(" ", ""));
+		ResourceBundle globalProps = this.getResourcesBundle(this.title().replace(" ", ""));
 		try {
 			int currentRow = 0;
-			//TODO update text to be something meaningful from properties files
-			TextField titleInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, NAME);
-			NumberField livesInput = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField, NAME);
-			TextField pathInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, NAME);
+			TextField titleInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, globalProps.getString("Title").split(",")[1]);
+			NumberField livesInput = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField, globalProps.getString("Lives").split(",")[1]);
+			TextField pathInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, globalProps.getString("Filepath").split(",")[1]);
 			for(String property:globalProps.keySet()) {
-				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label, globalProps.getString(property));
-				getRoot().addRow(currentRow++, label);
+				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label, globalProps.getString(property).split(",")[0]);
+				currentRow++;
+				getRoot().addRow(currentRow, label);
 			}
-			getRoot().addColumn(1,titleInput,livesInput,pathInput);
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, globalProps.getString("Submit"));
-			submit.setOnAction(e->{
+			getRoot().addColumn(1,livesInput,titleInput,pathInput);
+			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getButtonBundle().getString("Submit"), e->{
 				for(Level level : levels) {
-					level.addGProp(globalProps.getString("Title"), titleInput.getText());
-					level.addGProp(globalProps.getString("Lives"), livesInput.getText());
-					level.addGProp(globalProps.getString("Filepath"), pathInput.getText());
+					level.addGProp(globalProps.getString("Title").split(",")[0], titleInput.getText());
+					level.addGProp(globalProps.getString("Lives").split(",")[0], livesInput.getText());
+					level.addGProp(globalProps.getString("Filepath").split(",")[0], pathInput.getText());
 				}
+				this.makeAlert(this.title()+" has been saved!");
+				this.close();
 			});
-			getRoot().add(submit, 0, currentRow++);
+			currentRow++;
+			getRoot().add(submit, 0, currentRow);
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}
 	}
 

@@ -1,11 +1,14 @@
 package authoring.entities;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import authoring.views.properties.LocalPropertiesView;
+
 import engine.components.Component;
 import engine.components.EntityType;
 import engine.components.Health;
@@ -18,14 +21,19 @@ import javafx.scene.input.MouseButton;
 
 /**
  * 
- * @author Hemanth Yakkali
+ * @author Hemanth Yakkali(hy115)
  * @author Dylan Powers
  * @author Collin Brown
  *
  */
 
-public abstract class Entity extends ImageView {
+public abstract class Entity extends ImageView implements Serializable {
 
+	public final static int ENTITY_WIDTH = 50;
+	public final static int ENTITY_HEIGHT = 50;
+	
+	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
 	/**
 	 * Unique ID to the entity
 	 */
@@ -43,7 +51,9 @@ public abstract class Entity extends ImageView {
 	public Entity(int ID) {
 		this.ID = ID;
 		components = new ArrayList<>();
-		Consumer<List<Component>> onSubmit = (componentsToAdd) -> {
+		this.setFitWidth(ENTITY_WIDTH);
+		this.setFitHeight(ENTITY_HEIGHT);
+		Consumer<List<Component>> onSubmit = componentsToAdd -> {
 			for (Component c : componentsToAdd) {
 				this.add(c);
 			}
@@ -53,14 +63,11 @@ public abstract class Entity extends ImageView {
 				LocalPropertiesView LPV = new LocalPropertiesView(this, onSubmit);
 				LPV.open();
 			}
-		}); 
-		this.setOnMouseDragged(e -> {
-			this.setTranslateX(e.getX() + this.getTranslateX() - this.getFitWidth()/2);
-			this.setTranslateY(e.getY() + this.getTranslateY() - this.getFitHeight()/2);
 			e.consume();
 		});
-		this.setOnMouseDragExited(e -> {
-			this.setPosition(this.getX(), this.getY());
+		this.setOnMouseDragged(e -> {
+			this.setPosition(e.getX() + this.getLayoutX() - this.getFitWidth()/2, e.getY() + this.getLayoutY() - this.getFitHeight()/2);
+			e.consume();
 		});
 		addDefaultComponents();
 	}
@@ -89,9 +96,22 @@ public abstract class Entity extends ImageView {
 	 */
 	public void add(Component c) {
 		if (c != null) {
-			if (this.contains(c))
+
+			if (this.contains(c)) {
 				this.removeByName(c.getKey());
+			}
+
 			this.components.add(c);
+		}
+	}
+	
+	/**
+	 * Adds all the components in the list to the entity
+	 * @param componentList List<Component>
+	 */
+	public void addAll(List<Component> componentList) {
+		for(Component c: componentList) {
+			this.add(c);
 		}
 	}
 
@@ -123,8 +143,10 @@ public abstract class Entity extends ImageView {
 	 */
 	private boolean contains(Component c) {
 		for (Component existing : this.components) {
-			if (existing.getKey() == c.getKey())
+
+			if (existing.getKey() == c.getKey()) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -136,8 +158,9 @@ public abstract class Entity extends ImageView {
 	 */
 	public boolean contains(String name) {
 		for (Component existing : this.components) {
-			if (existing.getKey().equals(name))
+			if (existing.getKey().equals(name)) {
 				return true;
+			}
 		}
 		return false;
 	}
@@ -174,6 +197,7 @@ public abstract class Entity extends ImageView {
 	 * @param y Y position
 	 */
 	public void setPosition(double x, double y) {
+		this.removeByName("Position");
 		this.add(new Position(this.getID(), x, y));
 		this.setLayoutX(x);
 		this.setLayoutY(y);
@@ -222,6 +246,11 @@ public abstract class Entity extends ImageView {
 	 * @return type of this entity
 	 */
 	public abstract String type();
+	
+	/**
+	 * @return the name of this entity
+	 */
+	public abstract String name();
 
 	/**
 	 * 

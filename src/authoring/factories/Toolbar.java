@@ -3,26 +3,18 @@ package authoring.factories;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.layout.HBox;
 import javafx.util.Pair;
 /**
  * 
@@ -32,15 +24,19 @@ import javafx.util.Pair;
 public class Toolbar extends MenuBar{
 	private String toolbarName;
 	private Map<String,Consumer> consumerMap;
+	private List<Pair<String,Properties>> menuProerties;
 
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
 	/**
 	 * Creates a Toolbar based on all of the .properties files saved in the directory src/res/~name~
 	 * @param name
 	 */
 	public Toolbar(String name,  Map<String,Consumer> cm) {
 		super();
-		consumerMap = cm;
-		toolbarName = name;
+		this.consumerMap = cm;
+		this.toolbarName = name;
+		this.menuProerties = new ArrayList<>();
 		this.getStyleClass().add("toolbar");
 		addMenus(getMenuProperties());
 	}
@@ -49,8 +45,9 @@ public class Toolbar extends MenuBar{
 	 * Add all of the menus outlined in the resources.menus package to the menuBar
 	 * @param menuProperties
 	 */
-	private void addMenus(ArrayList<Pair<String,Properties>> menuProperties) {
-		ArrayList<Pair<String,Properties>> tempMenuProperties = menuProperties;
+	private void addMenus(List<Pair<String,Properties>> menuProperties) {
+		this.menuProerties = menuProperties;
+		List<Pair<String,Properties>> tempMenuProperties = this.menuProerties;
 		for(Pair<String, Properties> p: tempMenuProperties) {
 			this.getMenus().add((createMenu(p.getKey(),p.getValue())));
 		}
@@ -70,7 +67,7 @@ public class Toolbar extends MenuBar{
 		for(Object o : items) {
 			MenuItem menuItem = new MenuItem();
 			menuItem.setText(p.getProperty((String) o));
-			menuItem.setOnAction((e)->consumerMap.get(o).accept(e));
+			menuItem.setOnAction(e->consumerMap.get(o).accept(e));
 			m.getItems().add(menuItem);
 		}
 		return m;
@@ -80,8 +77,8 @@ public class Toolbar extends MenuBar{
 	 * Get all of the properties files located in the resources.menus folder
 	 * @return An ArrayList of Pairs that has the name of the menu and the properties of that menu
 	 */
-	private ArrayList<Pair<String,Properties>> getMenuProperties(){
-		ArrayList<Pair<String,Properties>> menuProperties = new ArrayList<Pair<String,Properties>>();
+	private List<Pair<String,Properties>> getMenuProperties(){
+		List<Pair<String,Properties>> menuProperties = new ArrayList<>();
 		File menuFolder = new File("src/resources/menus/" + toolbarName);
 		File[] menuFiles = menuFolder.listFiles();
 		for(File f : Arrays.asList(menuFiles)) {
@@ -89,8 +86,7 @@ public class Toolbar extends MenuBar{
 			try {
 				p.load(new FileInputStream(f));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				 LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 			}
 			menuProperties.add(new Pair(f.getName().replace(".properties", ""),p));
 		}

@@ -1,6 +1,7 @@
 package engine.actions
 
 import engine.components.Position
+import engine.components.Velocity
 import org.codehaus.groovy.control.CompilerConfiguration
 import org.codehaus.groovy.control.customizers.ImportCustomizer
 
@@ -12,17 +13,15 @@ class ScriptReader {
     HashMap entities
     int index
     String className, methodName
-    def myBinding, shell, number
+    def myBinding, myShell, number
 
-    public ScriptReader(HashMap entities) {
+    ScriptReader(HashMap entities) {
         this.entities = entities
 
         myBinding = new Binding()
         myBinding.setVariable("entities", entities)
 
-        myBinding.setVariable("Position", Position)
-
-        shell = new GroovyShell(myBinding)
+        myShell = new GroovyShell(myBinding)
     }
 
     void readCommand (String command) {
@@ -101,7 +100,7 @@ class ScriptReader {
                 invokeArgs[i] = new Consumer() {
                     @Override
                     void accept(Object o) {
-                        shell.evaluate(action)
+                        myShell.evaluate(action)
                     }
                 }
             }

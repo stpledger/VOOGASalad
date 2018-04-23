@@ -103,18 +103,39 @@
 .level-view-wrapper{
 }
 
+.entity-builder-view{
+	-fx-background-color: tertiary-color;
+}
+
+.entity-builder-combo-box{
+	-fx-background-color: transparent;
+}
+
+.combo-box > .list-cell {
+	-fx-text-fill: primary-color;
+	-fx-font-weight: bold;
+}
+
+
+.arrow {
+	
+	-fx-background-color: primary-color;
+
+	-fx-font-weight: bold;
+
+}
+
+
 .entity-builder-view-button{
 	-fx-background-color: transparent;
 	-fx-font-weight: bold;
 	-fx-text-fill: primary-color;
 	-fx-stroke: primary-color;
 	-fx-stroke-width: 5;
+	-fx-background-color: secondary-color;
 
 }
 
-.left-panel-vbox Label{
-	-fx-background-color: tertiary-color;
-}
 
 /*
 * =============================================================
@@ -172,3 +193,4 @@
     -fx-background-color: tertiary-color;
     -fx-background-radius: 5em;
 }
+

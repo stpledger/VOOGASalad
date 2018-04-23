@@ -11,7 +11,7 @@ public class CheckBoxElement extends CheckBox implements Element{
 
 	public CheckBoxElement(String text) {
 		super();
-		this.handleText(text);
+		this.handleText(text );
 	}
 
 	@Override

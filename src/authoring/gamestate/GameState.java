@@ -1,6 +1,7 @@
 package authoring.gamestate;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import authoring.entities.Entity;
 import data.DataWrite;
@@ -22,6 +23,8 @@ public class GameState implements IGameState {
 	 * It will then continue to keep track of the current state of the game by using the update method below.
 	 */
 	private List<Level> state;
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public GameState() {
 		state = new ArrayList<>();
@@ -33,9 +36,7 @@ public class GameState implements IGameState {
 			DataWrite.saveFile(this,"Test");
 			System.out.println("saved!");
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			//e.printStackTrace();
-			System.out.print("didnt work");
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 	}
 

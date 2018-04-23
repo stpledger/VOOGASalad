@@ -1,7 +1,6 @@
 package authoring.views;
 
 import java.io.File;
-import java.util.function.Consumer;
 
 import authoring.factories.Toolbar;
 import javafx.scene.Parent;
@@ -17,16 +16,11 @@ public class MainView {
 	private Toolbar toolbar;
 	private GameEditorView gameEditorView;
 	private EntityView componentView;
-
-	//Consumer to handle transferring clipboard transfers
-	Consumer clipboardHandler = (e)->{
-		gameEditorView.setClipboard(e);
-	};
-
+	
 	//GUI Constants
 	private static double ideHeight = 600;
 	private static double ideWidth = 1200;
-	private double toolbarHeight = 25;
+
 	/**
 	 * Creates an instance of GameAuthoringEnvironment Based on a file
 	 * @param selectedFile the selected file to load a game from
@@ -34,7 +28,7 @@ public class MainView {
 	public MainView(File selectedFile) {
 		border = new BorderPane();
 		gameEditorView = new GameEditorView();
-		componentView = new EntityView(clipboardHandler);
+		componentView = new EntityView();
 	}
 	/**
 	 * Creates a new instance of GameAuthoringEnvironment
@@ -43,7 +37,7 @@ public class MainView {
 	public MainView() {
 		border = new BorderPane();
 		gameEditorView = new GameEditorView();
-		componentView = new EntityView(clipboardHandler);
+		componentView = new EntityView();
 	}
 
 	/**

@@ -2,16 +2,19 @@ package authoring.components;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public abstract class AbstractComponentForm extends GridPane {
-	protected final String COMPONENT_PREFIX = "engine.components.";
+	protected static final String COMPONENT_PREFIX = "engine.components.";
 	protected String name;
 	protected int numFields;
 	protected List<TextField> fields;
+	
+	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	protected abstract Object buildComponent();
 
@@ -22,8 +25,9 @@ public abstract class AbstractComponentForm extends GridPane {
 	 */
 	protected boolean validComponent() {
 		for (TextField tf : this.fields) {
-			if (tf.getText() == null || tf.getText().trim().isEmpty())
+			if (tf.getText() == null || tf.getText().trim().isEmpty()) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -37,10 +41,12 @@ public abstract class AbstractComponentForm extends GridPane {
 	 */
 	protected Object cast(Class<?> desiredType, String text) {
 		Object reflectValue;
-		if (desiredType.equals(double.class))
+		if (desiredType.equals(double.class)) {
 			reflectValue = Double.parseDouble(text);
-		else
+		}
+		else {
 			reflectValue = text;
+		}
 		return reflectValue;
 	}
 
@@ -61,10 +67,9 @@ public abstract class AbstractComponentForm extends GridPane {
 			int prop = cons.getParameterCount() - 1;
 			return cons.getParameterCount();
 		} catch (ClassNotFoundException e) {
-			// TODO better exception
 			Alert a = new Alert(Alert.AlertType.ERROR);
 			a.setContentText("Class " + component + " does not exist.");
-			e.printStackTrace();
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 			a.showAndWait();
 		}
 		return 0;

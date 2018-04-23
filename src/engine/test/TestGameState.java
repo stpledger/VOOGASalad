@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import authoring.gamestate.Level;
 import data.DataGameState;
@@ -30,7 +31,7 @@ public class TestGameState {
 		System.out.println("TestGameState");
 		entities = new HashMap<>();
 		Sprite s = new Sprite(0,"Mario.png");
-		Sprite s2 = new Sprite(1,"mario.png"); 
+		//Sprite s2 = new Sprite(1,"mario.png");
 		Sprite s3 = new Sprite(2,"mario.png");
 
 		Position p = new Position(0, 100, 100);
@@ -40,19 +41,19 @@ public class TestGameState {
 		Acceleration a = new Acceleration(0, 0, 40);
 		KeyInput k = new KeyInput(0);
 		k.addCode( KeyCode.RIGHT, (Consumer & Serializable) (e) -> {
-			v.setXVel(v.getXVel()+20);
+			v.setXVel(+50);
 		});
 		k.addCode(KeyCode.UP, (Consumer & Serializable)(e) ->
 		{ 
-			v.setYVel(v.getYVel()-20);
+			v.setYVel(-50);
 		});
 		k.addCode(KeyCode.DOWN,(Consumer & Serializable) (e) ->
 		{ 
-			v.setYVel(v.getYVel()+20);
+			v.setYVel(+50);
 		});
 		k.addCode(KeyCode.LEFT,(Consumer & Serializable) (e) ->
 		{
-			v.setXVel(-20);
+			v.setXVel(-50);
 		});
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
@@ -68,10 +69,11 @@ public class TestGameState {
 		mario.put(Position.KEY, p);
 		mario.put(Dimension.KEY, d);
 		mario.put(Sprite.KEY, s);
+
+
 		mario.put(Velocity.KEY, v);
 		mario.put(Acceleration.KEY, a);
-
-		//mario.put(KeyInput.getKey(), k);
+		mario.put(KeyInput.KEY, k);
 		mario.put(Health.KEY, h);
 		mario.put(DamageLauncher.KEY, launcher);
         mario.put(Player.KEY, play);
@@ -105,10 +107,33 @@ public class TestGameState {
 		mario3.put(DamageLauncher.KEY, launcher3);
 		mario3.put(Win.KEY, win3);
 
+		Conditional co1 = new Conditional(0);
+		Supplier su1 = (Supplier & Serializable) () -> p3.getXPos();
+		Supplier su2 = (Supplier & Serializable) () -> p.getYPos();
+
+
+		co1.setCondition(su1, su2);
+
+		Consumer<Object> consumer = (Consumer<Object> & Serializable) (e) -> {
+				Position newPos = (Position) e;
+				double x = newPos.getXPos();
+				double y = newPos.getYPos();
+
+				newPos.setXPos(p3.getXPos());
+				newPos.setYPos(p3.getYPos());
+
+				p3.setXPos(x);
+				p3.setYPos(y+5);
+		};
+		co1.setAction(p, consumer);
+
+		mario.put(Conditional.KEY, co1);
+
+
 
 		entities.put(0, mario);
-
-
+		//entities.put(1, mario2);
+		entities.put(0, mario);
 		entities.put(2, mario3);
 		GameInitializer gi = new GameInitializer(entities);
 		ih = gi.getIH();

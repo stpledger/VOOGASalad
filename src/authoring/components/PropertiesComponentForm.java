@@ -1,17 +1,13 @@
 package authoring.components;
 
 import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
-import authoring.entities.Entity;
-import engine.components.*;
-import javafx.scene.control.Alert;
+import engine.components.Component;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
+
 /**
  * A wrapper class for forms that contains the label name and the text fields necessary, and can build components upon completion.
  * @author dylanpowers
@@ -19,8 +15,8 @@ import javafx.scene.layout.GridPane;
  */
 public class PropertiesComponentForm extends AbstractComponentForm {
 
-	private final String PROP_FILE = "authoring.properties.Components.properties";
 	private int entity;
+	
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
 	 * @param entity the entity that the component should be added to
@@ -30,14 +26,16 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 	public PropertiesComponentForm(int entity, String name) {
 		this.entity = entity;
 		this.name = name;
-		fields = new ArrayList<>();
+		this.fields = new ArrayList<>();
 		int col = 0;
-		this.add(new Label(name), col++, 0);
+		col++;
+		this.add(new Label(name), col , 0);
 		this.numFields = getNumFields(name);
 		for (int i = 0; i < (numFields-1); i++) {
 			TextField tf = new TextField();
 			fields.add(tf);
-			this.add(tf, col++, 0);
+			col++;
+			this.add(tf, col, 0);
 		}
 	}
 	/**
@@ -50,7 +48,8 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 		int index = 0;
 		for (String param : existingValues.keySet()) {
 			System.out.println("Value " + index + " is " + param + " for key " + existingValues.get(param));
-			fields.get(index++).setText(existingValues.get(param));
+			index++;
+			fields.get(index).setText(existingValues.get(param));
 		}
 	}
 
@@ -60,7 +59,9 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 	 * @return a component that accurately represents the data in this wrapper class
 	 */
 	public Component buildComponent() {
-		if (!validComponent()) return null;
+		if (!validComponent()) {
+			return null;
+		}
 		String fullName =  COMPONENT_PREFIX + this.name;
 		Object[] params = new Object[fields.size() + 1];
 		// first argument is always the entity ID
@@ -76,9 +77,8 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 			Component comp = (Component) cons.newInstance(params);
 			System.out.println(comp);
 			return comp;
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  | IllegalArgumentException | InvocationTargetException e) {
-			// TODO better exception
-			e.printStackTrace();
+		} catch (Exception e) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 		return null;
 	}

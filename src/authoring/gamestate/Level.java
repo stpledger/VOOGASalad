@@ -9,6 +9,11 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import authoring.entities.Entity;
 
+/**
+ * 
+ * @author Hemanth Yakkali(hy115)
+ *
+ */
 public class Level {
 
 	private int levelNum;
@@ -21,20 +26,21 @@ public class Level {
 	@XStreamOmitField
 	private transient List<Entity> entityList;
 
-
 	private Map<String,Boolean> HUDprops;
 	private Map<String,String> GProps;
 
 	public Level(int levelNum) {
 		this.levelNum = levelNum;
-		this.entityList = new ArrayList<Entity>();
+		this.entityList = new ArrayList<>();
 		this.HUDprops = new HashMap<>();
 		this.GProps = new HashMap<>();
 	}
 
 	public void addEntity(Entity entity) {
 		for (Entity other : entityList) {
-			if (entity.getID() == other.getID()) return;
+			if (entity.getID() == other.getID()) {
+				return;
+			}
 		}
 		this.entityList.add(entity);
 		System.out.println("Added!");

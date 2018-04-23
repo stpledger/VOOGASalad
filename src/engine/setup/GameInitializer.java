@@ -36,6 +36,7 @@ public class GameInitializer {
         systems = new ArrayList<>();
         systems.add(new Accelerate(EM));
         systems.add(new Motion());
+        systems.add(new ConditionChecker());
         IH = new InputHandler();
         systems.add((new ArtificialIntelligence()));
         systems.add(c);

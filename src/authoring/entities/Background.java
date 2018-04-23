@@ -2,16 +2,18 @@ package authoring.entities;
 
 /**
  * 
- * @author Hemanth Yakkali
+ * @author Hemanth Yakkali(hy115)
  *
  */
 public class Background extends Entity{
 
-	private final String TYPE = "Background";
-	private final double BKGRND_DIMENSION = 50;
+	private static final String TYPE = "Background";
+	private String name;
+	private static final double BKGRND_DIMENSION = 50;
 
-	public Background(int ID) {
+	public Background(int ID, String name) {
 		super(ID);
+		this.name = name;
 	}
 
 	@Override
@@ -23,6 +25,11 @@ public class Background extends Entity{
 	@Override
 	public String type() {
 		return TYPE;
+	}
+	
+	@Override 
+	public String name() {
+		return this.name;
 	}
 
 }
