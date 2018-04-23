@@ -58,7 +58,7 @@ public class LevelPropertiesView extends PropertiesView{
 			getRoot().addColumn(1,diffText,timeNumber,infoText,distNumber);
 			getRoot().add(button, 0, currentRow++);
 		} catch (Exception e) {
-			LOGGER.severe(e.toString());
+			 LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 	}
 }
