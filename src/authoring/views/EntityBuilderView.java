@@ -65,6 +65,7 @@ public class EntityBuilderView extends Stage {
 	private Consumer<MouseEvent> addImageOnClick = e -> {addImage();};
 	
 	private Map<Class, Object[]> componentAttributes = new HashMap<>();
+	private Map<String, Object[]> componentValues = new HashMap<>();
 	
 	/**
 	 * The constructor of the popup window for creating new entities
@@ -180,10 +181,9 @@ public class EntityBuilderView extends Stage {
 	 */
 	private void save(){
 		try {
-		Map<String, Object[]> componentValues = new HashMap<>();
 		for(EntityComponentForm componentForm : activeForms) {
 			Object[] tempArr = componentForm.buildComponent();
-			if(tempArr != null) {
+			if (tempArr != null) {
 				componentValues.put(componentForm.getName(), tempArr);
 				componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
 			}
@@ -207,6 +207,7 @@ public class EntityBuilderView extends Stage {
 		File imageFile = fileChooser.showOpenDialog(this);
 		try {
 			componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
+			componentValues.put("Sprite", new Object[] {imageFile.getName()});
 			DataRead.loadImage(imageFile);
 			Image image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 			updateEntityPreview(image);
@@ -220,22 +221,20 @@ public class EntityBuilderView extends Stage {
 	 * @return gridPane a gridpane filled with the necessary forms
 	 */
 	public Node fillComponentsForms() {
-			this.root.getChildren().remove(currentForms);
-			currentForms = new GridPane();
-			currentForms.getStyleClass().add("component-form");
-			int currentRow = 0;
-			this.activeForms = new ArrayList<>();
-			for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + myEntityType).keySet()) {
-				if(!property.equals("Sprite") && !property.equals("Position")) {
-					EntityComponentForm cf = new EntityComponentForm(property);
-					cf.setAlignment(Pos.CENTER);
-					this.activeForms.add(cf);
-					currentRow++;
-					currentForms.add(cf, 0, currentRow);
-				}
+		this.root.getChildren().remove(currentForms);
+		currentForms = new GridPane();
+		currentForms.getStyleClass().add("component-form");
+		int currentRow = 0;
+		this.activeForms = new ArrayList<>();
+		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + myEntityType).keySet()) {
+			if(!property.equals("Sprite") && !property.equals("Position")) {
+				EntityComponentForm cf = new EntityComponentForm(property);
+				cf.setAlignment(Pos.CENTER);
+				this.activeForms.add(cf);
+				currentRow++;
+				currentForms.add(cf, 0, currentRow);
 			}
-			return currentForms;
+		}
+		return currentForms;
 	}
-
-
 }
