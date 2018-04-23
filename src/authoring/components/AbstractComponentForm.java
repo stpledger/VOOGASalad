@@ -2,6 +2,7 @@ package authoring.components;
 
 import java.lang.reflect.Constructor;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
@@ -12,6 +13,8 @@ public abstract class AbstractComponentForm extends GridPane {
 	protected String name;
 	protected int numFields;
 	protected List<TextField> fields;
+	
+	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	protected abstract Object buildComponent();
 
@@ -64,7 +67,7 @@ public abstract class AbstractComponentForm extends GridPane {
 			// TODO better exception
 			Alert a = new Alert(Alert.AlertType.ERROR);
 			a.setContentText("Class " + component + " does not exist.");
-			e.printStackTrace();
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 			a.showAndWait();
 		}
 		return 0;

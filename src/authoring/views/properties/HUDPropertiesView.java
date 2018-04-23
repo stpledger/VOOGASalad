@@ -48,7 +48,7 @@ public class HUDPropertiesView extends PropertiesView{
 			getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox);
 			getRoot().add(submit, 0, getRoot().getChildren().size());
 		} catch (Exception e2) {
-			LOGGER.severe(e2.toString());
+			 LOGGER.log(java.util.logging.Level.SEVERE, e2.toString(), e2);
 		}	
 	}
 
