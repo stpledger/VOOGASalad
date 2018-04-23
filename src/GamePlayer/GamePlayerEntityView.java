@@ -1,6 +1,5 @@
 package GamePlayer;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -40,6 +39,7 @@ public class GamePlayerEntityView {
 	private GameInitializer GI;
 	private InputHandler inputHandler;
 	private RenderManager RM;
+	private SystemManager SM;
     private LevelStatus LS;
 
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
@@ -105,7 +105,11 @@ public class GamePlayerEntityView {
 				//				image.setY(200);
 				//image.setImage(new Image("mystery.jpg"));
 				System.out.print(image.getX());
-				
+				if (entityComponents.containsKey(Position.KEY)) {
+					Position p = (Position) entityComponents.get(Position.KEY);
+					image.setX(p.getXPos());
+					image.setY(p.getYPos());
+				}
 				
 				//	JACK ADDED THIS .............
 				
@@ -145,7 +149,7 @@ public class GamePlayerEntityView {
 		}
 		try {
 			System.out.println(currentLevel);
-			gameInitializer = new GameInitializer(currentLevel); //reinitializes the level.
+			GI = new GameInitializer(currentLevel); //reinitializes the level.
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Level Does Not Currently Exist Yet");
@@ -159,7 +163,7 @@ public class GamePlayerEntityView {
 	public void initializeGamePlayerEntityView() {
 
 		try {
-			gameInitializer = new GameInitializer(entityMap);
+			GI = new GameInitializer(entityMap);
 			//gameInitializer = new GameInitializer(intLevelMap.get(0)); //gets the first level map.
 		} catch (FileNotFoundException e) {
 			System.out.println("You made it this far");
@@ -168,6 +172,7 @@ public class GamePlayerEntityView {
 
 		inputHandler = GI.getIH();
 		RM = GI.getRM();
+		SM = GI.getSM();
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
 		LS = GI.getC().getCH().getLS();
@@ -179,12 +184,12 @@ public class GamePlayerEntityView {
 	
 
 	public void execute (double time) {
-		GI.getSM().execute(time);
+		SM.execute(time);
 	}
 
 	public void render() {
-		renderManager.renderObjects();
-		renderManager.garbageCollect();
+		RM.garbageCollect();
+		SM.setActives(RM.renderObjects());
 	}
     
 	public void setInput(KeyCode code){
