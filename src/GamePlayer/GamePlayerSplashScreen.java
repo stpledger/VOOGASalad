@@ -1,7 +1,6 @@
 package GamePlayer;
 
 import buttons.FileUploadButton;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -30,16 +29,7 @@ public class GamePlayerSplashScreen{
 		mySplashStage = stage;
 		splashScene = initializeSplashScreen();
 	}
-//
-//	public static void main(String[] args) {
-//		launch(args);
-//	}
-//	
-//	@Override
-//	public void start(Stage primaryStage) throws Exception{
-//		primaryStage.setScene(initializeSplashScreen());
-//		primaryStage.show();
-//	}
+
 	public Scene getSplashScene() {
 		return splashScene;
 	}

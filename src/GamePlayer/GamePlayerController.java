@@ -9,6 +9,7 @@ import HUD.SampleToolBar;
 import Menu.MenuGameBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
+import buttons.SwitchGameButton;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ObservableValue;
@@ -43,6 +44,7 @@ public class GamePlayerController {
 
 	private File currentFile;
 	private FileUploadButton fileBtn;
+	private SwitchGameButton switchBtn;
 	private Map<Integer, Group> levelEntityGroupMap; //map that is used to store the initial group for each level.
 
 	private Timeline animation;
@@ -56,20 +58,7 @@ public class GamePlayerController {
 	public Scene intializeStartScene() {
 		gamePlayerSplash = new GamePlayerSplashScreen(myStage);
 		mySplashScene = gamePlayerSplash.getSplashScene();
-		
-		fileBtn = gamePlayerSplash.fileBtn;  //public variable need to encapsulate later
-		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-			try{
-				System.out.println("as;lkdfjasldk");
-				myStage.setScene(myScene);
-				initializeGameStart();
-				//initializeLevelFile();
-			}
-			catch(FileNotFoundException e){
-				System.out.println("File Does Not Exist");
-			}
-		});
-		//myPane.setTop(sampleBar);
+		connectButtonsToController();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		myScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
@@ -88,6 +77,29 @@ public class GamePlayerController {
 		});
 		//return myScene;
 		return mySplashScene;
+	}
+	
+	
+	/**
+	 * Helper Method to establish button listener connection to the controller
+	 */
+	private void connectButtonsToController() {
+		fileBtn = gamePlayerSplash.fileBtn;  //public variable need to encapsulate later
+		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+			try{
+				myStage.setScene(myScene);
+				initializeGameStart();
+			}
+			catch(FileNotFoundException e){
+				System.out.println("File Does Not Exist");
+			}
+		});
+		
+		switchBtn = pauseMenu.switchBtn;
+		switchBtn.getSwitchBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+			myStage.setScene(mySplashScene);
+			switchBtn.setSwitchBoolean(); //changes boolean value back to false
+		});
 	}
 	
 	/**
@@ -159,6 +171,7 @@ public class GamePlayerController {
 		gameView.updateScroll(gameRoot);
 	}
 	
+	
 	public void restartGame() {
 		try{
 			initializeGameStart();
@@ -168,6 +181,8 @@ public class GamePlayerController {
 			System.out.println("File Does Not Exist");
 		}
 	}
+	
+	
 
 	public void saveGame(){
 		gameView.saveGame();

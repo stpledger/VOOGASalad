@@ -65,4 +65,8 @@ public class FileUploadButton extends Button {
 			return fileBoolean;
 		}
 		
+		public void setFileBoolean() {
+			fileBoolean.setValue(!fileBoolean.getValue());
+		}
+		
 }	
