@@ -73,9 +73,8 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 			Component comp = (Component) cons.newInstance(params);
 			System.out.println(comp);
 			return comp;
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException  | IllegalArgumentException | InvocationTargetException e) {
-			// TODO better exception
-			e.printStackTrace();
+		} catch (Exception e) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 		return null;
 	}

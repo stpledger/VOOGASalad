@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import authoring.factories.Toolbar;
 
@@ -26,6 +27,7 @@ public class EntityView extends BorderPane {
 	private ArrayList<String> tabsList = new ArrayList<>();
 	private ArrayList<String> entityTypes = new ArrayList<>();
 	private TabPane tabPane = new TabPane();
+	
 
 	public EntityView() {
 		super();
@@ -72,12 +74,11 @@ public class EntityView extends BorderPane {
 		//Turn the imageFile into a usableImage
 		Image image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 
-		//Check to see if a tab exists for the type
 		if(tabsList.isEmpty() || !tabsList.contains(entityType)) { 
 			addTab(entityType);
 			tabsList.add(entityType);
 		}   
-		//Add the entityBox
+
 		for(Tab tab : tabPane.getTabs()) {
 			if(tab.getText().equals(entityType)) {
 				((EntityTab) tab).addNewEntity(entityType, componentAttributes);

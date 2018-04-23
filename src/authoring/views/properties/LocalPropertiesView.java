@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import engine.components.Component;
 import javafx.scene.control.Button;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import authoring.components.PropertiesComponentForm;
 import authoring.factories.ElementType;
@@ -21,6 +22,8 @@ import authoring.entities.Entity;
  *
  */
 public class LocalPropertiesView extends PropertiesView {
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	private final String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private List<PropertiesComponentForm> activeForms;
@@ -71,7 +74,7 @@ public class LocalPropertiesView extends PropertiesView {
 			});
 			getRoot().add(submit, 0, currentRow);
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}
 
 	}

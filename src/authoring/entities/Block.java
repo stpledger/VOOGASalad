@@ -25,7 +25,7 @@ public class Block extends Entity{
 		try {
 			this.setSprite("data/images/block.png");
 		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 	}
 
