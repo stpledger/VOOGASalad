@@ -1,5 +1,6 @@
 package authoring.views.properties;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -26,7 +27,7 @@ public class GlobalPropertiesView extends PropertiesView {
 	
 	public GlobalPropertiesView(List<Level> levels){
 		super();
-		this.levels = levels;
+		this.levels = new ArrayList<>(levels);
 	}
 
 	@Override
