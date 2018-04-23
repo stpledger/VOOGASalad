@@ -3,6 +3,7 @@ package authoring.views.properties;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
+import authoring.factories.ClickElementType;
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
@@ -47,8 +48,7 @@ public class LevelPropertiesView extends PropertiesView{
 			TextField diffText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,text);
 			NumberField timeNumber = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField,text);
 			NumberField distNumber = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField,text);
-			Button button = (Button) this.getElementFactory().buildElement(ElementType.Button,this.getButtonBundle().getString("Submit"));
-			button.setOnAction(e->{
+			Button button = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button,this.getButtonBundle().getString("Submit"), e->{
 				level.setLevelInfo(infoText.getText());
 				level.setLevelDifficulty(diffText.getText());
 				level.setLevelTime(Double.parseDouble(timeNumber.getText()));

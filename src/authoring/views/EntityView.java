@@ -36,7 +36,7 @@ public class EntityView extends BorderPane {
 		this.setCenter(tabPane);
 		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
 	}
-	
+
 	/**
 	 * Builds the consumers for the toolbar
 	 * @return Map<String, Consumer> 
@@ -54,7 +54,7 @@ public class EntityView extends BorderPane {
 		consumerMap.put("loadEntities", loadEntities);
 		return consumerMap;
 	}
-	
+
 	/**
 	 * Adds a new tab
 	 * @param type
@@ -63,7 +63,7 @@ public class EntityView extends BorderPane {
 		EntityTab temp = new EntityTab(type, ENITITY_VIEW_WIDTH);
 		tabPane.getTabs().add(temp);
 	}
-	
+
 	/**
 	 * Called when a EntityBuilderView is closed
 	 * @param entityType String representing the type of entity that this object represents
