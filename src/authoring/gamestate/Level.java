@@ -9,6 +9,11 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import authoring.entities.Entity;
 
+/**
+ * 
+ * @author Hemanth Yakkali
+ *
+ */
 public class Level {
 
 	private int levelNum;
@@ -26,7 +31,7 @@ public class Level {
 
 	public Level(int levelNum) {
 		this.levelNum = levelNum;
-		this.entityList = new ArrayList<Entity>();
+		this.entityList = new ArrayList<>();
 		this.HUDprops = new HashMap<>();
 		this.GProps = new HashMap<>();
 	}

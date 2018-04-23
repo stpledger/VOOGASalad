@@ -1,31 +1,20 @@
 package authoring.views;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
-
-import javax.imageio.ImageIO;
+import java.util.logging.Logger;
 
 import authoring.entities.Background;
 import authoring.entities.Block;
 import authoring.entities.Enemy;
 import authoring.entities.Player;
-import data.DataRead;
-import engine.components.Sprite;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.embed.swing.SwingFXUtils;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Tab;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 
 /**
  * 
@@ -35,10 +24,15 @@ import javafx.scene.layout.VBox;
 public class EntityTab extends Tab{
 	public static final double SCROLLBAR_WIDTH = 20;
 	public static final double VIEW_WIDTH = 0;
+	
 	private ObjectProperty selectedElement = new SimpleObjectProperty();
+	
+	
 	FlowPane pane;
 	ScrollPane externalPane;
+	
 	double myEntityViewWidth;
+	
 	public EntityTab(String name, double entityViewWidth) {
 		super(name);
 		myEntityViewWidth = entityViewWidth;

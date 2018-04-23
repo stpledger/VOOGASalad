@@ -3,6 +3,7 @@ package data;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import authoring.entities.Entity;
 import authoring.gamestate.Level;
 import engine.components.Component;
 import javafx.embed.swing.SwingFXUtils;
@@ -15,6 +16,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
+
+import static engine.components.Sprite.IMAGE_PATH;
 
 /*
     @Author Conrad defines methods for reading in various information from 
@@ -33,10 +36,11 @@ public class DataRead  {
     private static final String SLASH = "/";
     private static final String FILE ="File:";
     private static final String PERIOD = ".";
-    private static final Set<String> ACCEPTED_IMAGE_FILES = new HashSet<>(Arrays.asList(new String []{"jpg","png","gif"}));
     private static final String SPACE ="";
-
+    private static final String ENTITY_PATH = "entityDir";
     private static String path = "";
+    private static final Class CLASS = "Entity".getClass();
+    private static final String SAVE_PATH = "saves/";
 
 
     /* receives a gamestate and loads it to the player
@@ -50,7 +54,7 @@ public class DataRead  {
             return new DataGameState(EMPTY_GAME);
         }
     }
-    
+
     /*return a map for the gamestate to be sent to authoring that can be built into their 
      *version of game state
      */
@@ -60,13 +64,11 @@ public class DataRead  {
             return tempState.getGameStateAuthoring();
         } 
         catch (IllegalStateException e) {
-            ErrorStatement(FAIL_MESSAGE);
+            ErrorStatement(FAIL_MESSAGE + e.getMessage());
             return new HashMap<Level,Map<Integer,List<Component>>>();
         }
     }
 
-    /* removing all autonomy of file reading and writing from all other files by doing myself
-     */
     public static Image loadImage(String name)throws RuntimeException {
         try {
             return new Image(FILE+path+IMAGE_PATH+name);
@@ -77,11 +79,10 @@ public class DataRead  {
         }
     }
 
-    public static Image importImage(File file) {
+    public static Image loadImage(File file) {
         try {
             BufferedImage image = ImageIO.read(file);
-            File fileDest = new File(IMAGE_PATH + file.getName());
-            ImageIO.write(image, getFileType(file), fileDest);
+            DataWrite.writeImage(file);
             return SwingFXUtils.toFXImage(image, null);
         } catch (IOException e) {
             ErrorStatement(FAIL_MESSAGE);
@@ -89,23 +90,26 @@ public class DataRead  {
         }
     }
 
-    public static void webImport() {
-        ResourceGetter imageGetter = new ResourceGetter();
-        imageGetter.selectImage();
+    public static List<DataGameState> getSaves(){
+        List<DataGameState> saves = new ArrayList<DataGameState>();
+        File file = new File(path + SLASH + SAVE_PATH);
+        for(File save : file.listFiles()){
+            saves.add((DataGameState)deserialize(save));
+        }
+        return saves;
     }
 
-    //TODO undo duplicate dode
-    public static Image importImage(URL imageURL, String name) throws IOException{
-        BufferedImage image = ImageIO.read(imageURL);
-        File fileDest = new File(IMAGE_PATH + name);
-        if(!ACCEPTED_IMAGE_FILES.contains(getFileType(fileDest).toLowerCase())) {
-            throw new IOException();
+    public static List<Entity> getEntityList(){
+        List<Entity> entitySelect = new ArrayList<Entity>();
+        File f = new File(ENTITY_PATH);
+        for(File entityFile : f.listFiles()){
+            entitySelect.add((Entity)deserialize(entityFile));
         }
-        ImageIO.write(image, getFileType(fileDest), fileDest);
-        return SwingFXUtils.toFXImage(image, null);
+        return entitySelect;
     }
 
     // util file for finding filetype
+
     private static String getFileType(File file) {
         int fIndex = file.getName().indexOf(PERIOD);
         return (fIndex == -1) ? SPACE : file.getName().substring(fIndex + 1);
@@ -122,7 +126,7 @@ public class DataRead  {
         }
         catch (Error el )
         {
-            System.out.print("Applicationb not defined");
+            System.out.print("Application not defined");
         }
     }
 
@@ -131,8 +135,7 @@ public class DataRead  {
      */
     private static DataGameState buildState(File xml) {
         try {
-            XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
-            DataGameState gameState = (DataGameState)xstream.fromXML(xml);
+            DataGameState gameState = (DataGameState)deserialize(xml);
             path=GAME_PATH+gameState.getGameName()+SLASH;
             return gameState;
         }
@@ -140,5 +143,11 @@ public class DataRead  {
             ErrorStatement(FAIL_MESSAGE);
             return new DataGameState(EMPTY_GAME);
         }
+    }
+
+    private static Object deserialize(File xml)
+    {
+        XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
+        return xstream.fromXML(xml);
     }
 }

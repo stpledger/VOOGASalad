@@ -1,8 +1,6 @@
 package authoring.views;
 
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,28 +9,26 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
-import javax.imageio.ImageIO;
+import java.util.logging.Logger;
 
 import authoring.factories.Toolbar;
 
-//import com.sun.beans.finder.ClassFinder;
-
 import data.DataRead;
 import engine.components.Sprite;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.embed.swing.SwingFXUtils;
+
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
 public class EntityView extends BorderPane {
+	public final static String ENTITIES_PACKAGE_NAME = "authoring/entities";
 	public final static  int ENITITY_VIEW_WIDTH = 300;
-	private ArrayList<String> tabsList = new ArrayList<String>();
-	private ArrayList<String> entityTypes = new ArrayList<String>();
+	private ArrayList<String> tabsList = new ArrayList<>();
+	private ArrayList<String> entityTypes = new ArrayList<>();
 	private TabPane tabPane = new TabPane();
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public EntityView() {
 		super();
@@ -50,11 +46,11 @@ public class EntityView extends BorderPane {
 	private Map<String, Consumer> buildToolbarConsumerMap() {
 		Map<String, Consumer> consumerMap = new HashMap<String,Consumer>();
 		BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
-		Consumer newEntity = (e) -> {
+		Consumer newEntity = e -> {
 			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
 		};
-		Consumer saveEntities = (e) -> {System.out.println("Save Entites!");};
-		Consumer loadEntities = (e)->{System.out.println("Load Entitites!");};
+		Consumer saveEntities = e -> {System.out.println("Save Entites!");};
+		Consumer loadEntities = e -> {System.out.println("Load Entitites!");};
 		consumerMap.put("newEntity", newEntity);
 		consumerMap.put("saveEntities", saveEntities);
 		consumerMap.put("loadEntities", loadEntities);
@@ -69,18 +65,7 @@ public class EntityView extends BorderPane {
 		EntityTab temp = new EntityTab(type, ENITITY_VIEW_WIDTH);
 		tabPane.getTabs().add(temp);
 	}
-
-	/**
-	 * Opens the window to delete an entity
-	 */
-	public void deleteEntity() {
-	}
-	/**
-	 * Opens the window to edit an entity
-	 */
-	public void editEntity() {
-
-	}
+	
 	/**
 	 * Called when a EntityBuilderView is closed
 	 * @param entityType String representing the type of entity that this object represents
@@ -108,24 +93,23 @@ public class EntityView extends BorderPane {
 	 * @return a String array of classes from a given package
 	 */
 	protected String[] getEntitiesInEntitiesPackage() {
-		String pckgName = "authoring/entities";
 		ClassLoader cld = Thread.currentThread().getContextClassLoader();
 		if (cld == null) {
 			throw new IllegalStateException("Can't get class loader.");
 		}
 
-		URL resource = cld.getResource(pckgName.replace('.', '/'));
+		URL resource = cld.getResource(ENTITIES_PACKAGE_NAME.replace('.', '/'));
 		if (resource == null) {
-			throw new RuntimeException("Package " + pckgName + " not found on classpath.");
+			throw new RuntimeException("Package " + ENTITIES_PACKAGE_NAME + " not found on classpath.");
 		}
 		File directory = new File(resource.getFile());
 		if (!directory.exists()) {
-			throw new IllegalArgumentException("Could not get directory resource for package " + pckgName + ".");
+			throw new IllegalArgumentException("Could not get directory resource for package " + ENTITIES_PACKAGE_NAME + ".");
 		}
-		List<String> classes = new ArrayList<String>();
+		List<String> classes = new ArrayList<>();
 		for (String filename : directory.list()) {
 			if (filename.endsWith(".class") && !filename.startsWith("Entity")) { //Check to make sure its a class file and not the superclass
-				String classname = buildClassname(pckgName, filename);
+				String classname = buildClassname(ENTITIES_PACKAGE_NAME, filename);
 				String clazz = classname.replace(".java", "");
 				// Strip everything except for the word following the last period (the actual class name)
 				classes.add(clazz.substring(clazz.lastIndexOf(".") + 1));
@@ -141,8 +125,7 @@ public class EntityView extends BorderPane {
 	 * @return a String representing the fully-qualified class name
 	 */
 	private String buildClassname(String pckgName, String fileName) {
-		String className = pckgName + '.' + fileName.replace(".class", "");
-		return className;
+		return pckgName + '.' + fileName.replace(".class", "");
 	}
 
 }

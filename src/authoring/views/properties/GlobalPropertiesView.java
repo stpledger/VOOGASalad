@@ -2,6 +2,7 @@ package authoring.views.properties;
 
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Logger;
 
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
@@ -18,7 +19,9 @@ import javafx.scene.control.TextField;
 public class GlobalPropertiesView extends PropertiesView {
 
 	private List<Level> levels;
-	private final String NAME = "Global Properties";
+	private static final String NAME = "Global Properties";
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	public GlobalPropertiesView(List<Level> ls){
 		super();
@@ -40,7 +43,8 @@ public class GlobalPropertiesView extends PropertiesView {
 			TextField pathInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, globalProps.getString("Filepath").split(",")[1]);
 			for(String property:globalProps.keySet()) {
 				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label, globalProps.getString(property).split(",")[0]);
-				getRoot().addRow(currentRow++, label);
+				currentRow++;
+				getRoot().addRow(currentRow, label);
 			}
 			getRoot().addColumn(1,livesInput,titleInput,pathInput);
 			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, this.getButtonBundle().getString("Submit"));
@@ -53,9 +57,10 @@ public class GlobalPropertiesView extends PropertiesView {
 				this.makeAlert(this.title()+" has been saved!");
 				this.close();
 			});
-			getRoot().add(submit, 0, currentRow++);
+			currentRow++;
+			getRoot().add(submit, 0, currentRow);
 		} catch (Exception e1) {
-			e1.printStackTrace();
+			LOGGER.severe(e1.toString());
 		}
 	}
 

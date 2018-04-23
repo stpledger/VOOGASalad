@@ -16,14 +16,13 @@ import javafx.stage.Stage;
  *
  */
 public abstract class PropertiesView {
-	
-	private final int GRID_SEPARATION = 10;
-	private final int HEIGHT = 450;
-	private final int WIDTH = 450;
+	private final static String RESOURCES = "resources.views.Properties/";
+	private final static String BUTTON_RESOURCES = "resources.views.Properties/ButtonProperties";
+	private static final int GRID_SEPARATION = 10;
+	private static final int HEIGHT = 450;
+	private static final int WIDTH = 450;
 	private GridPane root;
 	private Stage stage;
-	private final String RESOURCES = "resources.views.Properties/";
-	private final String BUTTON_RESOURCES = "resources.views.Properties/ButtonProperties";
 	private ElementFactory eFactory = new ElementFactory();
 
 	/**
@@ -81,13 +80,11 @@ public abstract class PropertiesView {
 	}
 	
 	protected ResourceBundle getResourcesBundle(String props) {
-		ResourceBundle bundle = ResourceBundle.getBundle(this.RESOURCES+props);
-		return bundle;
+		return ResourceBundle.getBundle(this.RESOURCES+props);
 	}
 	
 	protected ResourceBundle getButtonBundle() {
-		ResourceBundle bundle = ResourceBundle.getBundle(this.BUTTON_RESOURCES);
-		return bundle;
+		return ResourceBundle.getBundle(this.BUTTON_RESOURCES);
 	}
 	
 	protected ElementFactory getElementFactory() {

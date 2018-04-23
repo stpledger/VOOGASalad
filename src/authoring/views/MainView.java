@@ -1,7 +1,7 @@
 package authoring.views;
 
 import java.io.File;
-import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import authoring.factories.Toolbar;
 import javafx.scene.Parent;
@@ -17,7 +17,7 @@ public class MainView {
 	private Toolbar toolbar;
 	private GameEditorView gameEditorView;
 	private EntityView componentView;
-
+	
 	//GUI Constants
 	private static double ideHeight = 600;
 	private static double ideWidth = 1200;
