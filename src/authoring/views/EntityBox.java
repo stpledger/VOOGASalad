@@ -2,6 +2,7 @@ package authoring.views;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import data.DataRead;
 import engine.components.Sprite;
@@ -9,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 
@@ -23,8 +25,7 @@ public class EntityBox extends VBox {
 	private Image image;
 	private ImageView imageView;
 	
-	
-	Map<Class, Object[]> componentAttributes = new HashMap<Class,Object[]>();
+	Map<Class, Object[]> componentAttributes = new HashMap<>();
 	
 	private double boxDimension = (EntityView.ENITITY_VIEW_WIDTH - EntityTab.SCROLLBAR_WIDTH)/PROPORTION;
 

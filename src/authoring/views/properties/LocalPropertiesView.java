@@ -48,7 +48,8 @@ public class LocalPropertiesView extends PropertiesView {
 	@Override
 	protected void fill() {
 		int currentRow = 0;
-		this.activeForms = new ArrayList<>();
+		List<PropertiesComponentForm> activeForms = new ArrayList<>();
+		
 		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + type).keySet()) {
 			PropertiesComponentForm cf;
 			if (!entity.contains(property)) {
@@ -57,14 +58,15 @@ public class LocalPropertiesView extends PropertiesView {
 				System.out.println(entity.get(property).getParameters());
 				cf = new PropertiesComponentForm(entity.getID(), property, entity.get(property).getParameters());
 			}
-			this.activeForms.add(cf);
-			getRoot().add(cf, 0, currentRow++);
+			activeForms.add(cf);
+			currentRow++;
+			getRoot().add(cf, 0, currentRow);
 		}
 
 		try {
 			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getButtonBundle().getString("Submit"), e->{
 				List<Component> componentsToAdd = new ArrayList<>();
-				for (PropertiesComponentForm cf : this.activeForms) {
+				for (PropertiesComponentForm cf : activeForms) {
 					componentsToAdd.add(cf.buildComponent());
 				}
 				onSubmit.accept(componentsToAdd);

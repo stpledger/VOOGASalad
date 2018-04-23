@@ -38,7 +38,9 @@ public class EntityComponentForm extends AbstractComponentForm{
 	 * @return a component that accurately represents the data in this wrapper class
 	 */
 	public Object[] buildComponent() {
-		if (!validComponent()) return null;
+		if (!validComponent()) { 
+			return null;
+		}
 		String fullName =  COMPONENT_PREFIX + this.name;
 		Object[] params = new Object[fields.size()];
 		try {

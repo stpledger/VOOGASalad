@@ -28,6 +28,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -54,7 +56,7 @@ public class EntityBuilderView extends Stage{
 	private GridPane currentForms;
 	private VBox root;
 	private List<String> entityTypes;
-	private String myEntityType;
+	private String myEntityType = null;
 	private ImageView entityPreview;
 	private ElementFactory eFactory;
 	
@@ -131,11 +133,10 @@ public class EntityBuilderView extends Stage{
 	 * Builds the menu to select the Type of Entity
 	 * @return Menu typeMenu
 	 */
-	private ComboBox buildTypeComboBox() {
+	private ComboBox<String> buildTypeComboBox() {
 		ComboBox<String> comboBox = new ComboBox();
-		comboBox.setPromptText("Object Type");
+		comboBox.setPromptText("Select Object Type");
 		comboBox.getStyleClass().add("entity-builder-combo-box"); 
-		comboBox.setStyle("-fx-prompt-text-fill: red;");
 		for(String et : entityTypes) {
 			comboBox.getItems().add(et);
 		}
@@ -185,20 +186,32 @@ public class EntityBuilderView extends Stage{
 	 * Saves the current entity
 	 */
 	private void save(){
-		try {
-		for(EntityComponentForm componentForm : activeForms) {
-			Object[] tempArr = componentForm.buildComponent();
-			if(tempArr != null) {
-				componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
+		if(validInputCheck()) {
+			try {
+			for(EntityComponentForm componentForm : activeForms) {
+				Object[] tempArr = componentForm.buildComponent();
+				if(tempArr != null) {
+					componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
+				}
 			}
-		}
-		onClose.accept(myEntityType, componentAttributes);
-		this.close();
-		}
-		 catch (Exception e1) {
-			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
-		 }
+			onClose.accept(myEntityType, componentAttributes);
+			this.close();
+			}
+			 catch (Exception e1) {
+				 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+			 }
+		} 
 	}
+	private boolean validInputCheck() {
+		if(myEntityType == null || !hasImage) {
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setContentText("Missing Input: Please Fill All Fields");
+			alert.showAndWait();
+			return false;
+		}
+		return true;
+	}
+	
 	/**
 	 * adds an image to the preview
 	 */
@@ -212,9 +225,9 @@ public class EntityBuilderView extends Stage{
 			DataRead.loadImage(imageFile);
 			Image image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 			updateEntityPreview(image);
+			hasImage = true;
 		} catch (Exception e1){
 			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
-
 		}
 	}
 

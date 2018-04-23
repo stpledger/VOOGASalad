@@ -42,7 +42,7 @@ public class EntityView extends BorderPane {
 	 * @return Map<String, Consumer> 
 	 */
 	private Map<String, Consumer> buildToolbarConsumerMap() {
-		Map<String, Consumer> consumerMap = new HashMap<String,Consumer>();
+		Map<String, Consumer> consumerMap = new HashMap<>();
 		BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
 		Consumer newEntity = e -> {
 			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);

@@ -18,7 +18,7 @@ import javafx.scene.control.CheckBox;
 public class HUDPropertiesView extends PropertiesView{
 	
 	private List<Level> levels;
-	private final String NAME = "HUD Properties";
+	private static final String NAME = "HUD Properties";
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
@@ -29,7 +29,7 @@ public class HUDPropertiesView extends PropertiesView{
 
 	@Override
 	protected void fill() {
-		ResourceBundle HUDProps = this.getResourcesBundle(this.NAME.replace(" ", ""));
+		ResourceBundle HUDProps = HUDPropertiesView.getResourcesBundle(this.NAME.replace(" ", ""));
 		try {
 			CheckBox livesBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Lives"));
 			CheckBox healthBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Health"));

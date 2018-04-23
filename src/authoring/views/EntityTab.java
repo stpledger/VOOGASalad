@@ -5,8 +5,11 @@ import java.util.Map;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
+import javafx.scene.control.ContextMenu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.input.MouseButton;
 import javafx.scene.control.Tab;
 import javafx.scene.layout.FlowPane;
 
@@ -19,7 +22,9 @@ public class EntityTab extends Tab{
 	public static final double SCROLLBAR_WIDTH = 20;
 	public static final double VIEW_WIDTH = 0;
 	
-	private ObjectProperty selectedElement = new SimpleObjectProperty();
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
+	private ElementFactory eFactory;
 	
 	FlowPane pane;
 	ScrollPane externalPane;
@@ -48,7 +53,25 @@ public class EntityTab extends Tab{
 	}
 
 	public void addNewEntity(String type, Map<Class, Object[]> componentAttributes) {
-		pane.getChildren().add(new EntityBox(type, componentAttributes));
+		EntityBox eb = new EntityBox(type, componentAttributes);
+		eb.setOnMouseClicked(mouseEvent -> {
+			if(mouseEvent.getButton().equals(MouseButton.SECONDARY)) {
+				ContextMenu cMenu = new ContextMenu();
+				try {
+					MenuItem delete = (MenuItem) eFactory.buildElement(ElementType.MenuItem, "Delete");
+					delete.setOnAction(e -> {
+						removeEntity(eb);
+					});
+					cMenu.getItems().add(delete);
+					
+					cMenu.setAutoHide(true);
+				} catch (Exception e1) {
+					LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+				}
+				cMenu.show(pane, mouseEvent.getScreenX(), mouseEvent.getScreenY());
+			}
+		});
+		pane.getChildren().add(eb);
 	}
 
 	/**
@@ -57,13 +80,13 @@ public class EntityTab extends Tab{
 	public Node getNode() {
 		return pane;
 	}
-
+	
 	/**
-	 * Gets the observable property of the currently selected element
-	 * @return
+	 * Removes and entity from the entityView
+	 * @param eb the entitBox to be removed
 	 */
-	public ObjectProperty getSelectedElementProperty() {
-		return selectedElement;
+	private void removeEntity(EntityBox eb) {
+		pane.getChildren().remove(eb);
 	}
 
 

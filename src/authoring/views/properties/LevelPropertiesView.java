@@ -35,12 +35,13 @@ public class LevelPropertiesView extends PropertiesView{
 
 	@Override
 	protected void fill() {
-		ResourceBundle levelProps = this.getResourcesBundle(this.title().replaceAll("[0-9]", "").replaceAll(" ", ""));
+		ResourceBundle levelProps = LevelPropertiesView.getResourcesBundle(this.title().replaceAll("[0-9]", "").replaceAll(" ", ""));
 		try {
 			int currentRow = 0;
 			for (String property : levelProps.keySet()) {
 				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label,levelProps.getString(property));
-				this.getRoot().add(label, 0, currentRow++);
+				currentRow++;
+				this.getRoot().add(label, 0, currentRow);
 			}
 			//TODO update text to be something meaningful from properties files
 			TextField infoText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,text);
@@ -56,7 +57,8 @@ public class LevelPropertiesView extends PropertiesView{
 				this.close();
 			});
 			getRoot().addColumn(1,diffText,timeNumber,infoText,distNumber);
-			getRoot().add(button, 0, currentRow++);
+			currentRow++;
+			getRoot().add(button, 0, currentRow);
 		} catch (Exception e) {
 			 LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
