@@ -9,7 +9,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 public abstract class AbstractComponentForm extends GridPane {
-	protected final String COMPONENT_PREFIX = "engine.components.";
+	protected static final String COMPONENT_PREFIX = "engine.components.";
 	protected String name;
 	protected int numFields;
 	protected List<TextField> fields;
@@ -25,8 +25,9 @@ public abstract class AbstractComponentForm extends GridPane {
 	 */
 	protected boolean validComponent() {
 		for (TextField tf : this.fields) {
-			if (tf.getText() == null || tf.getText().trim().isEmpty())
+			if (tf.getText() == null || tf.getText().trim().isEmpty()) {
 				return false;
+			}
 		}
 		return true;
 	}
@@ -40,10 +41,12 @@ public abstract class AbstractComponentForm extends GridPane {
 	 */
 	protected Object cast(Class<?> desiredType, String text) {
 		Object reflectValue;
-		if (desiredType.equals(double.class))
+		if (desiredType.equals(double.class)) {
 			reflectValue = Double.parseDouble(text);
-		else
+		}
+		else {
 			reflectValue = text;
+		}
 		return reflectValue;
 	}
 
