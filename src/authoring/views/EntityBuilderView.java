@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
-
+import authoring.saver.XMLParser;
 import authoring.MainApplication;
 import authoring.components.EntityComponentForm;
 import authoring.factories.ClickElementType;
@@ -45,7 +45,7 @@ import javafx.stage.Stage;
  * @author Collin Brown(cdb55)
  *
  */
-public class EntityBuilderView extends Stage{
+public class EntityBuilderView extends Stage {
 	private final static int LEFT_PANEL_WIDTH = 200;
 	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final static String COMPONENT_PREFIX = "engine.components.";
@@ -184,13 +184,13 @@ public class EntityBuilderView extends Stage{
 	 * Saves the current entity
 	 */
 	private void save(){
-		if(validInputCheck()) {
-			try {
-			for(EntityComponentForm componentForm : activeForms) {
-				Object[] tempArr = componentForm.buildComponent();
-				if(tempArr != null) {
-					componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
-				}
+		try {
+		Map<String, Object[]> componentValues = new HashMap<>();
+		for(EntityComponentForm componentForm : activeForms) {
+			Object[] tempArr = componentForm.buildComponent();
+			if(tempArr != null) {
+				componentValues.put(componentForm.getName(), tempArr);
+				componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
 			}
 			onClose.accept(myEntityType, componentAttributes);
 			this.close();
@@ -207,7 +207,14 @@ public class EntityBuilderView extends Stage{
 			alert.showAndWait();
 			return false;
 		}
-		return true;
+		onClose.accept(myEntityType, componentAttributes);
+		XMLParser saver = new XMLParser();
+		saver.writeXML(componentValues, "Test");
+		this.close();
+		}
+		 catch (Exception e1) {
+			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+		 }
 	}
 	
 	/**
