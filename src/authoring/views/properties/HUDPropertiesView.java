@@ -17,7 +17,7 @@ import javafx.scene.control.CheckBox;
 public class HUDPropertiesView extends PropertiesView{
 	
 	private List<Level> levels;
-	private final String NAME = "HUD Properties";
+	private static final String NAME = "HUD Properties";
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	

@@ -16,8 +16,8 @@ import java.util.logging.SimpleFormatter;
  *
  */
 public class AuthoringLogger {
-	private static final String LOGGING_TEXT_FILE_NAME = "Logging.txt";
-	private static final String LOGGING_HTML_FILE_NAME = "Logging.html";
+	private static final String LOGGING_TEXT_FILE_NAME = "authorLogs.txt";
+	private static final String LOGGING_HTML_FILE_NAME = "authorLogs.html";
 	
 	private AuthoringLogger() {
 		//
@@ -36,9 +36,10 @@ public class AuthoringLogger {
 			rootLogger.removeHandler(handlers[0]);
 		}
 		
-		com.sun.media.jfxmedia.logging.Logger.setLevel(Level.INFO.intValue());
+		
 		FileHandler fileTxt = new FileHandler(LOGGING_TEXT_FILE_NAME);
 		FileHandler fileHTML = new FileHandler(LOGGING_HTML_FILE_NAME);
+		ConsoleHandler consoleHandler = new ConsoleHandler();
 		
 		SimpleFormatter simpleFormatter = new SimpleFormatter();
 		fileTxt.setFormatter(simpleFormatter);
@@ -47,5 +48,8 @@ public class AuthoringLogger {
 		Formatter formatterHTML = new HtmlFormatter();
 		fileHTML.setFormatter(formatterHTML);
 		globalLogger.addHandler(fileHTML);
+		
+		globalLogger.addHandler(consoleHandler);
+
 	}
 }
