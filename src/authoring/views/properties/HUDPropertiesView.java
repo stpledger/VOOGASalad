@@ -34,8 +34,7 @@ public class HUDPropertiesView extends PropertiesView{
 			CheckBox healthBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Health"));
 			CheckBox timeBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Time"));
 			CheckBox levelBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Levels"));
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button,this.getButtonBundle().getString("Submit") );
-			submit.setOnAction(e->{
+			Button submit = (Button) this.getElementFactory().buildClickElement(ElementType.Button,this.getButtonBundle().getString("Submit"), e->{
 				for(Level level : levels) {
 					level.addHUDProp(HUDProps.getString("Lives"), livesBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Health"), healthBox.isSelected());

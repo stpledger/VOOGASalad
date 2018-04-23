@@ -22,15 +22,15 @@ import authoring.entities.Entity;
  *
  */
 public class LocalPropertiesView extends PropertiesView {
-	
+
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+
 	private final String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private List<PropertiesComponentForm> activeForms;
 	private Consumer<List<Component>> onSubmit;
 	private Entity entity;
 	private String type;
-	
+
 	/**
 	 * Initialize the object with a given broadcast method
 	 * @param entityNumber
@@ -41,7 +41,7 @@ public class LocalPropertiesView extends PropertiesView {
 		this.type = entity.type();
 		this.onSubmit = onSubmit;
 	}
-	
+
 	/**
 	 * Fills the window with the appropriate text boxes and listeners so that the broadcast can tell the highest level that something has changed.
 	 */
@@ -60,10 +60,9 @@ public class LocalPropertiesView extends PropertiesView {
 			this.activeForms.add(cf);
 			getRoot().add(cf, 0, currentRow++);
 		}
-		
+
 		try {
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button, this.getButtonBundle().getString("Submit"));
-			submit.setOnAction(e->{
+			Button submit = (Button) this.getElementFactory().buildClickElement(ElementType.Button, this.getButtonBundle().getString("Submit"), e->{
 				List<Component> componentsToAdd = new ArrayList<>();
 				for (PropertiesComponentForm cf : this.activeForms) {
 					componentsToAdd.add(cf.buildComponent());
@@ -74,11 +73,11 @@ public class LocalPropertiesView extends PropertiesView {
 			});
 			getRoot().add(submit, 0, currentRow);
 		} catch (Exception e1) {
-			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}
 
 	}
-	
+
 	/**
 	 * Gets the title for the window.
 	 * @return the title for this window.
@@ -87,5 +86,5 @@ public class LocalPropertiesView extends PropertiesView {
 	public String title() {
 		return String.format("Entity %d Local Properties", this.entity.getID());
 	}
-	
+
 }
