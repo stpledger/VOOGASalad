@@ -47,8 +47,8 @@ public class GamePlayerSplashScreen extends Application{
 		myGridPane = setupGridSpacing(myGridPane);
 		myGridPane.setGridLinesVisible(true);
 		fileBtn = new FileUploadButton();
+		fileBtn.setMaxSize(WIDTH_SIZE/3, HEIGHT_SIZE/2);
 		myGridPane.add(fileBtn, 2, 1);
-		
 		Scene currentStage= new Scene(myGridPane,WIDTH_SIZE,HEIGHT_SIZE);		
 		return currentStage;
 	}
