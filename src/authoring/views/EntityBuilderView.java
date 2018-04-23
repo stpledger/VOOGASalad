@@ -131,9 +131,9 @@ public class EntityBuilderView extends Stage{
 	 * Builds the menu to select the Type of Entity
 	 * @return Menu typeMenu
 	 */
-	private ComboBox buildTypeComboBox() {
+	private ComboBox<String> buildTypeComboBox() {
 		ComboBox<String> comboBox = new ComboBox();
-		comboBox.setPromptText("Object Type");
+		comboBox.setPromptText("Select Object Type");
 		comboBox.getStyleClass().add("entity-builder-combo-box"); 
 		for(String et : entityTypes) {
 			comboBox.getItems().add(et);
@@ -206,6 +206,7 @@ public class EntityBuilderView extends Stage{
 		}
 		return true;
 	}
+	
 	/**
 	 * adds an image to the preview
 	 */

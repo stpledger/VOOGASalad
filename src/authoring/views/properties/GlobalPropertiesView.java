@@ -35,7 +35,7 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	@Override
 	protected void fill() {
-		ResourceBundle globalProps = this.getResourcesBundle(this.NAME.replace(" ", ""));
+		ResourceBundle globalProps = GlobalPropertiesView.getResourcesBundle(this.NAME.replace(" ", ""));
 		try {
 			int currentRow = 0;
 			TextField titleInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, globalProps.getString("Title").split(",")[1]);
