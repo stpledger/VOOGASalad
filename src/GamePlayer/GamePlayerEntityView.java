@@ -1,6 +1,5 @@
 package GamePlayer;
 
-import java.awt.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
@@ -41,6 +40,7 @@ public class GamePlayerEntityView {
 	private GameInitializer gameInitializer;
 	private InputHandler inputHandler;
 	private RenderManager renderManager;
+	private SystemManager systemManager;
 	private Map<Integer, Map<Integer,Map<String,Component>>> intLevelMap;
 	private LevelStatus LS;
 
@@ -79,7 +79,7 @@ public class GamePlayerEntityView {
 
 		for(Level level : levelMap.keySet()) {
 			levelEntityMap.put(count, createIndividualEntityGroup(levelMap.get(level)));
-			levelEntityMap.put(count+1, createIndividualEntityGroup(levelMap.get(level))); //TESTING DELETE
+			//levelEntityMap.put(count+1, createIndividualEntityGroup(levelMap.get(level))); //TESTING DELETE
 			System.out.println(levelEntityMap.get(count));
 			count++;
 		}
@@ -107,7 +107,11 @@ public class GamePlayerEntityView {
 				//				image.setY(200);
 				//image.setImage(new Image("mystery.jpg"));
 				System.out.print(image.getX());
-				
+				if (entityComponents.containsKey(Position.KEY)) {
+					Position p = (Position) entityComponents.get(Position.KEY);
+					image.setX(p.getXPos());
+					image.setY(p.getYPos());
+				}
 				
 				//	JACK ADDED THIS .............
 				
@@ -170,7 +174,7 @@ public class GamePlayerEntityView {
 
 		inputHandler = gameInitializer.getIH();
 		renderManager = gameInitializer.getRM();
-
+		systemManager = gameInitializer.getSM();
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
 		LS = gameInitializer.getC().getCH().getLS();
@@ -181,12 +185,12 @@ public class GamePlayerEntityView {
 	
 
 	public void execute (double time) {
-		gameInitializer.getSM().execute(time);
+		systemManager.execute(time);
 	}
 
 	public void render() {
-		renderManager.renderObjects();
 		renderManager.garbageCollect();
+		systemManager.setActives(renderManager.renderObjects());
 	}
     
 	public void setInput(KeyCode code){

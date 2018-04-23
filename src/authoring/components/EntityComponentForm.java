@@ -7,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class EntityComponentForm extends AbstractComponentForm{
+	
 
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
@@ -19,13 +20,15 @@ public class EntityComponentForm extends AbstractComponentForm{
 		int col = 0;
 		Label label = new Label(name);
 		label.getStyleClass().add("component-form-label");
-		this.add(label, col++, 0);
+		col++;
+		this.add(label, col, 0);
 		this.numFields = getNumFields(name);
 		for (int i = 0; i < (numFields-1); i++) {
 			TextField tf = new TextField();
 			tf.getStyleClass().add("component-text-field");
 			fields.add(tf);
-			this.add(tf, col++, 0);
+			col++;
+			this.add(tf, col, 0);
 		}
 	}
 
@@ -35,7 +38,9 @@ public class EntityComponentForm extends AbstractComponentForm{
 	 * @return a component that accurately represents the data in this wrapper class
 	 */
 	public Object[] buildComponent() {
-		if (!validComponent()) return null;
+		if (!validComponent()) { 
+			return null;
+		}
 		String fullName =  COMPONENT_PREFIX + this.name;
 		Object[] params = new Object[fields.size()];
 		try {
@@ -47,9 +52,8 @@ public class EntityComponentForm extends AbstractComponentForm{
 				params[i] = cast(types[i+1], text);
 			}
 			return params;
-		} catch (ClassNotFoundException | IllegalArgumentException e) {
-			// TODO better exception
-			e.printStackTrace();
+		} catch (Exception e) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 		return null;
 	}

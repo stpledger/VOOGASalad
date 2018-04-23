@@ -1,9 +1,11 @@
 package authoring.entities;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import authoring.views.properties.LocalPropertiesView;
 
@@ -20,16 +22,18 @@ import javafx.scene.input.MouseButton;
 
 /**
  * 
- * @author Hemanth Yakkali
+ * @author Hemanth Yakkali(hy115)
  * @author Dylan Powers
  * @author Collin Brown
  *
  */
 
-public abstract class Entity extends ImageView {
+public abstract class Entity extends ImageView implements Serializable {
 
 	public final static int ENTITY_WIDTH = 50;
 	public final static int ENTITY_HEIGHT = 50;
+	
+	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	/**
 	 * Unique ID to the entity
@@ -240,6 +244,11 @@ public abstract class Entity extends ImageView {
 	 * @return type of this entity
 	 */
 	public abstract String type();
+	
+	/**
+	 * @return the name of this entity
+	 */
+	public abstract String name();
 
 	/**
 	 * 

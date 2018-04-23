@@ -1,7 +1,6 @@
 package authoring.views;
 
 import java.io.File;
-import java.util.logging.Logger;
 
 import authoring.factories.Toolbar;
 import javafx.scene.Parent;
@@ -21,7 +20,7 @@ public class MainView {
 	//GUI Constants
 	private static double ideHeight = 600;
 	private static double ideWidth = 1200;
-	private double toolbarHeight = 25;
+
 	/**
 	 * Creates an instance of GameAuthoringEnvironment Based on a file
 	 * @param selectedFile the selected file to load a game from

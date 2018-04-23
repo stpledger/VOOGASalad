@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.logging.Logger;
 
 import authoring.factories.Toolbar;
 
@@ -28,7 +27,6 @@ public class EntityView extends BorderPane {
 	private ArrayList<String> entityTypes = new ArrayList<>();
 	private TabPane tabPane = new TabPane();
 	
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public EntityView() {
 		super();
@@ -38,13 +36,13 @@ public class EntityView extends BorderPane {
 		this.setCenter(tabPane);
 		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
 	}
-	
+
 	/**
 	 * Builds the consumers for the toolbar
 	 * @return Map<String, Consumer> 
 	 */
 	private Map<String, Consumer> buildToolbarConsumerMap() {
-		Map<String, Consumer> consumerMap = new HashMap<String,Consumer>();
+		Map<String, Consumer> consumerMap = new HashMap<>();
 		BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
 		Consumer newEntity = e -> {
 			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
@@ -56,7 +54,7 @@ public class EntityView extends BorderPane {
 		consumerMap.put("loadEntities", loadEntities);
 		return consumerMap;
 	}
-	
+
 	/**
 	 * Adds a new tab
 	 * @param type
@@ -65,7 +63,7 @@ public class EntityView extends BorderPane {
 		EntityTab temp = new EntityTab(type, ENITITY_VIEW_WIDTH);
 		tabPane.getTabs().add(temp);
 	}
-	
+
 	/**
 	 * Called when a EntityBuilderView is closed
 	 * @param entityType String representing the type of entity that this object represents
@@ -75,12 +73,11 @@ public class EntityView extends BorderPane {
 		//Turn the imageFile into a usableImage
 		Image image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 
-		//Check to see if a tab exists for the type
 		if(tabsList.isEmpty() || !tabsList.contains(entityType)) { 
 			addTab(entityType);
 			tabsList.add(entityType);
 		}   
-		//Add the entityBox
+
 		for(Tab tab : tabPane.getTabs()) {
 			if(tab.getText().equals(entityType)) {
 				((EntityTab) tab).addNewEntity(entityType, componentAttributes);

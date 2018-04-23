@@ -2,7 +2,9 @@ package Menu;
 
 import GamePlayer.GamePlayerController;
 import buttons.FileUploadButton;
+import buttons.RestartButton;
 import buttons.SaveGameButton;
+import buttons.SwitchGameButton;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -11,9 +13,10 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Popup;
 
 public class PauseMenu extends Popup {
-
-	public FileUploadButton fileBtn;
+	
 	private SaveGameButton saveBtn;
+	private RestartButton restartBtn;
+	public SwitchGameButton switchBtn;
 	private GamePlayerController gamePlayerController;
 	/**
 	 * Constructor for the Pause Menu Popup
@@ -21,11 +24,12 @@ public class PauseMenu extends Popup {
 	public PauseMenu(GamePlayerController g) {
 		gamePlayerController = g;
 		VBox pane = new VBox();
-		fileBtn = new FileUploadButton();
 		saveBtn = new SaveGameButton(this);
+		switchBtn = new SwitchGameButton();
+		restartBtn = new RestartButton(gamePlayerController);
 		pane.setSpacing(10);
 		pane.setAlignment(Pos.CENTER);
-		pane.getChildren().addAll(new Label("Paused"), new Button("Sound"), new Button("Difficulty"), new Button("Settings"), fileBtn, saveBtn);
+		pane.getChildren().addAll(new Label("Paused"), restartBtn, switchBtn, saveBtn);
 		this.getContent().add(pane);
 		pane.getStylesheets().add("./GamePlayer/playstyle.css");
 		pane.setFillWidth(true);

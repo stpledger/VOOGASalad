@@ -11,5 +11,6 @@ public enum ElementType {
 	TextField,
 	NumberField,
 	CheckBox,
-	Label
+	Label,
+	Tab,
 }

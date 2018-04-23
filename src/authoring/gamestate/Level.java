@@ -11,7 +11,7 @@ import authoring.entities.Entity;
 
 /**
  * 
- * @author Hemanth Yakkali
+ * @author Hemanth Yakkali(hy115)
  *
  */
 public class Level {
@@ -38,7 +38,9 @@ public class Level {
 
 	public void addEntity(Entity entity) {
 		for (Entity other : entityList) {
-			if (entity.getID() == other.getID()) return;
+			if (entity.getID() == other.getID()) {
+				return;
+			}
 		}
 		this.entityList.add(entity);
 		System.out.println("Added!");

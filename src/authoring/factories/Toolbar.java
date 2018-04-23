@@ -10,6 +10,7 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.function.Consumer;
+import java.util.logging.Logger;
 
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
@@ -23,8 +24,10 @@ import javafx.util.Pair;
 public class Toolbar extends MenuBar{
 	private String toolbarName;
 	private Map<String,Consumer> consumerMap;
-	private List<Pair<String,Properties>> menuProps;
+	private List<Pair<String,Properties>> menuProerties;
 
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
 	/**
 	 * Creates a Toolbar based on all of the .properties files saved in the directory src/res/~name~
 	 * @param name
@@ -33,7 +36,7 @@ public class Toolbar extends MenuBar{
 		super();
 		this.consumerMap = cm;
 		this.toolbarName = name;
-		this.menuProps = new ArrayList<Pair<String,Properties>>();
+		this.menuProerties = new ArrayList<>();
 		this.getStyleClass().add("toolbar");
 		addMenus(getMenuProperties());
 	}
@@ -43,8 +46,8 @@ public class Toolbar extends MenuBar{
 	 * @param menuProperties
 	 */
 	private void addMenus(List<Pair<String,Properties>> menuProperties) {
-		this.menuProps = menuProperties;
-		List<Pair<String,Properties>> tempMenuProperties = this.menuProps;
+		this.menuProerties = menuProperties;
+		List<Pair<String,Properties>> tempMenuProperties = this.menuProerties;
 		for(Pair<String, Properties> p: tempMenuProperties) {
 			this.getMenus().add((createMenu(p.getKey(),p.getValue())));
 		}
@@ -83,8 +86,7 @@ public class Toolbar extends MenuBar{
 			try {
 				p.load(new FileInputStream(f));
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				 LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 			}
 			menuProperties.add(new Pair(f.getName().replace(".properties", ""),p));
 		}

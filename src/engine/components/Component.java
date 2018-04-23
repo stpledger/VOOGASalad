@@ -1,5 +1,7 @@
 package engine.components;
 
+import engine.setup.EntityManager;
+
 import java.util.Map;
 
 /**
