@@ -1,12 +1,15 @@
 package authoring.grid;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import authoring.entities.Entity;
 import javafx.scene.layout.TilePane;
 
 /**
  * A container class for all of the cells in a grid, which each represent entities if they are filled.
  * @author Dylan Powers
- * @author Hemanth Yakkali
+ * @author Hemanth Yakkali(hy115)
  *
  */
 public class Grid extends TilePane {
@@ -16,6 +19,7 @@ public class Grid extends TilePane {
 	
 	private int numRows;
 	private int numCols;
+	private List<List<Cell>> cells;
 	
 	/**
 	 * Initializes the grid with a given number of rows and columns
@@ -25,10 +29,15 @@ public class Grid extends TilePane {
 	public Grid(int width, int height) {
 		this.numRows = height/Entity.ENTITY_HEIGHT;
 		this.numCols = width/Entity.ENTITY_WIDTH;
+		this.cells = new ArrayList<>();
 		
-		for(int i=0;i<this.numCols*this.numRows;i++) {
-			Cell c = new Cell();
-			this.getChildren().add(c);
+		for (int i = 0; i < this.numRows; i++) {
+			cells.add(new ArrayList<>());
+        		for (int j = 0; j < this.numCols; j++) {
+            		Cell c = new Cell();
+            		cells.get(i).add(c);
+            		this.getChildren().add(c);
+            	}
 		}
 
 		this.setPrefSize(width, height);
@@ -48,12 +57,14 @@ public class Grid extends TilePane {
 	 * @param numTimes Number of rows to add
 	 */
 	public void addRow(int numTimes) {
-		for(int j=0;j<numTimes;j++) {
-			for(int i=0;i<this.numCols;i++) {
+		for(int j = 0; j < numTimes; j++) {
+			this.cells.add(new ArrayList<>());
+			for(int i = 0; i < this.numCols; i++) {
 				Cell c = new Cell();
+				this.cells.get(this.numRows).add(c);
 				this.getChildren().add(c);
 			}
-			this.setPrefHeight(this.getPrefHeight()+Entity.ENTITY_HEIGHT);
+			this.setPrefHeight(this.getPrefHeight() + Entity.ENTITY_HEIGHT);
 			this.numRows++;
 		}
 	}
@@ -63,14 +74,15 @@ public class Grid extends TilePane {
 	 * @param numTimes Number of columns to add 
 	 */
 	public void addCol(int numTimes) {
-		for(int j=0;j<numTimes;j++) {
+		for(int j = 0; j < numTimes; j++) {
 			int index = this.numCols;
-			for(int i=0;i<this.numRows;i++) {
+			for(int i = 0; i < this.numRows; i++) {
 				Cell c = new Cell();
-				this.getChildren().add(index,c);
-				index+=this.numCols+1; //add one because width of grid increases by one ENTITY_WIDTH
+				this.cells.get(i).add(c);
+				this.getChildren().add(index, c);
+				index += this.numCols + 1; //add one because width of grid increases by one ENTITY_WIDTH
 			}
-			this.setPrefWidth(this.getPrefWidth()+Entity.ENTITY_WIDTH);
+			this.setPrefWidth(this.getPrefWidth() + Entity.ENTITY_WIDTH);
 			this.numCols++;
 		}
 	}

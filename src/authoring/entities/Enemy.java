@@ -7,14 +7,16 @@ package authoring.entities;
 public class Enemy extends Entity {
 
 	private final static String TYPE = "Enemy";
+	private String name;
 	private final static double INITIAL_HEALTH = 50;
 	private final static double INITIAL_DAMAGE = 5;
 	private final static double INITIAL_LIFETIME = 10;
 	private final static double ENEMY_WIDTH = 20;
 	private final static double ENEMY_HEIGHT = 40;
 
-	public Enemy(int ID) {
+	public Enemy(int ID, String name) {
 		super(ID);
+		this.name = name;
 		addDefaultComponents();
 	}
 
@@ -31,5 +33,10 @@ public class Enemy extends Entity {
 	@Override
 	public String type() {
 		return TYPE;
+	}
+	
+	@Override
+	public String name() {
+		return this.name;
 	}
 }

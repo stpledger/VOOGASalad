@@ -7,6 +7,7 @@ package authoring.entities;
 public class Player extends Entity {
 
 	private final static String TYPE = "Player";
+	private String name;
 	private final static double INITIAL_HEALTH = 100;
 	private final static double INITIAL_DAMAGE = 10;
 	private final static double INITIAL_LIFETIME = 20;
@@ -17,8 +18,9 @@ public class Player extends Entity {
 	 * Construct the object with the given ID.
 	 * @param ID the ID of this object.
 	 */
-	public Player(int ID) {
+	public Player(int ID, String name) {
 		super(ID);
+		this.name = name;
 	}
 
 	/**
@@ -37,5 +39,10 @@ public class Player extends Entity {
 	@Override
 	public String type() {
 		return TYPE;
+	}
+	
+	@Override
+	public String name() {
+		return this.name;
 	}
 }

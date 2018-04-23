@@ -79,12 +79,12 @@ public abstract class PropertiesView {
 		return this.root;
 	}
 	
-	protected static ResourceBundle getResourcesBundle(String props) {
-		return ResourceBundle.getBundle(RESOURCES+props);
+	protected ResourceBundle getResourcesBundle(String props) {
+		return ResourceBundle.getBundle(PropertiesView.RESOURCES+props);
 	}
 	
-	protected static ResourceBundle getButtonBundle() {
-		return ResourceBundle.getBundle(BUTTON_RESOURCES);
+	protected ResourceBundle getButtonBundle() {
+		return ResourceBundle.getBundle(PropertiesView.BUTTON_RESOURCES);
 	}
 	
 	protected ElementFactory getElementFactory() {
