@@ -5,10 +5,8 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import authoring.entities.Entity;
 import authoring.gamestate.GameState;
-import authoring.gamestate.Level;
 import engine.components.Component;
 import engine.components.Sprite;
-import engine.setup.SystemManager;
 
 import javafx.scene.control.Alert;
 
@@ -101,7 +99,7 @@ public class DataWrite {
             entityFolder.mkdir();
         }
         try {
-            FileOutputStream fos = new FileOutputStream(ENTITY_PATH+entity.getNames());
+            FileOutputStream fos = new FileOutputStream(ENTITY_PATH + entity.getNames());
             serialize(entity, fos);
         } catch (FileNotFoundException e) {
             // e.printStackTrace();
