@@ -34,6 +34,7 @@ public class GamePlayerEntityView {
 	private GameInitializer GI;
 	private InputHandler inputHandler;
 	private RenderManager RM;
+	private SystemManager SM;
     private LevelStatus LS;
 
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
@@ -48,7 +49,7 @@ public class GamePlayerEntityView {
 			break;
 		}
 		//method tht builds the entire levelEntityMap;
-	//	levelEntityMap = createEntityGroupMap(levelMap);
+		//levelEntityMap = createEntityGroupMap(levelMap);
 		//This is mainly for debugging purposes not entirely sure how you will get specific levels out of the mao
 		// because they arent ordered probably will have to iterate through levels and look at levelnum of each
 		initializeGamePlayerEntityView();
@@ -101,7 +102,11 @@ public class GamePlayerEntityView {
 				//				image.setY(200);
 				//image.setImage(new Image("mystery.jpg"));
 				System.out.print(image.getX());
-				
+				if (entityComponents.containsKey(Position.KEY)) {
+					Position p = (Position) entityComponents.get(Position.KEY);
+					image.setX(p.getXPos());
+					image.setY(p.getYPos());
+				}
 				
 				//	JACK ADDED THIS .............
 				
@@ -175,6 +180,7 @@ public class GamePlayerEntityView {
 
 		inputHandler = GI.getIH();
 		RM = GI.getRM();
+		SM = GI.getSM();
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
 		LS = GI.getC().getCH().getLS();
@@ -186,12 +192,12 @@ public class GamePlayerEntityView {
 	
 
 	public void execute (double time) {
-		GI.getSM().execute(time);
+		SM.execute(time);
 	}
 
 	public void render() {
-		RM.renderObjects();
 		RM.garbageCollect();
+		SM.setActives(RM.renderObjects());
 	}
     
 	public void setInput(KeyCode code){
