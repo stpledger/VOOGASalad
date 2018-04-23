@@ -57,9 +57,10 @@ public class GamePlayerController {
 		gamePlayerSplash = new GamePlayerSplashScreen(myStage);
 		mySplashScene = gamePlayerSplash.getSplashScene();
 		
-		fileBtn = pauseMenu.fileBtn;  //public variable need to encapsulate later
+		fileBtn = gamePlayerSplash.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			try{
+				System.out.println("as;lkdfjasldk");
 				myStage.setScene(myScene);
 				initializeGameStart();
 				//initializeLevelFile();
@@ -85,8 +86,8 @@ public class GamePlayerController {
 				gameView.removeInput(e.getCode());
 			}
 		});
-		return myScene;
-		//return mySplashScene;
+		//return myScene;
+		return mySplashScene;
 	}
 	
 	/**

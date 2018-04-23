@@ -78,7 +78,7 @@ public class GamePlayerEntityView {
 
 		for(Level level : levelMap.keySet()) {
 			levelEntityMap.put(count, createIndividualEntityGroup(levelMap.get(level)));
-			levelEntityMap.put(count+1, createIndividualEntityGroup(levelMap.get(level))); //TESTING DELETE
+			//levelEntityMap.put(count+1, createIndividualEntityGroup(levelMap.get(level))); //TESTING DELETE
 			System.out.println(levelEntityMap.get(count));
 			count++;
 		}

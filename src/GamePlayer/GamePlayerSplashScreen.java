@@ -24,7 +24,7 @@ public class GamePlayerSplashScreen{
 	private final int HEIGHT_SIZE = 500;
 	private final int ROW_NUM = 2;
 	private final int COL_NUM = 3;
-	private FileUploadButton fileBtn;
+	public FileUploadButton fileBtn;
 	
 	public GamePlayerSplashScreen(Stage stage) {
 		mySplashStage = stage;
