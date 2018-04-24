@@ -1,10 +1,7 @@
 package authoring.entities.data;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Map;
-import java.util.stream.Stream;
-import java.util.HashMap;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,8 +12,6 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 
 /**
@@ -26,11 +21,10 @@ import org.w3c.dom.Document;
  */
 public class EntitySaver {
 	private static DocumentBuilder DOCUMENT_BUILDER;
-	private final String COMPONENT_WRAPPER = "Component";
-	private final String DOCUMENT_TITLE = "Entity";
-	private final String XML_EXTENSION = ".xml";
-	public final static String ERROR_MESSAGE = "XML file does not properly represent %s";
-	private final static String FOLDER_PATH = "data/";
+	private static final String DOCUMENT_TITLE = "Entity";
+	private static final String XML_EXTENSION = ".xml";
+	public static final String ERROR_MESSAGE = "XML file does not properly represent %s";
+	private static final String FOLDER_PATH = "data/";
 	
 	public EntitySaver() {
 		DOCUMENT_BUILDER = getDocumentBuilder();
