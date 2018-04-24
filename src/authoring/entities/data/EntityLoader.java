@@ -3,6 +3,7 @@ package authoring.entities.data;
 import authoring.entities.*;
 import authoring.entities.componentbuilders.*;
 import engine.components.Component;
+import engine.components.Type;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -26,14 +27,13 @@ import org.w3c.dom.Document;
 public class EntityLoader {
 
 	private DocumentBuilder documentBuilder;
-	private static final String ERROR_MESSAGE = "The component %s is invalid.";
-	private static final String COMPONENT_WRAPPER = "Component";
-	private static final String ENTITY_PREFIX = "authoring.entities";
-	private static final String COMPONENT_BUILDER = "authoring.entities.componentbuilders.";
-	private static final String XML_EXTENSION = ".xml";
-	private static final String DATA_PREFIX = "data/";
-	
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final String ERROR_MESSAGE = "The component %s is invalid.";
+	private final String COMPONENT_WRAPPER = "Component";
+	private final String ENTITY_PREFIX = "authoring.entities";
+	private final String COMPONENT_BUILDER = "authoring.entities.componentbuilders.";
+	private final String XML_EXTENSION = ".xml";
+	private final String DATA_PREFIX = "data/";
+	private final String TYPE = Type.KEY;
 	
 	public EntityLoader() {
 		try {
@@ -48,7 +48,7 @@ public class EntityLoader {
 	 * @param entityName the name of the entity to pull the xml file for
 	 * @param ID the ID of the entity to create
 	 * @param type the type of entity to instantiate
-	 * @return an Entity object represented by this object
+	 * @return an Entity object represented by the xml file
 	 * @throws ClassNotFoundException 
 	 * @throws SecurityException 
 	 * @throws InvocationTargetException 
@@ -56,20 +56,19 @@ public class EntityLoader {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-
-	public Entity buildEntity(int ID, String entityName, String type) throws Exception {
-		System.out.println(DATA_PREFIX + entityName + XML_EXTENSION);
-		Entity entity = (Entity) Class.forName(ENTITY_PREFIX + type).getDeclaredConstructors()[0].newInstance();
+	public void buildEntity(int ID, String entityName) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException, ClassNotFoundException {
 		Element root = getRootElement(new File(DATA_PREFIX + entityName + XML_EXTENSION));
+		String type = extractTypeFromRoot(root);
+		Entity entity = (Entity) Class.forName(ENTITY_PREFIX + type).getDeclaredConstructors()[0].newInstance();
 		NodeList nList = root.getChildNodes();
 		List<Component> compsToAdd = new ArrayList<>();
 		for (int i = 0; i < nList.getLength(); i++) {
 			Element e = (Element) nList.item(i);
+			System.out.println(e.getNodeName() + e.getTextContent());
 			ComponentBuilder cb = getComponentBuilder(e.getNodeName());
 			compsToAdd.add(cb.build(ID, e));
 		}
-		return entity;
-
+		//return entity;
 	}
 	
 	/**
@@ -116,5 +115,14 @@ public class EntityLoader {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		} 
 		return null;
+	}
+	
+	/**
+	 * Given the root of the xml document, extract the type of the entity, which is necessary to instantiate it.
+	 * @param root the root of the xml document
+	 * @return the type of the entity to be created
+	 */
+	private String extractTypeFromRoot(Element root) {
+		return getTextValue(root, TYPE);
 	}
 }

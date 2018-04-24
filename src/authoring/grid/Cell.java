@@ -1,5 +1,7 @@
 package authoring.grid;
 
+import java.lang.reflect.InvocationTargetException;
+
 import authoring.entities.Entity;
 import authoring.entities.data.EntityLoader;
 import javafx.event.EventHandler;
@@ -41,7 +43,13 @@ public class Cell extends Pane {
 			public void handle(DragEvent e) {
 				Dragboard db = e.getDragboard();
 				EntityLoader el = new EntityLoader();
-				Entity en = el.buildEntity(0, db.getString());
+				try {
+					el.buildEntity(0, db.getString());
+				} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+						| InvocationTargetException | SecurityException | ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				e.setDropCompleted(true);
 				e.consume();
 			}
