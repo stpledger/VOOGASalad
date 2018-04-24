@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import data.DataRead;
+import engine.components.Name;
 import engine.components.Sprite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,7 +42,8 @@ public class EntityBox extends VBox {
 			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
 			ClipboardContent cc = new ClipboardContent();
 			cc.putImage(image);
-			cc.putString("Harmooth");	
+			System.out.println(componentAttributes.get(Name.class)[0].toString());
+			cc.putString(componentAttributes.get(Name.class)[0].toString());	
 			db.setContent(cc);
 			e.consume();
 		});
