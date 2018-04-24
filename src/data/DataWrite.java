@@ -78,7 +78,7 @@ public class DataWrite {
         BufferedImage image = null;
         try {
             image = ImageIO.read(file);
-            File fileDest = new File(IMAGE_PATH + file.getName());
+            File fileDest = new File(DEFAULT_IMAGEPATH + file.getName());
             ImageIO.write(image, getFileType(file), fileDest);
         } catch (IOException e) {
             e.printStackTrace();
@@ -88,7 +88,7 @@ public class DataWrite {
 
     public static void writeImage(URL imageURL, String name) throws IOException{
         BufferedImage image = ImageIO.read(imageURL);
-        File fileDest = new File(IMAGE_PATH + name);
+        File fileDest = new File(DEFAULT_IMAGEPATH + name);
         if(!ACCEPTED_IMAGE_FILES.contains(getFileType(fileDest).toLowerCase())) {
             throw new IOException();
         }

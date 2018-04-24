@@ -16,6 +16,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import authoring.MainApplication;
 import authoring.components.EntityComponentForm;
+import authoring.entities.data.EntitySaver;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
 import data.DataRead;
@@ -26,6 +27,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -68,6 +70,7 @@ public class EntityBuilderView extends Stage {
 
 	private Map<Class, Object[]> componentAttributes = new HashMap<>();
 	private Map<String, Object[]> componentValues = new HashMap<>();
+	private TextField nameForm;
 	/**
 	 * The constructor of the popup window for creating new entities
 	 * @param eTypes All of the possible types of entities
@@ -189,6 +192,8 @@ public class EntityBuilderView extends Stage {
 					componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
 				}
 				onClose.accept(myEntityType, componentAttributes);
+				EntitySaver saver = new EntitySaver();
+				saver.writeXML(componentValues, nameForm.getText());
 				this.close();
 			}
 		}
@@ -203,7 +208,7 @@ public class EntityBuilderView extends Stage {
 	private void addImage() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Image File");
-		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions ));
+		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions));
 		File imageFile = fileChooser.showOpenDialog(this);
 		try {
 			componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
@@ -236,6 +241,10 @@ public class EntityBuilderView extends Stage {
 				currentForms.add(cf, 0, currentRow);
 			}
 		}
+		// TODO Make this more flexible
+		this.nameForm = new TextField();
+		nameForm.setText("Name");
+		currentForms.add(nameForm, 0, ++currentRow);
 		return currentForms;
 	}
 }
