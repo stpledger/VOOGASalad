@@ -1,26 +1,24 @@
 package HUD;
 
+import GamePlayer.GamePlayerController;
 import Menu.LevelSelector;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
-import labelComponents.timeLabel;
+import labels.HealthLabel;
+import labels.TimeLabel;
 
 public class SampleToolBar extends ToolBar implements IHUD{
 
 	/**
 	 * Builds a Sample Tool Bar that acts as the HUD for the game
 	 */
-	public SampleToolBar() {
+	public SampleToolBar(GamePlayerController g) {
 		//constructor to create a Sample Tool Bar
 		HBox toolbarLayout = new HBox(250); //adding spacing by 40 units
-		Label label1 = new Label();
-		label1.setText("Lives");
-		Label label2 = new Label();
-		label2.setText("Score");
-		timeLabel label3 = new timeLabel(0);
-		toolbarLayout.getChildren().addAll(label1, label2, label3);
-		//label4.textProperty().bind(observable); //bind to the time of the game
+		//HealthLabel label2 = new HealthLabel(g.);
+		TimeLabel label3 = new TimeLabel(0);
+		toolbarLayout.getChildren().addAll(label3);
 		this.getItems().add(toolbarLayout);
 	}
 	

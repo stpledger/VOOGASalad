@@ -15,10 +15,12 @@ import javafx.scene.layout.Pane;
  */
 public class Cell extends Pane {
 
+	private Entity entity;
 	/**
 	 * To initialize a blank cell
 	 */
 	public Cell() {
+		this.setEntity(null);
 		this.setPrefWidth(Entity.ENTITY_WIDTH);
 		this.setPrefHeight(Entity.ENTITY_HEIGHT);
 		this.setStyle("-fx-border-color: black");
@@ -42,6 +44,14 @@ public class Cell extends Pane {
 				e.consume();
 			}
 		});
+	}
+
+	public Entity getEntity() {
+		return entity;
+	}
+
+	public void setEntity(Entity entity) {
+		this.entity = entity;
 	}
 	
 }

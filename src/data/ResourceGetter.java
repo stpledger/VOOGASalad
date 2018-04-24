@@ -35,9 +35,9 @@ public class ResourceGetter {
 class Browser extends Region {
 
     private static final String START_URL ="http://www.google.com";
-    private static final String IMAGE_ERROR = "Sorry,that's not an accepted image file";
+    private static final String IMAGE_ERROR = "Sorry, that's not an accepted image file";
     private static final String IMAGE_PROMPT = "Navigate to an image url (Hint: 'open image in new window')";
-    private static final String NAMING_ERROR = "Sorry, name was not accepted. Try again. (Hint: use '.jpg', '.png', ',gif'";
+    private static final String NAMING_ERROR = "Sorry, name was not accepted. Try again. (Hint: use '.jpg', '.png', '.gif'";
     private static final String RENAME_IMAGE= "Give a name to this image";
     private static final String BACK_BUTTON = "Back";
     private static final String LOAD_BUTTON = "Load Image";

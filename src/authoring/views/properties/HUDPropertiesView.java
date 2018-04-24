@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
+import authoring.factories.ClickElementType;
 import authoring.factories.ElementType;
 import authoring.gamestate.Level;
 import javafx.scene.control.Button;
@@ -21,21 +22,20 @@ public class HUDPropertiesView extends PropertiesView{
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
-	public HUDPropertiesView(List<Level> levelArray) {
+	public HUDPropertiesView(List<Level> levels) {
 		super();
-		this.levels = levelArray;
+		this.levels = levels;
 	}
 
 	@Override
 	protected void fill() {
-		ResourceBundle HUDProps = HUDPropertiesView.getResourcesBundle(this.NAME.replace(" ", ""));
+		ResourceBundle HUDProps = this.getResourcesBundle(this.title().replace(" ", ""));
 		try {
 			CheckBox livesBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Lives"));
 			CheckBox healthBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Health"));
 			CheckBox timeBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Time"));
 			CheckBox levelBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Levels"));
-			Button submit = (Button) this.getElementFactory().buildElement(ElementType.Button,this.getButtonBundle().getString("Submit") );
-			submit.setOnAction(e->{
+			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button,this.getButtonBundle().getString("Submit"), e->{
 				for(Level level : levels) {
 					level.addHUDProp(HUDProps.getString("Lives"), livesBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Health"), healthBox.isSelected());

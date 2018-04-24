@@ -3,14 +3,9 @@ package authoring.views;
 import java.util.Map;
 import java.util.logging.Logger;
 
-import authoring.entities.Background;
-import authoring.entities.Block;
-import authoring.entities.Enemy;
-import authoring.entities.Player;
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
+
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -33,28 +28,18 @@ public class EntityTab extends Tab{
 	
 	private ElementFactory eFactory;
 	
-	
 	FlowPane pane;
 	ScrollPane externalPane;
 	
 	double myEntityViewWidth;
-	
+
 	public EntityTab(String name, double entityViewWidth) {
 		super(name);
-		myEntityViewWidth = entityViewWidth;
-		
-		eFactory = new ElementFactory();
-		
-		Block block = new Block(0);
-		Enemy enemy = new Enemy(0);
-		Player player = new Player(0);
-		Background bgrnd =  new Background(0);
-		
+		myEntityViewWidth = entityViewWidth;		
 		this.setClosable(false);
 		this.getStyleClass().add("entity-tab");
 		assemble();
 	}
-
 
 	/**
 	 * builds the ScrollPane and the FlowPane within it
@@ -95,7 +80,6 @@ public class EntityTab extends Tab{
 		});
 		pane.getChildren().add(eb);
 	}
-
 
 	/**
 	 * Returns the graphic representation of the ComponentTab
