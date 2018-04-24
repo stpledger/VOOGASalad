@@ -41,7 +41,7 @@ public class Cell extends Pane {
 			public void handle(DragEvent e) {
 				Dragboard db = e.getDragboard();
 				EntityLoader el = new EntityLoader();
-				el.buildEntity(db.getString());
+				Entity en = el.buildEntity(0, db.getString());
 				e.setDropCompleted(true);
 				e.consume();
 			}

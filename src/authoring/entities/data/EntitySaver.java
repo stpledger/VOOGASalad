@@ -51,11 +51,10 @@ public class EntitySaver {
 		document.appendChild(root);
 		
 		for (String compName : attributes.keySet()) {
-			Element componentWrapper = document.createElement(COMPONENT_WRAPPER);
-			root.appendChild(componentWrapper);
-			componentWrapper.setAttribute("type", compName);
+			Element comp = document.createElement(compName);
+			root.appendChild(comp);
 			for (Object o : attributes.get(compName)) {
-        			componentWrapper.appendChild(document.createTextNode(String.valueOf(o) + " "));
+        			comp.appendChild(document.createTextNode(String.valueOf(o) + " "));
 			}
 		}
 		
@@ -66,12 +65,14 @@ public class EntitySaver {
 		System.out.println("XML file created and saved to " + FOLDER_PATH + fileName);
 	}
 	
-	// generate the document builder for parsing the document
+	/**
+	 * Generate the {@code DocumentBuilder} for finding and parsing the root of the document.
+	 * @return a {@code DocumentBuilder} object
+	 */
 	private DocumentBuilder getDocumentBuilder() {
 		try {
 			return DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			// throw XMLException with same cause
 			throw new XMLException(e);
 		}
 	}
