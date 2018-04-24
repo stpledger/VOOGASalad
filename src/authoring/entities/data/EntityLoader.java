@@ -6,18 +6,17 @@ import engine.components.Component;
 import engine.components.Type;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 
 /**
@@ -40,8 +39,7 @@ public class EntityLoader {
 		try {
 			documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			// TODO Better exception
-			e.printStackTrace();
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 	}
 	
@@ -83,9 +81,10 @@ public class EntityLoader {
 			documentBuilder.reset();
 			Document XMLDoc = documentBuilder.parse(XMLFile);
 			return XMLDoc.getDocumentElement();
-		} catch (SAXException | IOException e) {
-			throw new XMLException(e);
+		} catch (Exception e) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
+		return null;
 	}
 	
 	/**
@@ -113,8 +112,7 @@ public class EntityLoader {
 			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
 			return (ComponentBuilder) cons.newInstance();
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		} 
 		return null;
 	}
