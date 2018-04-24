@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="humana"><Component type="Sprite">humana.png </Component><Component type="Health">4.0 </Component><Component type="Dimension">4.0 4.0 </Component></Entity>
