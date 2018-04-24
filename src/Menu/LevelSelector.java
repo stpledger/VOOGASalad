@@ -4,12 +4,8 @@ import java.util.Map;
 import java.util.Set;
 
 import GamePlayer.GamePlayerController;
-import GamePlayer.GamePlayerEntityView;
-import authoring.gamestate.Level;
-import engine.components.Component;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
@@ -22,13 +18,13 @@ import javafx.scene.layout.Pane;
 public class LevelSelector extends Menu {
 	private final String MENU_TITLE = "Level";
 	private GamePlayerController mainController;
-	private  Map<Integer, Pane> levelEntityGroupMap;
+	private  Map<Integer, Pane> levelEntityPaneMap;
 	private int levelCount;
 	
 	public LevelSelector(GamePlayerController g) {
 		mainController = g;
-		levelEntityGroupMap = g.getGameLevelRoot();
-		System.out.println(levelEntityGroupMap);
+		levelEntityPaneMap = g.getGameLevelRoot();
+		System.out.println(levelEntityPaneMap);
 		this.setText(MENU_TITLE);
 		createLevelMenu();
 	}
@@ -38,7 +34,7 @@ public class LevelSelector extends Menu {
 	 * @param
 	 */
 	public void createLevelMenu() {
-		Set<Integer> levelKeySet = levelEntityGroupMap.keySet();
+		Set<Integer> levelKeySet = levelEntityPaneMap.keySet();
 		int count = levelKeySet.size();
 		levelCount = 1;
 		for (int i = 1; i<=count; i++) {
