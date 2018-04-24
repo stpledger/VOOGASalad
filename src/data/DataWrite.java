@@ -5,10 +5,8 @@ import com.thoughtworks.xstream.io.xml.DomDriver;
 
 import authoring.entities.Entity;
 import authoring.gamestate.GameState;
-import authoring.gamestate.Level;
 import engine.components.Component;
 import engine.components.Sprite;
-import engine.setup.SystemManager;
 
 import javafx.scene.control.Alert;
 
@@ -27,44 +25,44 @@ import static engine.components.Sprite.IMAGE_PATH;
 
 public class DataWrite {
 
-/*  Author @ Conrad methods for saving data from either the authoring environment 
- *  or the player
- */
-	private static final String XML_FILETYPE=".xml";
+    /*  Author @ Conrad methods for saving data from either the authoring environment
+     *  or the player
+     */
+    private static final String XML_FILETYPE = ".xml";
 
-	private static final String GAME_FILEPATH = "games/";
-	private static final String IMAGE_DATAPATH = "images/";
-	private static final String DATA_DATAPTH = "data";
+    private static final String GAME_FILEPATH = "games/";
+    private static final String IMAGE_DATAPATH = "images/";
+    private static final String DATA_DATAPTH = "data";
     private static final String PERIOD = ".";
     private static final String PLAYER = "/Player";
-    private static final String ERROR ="Error";
+    private static final String ERROR = "Error";
     private static final String WRITE_ERROR = "Could not write file";
-    private static final String IMAGE_GETTER="getImageFile";
-    private static final String SOUND_GETTER="getSoundFile";
+    private static final String IMAGE_GETTER = "getImageFile";
+    private static final String SOUND_GETTER = "getSoundFile";
     private static final String SOUND_DATAPATH = "sounds/";
     private static final String SLASH = "/";
-    private static final String DEFAULT_IMAGEPATH = DATA_DATAPTH + SLASH +IMAGE_DATAPATH;
+    private static final String DEFAULT_IMAGEPATH = DATA_DATAPTH + SLASH + IMAGE_DATAPATH;
     private static final Set<Object> DATA_COMPONENTS = new HashSet<>(Arrays.asList(new Object[]{Sprite.class}));
-    private static final Set<String> ACCEPTED_IMAGE_FILES = new HashSet<>(Arrays.asList(new String []{"jpg","png","gif"}));
+    private static final Set<String> ACCEPTED_IMAGE_FILES = new HashSet<>(Arrays.asList(new String[]{"jpg", "png", "gif"}));
     private static final String SAVE_PATH = "saves/";
     private static final String ENTITY_PATH = "entity/";
 
 
     //creates an xml file from an authoiring environment this method converts authoring gamestate to player
     // gamestate then writes to xml
-    public static void saveFile(GameState gameState, String fileName) throws Exception{
+    public static void saveFile(GameState gameState, String fileName) throws Exception {
         DataGameState dataGameState = new DataGameState(gameState, fileName);
         createFile(dataGameState);
     }
 
     //creates an xml file from an authoiring environment
-    public static void saveFile(DataGameState dataGameState) throws Exception{
+    public static void saveFile(DataGameState dataGameState) throws Exception {
         createFile(dataGameState);
     }
 
-    public static void saveGame( DataGameState dataGameState, String saveName){
+    public static void saveGame(DataGameState dataGameState, String saveName) {
         String name = dataGameState.getGameName();
-        File game = new File(GAME_FILEPATH+name+ SLASH + SAVE_PATH + saveName + XML_FILETYPE);
+        File game = new File(GAME_FILEPATH + name + SLASH + SAVE_PATH + saveName + XML_FILETYPE);
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(game);
@@ -86,10 +84,10 @@ public class DataWrite {
 
     }
 
-    public static void writeImage(URL imageURL, String name) throws IOException{
+    public static void writeImage(URL imageURL, String name) throws IOException {
         BufferedImage image = ImageIO.read(imageURL);
         File fileDest = new File(DEFAULT_IMAGEPATH + name);
-        if(!ACCEPTED_IMAGE_FILES.contains(getFileType(fileDest).toLowerCase())) {
+        if (!ACCEPTED_IMAGE_FILES.contains(getFileType(fileDest).toLowerCase())) {
             throw new IOException();
         }
         ImageIO.write(image, getFileType(fileDest), fileDest);
@@ -123,16 +121,14 @@ public class DataWrite {
 
     // Utility for adding imaged into a specified directory instead of a random directory in the user's computer
     public static String writeImage(String gameName, String imageName) throws IOException {
-        File imageFile = new File(DEFAULT_IMAGEPATH+imageName);
+        File imageFile = new File(DEFAULT_IMAGEPATH + imageName);
         try {
             BufferedImage image = ImageIO.read(imageFile);
             String filePath = GAME_FILEPATH + gameName + SLASH + DEFAULT_IMAGEPATH + imageName;
             File fileDest = new File(filePath);
             ImageIO.write(image, getFileType(imageFile), fileDest);
             return filePath;
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             throw new IOException();
         }
 
@@ -159,8 +155,7 @@ public class DataWrite {
 
             File soundFolder = new File(soundDir);
             soundFolder.mkdir();
-        }
-        else {
+        } else {
             deleteDir(gameFolder);
             makeFolders(name);
         }
@@ -169,7 +164,7 @@ public class DataWrite {
     //writes the xml to the folder created above
     private static void writeGame(DataGameState dataGameState) {
         String name = dataGameState.getGameName();
-        File game = new File(GAME_FILEPATH + name+ PLAYER + XML_FILETYPE);
+        File game = new File(GAME_FILEPATH + name + PLAYER + XML_FILETYPE);
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(game);
@@ -184,23 +179,23 @@ public class DataWrite {
     private static void writeResources(DataGameState dataGameState) {
         String name = dataGameState.getGameName();
         List<Component> componentList = dataGameState.getComponents();
-            for(Component component : componentList) {
-              if(DATA_COMPONENTS.contains(component.getClass())) {
-                  for (Method method : component.getClass().getMethods())
-                      if (method.getName().equals(IMAGE_GETTER))
-                          try {
-                              writeImage(name, (String) method.invoke(component, null));
-                          } catch (IOException | IllegalAccessException | InvocationTargetException e) {
-                              ErrorStatement(WRITE_ERROR);
-                          }
+        for (Component component : componentList) {
+            if (DATA_COMPONENTS.contains(component.getClass())) {
+                for (Method method : component.getClass().getMethods())
+                    if (method.getName().equals(IMAGE_GETTER))
+                        try {
+                            writeImage(name, (String) method.invoke(component, null));
+                        } catch (IOException | IllegalAccessException | InvocationTargetException e) {
+                            ErrorStatement(WRITE_ERROR);
+                        }
 //                   if (method.getName().equals(SOUND_GETTER))
 //                       try {
 //                           writeSound((String) method.invoke(component, null));
 //                       } catch (IOException | IllegalAccessException | InvocationTargetException e) {
 //                           e.printStackTrace();
 //                       }
-              }
             }
+        }
     }
 
     // util file for finding filetype
@@ -218,7 +213,7 @@ public class DataWrite {
         if (dir.isDirectory()) {
             File[] children = dir.listFiles();
             for (File file : children) {
-                deleteDir (file);
+                deleteDir(file);
             }
         }
         dir.delete();
@@ -238,4 +233,3 @@ public class DataWrite {
         xstream.toXML(o, fos);
     }
 }
-
