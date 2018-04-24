@@ -110,15 +110,15 @@ public class GamePlayerController {
 	 * @throws FileNotFoundException 
 	 */
 	public void initializeGameStart() throws FileNotFoundException {
-		SampleToolBar sampleBar = new SampleToolBar(this);
-		myPane.setTop(sampleBar);
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		levelEntityGroupMap = gameView.getlevelEntityMap();
-		MenuGameBar menuBar = new MenuGameBar(this);
-		myPane.setBottom(menuBar);
 		gameRoot = levelEntityGroupMap.get(1);  //level 1
 		myPane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
+		MenuGameBar menuBar = new MenuGameBar(this);
+		myPane.setBottom(menuBar);
+		SampleToolBar sampleBar = new SampleToolBar(this);
+		myPane.setTop(sampleBar);
 		initializeGameAnimation(); //begins the animation cycle
 	}
 
