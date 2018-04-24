@@ -1,5 +1,6 @@
 package authoring.views.properties;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
@@ -24,7 +25,7 @@ public class HUDPropertiesView extends PropertiesView{
 	
 	public HUDPropertiesView(List<Level> levels) {
 		super();
-		this.levels = levels;
+		this.levels = new ArrayList<>(levels);
 	}
 
 	@Override
