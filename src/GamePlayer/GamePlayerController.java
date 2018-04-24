@@ -145,6 +145,7 @@ public class GamePlayerController {
 		System.out.println(level);
 		myPane.getChildren().addAll(levelEntityGroupMap.get(level));*/
 		gameRoot = levelEntityGroupMap.get(level);
+		gameView.setActiveLevel(level);
 	}
 
 	public Map<Integer, Pane> getGameLevelRoot(){
