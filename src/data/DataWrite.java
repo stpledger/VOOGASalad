@@ -89,7 +89,7 @@ public class DataWrite {
 
     public static void writeImage(URL imageURL, String name) throws IOException{
         BufferedImage image = ImageIO.read(imageURL);
-        File fileDest = new File(IMAGE_PATH + name);
+        File fileDest = new File(DEFAULT_IMAGEPATH + name);
         if(!ACCEPTED_IMAGE_FILES.contains(getFileType(fileDest).toLowerCase())) {
             throw new IOException();
         }

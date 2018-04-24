@@ -41,7 +41,7 @@ public class EntityBox extends VBox {
 			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
 			ClipboardContent cc = new ClipboardContent();
 			cc.putImage(image);
-			cc.putString(t);	
+			cc.putString("Harmooth");	
 			db.setContent(cc);
 			e.consume();
 		});

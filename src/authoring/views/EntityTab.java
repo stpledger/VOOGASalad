@@ -35,6 +35,13 @@ public class EntityTab extends Tab{
 
 	public EntityTab(String name, double entityViewWidth) {
 		super(name);
+		myEntityViewWidth = entityViewWidth;
+		
+//		Block block = new Block(0);
+//		Enemy enemy = new Enemy(0);
+//		Player player = new Player(0);
+//		Background bgrnd =  new Background(0);
+		
 		myEntityViewWidth = entityViewWidth;		
 		this.setClosable(false);
 		this.getStyleClass().add("entity-tab");
