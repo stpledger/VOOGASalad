@@ -56,7 +56,8 @@ public class EntityLoader {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public Entity buildEntity(int ID, String entityName, String type) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException, ClassNotFoundException {
+
+	public Entity buildEntity(int ID, String entityName, String type) throws Exception {
 		System.out.println(DATA_PREFIX + entityName + XML_EXTENSION);
 		Entity entity = (Entity) Class.forName(ENTITY_PREFIX + type).getDeclaredConstructors()[0].newInstance();
 		Element root = getRootElement(new File(DATA_PREFIX + entityName + XML_EXTENSION));
@@ -68,6 +69,7 @@ public class EntityLoader {
 			compsToAdd.add(cb.build(ID, e));
 		}
 		return entity;
+
 	}
 	
 	/**

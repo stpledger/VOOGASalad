@@ -1,14 +1,5 @@
 <data.DataGameState>
-  <gameState>
-    <entry>
-      <frontend.components.Level>
-        <levelNum>1</levelNum>
-        <levelTime>0.0</levelTime>
-        <levelDistance>0.0</levelDistance>
-        <HUDprops/>
-        <GProps/>
-      </frontend.components.Level>
-      <map>
+    <gameState>
         <entry>
           <int>0</int>
           <map>
