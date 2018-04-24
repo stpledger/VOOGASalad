@@ -191,11 +191,11 @@ public class EntityBuilderView extends Stage {
 					componentValues.put(componentForm.getName(), tempArr);
 					componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
 				}
-				onClose.accept(myEntityType, componentAttributes);
-				EntitySaver saver = new EntitySaver();
-				saver.writeXML(componentValues, nameForm.getText());
-				this.close();
 			}
+			onClose.accept(myEntityType, componentAttributes);
+			EntitySaver saver = new EntitySaver();
+			saver.writeXML(componentValues, nameForm.getText());
+			this.close();
 		}
 		catch (Exception e1) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
