@@ -15,6 +15,9 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+
+import java.util.Map;
+
 /**
  * Splash Screen for Selecting Games and Uploading Games
  * @author Ryan
@@ -33,7 +36,7 @@ public class GamePlayerSplashScreen{
 	public FileUploadButton fileBtn;
 	
 	public GamePlayerSplashScreen(Stage stage) {
-		//imageGameStateMap = DataRead.getAllGames();
+		imageGameStateMap = DataRead.getAllGames();
 		mySplashStage = stage;
 		splashScene = initializeSplashScreen();
 	}
