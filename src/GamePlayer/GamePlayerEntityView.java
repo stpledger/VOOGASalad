@@ -2,6 +2,7 @@ package GamePlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +35,7 @@ import javafx.scene.layout.Pane;
 public class GamePlayerEntityView {
 	//private Group entityRoot;
 	private Map<Level,Map<Integer,Map<String,Component>>> levelMap;
+	private Map<Integer, Map<Integer,Map<String,Component>>> intLevelMap;
 	private Map<Integer, Map<String, Component>> entityMap;
 	private Map<Integer, Pane> levelEntityMap;
 	private DataGameState gameState;
@@ -42,25 +44,40 @@ public class GamePlayerEntityView {
 	private InputHandler inputHandler;
 	private RenderManager renderManager;
 	private SystemManager systemManager;
-	private Map<Integer, Map<Integer,Map<String,Component>>> intLevelMap;
 	private LevelStatus LS;
 
-	private int PlayerKey;
+	private int ActiveLevel;
+	private Position ActivePlayerPos;
+
+	private Map<Integer, Map<String, Component>> PlayerKeys;
 
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
 		gameState = DataRead.loadPlayerFile(gameFile);
 		levelMap = gameState.getGameState();
+		PlayerKeys = new HashMap<>();
+		levelToInt();
 		levelEntityMap = createEntityGroupMap(levelMap);
 		System.out.println(levelMap.size());
 		int count = 0;
-		for(Level level : levelMap.keySet()) {
+		/*for(Level level : levelMap.keySet()) {
 			entityMap = levelMap.get(level);  //currently entityMap is the first level map of integer to components
 			//intLevelMap.put(1, entityMap);
 			break;
 //			count++;
-		}
+		}*/
+		setActiveLevel(1);
 		initializeGamePlayerEntityView();
+	}
+
+	/**
+	 * Converts Map of Levels to its Entities to Integers to Entities to make calling a particular level easier
+	 */
+	public void levelToInt() {
+		intLevelMap = new HashMap<>();
+		for(Level level: levelMap.keySet()){
+			intLevelMap.put(level.getLevelNum(), levelMap.get(level));
+		}
 	}
 
 	/**
@@ -79,15 +96,12 @@ public class GamePlayerEntityView {
 	private Map<Integer, Pane> createEntityGroupMap(Map<Level, Map<Integer, Map<String, Component>>> levelMap){
 		int count = 1;
 		Map<Integer, Pane> levelEntityMap = new HashMap<>();
-
 		for(Level level : levelMap.keySet()) {
-			levelEntityMap.put(count, createIndividualEntityGroup(levelMap.get(level)));
+			levelEntityMap.put(count, createIndividualEntityGroup(levelMap.get(level), count));
 			//levelEntityMap.put(count+1, createIndividualEntityGroup(levelMap.get(level))); //TESTING DELETE
 			System.out.println(levelEntityMap.get(count));
 			count++;
 		}
-		//Testing purposes
-		//TEsting purposes
 		return levelEntityMap;
 	}
 
@@ -97,7 +111,7 @@ public class GamePlayerEntityView {
 	 * @return
 	 */
 
-	public Pane createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap) {
+	public Pane createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap, int levelNum) {
 		Pane entityRoot = new Pane();
 		Map<String, Component> entityComponents;
 		//Changed enclosed code to only load sprites for 
@@ -109,7 +123,7 @@ public class GamePlayerEntityView {
 				//				image.setX(200);
 				//				image.setY(200);
 				//image.setImage(new Image("mystery.jpg"));
-				System.out.print(image.getX());
+				//System.out.print(image.getX());
 				if (entityComponents.containsKey(Position.KEY)) {
 					Position p = (Position) entityComponents.get(Position.KEY);
 					image.setX(p.getXPos());
@@ -117,7 +131,7 @@ public class GamePlayerEntityView {
 
 					// setting up values to track for window scroll
 					if(entityComponents.containsKey(Player.KEY)){
-                        PlayerKey = i;
+                        PlayerKeys.put(levelNum, entityComponents);
                     }
 				}
 				
@@ -173,11 +187,10 @@ public class GamePlayerEntityView {
 	public void initializeGamePlayerEntityView() {
 
 		try {
-			gameInitializer = new GameInitializer(entityMap);
+			gameInitializer = new GameInitializer(intLevelMap.get(ActiveLevel));
 			//gameInitializer = new GameInitializer(intLevelMap.get(0)); //gets the first level map.
 		} catch (FileNotFoundException e) {
-			System.out.println("You made it this far");
-			e.printStackTrace();
+			System.out.println("entityMap not initialized");
 		}
 
 		inputHandler = gameInitializer.getIH();
@@ -189,6 +202,12 @@ public class GamePlayerEntityView {
 		LS.getUpdate().addListener((o,oldVal,newVal) -> {
 	   //  some action based on the value of newVal like -1 game over, from 1 to 2 change to level two etc. 
 	  });
+	}
+
+	public void setActiveLevel(int i){
+		ActiveLevel = i;
+		Map<String, Component> player = new HashMap<>(PlayerKeys.get(ActiveLevel));
+		ActivePlayerPos = (Position) player.get(Position.KEY);
 	}
 	
 
@@ -216,13 +235,7 @@ public class GamePlayerEntityView {
 
 	// used to update the bounds of the scrollpane so the view shifts with the user's character
 	public void updateScroll(Pane gameRoot){
-        Map<String, Component> playerComponents;
-        playerComponents = entityMap.get(PlayerKey);
-        Position position = (Position) playerComponents.get(Position.KEY);
-        gameRoot.setTranslateY((-1 * position.getYPos()) + 250);
-        System.out.println(position.getYPos());
-        System.out.println(gameRoot.getTranslateY());
-
+		gameRoot.setTranslateY(ActivePlayerPos.getYPos() * -1 + 250);
     }
 
 }
