@@ -5,18 +5,17 @@ import authoring.entities.componentbuilders.*;
 import engine.components.Component;
 
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.xml.sax.SAXException;
 import org.w3c.dom.Document;
 
 /**
@@ -27,19 +26,20 @@ import org.w3c.dom.Document;
 public class EntityLoader {
 
 	private DocumentBuilder documentBuilder;
-	private final String ERROR_MESSAGE = "The component %s is invalid.";
-	private final String COMPONENT_WRAPPER = "Component";
-	private final String ENTITY_PREFIX = "authoring.entities";
-	private final String COMPONENT_BUILDER = "authoring.entities.componentbuilders.";
-	private final String XML_EXTENSION = ".xml";
-	private final String DATA_PREFIX = "data/";
+	private static final String ERROR_MESSAGE = "The component %s is invalid.";
+	private static final String COMPONENT_WRAPPER = "Component";
+	private static final String ENTITY_PREFIX = "authoring.entities";
+	private static final String COMPONENT_BUILDER = "authoring.entities.componentbuilders.";
+	private static final String XML_EXTENSION = ".xml";
+	private static final String DATA_PREFIX = "data/";
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	public EntityLoader() {
 		try {
 			documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			// TODO Better exception
-			e.printStackTrace();
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 	}
 	
@@ -82,9 +82,10 @@ public class EntityLoader {
 			documentBuilder.reset();
 			Document XMLDoc = documentBuilder.parse(XMLFile);
 			return XMLDoc.getDocumentElement();
-		} catch (SAXException | IOException e) {
-			throw new XMLException(e);
+		} catch (Exception e) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
+		return null;
 	}
 	
 	/**
@@ -112,8 +113,7 @@ public class EntityLoader {
 			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
 			return (ComponentBuilder) cons.newInstance();
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		} 
 		return null;
 	}
