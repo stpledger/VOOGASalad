@@ -4,11 +4,18 @@ import engine.components.AI;
 import engine.components.Component;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * System which calls the AI components' actions if they are within rendering dinstance
+ *
+ * @author cndracos
+ */
 public class ArtificialIntelligence implements  ISystem{
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
+    private Set<Integer> activeComponents = new HashSet<>();
 
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
@@ -28,15 +35,17 @@ public class ArtificialIntelligence implements  ISystem{
 
     @Override
     public void setActives(Set<Integer> actives) {
-        handledComponents.keySet().retainAll(actives);
+        Set<Integer> myActives = new HashSet<>(actives);
+        myActives.retainAll(handledComponents.keySet());
+        activeComponents = myActives;
     }
 
     @Override
     public void execute(double time) {
-        for (int id : handledComponents.keySet()) {
+        for (int id : activeComponents) {
             Map<String, Component> components = handledComponents.get(id);
             AI ai = (AI) components.get(AI.KEY);
-            ai.doAction(time);
+            ai.doAction(time); //calls the AI action
         }
     }
 

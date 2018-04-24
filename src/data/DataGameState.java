@@ -1,11 +1,17 @@
 package data;
 
 import engine.components.Component;
-import frontend.components.Level;
-import frontend.entities.Entity;
-import frontend.gamestate.GameState;
 
 import java.util.*;
+
+import authoring.entities.Entity;
+import authoring.gamestate.GameState;
+import authoring.gamestate.Level;
+/**
+ * @author Conrad 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class DataGameState {
     private Map<Level,Map<Integer, Map<String, Component>>> gameState;
     private String gameName = "data";
@@ -32,7 +38,7 @@ public class DataGameState {
             for (Entity entity : level.getEntityList()) {
                 Map<String, Component> componentMap = new HashMap<>();
                 for (Component component :entity.getComponentList()) {
-                    componentMap.put(component.getKeyKey(), component);
+                    componentMap.put(component.getKey(), component);
                 }
                 entityMap.put(entity.getID(),componentMap);
             }
@@ -70,7 +76,6 @@ public class DataGameState {
         }
         return authoringState;
     }
-
 
     //gets name gets .... the name of the file
 	public String getGameName()

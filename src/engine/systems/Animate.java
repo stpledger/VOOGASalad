@@ -5,10 +5,18 @@ import engine.components.*;
 import engine.setup.EntityManager;
 import javafx.scene.image.ImageView;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.Map;
 import java.util.HashMap;
 
+/**
+ * System which updates the entity's sprite depending on its position component which may (or may not) have been
+ * moved in earlier systems, so that what the user sees moving on the screen mimics the values of that entity's
+ * position, velocity, and acceleration components
+ *
+ * @author cndracos
+ */
 public class Animate implements ISystem {
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents;
@@ -17,8 +25,13 @@ public class Animate implements ISystem {
     public Animate(EntityManager em) {
     	this.em = em;
     }
-    
-    
+
+    /**
+     * Adds components which it can act upon, choosing only the entities which have both a position AND
+     * a Sprite component
+     * @param pid entity's ID
+     * @param components all of the entity's components
+     */
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
         if (components.containsKey(Position.KEY) && components.containsKey(Sprite.KEY)) {
@@ -82,21 +95,21 @@ public class Animate implements ISystem {
 
     @Override
     public void setActives(Set<Integer> actives) {
-        activeComponents = actives;
+        Set<Integer> myActives = new HashSet<>(actives);
+        myActives.retainAll(handledComponents.keySet());
+        activeComponents = myActives;
     }
 
     @Override
     public void execute(double time) {
         for (int pid : activeComponents) {
-            if (handledComponents.keySet().contains(pid)) {
-                Map<String, Component> components = handledComponents.get(pid);
-                Sprite s = (Sprite) components.get(Sprite.KEY);
-                Position p = (Position) components.get(Position.getKey());
+            Map<String, Component> components = handledComponents.get(pid);
+            Sprite s = (Sprite) components.get(Sprite.KEY);
+            Position p = (Position) components.get(Position.KEY);
 
-                ImageView im = s.getImage();
-                im.setX(p.getXPos());
-                im.setY(p.getYPos());
-            }
+            ImageView im = s.getImage();
+            im.setX(p.getXPos()); //updates image x on position x pos
+            im.setY(p.getYPos()); //updates image y on position y pos
         }
     }
     

@@ -39,10 +39,6 @@ public class DamageLauncher extends Component {
 	public void decrementLife() {
 		lifetime--;
 	}
-	
-	public static String getKey() {
-		return KEY;
-	}
 
 	@Override
 	public Map<String, String> getParameters(){

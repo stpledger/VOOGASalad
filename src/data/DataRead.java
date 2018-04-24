@@ -2,9 +2,10 @@ package data;
 
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
+
+import authoring.entities.Entity;
+import authoring.gamestate.Level;
 import engine.components.Component;
-import frontend.components.Level;
-import frontend.entities.Entity;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -86,8 +87,8 @@ public class DataRead  {
             DataWrite.writeImage(file);
             return SwingFXUtils.toFXImage(image, null);
         } catch (IOException e) {
-            ErrorStatement(FAIL_MESSAGE);
-            return new Image(EMPTY_IMAGE);
+             ErrorStatement(FAIL_MESSAGE);
+           return new Image(EMPTY_IMAGE);
         }
     }
 
@@ -165,7 +166,8 @@ public class DataRead  {
 
     public static List<Image> getIcons(){
         List<Image> icons = new ArrayList<>();
-        File imageRepo = new File(FILE+path+IMAGE_PATH);
+        File imageRepo = new File(path+IMAGE_PATH);
+        System.out.print(imageRepo.getAbsolutePath());
         for(File image : imageRepo.listFiles())
             icons.add(loadImage(image));
         return icons;

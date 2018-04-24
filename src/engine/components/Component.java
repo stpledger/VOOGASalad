@@ -1,5 +1,7 @@
 package engine.components;
 
+import engine.setup.EntityManager;
+
 import java.util.Map;
 
 /**
@@ -11,7 +13,7 @@ import java.util.Map;
 public abstract class Component {
 	
 	private int pid;
-	private String keykey;
+	private String key;
 	
 	/**
 	 * Constructs component with entity parent ID
@@ -19,8 +21,8 @@ public abstract class Component {
 	 */
 	
 	
-	public Component(int pid, String keykey) {
-		this.keykey = keykey;
+	public Component(int pid, String key) {
+		this.key = key;
 		this.pid = pid;
 	}
 	
@@ -28,7 +30,7 @@ public abstract class Component {
 		return pid;
 	}
 
-	public String getKeyKey() { return keykey; }
+	public String getKey() { return key; }
 
 	public abstract Map<String,String> getParameters();
 

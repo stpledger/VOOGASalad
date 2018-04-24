@@ -3,14 +3,14 @@ package data;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
+import authoring.entities.Entity;
+import authoring.gamestate.GameState;
+import authoring.gamestate.Level;
 import engine.components.Component;
 import engine.components.Sprite;
 import engine.setup.SystemManager;
-import frontend.components.Level;
-import frontend.entities.Entity;
-import frontend.gamestate.GameState;
-import javafx.scene.control.Alert;
 
+import javafx.scene.control.Alert;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -101,7 +101,7 @@ public class DataWrite {
             entityFolder.mkdir();
         }
         try {
-            FileOutputStream fos = new FileOutputStream(ENTITY_PATH + entity.getName());
+            FileOutputStream fos = new FileOutputStream(ENTITY_PATH + entity.name());
             serialize(entity, fos);
         } catch (FileNotFoundException e) {
             // e.printStackTrace();
