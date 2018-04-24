@@ -101,7 +101,7 @@ public class EntityBuilderView extends Stage {
 		addImageMenu = buildSingleButtonMenu("addImage", addImageOnClick);
 		this.entityPreview = new ImageView();
 		updateEntityPreview(new Image("no_image.jpg"));
-		this.root.getChildren().addAll(typeComboBox, addImageMenu, entityPreview, saveMenu);
+		this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, saveMenu);
 		this.root.getStyleClass().add("entity-builder-view");
 
 	}
@@ -160,8 +160,8 @@ public class EntityBuilderView extends Stage {
 		hBox.getStyleClass().add("toolbar");
 		hBox.getChildren().add(buttonBuilder(name, onClick));
 		return hBox;
-
 	}
+	
 	/**
 	 * Builds a button using a string as a name and a Consumer for the onClick method. CSS is based on the name and Tooltip and Text are based on properties files
 	 * @param name the name of the button
@@ -185,8 +185,12 @@ public class EntityBuilderView extends Stage {
 	 */
 	private void save(){
 		try {
+			String name = new String();
 			for(EntityComponentForm componentForm : activeForms) {
 				Object[] tempArr = componentForm.buildComponent();
+				if (componentForm.getName().equals("Name")) {
+					name = (String) tempArr[0];
+				}
 				if(tempArr != null) {
 					componentValues.put(componentForm.getName(), tempArr);
 					componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
@@ -194,7 +198,7 @@ public class EntityBuilderView extends Stage {
 			}
 			onClose.accept(myEntityType, componentAttributes);
 			EntitySaver saver = new EntitySaver();
-			saver.writeXML(componentValues, nameForm.getText());
+			saver.writeXML(componentValues, name);
 			this.close();
 		}
 		catch (Exception e1) {
@@ -242,9 +246,6 @@ public class EntityBuilderView extends Stage {
 			}
 		}
 		// TODO Make this more flexible
-		this.nameForm = new TextField();
-		nameForm.setText("Name");
-		currentForms.add(nameForm, 0, ++currentRow);
 		return currentForms;
 	}
 }

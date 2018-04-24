@@ -40,6 +40,7 @@ public class EntityLoader {
 	 * @return an Entity object represented by this object
 	 */
 	public void buildEntity(String entityName) {
+		System.out.println(DATA_PREFIX + entityName + XML_EXTENSION);
 		Element root = getRootElement(new File(DATA_PREFIX + entityName + XML_EXTENSION));
 		NodeList nList = root.getElementsByTagName(COMPONENT_WRAPPER);
 		for (int i = 0; i < nList.getLength(); i++) {
