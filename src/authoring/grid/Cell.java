@@ -1,6 +1,7 @@
 package authoring.grid;
 
 import authoring.entities.Entity;
+import authoring.entities.data.EntityLoader;
 import javafx.event.EventHandler;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
@@ -39,7 +40,8 @@ public class Cell extends Pane {
 			@Override
 			public void handle(DragEvent e) {
 				Dragboard db = e.getDragboard();
-				System.out.printf(db.getString());
+				EntityLoader el = new EntityLoader();
+				Entity en = el.buildEntity(0, db.getString());
 				e.setDropCompleted(true);
 				e.consume();
 			}

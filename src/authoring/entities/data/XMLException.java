@@ -1,4 +1,4 @@
-package authoring.saver;
+package authoring.entities.data;
 
 /**
  * What could go wrong in reading XML files. Must handle all different cases.
