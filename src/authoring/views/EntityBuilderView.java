@@ -183,6 +183,7 @@ public class EntityBuilderView extends Stage {
 					componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
 				}
 			}
+			componentValues.put("Type", new Object[] {myEntityType});
 			onClose.accept(myEntityType, componentAttributes);
 			EntitySaver saver = new EntitySaver();
 			saver.writeXML(componentValues, name);
