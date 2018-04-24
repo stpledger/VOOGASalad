@@ -91,18 +91,18 @@ public class EntityBuilderView extends Stage {
 		HBox addImageMenu = new HBox();
 		try {
 			tooltipProperties.load(new FileInputStream("src/resources/tooltips/EntityBuilderViewTooltips.properties"));
-		} catch (Exception e) {
+			this.root = new VBox();
+			this.root.setAlignment(Pos.CENTER);
+			ComboBox<String> typeComboBox = buildTypeComboBox();
+			this.saveMenu = buildSingleButtonMenu("save", saveOnClick);
+			addImageMenu = buildSingleButtonMenu("addImage", addImageOnClick);
+			this.entityPreview = new ImageView();
+			updateEntityPreview(new Image("no_image.jpg"));
+			this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, saveMenu);
+			this.root.getStyleClass().add("entity-builder-view");
+		}  catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
 		}
-		this.root = new VBox();
-		this.root.setAlignment(Pos.CENTER);
-		ComboBox<String> typeComboBox = buildTypeComboBox();
-		this.saveMenu = buildSingleButtonMenu("save", saveOnClick);
-		addImageMenu = buildSingleButtonMenu("addImage", addImageOnClick);
-		this.entityPreview = new ImageView();
-		updateEntityPreview(new Image("no_image.jpg"));
-		this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, saveMenu);
-		this.root.getStyleClass().add("entity-builder-view");
 
 	}
 
@@ -132,53 +132,40 @@ public class EntityBuilderView extends Stage {
 	/**
 	 * Builds the menu to select the Type of Entity
 	 * @return Menu typeMenu
+	 * @throws Exception 
 	 */
-	private ComboBox<String> buildTypeComboBox() {
-		ComboBox<String> comboBox = new ComboBox();
-		comboBox.setPromptText("Select Object Type");
+	private ComboBox<String> buildTypeComboBox() throws Exception {
+		ComboBox<String>comboBox = (ComboBox<String>) eFactory.buildClickElement(ClickElementType.ComboBox, "Select Object Type", null);
+		comboBox.setOnAction(e -> {
+				myEntityType = ((String) comboBox.getSelectionModel().getSelectedItem());
+				root.getChildren().remove(saveMenu);
+				root.getChildren().add(fillComponentsForms());
+				root.getChildren().add(saveMenu);
+				this.sizeToScene();
+		});
 		comboBox.getStyleClass().add("entity-builder-combo-box"); 
 		for(String et : entityTypes) {
 			comboBox.getItems().add(et);
 		}
-		comboBox.setOnAction(e -> {
-			myEntityType = ((String) comboBox.getSelectionModel().getSelectedItem());
-			root.getChildren().remove(saveMenu);
-			root.getChildren().add(fillComponentsForms());
-			root.getChildren().add(saveMenu);
-			this.sizeToScene();
-		});
 		return comboBox;
 	}
 
 	/**
 	 * Builds the menu on the buttom of the screen containing the save button
 	 * @return HBox bottomMenu
+	 * @throws Exception 
 	 */
-	private HBox buildSingleButtonMenu(String name, Consumer onClick) {
+	private HBox buildSingleButtonMenu(String name, Consumer onClick) throws Exception {
 		HBox hBox = new HBox();
-		hBox.setAlignment(Pos.CENTER);
-		hBox.getStyleClass().add("toolbar");
-		hBox.getChildren().add(buttonBuilder(name, onClick));
-		return hBox;
+			Button b = (Button) eFactory.buildClickElement(ClickElementType.Button, name, onClick);
+			b.setTooltip(new Tooltip(tooltipProperties.getProperty(name)));
+			b.getStyleClass().addAll("entity-builder-view-button",name);
+			hBox.setAlignment(Pos.CENTER);
+			hBox.getStyleClass().add("toolbar");
+			hBox.getChildren().add(b);
+			return hBox;
 	}
 	
-	/**
-	 * Builds a button using a string as a name and a Consumer for the onClick method. CSS is based on the name and Tooltip and Text are based on properties files
-	 * @param name the name of the button
-	 * @param onClick the consumer to be called on click
-	 * @return Button
-	 */
-	private Button buttonBuilder(String name, Consumer onClick) {
-		Button button = null;
-		try {
-			button = (Button) this.eFactory.buildClickElement(ClickElementType.Button, name, e ->onClick.accept(e));
-			button.setTooltip(new Tooltip(tooltipProperties.getProperty(name)));
-			button.getStyleClass().addAll("entity-builder-view-button",name);
-		} catch (Exception e) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
-		}
-		return button;
-	}
 
 	/**
 	 * Saves the current entity
@@ -245,7 +232,6 @@ public class EntityBuilderView extends Stage {
 				currentForms.add(cf, 0, currentRow);
 			}
 		}
-		// TODO Make this more flexible
 		return currentForms;
 	}
 }

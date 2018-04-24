@@ -39,7 +39,7 @@ public class EntityLoader {
 	 * @param entityName the name of the entity to pull the xml file for
 	 * @return an Entity object represented by this object
 	 */
-	public void buildEntity(String entityName) {
+	public Entity buildEntity(String entityName) {
 		System.out.println(DATA_PREFIX + entityName + XML_EXTENSION);
 		Element root = getRootElement(new File(DATA_PREFIX + entityName + XML_EXTENSION));
 		NodeList nList = root.getElementsByTagName(COMPONENT_WRAPPER);
@@ -47,6 +47,7 @@ public class EntityLoader {
 			Element e = (Element) nList.item(i);
 			System.out.println(e.getNodeName() + " " + e.getAttribute("type") + " " + e.getTextContent());
 		}
+		return null;
 	}
 	
 	/**
