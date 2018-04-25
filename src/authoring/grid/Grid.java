@@ -1,10 +1,16 @@
 package authoring.grid;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 import authoring.entities.Entity;
-import javafx.scene.layout.TilePane;
+import authoring.entities.data.EntityLoader;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.TransferMode;
+import javafx.scene.layout.GridPane;
 
 /**
  * A container class for all of the cells in a grid, which each represent entities if they are filled.
@@ -12,7 +18,7 @@ import javafx.scene.layout.TilePane;
  * @author Hemanth Yakkali(hy115)
  *
  */
-public class Grid extends TilePane {
+public class Grid extends GridPane {
 
 	private static final int DEFAULT_WIDTH = 1000;
 	private static final int DEFAULT_HEIGHT = 600;
@@ -36,13 +42,53 @@ public class Grid extends TilePane {
         		for (int j = 0; j < this.numCols; j++) {
             		Cell c = new Cell();
             		cells.get(i).add(c);
-            		this.getChildren().add(c);
+            		this.add(c, j, i);
             	}
 		}
+		
+		for (int i = 0; i < this.numRows; i++) {
+        	for (int j = 0; j < this.numCols; j++) {
+        		Cell cell = cells.get(i).get(j);
+        		cell.setOnDragEntered(e-> cell.setStyle("-fx-background-color: #1CFEBA"));
+        		cell.setOnDragExited(e -> cell.setStyle("-fx-border-color: black"));
+        		cell.setOnDragOver(e -> {
+        			if (e.getGestureSource() != cell && e.getDragboard().hasString()) {
+        				e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+        			}
+        			e.consume();
+        		});
+        		cell.setOnDragDropped(e -> {
+        			Dragboard db = e.getDragboard();
+        			EntityLoader el = new EntityLoader();
+        			ImageView img = new ImageView(db.getImage());
+        			img.fitWidthProperty().bind(cell.widthProperty());
+        			img.fitHeightProperty().bind(cell.heightProperty());
+        			img.setOnMouseClicked(e1->{
+        				if(e1.getButton().equals(MouseButton.SECONDARY)) {
+        					System.out.println("cocks!");
+        					System.out.println(cell.heightProperty());
+        					cell.setPrefHeight(Entity.ENTITY_HEIGHT*4);
+        					img.fitHeightProperty().bind(cell.heightProperty());
+        					System.out.println(cell.heightProperty());
+//        					img.setFitHeight(Entity.ENTITY_HEIGHT*4);
+        				}
+        			});
+        			cell.getChildren().add(img);
+        			try {
+        				el.buildEntity(0, db.getString());
+        			} catch (Exception e1) {
+        				// TODO Auto-generated catch block
+        				e1.printStackTrace();
+        			}
+        			e.setDropCompleted(true);
+        			e.consume();
+        		});
+        	}
+		}
 
+
+		
 		this.setPrefSize(width, height);
-		this.setPrefTileWidth(Entity.ENTITY_WIDTH);
-		this.setPrefTileHeight(Entity.ENTITY_HEIGHT);
 	}
 	
 	/**
@@ -62,7 +108,7 @@ public class Grid extends TilePane {
 			for(int i = 0; i < this.numCols; i++) {
 				Cell c = new Cell();
 				this.cells.get(this.numRows).add(c);
-				this.getChildren().add(c);
+				this.add(c, i, this.numRows);
 			}
 			this.setPrefHeight(this.getPrefHeight() + Entity.ENTITY_HEIGHT);
 			this.numRows++;
@@ -75,12 +121,10 @@ public class Grid extends TilePane {
 	 */
 	public void addCol(int numTimes) {
 		for(int j = 0; j < numTimes; j++) {
-			int index = this.numCols;
 			for(int i = 0; i < this.numRows; i++) {
 				Cell c = new Cell();
 				this.cells.get(i).add(c);
-				this.getChildren().add(index, c);
-				index += this.numCols + 1; //add one because width of grid increases by one ENTITY_WIDTH
+				this.add(c, this.numCols, i);
 			}
 			this.setPrefWidth(this.getPrefWidth() + Entity.ENTITY_WIDTH);
 			this.numCols++;
