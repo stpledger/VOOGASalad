@@ -25,6 +25,8 @@ import org.w3c.dom.Document;
  *
  */
 public class EntityLoader {
+	
+	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	private DocumentBuilder documentBuilder;
 	private final String ERROR_MESSAGE = "The component %s is invalid.";
