@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import authoring.components.ComponentForm;
 import authoring.components.EntityComponentForm;
 
 public class EntityBuilderData {
@@ -41,12 +42,12 @@ public class EntityBuilderData {
 
 	/**
 	 * Saves an entity
-	 * @param activeForms
+	 * @param list
 	 * @throws Exception
 	 */
-	public void save(List<EntityComponentForm> activeForms) throws Exception  {
-		for(EntityComponentForm componentForm : activeForms) {
-			Object[] tempArr = componentForm.buildComponent();
+	public void save(List<ComponentForm> list) throws Exception  {
+		for(ComponentForm componentForm : list) {
+			Object[] tempArr = (Object[]) componentForm.buildComponent();
 			if(tempArr != null) {
 				componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
 			}
