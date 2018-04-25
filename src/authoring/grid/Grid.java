@@ -89,9 +89,6 @@ public class Grid extends GridPane {
         		});
         	}
 		}
-
-
-		
 		this.setPrefSize(width, height);
 	}
 	

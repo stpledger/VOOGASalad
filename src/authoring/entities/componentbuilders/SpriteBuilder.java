@@ -4,6 +4,7 @@ import engine.components.Component;
 import engine.components.Sprite;
 
 import java.io.FileNotFoundException;
+import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
 
 import org.w3c.dom.DOMException;
@@ -24,13 +25,16 @@ public class SpriteBuilder implements ComponentBuilder {
 	}
 	@Override
 	public Component build(int ID, Element e) {
-		NodeList nList = e.getElementsByTagName("Sprite");
 		// only one element, take the first one
-		Element e1 = (Element) nList.item(0);
 		try {
-			return new Sprite(ID, FOLDER_PATH + e1.getTextContent());
+			System.out.println("Trying to create " + e.getNodeName());
+			Class<?> clazz = Class.forName("engine.components." + e.getNodeName());
+			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
+			Component c = (Component) cons.newInstance(ID, e.getTextContent());
+			System.out.println("Component " + c + " created.");
 		} catch (Exception e2) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e2.toString(), e2);
+			e2.printStackTrace();
 		}
 		return null;
 	}

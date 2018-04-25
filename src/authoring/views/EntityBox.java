@@ -32,11 +32,8 @@ public class EntityBox extends VBox {
 		this.getStyleClass().add("entity-box");
 		this.setWidth(boxDimension);
 		this.setHeight(boxDimension);
-		
 		componentAttributes = m;
-		
 		setPreview();
-		
 		this.setOnDragDetected(e -> {
 			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
 			ClipboardContent cc = new ClipboardContent();
