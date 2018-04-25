@@ -1,10 +1,9 @@
 package authoring.entities.data;
 
-import authoring.entities.*;
+import authoring.entities.Entity;
 import authoring.entities.componentbuilders.*;
 import engine.components.Component;
 import engine.components.Type;
-
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -31,7 +30,7 @@ public class EntityLoader {
 	private DocumentBuilder documentBuilder;
 	private final String ERROR_MESSAGE = "The component %s is invalid.";
 	private final String COMPONENT_WRAPPER = "Component";
-	private final String ENTITY_PREFIX = "authoring.entities";
+	private final String ENTITY_PREFIX = "authoring.entities.";
 	private final String COMPONENT_BUILDER = "authoring.entities.componentbuilders.";
 	private final String XML_EXTENSION = ".xml";
 	private final String DATA_PREFIX = "data/";
@@ -58,18 +57,18 @@ public class EntityLoader {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public void buildEntity(int ID, String entityName) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException, ClassNotFoundException {
+	public Entity buildEntity(int ID, String entityName) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException, ClassNotFoundException {
 		Element root = getRootElement(new File(DATA_PREFIX + entityName + XML_EXTENSION));
 		String type = extractTypeFromRoot(root);
-		Entity entity = (Entity) Class.forName(ENTITY_PREFIX + type).getDeclaredConstructors()[0].newInstance();
+		Entity entity = (Entity) Class.forName(ENTITY_PREFIX + type).getDeclaredConstructors()[0].newInstance(ID, type);
 		NodeList nList = root.getChildNodes();
 		List<Component> compsToAdd = new ArrayList<>();
 		for (int i = 0; i < nList.getLength(); i++) {
 			Element e = (Element) nList.item(i);
-//			ComponentBuilder cb = getComponentBuilder(e.getNodeName());
-//			compsToAdd.add(cb.build(ID, e));
+			ComponentBuilder cb = new SpriteBuilder();
+			compsToAdd.add(cb.build(ID, e));
 		}
-		//return entity;
+		return entity;
 	}
 	
 	/**

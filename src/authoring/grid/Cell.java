@@ -23,11 +23,18 @@ public class Cell extends Pane {
 		this.setPrefHeight(Entity.ENTITY_HEIGHT);
 		this.setStyle("-fx-border-color: black");
 	}
-
+	
+	/**
+	 * @return the entity that is within this cell, if it has one
+	 */
 	public Entity getEntity() {
 		return entity;
 	}
 
+	/**
+	 * Set the entity for this cell
+	 * @param entity the entity to be placed in this cell
+	 */
 	public void setEntity(Entity entity) {
 		this.entity = entity;
 	}
