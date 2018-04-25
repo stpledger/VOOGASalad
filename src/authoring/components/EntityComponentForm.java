@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class EntityComponentForm extends AbstractComponentForm{
+public class EntityComponentForm extends AbstractComponentForm  implements ComponentForm {
 	
 
 	/**
