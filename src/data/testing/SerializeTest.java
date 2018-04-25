@@ -40,7 +40,7 @@ public class SerializeTest {
         params.add("1");
         params.add("3");
 
-        Acceleration entity1Acceleration = new Acceleration(1,1,0);
+        XAcceleration entity1Acceleration = new XAcceleration(1,1,0);
         entity1Components.put("Acceleration", entity1Acceleration);
 
 
@@ -74,7 +74,7 @@ public class SerializeTest {
         params.add("4");
         params.add("10");
 //__________________________________________________
-        Acceleration entity2Acceleration = new Acceleration(2,4,10);
+        XAcceleration entity2Acceleration = new XAcceleration(2,4,10);
         entity2Components.put("Acceleration", entity2Acceleration);
 
 

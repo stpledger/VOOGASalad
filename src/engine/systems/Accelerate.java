@@ -5,6 +5,7 @@ import java.util.*;
 import engine.components.Acceleration;
 import engine.components.Component;
 import engine.components.Velocity;
+import engine.components.YAcceleration;
 import engine.setup.EntityManager;
 
 /**
@@ -54,7 +55,7 @@ public class Accelerate implements ISystem{
 
     @Override
     public void addComponent(int pid, String componentName) {
-    		if(!componentName.equals(Acceleration.KEY) && !componentName.equals(Velocity.KEY)) {
+    		if(!componentName.equals(Acceleration.KEY) && !componentName.equals(YAcceleration.KEY) && !componentName.equals(Velocity.KEY)) {
     			return;
     		}
     		
@@ -65,7 +66,7 @@ public class Accelerate implements ISystem{
 
     		Map<String, Component> map = new HashMap<>();
     		map.put(componentName, em.getComponent(pid, componentName));
-    		if(componentName.equals(Acceleration.KEY)) {
+    		if(componentName.equals(Acceleration.KEY) || componentName.equals(YAcceleration.KEY)) {
     			Component component = em.getComponent(pid,Velocity.KEY);
     			if(component == null) {
     				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Velocity.KEY + " component!");
@@ -73,20 +74,28 @@ public class Accelerate implements ISystem{
     			}
     			map.put(Velocity.KEY, component);
     		}
-    		else {
-    			Component component = em.getComponent(pid,Acceleration.KEY);
-    			if(component == null) {
+    		
+    		else{
+    			Component component1 = em.getComponent(pid,Acceleration.KEY);
+    			Component component2 = em.getComponent(pid,YAcceleration.KEY);
+    			
+    			if(component1 == null) {
     				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Acceleration.KEY + " component!");
     				return;
     			}
-    			map.put(Acceleration.KEY, component);
+    			map.put(Acceleration.KEY, component1);
+    			if(component2==null) {
+    				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Acceleration.KEY + " component!");
+    				return;
+    			}
+    			map.put(YAcceleration.KEY, component2);
     		}
     		handledComponents.put(pid,map);
     }
     
     @Override
     public void removeComponent(int pid, String componentName) {
-		if(!componentName.equals(Acceleration.KEY) && !componentName.equals(Velocity.KEY)) {
+		if(!componentName.equals(Acceleration.KEY) && !componentName.equals(YAcceleration.KEY) && !componentName.equals(Velocity.KEY)) {
 			return;
 		}
 		
@@ -115,11 +124,12 @@ public class Accelerate implements ISystem{
 		for (int pid : activeComponents) {
 			Map<String,Component> activeComponents = handledComponents.get(pid);
 
-			Acceleration a = (Acceleration) activeComponents.get(Acceleration.KEY);
+			Acceleration x = (Acceleration) activeComponents.get(Acceleration.KEY);
+			YAcceleration y = (YAcceleration) activeComponents.get(YAcceleration.KEY);
 			Velocity v = (Velocity) activeComponents.get(Velocity.KEY);
 
-			v.setXVel(v.getXVel() + a.getxAcc()*time);
-			v.setYVel(v.getYVel() + a.getyAcc()*time);
+			v.setXVel(v.getXVel() + x.getxAcc()*time);
+			v.setYVel(v.getYVel() + y.getyAcc()*time);
 		}
 	}
 
