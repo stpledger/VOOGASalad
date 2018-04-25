@@ -39,59 +39,42 @@ public class Grid extends GridPane {
 		for (int i = 0; i < this.numRows; i++) {
 			cells.add(new ArrayList<>());
         		for (int j = 0; j < this.numCols; j++) {
-            		Cell c = new Cell();
-            		cells.get(i).add(c);
-            		this.add(c, j, i);
+            		Cell cell = new Cell();
+            		cell.setOnDragEntered(e-> cell.setStyle("-fx-background-color: #1CFEBA"));
+            		cell.setOnDragExited(e -> cell.setStyle("-fx-border-color: black"));
+            		cell.setOnDragOver(e -> {
+            			if (e.getGestureSource() != cell && e.getDragboard().hasString()) {
+            				e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            			}
+            			e.consume();
+            		});
+            		cell.setOnDragDropped(e -> {
+            			Dragboard db = e.getDragboard();
+            			EntityLoader el = new EntityLoader();
+            			ImageView img = new ImageView(db.getImage());
+//            			img.fitWidthProperty().bind(cell.widthProperty());
+//            			img.fitHeightProperty().bind(cell.heightProperty());
+            			img.setOnMouseClicked(e1->{
+            				if(e1.getButton().equals(MouseButton.SECONDARY)) {
+            					cell.setPrefWidth(Entity.ENTITY_WIDTH*3);
+            					System.out.println(GridPane.getColumnIndex(cell));
+            					System.out.println(GridPane.getRowIndex(cell));
+            				}
+            			});
+            			cell.getChildren().add(img);
+            			try {
+            				el.buildEntity(0, db.getString());
+            			} catch (Exception e1) {
+            				// TODO Auto-generated catch block
+            				e1.printStackTrace();
+            			}
+            			e.setDropCompleted(true);
+            			e.consume();
+            		});
+            		cells.get(i).add(cell);
+            		this.add(cell, j, i);
             	}
 		}
-		
-		for (int i = 0; i < this.numRows; i++) {
-        	for (int j = 0; j < this.numCols; j++) {
-        		Cell cell = cells.get(i).get(j);
-        		cell.setOnDragEntered(e-> cell.setStyle("-fx-background-color: #1CFEBA"));
-        		cell.setOnDragExited(e -> cell.setStyle("-fx-border-color: black"));
-        		cell.setOnDragOver(e -> {
-        			if (e.getGestureSource() != cell && e.getDragboard().hasString()) {
-        				e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-        			}
-        			e.consume();
-        		});
-        		cell.setOnDragDropped(e -> {
-        			Dragboard db = e.getDragboard();
-        			EntityLoader el = new EntityLoader();
-        			ImageView img = new ImageView(db.getImage());
-//        			img.fitWidthProperty().bind(cell.widthProperty());
-//        			img.fitHeightProperty().bind(cell.heightProperty());
-        			img.setOnMouseClicked(e1->{
-        				if(e1.getButton().equals(MouseButton.SECONDARY)) {
-        					System.out.println("cocks!");
-//        					System.out.println(cell.heightProperty());
-        					cell.setPrefWidth(Entity.ENTITY_WIDTH*3);
-        					System.out.println(GridPane.getColumnIndex(cell));
-        					System.out.println(GridPane.getRowIndex(cell));
-//        					img.setFitWidth(Entity.ENTITY_WIDTH*3);
-//        					GridPane.setFillWidth(cell, true);
-//        					cell.setPrefHeight(Entity.ENTITY_HEIGHT*4);
-//        					img.fitHeightProperty().bind(cell.heightProperty());
-//        					System.out.println(cell.heightProperty());
-//        					img.setFitHeight(Entity.ENTITY_HEIGHT*4);
-        				}
-        			});
-        			cell.getChildren().add(img);
-        			try {
-        				el.buildEntity(0, db.getString());
-        			} catch (Exception e1) {
-        				// TODO Auto-generated catch block
-        				e1.printStackTrace();
-        			}
-        			e.setDropCompleted(true);
-        			e.consume();
-        		});
-        	}
-		}
-
-
-		
 		this.setPrefSize(width, height);
 	}
 	
