@@ -57,7 +57,6 @@ public class EntityBuilderView extends Stage {
 	private String myEntityType = null;
 	private ImageView entityPreview;
 	private ElementFactory eFactory;
-	private boolean hasImage;
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -208,7 +207,6 @@ public class EntityBuilderView extends Stage {
 			DataRead.loadImage(imageFile);
 			Image image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 			updateEntityPreview(image);
-			hasImage = true;
 		} catch (Exception e1){
 			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}

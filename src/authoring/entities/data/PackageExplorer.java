@@ -7,6 +7,9 @@ import java.util.List;
 
 public class PackageExplorer {
 
+	public PackageExplorer() {
+		//
+	}
 	
 	/**
 	 * Gets all of the class names from a given package. Useful when determining which properties can be changed.
