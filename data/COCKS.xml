@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="COCKS"><Type>Block </Type><Sprite>Hemanth.png </Sprite><Health>100.0 </Health><Dimension>100.0 100.0 </Dimension><Name>COCKS </Name></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="cocks"><Type>Block </Type><Dimension>100.0 100.0 </Dimension><Sprite>8Bit.png </Sprite><Health>100.0 </Health><Name>cocks </Name></Entity>

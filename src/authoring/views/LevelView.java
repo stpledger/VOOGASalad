@@ -52,10 +52,7 @@ public class LevelView extends ScrollPane {
 	 */
 	private void setupMouseClick(int levelNum) {
 		this.setOnMouseClicked(e -> {		
-			if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount()==2) {
-				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
-				lView.open();
-			} else if(e.getButton().equals(MouseButton.SECONDARY)) {
+			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				ContextMenu cMenu = new ContextMenu();
 				try {
 					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e1->{
