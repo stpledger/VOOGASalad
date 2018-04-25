@@ -1,8 +1,7 @@
 package authoring.grid;
 
-import java.lang.reflect.InvocationTargetException;
-
 import authoring.entities.Entity;
+<<<<<<< HEAD
 import authoring.entities.data.EntityLoader;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -11,18 +10,24 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+=======
+>>>>>>> 50a491971bca15c750a9dabaafd9be2b9e1ae435
 import javafx.scene.layout.Pane;
 
 /**
  * Defines a cell in the grid. The cell will hold nothing when an entity has not been
  * placed inside of it, but will hold an entity when the user has placed an entity inside of it.
  * @author Dylan Powers
+ * @author Hemanth Yakkali
  *
  */
 public class Cell extends Pane {
 
 	private Entity entity;
+<<<<<<< HEAD
 	private Image image;
+=======
+>>>>>>> 50a491971bca15c750a9dabaafd9be2b9e1ae435
 	
 	/**
 	 * To initialize a blank cell
@@ -32,6 +37,7 @@ public class Cell extends Pane {
 		this.setPrefWidth(Entity.ENTITY_WIDTH);
 		this.setPrefHeight(Entity.ENTITY_HEIGHT);
 		this.setStyle("-fx-border-color: black");
+<<<<<<< HEAD
 		setupDragActions();
 	}
 
@@ -74,6 +80,8 @@ public class Cell extends Pane {
 			e.setDropCompleted(true);
 			e.consume();
 		});
+=======
+>>>>>>> 50a491971bca15c750a9dabaafd9be2b9e1ae435
 	}
 	
 	/**

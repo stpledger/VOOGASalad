@@ -66,7 +66,7 @@ public class LocalPropertiesView extends PropertiesView {
 			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getButtonBundle().getString("Submit"), e->{
 				List<Component> componentsToAdd = new ArrayList<>();
 				for (PropertiesComponentForm cf : activeForms) {
-					componentsToAdd.add(cf.buildComponent());
+					componentsToAdd.add((Component) cf.buildComponent());
 				}
 				onSubmit.accept(componentsToAdd);
 				this.makeAlert(this.title()+" has been updated!");
