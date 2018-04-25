@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -16,7 +15,7 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import authoring.MainApplication;
 import authoring.components.EntityComponentForm;
-import authoring.entities.data.EntitySaver;
+import authoring.entities.data.EntityBuilderData;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
 import data.DataRead;
@@ -47,16 +46,16 @@ import javafx.stage.Stage;
 public class EntityBuilderView extends Stage {
 	private final static int LEFT_PANEL_WIDTH = 200;
 	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
-	private final static String COMPONENT_PREFIX = "engine.components.";
 
 	private Properties tooltipProperties;
 	private HBox saveMenu;
 	private GridPane currentForms;
 	private VBox root;
 	private List<String> entityTypes;
-	private String myEntityType = null;
 	private ImageView entityPreview;
 	private ElementFactory eFactory;
+	
+	private EntityBuilderData data;
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -67,8 +66,6 @@ public class EntityBuilderView extends Stage {
 	private Consumer<MouseEvent> saveOnClick = e -> {save();};
 	private Consumer<MouseEvent> addImageOnClick = e -> {addImage();};
 
-	private Map<Class, Object[]> componentAttributes = new HashMap<>();
-	private Map<String, Object[]> componentValues = new HashMap<>();
 	private TextField nameForm;
 	/**
 	 * The constructor of the popup window for creating new entities
@@ -88,6 +85,7 @@ public class EntityBuilderView extends Stage {
 	private void build() {
 		tooltipProperties = new Properties();
 		HBox addImageMenu = new HBox();
+		data = new EntityBuilderData();
 		try {
 			tooltipProperties.load(new FileInputStream("src/resources/tooltips/EntityBuilderViewTooltips.properties"));
 			this.root = new VBox();
@@ -136,7 +134,7 @@ public class EntityBuilderView extends Stage {
 	private ComboBox<String> buildTypeComboBox() throws Exception {
 		ComboBox<String>comboBox = (ComboBox<String>) eFactory.buildClickElement(ClickElementType.ComboBox, "Select Object Type", null);
 		comboBox.setOnAction(e -> {
-				myEntityType = ((String) comboBox.getSelectionModel().getSelectedItem());
+				data.setComponent(engine.components.Type.class, ((String) comboBox.getSelectionModel().getSelectedItem()));
 				root.getChildren().remove(saveMenu);
 				root.getChildren().add(fillComponentsForms());
 				root.getChildren().add(saveMenu);
@@ -171,21 +169,8 @@ public class EntityBuilderView extends Stage {
 	 */
 	private void save(){
 		try {
-			String name = new String();
-			for(EntityComponentForm componentForm : activeForms) {
-				Object[] tempArr = componentForm.buildComponent();
-				if (componentForm.getName().equals("Name")) {
-					name = (String) tempArr[0];
-				}
-				if(tempArr != null) {
-					componentValues.put(componentForm.getName(), tempArr);
-					componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
-				}
-			}
-			componentValues.put("Type", new Object[] {myEntityType});
-			onClose.accept(myEntityType, componentAttributes);
-			EntitySaver saver = new EntitySaver();
-			saver.writeXML(componentValues, name);
+			data.save(activeForms);
+			onClose.accept(data.getType(), data.getComponentAttributes());
 			this.close();
 		}
 		catch (Exception e1) {
@@ -202,8 +187,7 @@ public class EntityBuilderView extends Stage {
 		fileChooser.setSelectedExtensionFilter(new ExtensionFilter("Image Filter", imageExtensions));
 		File imageFile = fileChooser.showOpenDialog(this);
 		try {
-			componentAttributes.put(Sprite.class, new Object[] {imageFile.getName()});
-			componentValues.put("Sprite", new Object[] {imageFile.getName()});
+			data.setComponent(Sprite.class, imageFile.getName());
 			DataRead.loadImage(imageFile);
 			Image image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 			updateEntityPreview(image);
@@ -222,7 +206,7 @@ public class EntityBuilderView extends Stage {
 		currentForms.getStyleClass().add("component-form");
 		int currentRow = 0;
 		this.activeForms = new ArrayList<>();
-		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + myEntityType).keySet()) {
+		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + data.getType()).keySet()) {
 			if(!property.equals("Sprite") && !property.equals("Position")) {
 				EntityComponentForm cf = new EntityComponentForm(property);
 				cf.setAlignment(Pos.CENTER);

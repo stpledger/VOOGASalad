@@ -25,6 +25,7 @@ public class EntitySaver {
 	private static final String XML_EXTENSION = ".xml";
 	public static final String ERROR_MESSAGE = "XML file does not properly represent %s";
 	private static final String FOLDER_PATH = "data/";
+	private static final CharSequence COMPONENT_PREFIX = "engine.components.";
 	
 	public EntitySaver() {
 		DOCUMENT_BUILDER = getDocumentBuilder();
@@ -38,16 +39,17 @@ public class EntitySaver {
 	 * @throws TransformerFactoryConfigurationError 
 	 * @throws TransformerException 
 	 */
-	public void writeXML(Map<String, Object[]> attributes, String fileName) throws TransformerFactoryConfigurationError, TransformerException {
+	public void writeXML(Map<Class, Object[]> attributes, String fileName) throws TransformerFactoryConfigurationError, TransformerException {
 		Document document = DOCUMENT_BUILDER.newDocument();
 		Element root = document.createElement(DOCUMENT_TITLE);
 		root.setAttribute("name", fileName);
 		document.appendChild(root);
 		
-		for (String compName : attributes.keySet()) {
+		for (Class compClass : attributes.keySet()) {
+			String compName = compClass.getName().replace(COMPONENT_PREFIX, "");
 			Element comp = document.createElement(compName);
 			root.appendChild(comp);
-			for (Object o : attributes.get(compName)) {
+			for (Object o : attributes.get(compClass)) {
         			comp.appendChild(document.createTextNode(String.valueOf(o) + " "));
 			}
 		}
