@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="mmm"><Component type="Sprite">mario.png </Component><Component type="Health">50.0 </Component><Component type="Dimension">50.0 69.0 </Component></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="mmm"><Sprite>mystery.jpg </Sprite><Name>mmm </Name><Type>Block </Type></Entity>

@@ -41,7 +41,7 @@ public class EntityLoader {
 		try {
 			documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			//LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 	}
 	
@@ -66,9 +66,8 @@ public class EntityLoader {
 		List<Component> compsToAdd = new ArrayList<>();
 		for (int i = 0; i < nList.getLength(); i++) {
 			Element e = (Element) nList.item(i);
-			System.out.println(e.getNodeName() + e.getTextContent());
-			ComponentBuilder cb = getComponentBuilder(e.getNodeName());
-			compsToAdd.add(cb.build(ID, e));
+//			ComponentBuilder cb = getComponentBuilder(e.getNodeName());
+//			compsToAdd.add(cb.build(ID, e));
 		}
 		//return entity;
 	}
@@ -84,7 +83,8 @@ public class EntityLoader {
 			Document XMLDoc = documentBuilder.parse(XMLFile);
 			return XMLDoc.getDocumentElement();
 		} catch (Exception e) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			//LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			e.printStackTrace();
 		}
 		return null;
 	}
@@ -114,7 +114,8 @@ public class EntityLoader {
 			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
 			return (ComponentBuilder) cons.newInstance();
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			//LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			e.printStackTrace();
 		} 
 		return null;
 	}
