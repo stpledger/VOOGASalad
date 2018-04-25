@@ -10,9 +10,9 @@ import java.util.HashMap;
  */
 public class Acceleration extends Component {
 
-public static String KEY = "XAcceleration";
+public static String KEY = "Acceleration";
 	
-	private double xAcc;
+	private double xAcc, yAcc;
 	
 	/**
 	 * Constructs component with initial values and parent entity ID
@@ -20,9 +20,10 @@ public static String KEY = "XAcceleration";
 	 * @param xAcc		Initial x acceleration
 	 * @param yAcc		Initial y acceleration
 	 */
-	public Acceleration(int pid, double xAcc) {
+	public Acceleration(int pid, double xAcc, double yAcc) {
 		super(pid, KEY);
 		this.xAcc = xAcc;
+		this.yAcc = yAcc;
 	}
 
 	public double getxAcc() {
@@ -33,12 +34,20 @@ public static String KEY = "XAcceleration";
 		this.xAcc = xAcc;
 	}
 
-	
+	public double getyAcc() {
+		return yAcc;
+	}
+
+	public void setyAcc(double yAcc) {
+		this.yAcc = yAcc;
+	}
 
 	@Override
 	public Map<String, String> getParameters(){
 		Map<String,String> res = new HashMap<>();
 		res.put("Acceleration X", Double.toString(xAcc));
+		res.put("Acceleration Y", Double.toString(yAcc));
+		
 		return res;
 	}
 }
