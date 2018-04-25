@@ -1,6 +1,5 @@
 package authoring.grid;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,15 +60,20 @@ public class Grid extends GridPane {
         			Dragboard db = e.getDragboard();
         			EntityLoader el = new EntityLoader();
         			ImageView img = new ImageView(db.getImage());
-        			img.fitWidthProperty().bind(cell.widthProperty());
-        			img.fitHeightProperty().bind(cell.heightProperty());
+//        			img.fitWidthProperty().bind(cell.widthProperty());
+//        			img.fitHeightProperty().bind(cell.heightProperty());
         			img.setOnMouseClicked(e1->{
         				if(e1.getButton().equals(MouseButton.SECONDARY)) {
         					System.out.println("cocks!");
-        					System.out.println(cell.heightProperty());
-        					cell.setPrefHeight(Entity.ENTITY_HEIGHT*4);
-        					img.fitHeightProperty().bind(cell.heightProperty());
-        					System.out.println(cell.heightProperty());
+//        					System.out.println(cell.heightProperty());
+        					cell.setPrefWidth(Entity.ENTITY_WIDTH*3);
+        					System.out.println(GridPane.getColumnIndex(cell));
+        					System.out.println(GridPane.getRowIndex(cell));
+//        					img.setFitWidth(Entity.ENTITY_WIDTH*3);
+//        					GridPane.setFillWidth(cell, true);
+//        					cell.setPrefHeight(Entity.ENTITY_HEIGHT*4);
+//        					img.fitHeightProperty().bind(cell.heightProperty());
+//        					System.out.println(cell.heightProperty());
 //        					img.setFitHeight(Entity.ENTITY_HEIGHT*4);
         				}
         			});

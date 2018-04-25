@@ -18,7 +18,6 @@ import engine.components.Position;
 import engine.components.Sprite;
 
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 
 /**
  * 
@@ -60,7 +59,6 @@ public abstract class Entity extends ImageView implements Serializable {
 			}
 		};
 		this.setOnMouseClicked(e -> {
-//			if (e.getButton().equals(MouseButton.SECONDARY)) {
 			if(e.getClickCount()==2) {
 				LocalPropertiesView LPV = new LocalPropertiesView(this, onSubmit);
 				LPV.open();
