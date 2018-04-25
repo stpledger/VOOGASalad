@@ -3,7 +3,7 @@ package engine.support;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
-import engine.components.XAcceleration;
+import engine.components.Acceleration;
 import engine.components.Component;
 import engine.components.Damage;
 import engine.components.Dimension;
@@ -14,7 +14,7 @@ import engine.components.Velocity;
 
 public class ComponentBuilder {
 	public static Component buildComponent(int pid, String component, List<String> inputs) throws IllegalArgumentException {
-		if(inputs.size() >= 2 && (component.equals(XAcceleration.KEY) 
+		if(inputs.size() >= 2 && (component.equals(Acceleration.KEY) 
 							|| component.equals(Velocity.KEY) 
 							|| component.equals(Position.KEY)
 							|| component.equals(Damage.KEY)
