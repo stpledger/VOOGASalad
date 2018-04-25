@@ -37,7 +37,7 @@ public class Player extends Component {
         this.lives = lives;
     }
    
-     public void respawn (Position p, Velocity v, Acceleration a) {
+     public void respawn (Position p, Velocity v, XAcceleration a) {
        p.setXPos(respawn.getXPos());
        p.setYPos(respawn.getYPos());
        v.setXVel(0); v.setYVel(0);

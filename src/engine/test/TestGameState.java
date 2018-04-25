@@ -34,22 +34,23 @@ public class TestGameState {
 		Dimension d = new Dimension(0, 100, 100);
 		Velocity v = new Velocity(0, 0, 0);
 
-		Acceleration a = new Acceleration(0, 0, 40);
+		Acceleration a = new Acceleration(0, 0);
+		YAcceleration y0 = new YAcceleration(0,30);
 		KeyInput k = new KeyInput(0);
 		k.addCode( KeyCode.RIGHT, (Consumer & Serializable) (e) -> {
-			v.setXVel(+50);
+			v.setXVel(+70);
 		});
 		k.addCode(KeyCode.UP, (Consumer & Serializable)(e) ->
 		{ 
-			v.setYVel(-50);
+			v.setYVel(-70);
 		});
 		k.addCode(KeyCode.DOWN,(Consumer & Serializable) (e) ->
 		{ 
-			v.setYVel(+50);
+			v.setYVel(+70);
 		});
 		k.addCode(KeyCode.LEFT,(Consumer & Serializable) (e) ->
 		{
-			v.setXVel(-50);
+			v.setXVel(-70);
 		});
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
@@ -68,6 +69,7 @@ public class TestGameState {
 
 		mario.put(Velocity.KEY, v);
 		mario.put(Acceleration.KEY, a);
+		mario.put(YAcceleration.KEY, y0);
 		mario.put(KeyInput.KEY, k);
 		mario.put(Health.KEY, h);
 		mario.put(DamageLauncher.KEY, launcher);
@@ -78,7 +80,8 @@ public class TestGameState {
 		Position p3 = new Position(2, 300, 100);
 		Dimension d3 = new Dimension(2, 100, 100);
 		Velocity v3 = new Velocity(2, 0, 0);
-		Acceleration a3 = new Acceleration(2, 0, 0);
+		Acceleration a3 = new Acceleration(2, 0);
+		YAcceleration y3= new YAcceleration(2,0);
 		Health h3 = new Health(2,10);
 		DamageLauncher launcher3 = new DamageLauncher(0,2,2); 
 		Win win3 = new Win(2);
@@ -97,6 +100,7 @@ public class TestGameState {
 		mario3.put(Sprite.KEY, s3);
 		mario3.put(Velocity.KEY, v3);
 		mario3.put(Acceleration.KEY, a3);
+		mario3.put(YAcceleration.KEY, y3);
 		mario3.put(Health.KEY, h3);
 		mario3.put(DamageLauncher.KEY, launcher3);
 		mario3.put(Win.KEY, win3);
@@ -124,7 +128,7 @@ public class TestGameState {
 
 
 
-		entities.put(0, mario);
+		
 		//entities.put(1, mario2);
 		entities.put(0, mario);
 		entities.put(2, mario3);
