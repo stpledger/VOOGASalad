@@ -12,7 +12,7 @@ import javafx.scene.layout.BorderPane;
  *
  */
 public class MainView {
-	private static final double DEFAULT_HEIGHT = 800;
+	private static final double DEFAULT_HEIGHT = 600;
 	private static final double DEFAULT_WIDTH = 1200;
 	private BorderPane border;
 	private Toolbar toolbar;
