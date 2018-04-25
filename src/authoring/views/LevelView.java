@@ -31,7 +31,7 @@ public class LevelView extends ScrollPane {
 	private static final int ADD_FIVE = 5;
 	private static final int ADD_ONE = 1;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
 		this.eFactory = new ElementFactory();
@@ -72,7 +72,7 @@ public class LevelView extends ScrollPane {
 					});
 					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
 				} catch (Exception e1) {
-					 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+					LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 				}
 				cMenu.show(this, e.getScreenX(), e.getScreenY());
 				cMenu.setAutoHide(true);

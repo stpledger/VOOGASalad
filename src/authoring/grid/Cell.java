@@ -13,7 +13,7 @@ import javafx.scene.layout.Pane;
 public class Cell extends Pane {
 
 	private Entity entity;
-	
+
 	/**
 	 * To initialize a blank cell
 	 */
@@ -31,5 +31,5 @@ public class Cell extends Pane {
 	public void setEntity(Entity entity) {
 		this.entity = entity;
 	}
-	
+
 }
