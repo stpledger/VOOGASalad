@@ -68,13 +68,12 @@ public class LevelView extends ScrollPane {
 			}
 		});
 	}
+	
 	/**
 	 * Sets the onMouseReleased method for the content to handle dragging.
 	 */
 	private void setupMouseDrag() {
-		content.setOnDragDetected(e -> {
-			this.drag = true;
-		});
+		content.setOnDragDetected(e -> this.drag = true);
 	}
 
 	/**
