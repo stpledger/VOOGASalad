@@ -54,6 +54,14 @@ public class Grid extends GridPane {
 					ImageView img = new ImageView(db.getImage());
 					//            			img.fitWidthProperty().bind(cell.widthProperty());
 					//            			img.fitHeightProperty().bind(cell.heightProperty());
+					double imgWidth = img.getFitWidth();
+					double imgHeight = img.getFitHeight();
+					System.out.println(img.getFitHeight());
+					double actualWidth = imgWidth - imgWidth % Entity.ENTITY_WIDTH;
+					double actualHeight = imgHeight - imgHeight % Entity.ENTITY_HEIGHT;
+					img.setFitWidth(actualWidth);
+					img.setFitHeight(400);
+					System.out.println(img.getFitHeight());
 					img.setOnMouseClicked(e1->{
 						if(e1.getButton().equals(MouseButton.SECONDARY)) {
 							cell.setPrefWidth(Entity.ENTITY_WIDTH*3);
@@ -76,6 +84,19 @@ public class Grid extends GridPane {
 			}
 		}
 		this.setPrefSize(width, height);
+	}
+	
+	private void setNeighbors(double width, double height) {
+		
+		double actualWidth = width - width % Entity.ENTITY_WIDTH;
+		double actualHeight = height - height % Entity.ENTITY_HEIGHT;
+		
+		for(int i=0;i<this.numRows;i++) {
+			for(int j=0;j<this.numCols;j++) {
+				Cell cell = cells.get(i).get(j);
+				
+			}
+		}
 	}
 
 	/**
