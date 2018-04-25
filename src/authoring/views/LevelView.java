@@ -7,7 +7,6 @@ import authoring.entities.Entity;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
 import authoring.gamestate.Level;
-import authoring.views.properties.LevelPropertiesView;
 import authoring.grid.Grid;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
