@@ -6,12 +6,13 @@ package engine.components;
  */
 import java.util.Map;
 
-public class ScoreLauncher extends Component{
+public class ScoreLauncher implements Component{
     public static String KEY ="ScoreLauncher";
     private double score;
+	private int pid;
 
 	public ScoreLauncher(int pid, double score) {
-		super(pid, KEY);
+		this.pid = pid;
 		this.score=score;
 	}
     
@@ -22,10 +23,8 @@ public class ScoreLauncher extends Component{
 	public double getScore() {
 		return this.score;
 	}
-	@Override
-	public Map<String, String> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
+	public int getPID(){
+		return pid;
+	}
 }

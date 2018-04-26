@@ -22,6 +22,10 @@ public abstract class SingleDataComponent implements DataComponent, ReadDataComp
 		return pid;
 	}
 
+	public void addData(double add){
+		data += add;
+	}
+
 	public void setPID(int pid) {
 		this.pid = pid;
 	}

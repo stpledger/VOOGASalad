@@ -8,11 +8,11 @@ public class Score extends SingleDataComponent {
 		super(pid, data);
 	}
 
-	public void addScore(double s) {
-		score+=s;
+	public void addData(double s) {
+		addData(s);
 	}
-	
+
 	public double getScore() {
-		return this.score;
+		return getData();
 	}
 }
