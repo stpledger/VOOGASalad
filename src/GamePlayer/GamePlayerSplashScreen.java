@@ -1,14 +1,20 @@
 package GamePlayer;
 
 import buttons.FileUploadButton;
+import data.DataGameState;
+import data.DataRead;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
+import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+
+import java.util.Map;
+
 /**
  * Splash Screen for Selecting Games and Uploading Games
  * @author Ryan
@@ -26,6 +32,7 @@ public class GamePlayerSplashScreen{
 	public FileUploadButton fileBtn;
 	
 	public GamePlayerSplashScreen(Stage stage) {
+		Map<Image, DataGameState> images= DataRead.getAllGames();
 		mySplashStage = stage;
 		splashScene = initializeSplashScreen();
 	}

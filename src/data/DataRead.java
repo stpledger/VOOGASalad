@@ -41,7 +41,7 @@ public class DataRead  {
     private static String path = "";
     private static final Class CLASS = "Entity".getClass();
     private static final String SAVE_PATH = "saves/";
-
+    private static final String PLAYER_TARGET = "Player.xml";
 
     /* receives a gamestate and loads it to the player
      * from buildState
@@ -71,7 +71,7 @@ public class DataRead  {
 
     public static Image loadImage(String name)throws RuntimeException {
         try {
-            return new Image(DataRead.class.getClassLoader().getResourceAsStream(name));
+            return  new Image(FILE+path+IMAGE_PATH+name);
         }
         catch (Exception e) {
             ErrorStatement(FAIL_MESSAGE);
@@ -87,8 +87,8 @@ public class DataRead  {
             DataWrite.writeImage(file);
             return SwingFXUtils.toFXImage(image, null);
         } catch (IOException e) {
-            ErrorStatement(FAIL_MESSAGE);
-            return new Image(EMPTY_IMAGE);
+             ErrorStatement(FAIL_MESSAGE);
+           return new Image(EMPTY_IMAGE);
         }
     }
 
@@ -96,6 +96,7 @@ public class DataRead  {
         Map<Image, DataGameState> games =new HashMap<>();
         File file = new File(GAME_PATH);
         for(File game : file.listFiles()){
+          game = new File(game.getAbsolutePath() + SLASH + PLAYER_TARGET);
           DataGameState playable = loadPlayerFile(game);
           Image icon = getIcons().get(0);
           games.put(icon, playable);
@@ -165,7 +166,8 @@ public class DataRead  {
 
     public static List<Image> getIcons(){
         List<Image> icons = new ArrayList<>();
-        File imageRepo = new File(FILE+path+IMAGE_PATH);
+        File imageRepo = new File(path+IMAGE_PATH);
+        System.out.print(imageRepo.getAbsolutePath());
         for(File image : imageRepo.listFiles())
             icons.add(loadImage(image));
         return icons;
