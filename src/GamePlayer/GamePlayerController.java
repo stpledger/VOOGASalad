@@ -18,6 +18,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -31,10 +32,8 @@ public class GamePlayerController {
 	private double renderTime;
 	private Stage myStage;
 	private Scene myScene;
-	private Group gameRoot;
-	private Group originGameRoot;
+	private Pane gameRoot;
 	private Timeline myTimeline;
-	private ScrollPane myScroll;
 	private GamePlayerSplashScreen gamePlayerSplash;
 	private Scene mySplashScene;
 
@@ -45,7 +44,7 @@ public class GamePlayerController {
 	private File currentFile;
 	private FileUploadButton fileBtn;
 	private SwitchGameButton switchBtn;
-	private Map<Integer, Group> levelEntityGroupMap; //map that is used to store the initial group for each level.
+	private Map<Integer, Pane> levelEntityGroupMap; //map that is used to store the initial group for each level.
 
 	private Timeline animation;
 
@@ -111,18 +110,15 @@ public class GamePlayerController {
 	 * @throws FileNotFoundException 
 	 */
 	public void initializeGameStart() throws FileNotFoundException {
-		SampleToolBar sampleBar = new SampleToolBar(this);
-		myPane.setTop(sampleBar);
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
 		levelEntityGroupMap = gameView.getlevelEntityMap();
+		gameRoot = levelEntityGroupMap.get(1);  //level 1
+		myPane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
-		gameRoot = levelEntityGroupMap.get(1);  //level 1
-		originGameRoot = new Group();
-		originGameRoot.getChildren().add(gameRoot);
-		//initializeScroll();
-		myPane.setCenter(originGameRoot); //adds starting game Root to the file and placing it in the Center Pane
+		SampleToolBar sampleBar = new SampleToolBar(this);
+		myPane.setTop(sampleBar);
 		initializeGameAnimation(); //begins the animation cycle
 	}
 
@@ -149,14 +145,10 @@ public class GamePlayerController {
 		System.out.println(level);
 		myPane.getChildren().addAll(levelEntityGroupMap.get(level));*/
 		gameRoot = levelEntityGroupMap.get(level);
-		originGameRoot.getChildren().clear();
-		originGameRoot.getChildren().add(gameRoot);
-
-
-		//myScroll.setContent(levelEntityGroupMap.get(level));
+		gameView.setActiveLevel(level);
 	}
 
-	public Map<Integer, Group> getGameLevelRoot(){
+	public Map<Integer, Pane> getGameLevelRoot(){
 		return levelEntityGroupMap;
 	}
 
@@ -191,11 +183,5 @@ public class GamePlayerController {
 
 	public void saveGame(){
 		gameView.saveGame();
-	}
-
-	private void initializeScroll(){
-		myScroll = new ScrollPane(gameRoot);
-		myScroll.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-		myScroll.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
 	}
 }

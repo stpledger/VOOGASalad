@@ -3,7 +3,7 @@ package engine.components;
 import java.util.Map;
 
 public class Score extends Component{
-    private static String KEY ="Score";
+    public static String KEY ="Score";
     private double score;
 
 	public Score(int pid) {
@@ -11,8 +11,13 @@ public class Score extends Component{
 		this.score=0;
 	}
     
+	public void addScore(double s) {
+		score+=s;
+	}
 	
-	
+	public double getScore() {
+		return this.score;
+	}
 	@Override
 	public Map<String, String> getParameters() {
 		// TODO Auto-generated method stub

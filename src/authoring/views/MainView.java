@@ -12,17 +12,17 @@ import javafx.scene.layout.BorderPane;
  *
  */
 public class MainView {
+	private static final double DEFAULT_HEIGHT = 600;
+	private static final double DEFAULT_WIDTH = 1200;
 	private BorderPane border;
 	private Toolbar toolbar;
 	private GameEditorView gameEditorView;
 	private EntityView componentView;
 	
-	private static final double DEFAULT_IDE_HEIGHT = 600;
-	private static final double DEFAULT_IDE_WIDTH = 1200;
-	
-	private static double ideHeight = DEFAULT_IDE_HEIGHT;
-	private static double ideWidth = DEFAULT_IDE_WIDTH;
-	
+	//GUI Constants
+	private double ideHeight = DEFAULT_HEIGHT;
+	private double ideWidth = DEFAULT_WIDTH;
+
 	/**
 	 * Creates an instance of GameAuthoringEnvironment Based on a file
 	 * @param selectedFile the selected file to load a game from
@@ -82,7 +82,7 @@ public class MainView {
 	 * Returns the height of the gameAuthoringEnvironment
 	 * @return
 	 */
-	public static double getIDEHeight() {
+	public double getIDEHeight() {
 		return ideHeight;
 	}
 
@@ -90,15 +90,15 @@ public class MainView {
 	 * Sets the height of the gameAuthoringEnvironment
 	 * @param ideHeight
 	 */
-	public static void setIDEHeight(double ideHeight) {
-		MainView.ideHeight = ideHeight;
+	public  void setIDEHeight(double ideHeight) {
+		this.ideHeight = ideHeight;
 	}
 
 	/**
 	 * Gets the width of the gameAuthroingEnvironment
 	 * @return
 	 */
-	public static double getIDEWidth() {
+	public double getIDEWidth() {
 		return ideWidth;
 	}
 
@@ -106,7 +106,7 @@ public class MainView {
 	 * Sets the width of the GameAuthoringEnvironment
 	 * @param ideWidth
 	 */
-	public static void setIDEWidth(double ideWidth) {
-		MainView.ideWidth = ideWidth;
+	public void setIDEWidth(double ideWidth) {
+		this.ideWidth = ideWidth;
 	}
 }

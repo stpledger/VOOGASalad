@@ -13,10 +13,10 @@ import javafx.scene.control.TextField;
  * @author dylanpowers
  *
  */
-public class PropertiesComponentForm extends AbstractComponentForm {
+public class PropertiesComponentForm extends AbstractComponentForm implements ComponentForm {
 
-	private static final String PROP_FILE = "authoring.properties.Components.properties";
 	private int entity;
+	
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
 	 * @param entity the entity that the component should be added to
@@ -26,7 +26,7 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 	public PropertiesComponentForm(int entity, String name) {
 		this.entity = entity;
 		this.name = name;
-		fields = new ArrayList<>();
+		this.fields = new ArrayList<>();
 		int col = 0;
 		col++;
 		this.add(new Label(name), col , 0);
@@ -58,7 +58,7 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 	 * Should be performed only when the user clicks the submit button.
 	 * @return a component that accurately represents the data in this wrapper class
 	 */
-	public Component buildComponent() {
+	public Object buildComponent() {
 		if (!validComponent()) {
 			return null;
 		}
@@ -80,6 +80,12 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
+		return null;
+	}
+	
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
