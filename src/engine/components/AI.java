@@ -9,7 +9,7 @@ import java.util.function.Consumer;
  *
  * @author cndraco
  */
-public class AI {
+public class AI extends Component{
 
     public static String KEY = "AI";
 

@@ -1,6 +1,6 @@
 package engine.components;
 
-public abstract class SingleDataComponent implements DataComponent, ReadDataComponent, Component {
+public abstract class SingleDataComponent implements DataComponent, ReadDataComponent{
 	
 	private int pid;
 	private double data;

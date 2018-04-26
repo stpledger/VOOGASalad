@@ -1,5 +1,7 @@
 package engine.components;
 
+import java.util.Map;
+
 public class DamageLifetime extends SingleDataComponent {
 	
 	public DamageLifetime(int pid, double data) {
@@ -8,8 +10,4 @@ public class DamageLifetime extends SingleDataComponent {
 
 	public static final String KEY = "DamageLifetime";
 
-	public String getKey() {
-		return KEY;
-	}
-	
 }

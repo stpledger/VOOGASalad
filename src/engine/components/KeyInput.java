@@ -13,7 +13,7 @@ import java.util.function.Consumer;
  *
  * @author cndracos
  */
-public class KeyInput extends Component {
+public class KeyInput implements Component {
 
 	private Map<KeyCode, Consumer> codes = new HashMap<>();
 

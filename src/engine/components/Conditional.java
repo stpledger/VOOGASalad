@@ -6,15 +6,15 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class Conditional extends  Component {
-
+public class Conditional implements Component {
+    private int pid;
     public static String KEY = "Component";
     private Supplier conditional, condition;
     private Component changed;
     private Consumer action;
 
     public Conditional (int pid) {
-        super(pid, KEY);
+        this.pid = pid;
     }
 
     public void setCondition (Supplier conditional, Supplier condition) {
@@ -37,5 +37,9 @@ public class Conditional extends  Component {
     @Override
     public Map<String, String> getParameters() {
         return null;
+    }
+
+    public int getPID(){
+        return pid;
     }
 }

@@ -7,12 +7,13 @@ import java.util.Map;
  * @author Dylan Powers
  *
  */
-public class Type extends Component {
-
-	public static String KEY = "Type";
+public class Type implements Component {
+	public String KEY = "Type";
 	private String type;
+	private int pid;
+
 	public Type(int pid, String type) {
-		super(pid, KEY);
+		this.pid = pid;
 		this.type = type;
 	}
 
@@ -23,10 +24,12 @@ public class Type extends Component {
 	public void setType(String type) {
 		this.type = type;
 	}
-	@Override
-	public Map<String, String> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
+
+	public int getPID(){
+		return pid;
 	}
 
+	public String getKey(){
+		return KEY;
+	}
 }

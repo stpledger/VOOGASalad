@@ -1,5 +1,5 @@
 package engine.components;
-
+import java.util.Map;
 
 /**
  * Component superclass. Just a databucket for a parent ID, which all sub components need.
@@ -8,6 +8,5 @@ package engine.components;
  * @author fitzj
  */
 public interface Component {
-	public String getKey();
 	public int getPID();
 }
