@@ -52,15 +52,11 @@ public class Grid extends GridPane {
 					Dragboard db = e.getDragboard();
 					EntityLoader el = new EntityLoader();
 					ImageView img = new ImageView(db.getImage());
-					//            			img.fitWidthProperty().bind(cell.widthProperty());
-					//            			img.fitHeightProperty().bind(cell.heightProperty());
-					double imgWidth = img.getFitWidth();
-					double imgHeight = img.getFitHeight();
-					System.out.println(img.getFitHeight());
-					double actualWidth = imgWidth - imgWidth % Entity.ENTITY_WIDTH;
-					double actualHeight = imgHeight - imgHeight % Entity.ENTITY_HEIGHT;
-					img.setFitWidth(actualWidth);
-					img.setFitHeight(400);
+//					img.fitWidthProperty().bind(cell.widthProperty());
+//					img.fitHeightProperty().bind(cell.heightProperty());
+					img.setFitHeight(525);
+					img.setFitWidth(314);
+					setProperSize(img);
 					System.out.println(img.getFitHeight());
 					img.setOnMouseClicked(e1->{
 						if(e1.getButton().equals(MouseButton.SECONDARY)) {
@@ -86,10 +82,14 @@ public class Grid extends GridPane {
 		this.setPrefSize(width, height);
 	}
 	
+	private void setProperSize(ImageView img) {
+		double actualWidth = img.getFitWidth() - img.getFitWidth() % Entity.ENTITY_WIDTH;
+		double actualHeight = img.getFitHeight() - img.getFitHeight() % Entity.ENTITY_HEIGHT;
+		img.setFitWidth(actualWidth);
+		img.setFitHeight(actualHeight);
+	}
+	
 	private void setNeighbors(double width, double height) {
-		
-		double actualWidth = width - width % Entity.ENTITY_WIDTH;
-		double actualHeight = height - height % Entity.ENTITY_HEIGHT;
 		
 		for(int i=0;i<this.numRows;i++) {
 			for(int j=0;j<this.numCols;j++) {
