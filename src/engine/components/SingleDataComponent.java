@@ -1,5 +1,10 @@
 package engine.components;
 
+/**
+ * Component containing a single double as data. Implements component interfaces for reading and read/writing.
+ * @author fitzj
+ *
+ */
 public abstract class SingleDataComponent implements DataComponent, ReadDataComponent, Component {
 	
 	private int pid;
