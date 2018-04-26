@@ -162,7 +162,6 @@ public class GamePlayerController {
 			gameView.execute(elapsedTime);
 			if (renderTime>6) {
 				gameView.render();
-				System.out.println("rendering");
 				renderTime = 0;
 			}
 			gameView.updateScroll(gameRoot);

@@ -38,6 +38,12 @@ public class RenderManager {
         else outsideRender.put(p.getParentID(), p);
     }
 
+    /**
+     * The main method called by the game loop, renders&garbage collects
+     * @param newCenterX the player's current x center
+     * @param newCenterY the player's current y center
+     * @return set of id's which are within the render
+     */
     public Set<Integer> render(double newCenterX, double newCenterY) {
         centerX = newCenterX; centerY = newCenterY;
         garbageCollect(); renderObjects();
@@ -52,12 +58,20 @@ public class RenderManager {
         updateNodes(outsideRender, withinRender, true);
     }
 
+    /**
+     * Swaps out nodes to/from within/outside render, uses an iterator to search positions then checks
+     * the boolean with withinRenderDistance helper method
+     *
+     * @param origin The render group (outside or inside) that the positions currently reside
+     * @param destination The (potential) new render group if it needs to be swapped
+     * @param intoRender dictates whether or not we are looking to go into or out of render
+     */
     private void updateNodes (Map<Integer, Position> origin, Map<Integer, Position> destination, boolean intoRender) {
         for (Iterator<Position> iterator = origin.values().iterator(); iterator.hasNext(); ) {
             Position p = iterator.next();
             if (withinRenderDistance(p.getXPos(), p.getYPos()) == intoRender) {
                 destination.put(p.getParentID(), p);
-                swapList.add(p.getParentID());
+                swapList.add(p.getParentID()); //has to store nodes to get listed, cannot do dynamically
             }
         }
         removeOldNodes(origin);
