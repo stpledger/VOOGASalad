@@ -9,7 +9,7 @@ import java.util.function.Supplier;
 public class Conditional extends  Component {
 
     public static String KEY = "Component";
-    private Supplier conditional, condition;
+    private Supplier conditional;
     private Component changed;
     private Consumer action;
 
@@ -17,9 +17,8 @@ public class Conditional extends  Component {
         super(pid, KEY);
     }
 
-    public void setCondition (Supplier conditional, Supplier condition) {
+    public void setCondition (Supplier conditional) {
         this.conditional = conditional;
-        this.condition = condition;
     }
 
     public void setAction (Component changed, Consumer action) {
@@ -28,7 +27,7 @@ public class Conditional extends  Component {
     }
 
     public void evaluate() {
-        if (conditional.get().equals(condition.get())) {
+        if (conditional.get().equals(true)) {
             System.out.println("condition is true");
             action.accept(changed);
         }

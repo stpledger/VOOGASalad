@@ -101,6 +101,7 @@ public class TestGameState {
 		mario3.put(DamageLauncher.KEY, launcher3);
 		mario3.put(Win.KEY, win3);
 
+		/**
 		Conditional co1 = new Conditional(0);
 		Supplier su1 = (Supplier & Serializable) () -> p3.getXPos();
 		Supplier su2 = (Supplier & Serializable) () -> p.getYPos();
@@ -121,6 +122,7 @@ public class TestGameState {
 		co1.setAction(p, consumer);
 
 		mario.put(Conditional.KEY, co1);
+		 **/
 
 
 

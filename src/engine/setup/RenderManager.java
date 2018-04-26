@@ -1,10 +1,12 @@
 package engine.setup;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 
 import engine.components.Position;
+import javafx.geometry.Pos;
 
 /**
  * Class which renders entities in and out of being acted upon based in a center location and rendering distance
@@ -49,7 +51,8 @@ public class RenderManager {
     }
 
     public void garbageCollect() {
-        for (Position p : withinRender.values()) {
+        for (Iterator<Position> iterator = withinRender.values().iterator(); iterator.hasNext(); ) {
+            Position p = iterator.next();
             if (!withinRenderDistance(p.getXPos(), p.getYPos())) {
                 outsideRender.put(p.getParentID(), p);
                 withinRender.remove(p.getParentID());
@@ -58,7 +61,8 @@ public class RenderManager {
     }
 
     public Set<Integer> renderObjects() {
-        for (Position p : outsideRender.values()) {
+        for (Iterator<Position> iterator = outsideRender.values().iterator(); iterator.hasNext(); ) {
+            Position p = iterator.next();
             if (withinRenderDistance(p.getXPos(), p.getYPos())) {
                 withinRender.put(p.getParentID(), p);
                 outsideRender.remove(p.getParentID());
