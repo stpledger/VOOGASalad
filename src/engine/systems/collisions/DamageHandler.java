@@ -1,7 +1,7 @@
 package engine.systems.collisions;
 
 import java.util.Map;
-
+import engine.components.DamageLauncher;
 import engine.components.Component;
 import engine.components.groups.Damage;
 import engine.setup.EntityManager;
@@ -19,7 +19,7 @@ public class DamageHandler {
 		if(collider.containsKey(Damage.KEY) || player.containsKey(DamageLauncher.KEY)) {
 			if(player.containsKey(DamageLauncher.KEY)) {
 				DamageLauncher launcher = (DamageLauncher)player.get(DamageLauncher.KEY);
-				int newPid = launcher.getParentID();
+				int newPid = launcher.getPID();
 				double newDamage = launcher.getDamage();
 				double newLifetime = launcher.getLifetime();
 				if(collider.containsKey(Damage.KEY)) {
@@ -38,7 +38,7 @@ public class DamageHandler {
 		
 		else {
 			DamageLauncher launcher = (DamageLauncher)collider.get(DamageLauncher.KEY);
-			int newPid = launcher.getParentID();
+			int newPid = launcher.getPID();
 			double newDamage = launcher.getDamage();
 			double newLifetime = launcher.getLifetime();
 			if(player.containsKey(Damage.KEY)) {
