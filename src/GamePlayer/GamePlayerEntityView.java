@@ -10,8 +10,15 @@ import data.DataGameState;
 import data.DataRead;
 import data.DataWrite;
 import engine.components.*;
+import engine.components.groups.Dimension;
+import engine.components.groups.Position;
 import engine.components.Component;
+<<<<<<< HEAD
 import engine.components.Dimension;
+=======
+import engine.setup.EntityManager;
+
+>>>>>>> cbc99bc97a87701514f22041cc4b3d76a6a9d504
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
@@ -36,7 +43,12 @@ public class GamePlayerEntityView {
 	private Map<Integer, Pane> LevelDisplays;
 	private DataGameState gameState;
 	private File gameFile;
+<<<<<<< HEAD
 	private GameInitializer gameInitializer;
+=======
+
+	private GameInitializer GI;
+>>>>>>> cbc99bc97a87701514f22041cc4b3d76a6a9d504
 	private InputHandler inputHandler;
 	private RenderManager renderManager;
 	private SystemManager systemManager;

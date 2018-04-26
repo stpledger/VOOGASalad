@@ -1,7 +1,7 @@
 package engine.systems;
 
 import engine.components.*;
-
+import engine.components.groups.Position;
 import engine.setup.EntityManager;
 import javafx.scene.image.ImageView;
 
@@ -103,6 +103,7 @@ public class Animate implements ISystem {
     @Override
     public void execute(double time) {
         for (int pid : activeComponents) {
+
             Map<String, Component> components = handledComponents.get(pid);
             Sprite s = (Sprite) components.get(Sprite.KEY);
             Position p = (Position) components.get(Position.KEY);

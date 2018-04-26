@@ -34,6 +34,7 @@ public abstract class Entity extends ImageView {
 	 */
     private int ID;
     private String name;
+
     
     /**
      * List of components which define the entity

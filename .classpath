@@ -6,9 +6,7 @@
 	<classpathentry kind="lib" path="/Users/Ryan/Downloads/xstream-1.4.10/lib/xstream-hibernate-1.4.10.jar"/>
 	<classpathentry kind="lib" path="/Users/Ryan/Downloads/xstream-1.4.10/lib/xstream-jmh-1.4.10.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/Users/hyakkali/Downloads/xstream-1.4.10/lib/xstream-1.4.10.jar"/>
-	<classpathentry kind="lib" path="/Users/hyakkali/Downloads/xstream-1.4.10/lib/xstream-benchmark-1.4.10.jar"/>
-	<classpathentry kind="lib" path="/Users/hyakkali/Downloads/xstream-1.4.10/lib/xstream-hibernate-1.4.10.jar"/>
-	<classpathentry kind="lib" path="/Users/hyakkali/Downloads/xstream-1.4.10/lib/xstream-jmh-1.4.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fitzj/workspace/voogasalad_oneclassonemethod/xstream-1.4.10/lib/xstream-1.4.10.jar"/>
+	<classpathentry kind="lib" path="C:/Users/fitzj/Downloads/apache-groovy-sdk-2.4.15/groovy-2.4.15/embeddable/groovy-all-2.4.15.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 import engine.components.Component;
-import engine.components.Position;
+import engine.components.groups.Position;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
 import engine.systems.collisions.LevelStatus;

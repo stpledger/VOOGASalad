@@ -4,8 +4,8 @@ package engine.systems;
 import java.util.*;
 
 import engine.components.Component;
-import engine.components.Position;
-import engine.components.Velocity;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
 
 /**
  * ISystem to apply changes in positions to an object based on changes in velocities

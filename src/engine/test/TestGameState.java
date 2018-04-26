@@ -13,6 +13,10 @@ import data.DataWrite;
 import engine.Engine;
 import engine.InternalEngine;
 import engine.components.*;
+import engine.components.groups.Acceleration;
+import engine.components.groups.Dimension;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
 import javafx.scene.input.KeyCode;
@@ -66,6 +70,7 @@ public class TestGameState {
 		mario.put(Dimension.KEY, d);
 		mario.put(Sprite.KEY, s);
 
+
 		mario.put(Velocity.KEY, v);
 		mario.put(Acceleration.KEY, a);
 		mario.put(KeyInput.KEY, k);
@@ -75,6 +80,7 @@ public class TestGameState {
 
 
 		EntityType type3 = new EntityType(2,"enermy");
+
 		Position p3 = new Position(2, 300, 100);
 		Dimension d3 = new Dimension(2, 100, 100);
 		Velocity v3 = new Velocity(2, 0, 0);
@@ -104,6 +110,7 @@ public class TestGameState {
 		Conditional co1 = new Conditional(0);
 		Supplier su1 = (Supplier & Serializable) () -> p3.getXPos();
 		Supplier su2 = (Supplier & Serializable) () -> p.getYPos();
+
 
 		co1.setCondition(su1, su2);
 
@@ -135,6 +142,7 @@ public class TestGameState {
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);
 		state.put(l,entities);
+
 		DataGameState dState = new DataGameState(state, "DemoDemo");
 		try {
 			DataWrite.saveFile(dState);

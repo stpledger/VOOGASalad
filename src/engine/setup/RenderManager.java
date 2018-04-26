@@ -4,7 +4,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import engine.components.Position;
+import engine.components.groups.Position;
+
 
 /**
  * Class which renders entities in and out of being acted upon based in a center location and rendering distance
@@ -44,15 +45,15 @@ public class RenderManager {
      * @param p new entity's position component
      */
     public void add (Position p) {
-        if (withinRenderDistance(p.getXPos(), p.getYPos())) withinRender.put(p.getParentID(), p);
-        else outsideRender.put(p.getParentID(), p);
+        if (withinRenderDistance(p.getXPos(), p.getYPos())) withinRender.put(p.getPID(), p);
+        else outsideRender.put(p.getPID(), p);
     }
 
     public void garbageCollect() {
         for (Position p : withinRender.values()) {
             if (!withinRenderDistance(p.getXPos(), p.getYPos())) {
-                outsideRender.put(p.getParentID(), p);
-                withinRender.remove(p.getParentID());
+                outsideRender.put(p.getPID(), p);
+                withinRender.remove(p.getPID());
             }
         }
     }
@@ -60,8 +61,8 @@ public class RenderManager {
     public Set<Integer> renderObjects() {
         for (Position p : outsideRender.values()) {
             if (withinRenderDistance(p.getXPos(), p.getYPos())) {
-                withinRender.put(p.getParentID(), p);
-                outsideRender.remove(p.getParentID());
+                withinRender.put(p.getPID(), p);
+                outsideRender.remove(p.getPID());
             }
         }
         return withinRender.keySet();
