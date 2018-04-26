@@ -160,8 +160,9 @@ public class GamePlayerController {
 		if (!pauseMenu.isShowing()) {
 			renderTime+=elapsedTime;
 			gameView.execute(elapsedTime);
-			if (renderTime>15) {
+			if (renderTime>6) {
 				gameView.render();
+				System.out.println("rendering");
 				renderTime = 0;
 			}
 			gameView.updateScroll(gameRoot);

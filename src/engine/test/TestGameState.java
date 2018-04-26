@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import authoring.gamestate.Level;
 import data.DataGameState;
@@ -130,8 +129,8 @@ public class TestGameState {
 		//entities.put(1, mario2);
 		entities.put(0, mario);
 		entities.put(2, mario3);
-		GameInitializer gi = new GameInitializer(entities);
-		ih = gi.getIH();
+		GameInitializer gi = new GameInitializer(entities, 300, 50, 50);
+		ih = gi.getInputHandler();
 		eng = new InternalEngine(gi.getSystems());
 
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
