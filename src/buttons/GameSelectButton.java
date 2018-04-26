@@ -2,6 +2,7 @@ package buttons;
 
 import java.io.File;
 
+import data.DataGameState;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -10,7 +11,7 @@ import javafx.scene.image.ImageView;
 
 public class GameSelectButton extends Button {
 
-	private File gameFile;
+	private DataGameState gameState;
 	
 	/**
 	 * 
@@ -18,10 +19,10 @@ public class GameSelectButton extends Button {
 	 * @param file of the GameData to be imported
 	 * @param image of the Game to used for the button.
 	 */
-	public GameSelectButton(String name, File file, Image image) {
+	public GameSelectButton(String name, DataGameState gameState, Image image) {
 		this.setText(name);
 		this.setGraphic(new ImageView(image));
-		gameFile = file;
+		gameState = gameState;
 		this.setGameSelectEvent();
 	}
 	
