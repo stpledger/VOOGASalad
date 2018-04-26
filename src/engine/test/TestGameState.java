@@ -1,8 +1,11 @@
 package engine.test;
 
+import java.awt.Point;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -11,7 +14,10 @@ import data.DataGameState;
 import data.DataWrite;
 import engine.Engine;
 import engine.InternalEngine;
+import engine.actions.Actions;
 import engine.components.*;
+import engine.components.Component;
+import engine.components.Dimension;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
 import javafx.scene.input.KeyCode;
@@ -21,6 +27,7 @@ public class TestGameState {
 	private Map<Integer, Map<String, Component>> entities;
 	private Engine eng;
 	private InputHandler ih;
+	private Actions actions = new Actions();
 
 	public TestGameState() throws FileNotFoundException {
 		System.out.println("TestGameState");
@@ -89,23 +96,17 @@ public class TestGameState {
 		Position p3 = new Position(2, 300, 100);
 		Dimension d3 = new Dimension(2, 100, 100);
 		Velocity v3 = new Velocity(2, 0, 0);
-		Acceleration a3 = new Acceleration(2, 0, 40);
+		Acceleration a3 = new Acceleration(2, 0, 0);
 		Health h3 = new Health(2,10);
 		DamageLauncher launcher3 = new DamageLauncher(0,2,2); 
 		Win win3 = new Win(2);
 
-		AI ai = new AI(2);
-		ai.setAction( (Consumer & Serializable) (time) -> {
-				if (p3.getYPos()<50) {
-					v3.setYVel(20);
-				}
-				else if (p3.getYPos()>150) {
-					v3.setYVel(-100);
-			}
-		});
+		List<Position> coordinates = new ArrayList<>();
+		coordinates.add(new Position(-1, 500, 100));
+		coordinates.add(new Position(-1, 200, 200));
+		coordinates.add(new Position(-1, 500, 400));
 
 		Map<String, Component> mario3 = new HashMap<>();
-		mario3.put(AI.KEY, ai);
 		mario3.put(Position.KEY, p3);
 		mario3.put(Dimension.KEY, d3);
 		mario3.put(Sprite.KEY, s3);
@@ -114,6 +115,9 @@ public class TestGameState {
 		mario3.put(Health.KEY, h3);
 		mario3.put(DamageLauncher.KEY, launcher3);
 		mario3.put(Win.KEY, win3);
+		AI ai = new AI(2);
+		ai.setAction( actions.patrol(mario3, coordinates));
+		mario3.put(AI.KEY, ai);
 
 		Position p4 = new Position(3, 300, 300);
 		Dimension d4 = new Dimension(3, 100, 100);
