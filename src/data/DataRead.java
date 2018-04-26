@@ -37,7 +37,7 @@ public class DataRead  {
     private static final String FILE ="File:";
     private static final String PERIOD = ".";
     private static final String SPACE ="";
-    private static final String ENTITY_PATH = "entityDir";
+    private static final String ENTITY_PATH = "entity";
     private static String path = "";
     private static final Class CLASS = "Entity".getClass();
     private static final String SAVE_PATH = "saves/";
@@ -71,13 +71,15 @@ public class DataRead  {
 
     public static Image loadImage(String name)throws RuntimeException {
         try {
-            return new Image(FILE+path+IMAGE_PATH+name);
+            return new Image(DataRead.class.getClassLoader().getResourceAsStream(name));
         }
         catch (Exception e) {
             ErrorStatement(FAIL_MESSAGE);
             return new Image(EMPTY_IMAGE);
         }
     }
+
+   // public static List<DataGameState> getGames
 
     public static Image loadImage(File file) {
         try {
@@ -88,6 +90,17 @@ public class DataRead  {
             ErrorStatement(FAIL_MESSAGE);
             return new Image(EMPTY_IMAGE);
         }
+    }
+
+    public static Map<Image, DataGameState> getAllGames() {
+        Map<Image, DataGameState> games =new HashMap<>();
+        File file = new File(GAME_PATH);
+        for(File game : file.listFiles()){
+          DataGameState playable = loadPlayerFile(game);
+          Image icon = getIcons().get(0);
+          games.put(icon, playable);
+        }
+        return games;
     }
 
     public static List<DataGameState> getSaves(){
@@ -145,9 +158,16 @@ public class DataRead  {
         }
     }
 
-    private static Object deserialize(File xml)
-    {
+    private static Object deserialize(File xml) {
         XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
         return xstream.fromXML(xml);
+    }
+
+    public static List<Image> getIcons(){
+        List<Image> icons = new ArrayList<>();
+        File imageRepo = new File(FILE+path+IMAGE_PATH);
+        for(File image : imageRepo.listFiles())
+            icons.add(loadImage(image));
+        return icons;
     }
 }

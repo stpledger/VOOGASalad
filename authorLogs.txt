@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Apr 25, 2018 12:19:04 AM authoring.entities.componentbuilders.SpriteBuilder build
 SEVERE: java.lang.NullPointerException
 java.lang.NullPointerException
@@ -187,3 +188,5 @@ java.lang.NullPointerException
 	at com.sun.glass.ui.View.handleMouseEvent(View.java:555)
 	at com.sun.glass.ui.View.notifyMouse(View.java:937)
 
+=======
+>>>>>>> 96806fdfe57cbd64cc2cd6690aeaf8f31c204932
