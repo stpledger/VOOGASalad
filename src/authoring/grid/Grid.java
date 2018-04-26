@@ -52,8 +52,7 @@ public class Grid extends GridPane {
 					Dragboard db = e.getDragboard();
 					EntityLoader el = new EntityLoader();
 					ImageView img = new ImageView(db.getImage());
-//					img.fitWidthProperty().bind(cell.widthProperty());
-//					img.fitHeightProperty().bind(cell.heightProperty());
+					//TODO get dimensions from entity component
 					img.setFitHeight(525);
 					img.setFitWidth(314);
 					setProperSize(img);
@@ -89,7 +88,7 @@ public class Grid extends GridPane {
 		img.setFitHeight(actualHeight);
 	}
 	
-	private void setNeighbors(double width, double height) {
+	private void setNeighbors() {
 		
 		for(int i=0;i<this.numRows;i++) {
 			for(int j=0;j<this.numCols;j++) {
