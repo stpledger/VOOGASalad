@@ -26,29 +26,31 @@ public class TestGameState {
 		System.out.println("TestGameState");
 		entities = new HashMap<>();
 		Sprite s = new Sprite(0,"Mario.png");
-		//Sprite s2 = new Sprite(1,"mario.png");
+		Sprite s2 = new Sprite(1,"mario.png");
 		Sprite s3 = new Sprite(2,"mario.png");
+		Sprite s4 = new Sprite(3,"mario.png");
+
 
 		Position p = new Position(0, 100, 100);
 		Dimension d = new Dimension(0, 100, 100);
 		Velocity v = new Velocity(0, 0, 0);
 
-		Acceleration a = new Acceleration(0, 0, 40);
+		Acceleration a = new Acceleration(0, 0, 0);
 		KeyInput k = new KeyInput(0);
 		k.addCode( KeyCode.RIGHT, (Consumer & Serializable) (e) -> {
-			v.setXVel(+50);
+			v.setXVel(+150);
 		});
 		k.addCode(KeyCode.UP, (Consumer & Serializable)(e) ->
 		{ 
-			v.setYVel(-50);
+			v.setYVel(-150);
 		});
 		k.addCode(KeyCode.DOWN,(Consumer & Serializable) (e) ->
 		{ 
-			v.setYVel(+50);
+			v.setYVel(+150);
 		});
 		k.addCode(KeyCode.LEFT,(Consumer & Serializable) (e) ->
 		{
-			v.setXVel(-50);
+			v.setXVel(-150);
 		});
 		Health h = new Health(0,10);
 		DamageLauncher launcher = new DamageLauncher(0,2,2);
@@ -72,21 +74,34 @@ public class TestGameState {
 		mario.put(DamageLauncher.KEY, launcher);
         mario.put(Player.KEY, play);
 
+		Map<String, Component> mario2 = new HashMap<>();
 
-		EntityType type3 = new EntityType(2,"enermy");
+
+		Position p2 = new Position(1, 100, 300);
+		Dimension d2 = new Dimension(1, 100, 100);
+
+		mario2.put(Position.KEY, p2);
+		mario2.put(Dimension.KEY, d2);
+		mario2.put(Sprite.KEY, s2);
+
+
+
 		Position p3 = new Position(2, 300, 100);
 		Dimension d3 = new Dimension(2, 100, 100);
 		Velocity v3 = new Velocity(2, 0, 0);
-		Acceleration a3 = new Acceleration(2, 0, 0);
+		Acceleration a3 = new Acceleration(2, 0, 40);
 		Health h3 = new Health(2,10);
 		DamageLauncher launcher3 = new DamageLauncher(0,2,2); 
 		Win win3 = new Win(2);
 
 		AI ai = new AI(2);
 		ai.setAction( (Consumer & Serializable) (time) -> {
-			Double myTime = (Double) time;
-			v3.setXVel((p.getXPos() - p3.getXPos()) * myTime * 10);
-			v3.setYVel((p.getYPos() - p3.getYPos()) * myTime * 10);
+				if (p3.getYPos()<50) {
+					v3.setYVel(20);
+				}
+				else if (p3.getYPos()>150) {
+					v3.setYVel(-100);
+			}
 		});
 
 		Map<String, Component> mario3 = new HashMap<>();
@@ -99,6 +114,15 @@ public class TestGameState {
 		mario3.put(Health.KEY, h3);
 		mario3.put(DamageLauncher.KEY, launcher3);
 		mario3.put(Win.KEY, win3);
+
+		Position p4 = new Position(3, 300, 300);
+		Dimension d4 = new Dimension(3, 100, 100);
+
+		Map<String, Component> mario4 = new HashMap<>();
+
+		mario4.put(Position.KEY, p4);
+		mario4.put(Dimension.KEY, d4);
+		mario4.put(Sprite.KEY, s4);
 
 		/**
 		Conditional co1 = new Conditional(0);
@@ -126,9 +150,9 @@ public class TestGameState {
 
 
 		entities.put(0, mario);
-		//entities.put(1, mario2);
-		entities.put(0, mario);
+		entities.put(1, mario2);
 		entities.put(2, mario3);
+		entities.put(3, mario4);
 		GameInitializer gi = new GameInitializer(entities, 300, 50, 50);
 		ih = gi.getInputHandler();
 		eng = new InternalEngine(gi.getSystems());
