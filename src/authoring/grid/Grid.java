@@ -66,7 +66,9 @@ public class Grid extends GridPane {
 					});
 					cell.getChildren().add(img);
 					try {
-						el.buildEntity(0, db.getString());
+						if(!cell.isOccupied()) {
+							cell.setEntity(el.buildEntity(0, db.getString()));
+						}
 					} catch (Exception e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
