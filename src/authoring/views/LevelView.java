@@ -7,7 +7,6 @@ import authoring.entities.Entity;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
 import authoring.gamestate.Level;
-import authoring.views.properties.LevelPropertiesView;
 import authoring.grid.Grid;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -31,7 +30,7 @@ public class LevelView extends ScrollPane {
 	private static final int ADD_FIVE = 5;
 	private static final int ADD_ONE = 1;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
 		this.eFactory = new ElementFactory();
@@ -52,43 +51,29 @@ public class LevelView extends ScrollPane {
 	 */
 	private void setupMouseClick(int levelNum) {
 		this.setOnMouseClicked(e -> {		
-			if(e.getButton().equals(MouseButton.PRIMARY) && e.getClickCount()==2) {
-				LevelPropertiesView lView = new LevelPropertiesView(level, levelNum);
-				lView.open();
-			} else if(e.getButton().equals(MouseButton.SECONDARY)) {
+			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				ContextMenu cMenu = new ContextMenu();
 				try {
-					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e1->{
-						this.content.addCol(ADD_ONE);
-					});
-					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e1->{
-						this.content.addRow(ADD_ONE);
-					});
-					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add 5 Columns", e1->{
-						this.content.addCol(ADD_FIVE);
-					});
-					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add 5 Rows", e1->{
-						this.content.addRow(ADD_FIVE);
-					});
-					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Cancel", e1->{
-						cMenu.hide();
-					});
+					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e1->this.content.addCol(ADD_ONE));
+					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e1->this.content.addRow(ADD_ONE));
+					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add 5 Columns", e1->this.content.addCol(ADD_FIVE));
+					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add 5 Rows", e1->this.content.addRow(ADD_FIVE));
+					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Cancel", e1->cMenu.hide());
 					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
 				} catch (Exception e1) {
-					 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+					LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 				}
 				cMenu.show(this, e.getScreenX(), e.getScreenY());
 				cMenu.setAutoHide(true);
 			}
 		});
 	}
+	
 	/**
 	 * Sets the onMouseReleased method for the content to handle dragging.
 	 */
 	private void setupMouseDrag() {
-		content.setOnDragDetected(e -> {
-			this.drag = true;
-		});
+		content.setOnDragDetected(e -> this.drag = true);
 	}
 
 	/**
