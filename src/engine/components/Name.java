@@ -7,7 +7,7 @@ import java.util.Map;
  * @author Dylan Powers
  *
  */
-public class Name extends Component {
+public class Name extends SingleStringComponent {
 
 	public static String KEY = "Name";
 	private String name;
@@ -24,10 +24,7 @@ public class Name extends Component {
 		this.name = name;
 	}
 
-	@Override
-	public Map<String, String> getParameters() {
-		
-		return null;
+	public String getKey() {
+		return KEY;
 	}
-
 }

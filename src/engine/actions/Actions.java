@@ -2,15 +2,18 @@ package engine.actions;
 
 import authoring.entities.Entity;
 import authoring.entities.Player;
-import engine.components.Position;
-import engine.components.Velocity;
-
+import engine.components.XPosition;
+import engine.components.YPosition;
+import engine.components.XVelocity;
+import engine.components.YVelocity;
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
+
+
 
 /**
  * This is the actions class which contains many methods that return consumers representing actions in the
@@ -25,8 +28,8 @@ public class Actions {
      * @return left action
      */
     public Consumer left (Entity actor) {
-        Velocity v = (Velocity) actor.get(Velocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setXVel(-10);
+        XVelocity v = (XVelocity) actor.get(XVelocity.KEY);
+        return (Serializable & Consumer) (e) -> v.setData(-10);
     }
 
     /**
@@ -34,8 +37,8 @@ public class Actions {
      * @return right action
      */
     public Consumer right (Entity actor) {
-        Velocity v = (Velocity) actor.get(Velocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setXVel(10);
+        XVelocity v = (XVelocity) actor.get(XVelocity.KEY);
+        return (Serializable & Consumer) (e) -> v.setData(10);
     }
 
     /**
@@ -43,8 +46,8 @@ public class Actions {
      * @return up action
      */
     public Consumer up (Entity actor) {
-        Velocity v = (Velocity) actor.get(Velocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setYVel(-10);
+        YVelocity v = (YVelocity) actor.get(YVelocity.KEY);
+        return (Serializable & Consumer) (e) -> v.setData(-10);
     }
 
     /**
@@ -52,8 +55,8 @@ public class Actions {
      * @return down action
      */
     public Consumer down (Entity actor) {
-        Velocity v = (Velocity) actor.get(Velocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setYVel(10);
+        YVelocity v = (YVelocity) actor.get(YVelocity.KEY);
+        return (Serializable & Consumer) (e) -> v.setData(10);
     }
 
     /**
@@ -63,14 +66,17 @@ public class Actions {
      * @return action which result in the tracker moving towards the followed
      */
     public Consumer followsYou (Entity followed, Entity tracker) {
-        Position p = (Position) followed.get(Position.KEY);
-        Position p2 = (Position) tracker.get(Position.KEY);
-        Velocity v = (Velocity) tracker.get(Velocity.KEY);
+        XPosition px = (XPosition) followed.get(XPosition.KEY);
+        YPosition py = (YPosition) followed.get(YPosition.KEY);
+        XPosition tx = (XPosition) tracker.get(XPosition.KEY);
+        YPosition ty = (YPosition) followed.get(YPosition.KEY);
+        XVelocity vx = (XVelocity) tracker.get(XVelocity.KEY);
+        YVelocity vy = (YVelocity) tracker.get(YVelocity.KEY);
 
         return (Serializable & Consumer) (time) -> {
             Double myTime = (Double) time;
-            v.setXVel((p.getXPos() - p2.getXPos()) * myTime * 10); //change trackers x velocity towards the followed
-            v.setYVel((p.getYPos() - p2.getYPos()) * myTime * 10); //change trackers y velocity towards the followed
+            vx.setData((px.getData() - tx.getData()) * myTime * 10);
+            vy.setData((py.getData() - ty.getData()) * myTime * 10);
         };
     }
 
