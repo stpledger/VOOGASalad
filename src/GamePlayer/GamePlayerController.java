@@ -2,9 +2,7 @@ package GamePlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-
 import java.util.Map;
-
 import HUD.SampleToolBar;
 import Menu.MenuGameBar;
 import Menu.PauseMenu;
@@ -34,7 +32,7 @@ public class GamePlayerController {
 	private Scene myScene;
 	private Pane gameRoot;
 	private Timeline myTimeline;
-	private GamePlayerSplashScreen gamePlayerSplash;
+	private SplashScreenController gamePlayerSplash;
 	private Scene mySplashScene;
 
 	private BorderPane myPane = new BorderPane();
@@ -55,7 +53,7 @@ public class GamePlayerController {
 
 
 	public Scene intializeStartScene() {
-		gamePlayerSplash = new GamePlayerSplashScreen(myStage);
+		gamePlayerSplash = new SplashScreenController(myStage);
 		mySplashScene = gamePlayerSplash.getSplashScene();
 		connectButtonsToController();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);

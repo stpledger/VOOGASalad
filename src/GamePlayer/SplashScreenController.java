@@ -23,7 +23,7 @@ import java.util.Map;
  * @author Ryan
  */
 
-public class GamePlayerSplashScreen{
+public class SplashScreenController{
 	private Scene splashScene;
 	private Stage mySplashStage;
 	private GridPane myGridPane;
@@ -35,7 +35,7 @@ public class GamePlayerSplashScreen{
 	private final int COL_NUM = 3;
 	public FileUploadButton fileBtn;
 	
-	public GamePlayerSplashScreen(Stage stage) {
+	public SplashScreenController(Stage stage) {
 		imageGameStateMap = DataRead.getAllGames();
 		mySplashStage = stage;
 		splashScene = initializeSplashScreen();
