@@ -5,7 +5,6 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
 
 import authoring.gamestate.Level;
 import data.DataGameState;
@@ -101,6 +100,7 @@ public class TestGameState {
 		mario3.put(DamageLauncher.KEY, launcher3);
 		mario3.put(Win.KEY, win3);
 
+		/**
 		Conditional co1 = new Conditional(0);
 		Supplier su1 = (Supplier & Serializable) () -> p3.getXPos();
 		Supplier su2 = (Supplier & Serializable) () -> p.getYPos();
@@ -121,6 +121,7 @@ public class TestGameState {
 		co1.setAction(p, consumer);
 
 		mario.put(Conditional.KEY, co1);
+		 **/
 
 
 
@@ -128,8 +129,8 @@ public class TestGameState {
 		//entities.put(1, mario2);
 		entities.put(0, mario);
 		entities.put(2, mario3);
-		GameInitializer gi = new GameInitializer(entities);
-		ih = gi.getIH();
+		GameInitializer gi = new GameInitializer(entities, 300, 50, 50);
+		ih = gi.getInputHandler();
 		eng = new InternalEngine(gi.getSystems());
 
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
