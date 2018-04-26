@@ -1,13 +1,13 @@
 <data.DataGameState>
   <gameState>
     <entry>
-      <frontend.components.Level>
+      <authoring.gamestate.Level>
         <levelNum>1</levelNum>
         <levelTime>0.0</levelTime>
         <levelDistance>0.0</levelDistance>
         <HUDprops/>
         <GProps/>
-      </frontend.components.Level>
+      </authoring.gamestate.Level>
       <map>
         <entry>
           <int>0</int>
@@ -16,7 +16,7 @@
               <string>DamageLauncher</string>
               <engine.components.DamageLauncher>
                 <pid>0</pid>
-                <keykey>DamageLauncher</keykey>
+                <key>DamageLauncher</key>
                 <damage>2.0</damage>
                 <lifetime>2.0</lifetime>
               </engine.components.DamageLauncher>
@@ -25,12 +25,11 @@
               <string>Player</string>
               <engine.components.Player>
                 <pid>0</pid>
-                <keykey>Player</keykey>
+                <key>Player</key>
                 <lives>3</lives>
-                <score>0</score>
                 <respawn>
                   <pid>0</pid>
-                  <keykey>Position</keykey>
+                  <key>Position</key>
                   <xPos>100.0</xPos>
                   <yPos>100.0</yPos>
                 </respawn>
@@ -40,7 +39,7 @@
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>0</pid>
-                <keykey>Sprite</keykey>
+                <key>Sprite</key>
                 <filename>Mario.png</filename>
               </engine.components.Sprite>
             </entry>
@@ -48,7 +47,7 @@
               <string>Position</string>
               <engine.components.Position>
                 <pid>0</pid>
-                <keykey>Position</keykey>
+                <key>Position</key>
                 <xPos>100.0</xPos>
                 <yPos>100.0</yPos>
               </engine.components.Position>
@@ -57,7 +56,7 @@
               <string>Health</string>
               <engine.components.Health>
                 <pid>0</pid>
-                <keykey>Health</keykey>
+                <key>Health</key>
                 <health>10.0</health>
               </engine.components.Health>
             </entry>
@@ -65,173 +64,160 @@
               <string>Dimension</string>
               <engine.components.Dimension>
                 <pid>0</pid>
-                <keykey>Dimension</keykey>
-                <height>50.0</height>
-                <width>50.0</width>
+                <key>Dimension</key>
+                <height>100.0</height>
+                <width>100.0</width>
               </engine.components.Dimension>
             </entry>
             <entry>
               <string>KeyInput</string>
               <engine.components.KeyInput>
                 <pid>0</pid>
-                <keykey>KeyInput</keykey>
+                <key>KeyInput</key>
                 <codes>
                   <entry>
-                    <javafx.scene.input.KeyCode>R</javafx.scene.input.KeyCode>
-                    <java.lang.Runnable resolves-to="serialized-lambda">
+                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
-                      <functionalInterfaceClass>java/lang/Runnable</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>run</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>()V</functionalInterfaceMethodSignature>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
-                      <implMethodName>lambda$4</implMethodName>
-                      <implMethodSignature>(Lengine/components/Player;Lengine/components/Position;Lengine/components/Velocity;Lengine/components/Acceleration;)V</implMethodSignature>
+                      <implMethodName>lambda$2</implMethodName>
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>()V</instantiatedMethodType>
+                      <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                       <capturedArgs>
-                        <engine.components.Player reference="../../../../../../../entry[2]/engine.components.Player"/>
-                        <engine.components.Position reference="../../../../../../../entry[4]/engine.components.Position"/>
                         <engine.components.Velocity>
                           <pid>0</pid>
-                          <keykey>Velocity</keykey>
+                          <key>Velocity</key>
                           <XVel>0.0</XVel>
                           <YVel>0.0</YVel>
                         </engine.components.Velocity>
-                        <engine.components.Acceleration>
-                          <pid>0</pid>
-                          <keykey>Acceleration</keykey>
-                          <xAcc>0.0</xAcc>
-                          <yAcc>40.0</yAcc>
-                        </engine.components.Acceleration>
                       </capturedArgs>
-                    </java.lang.Runnable>
-                  </entry>
-                  <entry>
-                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
-                    <java.lang.Runnable resolves-to="serialized-lambda">
-                      <capturingClass>engine.test.TestGameState</capturingClass>
-                      <functionalInterfaceClass>java/lang/Runnable</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>run</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>()V</functionalInterfaceMethodSignature>
-                      <implClass>engine/test/TestGameState</implClass>
-                      <implMethodName>lambda$1</implMethodName>
-                      <implMethodSignature>(Lengine/components/Velocity;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>()V</instantiatedMethodType>
-                      <capturedArgs>
-                        <engine.components.Velocity reference="../../../../entry/java.lang.Runnable/capturedArgs/engine.components.Velocity"/>
-                      </capturedArgs>
-                    </java.lang.Runnable>
-                  </entry>
-                  <entry>
-                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-                    <java.lang.Runnable resolves-to="serialized-lambda">
-                      <capturingClass>engine.test.TestGameState</capturingClass>
-                      <functionalInterfaceClass>java/lang/Runnable</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>run</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>()V</functionalInterfaceMethodSignature>
-                      <implClass>engine/test/TestGameState</implClass>
-                      <implMethodName>lambda$0</implMethodName>
-                      <implMethodSignature>(Lengine/components/Velocity;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>()V</instantiatedMethodType>
-                      <capturedArgs>
-                        <engine.components.Velocity reference="../../../../entry/java.lang.Runnable/capturedArgs/engine.components.Velocity"/>
-                      </capturedArgs>
-                    </java.lang.Runnable>
-                  </entry>
-                  <entry>
-                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-                    <java.lang.Runnable resolves-to="serialized-lambda">
-                      <capturingClass>engine.test.TestGameState</capturingClass>
-                      <functionalInterfaceClass>java/lang/Runnable</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>run</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>()V</functionalInterfaceMethodSignature>
-                      <implClass>engine/test/TestGameState</implClass>
-                      <implMethodName>lambda$3</implMethodName>
-                      <implMethodSignature>(Lengine/components/Velocity;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>()V</instantiatedMethodType>
-                      <capturedArgs>
-                        <engine.components.Velocity reference="../../../../entry/java.lang.Runnable/capturedArgs/engine.components.Velocity"/>
-                      </capturedArgs>
-                    </java.lang.Runnable>
+                    </java.util.function.Consumer>
                   </entry>
                   <entry>
                     <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
-                    <java.lang.Runnable resolves-to="serialized-lambda">
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
-                      <functionalInterfaceClass>java/lang/Runnable</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>run</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>()V</functionalInterfaceMethodSignature>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
                       <implMethodName>lambda$2</implMethodName>
-                      <implMethodSignature>(Lengine/components/Velocity;)V</implMethodSignature>
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>()V</instantiatedMethodType>
+                      <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                       <capturedArgs>
-                        <engine.components.Velocity reference="../../../../entry/java.lang.Runnable/capturedArgs/engine.components.Velocity"/>
+                        <engine.components.Velocity reference="../../../../entry/java.util.function.Consumer/capturedArgs/engine.components.Velocity"/>
                       </capturedArgs>
-                    </java.lang.Runnable>
+                    </java.util.function.Consumer>
+                  </entry>
+                  <entry>
+                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.test.TestGameState</capturingClass>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/test/TestGameState</implClass>
+                      <implMethodName>lambda$0</implMethodName>
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
+                      <capturedArgs>
+                        <engine.components.Velocity reference="../../../../entry/java.util.function.Consumer/capturedArgs/engine.components.Velocity"/>
+                      </capturedArgs>
+                    </java.util.function.Consumer>
+                  </entry>
+                  <entry>
+                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.test.TestGameState</capturingClass>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/test/TestGameState</implClass>
+                      <implMethodName>lambda$1</implMethodName>
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
+                      <capturedArgs>
+                        <engine.components.Velocity reference="../../../../entry/java.util.function.Consumer/capturedArgs/engine.components.Velocity"/>
+                      </capturedArgs>
+                    </java.util.function.Consumer>
                   </entry>
                 </codes>
               </engine.components.KeyInput>
             </entry>
             <entry>
               <string>Acceleration</string>
-              <engine.components.Acceleration reference="../../entry[7]/engine.components.KeyInput/codes/entry/java.lang.Runnable/capturedArgs/engine.components.Acceleration"/>
+              <engine.components.Acceleration>
+                <pid>0</pid>
+                <key>Acceleration</key>
+                <xAcc>0.0</xAcc>
+                <yAcc>40.0</yAcc>
+              </engine.components.Acceleration>
+            </entry>
+            <entry>
+              <string>Component</string>
+              <engine.components.Conditional>
+                <pid>0</pid>
+                <key>Component</key>
+                <conditional resolves-to="serialized-lambda">
+                  <capturingClass>engine.test.TestGameState</capturingClass>
+                  <functionalInterfaceClass>java/util/function/Supplier</functionalInterfaceClass>
+                  <functionalInterfaceMethodName>get</functionalInterfaceMethodName>
+                  <functionalInterfaceMethodSignature>()Ljava/lang/Object;</functionalInterfaceMethodSignature>
+                  <implClass>engine/test/TestGameState</implClass>
+                  <implMethodName>lambda$5</implMethodName>
+                  <implMethodSignature>(Lengine/components/Position;)Ljava/lang/Object;</implMethodSignature>
+                  <implMethodKind>6</implMethodKind>
+                  <instantiatedMethodType>()Ljava/lang/Object;</instantiatedMethodType>
+                  <capturedArgs>
+                    <engine.components.Position>
+                      <pid>2</pid>
+                      <key>Position</key>
+                      <xPos>300.0</xPos>
+                      <yPos>100.0</yPos>
+                    </engine.components.Position>
+                  </capturedArgs>
+                </conditional>
+                <condition resolves-to="serialized-lambda">
+                  <capturingClass>engine.test.TestGameState</capturingClass>
+                  <functionalInterfaceClass>java/util/function/Supplier</functionalInterfaceClass>
+                  <functionalInterfaceMethodName>get</functionalInterfaceMethodName>
+                  <functionalInterfaceMethodSignature>()Ljava/lang/Object;</functionalInterfaceMethodSignature>
+                  <implClass>engine/test/TestGameState</implClass>
+                  <implMethodName>lambda$6</implMethodName>
+                  <implMethodSignature>(Lengine/components/Position;)Ljava/lang/Object;</implMethodSignature>
+                  <implMethodKind>6</implMethodKind>
+                  <instantiatedMethodType>()Ljava/lang/Object;</instantiatedMethodType>
+                  <capturedArgs>
+                    <engine.components.Position reference="../../../../../entry[4]/engine.components.Position"/>
+                  </capturedArgs>
+                </condition>
+                <changed class="engine.components.Position" reference="../../../entry[4]/engine.components.Position"/>
+                <action resolves-to="serialized-lambda">
+                  <capturingClass>engine.test.TestGameState</capturingClass>
+                  <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                  <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                  <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                  <implClass>engine/test/TestGameState</implClass>
+                  <implMethodName>lambda$7</implMethodName>
+                  <implMethodSignature>(Lengine/components/Position;Ljava/lang/Object;)V</implMethodSignature>
+                  <implMethodKind>6</implMethodKind>
+                  <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
+                  <capturedArgs>
+                    <engine.components.Position reference="../../../conditional/capturedArgs/engine.components.Position"/>
+                  </capturedArgs>
+                </action>
+              </engine.components.Conditional>
             </entry>
             <entry>
               <string>Velocity</string>
-              <engine.components.Velocity reference="../../entry[7]/engine.components.KeyInput/codes/entry/java.lang.Runnable/capturedArgs/engine.components.Velocity"/>
-            </entry>
-          </map>
-        </entry>
-        <entry>
-          <int>1</int>
-          <map>
-            <entry>
-              <string>DamageLauncher</string>
-              <engine.components.DamageLauncher>
-                <pid>1</pid>
-                <keykey>DamageLauncher</keykey>
-                <damage>2.0</damage>
-                <lifetime>2.0</lifetime>
-              </engine.components.DamageLauncher>
-            </entry>
-            <entry>
-              <string>Sprite</string>
-              <engine.components.Sprite>
-                <pid>1</pid>
-                <keykey>Sprite</keykey>
-                <filename>mario.png</filename>
-              </engine.components.Sprite>
-            </entry>
-            <entry>
-              <string>Position</string>
-              <engine.components.Position>
-                <pid>1</pid>
-                <keykey>Position</keykey>
-                <xPos>100.0</xPos>
-                <yPos>300.0</yPos>
-              </engine.components.Position>
-            </entry>
-            <entry>
-              <string>Health</string>
-              <engine.components.Health>
-                <pid>1</pid>
-                <keykey>Health</keykey>
-                <health>10.0</health>
-              </engine.components.Health>
-            </entry>
-            <entry>
-              <string>Dimension</string>
-              <engine.components.Dimension>
-                <pid>1</pid>
-                <keykey>Dimension</keykey>
-                <height>100.0</height>
-                <width>100.0</width>
-              </engine.components.Dimension>
+              <engine.components.Velocity reference="../../entry[7]/engine.components.KeyInput/codes/entry/java.util.function.Consumer/capturedArgs/engine.components.Velocity"/>
             </entry>
           </map>
         </entry>
@@ -241,8 +227,8 @@
             <entry>
               <string>DamageLauncher</string>
               <engine.components.DamageLauncher>
-                <pid>2</pid>
-                <keykey>DamageLauncher</keykey>
+                <pid>0</pid>
+                <key>DamageLauncher</key>
                 <damage>2.0</damage>
                 <lifetime>2.0</lifetime>
               </engine.components.DamageLauncher>
@@ -251,83 +237,78 @@
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>2</pid>
-                <keykey>Sprite</keykey>
+                <key>Sprite</key>
                 <filename>mario.png</filename>
               </engine.components.Sprite>
             </entry>
             <entry>
               <string>Position</string>
-              <engine.components.Position>
-                <pid>2</pid>
-                <keykey>Position</keykey>
-                <xPos>200.0</xPos>
-                <yPos>300.0</yPos>
-              </engine.components.Position>
+              <engine.components.Position reference="../../../../entry/map/entry[9]/engine.components.Conditional/conditional/capturedArgs/engine.components.Position"/>
             </entry>
             <entry>
               <string>Health</string>
               <engine.components.Health>
                 <pid>2</pid>
-                <keykey>Health</keykey>
+                <key>Health</key>
                 <health>10.0</health>
               </engine.components.Health>
+            </entry>
+            <entry>
+              <string>AI</string>
+              <engine.components.AI>
+                <pid>2</pid>
+                <key>AI</key>
+                <action resolves-to="serialized-lambda">
+                  <capturingClass>engine.test.TestGameState</capturingClass>
+                  <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                  <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                  <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                  <implClass>engine/test/TestGameState</implClass>
+                  <implMethodName>lambda$4</implMethodName>
+                  <implMethodSignature>(Lengine/components/Velocity;Lengine/components/Position;Lengine/components/Position;Ljava/lang/Object;)V</implMethodSignature>
+                  <implMethodKind>6</implMethodKind>
+                  <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
+                  <capturedArgs>
+                    <engine.components.Velocity>
+                      <pid>2</pid>
+                      <key>Velocity</key>
+                      <XVel>0.0</XVel>
+                      <YVel>0.0</YVel>
+                    </engine.components.Velocity>
+                    <engine.components.Position reference="../../../../../../../entry/map/entry[4]/engine.components.Position"/>
+                    <engine.components.Position reference="../../../../../../../entry/map/entry[9]/engine.components.Conditional/conditional/capturedArgs/engine.components.Position"/>
+                  </capturedArgs>
+                </action>
+              </engine.components.AI>
             </entry>
             <entry>
               <string>Dimension</string>
               <engine.components.Dimension>
                 <pid>2</pid>
-                <keykey>Dimension</keykey>
+                <key>Dimension</key>
                 <height>100.0</height>
                 <width>100.0</width>
               </engine.components.Dimension>
             </entry>
-          </map>
-        </entry>
-        <entry>
-          <int>3</int>
-          <map>
             <entry>
-              <string>DamageLauncher</string>
-              <engine.components.DamageLauncher>
-                <pid>3</pid>
-                <keykey>DamageLauncher</keykey>
-                <damage>2.0</damage>
-                <lifetime>2.0</lifetime>
-              </engine.components.DamageLauncher>
+              <string>Acceleration</string>
+              <engine.components.Acceleration>
+                <pid>2</pid>
+                <key>Acceleration</key>
+                <xAcc>0.0</xAcc>
+                <yAcc>0.0</yAcc>
+              </engine.components.Acceleration>
             </entry>
             <entry>
-              <string>Sprite</string>
-              <engine.components.Sprite>
-                <pid>3</pid>
-                <keykey>Sprite</keykey>
-                <filename>mario.png</filename>
-              </engine.components.Sprite>
+              <string>Velocity</string>
+              <engine.components.Velocity reference="../../entry[5]/engine.components.AI/action/capturedArgs/engine.components.Velocity"/>
             </entry>
             <entry>
-              <string>Position</string>
-              <engine.components.Position>
-                <pid>3</pid>
-                <keykey>Position</keykey>
-                <xPos>300.0</xPos>
-                <yPos>300.0</yPos>
-              </engine.components.Position>
-            </entry>
-            <entry>
-              <string>Health</string>
-              <engine.components.Health>
-                <pid>3</pid>
-                <keykey>Health</keykey>
-                <health>10.0</health>
-              </engine.components.Health>
-            </entry>
-            <entry>
-              <string>Dimension</string>
-              <engine.components.Dimension>
-                <pid>3</pid>
-                <keykey>Dimension</keykey>
-                <height>100.0</height>
-                <width>100.0</width>
-              </engine.components.Dimension>
+              <string>WIN</string>
+              <engine.components.Win>
+                <pid>2</pid>
+                <key>WIN</key>
+              </engine.components.Win>
             </entry>
           </map>
         </entry>

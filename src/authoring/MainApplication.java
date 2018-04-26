@@ -6,6 +6,9 @@ import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
 
+
+import authoring.logging.AuthoringLogger;
+
 import javafx.application.Application;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
@@ -20,7 +23,7 @@ import javafx.scene.Scene;
 public class MainApplication extends Application {
 	Stage mainStage; 
 	
-	Consumer<Scene> changeScene = (newScene) -> {
+	Consumer<Scene> changeScene = newScene -> {
 		mainStage.setScene(newScene);
 		mainStage.sizeToScene();
 		mainStage.centerOnScreen();
@@ -28,6 +31,7 @@ public class MainApplication extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
+		AuthoringLogger.setup();
 		SplashScreen splashScreen = new SplashScreen(changeScene);
 		mainStage = primaryStage;
 		Scene s = new Scene(splashScreen, splashScreen.getWidth(), splashScreen.getHeight());

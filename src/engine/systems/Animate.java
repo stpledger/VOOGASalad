@@ -1,10 +1,11 @@
 package engine.systems;
 
 import engine.components.*;
-
+import engine.components.groups.Position;
 import engine.setup.EntityManager;
 import javafx.scene.image.ImageView;
 
+import java.util.HashSet;
 import java.util.Set;
 import java.util.Map;
 import java.util.HashMap;
@@ -94,13 +95,15 @@ public class Animate implements ISystem {
 
     @Override
     public void setActives(Set<Integer> actives) {
-        activeComponents = actives;
-        activeComponents.retainAll(handledComponents.keySet());
+        Set<Integer> myActives = new HashSet<>(actives);
+        myActives.retainAll(handledComponents.keySet());
+        activeComponents = myActives;
     }
 
     @Override
     public void execute(double time) {
         for (int pid : activeComponents) {
+
             Map<String, Component> components = handledComponents.get(pid);
             Sprite s = (Sprite) components.get(Sprite.KEY);
             Position p = (Position) components.get(Position.KEY);

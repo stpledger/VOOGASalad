@@ -2,9 +2,9 @@ package engine.systems;
 
 import java.util.*;
 
-import engine.components.Acceleration;
+import engine.components.groups.Acceleration;
 import engine.components.Component;
-import engine.components.Velocity;
+import engine.components.groups.Velocity;
 import engine.setup.EntityManager;
 
 /**
@@ -101,8 +101,9 @@ public class Accelerate implements ISystem{
     
 	@Override
 	public void setActives(Set<Integer> actives) {
-	    	activeComponents = actives;
-	    	activeComponents.retainAll(handledComponents.keySet());
+		Set<Integer> myActives = new HashSet<>(actives);
+		myActives.retainAll(handledComponents.keySet());
+		activeComponents = myActives;
 	}
 
 	/**
@@ -117,8 +118,8 @@ public class Accelerate implements ISystem{
 			Acceleration a = (Acceleration) activeComponents.get(Acceleration.KEY);
 			Velocity v = (Velocity) activeComponents.get(Velocity.KEY);
 
-			v.setXVel(v.getXVel() + a.getxAcc()*time);
-			v.setYVel(v.getYVel() + a.getyAcc()*time);
+			v.setXVel(v.getXVel() + a.getXAcc()*time);
+			v.setYVel(v.getYVel() + a.getYAcc()*time);
 		}
 	}
 

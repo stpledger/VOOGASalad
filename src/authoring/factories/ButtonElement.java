@@ -1,5 +1,7 @@
 package authoring.factories;
 
+import java.util.function.Consumer;
+
 import javafx.scene.control.Button;
 
 /**
@@ -7,7 +9,7 @@ import javafx.scene.control.Button;
  * @author Hemanth Yakkali(hy115)
  *
  */
-public class ButtonElement extends Button implements Element{
+public class ButtonElement extends Button implements ClickableElement{
 
 	public ButtonElement(String text) {
 		super();
@@ -19,5 +21,9 @@ public class ButtonElement extends Button implements Element{
 		this.setText(text);
 	}
 
+	@Override
+	public void handleConsumer(Consumer<Void> event) {
+		this.setOnAction(e->event.accept(null));
+	}
 
 }

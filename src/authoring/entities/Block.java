@@ -4,17 +4,19 @@ import java.io.FileNotFoundException;
 
 /**
  * 
- * @author Hemanth Yakkali
+ * @author Hemanth Yakkali(hy115)
  *
  */
-public class Block extends Entity{
+public class Block extends Entity {
 
 	private final static String TYPE =  "Block";
+	private String name;
 	private final static double BLOCK_HEALTH = 50;
 	private final static double BLOCK_DIMENSION = 25;
 
-	public Block(int ID) {
+	public Block(int ID, String name) {
 		super(ID);
+		this.name = name;
 	}
 
 	@Override
@@ -32,6 +34,11 @@ public class Block extends Entity{
 	@Override
 	public String type() {
 		return TYPE;
+	}
+	
+	@Override
+	public String name() {
+		return this.name;
 	}
 
 }

@@ -4,7 +4,6 @@ import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +21,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import GamePlayer.Main;
 import authoring.entities.Entity;
+import authoring.factories.ElementFactory;
+import authoring.factories.ElementType;
 import authoring.factories.Toolbar;
 import authoring.gamestate.GameState;
 import authoring.gamestate.Level;
@@ -30,8 +31,10 @@ import authoring.views.properties.HUDPropertiesView;
 import authoring.views.properties.LevelPropertiesView;
 import engine.components.Component;
 import engine.components.EntityType;
-import engine.components.Position;
 import engine.components.Sprite;
+import engine.components.groups.Position;
+import data.DataRead;
+
 import data.DataWrite;
 
 /**
@@ -40,19 +43,18 @@ import data.DataWrite;
  *
  */
 public class GameEditorView extends BorderPane {
-	//private static final String GAME_FILE_EXTENSION = "*.xml";
+
 	private ArrayList<Tab> levelTabsList;
 	private GameState state;
 	private TabPane tabPane;
 	private Toolbar toolbar;
+	private ElementFactory eFactory;
 	private int nextEntityID  = 0;
-	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
 	private Consumer<MouseEvent> addEntity = mouseEvent -> { addEntityMethod(mouseEvent);};
 	private Consumer<List<Tab>> updateTabs = tabList -> { updateTabsMethod(tabList); };
 	private static final int BLOCK_DEFAULT_WIDTH = 50;
-	
+
 	/**
 	 * Default Constructor creates a Borderpane with a toolbar in the top, tabPane in the center, and a gamestate object
 	 */
@@ -64,6 +66,7 @@ public class GameEditorView extends BorderPane {
 		this.levelTabsList = new ArrayList<>();
 		this.state = new GameState();
 		this.setCenter(tabPane);
+		this.eFactory = new ElementFactory();
 		addLevel();
 	}
 
@@ -81,8 +84,8 @@ public class GameEditorView extends BorderPane {
 		Consumer<?> play = e->{playMethod();};
 		Consumer<?> newLevel = e->{addLevel();};
 		Consumer<?> levelSettings = e->{showLevelSettings();};
-		
-		
+
+
 		Map<String, Consumer> consumerMap = new HashMap<>();
 		consumerMap.put("newGame", newGame);
 		consumerMap.put("loadGame", loadGame);
@@ -94,7 +97,7 @@ public class GameEditorView extends BorderPane {
 		consumerMap.put("levelSettings", levelSettings);
 		return consumerMap;
 	}
-	
+
 	/**
 	 * Update the numbers of the level tabs
 	 * @param tabList
@@ -109,20 +112,21 @@ public class GameEditorView extends BorderPane {
 	 * Creates a new LevelView
 	 */
 	public void addLevel(){
-		levelTabsList.add(new Tab());
-		Tab t = levelTabsList.get(levelTabsList.size()-1);
-		t.setText("Level " + (levelTabsList.indexOf(t)+1));
-		
-		Level level = new Level(levelTabsList.indexOf(t)+1);
-		state.addLevel(level);
-		LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, addEntity);
-		
-		t.setContent(levelView);
-		t.setOnClosed(e -> {
-			levelTabsList.remove(t);
-			updateTabs.accept(levelTabsList);
-		});
-		tabPane.getTabs().add(t);
+		try {
+			Tab t = (Tab) this.eFactory.buildElement(ElementType.Tab, "Level " + (levelTabsList.size()+1));
+			levelTabsList.add(t);
+			Level level = new Level(levelTabsList.indexOf(t)+1);
+			state.addLevel(level);
+			LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, addEntity);
+			t.setContent(levelView);
+			t.setOnClosed(e -> {
+				levelTabsList.remove(t);
+				updateTabs.accept(levelTabsList);
+			});
+			tabPane.getTabs().add(t);
+		} catch (Exception e) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
+		}
 	}
 
 	/**
@@ -134,17 +138,17 @@ public class GameEditorView extends BorderPane {
 		levelTabsList.add(new Tab());
 		Tab t = levelTabsList.get(levelTabsList.size()-1);
 		t.setText("Level " + (levelTabsList.indexOf(t)+1));
-		
+
 		Level level = l;
 		state.addLevel(level);
 		LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, addEntity);
-		
+
 		t.setContent(levelView);
 		t.setOnClosed(e -> {
 			levelTabsList.remove(t);
 			updateTabs.accept(levelTabsList);
 		});
-		
+
 		tabPane.getTabs().add(t);
 		return levelView;
 	}
@@ -170,12 +174,12 @@ public class GameEditorView extends BorderPane {
 			}	
 		});	
 	}
-	
+
 	/**
 	 * Shows the HUD Settings Menu
 	 */
 	private void hudSettingsMethod() {
-		ArrayList<Level> levelArray = new ArrayList<>();
+		List<Level> levelArray = new ArrayList<>();
 		for(Tab t: levelTabsList) {
 			levelArray.add(((LevelView) t.getContent()).getLevel());
 		}
@@ -187,7 +191,7 @@ public class GameEditorView extends BorderPane {
 	 * Shows the GlobalPropertiesView Panel
 	 */
 	private void showSettingsMethod() {
-		ArrayList<Level> levelArray = new ArrayList<Level>();
+		List<Level> levelArray = new ArrayList<>();
 		for(Tab t: levelTabsList) {
 			levelArray.add(((LevelView) t.getContent()).getLevel());
 		}
@@ -199,9 +203,8 @@ public class GameEditorView extends BorderPane {
 	 * Saves the Current instance of the game
 	 */
 	private void saveGameMethod() {
-		DataWrite dr = new DataWrite();
 		try {
-			dr.saveFile(this.state, "MyFirstGame");
+			DataWrite.saveFile(this.state, "MyFirstGame");
 		} catch (Exception ex) {
 			LOGGER.log(java.util.logging.Level.SEVERE, ex.getMessage(), ex);
 		}
@@ -214,8 +217,7 @@ public class GameEditorView extends BorderPane {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Image File");
 		File gameFile = fileChooser.showOpenDialog(new Stage());
-		DataRead dr = new DataRead();
-		Map<Level, Map<Integer, List<Component>>> authorData = dr.loadAuthorFile(gameFile);
+		Map<Level, Map<Integer, List<Component>>> authorData = DataRead.loadAuthorFile(gameFile);
 		newGameMethod();
 		for(Level level : authorData.keySet()) {
 			LevelView levelView = loadLevel(level);
@@ -249,13 +251,15 @@ public class GameEditorView extends BorderPane {
 		Entity entity = null;
 		for(Component c : componentList) {
 			if(c.getKey().equals("EntityType")) {
-				String entityType = ((EntityType)c).getType();
-				Class<?> entityTypeClass = Class.forName("authoring.entities." + entityType);
+				String entityType = ((EntityType)c).getData();
+				Class entityTypeClass = Class.forName("authoring.entities." + entityType);
+
 				entity = createEntityFromType(entityTypeClass, entityID);	
 			}
 			entity.add(c);
 			if(c.getKey().equals("Sprite")) {
-				Image image = DataRead.loadImage(((Sprite) c).getName());	
+				Image image = DataRead.loadImage(((Sprite) c).getData());	
+
 				entity.setImage(image);
 			} else if(c.getKey().equals("Position")) {
 				Position p = (Position) c;
@@ -265,7 +269,7 @@ public class GameEditorView extends BorderPane {
 		}
 		return entity;
 	}
-	
+
 	/**
 	 * Adds an entity to the LevelView
 	 * @param mouseEvent
@@ -298,36 +302,6 @@ public class GameEditorView extends BorderPane {
 		Entity entity = (Entity) entityConstructor.newInstance(nextEntityID); 
 		entity.setFitWidth(BLOCK_DEFAULT_WIDTH);
 		entity.setFitHeight(BLOCK_DEFAULT_WIDTH);
-		return entity;
-	}
-	/**
-	 * Takes in a Map<Class, Object[]> and creates components in an entity
-	 * @param e Entity object to recieve the new components
-	 * @param entityComponents Map<Class, Object[]> which represents the components to be built
-	 * @return Entity with components added by this class
-	 * @throws Exception
-	 */
-	private Entity addEntityComponentsFromMap(Entity e, Map<Class, Object[]> entityComponents) throws Exception {
-		ArrayList<Component> componentArrayList = new ArrayList<>();
-		Entity entity = e;
-		
-		for(Class<?> componentClass :entityComponents.keySet()) { 
-			Constructor<?> componentConstructor = componentClass.getDeclaredConstructors()[0];
-			ArrayList<Object> tempComponentAttributeArray = new ArrayList<Object>() {{ 
-				this.add(nextEntityID);
-				this.addAll(Arrays.asList(entityComponents.get(componentClass))); 
-			}};
-
-			Object[] componentArguments = tempComponentAttributeArray.toArray();
-			componentArrayList.add((Component) componentConstructor.newInstance(componentArguments));
-			
-			if(componentClass.equals(Sprite.class)) {
-				Image image = DataRead.loadImage((String) entityComponents.get(componentClass)[0]);
-				entity.setImage(image);
-			}
-		}
-		entity.addAll(componentArrayList);
-		nextEntityID++;
 		return entity;
 	}
 

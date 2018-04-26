@@ -1,6 +1,7 @@
 package authoring.entities;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -9,25 +10,23 @@ import java.util.logging.Logger;
 import authoring.views.properties.LocalPropertiesView;
 
 import engine.components.Component;
-import engine.components.Damage;
-import engine.components.Dimension;
 import engine.components.EntityType;
 import engine.components.Health;
-import engine.components.Position;
 import engine.components.Sprite;
-
+import engine.components.groups.Damage;
+import engine.components.groups.Dimension;
+import engine.components.groups.Position;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 
 /**
  * 
- * @author Hemanth Yakkali
+ * @author Hemanth Yakkali(hy115)
  * @author Dylan Powers
  * @author Collin Brown
  *
  */
 
-public abstract class Entity extends ImageView {
+public abstract class Entity extends ImageView implements Serializable {
 
 	public final static int ENTITY_WIDTH = 50;
 	public final static int ENTITY_HEIGHT = 50;
@@ -59,7 +58,7 @@ public abstract class Entity extends ImageView {
 			}
 		};
 		this.setOnMouseClicked(e -> {
-			if (e.getButton().equals(MouseButton.SECONDARY)) {
+			if(e.getClickCount()==2) {
 				LocalPropertiesView LPV = new LocalPropertiesView(this, onSubmit);
 				LPV.open();
 			}
@@ -96,9 +95,11 @@ public abstract class Entity extends ImageView {
 	 */
 	public void add(Component c) {
 		if (c != null) {
+
 			if (this.contains(c)) {
 				this.removeByName(c.getKey());
 			}
+
 			this.components.add(c);
 		}
 	}
@@ -141,6 +142,7 @@ public abstract class Entity extends ImageView {
 	 */
 	private boolean contains(Component c) {
 		for (Component existing : this.components) {
+
 			if (existing.getKey() == c.getKey()) {
 				return true;
 			}
@@ -186,6 +188,16 @@ public abstract class Entity extends ImageView {
 	 */
 	protected void setDimension(double width, double height) {
 		this.add(new Dimension(this.getID(),width,height));
+		this.setWidth((int) width);
+		this.setHeight((int) height);
+	}
+	
+	private void setWidth(int cells) {
+		this.setFitWidth(cells*Entity.ENTITY_WIDTH);
+	}
+	
+	private void setHeight(int cells) {
+		this.setFitHeight(cells*Entity.ENTITY_HEIGHT);
 	}
 
 	/**
@@ -243,6 +255,11 @@ public abstract class Entity extends ImageView {
 	 * @return type of this entity
 	 */
 	public abstract String type();
+	
+	/**
+	 * @return the name of this entity
+	 */
+	public abstract String name();
 
 	/**
 	 * 

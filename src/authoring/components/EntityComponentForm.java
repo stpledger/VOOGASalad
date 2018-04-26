@@ -2,12 +2,11 @@ package authoring.components;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.logging.Logger;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class EntityComponentForm extends AbstractComponentForm{
+public class EntityComponentForm extends AbstractComponentForm  implements ComponentForm {
 	
 
 	/**
@@ -39,7 +38,9 @@ public class EntityComponentForm extends AbstractComponentForm{
 	 * @return a component that accurately represents the data in this wrapper class
 	 */
 	public Object[] buildComponent() {
-		if (!validComponent()) return null;
+		if (!validComponent()) { 
+			return null;
+		}
 		String fullName =  COMPONENT_PREFIX + this.name;
 		Object[] params = new Object[fields.size()];
 		try {

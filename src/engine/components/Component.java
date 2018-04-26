@@ -1,6 +1,11 @@
 package engine.components;
 
+<<<<<<< HEAD
+=======
+import engine.setup.EntityManager;
+
 import java.util.Map;
+>>>>>>> 14055f464dfac0f710cf0e7759acd85fd1b0c20a
 
 /**
  * Component superclass. Just a databucket for a parent ID, which all sub components need.
@@ -8,28 +13,9 @@ import java.util.Map;
  * and setters/getters. Systems contain all the game logic.
  * @author fitzj
  */
-public abstract class Component {
+public interface Component {
 	
-	private int pid;
-	private String key;
-	
-	/**
-	 * Constructs component with entity parent ID
-	 * @param pid	ID of parent. Can not be changed externally.
-	 */
-	
-	
-	public Component(int pid, String key) {
-		this.key = key;
-		this.pid = pid;
-	}
-	
-	public int getParentID () {
-		return pid;
-	}
-
-	public String getKey() { return key; }
-
-	public abstract Map<String,String> getParameters();
+	public String getKey();
+	public int getPID();
 
 }

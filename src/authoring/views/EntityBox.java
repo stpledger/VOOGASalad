@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import data.DataRead;
+import engine.components.Name;
 import engine.components.Sprite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -23,8 +24,7 @@ public class EntityBox extends VBox {
 	private Image image;
 	private ImageView imageView;
 	
-	
-	Map<Class, Object[]> componentAttributes = new HashMap<Class,Object[]>();
+	Map<Class, Object[]> componentAttributes = new HashMap<>();
 	
 	private double boxDimension = (EntityView.ENITITY_VIEW_WIDTH - EntityTab.SCROLLBAR_WIDTH)/PROPORTION;
 
@@ -33,19 +33,23 @@ public class EntityBox extends VBox {
 		this.setWidth(boxDimension);
 		this.setHeight(boxDimension);
 		componentAttributes = m;
+		setPreview();
+		this.setOnDragDetected(e -> {
+			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
+			ClipboardContent cc = new ClipboardContent();
+			cc.putImage(image);
+			cc.putString(componentAttributes.get(engine.components.Name.class)[0].toString());	
+			db.setContent(cc);
+			e.consume();
+		});
+	}
+
+	private void setPreview() {
 		image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 		imageView = new ImageView(image);
 		imageView.setFitHeight(boxDimension-IMAGE_BUFFER);
 		imageView.setFitWidth(boxDimension-IMAGE_BUFFER);
 		this.getChildren().add(imageView);
-		this.setOnDragDetected(e -> {
-			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
-			ClipboardContent cc = new ClipboardContent();
-			cc.putImage(image);
-			cc.putString(t);	
-			db.setContent(cc);
-			e.consume();
-		});
 	}
 
 }
