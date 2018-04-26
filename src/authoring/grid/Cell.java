@@ -13,6 +13,10 @@ import javafx.scene.layout.Pane;
 public class Cell extends Pane {
 
 	private Entity entity;
+	
+	/**
+	 * {@code Boolean} describes if cell is occupied by entity sprite
+	 */
 	private boolean isOccupied;
 
 	/**
@@ -34,11 +38,12 @@ public class Cell extends Pane {
 	}
 
 	/**
-	 * Set the entity for this cell
+	 * Set the entity for this cell and marks cell as occupied
 	 * @param entity the entity to be placed in this cell
 	 */
 	public void setEntity(Entity entity) {
 		this.entity = entity;
+		this.setOccupied(true);
 	}
 
 	/**
