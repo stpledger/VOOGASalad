@@ -27,7 +27,6 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 	public void fillComponentsForms(String entityType) {
 		int currentRow = 0;
 		this.getChildren().clear();
-		this.setActiveForms(new ArrayList<>());
 		ArrayList<ComponentForm> newActiveForms = new ArrayList<>();
 		for (String property : ResourceBundle.getBundle(getPropertiesPackage() + entityType).keySet()) {
 			if(!getExceptions().contains(property)) {

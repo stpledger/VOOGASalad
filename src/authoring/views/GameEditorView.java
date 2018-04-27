@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
@@ -40,7 +41,7 @@ import data.DataWrite;
  * @author Collin Brown(cdb55)
  *
  */
-public class GameEditorView extends BorderPane {
+public class GameEditorView extends BorderPane implements AuthoringPane{
 
 	private ArrayList<Tab> levelTabsList;
 	private GameState state;
@@ -49,15 +50,18 @@ public class GameEditorView extends BorderPane {
 	private ElementFactory eFactory;
 	private int nextEntityID  = 0;
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	private Consumer<MouseEvent> addEntity = mouseEvent -> { addEntityMethod(mouseEvent);};
 	private Consumer<List<Tab>> updateTabs = tabList -> { updateTabsMethod(tabList); };
 	private static final int BLOCK_DEFAULT_WIDTH = 50;
+	private Consumer<String> setMainViewLang;
+	
+	Properties language = new Properties();
 
 	/**
 	 * Default Constructor creates a Borderpane with a toolbar in the top, tabPane in the center, and a gamestate object
 	 */
-	public GameEditorView() {
+	public GameEditorView(Consumer<String> setLanguage) {
 		super();
+		setMainViewLang = setLanguage;
 		this.toolbar = new Toolbar("GameEditor", buildToolbarFunctionMap());
 		this.setTop(toolbar);
 		this.tabPane = new TabPane();
@@ -73,28 +77,26 @@ public class GameEditorView extends BorderPane {
 	 * @return Map<String, Consumer> names and consumers to be added to the toolbar
 	 */
 	private Map<String,Consumer> buildToolbarFunctionMap(){
-		//Consumers for the toolbar
-		Consumer<?> newGame = e->{newGameMethod(); addLevel();}; 
-		Consumer<?> loadGame = e->{ loadGameMethod();};
-		Consumer<?> saveGame = e-> { saveGameMethod(); };
-		Consumer<?> showSettings = e->{showSettingsMethod();};
-		Consumer<?> hudSettings = e -> { hudSettingsMethod();};
-		Consumer<?> play = e->{playMethod();};
-		Consumer<?> newLevel = e->{addLevel();};
-		Consumer<?> levelSettings = e->{showLevelSettings();};
-
 
 		Map<String, Consumer> consumerMap = new HashMap<>();
-		consumerMap.put("newGame", newGame);
-		consumerMap.put("loadGame", loadGame);
-		consumerMap.put("saveGame", saveGame);
-		consumerMap.put("showSettings", showSettings);
-		consumerMap.put("hudSettings", hudSettings);
-		consumerMap.put("play", play);
-		consumerMap.put("addLevel", newLevel);
-		consumerMap.put("levelSettings", levelSettings);
+		consumerMap.put("newGame", e->{newGameMethod(); addLevel();});
+		consumerMap.put("loadGame",  e->{ loadGameMethod();});
+		consumerMap.put("saveGame", e-> { saveGameMethod(); });
+		consumerMap.put("showSettings", e->{showSettingsMethod();});
+		consumerMap.put("hudSettings",e -> { hudSettingsMethod();});
+		consumerMap.put("play", e->{playMethod();});
+		consumerMap.put("addLevel", e->{addLevel();});
+		consumerMap.put("levelSettings", e->{showLevelSettings();});
+		consumerMap.put("changeLanguage", e->{setMainViewLanguage();});
 		return consumerMap;
 	}
+
+	private void setMainViewLanguage() {
+		setMainViewLang.accept("cebuano");
+		//TODO: Make a popup
+	}
+
+
 
 	/**
 	 * Update the numbers of the level tabs
@@ -102,7 +104,7 @@ public class GameEditorView extends BorderPane {
 	 */
 	private void updateTabsMethod(List<Tab> tabList) {
 		for(Tab t : tabList) {
-			t.setText("Level " + (tabList.indexOf(t)+1));
+			t.setText(language.getProperty("Level") + (tabList.indexOf(t)+1));
 		}
 	}
 
@@ -115,12 +117,13 @@ public class GameEditorView extends BorderPane {
 			levelTabsList.add(t);
 			Level level = new Level(levelTabsList.indexOf(t)+1);
 			state.addLevel(level);
-			LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, addEntity);
+			LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, e -> {addEntityMethod(e);});
 			t.setContent(levelView);
 			t.setOnClosed(e -> {
 				levelTabsList.remove(t);
 				updateTabs.accept(levelTabsList);
 			});
+			((LevelView) t.getContent()).setLanguage(language);
 			tabPane.getTabs().add(t);
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
@@ -135,11 +138,11 @@ public class GameEditorView extends BorderPane {
 	public LevelView loadLevel(Level l){
 		levelTabsList.add(new Tab());
 		Tab t = levelTabsList.get(levelTabsList.size()-1);
-		t.setText("Level " + (levelTabsList.indexOf(t)+1));
+		t.setText(language.getProperty("Level") + (levelTabsList.indexOf(t)+1));
 
 		Level level = l;
 		state.addLevel(level);
-		LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, addEntity);
+		LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, e -> {addEntityMethod(e);});
 
 		t.setContent(levelView);
 		t.setOnClosed(e -> {
@@ -183,6 +186,7 @@ public class GameEditorView extends BorderPane {
 		}
 		HUDPropertiesView HPV = new HUDPropertiesView(levelArray);
 		HPV.open();	
+		HPV.setLanguage(language);
 	}
 
 	/**
@@ -194,6 +198,7 @@ public class GameEditorView extends BorderPane {
 			levelArray.add(((LevelView) t.getContent()).getLevel());
 		}
 		GlobalPropertiesView GPV = new GlobalPropertiesView(levelArray);
+		GPV.setLanguage(language);
 		GPV.open();
 	}
 
@@ -231,6 +236,7 @@ public class GameEditorView extends BorderPane {
 			}
 		}
 	}
+	
 	/**
 	 * Opens the levelPropertiesView
 	 */
@@ -238,6 +244,7 @@ public class GameEditorView extends BorderPane {
 		Level level = ((LevelView) this.tabPane.getSelectionModel().getSelectedItem().getContent()).getLevel();
 		LevelPropertiesView lView = new LevelPropertiesView(level, level.getLevelNum());
 		lView.open();
+		lView.setLanguage(language);
 	}
 
 
@@ -299,6 +306,18 @@ public class GameEditorView extends BorderPane {
 		entity.setFitWidth(BLOCK_DEFAULT_WIDTH);
 		entity.setFitHeight(BLOCK_DEFAULT_WIDTH);
 		return entity;
+	}
+
+
+	@Override
+	public void setLanguage(Properties lang) {
+		language = lang;
+		toolbar.setLanguage(language);
+		for(Tab t : tabPane.getTabs()) {
+			t.setText(language.getProperty("Level")+ " " + (tabPane.getTabs().indexOf(t)+1)) ;
+			((LevelView) t.getContent()).setLanguage(language);
+		}
+		
 	}
 
 }

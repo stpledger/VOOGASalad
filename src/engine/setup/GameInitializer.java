@@ -7,7 +7,6 @@ import engine.components.Component;
 import engine.components.Position;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
-import engine.systems.collisions.LevelStatus;
 
 /**
  * This is the class which is created when the player first decides to run a game. It creates the managers and loads
@@ -17,75 +16,75 @@ import engine.systems.collisions.LevelStatus;
  */
 public class GameInitializer {
 
-    private List<ISystem> systems;
+    private List<ISystem> systems = new ArrayList<>();
 
-    private SystemManager SM;
-    private RenderManager RM;
-    private InputHandler IH;
+    private SystemManager systemManager;
+    private RenderManager renderManager;
+    private EntityManager entityManager;
+    private InputHandler inputHandler;
     private Collision c;
-    private EntityManager EM;
 
     /**
      * Creates the managers and systems, then reads in the entities. Sets up the rendering system and input handler
      *
      * @param entities
      */
-    public GameInitializer (Map <Integer, Map<String, Component>> entities) throws FileNotFoundException {
-        EM = new EntityManager(entities, SM);
-         c = new Collision(EM);
-        systems = new ArrayList<>();
-        systems.add(new Accelerate(EM));
-        systems.add(new Motion());
-        systems.add(new ConditionChecker());
-        IH = new InputHandler();
-        systems.add((new ArtificialIntelligence()));
-        systems.add(c);
-        systems.add(new Animate(EM));
-        systems.add(IH);
+    public GameInitializer (Map <Integer, Map<String, Component>> entities,
+                            double renderDistance, double renderCenterX, double renderCenterY) throws FileNotFoundException {
+
+        entityManager = new EntityManager(entities, systemManager);
+        c = new Collision(entityManager);
+        inputHandler = new InputHandler();
+
+        addSystems();
         
-        SM = new SystemManager(systems, c, EM);
-        EM.setSM(SM);
+        systemManager = new SystemManager(systems, c, entityManager);
+        entityManager.setSM(systemManager);
 
-
-        double renderDistance = 300.0;
-        double renderCenterX = 50;
-        double renderCenterY = 50;
-        RM = new RenderManager(renderDistance, renderCenterX, renderCenterY);
+        renderManager = new RenderManager(renderDistance, renderCenterX, renderCenterY);
 
 
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
             if (components.containsKey(Position.KEY)) {
                 Position p = (Position) components.get(Position.KEY);
-                RM.add(p);
+                renderManager.add(p);
             }
-            SM.addEntity(id, components);
+            systemManager.addEntity(id, components);
         }
 
-        SM.setActives(RM.renderObjects());
+        systemManager.setActives(renderManager.render(50, 50));
     }
 
     public void execute (double time) {
-        SM.execute(time); //runs all functions of the systems
+        systemManager.execute(time); //runs all functions of the systems
     }
 
 
-    public InputHandler getIH() {
-         return IH;
+    public InputHandler getInputHandler() {
+         return inputHandler;
          }
 
     public Collision getC() {
     	return c;
     }
 
-    public RenderManager getRM() { return RM; }
+    public RenderManager getRenderManager() { return renderManager; }
 
-    public SystemManager getSM() { return SM; }
+    public SystemManager getSystemManager() { return systemManager; }
 
     public List<ISystem> getSystems() {		// For testing
     		return systems;
     }
     
-
+    private void addSystems() {
+        systems.add(new Accelerate(entityManager));
+        systems.add(new Motion());
+        systems.add(new ConditionChecker());
+        systems.add((new ArtificialIntelligence()));
+        systems.add(c);
+        systems.add(new Animate(entityManager));
+        systems.add(inputHandler);
+    }
     
 }

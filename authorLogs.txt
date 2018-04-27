@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Apr 25, 2018 1:04:28 AM authoring.entities.componentbuilders.SpriteBuilder build
 SEVERE: java.lang.IllegalArgumentException: argument type mismatch
 java.lang.IllegalArgumentException: argument type mismatch
@@ -132,3 +133,5 @@ java.lang.IllegalArgumentException: wrong number of arguments
 	at com.sun.glass.ui.View.handleMouseEvent(View.java:555)
 	at com.sun.glass.ui.View.notifyMouse(View.java:937)
 
+=======
+>>>>>>> 8e2d5fa89f5f75bb60c5aa91c89bb05253491f9c

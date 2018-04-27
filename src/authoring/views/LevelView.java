@@ -1,5 +1,6 @@
 package authoring.views;
 
+import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
@@ -30,7 +31,8 @@ public class LevelView extends ScrollPane {
 	private static final int ADD_FIVE = 5;
 	private static final int ADD_ONE = 1;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-
+	private Properties language = new Properties();
+	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
 		this.eFactory = new ElementFactory();
@@ -93,5 +95,11 @@ public class LevelView extends ScrollPane {
 	public Level getLevel() {
 		return this.level;
 	}
-
+	
+	/**
+	 * Sets the language of the levelview
+	 */
+	public void setLanguage(Properties lang) {
+		language = lang;
+	}
 }
