@@ -22,7 +22,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
-
 /**
  * Class that controls how the entity objects are displayed
  * @author Ryan Fu
