@@ -3,8 +3,6 @@ package engine.systems.collisions;
 import java.util.Map;
 
 import engine.components.Component;
-import engine.components.DamageLauncherLifetime;
-import engine.components.DamageLauncherValue;
 import engine.components.DamageLifetime;
 import engine.components.DamageValue;
 import engine.components.Health;
@@ -22,26 +20,28 @@ public class DamageHandler {
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
 
 
-		if (player.containsKey(DamageLauncherValue.KEY) && 
-				player.containsKey(DamageLauncherLifetime.KEY) && 
+		if (player.containsKey(DamageValue.KEY) && 
+				player.containsKey(DamageLifetime.KEY) && 
 				collider.containsKey(Health.KEY)) {
 			
-			DamageLauncherValue dlv = (DamageLauncherValue) player.get(DamageLauncherValue.KEY);
-			DamageLauncherLifetime dll = (DamageLauncherLifetime) player.get(DamageLauncherLifetime.KEY);
-						
-			em.addComponent(colliderID, new DamageValue(colliderID, dlv.getData()));
-			em.addComponent(colliderID, new DamageLifetime(colliderID, dll.getData()));
+			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
+			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
+									
+			em.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
+			em.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+				
+			
 		}
 
-		if (collider.containsKey(DamageLauncherValue.KEY) && 
-				collider.containsKey(DamageLauncherLifetime.KEY) && 
+		if (collider.containsKey(DamageValue.KEY) && 
+				collider.containsKey(DamageLifetime.KEY) && 
 				player.containsKey(Health.KEY)) {
 			
-			DamageLauncherValue dlv = (DamageLauncherValue) collider.get(DamageLauncherValue.KEY);
-			DamageLauncherLifetime dll = (DamageLauncherLifetime) collider.get(DamageLauncherLifetime.KEY);
+			DamageValue dlv = (DamageValue) collider.get(DamageValue.KEY);
+			DamageLifetime dll = (DamageLifetime) collider.get(DamageLifetime.KEY);
 						
-			em.addComponent(playerID, new DamageValue(playerID, dlv.getData()));
-			em.addComponent(playerID, new DamageLifetime(playerID, dll.getData()));
+			em.addComponent(playerID, new DamageValue(colliderID, dlv.getData()));
+			em.addComponent(playerID, new DamageLifetime(colliderID, dll.getData()));
 		}
 	}
 }
