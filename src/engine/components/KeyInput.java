@@ -18,11 +18,12 @@ public class KeyInput implements Component {
 	private Map<KeyCode, Consumer> codes = new HashMap<>();
 
 	public static String KEY = "KeyInput";
-
+	
 	private int pid;
 
 	public KeyInput(int pid) {
 		this.pid = pid;
+
 	}
 
 	public boolean containsCode (KeyCode key) {
@@ -44,11 +45,15 @@ public class KeyInput implements Component {
 		codes.get(key).accept(null);
 	}
 
-	public String getKey() { return KEY; }
+	public String getKey() { 
+		return KEY; 
+	}
+
 
 	public int getPID() {
 		return pid;
 	}
+
 }
 
 

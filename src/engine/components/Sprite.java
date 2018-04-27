@@ -1,11 +1,11 @@
 package engine.components;
+
 import java.io.FileNotFoundException;
 
 
 import data.DataRead;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-
 
 import javafx.scene.image.ImageView;
 
@@ -37,7 +37,9 @@ public class Sprite extends SingleStringComponent {
 	public void setData(String im) {
 
 		try {
-			image =new ImageView(DataRead.loadImage(im));
+			image = new ImageView(DataRead.loadImage(im));
+			image.setPickOnBounds(true);
+
 		} catch(RuntimeException e) {
 			System.out.print("Cant load image no Application");
 		}

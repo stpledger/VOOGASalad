@@ -6,14 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import frontend.components.LocalPropertiesView;
+import authoring.views.properties.LevelPropertiesView;
 import engine.components.Component;
-import engine.components.Damage;
-import engine.components.Dimension;
+import engine.components.DamageLifetime;
+import engine.components.DamageValue;
 import engine.components.EntityType;
 import engine.components.Health;
-import engine.components.Position;
+import engine.components.Height;
 import engine.components.Sprite;
+import engine.components.Width;
+import engine.components.XPosition;
+import engine.components.YPosition;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
@@ -55,7 +58,7 @@ public abstract class Entity extends ImageView {
         };
         this.setOnMouseClicked(e -> {
         		if (e.getButton().equals(MouseButton.SECONDARY)) {
-        			LocalPropertiesView LPV = new LocalPropertiesView(this.getID(), this.type(), onSubmit);
+        			LevelPropertiesView LPV = new LevelPropertiesView(this.getID(), this.type(), onSubmit);
         			LPV.open();
         		}
         }); 
@@ -84,7 +87,7 @@ public abstract class Entity extends ImageView {
     public List<String> getNames() {
     		List<String> ans = new ArrayList<>();
     		for (Component c : this.components) {
-    			ans.add(c.getKeyKey());
+    			ans.add(c.getKey());
     		}
     		return ans;
     }
@@ -95,7 +98,7 @@ public abstract class Entity extends ImageView {
     public void add(Component c) {
     		if (c != null) {
     			if (this.contains(c))
-    				this.removeByName(c.getKeyKey());
+    				this.removeByName(c.getKey());
     			this.components.add(c);
     		}
     }
@@ -114,7 +117,7 @@ public abstract class Entity extends ImageView {
      */
     private void removeByName(String name) {
     		for (Component c : this.components) {
-    			if (c.getKeyKey().equals(name)) {
+    			if (c.getKey().equals(name)) {
     				this.remove(c);
     				return;
     			}
@@ -128,7 +131,7 @@ public abstract class Entity extends ImageView {
      */
     private boolean contains(Component c) {
     		for (Component existing : this.components) {
-    			if (existing.getKeyKey() == c.getKeyKey())
+    			if (existing.getKey() == c.getKey())
     				return true;
     		}
     		return false;
@@ -141,7 +144,7 @@ public abstract class Entity extends ImageView {
      */
     private boolean contains(String name) {
     		for (Component existing : this.components) {
-    			if (existing.getKeyKey().equals(name))
+    			if (existing.getKey().equals(name))
     				return true;
     		}
     		return false;
@@ -170,7 +173,8 @@ public abstract class Entity extends ImageView {
 	 * @param height Height of entity
 	 */
     protected void setDimension(double width, double height) {
-		this.add(new Dimension(this.getID(),width,height));
+		this.add(new Width(this.getID(),width));
+		this.add(new Height(this.getID(),height));
 	}
 	
 	/**
@@ -179,7 +183,8 @@ public abstract class Entity extends ImageView {
 	 * @param y Y position
 	 */
     public void setPosition(double x, double y) {
-		this.add(new Position(this.getID(), x, y));
+		this.add(new XPosition(this.getID(), x));
+		this.add(new YPosition(this.getID(), y));
 		this.setLayoutX(x);
 		this.setLayoutY(y);
 	}
@@ -198,7 +203,8 @@ public abstract class Entity extends ImageView {
 	 * @param lifetime Double lifetime
 	 */
     protected void setDamage(double damage, double lifetime) {
-		this.add(new Damage(this.getID(),damage,lifetime));
+		this.add(new DamageValue(this.getID(),damage));
+		this.add(new DamageLifetime(this.getID(),lifetime));
 	}
 	        
 	/**

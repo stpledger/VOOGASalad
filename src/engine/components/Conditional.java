@@ -1,45 +1,44 @@
 package engine.components;
 
-import engine.setup.EntityManager;
-
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class Conditional implements Component {
-    private int pid;
+
     public static String KEY = "Component";
-    private Supplier conditional, condition;
-    private Component changed;
+    private Supplier conditional;
     private Consumer action;
+    private int pid;
 
     public Conditional (int pid) {
         this.pid = pid;
     }
 
-    public void setCondition (Supplier conditional, Supplier condition) {
+    public void setCondition (Supplier conditional) {
         this.conditional = conditional;
-        this.condition = condition;
     }
 
-    public void setAction (Component changed, Consumer action) {
-        this.changed = changed;
+    public void setAction (Consumer action) {
         this.action = action;
     }
 
     public void evaluate() {
-        if (conditional.get().equals(condition.get())) {
-            System.out.println("condition is true");
-            action.accept(changed);
+        Object o = conditional.get();
+        if (o!=null) {
+            action.accept(o);
         }
     }
 
-    @Override
-    public Map<String, String> getParameters() {
-        return null;
-    }
+	public String getKey() {
+		return KEY;
+	}
 
-    public int getPID(){
-        return pid;
-    }
+	@Override
+	public int getPID() {
+		return pid;
+	}
+
+    
+
 }

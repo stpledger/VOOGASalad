@@ -1,6 +1,8 @@
 package engine.components.groups;
 
 import engine.components.Component;
+import engine.components.DamageLifetime;
+import engine.components.DamageValue;
 import engine.components.DataComponent;
 
 public class Damage implements Component {

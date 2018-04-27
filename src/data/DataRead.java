@@ -167,7 +167,7 @@ public class DataRead  {
     public static List<Image> getIcons(){
         List<Image> icons = new ArrayList<>();
         File imageRepo = new File(path+IMAGE_PATH);
-        System.out.print(imageRepo.getAbsolutePath());
+        System.out.println("image repo path" +imageRepo.getAbsolutePath());
         for(File image : imageRepo.listFiles())
             icons.add(loadImage(image));
         return icons;

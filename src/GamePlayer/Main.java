@@ -18,9 +18,10 @@ public class Main extends Application {
 		GamePlayerController gamePlayer = new GamePlayerController(primaryStage);
 		mainStage = primaryStage;
 		mainStage.setTitle(TITLE);
-		mainStage.setScene(gamePlayer.intializeStartScene());
+		mainStage.setScene(gamePlayer.initializeStartScene());
 		mainStage.show();
 	}
 
 
 }
+

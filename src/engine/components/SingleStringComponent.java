@@ -1,5 +1,10 @@
 package engine.components;
 
+/**
+ * Component containing a single string as data. Implements component interfaces for reading and read/writing.
+ * @author fitzj
+ *
+ */
 public abstract class SingleStringComponent implements Component, StringComponent, ReadStringComponent {
 
 	private int pid;
