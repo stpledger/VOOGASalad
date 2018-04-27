@@ -24,7 +24,6 @@ public class LabelElement extends Label implements Element{
 
 	@Override
 	public void setLanguage(Properties language) {
-		System.out.println(language.toString());
 		this.handleText(language.getProperty(myOriginalText));
 	}
 

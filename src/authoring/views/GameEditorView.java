@@ -198,8 +198,8 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			levelArray.add(((LevelView) t.getContent()).getLevel());
 		}
 		GlobalPropertiesView GPV = new GlobalPropertiesView(levelArray);
-		GPV.setLanguage(language);
 		GPV.open();
+		GPV.setLanguage(language);
 	}
 
 	/**
