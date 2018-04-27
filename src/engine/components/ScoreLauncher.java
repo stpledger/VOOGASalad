@@ -1,4 +1,5 @@
 package engine.components;
+import java.util.HashMap;
 /**
  * This component is added to entities that when collided with player
  * either give or subtract certain amount of score
@@ -24,8 +25,9 @@ public class ScoreLauncher extends Component{
 	}
 	@Override
 	public Map<String, String> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String,String> res = new HashMap<>();
+		res.put("ScoreLauncher", Double.toString(score));
+		return res;
 	}
 
 }
