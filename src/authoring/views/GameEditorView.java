@@ -52,6 +52,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private Consumer<List<Tab>> updateTabs = tabList -> { updateTabsMethod(tabList); };
 	private static final int BLOCK_DEFAULT_WIDTH = 50;
+	private Consumer<String> setMainViewLang;
 	
 	Properties language = new Properties();
 
@@ -60,6 +61,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	 */
 	public GameEditorView(Consumer<String> setLanguage) {
 		super();
+		setMainViewLang = setLanguage;
 		this.toolbar = new Toolbar("GameEditor", buildToolbarFunctionMap());
 		this.setTop(toolbar);
 		this.tabPane = new TabPane();
@@ -70,35 +72,31 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		addLevel();
 	}
 
-
-
 	/**
 	 * 
 	 * @return Map<String, Consumer> names and consumers to be added to the toolbar
 	 */
 	private Map<String,Consumer> buildToolbarFunctionMap(){
-		//Consumers for the toolbar
-		Consumer<?> newGame = e->{newGameMethod(); addLevel();}; 
-		Consumer<?> loadGame = e->{ loadGameMethod();};
-		Consumer<?> saveGame = e-> { saveGameMethod(); };
-		Consumer<?> showSettings = e->{showSettingsMethod();};
-		Consumer<?> hudSettings = e -> { hudSettingsMethod();};
-		Consumer<?> play = e->{playMethod();};
-		Consumer<?> newLevel = e->{addLevel();};
-		Consumer<?> levelSettings = e->{showLevelSettings();};
-
 
 		Map<String, Consumer> consumerMap = new HashMap<>();
-		consumerMap.put("newGame", newGame);
-		consumerMap.put("loadGame", loadGame);
-		consumerMap.put("saveGame", saveGame);
-		consumerMap.put("showSettings", showSettings);
-		consumerMap.put("hudSettings", hudSettings);
-		consumerMap.put("play", play);
-		consumerMap.put("addLevel", newLevel);
-		consumerMap.put("levelSettings", levelSettings);
+		consumerMap.put("newGame", e->{newGameMethod(); addLevel();});
+		consumerMap.put("loadGame",  e->{ loadGameMethod();});
+		consumerMap.put("saveGame", e-> { saveGameMethod(); });
+		consumerMap.put("showSettings", e->{showSettingsMethod();});
+		consumerMap.put("hudSettings",e -> { hudSettingsMethod();});
+		consumerMap.put("play", e->{playMethod();});
+		consumerMap.put("addLevel", e->{addLevel();});
+		consumerMap.put("levelSettings", e->{showLevelSettings();});
+		consumerMap.put("changeLanguage", e->{setMainViewLanguage();});
 		return consumerMap;
 	}
+
+	private void setMainViewLanguage() {
+		setMainViewLang.accept("cebuano");
+		
+	}
+
+
 
 	/**
 	 * Update the numbers of the level tabs
