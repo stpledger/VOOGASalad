@@ -108,8 +108,15 @@ public class HealthDamage implements ISystem {
 				}
 
 				if(h.getHealth() <= 0) {
-					em.removeEntity(key);
-					System.out.println("removing");
+					Player p = (Player) em.getComponent(h.getParentID(), Player.KEY);
+					if(p!=null) {
+					p.setLives(p.getLives()-1);	
+					h.resetHealth();					
+					}
+					else {
+						em.removeEntity(key);
+						System.out.println("removing");
+					}
 				}
 
 			}
