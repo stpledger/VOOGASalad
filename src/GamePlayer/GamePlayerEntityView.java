@@ -53,23 +53,6 @@ public class GamePlayerEntityView {
 
 	
 	/**
-	 * Constructor when given the the file.
-	 * @param file
-	 * @throws FileNotFoundException
-	 */
-	
-	public GamePlayerEntityView(File file) throws FileNotFoundException {
-		gameFile = file;
-		gameState = DataRead.loadPlayerFile(gameFile);
-		Levels = gameState.getGameState();
-		PlayerKeys = new HashMap<>();
-		levelToInt();
-		LevelDisplays = createEntityGroupMap(Levels);
-		setActiveLevel(1);
-		initializeGamePlayerEntityView();
-	}
-	
-	/**
 	 * Constructor when given the gameState
 	 * @param gameState
 	 */

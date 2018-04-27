@@ -45,6 +45,7 @@ public class GamePlayerController {
 	private FileUploadButton fileBtn;
 	private SwitchGameButton switchBtn;
 	private Map<Integer, Pane> levelEntityGroupMap; //map that is used to store the initial group for each level.
+	private DataGameState currentGameState;
 	public List<GameSelectButton> gameSelectButtonList;
 
 	private Timeline animation;
@@ -90,20 +91,17 @@ public class GamePlayerController {
 		gameSelectButtonList = gamePlayerSplash.getSplashScreenButtons();
 		for (GameSelectButton b : gameSelectButtonList) {
 			b.getGameSelectBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-				setGameView(b.getGameState());
+				currentGameState = b.getGameState();
+				setGameView(currentGameState);
 				myStage.setScene(myScene);
 			});
 		}
 		
 		fileBtn = gamePlayerSplash.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-			try{
-				myStage.setScene(myScene);
-				initializeGameStart();
-			}
-			catch(FileNotFoundException e){
-				System.out.println("File Does Not Exist");
-			}
+			currentGameState = fileBtn.getGameState();
+			setGameView(currentGameState);
+			myStage.setScene(myScene);
 		});
 
 		switchBtn = pauseMenu.switchBtn;
@@ -114,23 +112,6 @@ public class GamePlayerController {
 		});
 		
 		
-	}
-
-	/**
-	 * Method that begins displaying the game
-	 * @throws FileNotFoundException 
-	 */
-	public void initializeGameStart() throws FileNotFoundException {
-		currentFile = fileBtn.getFile();
-		gameView = new GamePlayerEntityView(currentFile);
-		levelEntityGroupMap = gameView.getlevelEntityMap();
-		gameRoot = levelEntityGroupMap.get(1);  //level 1
-		myPane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
-		MenuGameBar menuBar = new MenuGameBar(this);
-		myPane.setBottom(menuBar);
-		SampleToolBar sampleBar = new SampleToolBar(this);
-		myPane.setTop(sampleBar);
-		initializeGameAnimation(); //begins the animation cycle
 	}
 	
 	/**
@@ -196,15 +177,9 @@ public class GamePlayerController {
 		}
 	}
 
-
 	public void restartGame() {
-		try{
-			initializeGameStart();
-			//initializeLevelFile();
-		}
-		catch(FileNotFoundException e){
-			System.out.println("File Does Not Exist");
-		}
+		System.out.println("aslkdfjsa");
+		setGameView(currentGameState);
 	}
 
 
