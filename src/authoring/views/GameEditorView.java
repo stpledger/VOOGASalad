@@ -52,6 +52,8 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private Consumer<List<Tab>> updateTabs = tabList -> { updateTabsMethod(tabList); };
 	private static final int BLOCK_DEFAULT_WIDTH = 50;
+	
+	Properties language = new Properties();
 
 	/**
 	 * Default Constructor creates a Borderpane with a toolbar in the top, tabPane in the center, and a gamestate object
@@ -123,6 +125,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 				levelTabsList.remove(t);
 				updateTabs.accept(levelTabsList);
 			});
+			((LevelView) t.getContent()).setLanguage(language);
 			tabPane.getTabs().add(t);
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
@@ -305,9 +308,12 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 
 
 	@Override
-	public void setLanguage(Properties language) {
+	public void setLanguage(Properties lang) {
+		language = lang;
 		toolbar.setLanguage(language);
-		System.out.println("yup");
+		for(Tab t : tabPane.getTabs()) {
+			((LevelView) t.getContent()).setLanguage(language);
+		}
 		
 	}
 
