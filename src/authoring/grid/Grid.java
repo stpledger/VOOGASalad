@@ -3,12 +3,23 @@ package authoring.grid;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.sun.prism.paint.Color;
+
 import authoring.entities.Entity;
 import authoring.entities.data.EntityLoader;
+import authoring.views.properties.LocalPropertiesView;
+import authoring.views.properties.PropertiesView;
+import engine.components.Component;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -25,6 +36,7 @@ public class Grid extends GridPane {
 	private int numRows;
 	private int numCols;
 	private List<List<Cell>> cells;
+	private int numberOfCells = 0;
 	
 	/**
 	 * Initializes the grid with a given number of rows and columns
@@ -35,53 +47,15 @@ public class Grid extends GridPane {
 		this.numRows = height/Entity.ENTITY_HEIGHT;
 		this.numCols = width/Entity.ENTITY_WIDTH;
 		this.cells = new ArrayList<>();
+		this.setBackground(new Background(new BackgroundImage(new Image("File:data/Collin.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 		
 		for (int i = 0; i < this.numRows; i++) {
 			cells.add(new ArrayList<>());
         		for (int j = 0; j < this.numCols; j++) {
-            		Cell c = new Cell();
+            		Cell c = new Cell(numberOfCells++);
             		cells.get(i).add(c);
             		this.add(c, j, i);
             	}
-		}
-		
-		for (int i = 0; i < this.numRows; i++) {
-        	for (int j = 0; j < this.numCols; j++) {
-        		Cell cell = cells.get(i).get(j);
-        		cell.setOnDragEntered(e-> cell.setStyle("-fx-background-color: #1CFEBA"));
-        		cell.setOnDragExited(e -> cell.setStyle("-fx-border-color: black"));
-        		cell.setOnDragOver(e -> {
-        			if (e.getGestureSource() != cell && e.getDragboard().hasString()) {
-        				e.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-        			}
-        			e.consume();
-        		});
-        		cell.setOnDragDropped(e -> {
-        			Dragboard db = e.getDragboard();
-        			EntityLoader el = new EntityLoader();
-        			ImageView img = new ImageView(db.getImage());
-        			img.setOnMouseClicked(e1->{
-        				if(e1.getButton().equals(MouseButton.SECONDARY)) {
-        					cell.setPrefWidth(Entity.ENTITY_WIDTH*3);
-//        				img.setFitWidth(Entity.ENTITY_WIDTH*3);
-//        				GridPane.setFillWidth(cell, true);
-//        				cell.setPrefHeight(Entity.ENTITY_HEIGHT*4);
-//        				img.fitHeightProperty().bind(cell.heightProperty());
-//        				System.out.println(cell.heightProperty());
-//        				img.setFitHeight(Entity.ENTITY_HEIGHT*4);
-        				}
-        			});
-        			cell.getChildren().add(img);
-        			try {
-        				el.buildEntity(0, db.getString());
-        			} catch (Exception e1) {
-        				// TODO Auto-generated catch block
-        				e1.printStackTrace();
-        			}
-        			e.setDropCompleted(true);
-        			e.consume();
-        		});
-        	}
 		}
 		this.setPrefSize(width, height);
 	}
@@ -100,8 +74,8 @@ public class Grid extends GridPane {
 	public void addRow(int numTimes) {
 		for(int j = 0; j < numTimes; j++) {
 			this.cells.add(new ArrayList<>());
-			for(int i = 0; i < this.numCols; i++) {
-				Cell c = new Cell();
+			for (int i = 0; i < this.numCols; i++) {
+				Cell c = new Cell(numberOfCells++);
 				this.cells.get(this.numRows).add(c);
 				this.add(c, i, this.numRows);
 			}
@@ -117,7 +91,7 @@ public class Grid extends GridPane {
 	public void addCol(int numTimes) {
 		for(int j = 0; j < numTimes; j++) {
 			for(int i = 0; i < this.numRows; i++) {
-				Cell c = new Cell();
+				Cell c = new Cell(numberOfCells++);
 				this.cells.get(i).add(c);
 				this.add(c, this.numCols, i);
 			}
@@ -125,5 +99,6 @@ public class Grid extends GridPane {
 			this.numCols++;
 		}
 	}
+	
 
 }

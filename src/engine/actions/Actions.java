@@ -1,15 +1,15 @@
 package engine.actions;
 
 import authoring.entities.Entity;
-import authoring.entities.Player;
 import engine.components.Position;
 import engine.components.Velocity;
+import engine.components.*;
 
 import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Consumer;
 
 /**
@@ -26,7 +26,7 @@ public class Actions {
      */
     public Consumer left (Entity actor) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setXVel(-10);
+        return (Serializable & Consumer) (e) -> v.setXVel(-30);
     }
 
     /**
@@ -35,7 +35,7 @@ public class Actions {
      */
     public Consumer right (Entity actor) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setXVel(10);
+        return (Serializable & Consumer) (e) -> v.setXVel(30);
     }
 
     /**
@@ -44,7 +44,7 @@ public class Actions {
      */
     public Consumer up (Entity actor) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setYVel(-10);
+        return (Serializable & Consumer) (e) -> v.setYVel(-30);
     }
 
     /**
@@ -53,7 +53,7 @@ public class Actions {
      */
     public Consumer down (Entity actor) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setYVel(10);
+        return (Serializable & Consumer) (e) -> v.setYVel(30);
     }
 
     /**
@@ -72,6 +72,30 @@ public class Actions {
             v.setXVel((p.getXPos() - p2.getXPos()) * myTime * 10); //change trackers x velocity towards the followed
             v.setYVel((p.getYPos() - p2.getYPos()) * myTime * 10); //change trackers y velocity towards the followed
         };
+    }
+
+    public Consumer patrol(Map<String, Component> actor, List<Position> coordinates) {
+        Velocity v = (Velocity) actor.get(Velocity.KEY);
+        Position p = (Position) actor.get(Position.KEY);
+
+        AtomicReference<Position> destination = new AtomicReference<>(new Position(-1, coordinates.get(0).getXPos(), coordinates.get(0).getYPos()));
+        AtomicInteger current = new AtomicInteger();
+
+        return (Serializable & Consumer) (time) -> {
+            v.setXVel((destination.get().getXPos()-p.getXPos())/distance(p, destination.get()) * 100);
+            v.setYVel((destination.get().getYPos()-p.getYPos())/distance(p, destination.get()) * 100);
+            if (distance(p, destination.get()) < 10) {
+                if (current.get() == coordinates.size() - 1) current.set(0);
+                else current.getAndIncrement();
+                destination.set(coordinates.get(current.get()));
+            }
+        };
+
+    }
+
+
+    private static double distance (Position p1, Position p2) {
+        return Math.sqrt(Math.pow(p1.getYPos()-p2.getYPos(), 2) + Math.pow(p1.getXPos() - p2.getXPos(), 2));
     }
 
 }

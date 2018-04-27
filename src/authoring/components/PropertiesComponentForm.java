@@ -85,7 +85,6 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.name;
 	}
 }

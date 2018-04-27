@@ -164,7 +164,8 @@ public class GamePlayerEntityView {
 		}
 		try {
 			System.out.println(currentLevel);
-			gameInitializer = new GameInitializer(currentLevel); //reinitializes the level.
+			gameInitializer = new GameInitializer(currentLevel, Math.max(PANE_HEIGHT, PANE_WIDTH),
+					ActivePlayerPos.getXPos(), ActivePlayerPos.getYPos()); //reinitializes the level.
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Level Does Not Currently Exist Yet");
@@ -178,15 +179,16 @@ public class GamePlayerEntityView {
 	public void initializeGamePlayerEntityView() {
 
 		try {
-			gameInitializer = new GameInitializer(IntLevels.get(ActiveLevel));
+			gameInitializer = new GameInitializer(IntLevels.get(ActiveLevel),
+					Math.max(PANE_HEIGHT, PANE_WIDTH), ActivePlayerPos.getXPos(), ActivePlayerPos.getYPos());
 			//gameInitializer = new GameInitializer(IntLevels.get(0)); //gets the first level map.
 		} catch (FileNotFoundException e) {
 			System.out.println("ActiveEntities not initialized");
 		}
 
-		inputHandler = gameInitializer.getIH();
-		renderManager = gameInitializer.getRM();
-		systemManager = gameInitializer.getSM();
+		inputHandler = gameInitializer.getInputHandler();
+		renderManager = gameInitializer.getRenderManager();
+		systemManager = gameInitializer.getSystemManager();
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
 		levelStatus = gameInitializer.getC().getCH().getLS();
@@ -207,8 +209,9 @@ public class GamePlayerEntityView {
 	}
 
 	public void render() {
-		renderManager.garbageCollect();
-		systemManager.setActives(renderManager.renderObjects());
+		double newCenterX = ActivePlayerPos.getXPos();
+		double newCenterY = ActivePlayerPos.getYPos();
+		systemManager.setActives(renderManager.render(newCenterX, newCenterY));
 	}
     
 	public void setInput(KeyCode code){

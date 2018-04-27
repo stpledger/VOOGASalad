@@ -2,8 +2,8 @@ package authoring.components;
 
 public interface ComponentForm {
 	
-	Object buildComponent();
+	public Object buildComponent();
 
-	String getName();
+	public String getName();
 
 }
