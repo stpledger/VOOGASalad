@@ -161,6 +161,7 @@ public class TestGameState {
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);
 		state.put(l,entities);
+		
 		DataGameState dState = new DataGameState(state, "DemoDemo");
 		try {
 			DataWrite.saveFile(dState);
