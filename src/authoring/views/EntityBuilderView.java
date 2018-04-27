@@ -69,6 +69,7 @@ public class EntityBuilderView extends Stage {
 		this.entityTypes = (ArrayList<String>) eTypes;
 		this.eFactory = new ElementFactory();
 		this.componentFormCollection = new EntityComponentFormCollection(new String[] {"Sprite", "Position"});
+		this.componentFormCollection.setLanguage(language);
 		this.tooltipProperties = new Properties();
 		this.data = new EntityBuilderData();
 		this.build();
@@ -131,6 +132,7 @@ public class EntityBuilderView extends Stage {
 				data.setComponent(engine.components.Type.class, getRealName(comboBox.getSelectionModel().getSelectedItem()));
 				root.getChildren().remove(saveMenu);
 				componentFormCollection.fillComponentsForms(data.getType());
+				componentFormCollection.setLanguage(language);
 				root.getChildren().add(saveMenu);
 				this.sizeToScene();
 		});

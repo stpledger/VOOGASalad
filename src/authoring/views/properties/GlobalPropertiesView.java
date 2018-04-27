@@ -2,6 +2,7 @@ package authoring.views.properties;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -24,6 +25,8 @@ public class GlobalPropertiesView extends PropertiesView {
 	private static final String NAME = "Global Properties";
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
+	private Properties language = new Properties();
 	
 	public GlobalPropertiesView(List<Level> levels){
 		super();
@@ -63,6 +66,13 @@ public class GlobalPropertiesView extends PropertiesView {
 		} catch (Exception e1) {
 			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}
+	}
+
+	@Override
+	public void setLanguage(Properties lang) {
+		this.language = lang;
+		
+		
 	}
 
 }

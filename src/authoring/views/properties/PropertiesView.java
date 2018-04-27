@@ -1,5 +1,6 @@
 package authoring.views.properties;
 
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import authoring.MainApplication;
@@ -52,6 +53,11 @@ public abstract class PropertiesView {
 		stage.close();
 	}
 	
+	/**
+	 * Set the language of the given view
+	 */
+	public abstract void setLanguage(Properties language);
+	
 	protected Alert makeAlert(String content) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setContentText(content);
@@ -90,4 +96,5 @@ public abstract class PropertiesView {
 	protected ElementFactory getElementFactory() {
 		return this.eFactory;
 	}
+	
 }
