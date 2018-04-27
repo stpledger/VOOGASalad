@@ -2,6 +2,7 @@ package authoring.views.properties;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import engine.components.Component;
@@ -10,8 +11,8 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import authoring.components.PropertiesComponentForm;
-import authoring.factories.ClickElementType;
 import authoring.entities.Entity;
+import authoring.factories.ClickElementType;
 
 /**
  * Opens up the Local Properties window so that an editor can edit certain features of an entity,
@@ -29,6 +30,8 @@ public class LocalPropertiesView extends PropertiesView {
 	private Consumer<List<Component>> onSubmit;
 	private Entity entity;
 	private String type;
+	
+	private Properties language = new Properties();
 
 	/**
 	 * Initialize the object with a given broadcast method
@@ -86,6 +89,12 @@ public class LocalPropertiesView extends PropertiesView {
 	@Override
 	public String title() {
 		return String.format("Entity %d Local Properties", this.entity.getID());
+	}
+
+	@Override
+	public void setLanguage(Properties lang) {
+		language = lang;
+		
 	}
 
 }

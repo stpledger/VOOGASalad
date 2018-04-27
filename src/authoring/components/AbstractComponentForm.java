@@ -1,10 +1,13 @@
 package authoring.components;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
@@ -13,9 +16,12 @@ public abstract class AbstractComponentForm extends GridPane {
 	protected String name;
 	protected int numFields;
 	protected List<TextField> fields;
+	protected List<Label> labels = new ArrayList<>();
 	
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
+	protected Properties language = new Properties();
+	
 	protected abstract Object buildComponent();
 
 	/**
@@ -50,28 +56,4 @@ public abstract class AbstractComponentForm extends GridPane {
 		return reflectValue;
 	}
 
-
-
-	/**
-	 * Given a name of a component class in the engine, find the number of fields that it takes and their types.
-	 * This is required for generating the appropriate amount of text boxes
-	 * @param component the String name of the component in need of identification
-	 */
-	protected int getNumFields(String component) {
-		// strip dashes which may have been there due to user-friendliness
-		String fullName = COMPONENT_PREFIX + component.replace("-",  "");
-		try {
-			Class clazz = Class.forName(fullName);
-			Constructor cons = clazz.getDeclaredConstructors()[0];
-			// subtract one because the first parameter is ALWAYS the parent ID of the entity
-			int prop = cons.getParameterCount() - 1;
-			return cons.getParameterCount();
-		} catch (ClassNotFoundException e) {
-			Alert a = new Alert(Alert.AlertType.ERROR);
-			a.setContentText("Class " + component + " does not exist.");
-			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
-			a.showAndWait();
-		}
-		return 0;
-	}
 }

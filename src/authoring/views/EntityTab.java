@@ -1,11 +1,11 @@
 package authoring.views;
 
 import java.util.Map;
+import java.util.Properties;
 import java.util.logging.Logger;
 
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
-
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -20,7 +20,8 @@ import javafx.scene.layout.FlowPane;
  * @author Collin Brown(Cdb55)
  *
  */
-public class EntityTab extends Tab{
+public class EntityTab extends Tab implements AuthoringPane{
+	Properties language = new Properties();
 	public static final double SCROLLBAR_WIDTH = 20;
 	public static final double VIEW_WIDTH = 0;
 	
@@ -35,13 +36,8 @@ public class EntityTab extends Tab{
 
 	public EntityTab(String name, double entityViewWidth) {
 		super(name);
-		myEntityViewWidth = entityViewWidth;
-		
-//		Block block = new Block(0);
-//		Enemy enemy = new Enemy(0);
-//		Player player = new Player(0);
-//		Background bgrnd =  new Background(0);
-		
+		this.setId(name);
+		myEntityViewWidth = entityViewWidth;	
 		myEntityViewWidth = entityViewWidth;		
 		this.setClosable(false);
 		this.getStyleClass().add("entity-tab");
@@ -101,6 +97,13 @@ public class EntityTab extends Tab{
 	 */
 	private void removeEntity(EntityBox eb) {
 		pane.getChildren().remove(eb);
+	}
+
+	@Override
+	public void setLanguage(Properties lang) {
+		this.language = lang;
+		this.setText(language.getProperty(this.getId()));
+		
 	}
 
 

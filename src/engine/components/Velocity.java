@@ -1,6 +1,7 @@
 package engine.components;
 
 
+import java.awt.Point;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,16 +32,16 @@ public class Velocity extends Component {
 		return XVel;
 	}
 
-	public void setXVel(double xVel) {
-		XVel = xVel;
+	public void setXVel(double XVel) {
+		this.XVel = XVel;
 	}
 
 	public double getYVel() {
 		return YVel;
 	}
 
-	public void setYVel(double yVel) {
-		YVel = yVel;
+	public void setYVel(double YVel) {
+		this.YVel = YVel;
 	}
 
 	@Override
