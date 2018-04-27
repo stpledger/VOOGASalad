@@ -28,9 +28,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
 public class EntityView extends BorderPane implements AuthoringPane {
 	public final static String ENTITIES_PACKAGE_NAME = "authoring/entities";
 	public final static  int ENITITY_VIEW_WIDTH = 300;
-	private ArrayList<String> tabsList = new ArrayList<>();
 	private ArrayList<String> entityTypes = new ArrayList<>();
 	private TabPane tabPane = new TabPane();
+	private Properties lang = new Properties();
 	
 
 	public EntityView() {
@@ -50,7 +50,7 @@ public class EntityView extends BorderPane implements AuthoringPane {
 		Map<String, Consumer> consumerMap = new HashMap<>();
 		BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
 		Consumer<?> newEntity = e -> {
-			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
+			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose, lang);
 		};
 		Consumer<?> loadEntity = e -> {loadEntity();};
 		consumerMap.put("newEntity", newEntity);
@@ -64,6 +64,7 @@ public class EntityView extends BorderPane implements AuthoringPane {
 	 */
 	private void addTab(String type) {
 		EntityTab temp = new EntityTab(type, ENITITY_VIEW_WIDTH);
+		temp.setLanguage(lang);
 		tabPane.getTabs().add(temp);
 	}
 
@@ -76,13 +77,12 @@ public class EntityView extends BorderPane implements AuthoringPane {
 
 		Image image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 
-		if(tabsList.isEmpty() || !tabsList.contains(entityType)) { 
+		if(tabPane.getTabs().isEmpty() || !tabPane.getTabs().contains(entityType)) { 
 			addTab(entityType);
-			tabsList.add(entityType);
 		}   
 
 		for(Tab tab : tabPane.getTabs()) {
-			if(tab.getText().equals(entityType)) {
+			if(tab.getId().equals(entityType)) {
 				((EntityTab) tab).addNewEntity(entityType, componentAttributes);
 			}
 		}
@@ -99,6 +99,7 @@ public class EntityView extends BorderPane implements AuthoringPane {
 
 	@Override
 	public void setLanguage(Properties language) {
+		this.lang = language;
 		((Toolbar) this.getTop()).setLanguage(language);
 		for(Tab t : tabPane.getTabs()) {
 			t.setText(language.getProperty(t.getId(),t.getId()));

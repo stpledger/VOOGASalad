@@ -42,6 +42,7 @@ public class EntityBuilderView extends Stage {
 	private final static int LEFT_PANEL_WIDTH = 200;
 
 	private Properties tooltipProperties;
+	private Properties language = new Properties();
 	private HBox saveMenu;
 	private VBox root;
 	private List<String> entityTypes;
@@ -62,8 +63,9 @@ public class EntityBuilderView extends Stage {
 	 * @param eTypes All of the possible types of entities
 	 * @param oC A BiConsumer that will handle the closing of an EntityBuilderView window that requires a string of the type of entity and a Map of Component Classes and an object[] of their argumetns
 	 */
-	public EntityBuilderView (List<String> eTypes, BiConsumer<String, Map<Class,Object[]>> oC) {
+	public EntityBuilderView (List<String> eTypes, BiConsumer<String, Map<Class,Object[]>> oC, Properties lang) {
 		this.onClose = oC;
+		language = lang;
 		this.entityTypes = (ArrayList<String>) eTypes;
 		this.eFactory = new ElementFactory();
 		this.componentFormCollection = new EntityComponentFormCollection(new String[] {"Sprite", "Position"});
@@ -146,6 +148,7 @@ public class EntityBuilderView extends Stage {
 	private HBox buildSingleButtonMenu(String name, Consumer onClick) throws Exception {
 		HBox hBox = new HBox();
 			Button b = (Button) eFactory.buildClickElement(ClickElementType.Button, name, onClick);
+			b.setText(language.getProperty(name));
 			b.setTooltip(new Tooltip(tooltipProperties.getProperty(name)));
 			b.getStyleClass().addAll("entity-builder-view-button",name);
 			hBox.setAlignment(Pos.CENTER);
