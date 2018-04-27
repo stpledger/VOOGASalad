@@ -12,14 +12,16 @@ import javafx.scene.layout.BorderPane;
  *
  */
 public class MainView {
+	private static final double DEFAULT_HEIGHT = 600;
+	private static final double DEFAULT_WIDTH = 1200;
 	private BorderPane border;
 	private Toolbar toolbar;
 	private GameEditorView gameEditorView;
 	private EntityView componentView;
 	
 	//GUI Constants
-	private static double ideHeight = 600;
-	private static double ideWidth = 1200;
+	private double ideHeight = DEFAULT_HEIGHT;
+	private double ideWidth = DEFAULT_WIDTH;
 
 	/**
 	 * Creates an instance of GameAuthoringEnvironment Based on a file
@@ -80,7 +82,7 @@ public class MainView {
 	 * Returns the height of the gameAuthoringEnvironment
 	 * @return
 	 */
-	public static double getIDEHeight() {
+	public double getIDEHeight() {
 		return ideHeight;
 	}
 
@@ -88,15 +90,15 @@ public class MainView {
 	 * Sets the height of the gameAuthoringEnvironment
 	 * @param ideHeight
 	 */
-	public static void setIDEHeight(double ideHeight) {
-		MainView.ideHeight = ideHeight;
+	public  void setIDEHeight(double ideHeight) {
+		this.ideHeight = ideHeight;
 	}
 
 	/**
 	 * Gets the width of the gameAuthroingEnvironment
 	 * @return
 	 */
-	public static double getIDEWidth() {
+	public double getIDEWidth() {
 		return ideWidth;
 	}
 
@@ -104,7 +106,7 @@ public class MainView {
 	 * Sets the width of the GameAuthoringEnvironment
 	 * @param ideWidth
 	 */
-	public static void setIDEWidth(double ideWidth) {
-		MainView.ideWidth = ideWidth;
+	public void setIDEWidth(double ideWidth) {
+		this.ideWidth = ideWidth;
 	}
 }

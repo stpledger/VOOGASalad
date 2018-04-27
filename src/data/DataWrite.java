@@ -75,7 +75,8 @@ public class DataWrite {
     }
 
     public static void writeImage(File file) {
-        BufferedImage image = null;
+        System.out.println(file.getAbsolutePath());
+    	BufferedImage image = null;
         try {
             image = ImageIO.read(file);
             File fileDest = new File(DEFAULT_IMAGEPATH + file.getName());

@@ -13,7 +13,7 @@ import javafx.scene.control.TextField;
  * @author dylanpowers
  *
  */
-public class PropertiesComponentForm extends AbstractComponentForm {
+public class PropertiesComponentForm extends AbstractComponentForm implements ComponentForm {
 
 	private int entity;
 	
@@ -58,7 +58,7 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 	 * Should be performed only when the user clicks the submit button.
 	 * @return a component that accurately represents the data in this wrapper class
 	 */
-	public Component buildComponent() {
+	public Object buildComponent() {
 		if (!validComponent()) {
 			return null;
 		}
@@ -80,6 +80,12 @@ public class PropertiesComponentForm extends AbstractComponentForm {
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
+		return null;
+	}
+	
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 }
