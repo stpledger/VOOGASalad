@@ -21,7 +21,7 @@ public class SampleToolBar extends ToolBar implements IHUD{
 		//constructor to create a Sample Tool Bar
 		HBox toolbarLayout = new HBox(250); //adding spacing by 40 units
 		Health health = (Health) PlayerKeys.get(1).get(Health.KEY);
-		HealthLabel label2 = new HealthLabel(health.getHealth());
+		HealthLabel label2 = new HealthLabel(health.getData());
 		TimeLabel label3 = new TimeLabel(0);
 		toolbarLayout.getChildren().addAll(label2);
 		this.getItems().add(toolbarLayout);

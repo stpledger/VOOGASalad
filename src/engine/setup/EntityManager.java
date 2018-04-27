@@ -2,7 +2,7 @@ package engine.setup;
 
 import java.util.Map;
 import engine.components.Component;
-import engine.components.Damage;
+import engine.components.groups.Damage;
 
 public class EntityManager {
 	private Map<Integer, Map<String, Component>> entities;
@@ -41,7 +41,7 @@ public class EntityManager {
     		}
     		
     		map.put(componentName,component);
-    		sm.addComponent(pid,componentName);
+    		sm.addComponent(pid,map);
     }
     
     public void removeComponent(int pid, String componentName, Component component) {
@@ -57,7 +57,7 @@ public class EntityManager {
 		}
 		
 		map.remove(componentName);
-		sm.removeComponent(pid,componentName);
+		sm.removeEntity(pid);
     }
     
     public Component getComponent(int pid, String componentName) {

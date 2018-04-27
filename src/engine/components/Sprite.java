@@ -1,15 +1,11 @@
 package engine.components;
 
-import javafx.scene.input.MouseEvent;
-import javafx.event.EventHandler;
-
 import java.io.FileNotFoundException;
 
 
 import data.DataRead;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-
 
 import javafx.scene.image.ImageView;
 

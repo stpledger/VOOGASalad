@@ -12,20 +12,16 @@ import engine.components.Component;
 import engine.components.groups.Damage;
 
 import engine.components.Health;
-import engine.components.Player;
 import engine.setup.EntityManager;
-import engine.setup.SystemManager;
 
 public class HealthDamage implements ISystem {
 	private Map<Integer, Map<String, Component>> handledComponents;
 	private Set<Integer> activeComponents;
 	private EntityManager em;
-	private SystemManager sm;
 	
 	public HealthDamage(EntityManager em) {
 		handledComponents = new HashMap<>();
 		this.em = em;
-		this.sm = sm;
 	}
 
 	public void addComponent(int pid, Map<String, Component> components) {
@@ -44,7 +40,7 @@ public class HealthDamage implements ISystem {
     	}  
 	}
 
-    public void addComponent(int pid, String componentName) {
+    /*public void addComponent(int pid, String componentName) {
 		if(!componentName.equals(Health.KEY) && !componentName.equals(DamageLauncher.KEY)) {
 			return;
 		}
@@ -73,7 +69,7 @@ public class HealthDamage implements ISystem {
 			map.put(Damage.KEY, component);
 		}
 		handledComponents.put(pid,map);
-    }
+    }*/
 
 	public void removeComponent(int pid, String componentName) {
 		if(!componentName.equals(Health.KEY) && !componentName.equals(Damage.KEY)) {

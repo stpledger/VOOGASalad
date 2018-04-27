@@ -77,13 +77,13 @@ public class GameInitializer {
     }
     
     private void addSystems() {
-        systems.add(new Accelerate(entityManager));
+        systems.add(new Accelerate());
         systems.add(new Motion());
         systems.add(new ConditionChecker());
         systems.add((new ArtificialIntelligence()));
         systems.add(c);
         systems.add(new HealthDamage(entityManager));
-        systems.add(new Animate(entityManager));
+        systems.add(new Animate());
         systems.add(inputHandler);
     }
     

@@ -3,6 +3,7 @@ package engine.systems.collisions;
 import java.util.Map;
 
 import engine.components.Component;
+import engine.components.Health;
 import engine.components.groups.Damage;
 
 import engine.setup.EntityManager;
