@@ -5,13 +5,19 @@ package engine.components;
  * @author fitzj
  *
  */
+
 public class Health extends SingleDataComponent {
+	private double initialHealth;
+	public static final String KEY = "Health";
 	
 	public Health(int pid, double data) {
 		super(pid, data);
+		initialHealth = data;
 	}
-
-	public static final String KEY = "Health";
+	
+	public void resetHealth() {
+		this.setData(initialHealth);
+	}
 
 	public String getKey() {
 		return KEY;

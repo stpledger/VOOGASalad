@@ -8,4 +8,5 @@ package authoring.factories;
 public enum ClickElementType {
 	Button,
 	MenuItem,
+	ComboBox,
 }

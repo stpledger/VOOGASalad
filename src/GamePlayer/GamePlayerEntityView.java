@@ -7,13 +7,12 @@ import java.util.Map;
 
 import authoring.gamestate.Level;
 import data.DataGameState;
-import data.DataRead;
 import data.DataWrite;
 import engine.components.*;
 import engine.components.groups.Dimension;
 import engine.components.groups.Position;
 import engine.components.Component;
-import engine.setup.EntityManager;
+
 
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
@@ -21,10 +20,9 @@ import engine.setup.SystemManager;
 import engine.systems.InputHandler;
 import engine.systems.collisions.LevelStatus;
 
-import javafx.scene.Group;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.Pane;
 
 
 /**
@@ -34,70 +32,86 @@ import javafx.scene.input.KeyCode;
  */
 public class GamePlayerEntityView {
 	//private Group entityRoot;
-	private Map<Level,Map<Integer,Map<String,Component>>> levelMap;
-	private Map<Integer, Map<String, Component>> entityMap;
-	private Map<Integer, Group> levelEntityMap;
+	private Map<Level,Map<Integer,Map<String,Component>>> Levels;
+	private Map<Integer, Map<Integer,Map<String,Component>>> IntLevels;
+	private Map<Integer, Map<String, Component>> ActiveEntities;
+	private Map<Integer, Pane> LevelDisplays;
 	private DataGameState gameState;
 	private File gameFile;
 
-	private GameInitializer GI;
+	private GameInitializer gameInitializer;
 	private InputHandler inputHandler;
-	private RenderManager RM;
-	private SystemManager SM;
-    private LevelStatus LS;
+	private RenderManager renderManager;
+	private SystemManager systemManager;
+	private LevelStatus levelStatus;
 
-	public GamePlayerEntityView(File file) throws FileNotFoundException {
-		gameFile = file;
-		gameState = DataRead.loadPlayerFile(gameFile);
-		levelMap = gameState.getGameState();
-		levelEntityMap = createEntityGroupMap(levelMap);
-		System.out.println(levelMap.size());
-		int count = 0;
-		for(Level level : levelMap.keySet()) {
-			entityMap = levelMap.get(level);  //currently entityMap is the first level map of integer to components
-			//intLevelMap.put(1, entityMap);
-			break;
-//			count++;
-		}
+	private int ActiveLevel;
+	private Position ActivePlayerPos;
+
+	private static final double PANE_HEIGHT = 442;
+	private static final double PANE_WIDTH = 800;
+
+	
+	// RYAN THIS IS WHAT YOU NEED TO IMPLEMENT HUD VALUES 
+	//Integer is the level, Get Active Level
+	private Map<Integer, Map<String, Component>> PlayerKeys;
+
+	
+	/**
+	 * Constructor when given the gameState
+	 * @param gameState
+	 */
+	public GamePlayerEntityView(DataGameState gameState) {
+		Levels = gameState.getGameState();
+		PlayerKeys = new HashMap<>();
+		levelToInt();
+		LevelDisplays = createEntityGroupMap(Levels);
+		setActiveLevel(1);
 		initializeGamePlayerEntityView();
+	}
+
+	/**
+	 * Converts Map of Levels to its Entities to Integers to Entities to make calling a particular level easier
+	 */
+	public void levelToInt() {
+		IntLevels = new HashMap<>();
+		for(Level level: Levels.keySet()){
+			IntLevels.put(level.getLevelNum(), Levels.get(level));
+		}
 	}
 
 	/**
 	 * returns the levelEntityMap;
 	 * @return
 	 */
-	public Map<Integer, Group> getlevelEntityMap(){
-		return levelEntityMap;
+	public Map<Integer, Pane> getlevelEntityMap(){
+		return LevelDisplays;
 	}
 
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
-	 * @param levelMap 
+	 * @param map
 	 * 
 	 */
-	private Map<Integer, Group> createEntityGroupMap(Map<Level, Map<Integer, Map<String, Component>>> levelMap){
+	private Map<Integer, Pane> createEntityGroupMap(Map<Level, Map<Integer, Map<String, Component>>> map){
 		int count = 1;
-		Map<Integer, Group> levelEntityMap = new HashMap<>();
-
-		for(Level level : levelMap.keySet()) {
-			levelEntityMap.put(count, createIndividualEntityGroup(levelMap.get(level)));
-			//levelEntityMap.put(count+1, createIndividualEntityGroup(levelMap.get(level))); //TESTING DELETE
-			System.out.println(levelEntityMap.get(count));
+		Map<Integer, Pane> levelEntityMap = new HashMap<>();
+		for(Level level : map.keySet()) {
+			levelEntityMap.put(count, createIndividualEntityGroup(map.get(level), count));
+			//levelEntityMap.put(count+1, createIndividualEntityGroup(Levels.get(level))); //TESTING DELETE
 			count++;
 		}
-		//Testing purposes
-		//TEsting purposes
 		return levelEntityMap;
 	}
 
 	/**
-	 * Method that creates all the groups for each level in a levelMap.
+	 * Method that creates all the groups for each level in a Levels.
 	 * @param entityMap
 	 * @return
 	 */
 
-	public Group createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap) {
-		Group entityRoot = new Group();
+	public Pane createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap, int levelNum) {
+		Pane entityRoot = new Pane();
 		Map<String, Component> entityComponents;
 		//Changed enclosed code to only load sprites for 
 		for(Integer i : entityMap.keySet()) {
@@ -108,11 +122,16 @@ public class GamePlayerEntityView {
 				//				image.setX(200);
 				//				image.setY(200);
 				//image.setImage(new Image("mystery.jpg"));
-				System.out.print(image.getX());
+				//System.out.print(image.getX());
 				if (entityComponents.containsKey(Position.KEY)) {
 					Position p = (Position) entityComponents.get(Position.KEY);
 					image.setX(p.getXPos());
 					image.setY(p.getYPos());
+
+					// setting up values to track for window scroll
+					if(entityComponents.containsKey(Player.KEY)){
+                        PlayerKeys.put(levelNum, entityComponents);
+                    }
 				}
 				
 				//	JACK ADDED THIS .............
@@ -142,10 +161,10 @@ public class GamePlayerEntityView {
 	public void reinitializeGameEngine(int levelNum) {
 		int count = 1;
 		Map<Integer, Map<String, Component>> currentLevel = null;
-		for(Level level : levelMap.keySet()) {
+		for(Level level : Levels.keySet()) {
 			if (count == levelNum) {
 				
-				currentLevel = levelMap.get(level);
+				currentLevel = Levels.get(level);
 				System.out.println(currentLevel);
 				break;
 			}
@@ -153,7 +172,8 @@ public class GamePlayerEntityView {
 		}
 		try {
 			System.out.println(currentLevel);
-			GI = new GameInitializer(currentLevel); //reinitializes the level.
+			gameInitializer = new GameInitializer(currentLevel, Math.max(PANE_HEIGHT, PANE_WIDTH),
+					ActivePlayerPos.getXPos(), ActivePlayerPos.getYPos()); //reinitializes the level.
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			System.out.println("Level Does Not Currently Exist Yet");
@@ -167,33 +187,39 @@ public class GamePlayerEntityView {
 	public void initializeGamePlayerEntityView() {
 
 		try {
-			GI = new GameInitializer(entityMap);
-			//gameInitializer = new GameInitializer(intLevelMap.get(0)); //gets the first level map.
+			gameInitializer = new GameInitializer(IntLevels.get(ActiveLevel),
+					Math.max(PANE_HEIGHT, PANE_WIDTH), ActivePlayerPos.getXPos(), ActivePlayerPos.getYPos());
+			//gameInitializer = new GameInitializer(IntLevels.get(0)); //gets the first level map.
 		} catch (FileNotFoundException e) {
-			System.out.println("You made it this far");
-			e.printStackTrace();
+			System.out.println("ActiveEntities not initialized");
 		}
 
-		inputHandler = GI.getIH();
-		RM = GI.getRM();
-		SM = GI.getSM();
+		inputHandler = gameInitializer.getInputHandler();
+		renderManager = gameInitializer.getRenderManager();
+		systemManager = gameInitializer.getSystemManager();
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
-		LS = GI.getC().getCH().getLS();
-		LS.getUpdate().addListener((o,oldVal,newVal) -> {
+		levelStatus = gameInitializer.getC().getCH().getLS();
+		levelStatus.getUpdate().addListener((o, oldVal, newVal) -> {
 	   //  some action based on the value of newVal like -1 game over, from 1 to 2 change to level two etc. 
 	  });
+	}
 
+	public void setActiveLevel(int i){
+		ActiveLevel = i;
+		Map<String, Component> player = new HashMap<>(PlayerKeys.get(ActiveLevel));
+		ActivePlayerPos = (Position) player.get(Position.KEY);
 	}
 	
 
 	public void execute (double time) {
-		SM.execute(time);
+		systemManager.execute(time);
 	}
 
 	public void render() {
-		RM.garbageCollect();
-		SM.setActives(RM.renderObjects());
+		double newCenterX = ActivePlayerPos.getXPos();
+		double newCenterY = ActivePlayerPos.getYPos();
+		systemManager.setActives(renderManager.render(newCenterX, newCenterY));
 	}
     
 	public void setInput(KeyCode code){
@@ -204,19 +230,37 @@ public class GamePlayerEntityView {
 		inputHandler.removeCode(code);
 	}
 
+	public Map<Integer, Map<String, Component>> getPlayerKeys(){
+		return PlayerKeys;
+	}
+	
 	public void saveGame(){
 		DataWrite dw = new DataWrite();
 		dw.saveGame(gameState, "test");
 	}
 
 	// used to update the bounds of the scrollpane so the view shifts with the user's character
-	public void updateScroll(Group gameRoot){
-		//pane.setVvalue(pane.getVvalue() + 1);
-		//System.out.println(pane.getHvalue());
-		//pane.setHvalue(pane.getHvalue() + 1);
-		//System.out.println(pane.getHvalue());
-		gameRoot.setLayoutX(gameRoot.getTranslateX() + 1);
-		//System.out.println(gameRoot.getTranslateX());
-	}
+	public void updateScroll(Pane gameRoot){
+		double minX = gameRoot.getTranslateX() * -1;
+		double maxX = gameRoot.getTranslateX() * -1 + PANE_WIDTH;
+		double minY = gameRoot.getTranslateY() * -1;
+		double maxY = gameRoot.getTranslateY() * -1 + PANE_HEIGHT;
+
+		if(ActivePlayerPos.getYPos() - 100 < minY){
+			gameRoot.setTranslateY((ActivePlayerPos.getYPos() - 100) * -1);
+		}
+
+		if(ActivePlayerPos.getYPos() + 200 > maxY){
+			gameRoot.setTranslateY(((ActivePlayerPos.getYPos() + 200) - PANE_HEIGHT) * -1);
+		}
+
+		if(ActivePlayerPos.getXPos() - 100 < minX){
+			gameRoot.setTranslateX((ActivePlayerPos.getXPos() - 100) * -1);
+		}
+
+		if(ActivePlayerPos.getXPos() + 400 > maxX){
+			gameRoot.setTranslateX(((ActivePlayerPos.getXPos() + 400) - PANE_WIDTH) * -1);
+		}
+    }
 
 }

@@ -1,6 +1,6 @@
-
 package frontend.entities;
 
+import java.awt.MouseInfo;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import engine.components.Sprite;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 
+
 /**
  * 
  * @author Hemanth Yakkali
@@ -31,6 +32,8 @@ public abstract class Entity extends ImageView {
 	 * Unique ID to the entity
 	 */
     private int ID;
+    private String name;
+
     
     /**
      * List of components which define the entity
@@ -125,6 +128,7 @@ public abstract class Entity extends ImageView {
     private boolean contains(Component c) {
     		for (Component existing : this.components) {
     			if (existing.getKey() == c.getKey())
+
     				return true;
     		}
     		return false;
@@ -218,5 +222,11 @@ public abstract class Entity extends ImageView {
     public List<Component> getComponentList(){
     		return this.components;
     }
+
+
+    public String getName()
+	{
+		return name;
+	}
 
 }

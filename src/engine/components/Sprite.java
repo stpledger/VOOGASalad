@@ -1,4 +1,8 @@
 package engine.components;
+
+import javafx.scene.input.MouseEvent;
+import javafx.event.EventHandler;
+
 import java.io.FileNotFoundException;
 
 
@@ -37,7 +41,9 @@ public class Sprite extends SingleStringComponent {
 	public void setData(String im) {
 
 		try {
-			image =new ImageView(DataRead.loadImage(im));
+			image = new ImageView(DataRead.loadImage(im));
+			image.setPickOnBounds(true);
+
 		} catch(RuntimeException e) {
 			System.out.print("Cant load image no Application");
 		}

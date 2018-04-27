@@ -15,7 +15,7 @@ public class Collision extends DefaultSystem{
 	private Map<Integer, Velocity> colliders;
 	private CollisionHandler handler;
 	private EntityManager em;
-	
+
 	public Collision(EntityManager em) {
 		colliders = new HashMap<>();
 		handler = new CollisionHandler(em);
@@ -48,11 +48,11 @@ public class Collision extends DefaultSystem{
 					boolean bo = botOverlap >= 0 && botOverlap <= d2.getHeight();
 					boolean lo = leftOverlap >= 0 && leftOverlap <= d1.getWidth();
 					boolean ro = rightOverlap >= 0 && rightOverlap <= d2.getWidth();
-					
+
 					List<Double> overlaps = new ArrayList<>();
 					if(bo && !to && (lo || ro)) {
 						overlaps.add(botOverlap);
-					} 
+					}
 					if(to && !bo && (lo || ro)) {
 						overlaps.add(topOverlap);
 					}
@@ -62,11 +62,11 @@ public class Collision extends DefaultSystem{
 					if(ro && !lo && (to || bo)) {
 						overlaps.add(rightOverlap);
 					}
-					
+
 					Collections.sort(overlaps);
-					
+
 					CollisionDirection cd = null;
-					
+
 					if(overlaps.size() > 0) {
 						if(overlaps.get(0) == topOverlap) cd = CollisionDirection.Top;
 						else if(overlaps.get(0) == botOverlap) cd = CollisionDirection.Bot;
@@ -99,6 +99,7 @@ public class Collision extends DefaultSystem{
 							((Velocity)handledComponents.get(p1.getPID()).get(Velocity.KEY)).setXVel(0);
 							break;
 						
+
 						}
 					}
 				}
@@ -119,11 +120,11 @@ public class Collision extends DefaultSystem{
 		if(!componentName.equals(Velocity.KEY)) {
 			return;
 		}
-		
+
 		if(colliders.containsKey(pid)) {
 			//System.out.println("Collision System tries adding duplicate " + componentName + " component for entity " + pid + " !");
 		}
-		
+
 
 		Velocity velocity = (Velocity)em.getComponent(pid, componentName);
 		colliders.put(pid, velocity);
@@ -133,11 +134,11 @@ public class Collision extends DefaultSystem{
 		if(!componentName.equals(Velocity.KEY)) {
 			return;
 		}
-		
+
 		if(!colliders.containsKey(pid)) {
 			//System.out.println("Collision System tries remove " + componentName + " component from non-existing entity " + pid + " !");
 		}
-		
+
 
 		colliders.remove(pid);
 	}
@@ -147,9 +148,9 @@ public class Collision extends DefaultSystem{
 		//put in active listeners
 	}
 
-	
+
 	public void addComponent(int pid, Map<String, Component> components) {
-	handledComponents.put(pid, components);
+		handledComponents.put(pid, components);
 
 		if(components.containsKey(Velocity.KEY)) {
 			colliders.put(pid, (Velocity) components.get(Velocity.KEY));

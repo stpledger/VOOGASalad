@@ -1,17 +1,18 @@
 package labels;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 
 public class HealthLabel extends Label{
 
-	private int currentHealth;
+	private double currentHealth;
 	private final String HEALTH_LABEL_NAME = "Health: ";
 	
 	
-	public HealthLabel(int health) {
+	public HealthLabel(double health) {
 		this.setText(HEALTH_LABEL_NAME);
 		currentHealth = health;
-		this.textProperty().bind(new SimpleIntegerProperty(currentHealth).asString());
+		this.textProperty().bind(new SimpleDoubleProperty(currentHealth).asString());
 	}
 	
 	

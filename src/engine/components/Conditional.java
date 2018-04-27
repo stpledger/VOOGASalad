@@ -1,7 +1,5 @@
 package engine.components;
 
-import engine.setup.EntityManager;
-
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -9,28 +7,25 @@ import java.util.function.Supplier;
 public class Conditional extends  Component {
 
     public static String KEY = "Component";
-    private Supplier conditional, condition;
-    private Component changed;
+    private Supplier conditional;
     private Consumer action;
 
     public Conditional (int pid) {
         super(pid, KEY);
     }
 
-    public void setCondition (Supplier conditional, Supplier condition) {
+    public void setCondition (Supplier conditional) {
         this.conditional = conditional;
-        this.condition = condition;
     }
 
-    public void setAction (Component changed, Consumer action) {
-        this.changed = changed;
+    public void setAction (Consumer action) {
         this.action = action;
     }
 
     public void evaluate() {
-        if (conditional.get().equals(condition.get())) {
-            System.out.println("condition is true");
-            action.accept(changed);
+        Object o = conditional.get();
+        if (o!=null) {
+            action.accept(o);
         }
     }
 
