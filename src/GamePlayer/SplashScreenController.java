@@ -35,9 +35,8 @@ public class SplashScreenController{
 	private final int COL_NUM = 3;
 	public FileUploadButton fileBtn;
 	public DataGameState currentGame;
-	private BooleanProperty gameSelectBoolean;
 	public List<GameSelectButton> gameSelectButtonList;
-	
+
 	public SplashScreenController(Stage stage) {
 		gameSelectButtonList = new ArrayList<GameSelectButton>();
 		imageGameStateMap = DataRead.getAllGames();
@@ -48,12 +47,11 @@ public class SplashScreenController{
 	public Scene getSplashScene() {
 		return splashScene;
 	}
-	
+
 	/**
 	 * Initializes the Splash Screen with Components to select File
 	 * @return
 	 */
-	
 	public Scene initializeSplashScreen() {
 		myGridPane = new GridPane();
 		myGridPane = setupGridSpacing(myGridPane);
@@ -68,9 +66,9 @@ public class SplashScreenController{
 		return currentScene;
 	}
 
-//	/**
-//	 * Method to dynamically create Game Select Buttons, Use when DataRead.getAllGames is working.
-//	 */
+	//	/**
+	//	 * Method to dynamically create Game Select Buttons, Use when DataRead.getAllGames is working.
+	//	 */
 	private void assignGameSelectButtons() {
 		int row = 0;
 		int col = 0;
@@ -88,9 +86,9 @@ public class SplashScreenController{
 				col++; 		//if not, increment the number of columns
 			}
 		}
-		
+
 	}
-	
+
 	public List<GameSelectButton> getSplashScreenButtons() {
 		return gameSelectButtonList;
 	}
@@ -103,11 +101,7 @@ public class SplashScreenController{
 		for (int i = 0; i<ROW_NUM; i++) {
 			gridPane.getRowConstraints().add(new RowConstraints(HEIGHT_SIZE/ROW_NUM));
 		}
-		
 		return gridPane;
 	}
-	
 
-	
-	
 }

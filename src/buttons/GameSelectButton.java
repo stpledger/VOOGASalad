@@ -42,8 +42,6 @@ public class GameSelectButton extends Button {
 				setGameSelectBoolean();
 			}
 		});
-	
-	
 	}
 	
 	public void setGameSelectBoolean() {
