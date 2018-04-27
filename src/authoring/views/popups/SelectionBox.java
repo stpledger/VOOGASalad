@@ -25,21 +25,22 @@ public class SelectionBox extends VBox implements PopUp {
 	ElementFactory eFactory = new ElementFactory();
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
-	public SelectionBox(String[] options){
-		this.fill(options);
+	public SelectionBox(String[] options, Consumer consumer){
+		this.fill(options, consumer);
 		this.show();
 	}
 	/**
 	 * Builds the list of options
 	 * @param options
 	 */
-	private void fill(String[] options) {
+	private void fill(String[] options, Consumer consumer) {
 		for(String o: options) {
 			try {
 			Label label = (Label) eFactory.buildElement(ElementType.Label, o);
 			label.setOnMouseClicked(e->{
 				selection = label.getId();
-				System.out.println(label.getId());
+				onClose(consumer);
+				stage.close();
 			});
 			this.getChildren().add(label);
 			} catch (Exception e) {

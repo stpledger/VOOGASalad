@@ -37,12 +37,11 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 	
 	protected void createAddComponentButton(int column, int row) {
 		try {
-			Button addComponent = (Button) eFactory.buildClickElement(ClickElementType.Button,"AddComponent", e->{
+			Button addComponent = (Button) eFactory.buildClickElement(ClickElementType.Button,"AddComponent", onClick->{
 				String userSelection = "";
 				SelectionBox selectionBox;
-				selectionBox = new SelectionBox(PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE));
+				selectionBox = new SelectionBox(PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE), onClose -> {addComponent(userSelection);});
 				selectionBox.setLanguage(language);
-				addComponent(userSelection);
 			});
 			this.add(addComponent, column, row);
 		} catch (Exception e) {

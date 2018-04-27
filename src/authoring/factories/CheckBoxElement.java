@@ -7,15 +7,15 @@ import javafx.scene.control.CheckBox;
 /**
  * 
  * @author Hemanth Yakkali(hy115)
+ * @author Collin Brown(cdb55)
  *
  */
 public class CheckBoxElement extends CheckBox implements Element{
-	private String myOriginalName;
 
 	public CheckBoxElement(String text) {
 		super();
 		this.handleText(text );
-		this.myOriginalName = text;
+		this.setId(text);
 	}
 
 	@Override
@@ -25,7 +25,7 @@ public class CheckBoxElement extends CheckBox implements Element{
 	
 	@Override
 	public void setLanguage(Properties language) {
-		this.handleText(language.getProperty(this.myOriginalName, this.myOriginalName));
+		this.handleText(language.getProperty(this.getId()));
 	}
 
 }
