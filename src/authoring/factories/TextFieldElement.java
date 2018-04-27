@@ -10,12 +10,11 @@ import javafx.scene.control.TextField;
  *
  */
 public class TextFieldElement extends TextField implements Element{
-	private String myOriginalName;
 	
 	public TextFieldElement(String text) {
 		super();
 		this.handleText(text);
-		myOriginalName = text;
+		this.setId(text);
 	}
 
 	@Override
@@ -25,7 +24,7 @@ public class TextFieldElement extends TextField implements Element{
 	
 	@Override
 	public void setLanguage(Properties language) {
-		this.handleText(language.getProperty(this.myOriginalName, this.myOriginalName));
+		this.handleText(language.getProperty(this.getId()));
 	}
 
 }

@@ -11,11 +11,10 @@ import javafx.scene.control.ComboBox;
  *
  */
 public class ComboBoxElement extends ComboBox implements ClickableElement {
-	String myOriginalName;
 	
 	public ComboBoxElement(String text) {
 		super();
-		this.myOriginalName = text;
+		this.setId(text);
 		handleText(text);
 	}
 
@@ -31,7 +30,7 @@ public class ComboBoxElement extends ComboBox implements ClickableElement {
 
 	@Override
 	public void setLanguage(Properties language) {
-		this.handleText(language.getProperty(this.myOriginalName, this.myOriginalName));
+		this.handleText(language.getProperty(this.getId()));
 		
 	}
 	

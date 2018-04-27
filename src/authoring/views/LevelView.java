@@ -56,7 +56,6 @@ public class LevelView extends ScrollPane {
 		this.setContent((content));
 		this.setupMouseClick(levelNum);
 		this.setupMouseDrag();
-
 	}
 
 	/**
