@@ -1,9 +1,11 @@
 package authoring.views.properties;
 
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
 import authoring.MainApplication;
+import authoring.factories.Element;
 import authoring.factories.ElementFactory;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -96,5 +98,5 @@ public abstract class PropertiesView {
 	protected ElementFactory getElementFactory() {
 		return this.eFactory;
 	}
-	
+
 }

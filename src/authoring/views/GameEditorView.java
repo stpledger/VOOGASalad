@@ -186,6 +186,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		}
 		HUDPropertiesView HPV = new HUDPropertiesView(levelArray);
 		HPV.open();	
+		HPV.setLanguage(language);
 	}
 
 	/**
@@ -197,6 +198,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			levelArray.add(((LevelView) t.getContent()).getLevel());
 		}
 		GlobalPropertiesView GPV = new GlobalPropertiesView(levelArray);
+		GPV.setLanguage(language);
 		GPV.open();
 	}
 
@@ -240,6 +242,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	private void showLevelSettings() {
 		Level level = ((LevelView) this.tabPane.getSelectionModel().getSelectedItem().getContent()).getLevel();
 		LevelPropertiesView lView = new LevelPropertiesView(level, level.getLevelNum());
+		lView.setLanguage(language);
 		lView.open();
 	}
 

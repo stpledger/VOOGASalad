@@ -26,6 +26,8 @@ public class Toolbar extends MenuBar{
 	private String toolbarName;
 	private Map<String,Consumer> consumerMap;
 	private List<Pair<String,Properties>> menuProperties;
+	
+	private Properties language = new Properties();
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
@@ -99,7 +101,8 @@ public class Toolbar extends MenuBar{
 	 * Updates all of the text elements to contain the proper language
 	 * @param Language
 	 */
-	public void setLanguage(Properties language) {
+	public void setLanguage(Properties lang) {
+		language = lang;
 		for(Menu menu : this.getMenus()) {
 			menu.setText(language.getProperty(menu.getId(), menu.getId()));
 			for(MenuItem menuItem : menu.getItems()) {
