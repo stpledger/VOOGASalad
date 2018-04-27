@@ -23,7 +23,7 @@ import javafx.stage.Stage;
  * @author Ryan
  */
 
-public class SplashScreenController{
+public class SplashScreenView{
 	private Scene splashScene;
 	private Stage mySplashStage;
 	private GridPane myGridPane;
@@ -37,7 +37,7 @@ public class SplashScreenController{
 	public DataGameState currentGame;
 	public List<GameSelectButton> gameSelectButtonList;
 
-	public SplashScreenController(Stage stage) {
+	public SplashScreenView(Stage stage) {
 		gameSelectButtonList = new ArrayList<GameSelectButton>();
 		imageGameStateMap = DataRead.getAllGames();
 		mySplashStage = stage;
