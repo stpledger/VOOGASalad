@@ -7,8 +7,8 @@ import engine.systems.collisions.CollisionDirection;
 
 public class CollisionAction implements Component {
 
-	public static String KEY = "CollisionAction";
-	
+	public static final String KEY = "CollisionAction";
+
 	private Map<CollisionDirection, Runnable> directions;
 	
 	private int pid;

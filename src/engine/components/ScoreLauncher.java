@@ -14,10 +14,9 @@ public class ScoreLauncher extends SingleDataComponent{
 		
 	}
 	
-	@Override
-
 	public String getKey() {
 		return KEY;
+
 	}
 
 }

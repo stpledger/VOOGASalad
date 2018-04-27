@@ -10,6 +10,7 @@ import java.util.function.Consumer;
  */
 public class AI implements Component {
 
+
     public static String KEY = "AI";
 
     private Consumer action;

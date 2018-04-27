@@ -30,7 +30,6 @@ public class Conditional implements Component {
         }
     }
 
-	@Override
 	public String getKey() {
 		return KEY;
 	}
@@ -41,4 +40,5 @@ public class Conditional implements Component {
 	}
 
     
+
 }

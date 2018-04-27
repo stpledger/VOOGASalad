@@ -66,6 +66,7 @@ public class GameInitializer {
 
     public InputHandler getInputHandler() {
          return inputHandler;
+
          }
 
     public Collision getC() {
@@ -90,5 +91,5 @@ public class GameInitializer {
         systems.add(new Animate());
         systems.add(inputHandler);
     }
-    
+
 }

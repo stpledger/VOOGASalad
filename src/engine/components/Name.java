@@ -15,5 +15,4 @@ public class Name extends SingleStringComponent {
 	public String getKey() {
 		return KEY;
 	}
-
 }

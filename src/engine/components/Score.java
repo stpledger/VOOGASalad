@@ -9,6 +9,7 @@ public class Score extends SingleDataComponent {
 	
 	public static final String KEY = "Score";
 	
+
 	public Score(int pid, double data) {
 		super(pid, data);
 	}
@@ -16,5 +17,6 @@ public class Score extends SingleDataComponent {
 	public String getKey() {
 		return KEY;
 	}
+
 
 }

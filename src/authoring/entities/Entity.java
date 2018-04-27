@@ -20,7 +20,6 @@ import engine.components.Width;
 import engine.components.XPosition;
 import engine.components.YPosition;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 
 /**
  * 
@@ -62,7 +61,7 @@ public abstract class Entity extends ImageView implements Serializable {
 			}
 		};
 		this.setOnMouseClicked(e -> {
-			if (e.getButton().equals(MouseButton.SECONDARY)) {
+			if(e.getClickCount()==2) {
 				LocalPropertiesView LPV = new LocalPropertiesView(this, onSubmit);
 				LPV.open();
 			}
@@ -193,6 +192,7 @@ public abstract class Entity extends ImageView implements Serializable {
 	protected void setDimension(double width, double height) {
 		this.add(new Width(this.getID(),width));
 		this.add(new Height(this.getID(),height));
+
 	}
 
 	/**

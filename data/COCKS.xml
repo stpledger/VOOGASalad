@@ -1,1 +1,2 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="COCKS"><Type>Block </Type><Sprite>Hemanth.png </Sprite><Health>100.0 </Health><Dimension>100.0 100.0 </Dimension><Name>COCKS </Name></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="cocks"><Type>Enemy </Type><Sprite>350.jpg </Sprite><Health>80.0 </Health><Dimension>80.0 80.0 </Dimension><Damage>80.0 80.0 </Damage><Velocity>80.0 80.0 </Velocity><Name>cocks </Name></Entity>
+

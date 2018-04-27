@@ -54,6 +54,6 @@ public class KeyInput implements Component {
 		return pid;
 	}
 
-	
-
 }
+
+

@@ -5,3 +5,4 @@ public class Snippet {
 	//buildSingleButtonMenu("addImage", addImageOnClick);
 }
 
+

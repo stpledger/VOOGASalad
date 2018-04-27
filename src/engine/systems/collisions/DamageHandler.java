@@ -1,7 +1,6 @@
 package engine.systems.collisions;
 
 import java.util.Map;
-
 import engine.components.Component;
 import engine.components.DamageLifetime;
 import engine.components.DamageValue;
@@ -42,6 +41,7 @@ public class DamageHandler {
 						
 			em.addComponent(playerID, new DamageValue(colliderID, dlv.getData()));
 			em.addComponent(playerID, new DamageLifetime(colliderID, dll.getData()));
+
 		}
 	}
 }

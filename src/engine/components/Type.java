@@ -20,4 +20,5 @@ public class Type extends SingleStringComponent {
 	}
 
 
+
 }
