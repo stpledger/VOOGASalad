@@ -50,6 +50,11 @@ public class RenderManager {
         return withinRender.keySet();
     }
 
+    public Set<Integer> render() {
+        render(centerX, centerY);
+        return withinRender.keySet();
+    }
+
     private void garbageCollect() {
         updateNodes(withinRender, outsideRender, false);
     }

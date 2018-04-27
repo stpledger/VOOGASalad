@@ -13,15 +13,6 @@
           <int>0</int>
           <map>
             <entry>
-              <string>DamageLauncher</string>
-              <engine.components.DamageLauncher>
-                <pid>0</pid>
-                <key>DamageLauncher</key>
-                <damage>2.0</damage>
-                <lifetime>2.0</lifetime>
-              </engine.components.DamageLauncher>
-            </entry>
-            <entry>
               <string>Player</string>
               <engine.components.Player>
                 <pid>0</pid>
@@ -76,7 +67,7 @@
                 <key>KeyInput</key>
                 <codes>
                   <entry>
-                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
@@ -115,7 +106,7 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
-                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
@@ -157,62 +148,31 @@
                 <pid>0</pid>
                 <key>Acceleration</key>
                 <xAcc>0.0</xAcc>
-                <yAcc>0.0</yAcc>
+                <yAcc>40.0</yAcc>
               </engine.components.Acceleration>
             </entry>
             <entry>
-              <string>Velocity</string>
-              <engine.components.Velocity reference="../../entry[7]/engine.components.KeyInput/codes/entry/java.util.function.Consumer/capturedArgs/engine.components.Velocity"/>
-            </entry>
-          </map>
-        </entry>
-        <entry>
-          <int>1</int>
-          <map>
-            <entry>
-              <string>Sprite</string>
-              <engine.components.Sprite>
-                <pid>1</pid>
-                <key>Sprite</key>
-                <filename>mario.png</filename>
-              </engine.components.Sprite>
-            </entry>
-            <entry>
-              <string>Position</string>
-              <engine.components.Position>
-                <pid>1</pid>
-                <key>Position</key>
-                <xPos>100.0</xPos>
-                <yPos>300.0</yPos>
-              </engine.components.Position>
-            </entry>
-            <entry>
-              <string>Dimension</string>
-              <engine.components.Dimension>
-                <pid>1</pid>
-                <key>Dimension</key>
-                <height>100.0</height>
-                <width>100.0</width>
-              </engine.components.Dimension>
-            </entry>
-          </map>
-        </entry>
-        <entry>
-          <int>2</int>
-          <map>
-            <entry>
-              <string>DamageLauncher</string>
-              <engine.components.DamageLauncher>
+              <string>Damage</string>
+              <engine.components.Damage>
                 <pid>0</pid>
-                <key>DamageLauncher</key>
-                <damage>2.0</damage>
-                <lifetime>2.0</lifetime>
-              </engine.components.DamageLauncher>
+                <key>Damage</key>
+                <damage>10.0</damage>
+                <lifetime>1.0</lifetime>
+              </engine.components.Damage>
             </entry>
+            <entry>
+              <string>Velocity</string>
+              <engine.components.Velocity reference="../../entry[6]/engine.components.KeyInput/codes/entry/java.util.function.Consumer/capturedArgs/engine.components.Velocity"/>
+            </entry>
+          </map>
+        </entry>
+        <entry>
+          <int>3</int>
+          <map>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
-                <pid>2</pid>
+                <pid>3</pid>
                 <key>Sprite</key>
                 <filename>mario.png</filename>
               </engine.components.Sprite>
@@ -220,16 +180,16 @@
             <entry>
               <string>Position</string>
               <engine.components.Position>
-                <pid>2</pid>
+                <pid>3</pid>
                 <key>Position</key>
                 <xPos>300.0</xPos>
-                <yPos>100.0</yPos>
+                <yPos>300.0</yPos>
               </engine.components.Position>
             </entry>
             <entry>
               <string>Health</string>
               <engine.components.Health>
-                <pid>2</pid>
+                <pid>3</pid>
                 <key>Health</key>
                 <health>10.0</health>
               </engine.components.Health>
