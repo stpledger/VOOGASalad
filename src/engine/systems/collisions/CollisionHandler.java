@@ -1,21 +1,18 @@
 package engine.systems.collisions;
 
-import java.util.List;
 import java.util.Map;
 
-import engine.components.*;
+import engine.components.Component;
+import engine.components.Player;
 import engine.setup.EntityManager;
 
 public class CollisionHandler {
-	private String PLAYER = "player";
 	private DamageHandler damageHandler;
-	private SpriteHandler spriteHandler;
 	private LevelStatus levelStatus;
 	private ScoreHandler scoreHandler;
 	
 	public CollisionHandler(EntityManager em) {
 		damageHandler = new DamageHandler(em);
-		spriteHandler = new SpriteHandler();
 		levelStatus = new LevelStatus();
 		scoreHandler = new ScoreHandler(em);
 	}

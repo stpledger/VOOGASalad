@@ -66,10 +66,8 @@ public class TestGameState {
 		});
 		Health h = new Health(0,10);
 		Damage damage = new Damage(0, 10, 1);
-
-		Lives lives = new Lives(0, 3);
 		
-		Player play = new Player(0);
+		Player play = new Player(0, 3);
         play.setRespawn(p.clone());
 
 		/**k.addCode(KeyCode.R, (Runnable & Serializable) () ->
@@ -81,7 +79,6 @@ public class TestGameState {
 		mario.put(Position.KEY, p);
 		mario.put(Dimension.KEY, d);
 		mario.put(Sprite.KEY, s);
-		mario.put(Lives.KEY, lives);
 
 		mario.put(Velocity.KEY, v);
 		mario.put(Acceleration.KEY, a);

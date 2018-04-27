@@ -13,14 +13,16 @@ import java.util.function.Consumer;
  *
  * @author cndracos
  */
-public class KeyInput extends Component {
+public class KeyInput implements Component {
 
 	private Map<KeyCode, Consumer> codes = new HashMap<>();
 
 	public static String KEY = "KeyInput";
+	
+	private int pid;
 
 	public KeyInput(int pid) {
-		super(pid);
+		this.pid = pid;
 	}
 
 	public boolean containsCode (KeyCode key) {
@@ -42,16 +44,12 @@ public class KeyInput extends Component {
 		codes.get(key).accept(null);
 	}
 
-	public String getKey() { return KEY; }
+	public String getKey() { 
+		return KEY; 
+	}
 
-	@Override
-	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<>();
-		for(Map.Entry<KeyCode,Consumer> entry : codes.entrySet()) {
-			res.put("Key Code", entry.getKey().getName());
-		}
-		
-		return res;
+	public int getPID() {
+		return pid;
 	}
 
 }

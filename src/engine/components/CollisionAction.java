@@ -5,16 +5,16 @@ import java.util.Map;
 
 import engine.systems.collisions.CollisionDirection;
 
-public class CollisionAction extends Component {
+public class CollisionAction implements Component {
 
 	public static String KEY = "CollisionAction";
 	
-	
-	
 	private Map<CollisionDirection, Runnable> directions;
 	
+	private int pid;
+	
 	public CollisionAction(int pid) {
-		super(pid);
+		this.pid = pid;
 		directions = new HashMap<>();
 	}
 
@@ -34,14 +34,9 @@ public class CollisionAction extends Component {
 		return KEY;
 	}
 	
-	@Override
-	public Map<String, String> getParameters() {
-		Map<String,String> res = new HashMap<>();
-		for(Map.Entry<CollisionDirection, Runnable> entry : directions.entrySet()) {
-			res.put("Direction", entry.getKey().name());
-		}
-		
-		return res;
+
+	public int getPID() {
+		return pid;
 	}
 
 }
