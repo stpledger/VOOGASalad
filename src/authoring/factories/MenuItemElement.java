@@ -11,11 +11,10 @@ import javafx.scene.control.MenuItem;
  *
  */
 public class MenuItemElement extends MenuItem implements ClickableElement{
-	private String myOriginalName;
 	
 	public MenuItemElement(String text) {
 		this.handleText(text);
-		this.myOriginalName = text;
+		this.setId(text);
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class MenuItemElement extends MenuItem implements ClickableElement{
 
 	@Override
 	public void setLanguage(Properties language) {
-		this.handleText(language.getProperty(this.myOriginalName, this.myOriginalName));
+		this.handleText(language.getProperty(this.getId()));
 	}
 
 }
