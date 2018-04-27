@@ -3,7 +3,6 @@ package engine.setup;
 import java.util.*;
 
 import engine.components.groups.Position;
-import javafx.geometry.Pos;
 
 
 /**

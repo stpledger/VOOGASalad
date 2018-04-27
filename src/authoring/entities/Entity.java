@@ -10,12 +10,15 @@ import java.util.logging.Logger;
 import authoring.views.properties.LocalPropertiesView;
 
 import engine.components.Component;
+import engine.components.DamageLifetime;
+import engine.components.DamageValue;
 import engine.components.EntityType;
 import engine.components.Health;
+import engine.components.Height;
 import engine.components.Sprite;
-import engine.components.groups.Damage;
-import engine.components.groups.Dimension;
-import engine.components.groups.Position;
+import engine.components.Width;
+import engine.components.XPosition;
+import engine.components.YPosition;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 
@@ -188,7 +191,8 @@ public abstract class Entity extends ImageView implements Serializable {
 	 * @param height Height of entity
 	 */
 	protected void setDimension(double width, double height) {
-		this.add(new Dimension(this.getID(),width,height));
+		this.add(new Width(this.getID(),width));
+		this.add(new Height(this.getID(),height));
 	}
 
 	/**
@@ -198,7 +202,8 @@ public abstract class Entity extends ImageView implements Serializable {
 	 */
 	public void setPosition(double x, double y) {
 		this.removeByName("Position");
-		this.add(new Position(this.getID(), x, y));
+		this.add(new XPosition(this.getID(), x));
+		this.add(new YPosition(this.getID(), y));
 		this.setLayoutX(x);
 		this.setLayoutY(y);
 	}
@@ -217,7 +222,8 @@ public abstract class Entity extends ImageView implements Serializable {
 	 * @param lifetime Double lifetime
 	 */
 	protected void setDamage(double damage, double lifetime) {
-		this.add(new Damage(this.getID(),damage,lifetime));
+		this.add(new DamageValue(this.getID(),damage));
+		this.add(new DamageLifetime(this.getID(),lifetime));
 	}
 
 	/**

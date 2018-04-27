@@ -4,6 +4,8 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 import engine.components.Component;
+import engine.components.XPosition;
+import engine.components.YPosition;
 import engine.components.groups.Position;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
@@ -45,9 +47,11 @@ public class GameInitializer {
 
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
-            if (components.containsKey(Position.KEY)) {
-                Position p = (Position) components.get(Position.KEY);
-                renderManager.add(p);
+            if (components.containsKey(XPosition.KEY) && components.containsKey(YPosition.KEY)) {
+                XPosition px = (XPosition) components.get(XPosition.KEY);
+                YPosition py = (YPosition) components.get(YPosition.KEY);
+                renderManager.add(new Position(px.getPID(), px.getData(), py.getData()));
+                
             }
             systemManager.addEntity(id, components);
         }
