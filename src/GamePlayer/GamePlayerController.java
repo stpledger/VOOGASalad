@@ -120,6 +120,11 @@ public class GamePlayerController {
 		SampleToolBar sampleBar = new SampleToolBar(this);
 		myPane.setTop(sampleBar);
 		initializeGameAnimation(); //begins the animation cycle
+
+		//set level change listener
+		gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
+			changeGameLevel(newVal.intValue());
+		});
 	}
 
 
@@ -145,6 +150,7 @@ public class GamePlayerController {
 		System.out.println(level);
 		myPane.getChildren().addAll(levelEntityGroupMap.get(level));*/
 		gameRoot = levelEntityGroupMap.get(level);
+		myPane.setCenter(gameRoot);
 		gameView.setActiveLevel(level);
 	}
 

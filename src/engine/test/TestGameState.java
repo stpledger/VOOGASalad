@@ -25,6 +25,7 @@ import javafx.scene.input.KeyCode;
 public class TestGameState {
 
 	private Map<Integer, Map<String, Component>> entities;
+	private Map<Integer, Map<String, Component>> entities2;
 	private Engine eng;
 	private InputHandler ih;
 	private Actions actions = new Actions();
@@ -32,10 +33,12 @@ public class TestGameState {
 	public TestGameState() throws FileNotFoundException {
 		System.out.println("TestGameState");
 		entities = new HashMap<>();
+		entities2 = new HashMap<>();
 		Sprite s = new Sprite(0,"Mario.png");
 		Sprite s2 = new Sprite(1,"mario.png");
 		Sprite s3 = new Sprite(2,"mario.png");
 		Sprite s4 = new Sprite(3,"mario.png");
+		Sprite s5 = new Sprite(3,"Mario.png");
 
 
 		Position p = new Position(0, 100, 100);
@@ -151,19 +154,67 @@ public class TestGameState {
 		mario.put(Conditional.KEY, co1);
 		 **/
 
+		Position p5 = new Position(0, 100, 100);
+		Dimension d5 = new Dimension(0, 100, 100);
+		Velocity v5 = new Velocity(0, 0, 0);
+
+		Acceleration a5 = new Acceleration(0, 0, 0);
+		KeyInput k5 = new KeyInput(0);
+		k5.addCode( KeyCode.RIGHT, (Consumer & Serializable) (e) -> {
+			v5.setXVel(+150);
+		});
+		k5.addCode(KeyCode.UP, (Consumer & Serializable)(e) ->
+		{
+			v5.setYVel(-150);
+		});
+		k5.addCode(KeyCode.DOWN,(Consumer & Serializable) (e) ->
+		{
+			v5.setYVel(+150);
+		});
+		k5.addCode(KeyCode.LEFT,(Consumer & Serializable) (e) ->
+		{
+			v5.setXVel(-150);
+		});
+		Health h5 = new Health(0,10);
+		DamageLauncher launcher5 = new DamageLauncher(0,2,2);
+
+		Player play5 = new Player(0, 3);
+		play.setRespawn(p.clone());
+		/**k.addCode(KeyCode.R, (Runnable & Serializable) () ->
+		 {
+		 play.respawn(p, v, a);
+		 });**/
+
+		Map<String, Component> mario5 = new HashMap<>();
+		mario5.put(Position.KEY, p5);
+		mario5.put(Dimension.KEY, d5);
+		mario5.put(Sprite.KEY, s5);
+
+		mario5.put(Velocity.KEY, v5);
+		mario5.put(Acceleration.KEY, a5);
+		mario5.put(KeyInput.KEY, k5);
+		mario5.put(Health.KEY, h5);
+		mario5.put(DamageLauncher.KEY, launcher5);
+		mario5.put(Player.KEY, play5);
+
 
 
 		entities.put(0, mario);
 		entities.put(1, mario2);
 		entities.put(2, mario3);
 		entities.put(3, mario4);
+
+		entities2.put(0, mario5);
+
 		GameInitializer gi = new GameInitializer(entities, 300, 50, 50);
 		ih = gi.getInputHandler();
 		eng = new InternalEngine(gi.getSystems());
 
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);
+		Level l2 = new Level(2);
 		state.put(l,entities);
+		state.put(l2, entities2);
 		DataGameState dState = new DataGameState(state, "DemoDemo");
 		try {
 			DataWrite.saveFile(dState);
