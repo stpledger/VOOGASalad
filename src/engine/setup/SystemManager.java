@@ -21,13 +21,12 @@ public class SystemManager {
     private List<ISystem> systems;
     private RenderManager renderManager;
     
-    public SystemManager (List<ISystem> systems, RenderManager renderManager) {
-        this.systems = systems;
+    public SystemManager (RenderManager renderManager) {
         this.renderManager = renderManager;
     }
 
-    public void addSystem(ISystem system) {
-    		systems.add(system);
+    public void addSystems(List<ISystem> systems) {
+    		this.systems = systems;
     }
 
     /**

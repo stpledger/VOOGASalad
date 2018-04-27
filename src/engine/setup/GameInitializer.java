@@ -31,11 +31,11 @@ public class GameInitializer {
                             double renderDistance, double renderCenterX, double renderCenterY) throws FileNotFoundException {
 
         renderManager = new RenderManager(renderDistance, renderCenterX, renderCenterY);
-
+        systemManager = new SystemManager(renderManager);
         inputHandler = new InputHandler();
         addSystems();
 
-        systemManager = new SystemManager(systems, renderManager);
+        systemManager.addSystems(systems);
 
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
