@@ -31,8 +31,8 @@ public class GameInitializer {
      */
     public GameInitializer (Map <Integer, Map<String, Component>> entities,
                             double renderDistance, double renderCenterX, double renderCenterY) throws FileNotFoundException {
-
-        entityManager = new EntityManager(entities, systemManager);
+        renderManager = new RenderManager(renderDistance, renderCenterX, renderCenterY);
+        entityManager = new EntityManager(entities, renderManager, systemManager);
         c = new Collision(entityManager);
         inputHandler = new InputHandler();
 
@@ -41,7 +41,6 @@ public class GameInitializer {
         systemManager = new SystemManager(systems, c, entityManager);
         entityManager.setSM(systemManager);
 
-        renderManager = new RenderManager(renderDistance, renderCenterX, renderCenterY);
 
 
         for (int id : entities.keySet()) {
@@ -83,6 +82,7 @@ public class GameInitializer {
         systems.add(new ConditionChecker());
         systems.add((new ArtificialIntelligence()));
         systems.add(c);
+        systems.add(new HealthDamage(entityManager));
         systems.add(new Animate(entityManager));
         systems.add(inputHandler);
     }

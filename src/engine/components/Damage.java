@@ -7,14 +7,14 @@ import java.util.Map;
 /**
  * This component defines poisons points of the game object.
  *
- * The entity with this component can harm other entities it collides with,
- * by reducing poisons points from the health points of others.
+ * The entity with this component is being harmed for the amount of time specified in  this class and 
+ * for the amount of damage specified here as well.
  *
  * It is instantiated with an initial value passed from authoring environment,
  * and changes according to game logic.
  * @author Yameng
  */
-public class Damage extends Component {
+public class Damage extends Component implements Cloneable {
 	private double damage;
 	private double lifetime;
 	public static String KEY = "Damage";
@@ -53,5 +53,14 @@ public class Damage extends Component {
 		res.put("Lifetime", Double.toString(lifetime));
 		
 		return res;
+	}
+
+	public Damage clone() {
+		try {
+			return (Damage) super.clone();
+		} catch (CloneNotSupportedException e) {
+			System.out.println("Cannot clone");
+		}
+		return null;
 	}
 }

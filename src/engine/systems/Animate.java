@@ -45,6 +45,8 @@ public class Animate implements ISystem {
     @Override
     public void removeComponent(int pid) {
         if(handledComponents.containsKey(pid)) {
+            Sprite s = (Sprite) handledComponents.get(pid).get(Sprite.KEY);
+            s.getImage().setX(10000);
             handledComponents.remove(pid);
         }
     }
@@ -88,8 +90,6 @@ public class Animate implements ISystem {
 		if(!handledComponents.containsKey(pid)) {
 			System.out.println("Animate System tries remove " + componentName + " from non-existing entity " + pid + " !");
 		}
-		
-	
 		handledComponents.remove(pid);
 	}
 

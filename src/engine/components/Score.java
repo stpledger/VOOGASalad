@@ -1,5 +1,6 @@
 package engine.components;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class Score extends Component{
@@ -20,8 +21,9 @@ public class Score extends Component{
 	}
 	@Override
 	public Map<String, String> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
+		Map<String,String> res = new HashMap<>();
+		res.put("Score", Double.toString(score));
+		return res;
 	}
 
 }
