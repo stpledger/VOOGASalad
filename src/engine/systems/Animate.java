@@ -20,11 +20,6 @@ import java.util.HashMap;
 public class Animate implements ISystem {
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents;
-    private EntityManager em;
-    
-    public Animate(EntityManager em) {
-    	this.em = em;
-    }
 
     /**
      * Adds components which it can act upon, choosing only the entities which have both a position AND
@@ -51,47 +46,6 @@ public class Animate implements ISystem {
         }
     }
 
-    public void addComponent(int pid, String componentName) {
-		if(!componentName.equals(Position.KEY) && !componentName.equals(Sprite.KEY)) {
-			return;
-		}
-		
-		if(handledComponents.containsKey(pid)) {
-			System.out.println("Animate System tries adding duplicate " + componentName + " component for entity " + pid + " !");
-		}
-		
-
-		Map<String, Component> map = new HashMap<>();
-		map.put(componentName, em.getComponent(pid, componentName));
-		if(componentName.equals(Position.KEY)) {
-			Component component = em.getComponent(pid,Sprite.KEY);
-			if(component == null) {
-				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Sprite.KEY + " component!");
-				return;
-			}
-			map.put(Sprite.KEY, component);
-		}
-		else {
-			Component component = em.getComponent(pid,Position.KEY);
-			if(component == null) {
-				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Position.KEY + " component!");
-				return;
-			}
-			map.put(Position.KEY, component);
-		}
-		handledComponents.put(pid,map);
-    }
-
-	public void removeComponent(int pid, String componentName) {
-		if(!componentName.equals(Position.KEY) && !componentName.equals(Sprite.KEY)) {
-			return;
-		}
-		
-		if(!handledComponents.containsKey(pid)) {
-			System.out.println("Animate System tries remove " + componentName + " from non-existing entity " + pid + " !");
-		}
-		handledComponents.remove(pid);
-	}
 
     @Override
     public void setActives(Set<Integer> actives) {
@@ -112,9 +66,5 @@ public class Animate implements ISystem {
             im.setY(p.getYPos()); //updates image y on position y pos
         }
     }
-    
-    @Override
-	public Map<Integer, Map<String, Component>> getHandledComponent() {
-		return handledComponents;
-	}
+
 }

@@ -27,7 +27,7 @@ public class TestGameState {
 	private Map<Integer, Map<String, Component>> entities;
 	private Engine eng;
 	private InputHandler ih;
-	private Actions actions = new Actions();
+
 
 	public TestGameState() throws FileNotFoundException {
 		System.out.println("TestGameState");

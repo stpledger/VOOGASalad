@@ -18,12 +18,6 @@ import engine.setup.EntityManager;
 public class Accelerate implements ISystem{
 	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
 	private Set<Integer> activeComponents;
-    
-	private EntityManager em;
-	
-	public Accelerate(EntityManager em) {
-		this.em = em;
-	}
 	
 	/**
 	 * Adds acceleration and velocity components from <String, Component> Map
@@ -52,53 +46,6 @@ public class Accelerate implements ISystem{
 	    	}
     }
 
-    @Override
-    public void addComponent(int pid, String componentName) {
-    		if(!componentName.equals(Acceleration.KEY) && !componentName.equals(Velocity.KEY)) {
-    			return;
-    		}
-    		
-    		if(handledComponents.containsKey(pid)) {
-    			System.out.println("Accelerate System tries adding duplicate " + componentName + " component for entity " + pid + " !");
-    		}
-    		
-
-    		Map<String, Component> map = new HashMap<>();
-    		map.put(componentName, em.getComponent(pid, componentName));
-    		if(componentName.equals(Acceleration.KEY)) {
-    			Component component = em.getComponent(pid,Velocity.KEY);
-    			if(component == null) {
-    				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Velocity.KEY + " component!");
-    				return;
-    			}
-    			map.put(Velocity.KEY, component);
-    		}
-    		else {
-    			Component component = em.getComponent(pid,Acceleration.KEY);
-    			if(component == null) {
-    				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Acceleration.KEY + " component!");
-    				return;
-    			}
-    			map.put(Acceleration.KEY, component);
-    		}
-    		handledComponents.put(pid,map);
-    }
-    
-    @Override
-    public void removeComponent(int pid, String componentName) {
-		if(!componentName.equals(Acceleration.KEY) && !componentName.equals(Velocity.KEY)) {
-			return;
-		}
-		
-		if(!handledComponents.containsKey(pid)) {
-			System.out.println("Accelerate System tries remove " + componentName + " from non-existing entity " + pid + " !");
-		}
-		
-
-		handledComponents.remove(pid);
-    }
-
-    
 	@Override
 	public void setActives(Set<Integer> actives) {
 		Set<Integer> myActives = new HashSet<>(actives);
@@ -123,10 +70,6 @@ public class Accelerate implements ISystem{
 		}
 	}
 
-	@Override
-	public Map<Integer, Map<String, Component>> getHandledComponent() {
-		return handledComponents;
-	}
 
 }
 

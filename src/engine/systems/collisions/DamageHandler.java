@@ -11,10 +11,10 @@ import engine.setup.SystemManager;
 
 public class DamageHandler {
 	
-	private EntityManager em;
+	private SystemManager sm;
 	
-	public DamageHandler(EntityManager em) {
-		this.em = em;
+	public DamageHandler(SystemManager sm) {
+		this.sm = sm;
 	}
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
@@ -22,13 +22,13 @@ public class DamageHandler {
 		if (player.containsKey(Damage.KEY) && collider.containsKey(Health.KEY)) {
 			Damage d = (Damage) player.get(Damage.KEY);
 			Damage dLauncher = d.clone();
-			em.addComponent(colliderID, Damage.KEY, dLauncher);
+			sm.addComponent(colliderID, dLauncher);
 		}
 
 		if (collider.containsKey(Damage.KEY) && player.containsKey(Health.KEY)) {
 			Damage d = (Damage) collider.get(Damage.KEY);
 			Damage dLauncher = d.clone();
-			em.addComponent(playerID, Damage.KEY, dLauncher);
+			sm.addComponent(playerID, dLauncher);
 		}
 	}
 }

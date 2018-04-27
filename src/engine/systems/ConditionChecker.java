@@ -44,18 +44,4 @@ public class ConditionChecker implements ISystem {
         }
     }
 
-    @Override
-    public void addComponent(int pid, String componentName) {
-        //do something ya?
-    }
-
-    @Override
-    public void removeComponent(int pid, String componentName) {
-        //do something ya?
-    }
-
-    @Override
-    public Map<Integer, Map<String, Component>> getHandledComponent() {
-        return null;
-    }
 }
