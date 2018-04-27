@@ -91,12 +91,10 @@ public class GamePlayerEntityView {
 	 * 
 	 */
 	private Map<Integer, Pane> createEntityGroupMap(Map<Level, Map<Integer, Map<String, Component>>> map){
-		int count = 1;
 		Map<Integer, Pane> levelEntityMap = new HashMap<>();
 		for(Level level : map.keySet()) {
-			levelEntityMap.put(count, createIndividualEntityGroup(map.get(level), count));
+			levelEntityMap.put(level.getLevelNum(), createIndividualEntityGroup(map.get(level), level.getLevelNum()));
 			//levelEntityMap.put(count+1, createIndividualEntityGroup(Levels.get(level))); //TESTING DELETE
-			count++;
 		}
 		return levelEntityMap;
 	}
@@ -182,7 +180,6 @@ public class GamePlayerEntityView {
 	 * @throws FileNotFoundException
 	 */
 	public void initializeGamePlayerEntityView() {
-
 		try {
 			gameInitializer = new GameInitializer(IntLevels.get(ActiveLevel),
 					Math.max(PANE_HEIGHT, PANE_WIDTH), ActivePlayerPos.getXPos(), ActivePlayerPos.getYPos());
@@ -197,15 +194,16 @@ public class GamePlayerEntityView {
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
 		levelStatus = gameInitializer.getC().getCH().getLS();
-		levelStatus.getUpdate().addListener((o, oldVal, newVal) -> {
+		/*levelStatus.getUpdate().addListener((o, oldVal, newVal) -> {
 	   //  some action based on the value of newVal like -1 game over, from 1 to 2 change to level two etc. 
-	  });
+	  });*/
 	}
 
 	public void setActiveLevel(int i){
 		ActiveLevel = i;
 		Map<String, Component> player = new HashMap<>(PlayerKeys.get(ActiveLevel));
 		ActivePlayerPos = (Position) player.get(Position.KEY);
+		initializeGamePlayerEntityView();
 	}
 	
 
@@ -259,5 +257,9 @@ public class GamePlayerEntityView {
 			gameRoot.setTranslateX(((ActivePlayerPos.getXPos() + 400) - PANE_WIDTH) * -1);
 		}
     }
+
+    public LevelStatus getLevelStatus(){
+		return levelStatus;
+	}
 
 }
