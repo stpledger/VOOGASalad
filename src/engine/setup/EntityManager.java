@@ -41,7 +41,8 @@ public class EntityManager {
     		}
     		
     		map.put(component.getKey(),component);
-    		sm.addComponent(pid,map);
+    		//sm.addComponent(pid,map);
+
     }
     
     public void removeComponent(int pid, String componentName, Component component) {
@@ -58,6 +59,7 @@ public class EntityManager {
 		
 		map.remove(componentName);
 		sm.removeEntity(pid);
+
     }
     
     public Component getComponent(int pid, String componentName) {

@@ -5,16 +5,17 @@ import java.util.Map;
 import engine.components.Component;
 import engine.components.Player;
 import engine.setup.EntityManager;
+import engine.setup.SystemManager;
 
 public class CollisionHandler {
 	private DamageHandler damageHandler;
-	private LevelStatus levelStatus;
+
 	private ScoreHandler scoreHandler;
 	
-	public CollisionHandler(EntityManager em) {
-		damageHandler = new DamageHandler(em);
-		levelStatus = new LevelStatus();
-		scoreHandler = new ScoreHandler(em);
+	public CollisionHandler(SystemManager sm) {
+		damageHandler = new DamageHandler(sm);
+		//levelStatus = new LevelStatus(); //this should just be a system
+		scoreHandler = new ScoreHandler(sm);
 	}
 
 	public void handle(Map<Integer, Map<String, Component>> handledComponents, int key1, int key2) {
@@ -39,14 +40,13 @@ public class CollisionHandler {
 	
 	private void handleCollision(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
 		damageHandler.handle(playerID, player, colliderID, collider);
-		//spriteHandler.handle(playerID, player, colliderID, collider);
-		levelStatus.handle(playerID, player, colliderID, collider);
+		//levelStatus.handle(playerID, player, colliderID, collider);
 		scoreHandler.handle(playerID, player, colliderID, collider);
 		
 	}
 	
-	public LevelStatus getLS() {
+	/**public LevelStatus getLS() {
 		return levelStatus;
-	}
+	}**/
 
 }

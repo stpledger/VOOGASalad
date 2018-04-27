@@ -10,6 +10,7 @@ import engine.components.XVelocity;
 import engine.components.YPosition;
 import engine.components.YVelocity;
 import engine.setup.EntityManager;
+import engine.setup.SystemManager;
 import engine.systems.DefaultSystem;
 
 public class Collision extends DefaultSystem{
@@ -17,13 +18,13 @@ public class Collision extends DefaultSystem{
 	private List<Integer> colliders;
 	private CollisionHandler handler;
 
-	public Collision(EntityManager em) {
+	public Collision(SystemManager sm) {
 		colliders = new ArrayList<>();
-		handler = new CollisionHandler(em);
+		handler = new CollisionHandler(sm);
 	}
 
-	@Override
-	public Map<Integer, Map<String, Component>> getHandledComponent(){
+	
+	public Map<Integer, Map<String, Component>> getHandledComponents(){
 		return handledComponents;
 	}
 
@@ -32,7 +33,7 @@ public class Collision extends DefaultSystem{
 		colliders.forEach((key1) -> {
 			handledComponents.forEach((key2, map) -> {
 
-				if(key1 != key2) {
+				if (key1 != key2) {
 
 					Width w1 = (Width) handledComponents.get(key1).get(Width.KEY);
 					Height h1 = (Height) handledComponents.get(key1).get(Height.KEY);
@@ -55,16 +56,16 @@ public class Collision extends DefaultSystem{
 					boolean ro = rightOverlap >= 0 && rightOverlap <= w2.getData();
 
 					List<Double> overlaps = new ArrayList<>();
-					if(bo && !to && (lo || ro)) {
+					if (bo && !to && (lo || ro)) {
 						overlaps.add(botOverlap);
 					}
-					if(to && !bo && (lo || ro)) {
+					if (to && !bo && (lo || ro)) {
 						overlaps.add(topOverlap);
 					}
-					if(lo && !ro && (to || bo)) {
+					if (lo && !ro && (to || bo)) {
 						overlaps.add(leftOverlap);
 					}
-					if(ro && !lo && (to || bo)) {
+					if (ro && !lo && (to || bo)) {
 						overlaps.add(rightOverlap);
 					}
 
@@ -72,14 +73,14 @@ public class Collision extends DefaultSystem{
 
 					CollisionDirection cd = null;
 
-					if(overlaps.size() > 0) {
-						if(overlaps.get(0) == topOverlap) cd = CollisionDirection.Top;
-						else if(overlaps.get(0) == botOverlap) cd = CollisionDirection.Bot;
-						else if(overlaps.get(0) == rightOverlap) cd = CollisionDirection.Right;
-						else if(overlaps.get(0) == leftOverlap) cd = CollisionDirection.Left;
+					if (overlaps.size() > 0) {
+						if (overlaps.get(0) == topOverlap) cd = CollisionDirection.Top;
+						else if (overlaps.get(0) == botOverlap) cd = CollisionDirection.Bot;
+						else if (overlaps.get(0) == rightOverlap) cd = CollisionDirection.Right;
+						else if (overlaps.get(0) == leftOverlap) cd = CollisionDirection.Left;
 					}
 
-					if(cd != null) {
+					if (cd != null) {
 						handler.handle(handledComponents, key1, key2);
 
 						switch (cd) {
@@ -103,6 +104,7 @@ public class Collision extends DefaultSystem{
 							x1.setData(x2.getData() + w2.getData());
 							((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
 							break;
+
 						}
 					}
 				}
@@ -111,7 +113,7 @@ public class Collision extends DefaultSystem{
 	}
 
 	public void removeComponent(int pid) {
-		if(handledComponents.containsKey(pid)) {
+		if (handledComponents.containsKey(pid)) {
 			handledComponents.remove(pid);
 		}
 		if(colliders.contains(pid)) {
@@ -119,32 +121,6 @@ public class Collision extends DefaultSystem{
 		}
 	}
 
-	/*public void addComponent(int pid, String componentName) {
-		if(!componentName.equals(Velocity.KEY)) {
-			return;
-		}
-
-		if(colliders.containsKey(pid)) {
-			//System.out.println("Collision System tries adding duplicate " + componentName + " component for entity " + pid + " !");
-		}
-
-
-		Velocity velocity = (Velocity)em.getComponent(pid, componentName);
-		colliders.put(pid, velocity);
-	}
-
-	public void removeComponent(int pid, String componentName) {
-		if(!componentName.equals(Velocity.KEY)) {
-			return;
-		}
-
-		if(!colliders.containsKey(pid)) {
-			//System.out.println("Collision System tries remove " + componentName + " component from non-existing entity " + pid + " !");
-		}
-
-
-		colliders.remove(pid);
-	}*/
 
 	@Override
 	public void setActives(Set<Integer> actives) {
@@ -164,6 +140,7 @@ public class Collision extends DefaultSystem{
 			if(components.containsKey(XVelocity.KEY) && components.containsKey(YVelocity.KEY)) {
 				colliders.add(pid);
 			}
+
 		}
 
 	}
@@ -172,7 +149,5 @@ public class Collision extends DefaultSystem{
 	public void update(Map<Integer, Map<String, Component>> handledComponents) {
 		this.handledComponents = handledComponents;
 	}
-	public CollisionHandler getCH() {
-		return handler;
-	}
+
 }
