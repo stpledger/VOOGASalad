@@ -3,7 +3,7 @@ package authoring.views;
 import java.util.HashMap;
 import java.util.Map;
 
-import data_management.DataRead;
+import data.DataRead;
 import engine.components.Sprite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,20 +31,28 @@ public class EntityBox extends VBox {
 		this.getStyleClass().add("entity-box");
 		this.setWidth(boxDimension);
 		this.setHeight(boxDimension);
+		
 		componentAttributes = m;
-		image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
-		imageView = new ImageView(image);
-		imageView.setFitHeight(boxDimension-IMAGE_BUFFER);
-		imageView.setFitWidth(boxDimension-IMAGE_BUFFER);
-		this.getChildren().add(imageView);
+		
+		setPreview();
+		
 		this.setOnDragDetected(e -> {
 			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
 			ClipboardContent cc = new ClipboardContent();
 			cc.putImage(image);
-			cc.putString(t);	
+			System.out.println(componentAttributes.get(engine.components.Name.class)[0].toString());
+			cc.putString(componentAttributes.get(engine.components.Name.class)[0].toString());	
 			db.setContent(cc);
 			e.consume();
 		});
+	}
+
+	private void setPreview() {
+		image = DataRead.addImage((String) componentAttributes.get(Sprite.class)[0]);
+		imageView = new ImageView(image);
+		imageView.setFitHeight(boxDimension-IMAGE_BUFFER);
+		imageView.setFitWidth(boxDimension-IMAGE_BUFFER);
+		this.getChildren().add(imageView);
 	}
 
 }

@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
@@ -20,6 +21,8 @@ import engine.components.Sprite;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 
+import static authoring.components.AbstractComponentFormCollection.getPropertiesPackage;
+
 /**
  * 
  * @author Hemanth Yakkali(hy115)
@@ -32,7 +35,6 @@ public abstract class Entity extends ImageView implements Serializable {
 
 	public final static int ENTITY_WIDTH = 50;
 	public final static int ENTITY_HEIGHT = 50;
-	
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	/**
@@ -70,6 +72,10 @@ public abstract class Entity extends ImageView implements Serializable {
 			this.setPosition(e.getX() + this.getLayoutX() - this.getFitWidth()/2, e.getY() + this.getLayoutY() - this.getFitHeight()/2);
 			e.consume();
 		});
+		this.setOnKeyPressed( e->{
+			ComponentAdder cAdd = new ComponentAdder(this);
+				}
+		);
 		addDefaultComponents();
 	}
 
@@ -251,8 +257,9 @@ public abstract class Entity extends ImageView implements Serializable {
 	 */
 	public abstract String name();
 
-	public
+	public void addComponent(){
 
+	}
 	/**
 	 * 
 	 * @return List of components which define the entity
@@ -261,5 +268,6 @@ public abstract class Entity extends ImageView implements Serializable {
 	public List<Component> getComponentList(){
 		return this.components;
 	}
+
 
 }

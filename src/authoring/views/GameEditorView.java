@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import data_management.DataRead;
+import data.DataRead;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -33,7 +33,7 @@ import engine.components.Component;
 import engine.components.EntityType;
 import engine.components.Position;
 import engine.components.Sprite;
-import data_management.DataWrite;
+import data.DataWrite;
 
 /**
  * 
@@ -255,7 +255,7 @@ public class GameEditorView extends BorderPane {
 			}
 			entity.add(c);
 			if(c.getKey().equals("Sprite")) {
-				Image image = DataRead.loadImage(((Sprite) c).getName());	
+				Image image = DataRead.addImage(((Sprite) c).getName());
 				entity.setImage(image);
 			} else if(c.getKey().equals("Position")) {
 				Position p = (Position) c;

@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 import authoring.entities.Entity;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
+import authoring.factories.ElementType;
 import authoring.gamestate.Level;
 import authoring.views.properties.LevelPropertiesView;
 import authoring.grid.Grid;

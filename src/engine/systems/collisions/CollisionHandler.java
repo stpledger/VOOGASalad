@@ -11,11 +11,13 @@ public class CollisionHandler {
 	private DamageHandler damageHandler;
 	private SpriteHandler spriteHandler;
 	private LevelStatus levelStatus;
+	private ScoreHandler scoreHandler;
 	
 	public CollisionHandler(EntityManager em) {
 		damageHandler = new DamageHandler(em);
 		spriteHandler = new SpriteHandler();
 		levelStatus = new LevelStatus();
+		scoreHandler = new ScoreHandler(em);
 	}
 
 	public void handle(Map<Integer, Map<String, Component>> handledComponents, int key1, int key2) {
@@ -43,6 +45,8 @@ public class CollisionHandler {
 		damageHandler.handle(playerID, player, colliderID, collider);
 		//spriteHandler.handle(playerID, player, colliderID, collider);
 		levelStatus.handle(playerID, player, colliderID, collider);
+		scoreHandler.handle(playerID, player, colliderID, collider);
+		
 	}
 	
 	public LevelStatus getLS() {

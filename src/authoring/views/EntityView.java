@@ -1,24 +1,25 @@
 package authoring.views;
 
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
+import authoring.entities.data.EntityLoader;
+import authoring.entities.data.PackageExplorer;
 import authoring.factories.Toolbar;
 
-import data_management.DataRead;
+import data.DataRead;
 import engine.components.Sprite;
 
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
 
 public class EntityView extends BorderPane {
 	public final static String ENTITIES_PACKAGE_NAME = "authoring/entities";
@@ -34,7 +35,7 @@ public class EntityView extends BorderPane {
 		this.getStyleClass().add("entity-view");
 		this.setTop(new Toolbar("Entities", buildToolbarConsumerMap()));
 		this.setCenter(tabPane);
-		entityTypes.addAll(Arrays.asList(getEntitiesInEntitiesPackage()));
+		entityTypes.addAll(Arrays.asList(PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE_NAME)));
 	}
 
 	/**
@@ -44,14 +45,12 @@ public class EntityView extends BorderPane {
 	private Map<String, Consumer> buildToolbarConsumerMap() {
 		Map<String, Consumer> consumerMap = new HashMap<>();
 		BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
-		Consumer newEntity = e -> {
+		Consumer<?> newEntity = e -> {
 			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
 		};
-		Consumer saveEntities = e -> {System.out.println("Save Entites!");};
-		Consumer loadEntities = e -> {System.out.println("Load Entitites!");};
+		Consumer<?> loadEntity = e -> {loadEntity();};
 		consumerMap.put("newEntity", newEntity);
-		consumerMap.put("saveEntities", saveEntities);
-		consumerMap.put("loadEntities", loadEntities);
+		consumerMap.put("loadEntity", loadEntity);
 		return consumerMap;
 	}
 
@@ -71,7 +70,7 @@ public class EntityView extends BorderPane {
 	 */
 	public void saveEntity(String entityType, Map<Class, Object[]> componentAttributes) {
 		//Turn the imageFile into a usableImage
-		Image image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
+		Image image = DataRead.addImage((String) componentAttributes.get(Sprite.class)[0]);
 
 		if(tabsList.isEmpty() || !tabsList.contains(entityType)) { 
 			addTab(entityType);
@@ -84,45 +83,14 @@ public class EntityView extends BorderPane {
 			}
 		}
 	}
-
-	/**
-	 * Gets all of the class names from a given package. Useful when determining which properties can be changed.
-	 * @return a String array of classes from a given package
-	 */
-	protected String[] getEntitiesInEntitiesPackage() {
-		ClassLoader cld = Thread.currentThread().getContextClassLoader();
-		if (cld == null) {
-			throw new IllegalStateException("Can't get class loader.");
-		}
-
-		URL resource = cld.getResource(ENTITIES_PACKAGE_NAME.replace('.', '/'));
-		if (resource == null) {
-			throw new RuntimeException("Package " + ENTITIES_PACKAGE_NAME + " not found on classpath.");
-		}
-		File directory = new File(resource.getFile());
-		if (!directory.exists()) {
-			throw new IllegalArgumentException("Could not get directory resource for package " + ENTITIES_PACKAGE_NAME + ".");
-		}
-		List<String> classes = new ArrayList<>();
-		for (String filename : directory.list()) {
-			if (filename.endsWith(".class") && !filename.startsWith("Entity")) { //Check to make sure its a class file and not the superclass
-				String classname = buildClassname(ENTITIES_PACKAGE_NAME, filename);
-				String clazz = classname.replace(".java", "");
-				// Strip everything except for the word following the last period (the actual class name)
-				classes.add(clazz.substring(clazz.lastIndexOf(".") + 1));
-			}
-		}
-		return classes.toArray(new String[classes.size()]);
-	}
-
-	/**
-	 * Builds the class name to fully represent a given class
-	 * @param pckgName the package to look for the class ine
-	 * @param fileName the name of the class file
-	 * @return a String representing the fully-qualified class name
-	 */
-	private String buildClassname(String pckgName, String fileName) {
-		return pckgName + '.' + fileName.replace(".class", "");
+	
+	public void loadEntity() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Open Entity File");
+		File entityFile = fileChooser.showOpenDialog(this.getScene().getWindow());
+		EntityLoader entityLoader = new EntityLoader();
+		//TODO: Make this load an entity
+		
 	}
 
 }

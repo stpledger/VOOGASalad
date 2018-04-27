@@ -30,7 +30,7 @@ public class ElementFactory {
 		return (Element) elementClass.getConstructor(text.getClass()).newInstance(text);		
 	}
 	
-	public Element buildClickElement(ElementType elementName, String text, Consumer<Void> event) throws Exception {
+	public Element buildClickElement(ClickElementType elementName, String text, Consumer<Void> event) throws Exception {
 		String builderName = PACKAGE_NAME+elementName+ELEMENT;
 		Class<?> elementClass = Class.forName(builderName);
 		ClickableElement element = (ClickableElement) elementClass.getConstructor(text.getClass()).newInstance(text);		
