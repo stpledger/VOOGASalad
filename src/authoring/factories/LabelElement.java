@@ -11,10 +11,9 @@ import javafx.scene.control.Label;
  *
  */
 public class LabelElement extends Label implements Element{
-	String myOriginalName;
-
+	String myOriginalText;
 	public LabelElement(String text) {
-		myOriginalName = text;
+		myOriginalText = text;
 		this.handleText(text);
 	}
 
@@ -25,7 +24,8 @@ public class LabelElement extends Label implements Element{
 
 	@Override
 	public void setLanguage(Properties language) {
-		this.handleText(language.getProperty(myOriginalName));
+		System.out.println(language.toString());
+		this.handleText(language.getProperty(myOriginalText));
 	}
 
 }

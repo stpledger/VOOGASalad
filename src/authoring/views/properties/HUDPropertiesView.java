@@ -25,10 +25,7 @@ public class HUDPropertiesView extends PropertiesView{
 	private static final String NAME = "HUD Properties";
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	protected ArrayList<Element> elements = new ArrayList<>();
 	
-	
-	private Properties language = new Properties();
 	
 	public HUDPropertiesView(List<Level> levels) {
 		super();
@@ -66,14 +63,5 @@ public class HUDPropertiesView extends PropertiesView{
 		return NAME;
 	}
 
-	@Override
-	public void setLanguage(Properties lang) {
-		language = lang;
-		System.out.println(elements.size());
-		for(Element e : elements) {
-			e.setLanguage(language);
-		}
-		
-	}
 
 }

@@ -236,14 +236,15 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			}
 		}
 	}
+	
 	/**
 	 * Opens the levelPropertiesView
 	 */
 	private void showLevelSettings() {
 		Level level = ((LevelView) this.tabPane.getSelectionModel().getSelectedItem().getContent()).getLevel();
 		LevelPropertiesView lView = new LevelPropertiesView(level, level.getLevelNum());
-		lView.setLanguage(language);
 		lView.open();
+		lView.setLanguage(language);
 	}
 
 
