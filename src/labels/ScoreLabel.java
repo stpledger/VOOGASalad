@@ -8,18 +8,18 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 
-public class HealthLabel extends Label implements IHUD{
+public class ScoreLabel extends Label implements IHUD{
 
-	private double currentHealth;
-	private final String HEALTH_LABEL_NAME = "Health: ";
-	private SimpleDoubleProperty healthProperty;
+	private double currentScore;
+	private final String SCORE_LABEL_NAME = "Score: ";
+	private SimpleDoubleProperty scoreProperty;
 	
 	
-	public HealthLabel(double health) {
-		currentHealth = health;
-		healthProperty = new SimpleDoubleProperty(currentHealth);
+	public ScoreLabel(double score) {
+		currentScore = score;
+		scoreProperty = new SimpleDoubleProperty(currentScore);
 		StringBinding binding = Bindings.createStringBinding(
-	            () -> MessageFormat.format(HEALTH_LABEL_NAME+"{0}", healthProperty.getValue()));
+	            () -> MessageFormat.format(SCORE_LABEL_NAME+"{0}", scoreProperty.getValue()));
 		this.textProperty().bind(binding);
 	}
 

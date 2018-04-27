@@ -2,7 +2,7 @@ package buttons;
 
 import java.io.File;
 
-import GamePlayer.SplashScreenController;
+import GamePlayer.SplashScreenView;
 import data.DataGameState;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -15,7 +15,7 @@ import javafx.scene.image.ImageView;
 public class GameSelectButton extends Button {
 
 	private DataGameState gameState;
-	private SplashScreenController splash;
+	private SplashScreenView splash;
 	private BooleanProperty gameSelectBoolean;
 	
 	/**
@@ -24,7 +24,7 @@ public class GameSelectButton extends Button {
 	 * @param file of the GameData to be imported
 	 * @param image of the Game to used for the button.
 	 */
-	public GameSelectButton(SplashScreenController g, String name, DataGameState currentGameState, Image image) {
+	public GameSelectButton(SplashScreenView g, String name, DataGameState currentGameState, Image image) {
 		gameSelectBoolean = new SimpleBooleanProperty(false);
 		splash = g;
 		this.setText(name);

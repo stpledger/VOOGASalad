@@ -1,6 +1,5 @@
 package GamePlayer;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 import HUD.SampleToolBar;
@@ -24,6 +23,7 @@ import javafx.util.Duration;
 public class GamePlayerController {
 	private final int WIDTH_SIZE = 800;
 	private final int HEIGHT_SIZE = 500;
+	private final int LEVEL_ONE = 1;
 	public final int FRAMES_PER_SECOND = 60;
 	public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -31,7 +31,7 @@ public class GamePlayerController {
 	private Stage myStage;
 	private Scene myScene;
 	private Pane gameRoot;
-	private SplashScreenController gamePlayerSplash;
+	private SplashScreenView gamePlayerSplash;
 	private Scene mySplashScene;
 	private BorderPane myPane = new BorderPane();
 	private PauseMenu pauseMenu = new PauseMenu(this);
@@ -51,16 +51,14 @@ public class GamePlayerController {
 		myStage.setResizable(false);
 	}
 
-
-	public Scene intializeStartScene() {
-		gamePlayerSplash = new SplashScreenController(myStage);
+	public Scene initializeStartScene() {
+		gamePlayerSplash = new SplashScreenView(myStage);
 		mySplashScene = gamePlayerSplash.getSplashScene();
 		connectButtonsToController();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		assignKeyInputs();
 		return mySplashScene;
 	}
-
 
 	/**
 	 * Helper Method to establish button listener connection to the controller
@@ -74,7 +72,6 @@ public class GamePlayerController {
 				myStage.setScene(myScene);
 			});
 		}
-		
 		fileBtn = gamePlayerSplash.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			currentGameState = fileBtn.getGameState();
@@ -88,29 +85,23 @@ public class GamePlayerController {
 			myStage.setScene(mySplashScene);
 			//switchBtn.setSwitchBoolean(); //changes boolean value back to false
 		});
-		
-		
 	}
 	
 	/**
 	 * Method that sets the current scene of the game
-	 * TODO: REFACTOR TO REDUCE REPEATED CODE.
 	 */
 	public void setGameView(DataGameState currentGame) {
 		gameView = new GamePlayerEntityView(currentGame);
 		PlayerKeys = gameView.getPlayerKeys();
 		levelEntityGroupMap = gameView.getlevelEntityMap();
-		gameRoot = levelEntityGroupMap.get(1);  //level 1
+		gameRoot = levelEntityGroupMap.get(LEVEL_ONE);  //level 1
 		myPane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
-		SampleToolBar sampleBar = new SampleToolBar(this, PlayerKeys);
+		SampleToolBar sampleBar = new SampleToolBar(LEVEL_ONE, PlayerKeys);
 		myPane.setTop(sampleBar);
 		initializeGameAnimation(); //begins the animation cycle
 	}
-	
-
-	
 
 
 	/**
@@ -131,10 +122,6 @@ public class GamePlayerController {
 	 * @param level to be loaded
 	 */
 	public void changeGameLevel(int level) {
-		/*int lastIndex = myPane.getChildren().size()-1;
-		myPane.getChildren().remove(lastIndex);
-		System.out.println(level);
-		myPane.getChildren().addAll(levelEntityGroupMap.get(level));*/
 		gameRoot = levelEntityGroupMap.get(level);
 		gameView.setActiveLevel(level);
 	}
