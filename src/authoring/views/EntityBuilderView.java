@@ -126,8 +126,9 @@ public class EntityBuilderView extends Stage {
 	 */
 	private ComboBox<String> buildTypeComboBox() throws Exception {
 		ComboBox<String>comboBox = (ComboBox<String>) eFactory.buildClickElement(ClickElementType.ComboBox, "Select Object Type", null);
+		comboBox.setPromptText(language.getProperty("selectObjectType"));
 		comboBox.setOnAction(e -> {
-				data.setComponent(engine.components.Type.class, ((String) comboBox.getSelectionModel().getSelectedItem()));
+				data.setComponent(engine.components.Type.class, getRealName(comboBox.getSelectionModel().getSelectedItem()));
 				root.getChildren().remove(saveMenu);
 				componentFormCollection.fillComponentsForms(data.getType());
 				root.getChildren().add(saveMenu);
@@ -135,11 +136,20 @@ public class EntityBuilderView extends Stage {
 		});
 		comboBox.getStyleClass().add("entity-builder-combo-box"); 
 		for(String et : entityTypes) {
-			comboBox.getItems().add(et);
+			comboBox.getItems().add(language.getProperty(et));
 		}
 		return comboBox;
 	}
 	
+	private String getRealName(String selectedItem) {
+		String typeName = null;
+		for(Object t : language.keySet()) {
+			if(language.get(t).equals(selectedItem)){
+				typeName = (String) t;
+			}
+		}
+		return typeName;
+	}
 	/**
 	 * Builds the menu on the buttom of the screen containing the save button
 	 * @return HBox bottomMenu
