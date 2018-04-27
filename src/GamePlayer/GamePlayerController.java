@@ -43,6 +43,7 @@ public class GamePlayerController {
 	public List<GameSelectButton> gameSelectButtonList;
 	private Timeline myTimeline;
 	private Map<Integer, Map<String, Component>> PlayerKeys;
+	private SampleToolBar sampleBar;
 
 	private Timeline animation;
 
@@ -98,7 +99,7 @@ public class GamePlayerController {
 		myPane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
-		SampleToolBar sampleBar = new SampleToolBar(LEVEL_ONE, PlayerKeys);
+		sampleBar = new SampleToolBar(LEVEL_ONE, PlayerKeys);
 		myPane.setTop(sampleBar);
 		initializeGameAnimation(); //begins the animation cycle
 	}
@@ -143,12 +144,18 @@ public class GamePlayerController {
 				renderTime = 0;
 			}
 			gameView.updateScroll(gameRoot);
+			//update PlayerKey Values;
+			PlayerKeys = gameView.getPlayerKeys();
+			sampleBar.updateGameStatusValues(PlayerKeys);
+			sampleBar.updateGameStatusLabels();
 		}
 	}
 
+	
 	public void restartGame() {
 		setGameView(currentGameState);
 	}
+
 	
 	private void assignKeyInputs() {
 		myScene.setOnKeyPressed(e -> {
