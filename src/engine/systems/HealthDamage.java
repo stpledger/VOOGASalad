@@ -9,25 +9,23 @@ import java.util.Map;
 import java.util.*;
 
 import engine.components.Component;
-import engine.components.Damage;
+import engine.components.groups.Damage;
+
 import engine.components.Health;
-import engine.components.Player;
 import engine.setup.EntityManager;
-import engine.setup.SystemManager;
 
 public class HealthDamage implements ISystem {
 	private Map<Integer, Map<String, Component>> handledComponents;
 	private Set<Integer> activeComponents;
 	private EntityManager em;
-	private SystemManager sm;
 	
 	public HealthDamage(EntityManager em) {
 		handledComponents = new HashMap<>();
 		this.em = em;
-		this.sm = sm;
 	}
 
 	public void addComponent(int pid, Map<String, Component> components) {
+
 		if (components.containsKey(Health.KEY)) {
 			Map<String, Component> newComponents = new HashMap<>();
 			newComponents.put(Health.KEY,components.get(Health.KEY));
@@ -42,8 +40,8 @@ public class HealthDamage implements ISystem {
     	}  
 	}
 
-    public void addComponent(int pid, String componentName) {
-		if(!componentName.equals(Health.KEY) && !componentName.equals(Damage.KEY)) {
+    /*public void addComponent(int pid, String componentName) {
+		if(!componentName.equals(Health.KEY) && !componentName.equals(DamageLauncher.KEY)) {
 			return;
 		}
 		
@@ -71,7 +69,7 @@ public class HealthDamage implements ISystem {
 			map.put(Damage.KEY, component);
 		}
 		handledComponents.put(pid,map);
-    }
+    }*/
 
 	public void removeComponent(int pid, String componentName) {
 		if(!componentName.equals(Health.KEY) && !componentName.equals(Damage.KEY)) {
@@ -99,29 +97,24 @@ public class HealthDamage implements ISystem {
 				Health h = (Health) map.get(Health.KEY);
 				Damage d = (Damage) map.get(Damage.KEY);
 
-				if (h.getParentID()!=d.getParentID()) {
-					h.setHealth(h.getHealth() - d.getDamage());
-					d.decrementLife();
+
+				if (h.getPID()!=d.getPID()) {
+					h.setData(h.getData() - d.getDamage());
+					d.setLifetime(d.getLifetime() - 1);
 					if(d.getLifetime() == 0) {
-						em.removeComponent(d.getParentID(), Damage.KEY, d);
+						em.removeComponent(d.getPID(), Damage.KEY, d);
 					}
 				}
 
-				if(h.getHealth() <= 0) {
-					Player p = (Player) em.getComponent(h.getParentID(), Player.KEY);
-					if(p!=null) {
-					p.setLives(p.getLives()-1);	
-					h.resetHealth();					
-					}
-					else {
-						em.removeEntity(key);
-						System.out.println("removing");
-					}
-					
+				if(h.getData() <= 0) {
+					em.removeEntity(key);
+					System.out.println("removing");
 				}
 
 			}
+
 		}
+
 	}
 
 	@Override

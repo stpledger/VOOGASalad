@@ -65,10 +65,6 @@ public class InputHandler implements ISystem {
 		
 	}
 
-	@Override
-	public void removeComponent(int pid, String componentName) {
-		// TODO Auto-generated method stub
-	}
 
 	public void removeCode(KeyCode code) {
 		if(activeCodes.contains(code)) {

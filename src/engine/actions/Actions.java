@@ -1,8 +1,8 @@
 package engine.actions;
 
 import authoring.entities.Entity;
-import engine.components.Position;
-import engine.components.Velocity;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
 import engine.components.*;
 
 import java.io.Serializable;

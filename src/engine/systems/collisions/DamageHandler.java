@@ -3,9 +3,9 @@ package engine.systems.collisions;
 import java.util.Map;
 
 import engine.components.Component;
-import engine.components.Damage;
-import engine.components.DamageLauncher;
 import engine.components.Health;
+import engine.components.groups.Damage;
+
 import engine.setup.EntityManager;
 import engine.setup.SystemManager;
 
@@ -18,6 +18,7 @@ public class DamageHandler {
 	}
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
+
 
 		if (player.containsKey(Damage.KEY) && collider.containsKey(Health.KEY)) {
 			Damage d = (Damage) player.get(Damage.KEY);

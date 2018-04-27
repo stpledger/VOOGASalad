@@ -7,26 +7,17 @@ import java.util.Map;
  * @author Dylan Powers
  *
  */
-public class Type extends Component {
+public class Type extends SingleStringComponent {
 
 	public static String KEY = "Type";
-	private String type;
+
 	public Type(int pid, String type) {
-		super(pid, KEY);
-		this.type = type;
+		super(pid, type);
 	}
 
-	public String getType() {
-		return this.type;
+	public String getKey() {
+		return KEY;
 	}
-	
-	public void setType(String type) {
-		this.type = type;
-	}
-	@Override
-	public Map<String, String> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+
 
 }

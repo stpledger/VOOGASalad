@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 import engine.components.Component;
-import engine.components.Position;
+import engine.components.groups.Position;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
 
@@ -77,13 +77,13 @@ public class GameInitializer {
     }
     
     private void addSystems() {
-        systems.add(new Accelerate(entityManager));
+        systems.add(new Accelerate());
         systems.add(new Motion());
         systems.add(new ConditionChecker());
         systems.add((new ArtificialIntelligence()));
         systems.add(c);
         systems.add(new HealthDamage(entityManager));
-        systems.add(new Animate(entityManager));
+        systems.add(new Animate());
         systems.add(inputHandler);
     }
     

@@ -7,11 +7,13 @@ import java.util.Map;
 
 import authoring.gamestate.Level;
 import data.DataGameState;
-import data.DataRead;
 import data.DataWrite;
 import engine.components.*;
+import engine.components.groups.Dimension;
+import engine.components.groups.Position;
 import engine.components.Component;
-import engine.components.Dimension;
+
+
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
@@ -36,6 +38,7 @@ public class GamePlayerEntityView {
 	private Map<Integer, Pane> LevelDisplays;
 	private DataGameState gameState;
 	private File gameFile;
+
 	private GameInitializer gameInitializer;
 	private InputHandler inputHandler;
 	private RenderManager renderManager;

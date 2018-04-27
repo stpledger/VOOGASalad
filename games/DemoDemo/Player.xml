@@ -13,6 +13,22 @@
           <int>0</int>
           <map>
             <entry>
+<<<<<<< HEAD
+              <string>DamageLauncher</string>
+              <engine.components.DamageLauncher>
+                <pid>0</pid>
+                <damage>2.0</damage>
+                <lifetime>2.0</lifetime>
+              </engine.components.DamageLauncher>
+            </entry>
+            <entry>
+              <string>Player</string>
+              <engine.components.Player>
+                <pid>0</pid>
+                <lives>3</lives>
+                <respawn>
+                  <pid>0</pid>
+=======
               <string>Player</string>
               <engine.components.Player>
                 <pid>0</pid>
@@ -21,6 +37,7 @@
                 <respawn>
                   <pid>0</pid>
                   <key>Position</key>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
                   <xPos>100.0</xPos>
                   <yPos>100.0</yPos>
                 </respawn>
@@ -30,7 +47,10 @@
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>0</pid>
+<<<<<<< HEAD
+=======
                 <key>Sprite</key>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
                 <filename>Mario.png</filename>
               </engine.components.Sprite>
             </entry>
@@ -38,7 +58,10 @@
               <string>Position</string>
               <engine.components.Position>
                 <pid>0</pid>
+<<<<<<< HEAD
+=======
                 <key>Position</key>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
                 <xPos>100.0</xPos>
                 <yPos>100.0</yPos>
               </engine.components.Position>
@@ -47,7 +70,10 @@
               <string>Health</string>
               <engine.components.Health>
                 <pid>0</pid>
+<<<<<<< HEAD
+=======
                 <key>Health</key>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
                 <health>10.0</health>
               </engine.components.Health>
             </entry>
@@ -55,12 +81,20 @@
               <string>Dimension</string>
               <engine.components.Dimension>
                 <pid>0</pid>
+<<<<<<< HEAD
+=======
                 <key>Dimension</key>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
                 <height>100.0</height>
                 <width>100.0</width>
               </engine.components.Dimension>
             </entry>
             <entry>
+<<<<<<< HEAD
+              <string>Acceleration</string>
+              <engine.components.Acceleration>
+                <pid>0</pid>
+=======
               <string>KeyInput</string>
               <engine.components.KeyInput>
                 <pid>0</pid>
@@ -147,11 +181,20 @@
               <engine.components.Acceleration>
                 <pid>0</pid>
                 <key>Acceleration</key>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
                 <xAcc>0.0</xAcc>
                 <yAcc>40.0</yAcc>
               </engine.components.Acceleration>
             </entry>
             <entry>
+<<<<<<< HEAD
+              <string>Velocity</string>
+              <engine.components.Velocity>
+                <pid>0</pid>
+                <XVel>0.0</XVel>
+                <YVel>0.0</YVel>
+              </engine.components.Velocity>
+=======
               <string>Damage</string>
               <engine.components.Damage>
                 <pid>0</pid>
@@ -163,10 +206,27 @@
             <entry>
               <string>Velocity</string>
               <engine.components.Velocity reference="../../entry[6]/engine.components.KeyInput/codes/entry/java.util.function.Consumer/capturedArgs/engine.components.Velocity"/>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
             </entry>
           </map>
         </entry>
         <entry>
+<<<<<<< HEAD
+          <int>2</int>
+          <map>
+            <entry>
+              <string>DamageLauncher</string>
+              <engine.components.DamageLauncher>
+                <pid>0</pid>
+                <damage>2.0</damage>
+                <lifetime>2.0</lifetime>
+              </engine.components.DamageLauncher>
+            </entry>
+            <entry>
+              <string>Sprite</string>
+              <engine.components.Sprite>
+                <pid>2</pid>
+=======
           <int>3</int>
           <map>
             <entry>
@@ -174,23 +234,34 @@
               <engine.components.Sprite>
                 <pid>3</pid>
                 <key>Sprite</key>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
                 <filename>mario.png</filename>
               </engine.components.Sprite>
             </entry>
             <entry>
               <string>Position</string>
               <engine.components.Position>
+<<<<<<< HEAD
+                <pid>2</pid>
+                <xPos>300.0</xPos>
+                <yPos>100.0</yPos>
+=======
                 <pid>3</pid>
                 <key>Position</key>
                 <xPos>300.0</xPos>
                 <yPos>300.0</yPos>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
               </engine.components.Position>
             </entry>
             <entry>
               <string>Health</string>
               <engine.components.Health>
+<<<<<<< HEAD
+                <pid>2</pid>
+=======
                 <pid>3</pid>
                 <key>Health</key>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
                 <health>10.0</health>
               </engine.components.Health>
             </entry>
@@ -198,6 +269,16 @@
               <string>AI</string>
               <engine.components.AI>
                 <pid>2</pid>
+<<<<<<< HEAD
+                <action resolves-to="serialized-lambda">
+                  <capturingClass>engine.test.TestGameState</capturingClass>
+                  <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                  <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                  <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                  <implClass>engine/test/TestGameState</implClass>
+                  <implMethodName>lambda$4</implMethodName>
+                  <implMethodSignature>(Lengine/components/Velocity;Lengine/components/Position;Lengine/components/Position;Ljava/lang/Object;)V</implMethodSignature>
+=======
                 <key>AI</key>
                 <action resolves-to="serialized-lambda">
                   <capturingClass>engine.actions.Actions</capturingClass>
@@ -207,11 +288,19 @@
                   <implClass>engine/actions/Actions</implClass>
                   <implMethodName>lambda$5</implMethodName>
                   <implMethodSignature>(Lengine/components/Velocity;Ljava/util/concurrent/atomic/AtomicReference;Lengine/components/Position;Ljava/util/concurrent/atomic/AtomicInteger;Ljava/util/List;Ljava/lang/Object;)V</implMethodSignature>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
                   <implMethodKind>6</implMethodKind>
                   <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                   <capturedArgs>
                     <engine.components.Velocity>
                       <pid>2</pid>
+<<<<<<< HEAD
+                      <XVel>0.0</XVel>
+                      <YVel>0.0</YVel>
+                    </engine.components.Velocity>
+                    <engine.components.Position reference="../../../../../../../entry/map/entry[4]/engine.components.Position"/>
+                    <engine.components.Position reference="../../../../../entry[3]/engine.components.Position"/>
+=======
                       <key>Velocity</key>
                       <XVel>0.0</XVel>
                       <YVel>0.0</YVel>
@@ -248,6 +337,7 @@
                         <yPos>400.0</yPos>
                       </engine.components.Position>
                     </list>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
                   </capturedArgs>
                 </action>
               </engine.components.AI>
@@ -256,7 +346,10 @@
               <string>Dimension</string>
               <engine.components.Dimension>
                 <pid>2</pid>
+<<<<<<< HEAD
+=======
                 <key>Dimension</key>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
                 <height>100.0</height>
                 <width>100.0</width>
               </engine.components.Dimension>
@@ -265,7 +358,10 @@
               <string>Acceleration</string>
               <engine.components.Acceleration>
                 <pid>2</pid>
+<<<<<<< HEAD
+=======
                 <key>Acceleration</key>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
                 <xAcc>0.0</xAcc>
                 <yAcc>0.0</yAcc>
               </engine.components.Acceleration>
@@ -278,11 +374,16 @@
               <string>WIN</string>
               <engine.components.Win>
                 <pid>2</pid>
+<<<<<<< HEAD
+=======
                 <key>WIN</key>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
               </engine.components.Win>
             </entry>
           </map>
         </entry>
+<<<<<<< HEAD
+=======
         <entry>
           <int>3</int>
           <map>
@@ -314,6 +415,7 @@
             </entry>
           </map>
         </entry>
+>>>>>>> a2400c6999afdc5b718b777ba743bd3fe65fceb1
       </map>
     </entry>
   </gameState>

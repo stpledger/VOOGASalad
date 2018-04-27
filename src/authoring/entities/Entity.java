@@ -10,13 +10,12 @@ import java.util.logging.Logger;
 import authoring.views.properties.LocalPropertiesView;
 
 import engine.components.Component;
-import engine.components.Damage;
-import engine.components.Dimension;
 import engine.components.EntityType;
 import engine.components.Health;
-import engine.components.Position;
 import engine.components.Sprite;
-
+import engine.components.groups.Damage;
+import engine.components.groups.Dimension;
+import engine.components.groups.Position;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 
@@ -97,9 +96,11 @@ public abstract class Entity extends ImageView implements Serializable {
 	 */
 	public void add(Component c) {
 		if (c != null) {
+
 			if (this.contains(c)) {
 				this.removeByName(c.getKey());
 			}
+
 			this.components.add(c);
 		}
 	}
@@ -142,6 +143,7 @@ public abstract class Entity extends ImageView implements Serializable {
 	 */
 	private boolean contains(Component c) {
 		for (Component existing : this.components) {
+
 			if (existing.getKey() == c.getKey()) {
 				return true;
 			}

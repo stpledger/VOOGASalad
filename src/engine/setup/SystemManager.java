@@ -49,17 +49,11 @@ public class SystemManager {
         }
     }
 
-    public void addComponent(int pid, String componentName) {
+    public void addComponent(int pid, Map<String, Component> entity) {
     		collision.update(em.getEntities());
     		for(ISystem s : systems) {
-			s.addComponent(pid, componentName);
+			s.addComponent(pid, entity);
 		}
-    }
-    public void removeComponent(int pid, String componentName) {
-    		collision.update(em.getEntities());
-    		for(ISystem s : systems) {
-    			s.removeComponent(pid, componentName);
-    		}
     }
 
     /**

@@ -14,8 +14,12 @@ import engine.InternalEngine;
 import engine.actions.ActionReader;
 import engine.actions.Actions;
 import engine.components.*;
-import engine.components.Component;
-import engine.components.Dimension;
+import engine.components.groups.Acceleration;
+import engine.components.groups.Damage;
+import engine.components.groups.Dimension;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
+
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
 import engine.systems.collisions.Collision;
@@ -63,7 +67,9 @@ public class TestGameState {
 		Health h = new Health(0,10);
 		Damage damage = new Damage(0, 10, 1);
 
-		Player play = new Player(0, 3);
+		Lives lives = new Lives(0, 3);
+		
+		Player play = new Player(0);
         play.setRespawn(p.clone());
 
 		/**k.addCode(KeyCode.R, (Runnable & Serializable) () ->
@@ -75,6 +81,7 @@ public class TestGameState {
 		mario.put(Position.KEY, p);
 		mario.put(Dimension.KEY, d);
 		mario.put(Sprite.KEY, s);
+		mario.put(Lives.KEY, lives);
 
 		mario.put(Velocity.KEY, v);
 		mario.put(Acceleration.KEY, a);
@@ -92,6 +99,7 @@ public class TestGameState {
 		mario2.put(Position.KEY, p2);
 		mario2.put(Dimension.KEY, d2);
 		mario2.put(Sprite.KEY, s2);**/
+
 
 
 		/**
@@ -125,6 +133,7 @@ public class TestGameState {
 		mario3.put(AI.KEY, ai);
 
 		 **/
+
 
 		Position p4 = new Position(3, 300, 300);
 		Dimension d4 = new Dimension(3, 100, 100);
@@ -161,7 +170,7 @@ public class TestGameState {
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);
 		state.put(l,entities);
-		
+
 		DataGameState dState = new DataGameState(state, "DemoDemo");
 		try {
 			DataWrite.saveFile(dState);

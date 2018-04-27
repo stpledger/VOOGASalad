@@ -6,18 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import frontend.components.LocalPropertiesView;
+import authoring.views.properties.LocalPropertiesView;
 import engine.components.Component;
-import engine.components.Damage;
-import engine.components.Dimension;
+import engine.components.groups.Damage;
+import engine.components.groups.Dimension;
 import engine.components.EntityType;
 import engine.components.Health;
-import engine.components.Position;
+import engine.components.groups.Position;
 import engine.components.Sprite;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.TransferMode;
+
 
 /**
  * 
@@ -34,6 +33,7 @@ public abstract class Entity extends ImageView {
 	 */
     private int ID;
     private String name;
+
     
     /**
      * List of components which define the entity
@@ -128,6 +128,7 @@ public abstract class Entity extends ImageView {
     private boolean contains(Component c) {
     		for (Component existing : this.components) {
     			if (existing.getKey() == c.getKey())
+
     				return true;
     		}
     		return false;
@@ -221,6 +222,7 @@ public abstract class Entity extends ImageView {
     public List<Component> getComponentList(){
     		return this.components;
     }
+
 
     public String getName()
 	{

@@ -2,8 +2,9 @@ package engine.setup;
 
 import java.util.*;
 
-import engine.components.Position;
+import engine.components.groups.Position;
 import javafx.geometry.Pos;
+
 
 /**
  * Class which renders entities in and out of being acted upon based in a center location and rendering distance
@@ -34,9 +35,10 @@ public class RenderManager {
      * @param p new entity's position component
      */
     public void add (Position p) {
-        if (withinRenderDistance(p.getXPos(), p.getYPos())) withinRender.put(p.getParentID(), p);
-        else outsideRender.put(p.getParentID(), p);
+        if (withinRenderDistance(p.getXPos(), p.getYPos())) withinRender.put(p.getPID(), p);
+        else outsideRender.put(p.getPID(), p);
     }
+
 
     /**
      * The main method called by the game loop, renders&garbage collects
@@ -75,12 +77,13 @@ public class RenderManager {
         for (Iterator<Position> iterator = origin.values().iterator(); iterator.hasNext(); ) {
             Position p = iterator.next();
             if (withinRenderDistance(p.getXPos(), p.getYPos()) == intoRender) {
-                destination.put(p.getParentID(), p);
-                swapList.add(p.getParentID()); //has to store nodes to get listed, cannot do dynamically
+                destination.put(p.getPID(), p);
+                swapList.add(p.getPID()); //has to store nodes to get listed, cannot do dynamically
             }
         }
         removeOldNodes(origin);
     }
+
 
     private void removeOldNodes (Map<Integer, Position> updated) {
         for (int i : swapList) {
