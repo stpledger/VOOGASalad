@@ -10,13 +10,15 @@ import java.util.logging.Logger;
 import authoring.views.properties.LocalPropertiesView;
 
 import engine.components.Component;
-import engine.components.Damage;
-import engine.components.Dimension;
+import engine.components.DamageLifetime;
+import engine.components.DamageValue;
 import engine.components.EntityType;
 import engine.components.Health;
-import engine.components.Position;
+import engine.components.Height;
 import engine.components.Sprite;
-
+import engine.components.Width;
+import engine.components.XPosition;
+import engine.components.YPosition;
 import javafx.scene.image.ImageView;
 
 /**
@@ -96,9 +98,11 @@ public abstract class Entity extends ImageView implements Serializable {
 	 */
 	public void add(Component c) {
 		if (c != null) {
+
 			if (this.contains(c)) {
 				this.removeByName(c.getKey());
 			}
+
 			this.components.add(c);
 		}
 	}
@@ -141,6 +145,7 @@ public abstract class Entity extends ImageView implements Serializable {
 	 */
 	private boolean contains(Component c) {
 		for (Component existing : this.components) {
+
 			if (existing.getKey() == c.getKey()) {
 				return true;
 			}
@@ -185,17 +190,9 @@ public abstract class Entity extends ImageView implements Serializable {
 	 * @param height Height of entity
 	 */
 	protected void setDimension(double width, double height) {
-		this.add(new Dimension(this.getID(),width,height));
-		this.setWidth((int) width);
-		this.setHeight((int) height);
-	}
-	
-	private void setWidth(int cells) {
-		this.setFitWidth(cells*Entity.ENTITY_WIDTH);
-	}
-	
-	private void setHeight(int cells) {
-		this.setFitHeight(cells*Entity.ENTITY_HEIGHT);
+		this.add(new Width(this.getID(),width));
+		this.add(new Height(this.getID(),height));
+
 	}
 
 	/**
@@ -205,7 +202,8 @@ public abstract class Entity extends ImageView implements Serializable {
 	 */
 	public void setPosition(double x, double y) {
 		this.removeByName("Position");
-		this.add(new Position(this.getID(), x, y));
+		this.add(new XPosition(this.getID(), x));
+		this.add(new YPosition(this.getID(), y));
 		this.setLayoutX(x);
 		this.setLayoutY(y);
 	}
@@ -224,7 +222,8 @@ public abstract class Entity extends ImageView implements Serializable {
 	 * @param lifetime Double lifetime
 	 */
 	protected void setDamage(double damage, double lifetime) {
-		this.add(new Damage(this.getID(),damage,lifetime));
+		this.add(new DamageValue(this.getID(),damage));
+		this.add(new DamageLifetime(this.getID(),lifetime));
 	}
 
 	/**

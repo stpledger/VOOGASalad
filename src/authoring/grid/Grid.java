@@ -32,12 +32,11 @@ public class Grid extends GridPane {
 
 	private static final int DEFAULT_WIDTH = 1000;
 	private static final int DEFAULT_HEIGHT = 600;
-	
+
 	private int numRows;
 	private int numCols;
 	private List<List<Cell>> cells;
 	private int numberOfCells = 0;
-	
 	/**
 	 * Initializes the grid with a given number of rows and columns
 	 * @param width the desired width of the grid
@@ -60,6 +59,19 @@ public class Grid extends GridPane {
 		this.setPrefSize(width, height);
 	}
 	
+	private void setNeighbors(double width, double height) {
+		
+		double actualWidth = width - width % Entity.ENTITY_WIDTH;
+		double actualHeight = height - height % Entity.ENTITY_HEIGHT;
+		
+		for(int i=0;i<this.numRows;i++) {
+			for(int j=0;j<this.numCols;j++) {
+				Cell cell = cells.get(i).get(j);
+				
+			}
+		}
+	}
+
 	/**
 	 * Empty constructor, use default values
 	 */
@@ -83,7 +95,7 @@ public class Grid extends GridPane {
 			this.numRows++;
 		}
 	}
-	
+
 	/**
 	 * Adds a number of new columns to the grid
 	 * @param numTimes Number of columns to add 

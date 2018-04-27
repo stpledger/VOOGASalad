@@ -24,7 +24,6 @@ public class Cell extends Pane {
 	private int number;
 	private final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
 	private final String DRAGGED_OVER_STYLE = "-fx-background-color: #1CFEBA";
-	
 	/**
 	 * To initialize a blank cell
 	 * @param number the (distinct) number of the cell

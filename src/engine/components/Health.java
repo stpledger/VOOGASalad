@@ -1,35 +1,26 @@
 package engine.components;
 
-
-import java.util.HashMap;
-import java.util.Map;
-
 /**
- * Component for an entitie's health. Contains one double to represent this value.
+ * Data component representing an entity's health.
  * @author fitzj
+ *
  */
-public class Health extends Component {
-	private double health;
-	public static String KEY = "Health";
+
+public class Health extends SingleDataComponent {
+	private double initialHealth;
+	public static final String KEY = "Health";
 	
-	public Health(int pid, double health) {
-		super(pid, KEY);
-		this.health = health;
+	public Health(int pid, double data) {
+		super(pid, data);
+		initialHealth = data;
 	}
 	
-	public double getHealth() {
-		return health;
-	}
-	
-	public void setHealth(double health) {
-		this.health = health;
+	public void resetHealth() {
+		this.setData(initialHealth);
 	}
 
-	@Override
-	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<>();
-		res.put("Health", Double.toString(health));
-		
-		return res;
+	public String getKey() {
+		return KEY;
 	}
+	
 }

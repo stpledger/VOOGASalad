@@ -18,7 +18,7 @@ public class LevelStatus {
 	
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
-		if(((Player)player.get(Player.KEY)).getLives()<0) {
+		if(((Player)player.get(Player.KEY)).getData()<0) {
 			level =-1;  //GAME OVER (health system updated lives
 			updateStatus(level);
 		}
