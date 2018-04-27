@@ -3,7 +3,7 @@ package authoring.views;
 import java.util.HashMap;
 import java.util.Map;
 
-import data.DataRead;
+import data_management.DataRead;
 import engine.components.Sprite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import data.DataRead;
+import data_management.DataRead;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
@@ -33,7 +33,7 @@ import engine.components.Component;
 import engine.components.EntityType;
 import engine.components.Position;
 import engine.components.Sprite;
-import data.DataWrite;
+import data_management.DataWrite;
 
 /**
  * 

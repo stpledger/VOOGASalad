@@ -149,6 +149,7 @@ public abstract class Entity extends ImageView implements Serializable {
 		return false;
 	}
 
+
 	/**
 	 * Checks (explicitly) by name if the current entity already contains this component.
 	 * @param name the name of the component to check
@@ -249,6 +250,8 @@ public abstract class Entity extends ImageView implements Serializable {
 	 * @return the name of this entity
 	 */
 	public abstract String name();
+
+	public
 
 	/**
 	 * 

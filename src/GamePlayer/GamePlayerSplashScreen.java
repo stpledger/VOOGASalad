@@ -1,8 +1,8 @@
 package GamePlayer;
 
 import buttons.FileUploadButton;
-import data.DataGameState;
-import data.DataRead;
+import data_management.DataGameState;
+import data_management.DataRead;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;

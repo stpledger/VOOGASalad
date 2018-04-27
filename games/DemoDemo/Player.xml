@@ -1,4 +1,4 @@
-<data.DataGameState>
+<data__management.DataGameState>
   <gameState>
     <entry>
       <authoring.gamestate.Level>
@@ -76,22 +76,14 @@
                 <key>KeyInput</key>
                 <codes>
                   <entry>
-<<<<<<< HEAD
-                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
-=======
-                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
->>>>>>> 1ed192cb91af2ab7558cf4b1f3e7acc2bbbb3e4d
+                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
-<<<<<<< HEAD
-                      <implMethodName>lambda$1</implMethodName>
-=======
-                      <implMethodName>lambda$0</implMethodName>
->>>>>>> 1ed192cb91af2ab7558cf4b1f3e7acc2bbbb3e4d
+                      <implMethodName>lambda$2</implMethodName>
                       <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
@@ -106,47 +98,14 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
-<<<<<<< HEAD
-                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-=======
-                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
->>>>>>> 1ed192cb91af2ab7558cf4b1f3e7acc2bbbb3e4d
-                    <java.util.function.Consumer resolves-to="serialized-lambda">
-                      <capturingClass>engine.test.TestGameState</capturingClass>
-                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-                      <implClass>engine/test/TestGameState</implClass>
-<<<<<<< HEAD
-                      <implMethodName>lambda$3</implMethodName>
-=======
-                      <implMethodName>lambda$2</implMethodName>
->>>>>>> 1ed192cb91af2ab7558cf4b1f3e7acc2bbbb3e4d
-                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
-                      <capturedArgs>
-                        <engine.components.Velocity reference="../../../../entry/java.util.function.Consumer/capturedArgs/engine.components.Velocity"/>
-                      </capturedArgs>
-                    </java.util.function.Consumer>
-                  </entry>
-                  <entry>
-<<<<<<< HEAD
-                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
-=======
                     <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
->>>>>>> 1ed192cb91af2ab7558cf4b1f3e7acc2bbbb3e4d
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
-<<<<<<< HEAD
-                      <implMethodName>lambda$0</implMethodName>
-=======
                       <implMethodName>lambda$1</implMethodName>
->>>>>>> 1ed192cb91af2ab7558cf4b1f3e7acc2bbbb3e4d
                       <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
@@ -156,22 +115,31 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
-<<<<<<< HEAD
-                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
-=======
                     <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
->>>>>>> 1ed192cb91af2ab7558cf4b1f3e7acc2bbbb3e4d
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
-<<<<<<< HEAD
-                      <implMethodName>lambda$2</implMethodName>
-=======
                       <implMethodName>lambda$3</implMethodName>
->>>>>>> 1ed192cb91af2ab7558cf4b1f3e7acc2bbbb3e4d
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
+                      <capturedArgs>
+                        <engine.components.Velocity reference="../../../../entry/java.util.function.Consumer/capturedArgs/engine.components.Velocity"/>
+                      </capturedArgs>
+                    </java.util.function.Consumer>
+                  </entry>
+                  <entry>
+                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.test.TestGameState</capturingClass>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/test/TestGameState</implClass>
+                      <implMethodName>lambda$0</implMethodName>
                       <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
@@ -348,4 +316,4 @@
     </entry>
   </gameState>
   <gameName>DemoDemo</gameName>
-</data.DataGameState>
+</data__management.DataGameState>

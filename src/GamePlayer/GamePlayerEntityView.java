@@ -6,21 +6,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 import authoring.gamestate.Level;
-import data.DataGameState;
-import data.DataRead;
-import data.DataWrite;
+import data_management.DataGameState;
+import data_management.DataRead;
+import data_management.DataWrite;
 import engine.components.*;
 import engine.components.Component;
 import engine.components.Dimension;
-import engine.setup.EntityManager;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
 import engine.systems.InputHandler;
 import engine.systems.collisions.LevelStatus;
 
-import javafx.scene.Group;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;

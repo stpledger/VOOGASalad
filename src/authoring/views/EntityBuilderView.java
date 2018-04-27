@@ -18,7 +18,7 @@ import authoring.MainApplication;
 import authoring.components.EntityComponentForm;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
-import data.DataRead;
+import data_management.DataRead;
 import engine.components.Sprite;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.geometry.Pos;
@@ -169,7 +169,7 @@ public class EntityBuilderView extends Stage {
 	private Button buttonBuilder(String name, Consumer onClick) {
 		Button button = null;
 		try {
-			button = (Button) this.eFactory.buildClickElement(ClickElementType.Button, name, e ->onClick.accept(e));
+			//button = (Button) this.eFactory.buildClickElement(ClickElementType.Button, name, e ->onClick.accept(e));
 			button.setTooltip(new Tooltip(tooltipProperties.getProperty(name)));
 			button.getStyleClass().addAll("entity-builder-view-button",name);
 		} catch (Exception e) {
