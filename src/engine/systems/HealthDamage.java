@@ -1,7 +1,7 @@
 package engine.systems;
 /**
  * A system that handles what happens when two entities collide, one having health component and the other damage
- * @author Stefani Vukajlovic
+ * @author sv116
  */
 import java.util.HashMap;
 import java.util.Map;
@@ -11,7 +11,7 @@ import java.util.*;
 import engine.components.Component;
 import engine.components.Damage;
 import engine.components.Health;
-
+import engine.components.Player;
 import engine.setup.EntityManager;
 import engine.setup.SystemManager;
 
@@ -43,7 +43,7 @@ public class HealthDamage implements ISystem {
 	}
 
     public void addComponent(int pid, String componentName) {
-		if(!componentName.equals(Health.KEY) && !componentName.equals(Damage.KEY)) {
+		if(!componentName.equals(Health.KEY) && !componentName.equals(DamageLauncher.KEY)) {
 			return;
 		}
 		
@@ -58,7 +58,7 @@ public class HealthDamage implements ISystem {
 			Component component = em.getComponent(pid,Health.KEY);
 			if(component == null) {
 				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Damage.KEY + " component!");
-				return;
+			     return;
 			}
 			map.put(Health.KEY, component);
 		}

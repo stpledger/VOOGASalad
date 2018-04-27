@@ -7,8 +7,8 @@ import java.util.Map;
 /**
  * This component defines poisons points of the game object.
  *
- * The entity with this component can harm other entities it collides with,
- * by reducing poisons points from the health points of others.
+ * The entity with this component is being harmed for the amount of time specified in  this class and 
+ * for the amount of damage specified here as well.
  *
  * It is instantiated with an initial value passed from authoring environment,
  * and changes according to game logic.

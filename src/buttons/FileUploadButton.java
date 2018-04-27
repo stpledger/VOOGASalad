@@ -2,6 +2,9 @@ package buttons;
 
 
 import java.io.File;
+
+import data.DataGameState;
+import data.DataRead;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -16,6 +19,7 @@ public class FileUploadButton extends Button {
 		private Stage myStage;
 		private final String BUTTON_NAME = "Upload"; //change to a resource file
 		private File uploadedFile;
+		private DataGameState gameState;
 		private BooleanProperty fileBoolean;
 		
 		public FileUploadButton() {
@@ -47,6 +51,7 @@ public class FileUploadButton extends Button {
 			//change into a new Scene
 	        if (file != null) {
 	        		uploadedFile = file;
+	        		gameState = DataRead.loadPlayerFile(file);
 	        		System.out.println("File Uploaded");
 	        		setFileBoolean(); //game file has been uploaded
 	        }
@@ -55,6 +60,10 @@ public class FileUploadButton extends Button {
 		
 		public File getFile() {
 			return uploadedFile;
+		}
+		
+		public DataGameState getGameState() {
+			return gameState;
 		}
 		
 		public Boolean isFile() {
