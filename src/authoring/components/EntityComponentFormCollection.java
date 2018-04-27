@@ -1,15 +1,18 @@
 package authoring.components;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+
 import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
-import javafx.scene.layout.GridPane;
 
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class EntityComponentFormCollection extends AbstractComponentFormCollection {
+	
 	
 	public EntityComponentFormCollection() {
 		super();
@@ -33,11 +36,19 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 				EntityComponentForm cf = new EntityComponentForm(property);
 				cf.setAlignment(Pos.CENTER);
 				newActiveForms.add(cf);
-				currentRow++;
 				this.add(cf, 0, currentRow);
+				currentRow++;
 			}
 		}
 		this.setActiveForms(newActiveForms);
+		this.createAddComponentButton(0, currentRow);
 	}
+
+	@Override
+	public void addComponent(String componentName) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }
 
