@@ -68,7 +68,7 @@ public class TestGameState {
 		Damage damage = new Damage(0, 10, 1);
 		
 		Player play = new Player(0, 3);
-        play.setRespawn(p.clone());
+       // play.setRespawn(p.clone());
 
 		/**k.addCode(KeyCode.R, (Runnable & Serializable) () ->
 		{

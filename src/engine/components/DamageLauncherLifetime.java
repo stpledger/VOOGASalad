@@ -6,7 +6,7 @@ public class DamageLauncherLifetime extends SingleDataComponent{
 		super(pid, data);
 		
 	}
-	public static final String KEY = "DamageLifetime";
+	public static final String KEY = "DamageLauncherLifetime";
 
 	public String getKey() {
 		return KEY;

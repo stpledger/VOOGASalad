@@ -3,11 +3,13 @@ package engine.systems.collisions;
 import java.util.Map;
 
 import engine.components.Component;
+import engine.components.DamageLauncherLifetime;
+import engine.components.DamageLauncherValue;
+import engine.components.DamageLifetime;
+import engine.components.DamageValue;
 import engine.components.Health;
-import engine.components.groups.Damage;
 
 import engine.setup.EntityManager;
-import engine.setup.SystemManager;
 
 public class DamageHandler {
 	
@@ -20,16 +22,26 @@ public class DamageHandler {
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
 
 
-		if (player.containsKey(Damage.KEY) && collider.containsKey(Health.KEY)) {
-			Damage d = (Damage) player.get(Damage.KEY);
-			Damage dLauncher = d.clone();
-			em.addComponent(colliderID, Damage.KEY, dLauncher);
+		if (player.containsKey(DamageLauncherValue.KEY) && 
+				player.containsKey(DamageLauncherLifetime.KEY) && 
+				collider.containsKey(Health.KEY)) {
+			
+			DamageLauncherValue dlv = (DamageLauncherValue) player.get(DamageLauncherValue.KEY);
+			DamageLauncherLifetime dll = (DamageLauncherLifetime) player.get(DamageLauncherLifetime.KEY);
+						
+			em.addComponent(colliderID, new DamageValue(colliderID, dlv.getData()));
+			em.addComponent(colliderID, new DamageLifetime(colliderID, dll.getData()));
 		}
 
-		if (collider.containsKey(Damage.KEY) && player.containsKey(Health.KEY)) {
-			Damage d = (Damage) collider.get(Damage.KEY);
-			Damage dLauncher = d.clone();
-			em.addComponent(playerID, Damage.KEY, dLauncher);
+		if (collider.containsKey(DamageLauncherValue.KEY) && 
+				collider.containsKey(DamageLauncherLifetime.KEY) && 
+				player.containsKey(Health.KEY)) {
+			
+			DamageLauncherValue dlv = (DamageLauncherValue) collider.get(DamageLauncherValue.KEY);
+			DamageLauncherLifetime dll = (DamageLauncherLifetime) collider.get(DamageLauncherLifetime.KEY);
+						
+			em.addComponent(playerID, new DamageValue(playerID, dlv.getData()));
+			em.addComponent(playerID, new DamageLifetime(playerID, dll.getData()));
 		}
 	}
 }

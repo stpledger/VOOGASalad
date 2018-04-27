@@ -28,19 +28,19 @@ public class EntityManager {
     		return entities;
     }
     
-    public void addComponent(int pid, String componentName, Component component) {
+    public void addComponent(int pid, Component component) {
     		if(!entities.containsKey(pid)) {
     			System.out.println("Missing entity in EntityManager!");
     			return;
     		}
     		
     		Map<String, Component> map = entities.get(pid);
-    		if(map.containsKey(componentName) && !componentName.equals(Damage.KEY)) {
-    			System.out.println("Try Adding duplicate " + componentName + " component in EntityManager!");
+    		if(map.containsKey(component.getKey()) && !component.getKey().equals(Damage.KEY)) {
+    			System.out.println("Try Adding duplicate " + component.getKey() + " component in EntityManager!");
     			return;
     		}
     		
-    		map.put(componentName,component);
+    		map.put(component.getKey(),component);
     		sm.addComponent(pid,map);
     }
     
