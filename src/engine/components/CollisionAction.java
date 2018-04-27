@@ -15,6 +15,7 @@ public class CollisionAction implements Component {
 	
 	public CollisionAction(int pid) {
 		this.pid = pid;
+
 		directions = new HashMap<>();
 	}
 
@@ -34,8 +35,8 @@ public class CollisionAction implements Component {
 		return KEY;
 	}
 	
-
-	public int getPID() {
+	@Override
+	public int getPID() {		
 		return pid;
 	}
 

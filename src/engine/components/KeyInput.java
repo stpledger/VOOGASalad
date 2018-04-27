@@ -23,6 +23,7 @@ public class KeyInput implements Component {
 
 	public KeyInput(int pid) {
 		this.pid = pid;
+
 	}
 
 	public boolean containsCode (KeyCode key) {
@@ -48,8 +49,11 @@ public class KeyInput implements Component {
 		return KEY; 
 	}
 
+
 	public int getPID() {
 		return pid;
 	}
+
+	
 
 }

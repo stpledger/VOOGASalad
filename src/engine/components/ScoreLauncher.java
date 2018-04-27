@@ -5,13 +5,17 @@ package engine.components;
  * @sv116
  */
 
-public class ScoreLauncher extends SingleDataComponent {
+
+public class ScoreLauncher extends SingleDataComponent{
     public static String KEY ="ScoreLauncher";
 
-	public ScoreLauncher(int pid, double score) {
-		super(pid, score);
+	public ScoreLauncher(int pid, double data) {
+		super(pid,data);
+		
 	}
 	
+	@Override
+
 	public String getKey() {
 		return KEY;
 	}
