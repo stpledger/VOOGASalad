@@ -229,8 +229,8 @@ public class GamePlayerEntityView {
 
 	// used to update the bounds of the scrollpane so the view shifts with the user's character
 	public void updateScroll(Pane gameRoot){
-		double minX = gameRoot.getTranslateX();
-		double maxX = gameRoot.getTranslateX() + PANE_WIDTH;
+		double minX = gameRoot.getTranslateX() * -1;
+		double maxX = gameRoot.getTranslateX() * -1 + PANE_WIDTH;
 		double minY = gameRoot.getTranslateY() * -1;
 		double maxY = gameRoot.getTranslateY() * -1 + PANE_HEIGHT;
 
