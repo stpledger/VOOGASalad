@@ -63,6 +63,7 @@ public class GlobalPropertiesView extends PropertiesView {
 				this.makeAlert(this.title()+" has been saved!");
 				this.close();
 			});
+			elements.add((Element) submit);	
 			currentRow++;
 			getRoot().add(submit, 0, currentRow);
 		} catch (Exception e1) {
