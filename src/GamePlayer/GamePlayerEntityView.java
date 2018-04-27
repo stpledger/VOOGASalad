@@ -48,12 +48,17 @@ public class GamePlayerEntityView {
 	private static final double PANE_HEIGHT = 442;
 	private static final double PANE_WIDTH = 800;
 
-	// RYAN THIS IS WHAT YOU NEED TO IMPLEMENT HUD VALUES
+	
+	// RYAN THIS IS WHAT YOU NEED TO IMPLEMENT HUD VALUES 
+	//Integer is the level, Get Active Level
 	private Map<Integer, Map<String, Component>> PlayerKeys;
 
-	public GamePlayerEntityView(File file) throws FileNotFoundException {
-		gameFile = file;
-		gameState = DataRead.loadPlayerFile(gameFile);
+	
+	/**
+	 * Constructor when given the gameState
+	 * @param gameState
+	 */
+	public GamePlayerEntityView(DataGameState gameState) {
 		Levels = gameState.getGameState();
 		PlayerKeys = new HashMap<>();
 		levelToInt();
@@ -222,6 +227,10 @@ public class GamePlayerEntityView {
 		inputHandler.removeCode(code);
 	}
 
+	public Map<Integer, Map<String, Component>> getPlayerKeys(){
+		return PlayerKeys;
+	}
+	
 	public void saveGame(){
 		DataWrite dw = new DataWrite();
 		dw.saveGame(gameState, "test");
