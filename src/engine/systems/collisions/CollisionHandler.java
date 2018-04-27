@@ -8,14 +8,12 @@ import engine.setup.EntityManager;
 import engine.setup.SystemManager;
 
 public class CollisionHandler {
-	private String PLAYER = "player";
 	private DamageHandler damageHandler;
-	private LevelStatus levelStatus;
 	private ScoreHandler scoreHandler;
 	
 	public CollisionHandler(SystemManager sm) {
 		damageHandler = new DamageHandler(sm);
-		levelStatus = new LevelStatus();
+		//levelStatus = new LevelStatus(); //this should just be a system
 		scoreHandler = new ScoreHandler(sm);
 	}
 
@@ -41,13 +39,13 @@ public class CollisionHandler {
 	
 	private void handleCollision(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
 		damageHandler.handle(playerID, player, colliderID, collider);
-		levelStatus.handle(playerID, player, colliderID, collider);
+		//levelStatus.handle(playerID, player, colliderID, collider);
 		scoreHandler.handle(playerID, player, colliderID, collider);
 		
 	}
 	
-	public LevelStatus getLS() {
+	/**public LevelStatus getLS() {
 		return levelStatus;
-	}
+	}**/
 
 }
