@@ -10,6 +10,7 @@ import authoring.entities.data.PackageExplorer;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
 import authoring.views.popups.SelectionBox;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
@@ -24,6 +25,8 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 	
 	private List<ComponentForm> activeForms = new ArrayList<>();
 	private List<String> exceptions;
+	
+	protected Button addComponentButton;
 
 	public AbstractComponentFormCollection(String[] newExceptions) {
 		this();
@@ -35,15 +38,16 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 		setExceptions(new ArrayList<>());
 	}
 	
-	protected void createAddComponentButton(int column, int row) {
+	protected void createAddComponentButton(int row) {
 		try {
 			Button addComponent = (Button) eFactory.buildClickElement(ClickElementType.Button,"AddComponent", onClick->{
-				String userSelection = "";
-				SelectionBox selectionBox;
-				selectionBox = new SelectionBox(PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE), onClose -> {addComponent(userSelection);});
+				SelectionBox  selectionBox = new SelectionBox(PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE), us -> {addComponent(us);});
 				selectionBox.setLanguage(language);
 			});
-			this.add(addComponent, column, row);
+			addComponentButton = addComponent;
+			this.add(addComponent, 0, row);
+			this.setAlignment(Pos.CENTER);
+			this.getParent().getScene().getWindow().sizeToScene();
 		} catch (Exception e) {
 			 LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
@@ -76,7 +80,7 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 		}
 	}
 	
-	public abstract void addComponent(String componentName);
+	public abstract void addComponent(Object componentName);
 
 
 
