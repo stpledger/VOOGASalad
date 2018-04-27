@@ -63,28 +63,49 @@ public class SplashScreenController{
 		Scene currentScene= new Scene(myScrollPane,WIDTH_SIZE,HEIGHT_SIZE);		
 		return currentScene;
 	}
-
+	
 	/**
-	 * Method to dynamically create Game Select Buttons, Use when DataRead.getAllGames is working.
+	 * Adds button to each of the 5 grid panes in order for them to be selected, each button should take
+	 * in a parameter for the file and the name of the game.
+	 * Button Parameters: File, Name, Image
 	 */
 	private void assignGameSelectButtons() {
-		int row = 0;
-		int col = 0;
-		for (Image image: imageGameStateMap.keySet()) {  //attains each image and the corresponding game file
-			DataGameState currentDataGameState = imageGameStateMap.get(image);
-			String nameOfGame = currentDataGameState.getGameName();
-			GameSelectButton currentButton = new GameSelectButton(nameOfGame, currentDataGameState, image);
-			currentButton.setMaxSize(WIDTH_SIZE/COL_NUM, HEIGHT_SIZE/ROW_NUM);
-			myGridPane.add(currentButton, col, row);
-			if (col == 2) { //if maximum number of columns is reached
-				col=0; 		//reset number of columns
-				row++;		//increment the number of rows
-			}else {
-				col++; 		//if not, increment the number of columns
+		int count = 1;
+		for (int i = 0; i<ROW_NUM; i++) {
+			for (int k = 0; k<COL_NUM; k++) {
+				Button currentButton = new Button("Game "+ count);
+				currentButton.setMaxSize(WIDTH_SIZE/3, HEIGHT_SIZE/2);
+				myGridPane.add(currentButton, k, i);
+				count++;
+				if (count==6) {
+					break;
+				}
 			}
 		}
 		
 	}
+	
+//	/**
+//	 * Method to dynamically create Game Select Buttons, Use when DataRead.getAllGames is working.
+//	 */
+//	private void assignGameSelectButtons() {
+//		int row = 0;
+//		int col = 0;
+//		for (Image image: imageGameStateMap.keySet()) {  //attains each image and the corresponding game file
+//			DataGameState currentDataGameState = imageGameStateMap.get(image);
+//			String nameOfGame = currentDataGameState.getGameName();
+//			GameSelectButton currentButton = new GameSelectButton(nameOfGame, currentDataGameState, image);
+//			currentButton.setMaxSize(WIDTH_SIZE/COL_NUM, HEIGHT_SIZE/ROW_NUM);
+//			myGridPane.add(currentButton, col, row);
+//			if (col == 2) { //if maximum number of columns is reached
+//				col=0; 		//reset number of columns
+//				row++;		//increment the number of rows
+//			}else {
+//				col++; 		//if not, increment the number of columns
+//			}
+//		}
+//		
+//	}
 	
 	private GridPane setupGridSpacing(GridPane gridPane) {
 		for (int i = 0; i<COL_NUM; i++) {

@@ -21,10 +21,7 @@ public class GameSelectButton extends Button {
 	 */
 	public GameSelectButton(String name, DataGameState gameState, Image image) {
 		this.setText(name);
-		ImageView gameImage = new ImageView(image);
-		gameImage.setFitHeight(100);
-		gameImage.setFitWidth(100);
-		this.setGraphic(gameImage);
+		this.setGraphic(new ImageView(image));
 		gameState = gameState;
 		this.setGameSelectEvent();
 	}
