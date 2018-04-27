@@ -93,7 +93,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 
 	private void setMainViewLanguage() {
 		setMainViewLang.accept("cebuano");
-		
+		//TODO: Make a popup
 	}
 
 
@@ -104,7 +104,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	 */
 	private void updateTabsMethod(List<Tab> tabList) {
 		for(Tab t : tabList) {
-			t.setText("Level " + (tabList.indexOf(t)+1));
+			t.setText(language.getProperty("Level") + (tabList.indexOf(t)+1));
 		}
 	}
 
@@ -138,7 +138,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	public LevelView loadLevel(Level l){
 		levelTabsList.add(new Tab());
 		Tab t = levelTabsList.get(levelTabsList.size()-1);
-		t.setText("Level " + (levelTabsList.indexOf(t)+1));
+		t.setText(language.getProperty("Level") + (levelTabsList.indexOf(t)+1));
 
 		Level level = l;
 		state.addLevel(level);
@@ -310,6 +310,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		language = lang;
 		toolbar.setLanguage(language);
 		for(Tab t : tabPane.getTabs()) {
+			t.setText(language.getProperty("Level")+ " " + (tabPane.getTabs().indexOf(t)+1)) ;
 			((LevelView) t.getContent()).setLanguage(language);
 		}
 		
