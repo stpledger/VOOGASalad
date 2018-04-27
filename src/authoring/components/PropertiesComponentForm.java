@@ -3,7 +3,9 @@ package authoring.components;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Properties;
 
+import authoring.entities.data.PackageExplorer;
 import engine.components.Component;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -30,7 +32,7 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 		int col = 0;
 		col++;
 		this.add(new Label(name), col , 0);
-		this.numFields = getNumFields(name);
+		this.numFields = PackageExplorer.getNumFields(name);
 		for (int i = 0; i < (numFields-1); i++) {
 			TextField tf = new TextField();
 			fields.add(tf);
@@ -86,5 +88,10 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	@Override
 	public String getName() {
 		return this.name;
+	}
+	@Override
+	public void setLanguage(Properties language) {
+		// TODO Auto-generated method stub
+		
 	}
 }

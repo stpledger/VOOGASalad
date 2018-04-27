@@ -2,7 +2,9 @@ package authoring.components;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
+import java.util.Properties;
 
+import authoring.entities.data.PackageExplorer;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -19,10 +21,12 @@ public class EntityComponentForm extends AbstractComponentForm  implements Compo
 		fields = new ArrayList<>();
 		int col = 0;
 		Label label = new Label(name);
+		label.setId(name);
+		labels.add(label);
 		label.getStyleClass().add("component-form-label");
 		col++;
 		this.add(label, col, 0);
-		this.numFields = getNumFields(name);
+		this.numFields = PackageExplorer.getNumFields(name);
 		for (int i = 0; i < (numFields-1); i++) {
 			TextField tf = new TextField();
 			tf.getStyleClass().add("component-text-field");
@@ -60,5 +64,12 @@ public class EntityComponentForm extends AbstractComponentForm  implements Compo
 
 	public String getName() {
 		return this.name;
-	} 
+	}
+
+	public void setLanguage(Properties lang) {
+		language = lang;
+		for(Label label : labels) {
+			label.setText(language.getProperty(label.getId()));
+		}
+	}
 }

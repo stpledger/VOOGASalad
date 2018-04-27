@@ -3,13 +3,15 @@ package authoring.components;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 
 import javafx.scene.layout.GridPane;
 
 public class AbstractComponentFormCollection extends GridPane {
 	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
+	private Properties language = new Properties();
 	
-	private List<ComponentForm> activeForms;
+	private List<ComponentForm> activeForms = new ArrayList<>();
 	private List<String> exceptions;
 
 	public AbstractComponentFormCollection(String[] newExceptions) {
@@ -40,6 +42,13 @@ public class AbstractComponentFormCollection extends GridPane {
 
 	public void setExceptions(List<String> exceptions) {
 		this.exceptions = exceptions;
+	}
+	
+	public void setLanguage(Properties lang) {
+		this.language = lang;
+		for(ComponentForm componentForm : activeForms) {
+			componentForm.setLanguage(this.language);
+		}
 	}
 
 

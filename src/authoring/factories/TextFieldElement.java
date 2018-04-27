@@ -1,5 +1,7 @@
 package authoring.factories;
 
+import java.util.Properties;
+
 import javafx.scene.control.TextField;
 
 /**
@@ -8,15 +10,22 @@ import javafx.scene.control.TextField;
  *
  */
 public class TextFieldElement extends TextField implements Element{
-
+	private String myOriginalName;
+	
 	public TextFieldElement(String text) {
 		super();
 		this.handleText(text);
+		myOriginalName = text;
 	}
 
 	@Override
 	public void handleText(String text) {
 		this.setPromptText(text);
+	}
+	
+	@Override
+	public void setLanguage(Properties language) {
+		this.handleText(language.getProperty(this.myOriginalName, this.myOriginalName));
 	}
 
 }

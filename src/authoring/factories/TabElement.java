@@ -1,5 +1,7 @@
 package authoring.factories;
 
+import java.util.Properties;
+
 import javafx.scene.control.Tab;
 
 /**
@@ -8,15 +10,22 @@ import javafx.scene.control.Tab;
  *
  */
 public class TabElement extends Tab implements Element{
+	private String myOriginalName;
 	
 	public TabElement(String text) {
 		super();
 		this.handleText(text);
+		this.myOriginalName = text;
 	}
 
 	@Override
 	public void handleText(String text) {
 		this.setText(text);
+	}
+	
+	@Override
+	public void setLanguage(Properties language) {
+		this.handleText(language.getProperty(this.myOriginalName, this.myOriginalName));
 	}
 
 }

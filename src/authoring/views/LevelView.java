@@ -1,5 +1,6 @@
 package authoring.views;
 
+import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
@@ -43,6 +44,8 @@ public class LevelView extends ScrollPane {
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private final Color DEFAULT_BACKGROUND = Color.WHITE;
 	
+	private Properties language = new Properties();
+	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
 		this.eFactory = new ElementFactory();
@@ -67,19 +70,19 @@ public class LevelView extends ScrollPane {
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				ContextMenu cMenu = new ContextMenu();
 				try {
-					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e1->{
+					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addColumn","Add Column"), e1->{
 						this.content.addCol(ADD_ONE);
 					});
-					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e1->{
+					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addRow","Add Row"), e1->{
 						this.content.addRow(ADD_ONE);
 					});
-					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add 5 Columns", e1->{
+					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveColumn","Add 5 Columns"), e1->{
 						this.content.addCol(ADD_FIVE);
 					});
-					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add 5 Rows", e1->{
+					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveRow","Add 5 Row"), e1->{
 						this.content.addRow(ADD_FIVE);
 					});
-					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Cancel", e1->{
+					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("cancel"), e1->{
 						cMenu.hide();
 					});
 					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
@@ -117,5 +120,11 @@ public class LevelView extends ScrollPane {
 	public Level getLevel() {
 		return this.level;
 	}
-
+	
+	/**
+	 * Sets the language of the levelview
+	 */
+	public void setLanguage(Properties lang) {
+		language = lang;
+	}
 }
