@@ -20,9 +20,7 @@ public class GameInitializer {
 
     private SystemManager systemManager;
     private RenderManager renderManager;
-    private EntityManager entityManager;
     private InputHandler inputHandler;
-    private Collision c;
 
     /**
      * Creates the managers and systems, then reads in the entities. Sets up the rendering system and input handler
@@ -31,17 +29,13 @@ public class GameInitializer {
      */
     public GameInitializer (Map <Integer, Map<String, Component>> entities,
                             double renderDistance, double renderCenterX, double renderCenterY) throws FileNotFoundException {
+
         renderManager = new RenderManager(renderDistance, renderCenterX, renderCenterY);
-        entityManager = new EntityManager(entities, renderManager, systemManager);
-        c = new Collision(entityManager);
+
         inputHandler = new InputHandler();
-
         addSystems();
-        
-        systemManager = new SystemManager(systems, c, entityManager);
-        entityManager.setSM(systemManager);
 
-
+        systemManager = new SystemManager(systems, renderManager);
 
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
@@ -64,10 +58,6 @@ public class GameInitializer {
          return inputHandler;
          }
 
-    public Collision getC() {
-    	return c;
-    }
-
     public RenderManager getRenderManager() { return renderManager; }
 
     public SystemManager getSystemManager() { return systemManager; }
@@ -77,13 +67,13 @@ public class GameInitializer {
     }
     
     private void addSystems() {
-        systems.add(new Accelerate(entityManager));
+        systems.add(new Accelerate());
         systems.add(new Motion());
         systems.add(new ConditionChecker());
         systems.add((new ArtificialIntelligence()));
-        systems.add(c);
-        systems.add(new HealthDamage(entityManager));
-        systems.add(new Animate(entityManager));
+        systems.add(new Collision(systemManager));
+        systems.add(new HealthDamage(systemManager));
+        systems.add(new Animate());
         systems.add(inputHandler);
     }
     

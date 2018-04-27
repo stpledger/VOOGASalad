@@ -28,7 +28,7 @@ import javafx.scene.layout.Pane;
  * @author Ryan Fu
  *
  */
-public class GamePlayerEntityView {
+public class GamePlayerEntityView implements IGamePlayerView{
 	//private Group entityRoot;
 	private Map<Level,Map<Integer,Map<String,Component>>> Levels;
 	private Map<Integer, Map<Integer,Map<String,Component>>> IntLevels;
@@ -47,13 +47,8 @@ public class GamePlayerEntityView {
 
 	private static final double PANE_HEIGHT = 442;
 	private static final double PANE_WIDTH = 800;
-
-	
-	// RYAN THIS IS WHAT YOU NEED TO IMPLEMENT HUD VALUES 
-	//Integer is the level, Get Active Level
 	private Map<Integer, Map<String, Component>> PlayerKeys;
 
-	
 	/**
 	 * Constructor when given the gameState
 	 * @param gameState
@@ -70,7 +65,7 @@ public class GamePlayerEntityView {
 	/**
 	 * Converts Map of Levels to its Entities to Integers to Entities to make calling a particular level easier
 	 */
-	public void levelToInt() {
+	private void levelToInt() {
 		IntLevels = new HashMap<>();
 		for(Level level: Levels.keySet()){
 			IntLevels.put(level.getLevelNum(), Levels.get(level));
@@ -105,7 +100,7 @@ public class GamePlayerEntityView {
 	 * @return
 	 */
 
-	public Pane createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap, int levelNum) {
+	private Pane createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap, int levelNum) {
 		Pane entityRoot = new Pane();
 		Map<String, Component> entityComponents;
 		//Changed enclosed code to only load sprites for 
@@ -114,10 +109,7 @@ public class GamePlayerEntityView {
 			if(entityComponents.containsKey(Sprite.KEY)) {
 				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
-				//				image.setX(200);
-				//				image.setY(200);
-				//image.setImage(new Image("mystery.jpg"));
-				//System.out.print(image.getX());
+				
 				if (entityComponents.containsKey(Position.KEY)) {
 					Position p = (Position) entityComponents.get(Position.KEY);
 					image.setX(p.getXPos());
@@ -147,33 +139,32 @@ public class GamePlayerEntityView {
 		//entities that have sprites and setup sprite images
 		return entityRoot;
 	}
-	//**************************************************************************
 
-	/**
-	 * When a level change is invoked, reinitalize the GameInitializer to add functionality.
-	 * @param levelNum
-	 */
-	public void reinitializeGameEngine(int levelNum) {
-		int count = 1;
-		Map<Integer, Map<String, Component>> currentLevel = null;
-		for(Level level : Levels.keySet()) {
-			if (count == levelNum) {
-				
-				currentLevel = Levels.get(level);
-				System.out.println(currentLevel);
-				break;
-			}
-			count++;
-		}
-		try {
-			System.out.println(currentLevel);
-			gameInitializer = new GameInitializer(currentLevel, Math.max(PANE_HEIGHT, PANE_WIDTH),
-					ActivePlayerPos.getXPos(), ActivePlayerPos.getYPos()); //reinitializes the level.
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Level Does Not Currently Exist Yet");
-		} 
-	}
+//	/**
+//	 * When a level change is invoked, reinitalize the GameInitializer to add functionality.
+//	 * @param levelNum
+//	 */
+//	public void reinitializeGameEngine(int levelNum) {
+//		int count = 1;
+//		Map<Integer, Map<String, Component>> currentLevel = null;
+//		for(Level level : Levels.keySet()) {
+//			if (count == levelNum) {
+//				
+//				currentLevel = Levels.get(level);
+//				System.out.println(currentLevel);
+//				break;
+//			}
+//			count++;
+//		}
+//		try {
+//			System.out.println(currentLevel);
+//			gameInitializer = new GameInitializer(currentLevel, Math.max(PANE_HEIGHT, PANE_WIDTH),
+//					ActivePlayerPos.getXPos(), ActivePlayerPos.getYPos()); //reinitializes the level.
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			System.out.println("Level Does Not Currently Exist Yet");
+//		} 
+//	}
 
 	/**
 	 * initialize the Game Initializer to create the systemManager and renderManager.
