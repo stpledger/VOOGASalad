@@ -54,7 +54,7 @@ public class LocalPropertiesView extends PropertiesView {
 			if (!entity.contains(property)) {
 				cf = new PropertiesComponentForm(entity.getID(), property);
 			} else {
-				cf = new PropertiesComponentForm(entity.getID(), property, entity.get(property).getParameters());
+				cf = new PropertiesComponentForm(entity.getID(), property);//, entity.get(property).getParameters());
 			}
 			activeForms.add(cf);
 			currentRow++;

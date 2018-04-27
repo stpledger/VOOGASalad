@@ -80,7 +80,11 @@
                 <initialHealth>10.0</initialHealth>
 =======
                 <health>10.0</health>
+<<<<<<< HEAD
 >>>>>>> 8ff186af2005a4a294c8c8eeb99f98d8a1035e2b
+=======
+                <initialHealth>10.0</initialHealth>
+>>>>>>> 6dd9d359043da20377a6382ac99eae26d6c88e1c
               </engine.components.Health>
             </entry>
             <entry>
@@ -102,15 +106,24 @@
               <engine.components.KeyInput>
                 <codes>
                   <entry>
+<<<<<<< HEAD
                     <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+=======
+                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+>>>>>>> 6dd9d359043da20377a6382ac99eae26d6c88e1c
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
+<<<<<<< HEAD
                       <implMethodName>lambda$1</implMethodName>
                       <implMethodSignature>(Lengine/components/groups/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+=======
+                      <implMethodName>lambda$new$3a8014f7$4</implMethodName>
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+>>>>>>> 6dd9d359043da20377a6382ac99eae26d6c88e1c
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                       <capturedArgs>
@@ -128,15 +141,24 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
+<<<<<<< HEAD
                     <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+=======
+                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+>>>>>>> 6dd9d359043da20377a6382ac99eae26d6c88e1c
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
+<<<<<<< HEAD
                       <implMethodName>lambda$0</implMethodName>
                       <implMethodSignature>(Lengine/components/groups/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+=======
+                      <implMethodName>lambda$new$3a8014f7$2</implMethodName>
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+>>>>>>> 6dd9d359043da20377a6382ac99eae26d6c88e1c
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                       <capturedArgs>
@@ -145,15 +167,24 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
+<<<<<<< HEAD
                     <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+=======
+                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+>>>>>>> 6dd9d359043da20377a6382ac99eae26d6c88e1c
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
+<<<<<<< HEAD
                       <implMethodName>lambda$3</implMethodName>
                       <implMethodSignature>(Lengine/components/groups/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+=======
+                      <implMethodName>lambda$new$3a8014f7$1</implMethodName>
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+>>>>>>> 6dd9d359043da20377a6382ac99eae26d6c88e1c
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                       <capturedArgs>
@@ -169,8 +200,13 @@
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
+<<<<<<< HEAD
                       <implMethodName>lambda$2</implMethodName>
                       <implMethodSignature>(Lengine/components/groups/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+=======
+                      <implMethodName>lambda$new$3a8014f7$3</implMethodName>
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+>>>>>>> 6dd9d359043da20377a6382ac99eae26d6c88e1c
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                       <capturedArgs>
@@ -307,9 +343,11 @@
 =======
                 <pid>2</pid>
                 <health>10.0</health>
+                <initialHealth>10.0</initialHealth>
               </engine.components.Health>
             </entry>
             <entry>
+<<<<<<< HEAD
               <string>AI</string>
               <engine.components.AI>
                 <pid>2</pid>
@@ -361,6 +399,15 @@
                 <pid>2</pid>
               </engine.components.Win>
 >>>>>>> 8ff186af2005a4a294c8c8eeb99f98d8a1035e2b
+=======
+              <string>Dimension</string>
+              <engine.components.Dimension>
+                <pid>3</pid>
+                <key>Dimension</key>
+                <height>100.0</height>
+                <width>100.0</width>
+              </engine.components.Dimension>
+>>>>>>> 6dd9d359043da20377a6382ac99eae26d6c88e1c
             </entry>
           </map>
         </entry>

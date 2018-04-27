@@ -68,10 +68,6 @@ public class Motion implements ISystem {
             py.setData(py.getData() + vy.getData()*time);
         }
     }
-	
 
-    @Override
-	public Map<Integer, Map<String, Component>> getHandledComponent() {
-		return handledComponents;
-	}
+
 }

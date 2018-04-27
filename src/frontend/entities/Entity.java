@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 import authoring.views.properties.LevelPropertiesView;
+
 import engine.components.Component;
 import engine.components.DamageLifetime;
 import engine.components.DamageValue;
@@ -58,8 +59,9 @@ public abstract class Entity extends ImageView {
         };
         this.setOnMouseClicked(e -> {
         		if (e.getButton().equals(MouseButton.SECONDARY)) {
-        			LevelPropertiesView LPV = new LevelPropertiesView(this.getID(), this.type(), onSubmit);
-        			LPV.open();
+        			//LevelPropertiesView LPV = new LevelPropertiesView(this.getID(), this.type(), onSubmit);
+        			//LPV.open();
+
         		}
         }); 
         this.setOnMouseDragged(e -> {
@@ -88,6 +90,7 @@ public abstract class Entity extends ImageView {
     		List<String> ans = new ArrayList<>();
     		for (Component c : this.components) {
     			ans.add(c.getKey());
+
     		}
     		return ans;
     }
@@ -99,6 +102,7 @@ public abstract class Entity extends ImageView {
     		if (c != null) {
     			if (this.contains(c))
     				this.removeByName(c.getKey());
+
     			this.components.add(c);
     		}
     }
@@ -133,6 +137,7 @@ public abstract class Entity extends ImageView {
     		for (Component existing : this.components) {
     			if (existing.getKey() == c.getKey())
     				return true;
+
     		}
     		return false;
     }
@@ -146,6 +151,7 @@ public abstract class Entity extends ImageView {
     		for (Component existing : this.components) {
     			if (existing.getKey().equals(name))
     				return true;
+
     		}
     		return false;
     }

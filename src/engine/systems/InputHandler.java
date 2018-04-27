@@ -60,11 +60,6 @@ public class InputHandler implements ISystem {
 		}
 	}
 
-	public void addComponent(int pid, String componentName) {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 	public void removeCode(KeyCode code) {
 		if(activeCodes.contains(code)) {
@@ -80,8 +75,4 @@ public class InputHandler implements ISystem {
 		activeCodes.add(code);
 	}
 
-	@Override
-	public Map<Integer, Map<String, Component>> getHandledComponent() {
-		return handledComponents;
-	}
 }
