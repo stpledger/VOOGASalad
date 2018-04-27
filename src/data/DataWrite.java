@@ -102,15 +102,8 @@ public class DataWrite {
             entityFolder.mkdir();
         }
         try {
-<<<<<<< HEAD
-<<<<<<< HEAD
-            FileOutputStream fos = new FileOutputStream(ENTITY_PATH+entity.getNames());
-=======
-            FileOutputStream fos = new FileOutputStream(ENTITY_PATH + entity.getName());
->>>>>>> 0789528ba65daa355dc1a38ae06a9d4cab87d39e
-=======
+
             FileOutputStream fos = new FileOutputStream(ENTITY_PATH + entity.name());
->>>>>>> 9ec6097713e5796a5c76a0685982e99a39e8a12b
             serialize(entity, fos);
         } catch (FileNotFoundException e) {
             // e.printStackTrace();

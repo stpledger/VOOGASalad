@@ -51,9 +51,29 @@ public class GamePlayerEntityView {
 	// RYAN THIS IS WHAT YOU NEED TO IMPLEMENT HUD VALUES
 	private Map<Integer, Map<String, Component>> PlayerKeys;
 
+	
+	/**
+	 * Constructor when given the the file.
+	 * @param file
+	 * @throws FileNotFoundException
+	 */
+	
 	public GamePlayerEntityView(File file) throws FileNotFoundException {
 		gameFile = file;
 		gameState = DataRead.loadPlayerFile(gameFile);
+		Levels = gameState.getGameState();
+		PlayerKeys = new HashMap<>();
+		levelToInt();
+		LevelDisplays = createEntityGroupMap(Levels);
+		setActiveLevel(1);
+		initializeGamePlayerEntityView();
+	}
+	
+	/**
+	 * Constructor when given the gameState
+	 * @param gameState
+	 */
+	public GamePlayerEntityView(DataGameState gameState) {
 		Levels = gameState.getGameState();
 		PlayerKeys = new HashMap<>();
 		levelToInt();

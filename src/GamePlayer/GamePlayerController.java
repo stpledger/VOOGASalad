@@ -2,14 +2,18 @@ package GamePlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.Map;
 import HUD.SampleToolBar;
 import Menu.MenuGameBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
+import buttons.GameSelectButton;
 import buttons.SwitchGameButton;
+import data.DataGameState;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -34,15 +38,14 @@ public class GamePlayerController {
 	private Timeline myTimeline;
 	private SplashScreenController gamePlayerSplash;
 	private Scene mySplashScene;
-
 	private BorderPane myPane = new BorderPane();
 	private PauseMenu pauseMenu = new PauseMenu(this);
 	private GamePlayerEntityView gameView;
-
 	private File currentFile;
 	private FileUploadButton fileBtn;
 	private SwitchGameButton switchBtn;
 	private Map<Integer, Pane> levelEntityGroupMap; //map that is used to store the initial group for each level.
+	public List<GameSelectButton> gameSelectButtonList;
 
 	private Timeline animation;
 
@@ -84,6 +87,14 @@ public class GamePlayerController {
 	 * Helper Method to establish button listener connection to the controller
 	 */
 	private void connectButtonsToController() {
+		gameSelectButtonList = gamePlayerSplash.getSplashScreenButtons();
+		for (GameSelectButton b : gameSelectButtonList) {
+			b.getGameSelectBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+				setGameView(b.getGameState());
+				myStage.setScene(myScene);
+			});
+		}
+		
 		fileBtn = gamePlayerSplash.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			try{
@@ -101,6 +112,8 @@ public class GamePlayerController {
 			myStage.setScene(mySplashScene);
 			//switchBtn.setSwitchBoolean(); //changes boolean value back to false
 		});
+		
+		
 	}
 
 	/**
@@ -110,6 +123,22 @@ public class GamePlayerController {
 	public void initializeGameStart() throws FileNotFoundException {
 		currentFile = fileBtn.getFile();
 		gameView = new GamePlayerEntityView(currentFile);
+		levelEntityGroupMap = gameView.getlevelEntityMap();
+		gameRoot = levelEntityGroupMap.get(1);  //level 1
+		myPane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
+		MenuGameBar menuBar = new MenuGameBar(this);
+		myPane.setBottom(menuBar);
+		SampleToolBar sampleBar = new SampleToolBar(this);
+		myPane.setTop(sampleBar);
+		initializeGameAnimation(); //begins the animation cycle
+	}
+	
+	/**
+	 * Method that sets the current scene of the game
+	 * TODO: REFACTOR TO REDUCE REPEATED CODE.
+	 */
+	public void setGameView(DataGameState currentGame) {
+		gameView = new GamePlayerEntityView(currentGame);
 		levelEntityGroupMap = gameView.getlevelEntityMap();
 		gameRoot = levelEntityGroupMap.get(1);  //level 1
 		myPane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
@@ -133,6 +162,7 @@ public class GamePlayerController {
 		animation.play();
 		myTimeline = animation;
 	}
+	
 	/**
 	 * Changes the display of the gave.
 	 * @param level to be loaded
