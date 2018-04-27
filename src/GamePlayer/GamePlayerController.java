@@ -104,9 +104,9 @@ public class GamePlayerController {
 		initializeGameAnimation(); //begins the animation cycle
 
 		//set level change listener
-		gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
+		/*gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
 			changeGameLevel(newVal.intValue());
-		});
+		});*/
 	}
 
 

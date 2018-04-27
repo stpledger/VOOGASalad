@@ -55,7 +55,7 @@ public class SampleToolBar extends ToolBar{
 	 * Update the gameState Values
 	 */
 	public void updateGameStatusLabels() {
-		System.out.println(label4.extractGameStateValue(playerComponentsforLevel));
+		//System.out.println(label4.extractGameStateValue(playerComponentsforLevel));
 		label4.update(label4.extractGameStateValue(playerComponentsforLevel));
 		label2.update(label2.extractGameStateValue(playerComponentsforLevel));
 	}
