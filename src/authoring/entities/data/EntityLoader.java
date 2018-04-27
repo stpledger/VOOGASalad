@@ -10,7 +10,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -69,7 +68,7 @@ public class EntityLoader {
 			compsToAdd.add(cb.build(ID, e));
 		}
 		return entity;
-	}
+	}	
 	
 	/**
 	 * Get the root element of an xml file to parse

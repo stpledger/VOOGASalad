@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import authoring.factories.ClickElementType;
+import authoring.factories.Element;
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
@@ -50,6 +51,7 @@ public class GlobalPropertiesView extends PropertiesView {
 				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label, globalProps.getString(property).split(",")[0]);
 				currentRow++;
 				getRoot().addRow(currentRow, label);
+				elements.add((Element) label);
 			}
 			getRoot().addColumn(1,livesInput,titleInput,pathInput);
 			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getButtonBundle().getString("Submit"), e->{
@@ -61,18 +63,12 @@ public class GlobalPropertiesView extends PropertiesView {
 				this.makeAlert(this.title()+" has been saved!");
 				this.close();
 			});
+			elements.add((Element) submit);	
 			currentRow++;
 			getRoot().add(submit, 0, currentRow);
 		} catch (Exception e1) {
 			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}
-	}
-
-	@Override
-	public void setLanguage(Properties lang) {
-		this.language = lang;
-		
-		
 	}
 
 }
