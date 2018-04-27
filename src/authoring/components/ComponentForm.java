@@ -4,10 +4,10 @@ import java.util.Properties;
 
 public interface ComponentForm {
 	
-	Object buildComponent();
+	public Object buildComponent();
 
-	String getName();
+	public String getName();
 	
-	void setLanguage(Properties language);
+	public void setLanguage(Properties language);
 
 }
