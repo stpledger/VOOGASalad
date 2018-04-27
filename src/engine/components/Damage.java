@@ -14,7 +14,7 @@ import java.util.Map;
  * and changes according to game logic.
  * @author Yameng
  */
-public class Damage extends Component {
+public class Damage extends Component implements Cloneable {
 	private double damage;
 	private double lifetime;
 	public static String KEY = "Damage";
@@ -53,5 +53,14 @@ public class Damage extends Component {
 		res.put("Lifetime", Double.toString(lifetime));
 		
 		return res;
+	}
+
+	public Damage clone() {
+		try {
+			return (Damage) super.clone();
+		} catch (CloneNotSupportedException e) {
+			System.out.println("Cannot clone");
+		}
+		return null;
 	}
 }

@@ -24,36 +24,38 @@ public class Actions {
      * @param actor Entity moving left
      * @return left action
      */
-    public Consumer left (Entity actor) {
+    public Consumer left (Entity actor, Double speed) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setXVel(-30);
+        return (Serializable & Consumer) (e) -> v.setXVel(speed);
     }
 
     /**
      * @param actor Entity moving right
      * @return right action
      */
-    public Consumer right (Entity actor) {
+    public Consumer right (Entity actor, Double speed) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setXVel(30);
+        return (Serializable & Consumer) (e) -> v.setXVel(speed);
     }
 
     /**
      * @param actor Entity moving up
      * @return up action
      */
-    public Consumer up (Entity actor) {
+    public Consumer up (Entity actor, Double speed) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setYVel(-30);
+        return (Serializable & Consumer) (e) -> {
+            v.setYVel(speed);
+        };
     }
 
     /**
      * @param actor Entity moving down
      * @return down action
      */
-    public Consumer down (Entity actor) {
+    public Consumer down (Entity actor, double speed) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setYVel(30);
+        return (Serializable & Consumer) (e) -> v.setYVel(speed);
     }
 
     /**
@@ -74,6 +76,14 @@ public class Actions {
         };
     }
 
+    /**
+     * A patrol action to be given to an AI component for enemies, blocks, etc. Goes to the given coordinates in
+     * order then repeats.
+     *
+     * @param actor The entity moving around
+     * @param coordinates The positions the entity will visit
+     * @return the actions which performs this method
+     */
     public Consumer patrol(Map<String, Component> actor, List<Position> coordinates) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
         Position p = (Position) actor.get(Position.KEY);
@@ -90,12 +100,11 @@ public class Actions {
                 destination.set(coordinates.get(current.get()));
             }
         };
-
     }
 
 
     private static double distance (Position p1, Position p2) {
-        return Math.sqrt(Math.pow(p1.getYPos()-p2.getYPos(), 2) + Math.pow(p1.getXPos() - p2.getXPos(), 2));
+        return Math.sqrt(Math.pow(p1.getYPos()-p2.getYPos(), 2) + Math.pow(p1.getXPos() - p2.getXPos(), 2)); //distance between two positions/points
     }
 
 }

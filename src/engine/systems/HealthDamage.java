@@ -10,7 +10,6 @@ import java.util.*;
 
 import engine.components.Component;
 import engine.components.Damage;
-import engine.components.DamageLauncher;
 import engine.components.Health;
 
 import engine.setup.EntityManager;
@@ -22,18 +21,16 @@ public class HealthDamage implements ISystem {
 	private EntityManager em;
 	private SystemManager sm;
 	
-	public HealthDamage(EntityManager em, SystemManager sm) {
+	public HealthDamage(EntityManager em) {
 		handledComponents = new HashMap<>();
 		this.em = em;
 		this.sm = sm;
 	}
 
 	public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey(Health.KEY) && components.containsKey(DamageLauncher.KEY)) {
+		if (components.containsKey(Health.KEY)) {
 			Map<String, Component> newComponents = new HashMap<>();
 			newComponents.put(Health.KEY,components.get(Health.KEY));
-			newComponents.put(DamageLauncher.KEY,components.get(DamageLauncher.KEY));
-
 			handledComponents.put(pid, newComponents);
 		}
 		
@@ -50,28 +47,28 @@ public class HealthDamage implements ISystem {
 			return;
 		}
 		
-		if(handledComponents.containsKey(pid)) {
+		if(handledComponents.containsKey(pid) && !componentName.equals(Damage.KEY)) {
 			System.out.println("HealthDamage System tries adding duplicate " + componentName + " component for entity " + pid + " !");
 		}
 		
 
-		Map<String, Component> map = new HashMap<>();
+		Map<String, Component> map = handledComponents.get(pid);
 		map.put(componentName,em.getComponent(pid, componentName));
 		if(componentName.equals(Health.KEY)) {
-			Component component = em.getComponent(pid,Damage.KEY);
+			Component component = em.getComponent(pid,Health.KEY);
 			if(component == null) {
 				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Damage.KEY + " component!");
 				return;
 			}
-			map.put(Damage.KEY, component);
+			map.put(Health.KEY, component);
 		}
 		else {
-			Component component = em.getComponent(pid,Health.KEY);
+			Component component = em.getComponent(pid,Damage.KEY);
 			if(component == null) {
 				System.out.println("Entity " + pid + " has " + componentName + " component but has no " + Health.KEY + " component!");
 				return;
 			}
-			map.put(Health.KEY, component);
+			map.put(Damage.KEY, component);
 		}
 		handledComponents.put(pid,map);
     }
@@ -96,31 +93,27 @@ public class HealthDamage implements ISystem {
 	}
 
 	public void execute(double time) {
-		activeComponents.forEach((key) -> {
+		for (int key : activeComponents) {
 			Map<String, Component> map = handledComponents.get(key);
-			Health h = (Health) map.get(Health.KEY);
-			if(map.containsKey(Damage.KEY)) {
+			if(map.containsKey(Damage.KEY) && map.containsKey(Health.KEY)) {
+				Health h = (Health) map.get(Health.KEY);
 				Damage d = (Damage) map.get(Damage.KEY);
 
 				if (h.getParentID()!=d.getParentID()) {
 					h.setHealth(h.getHealth() - d.getDamage());
 					d.decrementLife();
+					if(d.getLifetime() == 0) {
+						em.removeComponent(d.getParentID(), Damage.KEY, d);
+					}
 				}
 
-				Component dComponent = (Component)d;
-				map.put(Damage.KEY, dComponent);
-				if(d.getLifetime() == 0) {
-					em.removeComponent(key, Damage.KEY, dComponent);
+				if(h.getHealth() <= 0) {
+					em.removeEntity(key);
+					System.out.println("removing");
 				}
 
 			}
-			
-			if(h.getHealth() <= 0) {
-				sm.removeEntity(key);
-				System.out.println("removing");
-			}
-			
-		});
+		}
 	}
 
 	@Override
