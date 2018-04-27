@@ -14,6 +14,8 @@ public interface IGamePlayerView {
 	
 	public void render ();
 	
+	public Map<Integer, Pane> getlevelEntityMap();
+	
 	public void setInput(KeyCode code);
 	
 	public void removeInput(KeyCode code);

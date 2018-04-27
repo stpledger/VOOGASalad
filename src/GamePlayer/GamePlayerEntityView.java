@@ -65,7 +65,7 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	/**
 	 * Converts Map of Levels to its Entities to Integers to Entities to make calling a particular level easier
 	 */
-	public void levelToInt() {
+	private void levelToInt() {
 		IntLevels = new HashMap<>();
 		for(Level level: Levels.keySet()){
 			IntLevels.put(level.getLevelNum(), Levels.get(level));
