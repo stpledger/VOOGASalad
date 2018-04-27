@@ -10,8 +10,8 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import authoring.components.PropertiesComponentForm;
-import authoring.factories.ClickElementType;
 import authoring.entities.Entity;
+import authoring.factories.ClickElementType;
 
 /**
  * Opens up the Local Properties window so that an editor can edit certain features of an entity,

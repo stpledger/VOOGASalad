@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -14,7 +15,6 @@ import authoring.entities.Entity;
 import authoring.entities.data.EntityLoader;
 import authoring.entities.data.PackageExplorer;
 import authoring.factories.Toolbar;
-
 import data.DataRead;
 import engine.components.Sprite;
 
@@ -25,7 +25,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-public class EntityView extends BorderPane {
+public class EntityView extends BorderPane implements AuthoringPane {
 	public final static String ENTITIES_PACKAGE_NAME = "authoring/entities";
 	public final static  int ENITITY_VIEW_WIDTH = 300;
 	private ArrayList<String> tabsList = new ArrayList<>();
@@ -73,7 +73,7 @@ public class EntityView extends BorderPane {
 	 * @param componentAttributes Map<Class, Object[]> representing the class of a component and an object[] representing all the arguments the component takes in
 	 */
 	public void saveEntity(String entityType, Map<Class, Object[]> componentAttributes) {
-		//Turn the imageFile into a usableImage
+
 		Image image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 
 		if(tabsList.isEmpty() || !tabsList.contains(entityType)) { 
@@ -95,6 +95,14 @@ public class EntityView extends BorderPane {
 		EntityLoader entityLoader = new EntityLoader();
 		//TODO: Make this load an entity
 		
+	}
+
+	@Override
+	public void setLanguage(Properties language) {
+		((Toolbar) this.getTop()).setLanguage(language);
+		for(Tab t : tabPane.getTabs()) {
+			t.setText(language.getProperty(t.getId(),t.getId()));
+		}
 	}
 
 }

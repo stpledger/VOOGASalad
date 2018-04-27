@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
@@ -40,7 +41,7 @@ import data.DataWrite;
  * @author Collin Brown(cdb55)
  *
  */
-public class GameEditorView extends BorderPane {
+public class GameEditorView extends BorderPane implements AuthoringPane{
 
 	private ArrayList<Tab> levelTabsList;
 	private GameState state;
@@ -49,14 +50,13 @@ public class GameEditorView extends BorderPane {
 	private ElementFactory eFactory;
 	private int nextEntityID  = 0;
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	private Consumer<MouseEvent> addEntity = mouseEvent -> { addEntityMethod(mouseEvent);};
 	private Consumer<List<Tab>> updateTabs = tabList -> { updateTabsMethod(tabList); };
 	private static final int BLOCK_DEFAULT_WIDTH = 50;
 
 	/**
 	 * Default Constructor creates a Borderpane with a toolbar in the top, tabPane in the center, and a gamestate object
 	 */
-	public GameEditorView() {
+	public GameEditorView(Consumer<String> setLanguage) {
 		super();
 		this.toolbar = new Toolbar("GameEditor", buildToolbarFunctionMap());
 		this.setTop(toolbar);
@@ -67,6 +67,8 @@ public class GameEditorView extends BorderPane {
 		this.eFactory = new ElementFactory();
 		addLevel();
 	}
+
+
 
 	/**
 	 * 
@@ -115,7 +117,7 @@ public class GameEditorView extends BorderPane {
 			levelTabsList.add(t);
 			Level level = new Level(levelTabsList.indexOf(t)+1);
 			state.addLevel(level);
-			LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, addEntity);
+			LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, e -> {addEntityMethod(e);});
 			t.setContent(levelView);
 			t.setOnClosed(e -> {
 				levelTabsList.remove(t);
@@ -139,7 +141,7 @@ public class GameEditorView extends BorderPane {
 
 		Level level = l;
 		state.addLevel(level);
-		LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, addEntity);
+		LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, e -> {addEntityMethod(e);});
 
 		t.setContent(levelView);
 		t.setOnClosed(e -> {
@@ -299,6 +301,14 @@ public class GameEditorView extends BorderPane {
 		entity.setFitWidth(BLOCK_DEFAULT_WIDTH);
 		entity.setFitHeight(BLOCK_DEFAULT_WIDTH);
 		return entity;
+	}
+
+
+	@Override
+	public void setLanguage(Properties language) {
+		toolbar.setLanguage(language);
+		System.out.println("yup");
+		
 	}
 
 }

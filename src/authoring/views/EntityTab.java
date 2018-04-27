@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
-
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
