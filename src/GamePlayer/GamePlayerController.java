@@ -101,6 +101,11 @@ public class GamePlayerController {
 		SampleToolBar sampleBar = new SampleToolBar(LEVEL_ONE, PlayerKeys);
 		myPane.setTop(sampleBar);
 		initializeGameAnimation(); //begins the animation cycle
+
+		//set level change listener
+		gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
+			changeGameLevel(newVal.intValue());
+		});
 	}
 
 
@@ -123,6 +128,7 @@ public class GamePlayerController {
 	 */
 	public void changeGameLevel(int level) {
 		gameRoot = levelEntityGroupMap.get(level);
+		myPane.setCenter(gameRoot);
 		gameView.setActiveLevel(level);
 	}
 

@@ -5,9 +5,10 @@ package engine.components;
  * @author fitzj
  *
  */
-public interface DataComponent extends ReadDataComponent {
+public interface DataComponent {
 	public double getData();
 	public void setData(double data);
+	public String getKey();
 	public int getPID();
 	public void setPID(int pid);	
 }

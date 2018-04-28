@@ -56,6 +56,7 @@ public class LocalPropertiesView extends PropertiesView {
 			if (!entity.contains(property)) {
 				cf = new PropertiesComponentForm(entity.getID(), property);
 			} else {
+
 				if (entity.get(property) instanceof DataComponent) {
 					DataComponent dc = (DataComponent) entity.get(property);
 					cf = new PropertiesComponentForm(entity.getID(), property, String.valueOf(dc.getData()));

@@ -35,7 +35,8 @@ import authoring.views.properties.LevelPropertiesView;
 import engine.components.Component;
 import engine.components.EntityType;
 import engine.components.Sprite;
-import engine.components.groups.Position;
+import engine.components.XPosition;
+import engine.components.YPosition;
 import data.DataRead;
 
 import data.DataWrite;
@@ -272,10 +273,13 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 				Image image = DataRead.loadImage(((Sprite) c).getData());	
 
 				entity.setImage(image);
-			} else if(c.getKey().equals("Position")) {
-				Position p = (Position) c;
-				entity.setX(p.getXPos());
-				entity.setY(p.getYPos());
+			} else if(c.getKey().equals("XPosition")) {
+				XPosition p = (XPosition) c;
+				entity.setX(p.getData());
+				
+			} else if(c.getKey().equals("YPosition")) {
+				YPosition p = (YPosition) c;
+				entity.setY(p.getData());
 			}
 		}
 		return entity;

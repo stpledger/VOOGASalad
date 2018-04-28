@@ -98,8 +98,8 @@ public class DataRead  {
         for(File game : file.listFiles()){
           game = new File(game.getAbsolutePath() + SLASH + PLAYER_TARGET);
           DataGameState playable = loadPlayerFile(game);
-          Image icon = getIcons().get(0);
-          games.put(icon, playable);
+          //Image icon = getIcons().get(0);
+          //games.put(icon, playable);
         }
         return games;
     }
