@@ -1,13 +1,13 @@
 package engine.components;
 
-import java.util.function.Consumer;
+import java.util.function.BiConsumer;
 import java.util.function.Supplier;
 
 public class Conditional implements Component {
 
     public static String KEY = "Conditional";
     private Supplier<Object> conditional;
-    private Consumer<Object> action;
+    private BiConsumer<Object, Object> action;
     private int pid;
 
     public Conditional (int pid) {
@@ -18,14 +18,21 @@ public class Conditional implements Component {
         this.conditional = conditional;
     }
 
-    public void setAction (Consumer<Object> action) {
+    public void setAction (BiConsumer<Object, Object> action) {
         this.action = action;
     }
 
     public void evaluate() {
         Object o = conditional.get();
         if (o!=null) {
-            action.accept(o);
+            action.accept(o, null);
+        }
+    }
+    
+     public void evaluate(Object o2) {
+        Object o = conditional.get();
+        if (o!=null) {
+            action.accept(o, o2);
         }
     }
 

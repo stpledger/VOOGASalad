@@ -3,6 +3,7 @@ package engine.components;
 import javafx.scene.input.KeyCode;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
@@ -15,7 +16,7 @@ import java.util.function.Consumer;
  */
 public class KeyInput extends Conditional {
 
-	private Map<KeyCode, Consumer> codes = new HashMap<>();
+	private Map<KeyCode, Consumer<Object>> codes = new HashMap<>();
 
 	public static String KEY = "KeyInput";
 	
@@ -34,21 +35,30 @@ public class KeyInput extends Conditional {
 	 * @param code the keycode that will trigger the action
 	 * @param con the action that happens when the key is pressed
 	 */
-	public void addCode (KeyCode code, Consumer con) {
+	public void addCode (KeyCode code, Consumer<Object> con) {
 		codes.put(code, con);
 		this.setCondition(() -> {
 			return codes;
 		});
+		setUpConditional();
 	}
 
 	/*public void action(KeyCode key) {
 		codes.get(key).accept(null);
 	}*/
 
+	@SuppressWarnings("unchecked")
 	private void setUpConditional() {
-		this.setAction((map) -> {
+		this.setAction((map, set) -> {
 			if(map == null || !(map instanceof Map<?,?>)) return;
-			
+			if(set == null || !(set instanceof Set<?>)) return;
+			Map<KeyCode,Consumer<Object>> codeMap = (Map<KeyCode, Consumer<Object>>) map;
+			Set<KeyCode> actives = (Set<KeyCode>) set;
+			codeMap.forEach((key, con) -> {
+				if(actives.contains(key)) {
+					con.accept(null);
+				}
+			}); 
 		});
 	}
 	

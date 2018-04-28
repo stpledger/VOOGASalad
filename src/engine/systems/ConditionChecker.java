@@ -2,7 +2,6 @@ package engine.systems;
 
 import engine.components.Component;
 import engine.components.Conditional;
-import javafx.scene.input.KeyCode;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -12,7 +11,6 @@ import java.util.Set;
 public class ConditionChecker implements ISystem {
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents = new HashSet<>();
-	private Set<KeyCode> activeCodes = new HashSet<>();
 
 
     @Override
