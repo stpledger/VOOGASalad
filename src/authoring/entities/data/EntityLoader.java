@@ -62,9 +62,9 @@ public class EntityLoader {
 		Entity entity = (Entity) Class.forName(ENTITY_PREFIX + type).getDeclaredConstructors()[0].newInstance(ID, type);
 		NodeList nList = root.getChildNodes();
 		List<Component> compsToAdd = new ArrayList<>();
+		ComponentBuilder cb = new ComponentBuilder();
 		for (int i = 0; i < nList.getLength(); i++) {
 			Element e = (Element) nList.item(i);
-			ComponentBuilder cb = new SpriteBuilder();
 			compsToAdd.add(cb.build(ID, e));
 		}
 		entity.addAll(compsToAdd);
