@@ -194,3 +194,24 @@
     -fx-background-radius: 5em;
 }
 
+
+/*
+* =============================================================
+* Game Editor View
+* =============================================================
+*/
+
+.selection-box{
+	-fx-background-color: tertiary-color;
+}
+
+.selection-label{
+	-fx-text-fill: primary-color;
+	-fx-font-size:15;
+}
+
+.selection-label :hover{
+	-fx-text-fill: secondary-color;
+	-fx-font-size:15;
+}
+

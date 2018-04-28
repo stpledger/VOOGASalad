@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -24,7 +25,9 @@ import javafx.util.Pair;
 public class Toolbar extends MenuBar{
 	private String toolbarName;
 	private Map<String,Consumer> consumerMap;
-	private List<Pair<String,Properties>> menuProerties;
+	private List<Pair<String,Properties>> menuProperties;
+	
+	private Properties language = new Properties();
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
@@ -36,7 +39,7 @@ public class Toolbar extends MenuBar{
 		super();
 		this.consumerMap = cm;
 		this.toolbarName = name;
-		this.menuProerties = new ArrayList<>();
+		this.menuProperties = new ArrayList<>();
 		this.getStyleClass().add("toolbar");
 		addMenus(getMenuProperties());
 	}
@@ -46,8 +49,8 @@ public class Toolbar extends MenuBar{
 	 * @param menuProperties
 	 */
 	private void addMenus(List<Pair<String,Properties>> menuProperties) {
-		this.menuProerties = menuProperties;
-		List<Pair<String,Properties>> tempMenuProperties = this.menuProerties;
+		this.menuProperties = menuProperties;
+		List<Pair<String,Properties>> tempMenuProperties = this.menuProperties;
 		for(Pair<String, Properties> p: tempMenuProperties) {
 			this.getMenus().add((createMenu(p.getKey(),p.getValue())));
 		}
@@ -62,12 +65,13 @@ public class Toolbar extends MenuBar{
 	private Menu createMenu(String s, Properties p) {
 		Menu m = new Menu();
 		m.setText(s);
+		m.setId(s);
 		this.applyCss();
-		Set<Object> items = p.keySet();
-		for(Object o : items) {
+		for(Entry<Object, Object> entry : p.entrySet()) {
 			MenuItem menuItem = new MenuItem();
-			menuItem.setText(p.getProperty((String) o));
-			menuItem.setOnAction(e->consumerMap.get(o).accept(e));
+			menuItem.setText((String) entry.getValue());
+			menuItem.setId((String)entry.getKey());
+			menuItem.setOnAction(e->consumerMap.get(entry.getKey()).accept(e));
 			m.getItems().add(menuItem);
 		}
 		return m;
@@ -91,6 +95,21 @@ public class Toolbar extends MenuBar{
 			menuProperties.add(new Pair(f.getName().replace(".properties", ""),p));
 		}
 		return menuProperties;	
+	}
+	
+	/**
+	 * Updates all of the text elements to contain the proper language
+	 * @param Language
+	 */
+	public void setLanguage(Properties lang) {
+		language = lang;
+		for(Menu menu : this.getMenus()) {
+			menu.setText(language.getProperty(menu.getId(), menu.getId()));
+			for(MenuItem menuItem : menu.getItems()) {
+				menuItem.setText(language.getProperty(menuItem.getId(), menuItem.getId()));
+			}
+		}
+		
 	}
 }
 

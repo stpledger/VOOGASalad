@@ -13,10 +13,10 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import authoring.MainApplication;
-import authoring.components.EntityComponentFormCollection;
 import authoring.entities.data.EntityBuilderData;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
+import authoring.forms.EntityComponentFormCollection;
 import data.DataRead;
 import engine.components.Sprite;
 import javafx.embed.swing.SwingFXUtils;
@@ -42,6 +42,7 @@ public class EntityBuilderView extends Stage {
 	private final static int LEFT_PANEL_WIDTH = 200;
 
 	private Properties tooltipProperties;
+	private Properties language = new Properties();
 	private HBox saveMenu;
 	private VBox root;
 	private List<String> entityTypes;
@@ -62,11 +63,13 @@ public class EntityBuilderView extends Stage {
 	 * @param eTypes All of the possible types of entities
 	 * @param oC A BiConsumer that will handle the closing of an EntityBuilderView window that requires a string of the type of entity and a Map of Component Classes and an object[] of their argumetns
 	 */
-	public EntityBuilderView (List<String> eTypes, BiConsumer<String, Map<Class,Object[]>> oC) {
+	public EntityBuilderView (List<String> eTypes, BiConsumer<String, Map<Class,Object[]>> oC, Properties lang) {
 		this.onClose = oC;
+		language = lang;
 		this.entityTypes = (ArrayList<String>) eTypes;
 		this.eFactory = new ElementFactory();
-		this.componentFormCollection = new EntityComponentFormCollection(new String[] {"Sprite", "Position"});
+		this.componentFormCollection = new EntityComponentFormCollection(new String[] {"Sprite", "XPosition", "YPosition"});
+		this.componentFormCollection.setLanguage(language);
 		this.tooltipProperties = new Properties();
 		this.data = new EntityBuilderData();
 		this.build();
@@ -124,20 +127,31 @@ public class EntityBuilderView extends Stage {
 	 */
 	private ComboBox<String> buildTypeComboBox() throws Exception {
 		ComboBox<String>comboBox = (ComboBox<String>) eFactory.buildClickElement(ClickElementType.ComboBox, "Select Object Type", null);
+		comboBox.setPromptText(language.getProperty("selectObjectType"));
 		comboBox.setOnAction(e -> {
-				data.setComponent(engine.components.Type.class, ((String) comboBox.getSelectionModel().getSelectedItem()));
+				data.setComponent(engine.components.Type.class, getRealName(comboBox.getSelectionModel().getSelectedItem()));
 				root.getChildren().remove(saveMenu);
 				componentFormCollection.fillComponentsForms(data.getType());
+				componentFormCollection.setLanguage(language);
 				root.getChildren().add(saveMenu);
 				this.sizeToScene();
 		});
 		comboBox.getStyleClass().add("entity-builder-combo-box"); 
 		for(String et : entityTypes) {
-			comboBox.getItems().add(et);
+			comboBox.getItems().add(language.getProperty(et));
 		}
 		return comboBox;
 	}
 	
+	private String getRealName(String selectedItem) {
+		String typeName = null;
+		for(Object t : language.keySet()) {
+			if(language.get(t).equals(selectedItem)){
+				typeName = (String) t;
+			}
+		}
+		return typeName;
+	}
 	/**
 	 * Builds the menu on the buttom of the screen containing the save button
 	 * @return HBox bottomMenu
@@ -146,6 +160,7 @@ public class EntityBuilderView extends Stage {
 	private HBox buildSingleButtonMenu(String name, Consumer onClick) throws Exception {
 		HBox hBox = new HBox();
 			Button b = (Button) eFactory.buildClickElement(ClickElementType.Button, name, onClick);
+			b.setText(language.getProperty(name));
 			b.setTooltip(new Tooltip(tooltipProperties.getProperty(name)));
 			b.getStyleClass().addAll("entity-builder-view-button",name);
 			hBox.setAlignment(Pos.CENTER);
