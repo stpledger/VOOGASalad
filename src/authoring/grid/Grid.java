@@ -97,26 +97,9 @@ public class Grid extends GridPane {
 			ImageView img = new ImageView(db.getImage());
 			try {
 				Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(),c.getLayoutY());
+				setupContextMenus(c, en, img);
 				c.setEntity(en);
 				level.addEntity(en);
-				if(en.getType().equals("Noninteractable")) {
-					System.out.println("cocks!");
-					img.setOnMouseClicked(e1->{
-						if(e1.getClickCount()==2) {
-							ContextMenu cMenu = backgroundMenu(c, img);
-							cMenu.show(this, e1.getScreenX(), e1.getScreenY());
-							cMenu.setAutoHide(true);
-						}
-					});
-				} else {
-					img.setOnMouseClicked(e1->{
-						if(e1.getClickCount()==2) {
-							ContextMenu cMenu = createMenu(c, img);
-							cMenu.show(this, e1.getScreenX(), e1.getScreenY());
-							cMenu.setAutoHide(true);
-						}
-					});
-				}
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
@@ -128,8 +111,29 @@ public class Grid extends GridPane {
 			e.consume();
 		});
 	}
+	
+	private void setupContextMenus(Cell c, Entity en, ImageView img) {
+		if(en.getType().equals("Noninteractable")) {
+			System.out.println("cocks!");
+			img.setOnMouseClicked(e1->{
+				if(e1.getClickCount()==2) {
+					ContextMenu cMenu = backgroundMenu(c, img);
+					cMenu.show(this, e1.getScreenX(), e1.getScreenY());
+					cMenu.setAutoHide(true);
+				}
+			});
+		} else {
+			img.setOnMouseClicked(e1->{
+				if(e1.getClickCount()==2) {
+					ContextMenu cMenu = createMenu(c, img);
+					cMenu.show(this, e1.getScreenX(), e1.getScreenY());
+					cMenu.setAutoHide(true);
+				}
+			});
+		}
+	}
 
-	//TODO use element factory and language properties
+	//TODO use language properties
 	private ContextMenu createMenu(Cell c, ImageView img) {
 		ContextMenu cMenu = new ContextMenu();
 		try {
