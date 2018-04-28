@@ -17,7 +17,7 @@ import javafx.scene.layout.GridPane;
 public abstract class AbstractComponentFormCollection extends GridPane {
 	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final static String ENTITIES_PACKAGE = "engine.components.";
-	private Properties language = new Properties();
+	protected Properties language = new Properties();
 	
 	ElementFactory eFactory = new ElementFactory();
 	

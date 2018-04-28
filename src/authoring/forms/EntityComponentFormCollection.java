@@ -1,7 +1,6 @@
 package authoring.forms;
 
 import java.util.ArrayList;
-
 import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
@@ -66,6 +65,7 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 			EntityComponentForm cf = new EntityComponentForm((String) componentName);
 			cf.setAlignment(Pos.CENTER);
 			this.add(cf, 0, currentRow);
+			cf.setLanguage(language);
 			newActiveForms.add(cf);
 			this.setActiveForms(newActiveForms);
 			currentRow++;
