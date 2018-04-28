@@ -4,7 +4,6 @@ import java.util.Map;
 
 import engine.components.Component;
 import engine.components.Player;
-import engine.setup.EntityManager;
 import engine.setup.SystemManager;
 
 public class CollisionHandler {
@@ -18,7 +17,7 @@ public class CollisionHandler {
 		scoreHandler = new ScoreHandler(sm);
 	}
 
-	public void handle(Map<Integer, Map<String, Component>> handledComponents, int key1, int key2) {
+	public void handle(Map<Integer, Map<String, Component>> handledComponents, int key1, int key2, CollisionDirection cd) {
 		
 		Map<String, Component> components1 = handledComponents.get(key1);
 		Map<String, Component> components2 = handledComponents.get(key2);
