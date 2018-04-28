@@ -37,7 +37,7 @@ public class Actions {
      * @return left action
      */
 	@SuppressWarnings("unchecked")
-	public Consumer<Map<String, Component>> moveLeft (double speed) {
+	public static Consumer<Map<String, Component>> moveLeft (double speed) {
     	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
     		if(actor != null && (actor instanceof Map<?,?>)) {
     			if(actor.containsKey(XVelocity.KEY)) {
@@ -49,7 +49,7 @@ public class Actions {
     }
 	
 	@SuppressWarnings("unchecked")
-	public Consumer<Map<String, Component>> moveRight (double speed) {
+	public static Consumer<Map<String, Component>> moveRight (double speed) {
     	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
     		if(actor != null && (actor instanceof Map<?,?>)) {
     			if(actor.containsKey(XVelocity.KEY)) {
@@ -61,7 +61,7 @@ public class Actions {
     }
 	
 	@SuppressWarnings("unchecked")
-	public Consumer<Map<String, Component>> moveUp (double speed) {
+	public static Consumer<Map<String, Component>> moveUp (double speed) {
     	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
     		if(actor != null && (actor instanceof Map<?,?>)) {
     			if(actor.containsKey(YVelocity.KEY)) {
@@ -73,7 +73,7 @@ public class Actions {
     }
 	
 	@SuppressWarnings("unchecked")
-	public Consumer<Map<String, Component>> moveDown (double speed) {
+	public static Consumer<Map<String, Component>> moveDown (double speed) {
     	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
     		if(actor != null && (actor instanceof Map<?,?>)) {
     			if(actor.containsKey(YVelocity.KEY)) {
@@ -86,7 +86,7 @@ public class Actions {
 	
 	
 	@SuppressWarnings("unchecked")
-	public Consumer<Map<String, Component>> accelerateLeft (double speed) {
+	public static Consumer<Map<String, Component>> accelerateLeft (double speed) {
     	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
     		if(actor != null && (actor instanceof Map<?,?>)) {
     			if(actor.containsKey(XAcceleration.KEY)) {
@@ -98,7 +98,7 @@ public class Actions {
     }
 	
 	@SuppressWarnings("unchecked")
-	public Consumer<Map<String, Component>> accelerateRight (double speed) {
+	public static Consumer<Map<String, Component>> accelerateRight (double speed) {
     	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
     		if(actor != null && (actor instanceof Map<?,?>)) {
     			if(actor.containsKey(XAcceleration.KEY)) {
@@ -110,7 +110,7 @@ public class Actions {
     }
 	
 	@SuppressWarnings("unchecked")
-	public Consumer<Map<String, Component>> accelerateUp (double speed) {
+	public static Consumer<Map<String, Component>> accelerateUp (double speed) {
     	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
     		if(actor != null && (actor instanceof Map<?,?>)) {
     			if(actor.containsKey(YAcceleration.KEY)) {
@@ -122,7 +122,7 @@ public class Actions {
     }
 	
 	@SuppressWarnings("unchecked")
-	public Consumer<Map<String, Component>> accelerateDown (double speed) {
+	public static Consumer<Map<String, Component>> accelerateDown (double speed) {
     	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
     		if(actor != null && (actor instanceof Map<?,?>)) {
     			if(actor.containsKey(YAcceleration.KEY)) {
@@ -136,7 +136,7 @@ public class Actions {
 	
 	
 	@SuppressWarnings("unchecked")
-	public Consumer<Map<String, Component>> addScore (double score) {
+	public static Consumer<Map<String, Component>> addScore (double score) {
     	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
     		if(actor != null && (actor instanceof Map<?,?>)) {
     			if(actor.containsKey(Score.KEY)) {
@@ -147,8 +147,11 @@ public class Actions {
     	};
     }
 	
+	
+	
+	
 	@SuppressWarnings("unchecked")
-	public BiConsumer<Map<String, Component>,Map<String, Component>> transferScore() {
+	public static BiConsumer<Map<String, Component>,Map<String, Component>> transferScore() {
 		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
     		if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
     			if(actor1.containsKey(Player.KEY) && actor1.containsKey(Score.KEY) && actor2.containsKey(Score.KEY)) {
@@ -156,6 +159,25 @@ public class Actions {
     				Score s2 = (Score) actor2.get(Score.KEY);
     				
     				s1.setData(s1.getData() + s2.getData());
+    			}
+    		}
+    	};
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public static BiConsumer<Map<String, Component>,Map<String, Component>> xFriction(double stickiness) {
+		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+    		if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
+    			if(actor1.containsKey(XVelocity.KEY) && actor1.containsKey(XAcceleration.KEY)) {
+    				XVelocity xv = (XVelocity) actor1.get(XVelocity.KEY);
+    				XAcceleration xa = (XAcceleration) actor1.get(XAcceleration.KEY);
+    				
+    				if(xv.getData() > 0) {
+    					xa.setData(-stickiness);
+    				} else if(xv.getData() < 0) {
+    					xa.setData(stickiness);
+    				}
     			}
     		}
     	};
@@ -177,7 +199,7 @@ public class Actions {
      * @param tracker  Enemy/entity tracking the followed
      * @return action which result in the tracker moving towards the followed
      */
-    public Consumer followsYou (Entity followed, Entity tracker) {
+    public static Consumer followsYou (Entity followed, Entity tracker) {
         XPosition px = (XPosition) followed.get(XPosition.KEY);
         YPosition py = (YPosition) followed.get(YPosition.KEY);
         XPosition tx = (XPosition) tracker.get(XPosition.KEY);
@@ -200,7 +222,7 @@ public class Actions {
      * @param coordinates The positions the entity will visit
      * @return the actions which performs this method
      */
-    public Consumer patrol(Map<String, Component> actor, List<Position> coordinates) {
+    public static Consumer patrol(Map<String, Component> actor, List<Position> coordinates) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
         Position p = (Position) actor.get(Position.KEY);
 

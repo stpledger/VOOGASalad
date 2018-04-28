@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="j"><Type>User</Type><Name>j</Name><Health>100.0</Health><Sprite>8Bit.png</Sprite><Height>10.0</Height><Width>10.0</Width></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="j"><Type>Block</Type><Name>j</Name><Sprite>8Bit.png</Sprite><Height>10.0</Height><Health>1.0</Health><Width>10.0</Width></Entity>
