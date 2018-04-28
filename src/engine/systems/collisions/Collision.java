@@ -16,11 +16,15 @@ import engine.systems.DefaultSystem;
 public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();
 	private List<Integer> colliders;
-	private CollisionHandler handler;
+	//private CollisionHandler handler;
 
-	public Collision(SystemManager sm) {
+	/*public Collision(SystemManager sm) {
 		colliders = new ArrayList<>();
-		handler = new CollisionHandler(sm);
+		//handler = new CollisionHandler(sm);
+	}*/
+	
+	public Collision() {
+		colliders = new ArrayList<>();
 	}
 
 	
@@ -81,8 +85,29 @@ public class Collision extends DefaultSystem{
 					}
 
 					if (cd != null) {
-						handler.handle(handledComponents, key1, key2, cd);
+						//handler.handle(handledComponents, key1, key2, cd);
 
+						if(handledComponents.get(key1).containsKey(Collidable.KEY)) {
+							Collidable cdb = (Collidable) handledComponents.get(key1).get(Collidable.KEY);
+							cdb.setCondition(() -> {
+								return handledComponents.get(key2);
+							}); 
+							cdb.evaluate(cd);
+						}
+						
+						if(handledComponents.get(key2).containsKey(Collidable.KEY)) {
+							Collidable cdb = (Collidable) handledComponents.get(key2).get(Collidable.KEY);
+							cdb.setCondition(() -> {
+								return handledComponents.get(key1);
+							}); 
+							CollisionDirection cd2 = null;
+							if(cd == CollisionDirection.Top) cd2 = CollisionDirection.Bot;
+							else if(cd == CollisionDirection.Bot) cd2 = CollisionDirection.Top;
+							else if(cd == CollisionDirection.Left) cd2 = CollisionDirection.Right;
+							else cd2 = CollisionDirection.Left;
+							cdb.evaluate(cd2);
+						}
+						
 						switch (cd) {
 						
 						case Top:
