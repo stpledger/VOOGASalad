@@ -76,7 +76,7 @@ public class GameInitializer {
         systems.add(new Motion());
         systems.add(new ConditionChecker());
         systems.add((new ArtificialIntelligence()));
-        systems.add(new Collision());//new Collision(systemManager));
+        systems.add(new Collision(systemManager));
         systems.add(new HealthDamage(systemManager));
         systems.add(new Animate());
         systems.add(inputHandler);

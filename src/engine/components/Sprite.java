@@ -44,7 +44,6 @@ public class Sprite extends SingleStringComponent {
 
 		try {
 			image = new ImageView(DataRead.loadImage(im));
-			image.setPickOnBounds(true);
 			
 		} catch(RuntimeException e) {
 			System.out.print("Cant load image no Application");
@@ -74,6 +73,10 @@ public class Sprite extends SingleStringComponent {
 	
 	public String getKey() {
 		return KEY;
+	}
+
+	public String getImageFile(){
+		return getData();
 	}
 }
 

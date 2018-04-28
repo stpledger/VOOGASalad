@@ -25,7 +25,7 @@ public class LevelLabel extends Label implements IGameStatusLabel{
 
 	@Override
 	public double extractGameStateValue(Map<String, Component> playerStatusMap) {
-
+		return 0;
 	}
 
 	@Override

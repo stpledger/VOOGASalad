@@ -1,23 +1,15 @@
 package data.testing;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-
 import authoring.gamestate.Level;
 import data.DataGameState;
-import data.DataRead;
 import data.DataWrite;
 import engine.components.*;
-import javafx.scene.input.KeyCode;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 
 public class SerializeTest {
 
@@ -120,7 +112,7 @@ public class SerializeTest {
 
 
         params.clear();
-        params.add("mario.png");
+        params.add("games/DemoDemo/data/images/mario.png");
 
         try {
             Sprite entity2Sprite = new Sprite(2, "Mario.png");

@@ -24,7 +24,6 @@ public class HealthDamage implements ISystem {
 	
 	public HealthDamage(SystemManager sm) {
 		handledComponents = new HashMap<>();
-
 		this.sm = sm;
 	}
 
@@ -34,7 +33,7 @@ public class HealthDamage implements ISystem {
 			newComponents.put(Health.KEY,components.get(Health.KEY));
 			handledComponents.put(pid, newComponents);
 		}
-		else if (components.containsKey(DamageValue.KEY) && components.containsKey(DamageLifetime.KEY) && handledComponents.containsKey(pid)) {
+		else if (handledComponents.containsKey(pid) && components.containsKey(DamageValue.KEY) && components.containsKey(DamageLifetime.KEY)) {
 			Map<String, Component> newComponents = handledComponents.get(pid);
 			DamageValue d = (DamageValue) components.get(DamageValue.KEY);
 			DamageLifetime dl = (DamageLifetime) components.get(DamageLifetime.KEY);
