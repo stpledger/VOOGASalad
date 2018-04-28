@@ -1,4 +1,4 @@
-package authoring.components;
+package authoring.forms;
 
 import java.util.Properties;
 

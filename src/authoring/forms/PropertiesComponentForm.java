@@ -1,4 +1,4 @@
-package authoring.components;
+package authoring.forms;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
@@ -7,6 +7,8 @@ import java.util.Properties;
 
 import authoring.entities.data.PackageExplorer;
 import engine.components.Component;
+import engine.components.DataComponent;
+import engine.components.StringComponent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -18,6 +20,7 @@ import javafx.scene.control.TextField;
 public class PropertiesComponentForm extends AbstractComponentForm implements ComponentForm {
 
 	private int entity;
+	private TextField field;
 	
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
@@ -28,31 +31,18 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	public PropertiesComponentForm(int entity, String name) {
 		this.entity = entity;
 		this.name = name;
-		this.fields = new ArrayList<>();
-		int col = 0;
-		col++;
-		this.add(new Label(name), col , 0);
-		this.numFields = PackageExplorer.getNumFields(name);
-		for (int i = 0; i < (numFields-1); i++) {
-			TextField tf = new TextField();
-			fields.add(tf);
-			col++;
-			this.add(tf, col, 0);
-		}
+		this.add(new Label(name), 0, 0);
+		this.field = new TextField();
+		this.add(this.field, 1, 0);
 	}
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
 	 * @param name the name of the component
-	 * @param numFields the number of fields necessary for this component
+	 * @param existingValue the String form of the existing value of this component
 	 */
-	public PropertiesComponentForm(int entity, String name, Map<String, String> existingValues) {
+	public PropertiesComponentForm(int entity, String name, String existingValue) {
 		this(entity, name);
-		int index = 0;
-		for (String param : existingValues.keySet()) {
-			System.out.println("Value " + index + " is " + param + " for key " + existingValues.get(param));
-			index++;
-			fields.get(index).setText(existingValues.get(param));
-		}
+		this.field.setText(existingValue);
 	}
 
 	/**
@@ -60,29 +50,28 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	 * Should be performed only when the user clicks the submit button.
 	 * @return a component that accurately represents the data in this wrapper class
 	 */
-	public Object buildComponent() {
+	public Component buildComponent() {
 		if (!validComponent()) {
 			return null;
 		}
 		String fullName =  COMPONENT_PREFIX + this.name;
-		Object[] params = new Object[fields.size() + 1];
+		Object[] params = new Object[2];
 		// first argument is always the entity ID
 		params[0] = this.entity;
 		try {
 			Class<?> clazz = Class.forName(fullName);
 			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
-			Class<?>[] types = cons.getParameterTypes();
-			for (int i = 1; i < types.length; i++) {
-				String text = fields.get(i-1).getText();
-				params[i] = cast(types[i], text);
+			if (clazz.isInstance(DataComponent.class)) {
+				params[1] = Double.valueOf(this.field.getText());
+			} else {
+				params[1] = this.field.getText();
 			}
 			Component comp = (Component) cons.newInstance(params);
-			System.out.println(comp);
 			return comp;
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			return null;
 		}
-		return null;
 	}
 	
 	@Override

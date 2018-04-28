@@ -46,7 +46,7 @@ public class Grid extends GridPane {
 		this.numRows = height/Entity.ENTITY_HEIGHT;
 		this.numCols = width/Entity.ENTITY_WIDTH;
 		this.cells = new ArrayList<>();
-		this.setBackground(new Background(new BackgroundImage(new Image("File:data/Collin.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+		this.setBackground(new Background(new BackgroundImage(new Image("File:data/images/devil.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 		
 		for (int i = 0; i < this.numRows; i++) {
 			cells.add(new ArrayList<>());
@@ -57,19 +57,6 @@ public class Grid extends GridPane {
             	}
 		}
 		this.setPrefSize(width, height);
-	}
-	
-	private void setNeighbors(double width, double height) {
-		
-		double actualWidth = width - width % Entity.ENTITY_WIDTH;
-		double actualHeight = height - height % Entity.ENTITY_HEIGHT;
-		
-		for(int i=0;i<this.numRows;i++) {
-			for(int j=0;j<this.numCols;j++) {
-				Cell cell = cells.get(i).get(j);
-				
-			}
-		}
 	}
 
 	/**
