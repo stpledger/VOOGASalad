@@ -1,16 +1,13 @@
 package authoring.views;
 
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import authoring.entities.Entity;
 import authoring.entities.data.EntityLoader;
 import authoring.entities.data.PackageExplorer;
 import authoring.factories.Toolbar;
@@ -23,7 +20,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 public class EntityView extends BorderPane {
 	public final static String ENTITIES_PACKAGE_NAME = "authoring/entities";

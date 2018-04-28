@@ -255,7 +255,7 @@ public class GameEditorView extends BorderPane {
 			}
 			entity.add(c);
 			if(c.getKey().equals("Sprite")) {
-				Image image = DataRead.loadImage(((Sprite) c).getName());	
+				Image image = DataRead.addImage(((Sprite) c).getName());
 				entity.setImage(image);
 			} else if(c.getKey().equals("Position")) {
 				Position p = (Position) c;

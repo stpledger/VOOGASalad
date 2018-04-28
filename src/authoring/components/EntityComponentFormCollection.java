@@ -6,7 +6,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import authoring.factories.ComboBoxElement;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
 public class EntityComponentFormCollection extends AbstractComponentFormCollection {

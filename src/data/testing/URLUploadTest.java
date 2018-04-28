@@ -1,6 +1,5 @@
 package data.testing;
 
-import data.DataWrite;
 import data.ResourceGetter;
 import javafx.application.Application;
 import javafx.scene.Group;

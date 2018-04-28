@@ -7,7 +7,6 @@ import java.util.Map;
 
 import authoring.gamestate.Level;
 import data.DataGameState;
-import data.DataRead;
 import data.DataWrite;
 import engine.components.*;
 import engine.components.Component;
