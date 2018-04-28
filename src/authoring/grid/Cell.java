@@ -31,7 +31,6 @@ public class Cell extends Pane {
 		this.setPrefHeight(Entity.ENTITY_HEIGHT);
 		this.setStyle(DEFAULT_STYLE);
 		this.setUpDrag();
-
 	}
 	
 	private void setUpDrag() {
@@ -47,7 +46,6 @@ public class Cell extends Pane {
 			this.setEntity(null);
 			this.getChildren().clear();
 		});
-		
 	}
 
 	/**

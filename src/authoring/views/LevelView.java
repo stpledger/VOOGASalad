@@ -45,33 +45,33 @@ public class LevelView extends ScrollPane {
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setContent((content));
-		this.setupMouseClick(levelNum);
+//		this.setupMouseClick(levelNum);
 		this.setupMouseDrag();
 	}
 
-	/**
-	 * Sets up mouse click events
-	 * @param levelNum Level number
-	 */
-	private void setupMouseClick(int levelNum) {
-		this.setOnMouseClicked(e -> {
-			if(e.getButton().equals(MouseButton.SECONDARY)) {
-				ContextMenu cMenu = new ContextMenu();
-				try {
-					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addColumn"), e1->this.content.addCol(ADD_ONE));
-					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addRow"), e1->this.content.addRow(ADD_ONE));
-					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveColumn"), e1->this.content.addCol(ADD_FIVE));
-					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveRow"), e1->this.content.addRow(ADD_FIVE));
-					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("cancel"), e1->cMenu.hide());
-					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
-				} catch (Exception e1) {
-					LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
-				}
-				cMenu.show(this, e.getScreenX(), e.getScreenY());
-				cMenu.setAutoHide(true);
-			}
-		});
-	}
+//	/**
+//	 * Sets up mouse click events
+//	 * @param levelNum Level number
+//	 */
+//	private void setupMouseClick(int levelNum) {
+//		this.setOnMouseClicked(e -> {
+//			if(e.getButton().equals(MouseButton.SECONDARY)) {
+//				ContextMenu cMenu = new ContextMenu();
+//				try {
+//					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addColumn"), e1->this.content.addCol(ADD_ONE));
+//					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addRow"), e1->this.content.addRow(ADD_ONE));
+//					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveColumn"), e1->this.content.addCol(ADD_FIVE));
+//					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveRow"), e1->this.content.addRow(ADD_FIVE));
+//					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("cancel"), e1->cMenu.hide());
+//					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
+//				} catch (Exception e1) {
+//					LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+//				}
+//				cMenu.show(this, e.getScreenX(), e.getScreenY());
+//				cMenu.setAutoHide(true);
+//			}
+//		});
+//	}
 
 	/**
 	 * Sets the onMouseReleased method for the content to handle dragging.
