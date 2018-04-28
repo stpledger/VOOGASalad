@@ -152,6 +152,7 @@ public class EntityBuilderView extends Stage {
 		}
 		return typeName;
 	}
+	
 	/**
 	 * Builds the menu on the buttom of the screen containing the save button
 	 * @return HBox bottomMenu
