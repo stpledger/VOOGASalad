@@ -17,5 +17,4 @@ public class DamageValue extends SingleDataComponent {
 	public String getKey() {
 		return KEY;
 	}
-	
 }

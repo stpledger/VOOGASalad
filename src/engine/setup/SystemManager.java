@@ -49,7 +49,6 @@ public class SystemManager {
         setActives(renderManager.render());
     }
 
-
     public void addComponent(int pid, Component c) {
             Map<String, Component> newComponent = new HashMap<>();
             newComponent.put(c.getKey(), c);
@@ -57,6 +56,7 @@ public class SystemManager {
 			s.addComponent(pid, newComponent);
 		}
     }
+
     public void removeComponent(int pid) {
         removeEntity(pid);
     }
