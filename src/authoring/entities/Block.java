@@ -1,7 +1,5 @@
 package authoring.entities;
 
-import java.io.FileNotFoundException;
-
 /**
  * 
  * @author Hemanth Yakkali(hy115)
