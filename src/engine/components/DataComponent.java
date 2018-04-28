@@ -10,6 +10,5 @@ public interface DataComponent {
 	public void setData(double data);
 	public String getKey();
 	public int getPID();
-	public void setPID(int pid);
-	
+	public void setPID(int pid);	
 }
