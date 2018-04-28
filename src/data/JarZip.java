@@ -7,33 +7,43 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
 import java.util.jar.Manifest;
 
-public class AppZip
+public class JarZip
 {
     List<String> fileList;
     List<String> addList;
+    List<File> modules;
     Set<File> ignoreSet;
-    private String output = "C:/Users/Conrad/Desktop/Hello/Jar.jar";
     private String sourceFolder;
     private String projectFolder;
+    private Manifest manifest;
+    private String outPath;
+    private File main;
+    private final String JAR=".jar";
+    private final String SRC = "src/";
+    private final String PERIOD = ".";
+    private final String FRONTSLASH ="/";
+    private final String BACKSLASH = "\\";
 
-    AppZip(){
+    JarZip(){
         fileList = new ArrayList<>();
         addList = new ArrayList<>();
         ignoreSet = new HashSet<>();
     }
 
-    public void zip(File source, List<File> add, List<File> ignore, List<File> modules, String projectFolder){
-        sourceFolder = source.getAbsolutePath().replace("\\","/");
+    public void zip(File source, List<File> add, List<File> ignore, List<File> modules, String projectFolder, File out, File main){
+        sourceFolder = source.getAbsolutePath().replace(BACKSLASH,FRONTSLASH);
+        this.main = main;
         System.out.println(sourceFolder);
         System.out.println(projectFolder);
+        this.modules = modules;
+        outPath = out.getAbsolutePath() + FRONTSLASH +"Game";
         ignoreSet = new HashSet<>((ignore));
-        this.projectFolder = projectFolder.replace("\\","/");
+        this.projectFolder = projectFolder.replace(BACKSLASH,FRONTSLASH);
         for(File file : add)
             addFile(file);
-//        for(File module : modules)
-//            addFile(module);
+        buildManifest();
         generateFileList(source);
-        zipIt(output);
+        zipIt(outPath);
 
     }
 
@@ -47,12 +57,9 @@ public class AppZip
 
         try{
             System.out.println(zipFile);
-            zipFile.replace("\\","/");
+            zipFile.replace(BACKSLASH,FRONTSLASH);
             System.out.println(zipFile);
-            Manifest manifest = new Manifest();
-            manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
-            manifest.getMainAttributes().put(Attributes.Name.CLASS_PATH, "xstream-1.4.10.jar");
-            manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, "GamePlayer.Main");
+
             FileOutputStream fos = new FileOutputStream(zipFile);
             JarOutputStream jos = new JarOutputStream(fos,manifest);
 
@@ -60,10 +67,10 @@ public class AppZip
 
             for(String file : this.fileList){
 
-                System.out.println("File Added : " + file.replace("\\","/"));
-                JarEntry ze= new JarEntry(file.replace("\\","/"));
+                System.out.println("File Added : " + file.replace(BACKSLASH,FRONTSLASH));
+                JarEntry ze= new JarEntry(file.replace(BACKSLASH,FRONTSLASH));
                 jos.putNextEntry(ze);
-                FileInputStream in = new FileInputStream(sourceFolder + "/" + file);
+                FileInputStream in = new FileInputStream(sourceFolder + FRONTSLASH + file);
                 int len;
                 while ((len = in.read(buffer)) > 0) {
                     jos.write(buffer, 0, len);
@@ -73,11 +80,11 @@ public class AppZip
 
             for(String file : this.addList){
 
-                System.out.println("File Added : " + file.replace("\\","/"));
-                JarEntry ze= new JarEntry(file.replace("\\","/"));
+                System.out.println("File Added : " + file.replace(BACKSLASH,FRONTSLASH));
+                JarEntry ze= new JarEntry(file.replace(BACKSLASH,FRONTSLASH));
                 jos.putNextEntry(ze);
                 System.out.println(projectFolder + '/' + file);
-                FileInputStream in = new FileInputStream(projectFolder + "/" + file);
+                FileInputStream in = new FileInputStream(projectFolder + FRONTSLASH + file);
                 int len;
                 while ((len = in.read(buffer)) > 0) {
                     jos.write(buffer, 0, len);
@@ -137,19 +144,25 @@ public class AppZip
         return file.substring(source.length()+1, file.length());
     }
 
-
-    //destroy a directory TO BE KEPT PRIVATE!!!!!!!!!
-    //DO NOT FUCK WITH THIS METHOD IT WILL FUCK YOUR SHIT UP
-    //SERIOUSLY IT WILL DELETE YOUR COMPUTER...
-    private static void deleteDir(File dir) {
-        if (!dir.exists())
-            return;
-        if (dir.isDirectory()) {
-            File[] children = dir.listFiles();
-            for (File file : children) {
-                deleteDir(file);
-            }
+    private void buildManifest(){
+        manifest = new Manifest();
+        manifest.getMainAttributes().put(Attributes.Name.MANIFEST_VERSION, "1.0");
+        for(File module : modules) {
+            manifest.getMainAttributes().put(Attributes.Name.CLASS_PATH, module.getName());
+            System.out.print(module.getName());
         }
-        dir.delete();
+        System.out.print(main.getAbsolutePath());
+        manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, main);
+    }
+
+
+    public String getMain(File main){
+        String mainclass = main.getAbsolutePath();
+        System.out.println(mainclass+ "     " + projectFolder +FRONTSLASH + SRC);
+        mainclass = mainclass.substring((projectFolder +FRONTSLASH + SRC).length());
+        mainclass = mainclass.substring(0, mainclass.indexOf(PERIOD));
+        mainclass= mainclass.replace(FRONTSLASH,PERIOD);
+        System.out.println(mainclass);
+        return mainclass;
     }
 }

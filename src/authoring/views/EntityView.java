@@ -70,7 +70,7 @@ public class EntityView extends BorderPane {
 	 */
 	public void saveEntity(String entityType, Map<Class, Object[]> componentAttributes) {
 		//Turn the imageFile into a usableImage
-		Image image = DataRead.addImage((String) componentAttributes.get(Sprite.class)[0]);
+		Image image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 
 		if(tabsList.isEmpty() || !tabsList.contains(entityType)) { 
 			addTab(entityType);

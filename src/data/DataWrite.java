@@ -44,6 +44,8 @@ public class DataWrite {
     private static final Set<String> ACCEPTED_IMAGE_FILES = new HashSet<>(Arrays.asList(new String[]{"jpg", "png", "gif"}));
     private static final String SAVE_PATH = "saves/";
     private static final String ENTITY_PATH = "entity/";
+    private static final String HIGHSCORES_PATH = "highscores/";
+    private static final String HIGHSCORE_FILE = "highscores.xml";
 
 
     //creates an xml file from an authoiring environment this method converts authoring gamestate to player
@@ -68,6 +70,17 @@ public class DataWrite {
             ErrorStatement(WRITE_ERROR);
         }
         serialize(dataGameState, fos);
+    }
+
+    public static void saveHighscore(List<Object> highscores, String name){
+        File hs = new File( GAME_FILEPATH + name + SLASH + HIGHSCORE_FILE);
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(hs);
+        } catch (FileNotFoundException e) {
+            ErrorStatement(WRITE_ERROR);
+        }
+        serialize(highscores, fos);
     }
 
     public static void writeImage(File file) {
@@ -141,6 +154,7 @@ public class DataWrite {
         String dataDir = gameDir + SLASH + DATA_DATAPTH;
         String imageDir = dataDir + SLASH + IMAGE_DATAPATH;
         String soundDir = dataDir + SLASH + SOUND_DATAPATH;
+        String highscore = gameDir + SLASH + HIGHSCORES_PATH;
 
         File gameFolder = new File(gameDir);
         if (!gameFolder.exists()) {
@@ -155,6 +169,9 @@ public class DataWrite {
 
             File soundFolder = new File(soundDir);
             soundFolder.mkdir();
+
+            File highscoreFolder = new File(highscore);
+            highscoreFolder.mkdir();
         } else {
             deleteDir(gameFolder);
             makeFolders(name);

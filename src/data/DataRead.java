@@ -27,10 +27,12 @@ public class DataRead  {
     private static final String FAIL_MESSAGE ="File could not be loaded";
     private static final String IMAGE_PATH = "data/images/";
     private static final String SOUND_PATH = "data/sounds/";
+    private static final String HIGHSCORE_PATH = "highscores/highscore.xml";
     private static final String GAME_PATH = "games/";
     private static final String EMPTY_IMAGE ="File:data/images/picture-placeholder.png";
     private static final String ERROR ="Error";
-    private static final String SLASH = "/";
+    private static final String FRONTSLASH = "/";
+    private static final String BACKSLASH = "\\";
     private static final String FILE ="File:";
     private static final String PERIOD = ".";
     private static final String SPACE ="";
@@ -39,6 +41,7 @@ public class DataRead  {
     private static final Class CLASS = "Entity".getClass();
     private static final String SAVE_PATH = "saves/";
     private static final String PLAYER_TARGET = "Player.xml";
+    private static final String USER_DIR = "user.dir";
 
     /* receives a gamestate and loads it to the player
      * from buildState
@@ -68,26 +71,8 @@ public class DataRead  {
 
     public static Image loadImage(String name)throws RuntimeException {
         Image image;
-            image = new Image("File:data/images/" + name);
-            if (image.getHeight() == 0) {
-                try {
-                    image = new Image(DataRead.class.getClassLoader().getResourceAsStream("/" + IMAGE_PATH + name));
-                    System.out.println("Path try /" + IMAGE_PATH + name);
-                } catch (Exception e) {
-                    try {
-                        image = new Image(DataRead.class.getClassLoader().getResourceAsStream("/" + path + IMAGE_PATH + name));
-                        System.out.println("Path try/" + IMAGE_PATH + name);
-                    } catch (Exception y) {
-                        try {
-                            image = SwingFXUtils.toFXImage(ImageIO.read(loadFile(path + IMAGE_PATH + name)), null);
-                        } catch (IOException e1) {
-                            e1.printStackTrace();
-                        }
-                    }
-                }
-                return image;
-            }
-            return image;
+        File imageFile = loadFile(path + FRONTSLASH + IMAGE_PATH +name);
+        return loadImage(imageFile);
     }
 
    // public static List<DataGameState> getGames
@@ -97,7 +82,6 @@ public class DataRead  {
         return loadImage(file);
     }
     public static Image loadImage(File file) {
-       System.out.print(file.getAbsolutePath());
         try {
             BufferedImage image = ImageIO.read(file);
             return SwingFXUtils.toFXImage(image, null);
@@ -107,13 +91,18 @@ public class DataRead  {
         }
     }
 
+    public static Object loadHighscore(){
+        File hs = loadFile(path+FRONTSLASH +HIGHSCORE_PATH);
+        return (List<Object>) deserialize(hs);
+
+    }
+
 
     public static Map<Image, DataGameState> getAllGames() {
         Map<Image, DataGameState> games =new HashMap<>();
         File file = loadFile(GAME_PATH);
         for(File game : file.listFiles()){
           game = findInDirectory(game,PLAYER_TARGET);
-          System.out.println(game.getAbsolutePath());
           DataGameState playable = loadPlayerFile(game);
           Image icon = getIcons().get(0);
           games.put(icon, playable);
@@ -123,27 +112,11 @@ public class DataRead  {
 
     public static List<DataGameState> getSaves(){
         List<DataGameState> saves = new ArrayList<DataGameState>();
-        File file = loadFile(path + SLASH + SAVE_PATH);
+        File file = loadFile(path + FRONTSLASH + SAVE_PATH);
         for(File save : file.listFiles()){
             saves.add((DataGameState)deserialize(save));
         }
         return saves;
-    }
-
-    public static List<Entity> getEntityList(){
-        List<Entity> entitySelect = new ArrayList<Entity>();
-        File f = new File(ENTITY_PATH);
-        for(File entityFile : f.listFiles()){
-            entitySelect.add((Entity)deserialize(entityFile));
-        }
-        return entitySelect;
-    }
-
-    // util file for finding filetype
-
-    private static String getFileType(File file) {
-        int fIndex = file.getName().indexOf(PERIOD);
-        return (fIndex == -1) ? SPACE : file.getName().substring(fIndex + 1);
     }
 
     /*prints an error to the screen
@@ -167,7 +140,7 @@ public class DataRead  {
     private static DataGameState buildState(File xml) {
         try {
             DataGameState gameState = (DataGameState)deserialize(xml);
-            path=GAME_PATH+gameState.getGameName()+SLASH;
+            path=GAME_PATH + gameState.getGameName()+ FRONTSLASH;
             return gameState;
         }
         catch(Exception e){
@@ -175,35 +148,18 @@ public class DataRead  {
             return new DataGameState(EMPTY_GAME);
         }
     }
-
     private static Object deserialize(File xml) {
-        XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
+        XStream xstream = new XStream(new DomDriver());
         return xstream.fromXML(xml);
     }
-
     public static List<Image> getIcons(){
         List<Image> icons = new ArrayList<>();
         File imageRepo = loadFile(path+IMAGE_PATH);
         for(File image : imageRepo.listFiles()) {
             icons.add(loadImage(image));
-            System.out.println(image.getAbsolutePath());
         }
         return icons;
     }
-
-    private static File loadFile(String path){
-        File file = new File(FILE+path);
-        if(!file.exists()) {
-            try {
-                file = new File(DataRead.class.getClassLoader().getResource("/" + path).getFile());
-            } catch (Exception e) {
-                if (!file.exists())
-                    file = new File(path);
-            }
-        }
-        return file;
-    }
-
     private static File findInDirectory(File directory, String target){
         if(directory.isDirectory()){
             for(File subDir : directory.listFiles()){
@@ -218,5 +174,39 @@ public class DataRead  {
         }
         else return null;
     }
+    private static File loadFile(String path) {
+        String filePath =path.replace(BACKSLASH,FRONTSLASH);
+        File file = new File(filePath);
+        if(!file.exists())
+            file = new File(FILE+filePath);
+        if (!file.exists()) {
+            try {
+                file = new File(DataRead.class.getClassLoader().getResource(filePath).getFile());
+                if (!file.exists())
+                    throw new NullPointerException();
+            } catch (NullPointerException e) {
+                try {
+                    file = new File(DataRead.class.getClassLoader().getResource(FRONTSLASH + filePath).getFile());
+                    if (!file.exists())
+                        throw new NullPointerException();
+                } catch (NullPointerException f) {
+                    try {
+                        String fileName = filePath.substring(filePath.lastIndexOf(FRONTSLASH + 1));
+                        file = findInDirectory(getProjectName(), fileName);
+                    }
+                    catch(NullPointerException g){
+                        System.out.print("Error reading file DataRead line 240");
+                        ErrorStatement(FAIL_MESSAGE);
+                    }
+                }
+            }
+        }
+        return file;
+    }
+    private static File getProjectName(){
+        String superDir = System.getProperty(USER_DIR).replace(BACKSLASH,FRONTSLASH);
+        return new File(superDir.substring(superDir.lastIndexOf(FRONTSLASH)+1));
+    }
+
 
 }

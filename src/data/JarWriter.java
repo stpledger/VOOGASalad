@@ -5,41 +5,33 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.jar.JarOutputStream;
-import java.util.jar.Manifest;
 
 public class JarWriter {
 //do the things that will give you the parent directory
     //get authoring to create a file chooser splash screen to decide between url and file
     private List<File> fileNames;
-    private Manifest manifest;
-    private JarOutputStream jos;
-    private FileOutputStream fos;
     private List<File> ignore;
     private List<File> modules;
-    private File outPut;
+    private File outputDir;
+    private File classSource;
     private File gameSource;
-    private File dataSource;
-    private File classContainer;
     private File project;
+    private File main;
     private String projectName;
 
-    private static final String ROOT = ".classpath";
     private static final String OUT_INTELLIJ = "out";
     private static final String OUT_ECLIPSE = "bin";
     private static final String USER_DIR = "user.dir";
     private static final String BACKSLASH = "\\";
     private static final String FRONTSLASH = "/";
     private static final String GAME_DIR_PROMPT = "Please navigate to a game directory that you would like to write";
-    private static final String BIN_ERROR = "The out/bin file could not be found.";
-    private static final String DATA_DIR_PROMPT = "Please navigate to a data directory that you would like to write";
-    private static final String GAME_DIR = "Directory";
-    private static final String GAME_FILE = "File";
-    private static final String FILE_DIR_PROMPT = "Is your game in a "+GAME_DIR+" or a "+GAME_FILE+ "?";
-    private static final int SIZE = 300;
+    private static final String IGNORE_PROMPT = "Specify what packages from src not to include";
+    private static final String MODULE_PROMPT = "Specify which jar files you would like to include";
+    private static final String OUT_PROMPT = "Select the output directory for this jar";
+    private static final String MAIN_PROMPT = "Select the class with the main method that you would like to run";
+
     private Stage primaryStage;
 
 
@@ -57,16 +49,16 @@ public class JarWriter {
     }
 
     private void getClassFiles(){
-        classContainer = findInDirectory(project,OUT_ECLIPSE);
+        File classContainer = findInDirectory(project,OUT_ECLIPSE);
         classContainer = findInDirectory(project,OUT_INTELLIJ);
-        outPut = findInDirectory(classContainer, projectName);
+        classSource = findInDirectory(classContainer, projectName);
     }
 
     public void getIgnore(){
         ignore = new ArrayList<>();
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setInitialDirectory(project);
-        directoryChooser.setTitle("Specify what packages from src not to include");
+        directoryChooser.setTitle(IGNORE_PROMPT);
         while(true) {
             File ignoreFile = directoryChooser.showDialog((new Stage()));
             if(ignoreFile==null)
@@ -92,28 +84,33 @@ public class JarWriter {
             fileNames.add(gameSource);
         }
 
-    public void getData(){
-        DirectoryChooser gameChooser = new DirectoryChooser();
-        gameChooser.setTitle(DATA_DIR_PROMPT);
-        gameChooser.setInitialDirectory(project);
-        gameSource = gameChooser.showDialog(primaryStage);
-        fileNames.add(gameSource);
+    public void getOutput(){
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setInitialDirectory(project);
+        directoryChooser.setTitle(OUT_PROMPT);
+        outputDir = directoryChooser.showDialog(primaryStage);
     }
 
     public void configureModules(){
         FileChooser moduleChooser = new FileChooser();
-        moduleChooser.setTitle("Select modules such as XML that this project needs");
+        moduleChooser.setTitle(MODULE_PROMPT);
         modules = moduleChooser.showOpenMultipleDialog(primaryStage);
         for(File module : modules){
-            module.renameTo(new File(outPut.getAbsolutePath() + "\\" + module.getName()));
-                module.delete();
+            module.renameTo(new File(classSource.getAbsolutePath() + BACKSLASH + module.getName()));
         }
     }
 
-    public void buildJar() {
-        AppZip zipper = new AppZip();
-        zipper.zip(outPut,fileNames,ignore,modules,project.getAbsolutePath());
+    public void buildJar(){
+        JarZip zipper = new JarZip();
+        zipper.zip(classSource,fileNames,ignore,modules,project.getAbsolutePath(), outputDir,main);
 
+    }
+
+    public void selectMain(){
+        FileChooser mainChooser = new FileChooser();
+        mainChooser.setTitle(MAIN_PROMPT);
+        mainChooser.setInitialDirectory(project);
+        main = mainChooser.showOpenDialog(primaryStage);
     }
 
     private File findInDirectory(File directory, String target){
@@ -131,14 +128,6 @@ public class JarWriter {
         else return null;
     }
 
-    private File findParentDirectory(File directory, String target) throws NullPointerException{
-        for(File subFile : directory.listFiles()){
-            System.out.println("    "+subFile.getName());
-            if(subFile.getName().equals(target))
-                return directory;
-        }
-        return findParentDirectory(directory.getParentFile(),target);
-    }
 
 
 

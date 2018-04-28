@@ -19,7 +19,7 @@ public class JarBuilderUI extends Application{
     public void start(Stage primaryStage) throws Exception {
         Group root = new Group();
         Scene sceen = new Scene(root, 10,10);
-        primaryStage.setScene(new LinearMenuScreen(400,primaryStage));
+        primaryStage.setScene(new JarWriterUI(400,primaryStage));
         primaryStage.show();
     }
 }

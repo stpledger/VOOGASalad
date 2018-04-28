@@ -12,9 +12,9 @@
 //
 //    }
 //
-//    public LinearMenuScreen buildMenu(Map<String,Map<String, Consumer<Void>>> menuSystem, int size) {
+//    public JarWriterUI buildMenu(Map<String,Map<String, Consumer<Void>>> menuSystem, int size) {
 //        for (String question : menuSystem.keySet()) {
-//                menu.add(new LinearMenuScreen(size, menuSystem.get(question), question));
+//                menu.add(new JarWriterUI(size, menuSystem.get(question), question));
 //
 //        }
 //        return headpointer;
