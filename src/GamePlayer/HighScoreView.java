@@ -20,6 +20,7 @@ public class HighScoreView extends BranchScreenView {
 	private TableColumn secondCol;
 	private BorderPane highScorePane;	
 	
+	//Data Structure to Display High Scores
 	private final ObservableList<Person> data = FXCollections.observableArrayList(
 		    new Person("Jacob Smith", 250.0),
 		    new Person("Isabella Johnson", 230.0),
@@ -70,7 +71,18 @@ public class HighScoreView extends BranchScreenView {
         highScoreTable.setItems(data);
 	}
 	
+	/**
+	 * Method to add High Score to the High Score Data File
+	 */
 	public void addHighScore() {
+		
+	}
+	
+	
+	/**
+	 * Method to obtain High Scores from the Data File
+	 */
+	public List<Person> getHighScores(){
 		
 	}
 
