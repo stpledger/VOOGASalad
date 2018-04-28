@@ -67,7 +67,7 @@ public class TestGameState {
 		Health h = new Health(0,10);
 		Damage damage = new Damage(0, 10, 1);
 		
-		Player play = new Player(0, 3);
+		Player play = new Player(0);
 
 		/**k.addCode(KeyCode.R, (Runnable & Serializable) () ->
 		 {
