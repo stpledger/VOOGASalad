@@ -1,12 +1,15 @@
 package authoring.views.popups;
 
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import authoring.MainApplication;
+import authoring.factories.Element;
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -19,6 +22,7 @@ import javafx.stage.Stage;
 public class SelectionBox extends VBox implements PopUp {
 	
 	Properties language = new Properties();
+	ArrayList<Element> elements = new ArrayList<>();
 	String selection = "";
 	Stage stage;
 	
@@ -37,12 +41,16 @@ public class SelectionBox extends VBox implements PopUp {
 		for(String o: options) {
 			try {
 			Label label = (Label) eFactory.buildElement(ElementType.Label, o);
+			label.getStyleClass().add("selection-label");
+			label.setAlignment(Pos.CENTER);
+			label.setPrefWidth(200);
 			label.setOnMouseClicked(e->{
 				selection = label.getId();
 				onClose(consumer);
 				stage.close();
 			});
 			this.getChildren().add(label);
+			elements.add((Element) label);
 			} catch (Exception e) {
 				LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 			}
@@ -69,6 +77,10 @@ public class SelectionBox extends VBox implements PopUp {
 
 	public void setLanguage(Properties lang) {
 		this.language = lang;
+		for(Element e: elements) {
+			e.setLanguage(language);
+		}
+		
 		
 	}
 }
