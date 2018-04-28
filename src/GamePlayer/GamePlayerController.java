@@ -7,6 +7,7 @@ import Menu.MenuGameBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
 import buttons.GameSelectButton;
+import buttons.IGamePlayerButton;
 import buttons.SwitchGameButton;
 import data.DataGameState;
 import engine.components.Component;
@@ -40,7 +41,7 @@ public class GamePlayerController {
 	private SwitchGameButton switchBtn;
 	private Map<Integer, Pane> levelEntityGroupMap; //map that is used to store the initial group for each level.
 	private DataGameState currentGameState;
-	public List<GameSelectButton> gameSelectButtonList;
+	public List<IGamePlayerButton> gameSelectButtonList;
 	private Timeline myTimeline;
 	private Map<Integer, Map<String, Component>> PlayerKeys;
 	private SampleToolBar sampleBar;
@@ -55,11 +56,10 @@ public class GamePlayerController {
 
 	public Scene initializeStartScene() {
 		//Testing HighScore Screen
-		HighScoreView highScoreScreen = new HighScoreView(myStage);
-		Scene highScore = highScoreScreen.getHighScoreScene();
-		
-		gamePlayerSplash = new SplashScreenView(myStage);
-		mySplashScene = gamePlayerSplash.getSplashScene();
+		HighScoreView highScoreScreen = new HighScoreView();
+		Scene highScore = highScoreScreen.getScene();
+		gamePlayerSplash = new SplashScreenView();
+		mySplashScene = gamePlayerSplash.getScene();
 		connectButtonsToController();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		assignKeyInputs();
@@ -72,10 +72,10 @@ public class GamePlayerController {
 	 * Helper Method to establish button listener connection to the controller
 	 */
 	private void connectButtonsToController() {
-		gameSelectButtonList = gamePlayerSplash.getSplashScreenButtons();
-		for (GameSelectButton b : gameSelectButtonList) {
-			b.getGameSelectBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-				currentGameState = b.getGameState();
+		gameSelectButtonList = gamePlayerSplash.getButtons();
+		for (IGamePlayerButton b : gameSelectButtonList) {
+			((GameSelectButton) b).getGameSelectBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+				currentGameState = ((GameSelectButton) b).getGameState();
 				setGameView(currentGameState);
 				myStage.setScene(myScene);
 			});

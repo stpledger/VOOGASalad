@@ -1,5 +1,8 @@
 package GamePlayer;
 
+import java.util.List;
+
+import buttons.IGamePlayerButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
@@ -9,15 +12,14 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
-public class HighScoreView {
+public class HighScoreView extends BranchScreenView {
 	
 	private Scene highScoreScene;
 	private TableView highScoreTable;
 	private TableColumn firstCol;
 	private TableColumn secondCol;
 	private BorderPane highScorePane;	
-	private final int WIDTH_SIZE = 800;
-	private final int HEIGHT_SIZE = 500;
+	
 	private final ObservableList<Person> data = FXCollections.observableArrayList(
 		    new Person("Jacob Smith", 250.0),
 		    new Person("Isabella Johnson", 230.0),
@@ -27,20 +29,24 @@ public class HighScoreView {
 		);
 	
 	
-	public HighScoreView(Stage stage) {
+	public HighScoreView() {
 		setupHighScoreTable();
 		displayHighScores();
-		highScoreScene = initializeHighScoreScreen();
+		highScoreScene = initializeScreen();
 	}
 	
-	public Scene initializeHighScoreScreen() {
+	@Override
+	public Scene initializeScreen() {
 		highScorePane = new BorderPane();
 		highScorePane.setCenter(highScoreTable);
 		Scene currentScene = new Scene(highScorePane,WIDTH_SIZE,HEIGHT_SIZE);
 		return currentScene;
 	}
+
 	
-	public Scene getHighScoreScene() {
+	@Override
+	public Scene getScene() {
+		// TODO Auto-generated method stub
 		return highScoreScene;
 	}
 	
@@ -67,5 +73,15 @@ public class HighScoreView {
 	public void addHighScore() {
 		
 	}
+
+
+
+	@Override
+	public List<IGamePlayerButton> getButtons() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	
 }
