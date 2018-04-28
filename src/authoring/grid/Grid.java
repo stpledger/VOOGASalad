@@ -71,7 +71,6 @@ public class Grid extends GridPane {
             			ImageView img = new ImageView(db.getImage());
             			img.setFitWidth(Entity.ENTITY_WIDTH);
             			img.setFitHeight(Entity.ENTITY_HEIGHT);
-//            			createMenu(img);
             			img.setOnMouseClicked(e1->{
             				if(e1.getClickCount()==2) {
             					System.out.println("cocks!");
@@ -81,10 +80,13 @@ public class Grid extends GridPane {
 									MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addRow(img, 1));
 									MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addCol(img, 5));
 									MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Rows", e2->this.addRow(img, 5));
+									MenuItem removeCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Column", e2->this.addCol(img, -1));
+									MenuItem removeRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Row", e2->this.addRow(img, -1));
+									MenuItem removeFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Five Columns", e2->this.addCol(img, -5));
+									MenuItem removeFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Five Rows", e2->this.addRow(img, -5));
 									MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Cancel", e2->cMenu.hide());
-									cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
+									cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,removeCol,removeRow,removeFiveCol,removeFiveRow,cancel);
 								} catch (Exception e3) {
-									// TODO Auto-generated catch block
 									e3.printStackTrace();
 								}
             					cMenu.show(this, e1.getScreenX(), e1.getScreenY());
