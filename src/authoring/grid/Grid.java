@@ -81,7 +81,7 @@ public class Grid extends GridPane {
             			});
             			c.getChildren().add(img);
             			try {
-            				Entity en = el.buildEntity(numberOfCells, db.getString());
+            				Entity en = el.buildEntity(c.getNumber(), db.getString());
             				c.setEntity(en);
             			} catch (Exception e1) {
             				// TODO Auto-generated catch block
