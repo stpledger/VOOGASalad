@@ -96,10 +96,11 @@ public class Grid extends GridPane {
 			EntityLoader el = new EntityLoader();
 			ImageView img = new ImageView(db.getImage());
 			try {
-				Entity en = el.buildEntity(this.getID(), db.getString());
+				Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(),c.getLayoutY());
 				c.setEntity(en);
 				level.addEntity(en);
 				if(en.getType().equals("Noninteractable")) {
+					System.out.println("cocks!");
 					img.setOnMouseClicked(e1->{
 						if(e1.getClickCount()==2) {
 							ContextMenu cMenu = backgroundMenu(c, img);
