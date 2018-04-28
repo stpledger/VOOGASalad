@@ -1,27 +1,18 @@
 package GamePlayer;
 
 import java.util.List;
-import java.util.ResourceBundle;
-
 import buttons.IGamePlayerButton;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 public abstract class BranchScreenView {
 	
-	private Stage myStage;
-//	private ResourceBundle myResources;
-	private Scene myScene;
 	protected final int WIDTH_SIZE = 800;
 	protected final int HEIGHT_SIZE = 500;
-	private List<IGamePlayerButton> buttonList;
 
-	public BranchScreenView() {
-		//this.myResources = ResourceBundle.getBundle(resource);
-	}
+	public BranchScreenView() {}
 	
 	/**
-	 * Returns the Scene of the Branch Screen
+	 * Returns the Scene of the Branched Screen
 	 * @return
 	 */
 	public abstract Scene getScene();

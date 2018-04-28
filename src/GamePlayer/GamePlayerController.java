@@ -46,7 +46,6 @@ public class GamePlayerController {
 	private Map<Integer, Map<String, Component>> PlayerKeys;
 	private SampleToolBar sampleBar;
 	private Map<Integer, Map<String, Boolean>> HUDPropMap;
-
 	private Timeline animation;
 
 	public GamePlayerController(Stage stage) {
@@ -164,6 +163,12 @@ public class GamePlayerController {
 		}
 	}
 
+	
+	public void setHighScoreView() {
+		HighScoreView highScoreScreen = new HighScoreView();
+		Scene highScore = highScoreScreen.getScene();
+		myStage.setScene(highScore);
+	}
 	
 	public void restartGame() {
 		setGameView(currentGameState);

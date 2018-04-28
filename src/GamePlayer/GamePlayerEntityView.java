@@ -156,32 +156,6 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		return entityRoot;
 	}
 
-//	/**
-//	 * When a level change is invoked, reinitalize the GameInitializer to add functionality.
-//	 * @param levelNum
-//	 */
-//	public void reinitializeGameEngine(int levelNum) {
-//		int count = 1;
-//		Map<Integer, Map<String, Component>> currentLevel = null;
-//		for(Level level : Levels.keySet()) {
-//			if (count == levelNum) {
-//				
-//				currentLevel = Levels.get(level);
-//				System.out.println(currentLevel);
-//				break;
-//			}
-//			count++;
-//		}
-//		try {
-//			System.out.println(currentLevel);
-//			gameInitializer = new GameInitializer(currentLevel, Math.max(PANE_HEIGHT, PANE_WIDTH),
-//					ActivePlayerPos.getXPos(), ActivePlayerPos.getYPos()); //reinitializes the level.
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("Level Does Not Currently Exist Yet");
-//		} 
-//	}
-
 	/**
 	 * initialize the Game Initializer to create the systemManager and renderManager.
 	 * @throws FileNotFoundException
