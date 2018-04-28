@@ -15,7 +15,7 @@ public abstract class AbstractComponentForm extends GridPane {
 	protected static final String COMPONENT_PREFIX = "engine.components.";
 	protected String name;
 	protected int numFields;
-	protected List<TextField> fields;
+	protected List<TextField> fields = new ArrayList<>();
 	protected List<Label> labels = new ArrayList<>();
 	
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
