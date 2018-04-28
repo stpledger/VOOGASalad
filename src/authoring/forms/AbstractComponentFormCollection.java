@@ -41,7 +41,9 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 	protected void createAddComponentButton(int row) {
 		try {
 			Button addComponent = (Button) eFactory.buildClickElement(ClickElementType.Button,"AddComponent", onClick->{
-				SelectionBox  selectionBox = new SelectionBox(PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE, ".class","Component"), us -> {addComponent(us);});
+				String[] options = PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE, ".class","Component");
+				String[] exceptions = new String[] {"Component","Conditional","DataComponent", "ReadDataComponent", "ReadStringComponent","StringComponent", "SingleDataComponent", "SingleStringComponent"};
+				SelectionBox  selectionBox = new SelectionBox(options, exceptions, us -> {addComponent(us);});
 				selectionBox.setLanguage(language);
 			});
 			addComponentButton = addComponent;

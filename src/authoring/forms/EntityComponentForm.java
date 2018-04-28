@@ -5,32 +5,35 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import authoring.entities.data.PackageExplorer;
+import authoring.factories.Element;
+import authoring.factories.ElementFactory;
+import authoring.factories.ElementType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class EntityComponentForm extends AbstractComponentForm  implements ComponentForm {
 	
-
+	ElementFactory eFactory = new ElementFactory();
+	ArrayList<Element> elements = new ArrayList<>();
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
 	 * @param name the name of the component
 	 * @param numFields the number of fields necessary for this component
+	 * @throws Exception 
 	 */
-	public EntityComponentForm(String name) {
+	public EntityComponentForm(String name) throws Exception {
 		this.name = name;
-		fields = new ArrayList<>();
 		int col = 0;
-		Label label = new Label(name);
-		label.setId(name);
-		labels.add(label);
+		Label label = (Label) eFactory.buildElement(ElementType.Label, name);
 		label.getStyleClass().add("component-form-label");
 		col++;
 		this.add(label, col, 0);
 		this.numFields = PackageExplorer.getNumFields(name);
+		elements.add((Element) label);
 		for (int i = 0; i < (numFields-1); i++) {
-			TextField tf = new TextField();
+			TextField tf = (TextField) eFactory.buildElement(ElementType.TextField, "text");
 			tf.getStyleClass().add("component-text-field");
-			fields.add(tf);
+			elements.add((Element) tf);
 			col++;
 			this.add(tf, col, 0);
 		}
@@ -68,8 +71,8 @@ public class EntityComponentForm extends AbstractComponentForm  implements Compo
 
 	public void setLanguage(Properties lang) {
 		language = lang;
-		for(Label label : labels) {
-			label.setText(language.getProperty(label.getId()));
+		for(Element e: elements) {
+			e.setLanguage(language);
 		}
 	}
 }
