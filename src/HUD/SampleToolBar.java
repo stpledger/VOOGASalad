@@ -1,5 +1,6 @@
 package HUD;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -14,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
 import labels.HealthLabel;
+import labels.IGameStatusLabel;
 import labels.LivesLabel;
 import labels.ScoreLabel;
 import labels.TimeLabel;
@@ -25,40 +27,57 @@ public class SampleToolBar extends ToolBar{
 	private HUDFactory gameStatusFactory;
 	private int ActiveLevel;
 	private Map<String, Component> playerComponentsforLevel;
-	private VelocityLabel label4;
-	private HealthLabel label2;
-	private int count = 0;
+	private Map<String, Boolean> listOfStatusLabels;
+	private List<IGameStatusLabel> labelsToDisplay;
+	private List<String> approvedLabels;
+
 
 	/**
 	 * Builds a Sample Tool Bar that acts as the HUD for the game
 	 */
-	public SampleToolBar(int activeLevel, Map<Integer, Map<String, Component>> PlayerKeys) {
+	public SampleToolBar(int activeLevel, Map<Integer, Map<String, Component>> PlayerKeys, Map<Integer, Map<String, Boolean>> HUDPropMap) {
 		ActiveLevel = activeLevel;
 		playerComponentsforLevel = PlayerKeys.get(ActiveLevel);
-//		gameStatusFactory = new HUDFactory(playerComponentsforLevel, listOfStates); //factory for all the labels
-//		toolbarLayout = gameStatusFactory.create(listOfStates);
+		listOfStatusLabels = HUDPropMap.get(ActiveLevel); 
+		approvedLabels = extractSelectedLabels(listOfStatusLabels);
+		gameStatusFactory = new HUDFactory(); //factory for all the labels
+		labelsToDisplay = gameStatusFactory.create(approvedLabels);
+		toolbarLayout = new HBox(250);
+		for (IGameStatusLabel l: labelsToDisplay) {
+			toolbarLayout.getChildren().add((Label) l);
+		}
 		//constructor to create a Sample Tool Bar
-		toolbarLayout = new HBox(250); //adding spacing by 40 units
-		Health health = (Health) PlayerKeys.get(activeLevel).get(Health.KEY);
-		label2 = new HealthLabel(health.getHealth());
-		Player player = (Player) PlayerKeys.get(activeLevel).get(Player.KEY);
-		LivesLabel label3 = new LivesLabel(player.getLives());
-		Velocity velocity = (Velocity) PlayerKeys.get(activeLevel).get(Velocity.KEY);
-		label4 = new VelocityLabel(velocity.getXVel());
-//		Score score = (Score) PlayerKeys.get(activeLevel).get(Score.KEY);
-//		ScoreLabel label4 = new ScoreLabel(score.getScore());
-		toolbarLayout.getChildren().addAll(label2, label3, label4);
+//		toolbarLayout = new HBox(250); //adding spacing by 40 units
+//		Health health = (Health) PlayerKeys.get(activeLevel).get(Health.KEY);
+//		label2 = new HealthLabel(health.getHealth());
+//		Player player = (Player) PlayerKeys.get(activeLevel).get(Player.KEY);
+//		LivesLabel label3 = new LivesLabel(player.getLives());
+//		Velocity velocity = (Velocity) PlayerKeys.get(activeLevel).get(Velocity.KEY);
+//		label4 = new VelocityLabel(velocity.getXVel());
+////		Score score = (Score) PlayerKeys.get(activeLevel).get(Score.KEY);
+////		ScoreLabel label4 = new ScoreLabel(score.getScore());
+//		toolbarLayout.getChildren().addAll(label2, label3, label4);
 		this.getItems().add(toolbarLayout);
 	}	
+	
+	private List<String> extractSelectedLabels(Map<String, Boolean> listOfStatusLabels){
+		List<String> approvedLabels = new ArrayList<String>();
+		for (String s: listOfStatusLabels.keySet()) {
+			if (listOfStatusLabels.get(s)) {
+				approvedLabels.add(s);
+			}
+		}
+		return approvedLabels;
+	}
 	
 	/**
 	 * Update the gameState Values
 	 */
 	public void updateGameStatusLabels() {
-		//System.out.println(label4.extractGameStateValue(playerComponentsforLevel));
-		label4.update(label4.extractGameStateValue(playerComponentsforLevel));
-		label2.update(label2.extractGameStateValue(playerComponentsforLevel));
-	}
+		for (IGameStatusLabel label : labelsToDisplay) {
+		label.update(label.extractGameStateValue(playerComponentsforLevel));
+		}
+		}
 	
 	
 	public void updateGameStatusValues(Map<Integer, Map<String, Component>> playerKeys) {

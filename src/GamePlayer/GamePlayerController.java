@@ -44,6 +44,7 @@ public class GamePlayerController {
 	private Timeline myTimeline;
 	private Map<Integer, Map<String, Component>> PlayerKeys;
 	private SampleToolBar sampleBar;
+	private Map<Integer, Map<String, Boolean>> HUDPropMap;
 
 	private Timeline animation;
 
@@ -93,16 +94,16 @@ public class GamePlayerController {
 	 */
 	public void setGameView(DataGameState currentGame) {
 		gameView = new GamePlayerEntityView(currentGame);
+		HUDPropMap = gameView.getHudPropMap();
 		PlayerKeys = gameView.getPlayerKeys();
 		levelEntityGroupMap = gameView.getlevelEntityMap();
 		gameRoot = levelEntityGroupMap.get(LEVEL_ONE);  //level 1
 		myPane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
-		sampleBar = new SampleToolBar(LEVEL_ONE, PlayerKeys);
+		sampleBar = new SampleToolBar(LEVEL_ONE, PlayerKeys, HUDPropMap);
 		myPane.setTop(sampleBar);
 		initializeGameAnimation(); //begins the animation cycle
-
 		//set level change listener
 		/*gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
 			changeGameLevel(newVal.intValue());

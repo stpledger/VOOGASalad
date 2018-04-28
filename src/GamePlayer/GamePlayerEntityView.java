@@ -47,6 +47,7 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	private static final double PANE_HEIGHT = 442;
 	private static final double PANE_WIDTH = 800;
 	private Map<Integer, Map<String, Component>> PlayerKeys;
+	private Map<Integer, Map<String, Boolean>> HUDPropMap;
 
 	/**
 	 * Constructor when given the gameState
@@ -54,11 +55,27 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	 */
 	public GamePlayerEntityView(DataGameState gameState) {
 		Levels = gameState.getGameState();
+		HUDPropMap = obtainHudProps(Levels);
 		PlayerKeys = new HashMap<>();
 		levelToInt();
 		LevelDisplays = createEntityGroupMap(Levels);
 		setActiveLevel(1);
 		initializeGamePlayerEntityView();
+	}
+	
+	
+	public Map<Integer, Map<String, Boolean>> getHudPropMap(){
+		return HUDPropMap;
+	}
+	
+	private Map<Integer, Map<String, Boolean>> obtainHudProps(Map<Level,Map<Integer,Map<String,Component>>> levels){
+		Map<Integer, Map<String, Boolean>> HUDPropMap = new HashMap<Integer, Map<String, Boolean>>();
+		int count = 1;
+		for (Level l: levels.keySet()) {
+			HUDPropMap.put(count, l.getHUDprops());
+			count++;
+		}
+		return HUDPropMap;	
 	}
 
 	/**

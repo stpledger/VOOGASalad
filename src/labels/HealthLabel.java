@@ -18,9 +18,8 @@ public class HealthLabel extends Label implements IGameStatusLabel{
 	private SimpleDoubleProperty healthProperty;
 	
 	
-	public HealthLabel(double health) {
-		currentHealth = health;
-		healthProperty = new SimpleDoubleProperty(currentHealth);
+	public HealthLabel() {
+		healthProperty = new SimpleDoubleProperty();
 		this.textProperty().bind(healthProperty.asString());
 	}
 
