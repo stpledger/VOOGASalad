@@ -110,7 +110,7 @@ public class Grid extends GridPane {
 			e.consume();
 		});
 	}
-	
+
 	/**
 	 * Sets up mouse click listener that opens up the context menu for that particular cell.
 	 * @param c Cell 
@@ -150,7 +150,7 @@ public class Grid extends GridPane {
 			}
 		});
 	}
-	
+
 	/**
 	 * Opens up the local properties view for the specific entity.
 	 * @param en Entity 
@@ -163,7 +163,7 @@ public class Grid extends GridPane {
 		});
 		pv.open();
 	}
-	
+
 	/**
 	 * Adds a specified number of columns to the entity. Should only be used for non-interactable
 	 * entities.
@@ -231,7 +231,7 @@ public class Grid extends GridPane {
 			this.numCols++;
 		}
 	}
-	
+
 	/**
 	 * Creates the next ID to be used when creating a new entity
 	 * @return Next ID for the next entity
