@@ -6,19 +6,24 @@ import buttons.IGamePlayerButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class HighScoreView extends BranchScreenView {
-	
 	private Scene highScoreScene;
 	private TableView highScoreTable;
 	private TableColumn firstCol;
 	private TableColumn secondCol;
 	private BorderPane highScorePane;	
+	private VBox requestRecordLayout;
+	private Button submitButton;
+	private TextField userNameField;
 	
 	//Data Structure to Display High Scores
 	private final ObservableList<Person> data = FXCollections.observableArrayList(
@@ -34,6 +39,7 @@ public class HighScoreView extends BranchScreenView {
 		setupHighScoreTable();
 		displayHighScores();
 		highScoreScene = initializeScreen();
+		showRecordInput();
 	}
 	
 	@Override
@@ -72,10 +78,31 @@ public class HighScoreView extends BranchScreenView {
 	}
 	
 	/**
+	 * Displays a textfield that allows a person to enter their name.
+	 */
+	public void showRecordInput() {
+		requestRecordLayout = new VBox(100);
+		submitButton = new Button("Submit");
+		TextField userNameField = new TextField();
+		submitButton.setOnAction(e->{addHighScore(userNameField.getText(), 50.0); 
+			hideRecordInput();
+		});
+		requestRecordLayout.getChildren().addAll(submitButton, userNameField);
+		highScorePane.setRight(requestRecordLayout);
+	}
+	
+	public void hideRecordInput() {
+		requestRecordLayout.getChildren().clear();
+		
+	}
+	
+	
+	/**
 	 * Method to add High Score to the High Score Data File
 	 */
-	public void addHighScore() {
-		
+	public void addHighScore(String name, Double score) {
+		Person recordHolder = new Person(name, 100.0);
+		data.add(recordHolder);
 	}
 	
 	
