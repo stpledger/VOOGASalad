@@ -1,6 +1,8 @@
 package authoring.entities;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 import engine.components.Component;
 import engine.components.EntityType;
@@ -20,6 +22,7 @@ public abstract class Entity extends ImageView {
 	private int ID;
 	public final static int ENTITY_WIDTH = 50;
 	public final static int ENTITY_HEIGHT = 50;
+	private List<Component> components;
 	
 	/**
 	 * Set the ID of this entity
@@ -27,6 +30,7 @@ public abstract class Entity extends ImageView {
 	 */
 	public Entity(int ID) {
 		this.ID = ID;
+		components = new ArrayList<>();
 	}
 	
 	/**
@@ -80,7 +84,44 @@ public abstract class Entity extends ImageView {
 	 * Add a given component to this entity. 
 	 * @param component
 	 */
-	protected abstract void add(Component c);
+	public abstract void add(Component c);
+	
+	/**
+	 * Add all of the components in a given list to this entity by iterating through the list.
+	 * @param compsToAdd a collection of the components to add
+	 */
+	public void addAll(List<Component> compsToAdd) {
+		for (Component comp : compsToAdd) {
+			this.add(comp);
+		}
+	}
+	/**
+	 * Checks (explicitly) by name if the current entity already contains this component.
+	 * @param name the name of the component to check
+	 * @return true iff the component already belongs to this entity
+	 */
+	public boolean contains(String name) {
+		for (Component existing : this.components) {
+			if (existing.getKey().equals(name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	/**
+	 * Get a component by name.
+	 * @param name the name of the component needed
+	 * @return component defined by this string name
+	 */
+	public Component get(String name) {
+		for (Component c : this.components) {
+			if (c.getKey().equals(name)) {
+				return c;
+			}
+		}
+		return null;
+	}
 	
 
 	/**

@@ -27,9 +27,9 @@ import javafx.scene.image.ImageView;
  */
 public abstract class InteractableEntity extends Entity {
 
-	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	private List<Component> components;    
-
+	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);   
+	private List<Component> components;
+	
 	/**
 	 * The constructor simply sets the ID of the entity and initializes its list of components
 	 * @param ID which identifies an entity
@@ -49,14 +49,7 @@ public abstract class InteractableEntity extends Entity {
 			}
 			e.consume();
 		});
-		addDefaultComponents();
 	}
-
-
-	/**
-	 * Adds components that are inherent to the specific entity.
-	 */
-	protected abstract void addDefaultComponents();
 
 	/**
 	 * Gets the names of all of the components.
@@ -130,39 +123,11 @@ public abstract class InteractableEntity extends Entity {
 	}
 
 	/**
-	 * Checks (explicitly) by name if the current entity already contains this component.
-	 * @param name the name of the component to check
-	 * @return true iff the component already belongs to this entity
-	 */
-	public boolean contains(String name) {
-		for (Component existing : this.components) {
-			if (existing.getKey().equals(name)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	/**
 	 * Sets health, because every entity should always have health.
 	 * @param health
 	 */
 	protected void setHealth(double health) {
 		this.add(new Health(this.getID(),health));
-	}
-	
-	/**
-	 * Get a component by name.
-	 * @param name the name of the component needed
-	 * @return component defined by this string name
-	 */
-	public Component get(String name) {
-		for (Component c : this.components) {
-			if (c.getKey().equals(name)) {
-				return c;
-			}
-		}
-		return null;
 	}
 
 	/**
