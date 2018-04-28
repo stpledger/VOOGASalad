@@ -5,7 +5,24 @@
         <levelNum>1</levelNum>
         <levelTime>0.0</levelTime>
         <levelDistance>0.0</levelDistance>
-        <HUDprops/>
+        <HUDprops>
+          <entry>
+            <string>Health</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Lives</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Levels</string>
+            <boolean>true</boolean>
+          </entry>
+          <entry>
+            <string>Time</string>
+            <boolean>false</boolean>
+          </entry>
+        </HUDprops>
         <GProps/>
       </authoring.gamestate.Level>
       <map/>
