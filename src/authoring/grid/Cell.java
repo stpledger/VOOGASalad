@@ -12,13 +12,9 @@ import javafx.scene.layout.Pane;
  */
 public class Cell extends Pane {
 
-	private Entity entity;
 	private final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
-	
-	/**
-	 * {@code Boolean} describes if cell is occupied by entity sprite
-	 */
-	private boolean isOccupied;
+	private Entity entity;
+	private int number;
 
 	/**
 	 * To initialize a blank cell
@@ -26,10 +22,10 @@ public class Cell extends Pane {
 	 */
 	public Cell(int number) {
 		this.setEntity(null);
-		this.setOccupied(false);
 		this.setPrefWidth(Entity.ENTITY_WIDTH);
 		this.setPrefHeight(Entity.ENTITY_HEIGHT);
 		this.setStyle(DEFAULT_STYLE);
+		this.number = number;
 	}
 	
 	/**
@@ -45,23 +41,13 @@ public class Cell extends Pane {
 	 */
 	public void setEntity(Entity entity) {
 		this.entity = entity;
-		this.setOccupied(true);
 	}
 
 	/**
-	 * 
-	 * @return Whether or not cell is occupied by entity sprite
+	 * @return the number (ID) of this cell
 	 */
-	public boolean isOccupied() {
-		return isOccupied;
-	}
-
-	/**
-	 * 
-	 * @param isOccupied {@code Boolean} cell occupied by entity sprite
-	 */
-	public void setOccupied(boolean isOccupied) {
-		this.isOccupied = isOccupied;
+	public int getNumber() {
+		return this.number;
 	}
 	
 	/**

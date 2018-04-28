@@ -69,8 +69,7 @@ public class LocalPropertiesView extends PropertiesView {
 				}
 			}
 			activeForms.add(cf);
-			currentRow++;
-			getRoot().add(cf, 0, currentRow);
+			getRoot().add(cf, 0, currentRow++);
 		}
 		try {
 			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getButtonBundle().getString("Submit"), e->{
