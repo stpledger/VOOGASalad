@@ -22,7 +22,8 @@ public abstract class Entity extends ImageView {
 	private int ID;
 	public final static int ENTITY_WIDTH = 50;
 	public final static int ENTITY_HEIGHT = 50;
-	List<Component> components;
+	public List<Component> components;
+	public String type;
 	
 	/**
 	 * Set the ID of this entity
@@ -31,6 +32,10 @@ public abstract class Entity extends ImageView {
 	public Entity(int ID) {
 		this.ID = ID;
 		components = new ArrayList<>();
+	}
+	
+	public String getType() {
+		return this.type;
 	}
 	
 	/**

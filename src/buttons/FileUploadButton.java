@@ -14,7 +14,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-public class FileUploadButton extends Button {
+public class FileUploadButton extends Button implements IGamePlayerButton {
 	
 		private Stage myStage;
 		private final String BUTTON_NAME = "Upload"; //change to a resource file
@@ -24,13 +24,13 @@ public class FileUploadButton extends Button {
 		
 		public FileUploadButton() {
 			this.setText(BUTTON_NAME);
-			this.setFileEvent();
+			this.setEvent();
 			fileBoolean = new SimpleBooleanProperty(false);
 		}
 		/*
 		 * private method to set the action event to speed
 		 */
-		private void setFileEvent() {
+		public void setEvent() {
 			this.setOnAction(new EventHandler<ActionEvent>() {
 				@Override public void handle(ActionEvent e) {
 					fileUpload(); //activate the file upload method
