@@ -49,7 +49,7 @@ public class LevelView extends ScrollPane {
 		this.eFactory = new ElementFactory();
 		this.addEntity = aE;
 		this.level = level;
-		this.content = new Grid();
+		this.content = new Grid(level);
 		this.content.getStyleClass().add("level-view-content");
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -63,7 +63,7 @@ public class LevelView extends ScrollPane {
 	 * @param levelNum Level number
 	 */
 	private void setupMouseClick(int levelNum) {
-		this.setOnMouseClicked(e -> {		
+		this.setOnMouseClicked(e -> {
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				ContextMenu cMenu = new ContextMenu();
 				try {

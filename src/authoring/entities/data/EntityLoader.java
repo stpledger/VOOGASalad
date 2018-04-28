@@ -5,7 +5,6 @@ import authoring.entities.componentbuilders.*;
 import engine.components.Component;
 import engine.components.Type;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
