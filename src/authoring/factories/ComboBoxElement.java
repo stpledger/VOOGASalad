@@ -30,7 +30,7 @@ public class ComboBoxElement extends ComboBox implements ClickableElement {
 
 	@Override
 	public void setLanguage(Properties language) {
-		this.handleText(language.getProperty(this.getId()));
+		this.handleText(language.getProperty(this.getId(),this.getId()));
 		
 	}
 	

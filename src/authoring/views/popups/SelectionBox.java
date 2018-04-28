@@ -1,6 +1,7 @@
 package authoring.views.popups;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -29,30 +30,32 @@ public class SelectionBox extends VBox implements PopUp {
 	ElementFactory eFactory = new ElementFactory();
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
-	public SelectionBox(String[] options, Consumer consumer){
-		this.fill(options, consumer);
+	public SelectionBox(String[] options, String[] exceptions, Consumer consumer){
+		this.fill(options, consumer, exceptions);
 		this.show();
 	}
 	/**
 	 * Builds the list of options
 	 * @param options
 	 */
-	private void fill(String[] options, Consumer consumer) {
+	private void fill(String[] options, Consumer consumer, String[] exceptions) {
 		for(String o: options) {
-			try {
-			Label label = (Label) eFactory.buildElement(ElementType.Label, o);
-			label.getStyleClass().add("selection-label");
-			label.setAlignment(Pos.CENTER);
-			label.setPrefWidth(200);
-			label.setOnMouseClicked(e->{
-				selection = label.getId();
-				onClose(consumer);
-				stage.close();
-			});
-			this.getChildren().add(label);
-			elements.add((Element) label);
-			} catch (Exception e) {
-				LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			if (!Arrays.asList(exceptions).contains(o)) {
+				try {
+				Label label = (Label) eFactory.buildElement(ElementType.Label, o);
+				label.getStyleClass().add("selection-label");
+				label.setAlignment(Pos.CENTER);
+				label.setPrefWidth(200);
+				label.setOnMouseClicked(e->{
+					selection = label.getId();
+					onClose(consumer);
+					stage.close();
+				});
+				this.getChildren().add(label);
+				elements.add((Element) label);
+				} catch (Exception e) {
+					LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+				}
 			}
 		}
 	}

@@ -29,7 +29,7 @@ public class MenuItemElement extends MenuItem implements ClickableElement{
 
 	@Override
 	public void setLanguage(Properties language) {
-		this.handleText(language.getProperty(this.getId()));
+		this.handleText(language.getProperty(this.getId(),this.getId()));
 	}
 
 }
