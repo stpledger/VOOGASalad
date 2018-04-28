@@ -1,34 +1,51 @@
 package authoring.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
 import engine.components.Component;
 
 /**
  * Class to define entities that cannot be interacted with.
- * @author dylanpowers
+ * This class should only have components to represent its picture, position, and size.
+ * @author Dylan Powers
  *
  */
 public abstract class NonInteractableEntity extends Entity {
 
+	private final String NI_PROPERTIES_PATH = "resources.Entities/NonInteractable.properties";
+	private List<Component> components;
+	/**
+	 * Construct the entity with the given ID
+	 * @param ID
+	 */
 	public NonInteractableEntity(int ID) {
 		super(ID);
+		components = new ArrayList<>();
 	}
 
+	/**
+	 * Add a component ONLY if it represents either position, dimension, or sprite.
+	 * @param c the component to add
+	 */
 	@Override
-	protected void add(Component c) {
-		// TODO Auto-generated method stub
-
+	public void add(Component c) {
+		if (ResourceBundle.getBundle(NI_PROPERTIES_PATH).keySet().contains(c.getKey())) {
+			components.add(c);
+		} else {
+			// TODO there should be an alert pop up here
+		}
 	}
 
-	@Override
-	public String type() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/**
+	 * @return the type of this entity
+	 */
+	public abstract String type();
 
-	@Override
-	public String name() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	/**
+	 * @return the name of this entity
+	 */
+	public abstract String name();
 
 }

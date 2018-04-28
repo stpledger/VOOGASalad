@@ -27,7 +27,6 @@ public class User extends InteractableEntity {
 	/**
 	 * Add the default components to the player object.
 	 */
-	@Override
 	public void addDefaultComponents() {
 		this.setHealth(INITIAL_HEALTH);
 		this.setEntityType(TYPE);
