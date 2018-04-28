@@ -76,11 +76,6 @@ public class TestGameState {
 		Player play = new Player(0);
 		Lives lives = new Lives(0,3);
 
-		/**k.addCode(KeyCode.R, (Runnable & Serializable) () ->
-		 {
-		 play.respawn(p, v, a);
-		 });**/
-
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(XPosition.KEY, px);
 		mario.put(YPosition.KEY, py);
