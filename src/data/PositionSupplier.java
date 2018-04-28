@@ -12,6 +12,6 @@ public class PositionSupplier {
     private Stage myStage;
     private Scene myScene;
     private Group root;
-    
+
 
 }
