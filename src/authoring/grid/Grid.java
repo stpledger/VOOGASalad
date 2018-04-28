@@ -12,6 +12,8 @@ import authoring.gamestate.Level;
 import authoring.views.properties.LocalPropertiesView;
 import authoring.views.properties.PropertiesView;
 import engine.components.Component;
+import engine.components.Height;
+import engine.components.Width;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
@@ -165,10 +167,14 @@ public class Grid extends GridPane {
 
 	private void addImageCol(Cell cell, ImageView img, int numTimes) {
 		img.setFitWidth(img.getFitWidth()+numTimes*Entity.ENTITY_WIDTH);
+		Entity en = cell.getEntity();
+		en.add(new Width(en.getID(),img.getFitWidth()));
 	}
 
 	private void addImageRow(Cell cell, ImageView img, int numTimes) {
 		img.setFitHeight(img.getFitHeight()+numTimes*Entity.ENTITY_HEIGHT);
+		Entity en = cell.getEntity();
+		en.add(new Height(en.getID(),img.getFitHeight()));
 	}
 
 	private void clearCell(Cell c) {
