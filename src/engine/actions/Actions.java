@@ -1,7 +1,7 @@
 package engine.actions;
 
 import authoring.entities.Entity;
-
+import engine.components.Health;
 import engine.components.Component;
 import engine.components.Player;
 import engine.components.Score;
@@ -13,7 +13,6 @@ import engine.components.YAcceleration;
 import engine.components.YVelocity;
 import engine.components.groups.Position;
 import engine.components.groups.Velocity;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -21,8 +20,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
-
+import engine.components.DamageValue;
+import engine.components.DamageLifetime;
+import engine.components.Sprite;
+import engine.setup.SystemManager;
 
 /**
  * This is the actions class which contains many methods that return consumers representing actions in the
@@ -31,6 +32,10 @@ import java.util.function.Consumer;
  * @author cndracos
  */
 public class Actions {
+    private SystemManager SM;
+    public Actions(SystemManager SM){
+        this.SM = SM;
+    }
 
     /**
      * @param actor Entity moving left
@@ -193,6 +198,40 @@ public class Actions {
 	
 	
     /**
+     * @return two new entity maps
+     */
+    public BiConsumer<Map<String, Component>, Map<String, Component>> damage(int pid1, int pid2){
+        return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+            giveDamage(pid1, actor1, pid2, actor2);
+		    giveDamage(pid2, actor2, pid1, actor1);
+        };
+    }
+    
+    private void giveDamage(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
+		if (player.containsKey(DamageValue.KEY) &&
+				player.containsKey(DamageLifetime.KEY) &&
+				collider.containsKey(Health.KEY)) {
+
+			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
+			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
+
+			sm.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
+			sm.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+		}
+	}
+
+    /**
+     * @return two new entity maps
+     */
+    public Consumer<Map<String, Component>> changeSprite(Sprite alternative){
+        return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+            if(actor != null && actor.containsKey(Sprite.KEY)){
+                actor.put(Sprite.KEY, alternative);
+            }
+        };
+    }
+
+    /**
      * This would be an AI component that has an enemy follow you
      * @param followed Player/entity being followed
      * @param tracker  Enemy/entity tracking the followed
@@ -243,5 +282,7 @@ public class Actions {
     private static double distance (Position p1, Position p2) {
         return Math.sqrt(Math.pow(p1.getYPos()-p2.getYPos(), 2) + Math.pow(p1.getXPos() - p2.getXPos(), 2)); //distance between two positions/points
     }
+
+
 
 }
