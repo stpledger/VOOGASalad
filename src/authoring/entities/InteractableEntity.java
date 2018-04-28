@@ -30,6 +30,7 @@ public abstract class InteractableEntity extends Entity {
 
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);   
 	private final String I_PROPERTIES_PATH = "resources.Entities/Interactable";
+	private final static String TYPE = "Interactable";
 	/**
 	 * The constructor simply sets the ID of the entity and initializes its list of components
 	 * @param ID which identifies an entity
@@ -37,6 +38,7 @@ public abstract class InteractableEntity extends Entity {
 	public InteractableEntity(int ID) {
 		super(ID);
 		components = new ArrayList<>();
+		this.type = TYPE;
 		addDefaultDimensions();
 		Consumer<List<Component>> onSubmit = componentsToAdd -> {
 			for (Component c : componentsToAdd) {

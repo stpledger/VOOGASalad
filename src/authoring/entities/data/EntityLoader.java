@@ -4,6 +4,9 @@ import authoring.entities.Entity;
 import authoring.entities.componentbuilders.*;
 import engine.components.Component;
 import engine.components.Type;
+import engine.components.XPosition;
+import engine.components.YPosition;
+
 import java.io.File;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -56,7 +59,7 @@ public class EntityLoader {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public Entity buildEntity(int ID, String entityName) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException, ClassNotFoundException {
+	public Entity buildEntity(int ID, String entityName, double x, double y) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException, ClassNotFoundException {
 		Element root = getRootElement(new File(DATA_PREFIX + entityName + XML_EXTENSION));
 		String type = extractTypeFromRoot(root);
 		Entity entity = (Entity) Class.forName(ENTITY_PREFIX + type).getDeclaredConstructors()[0].newInstance(ID, type);
@@ -67,6 +70,8 @@ public class EntityLoader {
 			Element e = (Element) nList.item(i);
 			compsToAdd.add(cb.build(ID, e));
 		}
+		compsToAdd.add(new XPosition(ID,x));
+		compsToAdd.add(new YPosition(ID,y));
 		entity.addAll(compsToAdd);
 		return entity;
 	}	

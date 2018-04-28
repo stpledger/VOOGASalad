@@ -14,7 +14,8 @@ import engine.components.Component;
  */
 public abstract class NonInteractableEntity extends Entity {
 
-	private final String NI_PROPERTIES_PATH = "resources.Entities/NonInteractable";
+	private final static String NI_PROPERTIES_PATH = "resources.Entities/NonInteractable";
+	private final static String TYPE = "Noninteractable";
 	List<Component> components;
 	/**
 	 * Construct the entity with the given ID
@@ -23,6 +24,7 @@ public abstract class NonInteractableEntity extends Entity {
 	public NonInteractableEntity(int ID) {
 		super(ID);
 		components = new ArrayList<>();
+		this.type = TYPE;
 	}
 
 	/**
