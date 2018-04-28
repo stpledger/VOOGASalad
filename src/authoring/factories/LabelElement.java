@@ -23,7 +23,7 @@ public class LabelElement extends Label implements Element{
 
 	@Override
 	public void setLanguage(Properties language) {
-		this.handleText(language.getProperty(this.getId()));
+		this.handleText(language.getProperty(this.getId(), this.getId()));
 	}
 
 }

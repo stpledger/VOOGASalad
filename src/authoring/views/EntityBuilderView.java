@@ -68,7 +68,7 @@ public class EntityBuilderView extends Stage {
 		language = lang;
 		this.entityTypes = (ArrayList<String>) eTypes;
 		this.eFactory = new ElementFactory();
-		this.componentFormCollection = new EntityComponentFormCollection(new String[] {"Sprite", "Position"});
+		this.componentFormCollection = new EntityComponentFormCollection(new String[] {"Sprite", "XPosition", "YPosition"});
 		this.componentFormCollection.setLanguage(language);
 		this.tooltipProperties = new Properties();
 		this.data = new EntityBuilderData();
