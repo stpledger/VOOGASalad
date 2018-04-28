@@ -1,14 +1,14 @@
 package engine.systems.collisions;
 
-import java.util.List;
 import java.util.Map;
 
-import engine.components.*;
-import engine.setup.EntityManager;
+import engine.components.Component;
+import engine.components.Player;
 import engine.setup.SystemManager;
 
 public class CollisionHandler {
 	private DamageHandler damageHandler;
+
 	private ScoreHandler scoreHandler;
 	
 	public CollisionHandler(SystemManager sm) {
@@ -17,7 +17,7 @@ public class CollisionHandler {
 		scoreHandler = new ScoreHandler(sm);
 	}
 
-	public void handle(Map<Integer, Map<String, Component>> handledComponents, int key1, int key2) {
+	public void handle(Map<Integer, Map<String, Component>> handledComponents, int key1, int key2, CollisionDirection cd) {
 		
 		Map<String, Component> components1 = handledComponents.get(key1);
 		Map<String, Component> components2 = handledComponents.get(key2);

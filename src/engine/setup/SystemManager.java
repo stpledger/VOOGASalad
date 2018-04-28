@@ -6,7 +6,6 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.systems.ISystem;
-import engine.systems.collisions.Collision;
 import engine.components.Component;
 
 /**
@@ -49,6 +48,7 @@ public class SystemManager {
         }
         setActives(renderManager.render());
     }
+
 
     public void addComponent(int pid, Component c) {
             Map<String, Component> newComponent = new HashMap<>();

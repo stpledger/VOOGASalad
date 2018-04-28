@@ -1,12 +1,11 @@
 package engine.systems.collisions;
 
 import java.util.Map;
-
 import engine.components.Component;
-import engine.components.Damage;
-import engine.components.DamageLauncher;
+import engine.components.DamageLifetime;
+import engine.components.DamageValue;
 import engine.components.Health;
-import engine.setup.EntityManager;
+
 import engine.setup.SystemManager;
 
 public class DamageHandler {
@@ -19,16 +18,30 @@ public class DamageHandler {
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
 
-		if (player.containsKey(Damage.KEY) && collider.containsKey(Health.KEY)) {
-			Damage d = (Damage) player.get(Damage.KEY);
-			Damage dLauncher = d.clone();
-			sm.addComponent(colliderID, dLauncher);
+
+		if (player.containsKey(DamageValue.KEY) && 
+				player.containsKey(DamageLifetime.KEY) && 
+				collider.containsKey(Health.KEY)) {
+			
+			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
+			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
+									
+			sm.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
+			sm.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+				
+			
 		}
 
-		if (collider.containsKey(Damage.KEY) && player.containsKey(Health.KEY)) {
-			Damage d = (Damage) collider.get(Damage.KEY);
-			Damage dLauncher = d.clone();
-			sm.addComponent(playerID, dLauncher);
+		if (collider.containsKey(DamageValue.KEY) && 
+				collider.containsKey(DamageLifetime.KEY) && 
+				player.containsKey(Health.KEY)) {
+			
+			DamageValue dlv = (DamageValue) collider.get(DamageValue.KEY);
+			DamageLifetime dll = (DamageLifetime) collider.get(DamageLifetime.KEY);
+						
+			sm.addComponent(playerID, new DamageValue(colliderID, dlv.getData()));
+			sm.addComponent(playerID, new DamageLifetime(colliderID, dll.getData()));
+
 		}
 	}
 }

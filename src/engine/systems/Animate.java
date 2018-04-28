@@ -1,8 +1,6 @@
 package engine.systems;
 
 import engine.components.*;
-
-import engine.setup.EntityManager;
 import javafx.scene.image.ImageView;
 
 import java.util.HashSet;
@@ -29,9 +27,13 @@ public class Animate implements ISystem {
      */
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
-        if (components.containsKey(Position.KEY) && components.containsKey(Sprite.KEY)) {
+        if (components.containsKey(XPosition.KEY) && 
+        	components.containsKey(YPosition.KEY) &&
+        	components.containsKey(Sprite.KEY)) {
+        	
             Map<String, Component> newComponents = new HashMap<>();
-            newComponents.put(Position.KEY,components.get(Position.KEY));
+            newComponents.put(XPosition.KEY,components.get(XPosition.KEY));
+            newComponents.put(YPosition.KEY,components.get(YPosition.KEY));
             newComponents.put(Sprite.KEY,components.get(Sprite.KEY));
             handledComponents.put(pid, newComponents);
         }
@@ -41,10 +43,11 @@ public class Animate implements ISystem {
     public void removeComponent(int pid) {
         if(handledComponents.containsKey(pid)) {
             Sprite s = (Sprite) handledComponents.get(pid).get(Sprite.KEY);
-            s.getImage().setX(10000);
+            s.getImage().setVisible(false);
             handledComponents.remove(pid);
         }
     }
+
 
 
     @Override
@@ -57,13 +60,15 @@ public class Animate implements ISystem {
     @Override
     public void execute(double time) {
         for (int pid : activeComponents) {
+
             Map<String, Component> components = handledComponents.get(pid);
             Sprite s = (Sprite) components.get(Sprite.KEY);
-            Position p = (Position) components.get(Position.KEY);
-
+            XPosition px = (XPosition) components.get(XPosition.KEY);
+            YPosition py = (YPosition) components.get(YPosition.KEY);
+            
             ImageView im = s.getImage();
-            im.setX(p.getXPos()); //updates image x on position x pos
-            im.setY(p.getYPos()); //updates image y on position y pos
+            im.setX(px.getData()); //updates image x on position x pos
+            im.setY(py.getData()); //updates image y on position y pos
         }
     }
 

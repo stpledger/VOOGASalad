@@ -1,9 +1,12 @@
 package authoring.views.properties;
 
+import java.util.Arrays;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import authoring.factories.ClickElementType;
+import authoring.factories.Element;
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
@@ -21,6 +24,8 @@ public class LevelPropertiesView extends PropertiesView{
 	private String text = "text";
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
+	private Properties language = new Properties();
 	
 	public LevelPropertiesView(Level level, int levelNum) {
 		super();
@@ -42,6 +47,7 @@ public class LevelPropertiesView extends PropertiesView{
 				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label,levelProps.getString(property));
 				currentRow++;
 				this.getRoot().add(label, 0, currentRow);
+				elements.add((Element) label);
 			}
 			//TODO update text to be something meaningful from properties files
 			TextField infoText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,text);

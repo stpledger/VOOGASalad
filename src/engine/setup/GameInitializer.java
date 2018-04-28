@@ -4,7 +4,9 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 import engine.components.Component;
-import engine.components.Position;
+import engine.components.XPosition;
+import engine.components.YPosition;
+import engine.components.groups.Position;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
 
@@ -39,9 +41,11 @@ public class GameInitializer {
 
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
-            if (components.containsKey(Position.KEY)) {
-                Position p = (Position) components.get(Position.KEY);
-                renderManager.add(p);
+            if (components.containsKey(XPosition.KEY) && components.containsKey(YPosition.KEY)) {
+                XPosition px = (XPosition) components.get(XPosition.KEY);
+                YPosition py = (YPosition) components.get(YPosition.KEY);
+                renderManager.add(new Position(px.getPID(), px.getData(), py.getData()));
+                
             }
             systemManager.addEntity(id, components);
         }
@@ -56,6 +60,7 @@ public class GameInitializer {
 
     public InputHandler getInputHandler() {
          return inputHandler;
+
          }
 
     public RenderManager getRenderManager() { return renderManager; }
@@ -71,10 +76,10 @@ public class GameInitializer {
         systems.add(new Motion());
         systems.add(new ConditionChecker());
         systems.add((new ArtificialIntelligence()));
-        systems.add(new Collision(systemManager));
+        systems.add(new Collision());//new Collision(systemManager));
         systems.add(new HealthDamage(systemManager));
         systems.add(new Animate());
         systems.add(inputHandler);
     }
-    
+
 }

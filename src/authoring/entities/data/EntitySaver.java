@@ -50,7 +50,7 @@ public class EntitySaver {
 			Element comp = document.createElement(compName);
 			root.appendChild(comp);
 			for (Object o : attributes.get(compClass)) {
-        			comp.appendChild(document.createTextNode(String.valueOf(o) + " "));
+        			comp.appendChild(document.createTextNode(String.valueOf(o)));
 			}
 		}
 		

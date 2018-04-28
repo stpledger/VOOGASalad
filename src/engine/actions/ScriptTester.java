@@ -1,15 +1,15 @@
 package engine.actions;
 
+
 import authoring.entities.Enemy;
-import authoring.entities.Entity;
-import engine.components.*;
-import javafx.scene.input.KeyCode;
+
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import authoring.entities.Player;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
+
 import java.util.function.Consumer;
 
 public class ScriptTester {
