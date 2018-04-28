@@ -1,7 +1,7 @@
 package authoring.entities.data;
 
 import authoring.entities.Entity;
-import authoring.entities.componentbuilders.*;
+import authoring.entities.componentbuilders.ComponentBuilder;
 import engine.components.Component;
 import engine.components.Type;
 import engine.components.XPosition;

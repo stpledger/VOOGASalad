@@ -1,7 +1,5 @@
 package authoring.views.properties;
 
-import java.util.Arrays;
-import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
@@ -24,9 +22,7 @@ public class LevelPropertiesView extends PropertiesView{
 	private String text = "text";
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
-	private Properties language = new Properties();
-	
+		
 	public LevelPropertiesView(Level level, int levelNum) {
 		super();
 		this.levelNum = levelNum;
