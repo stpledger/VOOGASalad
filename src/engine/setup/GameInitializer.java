@@ -4,7 +4,9 @@ import java.io.FileNotFoundException;
 import java.util.*;
 
 import engine.components.Component;
-import engine.components.Position;
+import engine.components.XPosition;
+import engine.components.YPosition;
+import engine.components.groups.Position;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
 
@@ -31,8 +33,8 @@ public class GameInitializer {
      */
     public GameInitializer (Map <Integer, Map<String, Component>> entities,
                             double renderDistance, double renderCenterX, double renderCenterY) throws FileNotFoundException {
-
-        entityManager = new EntityManager(entities, systemManager);
+        renderManager = new RenderManager(renderDistance, renderCenterX, renderCenterY);
+        entityManager = new EntityManager(entities, renderManager, systemManager);
         c = new Collision(entityManager);
         inputHandler = new InputHandler();
 
@@ -41,14 +43,15 @@ public class GameInitializer {
         systemManager = new SystemManager(systems, c, entityManager);
         entityManager.setSM(systemManager);
 
-        renderManager = new RenderManager(renderDistance, renderCenterX, renderCenterY);
 
 
         for (int id : entities.keySet()) {
             Map<String, Component> components = entities.get(id);
-            if (components.containsKey(Position.KEY)) {
-                Position p = (Position) components.get(Position.KEY);
-                renderManager.add(p);
+            if (components.containsKey(XPosition.KEY) && components.containsKey(YPosition.KEY)) {
+                XPosition px = (XPosition) components.get(XPosition.KEY);
+                YPosition py = (YPosition) components.get(YPosition.KEY);
+                renderManager.add(new Position(px.getPID(), px.getData(), py.getData()));
+                
             }
             systemManager.addEntity(id, components);
         }
@@ -63,6 +66,7 @@ public class GameInitializer {
 
     public InputHandler getInputHandler() {
          return inputHandler;
+
          }
 
     public Collision getC() {
@@ -78,13 +82,14 @@ public class GameInitializer {
     }
     
     private void addSystems() {
-        systems.add(new Accelerate(entityManager));
+        systems.add(new Accelerate());
         systems.add(new Motion());
         systems.add(new ConditionChecker());
         systems.add((new ArtificialIntelligence()));
         systems.add(c);
-        systems.add(new Animate(entityManager));
+        systems.add(new HealthDamage(entityManager));
+        systems.add(new Animate());
         systems.add(inputHandler);
     }
-    
+
 }

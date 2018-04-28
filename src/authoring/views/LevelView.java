@@ -43,7 +43,7 @@ public class LevelView extends ScrollPane {
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private final Color DEFAULT_BACKGROUND = Color.WHITE;
 	private Properties language = new Properties();
-	
+
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
 		this.eFactory = new ElementFactory();

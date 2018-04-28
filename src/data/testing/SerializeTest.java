@@ -8,6 +8,10 @@ import data.DataGameState;
 import data.DataRead;
 import data.DataWrite;
 import engine.components.*;
+import engine.components.groups.Acceleration;
+import engine.components.groups.Dimension;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
 import javafx.scene.input.KeyCode;
 
 import java.io.File;

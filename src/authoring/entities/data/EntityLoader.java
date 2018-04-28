@@ -67,6 +67,7 @@ public class EntityLoader {
 			ComponentBuilder cb = new SpriteBuilder();
 			compsToAdd.add(cb.build(ID, e));
 		}
+		entity.addAll(compsToAdd);
 		return entity;
 	}	
 	

@@ -2,10 +2,11 @@ package engine.systems;
 
 import java.util.*;
 
-import engine.components.Acceleration;
 import engine.components.Component;
-import engine.components.Velocity;
-import engine.setup.EntityManager;
+import engine.components.XAcceleration;
+import engine.components.XVelocity;
+import engine.components.YAcceleration;
+import engine.components.YVelocity;
 
 /**
  * **
@@ -18,13 +19,7 @@ import engine.setup.EntityManager;
 public class Accelerate implements ISystem{
 	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
 	private Set<Integer> activeComponents;
-    
-	private EntityManager em;
-	
-	public Accelerate(EntityManager em) {
-		this.em = em;
-	}
-	
+    	
 	/**
 	 * Adds acceleration and velocity components from <String, Component> Map
 	 * 
@@ -32,10 +27,17 @@ public class Accelerate implements ISystem{
 	 * @param components	Map of components for given parent
 	 */
     public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey(Acceleration.KEY) && components.containsKey(Velocity.KEY)) {
+		if (components.containsKey(XAcceleration.KEY) && 
+			components.containsKey(YAcceleration.KEY) &&
+			components.containsKey(XVelocity.KEY) &&
+			components.containsKey(YVelocity.KEY)) {
+			
 			Map<String, Component> newComponents = new HashMap<>();
-			newComponents.put(Acceleration.KEY,components.get(Acceleration.KEY));
-			newComponents.put(Velocity.KEY,components.get(Velocity.KEY));
+			newComponents.put(XAcceleration.KEY,components.get(XAcceleration.KEY));
+			newComponents.put(YAcceleration.KEY,components.get(YAcceleration.KEY));
+			newComponents.put(XVelocity.KEY,components.get(XVelocity.KEY));
+			newComponents.put(YVelocity.KEY,components.get(YVelocity.KEY));
+			
 			handledComponents.put(pid, newComponents);
 		}
     	
@@ -52,8 +54,8 @@ public class Accelerate implements ISystem{
 	    	}
     }
 
-    @Override
-    public void addComponent(int pid, String componentName) {
+    /*public void addComponent(int pid, String componentName) {
+    	
     		if(!componentName.equals(Acceleration.KEY) && !componentName.equals(Velocity.KEY)) {
     			return;
     		}
@@ -82,9 +84,9 @@ public class Accelerate implements ISystem{
     			map.put(Acceleration.KEY, component);
     		}
     		handledComponents.put(pid,map);
-    }
+    }*/
     
-    @Override
+    /*@Override
     public void removeComponent(int pid, String componentName) {
 		if(!componentName.equals(Acceleration.KEY) && !componentName.equals(Velocity.KEY)) {
 			return;
@@ -96,7 +98,7 @@ public class Accelerate implements ISystem{
 		
 
 		handledComponents.remove(pid);
-    }
+    }*/
 
     
 	@Override
@@ -115,11 +117,14 @@ public class Accelerate implements ISystem{
 		for (int pid : activeComponents) {
 			Map<String,Component> activeComponents = handledComponents.get(pid);
 
-			Acceleration a = (Acceleration) activeComponents.get(Acceleration.KEY);
-			Velocity v = (Velocity) activeComponents.get(Velocity.KEY);
+			XAcceleration ax = (XAcceleration) activeComponents.get(XAcceleration.KEY);
+			YAcceleration ay = (YAcceleration) activeComponents.get(YAcceleration.KEY);
+			XVelocity vx = (XVelocity) activeComponents.get(XVelocity.KEY);
+			YVelocity vy = (YVelocity) activeComponents.get(YVelocity.KEY);
 
-			v.setXVel(v.getXVel() + a.getxAcc()*time);
-			v.setYVel(v.getYVel() + a.getyAcc()*time);
+			vx.setData(vx.getData() + ax.getData()*time);
+			vy.setData(vy.getData() + ay.getData()*time);
+
 		}
 	}
 

@@ -60,7 +60,6 @@ public class Grid extends GridPane {
 		this.numCols = width/Entity.ENTITY_WIDTH;
 		this.cells = new ArrayList<>();
 		this.eFactory = new ElementFactory();
-		this.setBackground(new Background(new BackgroundImage(new Image("File:data/Collin.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 		
 		for (int i = 0; i < this.numRows; i++) {
 			cells.add(new ArrayList<>());
