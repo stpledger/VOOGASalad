@@ -31,10 +31,11 @@ public class Actions {
      * @param actor Entity moving left
      * @return left action
      */
-
-    public Consumer left (Entity actor) {
-        XVelocity v = (XVelocity) actor.get(XVelocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setData(-10);
+    public Consumer moveLeft (Map<String, Component> actor, double speed) {
+    	//return (Serializable & Consumer) (actor) -> 
+    	
+    	XVelocity v = (XVelocity) actor.get(XVelocity.KEY);
+    	return (Serializable & Consumer) (e) -> v.setData(-10);
     }
 
     /**
