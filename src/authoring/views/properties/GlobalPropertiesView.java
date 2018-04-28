@@ -49,8 +49,8 @@ public class GlobalPropertiesView extends PropertiesView {
 			TextField pathInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, globalProps.getString("Filepath").split(",")[1]);
 			for(String property:globalProps.keySet()) {
 				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label, globalProps.getString(property).split(",")[0]);
-				currentRow++;
 				getRoot().addRow(currentRow, label);
+				currentRow++;
 				elements.add((Element) label);
 			}
 			getRoot().addColumn(1,livesInput,titleInput,pathInput);
