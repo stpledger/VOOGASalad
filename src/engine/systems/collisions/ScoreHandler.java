@@ -6,7 +6,6 @@ import engine.components.Component;
 
 import engine.components.Score;
 import engine.components.ScoreLauncher;
-import engine.setup.EntityManager;
 import engine.setup.SystemManager;
 
 public class ScoreHandler {

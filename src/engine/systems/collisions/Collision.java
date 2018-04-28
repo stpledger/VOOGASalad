@@ -2,6 +2,7 @@ package engine.systems.collisions;
 
 import java.util.*;
 
+import engine.components.Collidable;
 import engine.components.Component;
 import engine.components.Height;
 import engine.components.Width;
@@ -9,7 +10,6 @@ import engine.components.XPosition;
 import engine.components.XVelocity;
 import engine.components.YPosition;
 import engine.components.YVelocity;
-import engine.setup.EntityManager;
 import engine.setup.SystemManager;
 import engine.systems.DefaultSystem;
 
@@ -81,7 +81,7 @@ public class Collision extends DefaultSystem{
 					}
 
 					if (cd != null) {
-						handler.handle(handledComponents, key1, key2);
+						handler.handle(handledComponents, key1, key2, cd);
 
 						switch (cd) {
 						
@@ -133,7 +133,8 @@ public class Collision extends DefaultSystem{
 		if(components.containsKey(XPosition.KEY) && 
 				components.containsKey(YPosition.KEY) && 
 				components.containsKey(Width.KEY) && 
-				components.containsKey(Height.KEY)) {
+				components.containsKey(Height.KEY) &&
+				components.containsKey(Collidable.KEY)) {
 		
 			handledComponents.put(pid, components);
 

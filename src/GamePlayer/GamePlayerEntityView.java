@@ -12,8 +12,6 @@ import engine.components.*;
 
 import engine.components.Component;
 
-import engine.setup.EntityManager;
-
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;

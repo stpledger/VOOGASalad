@@ -1,14 +1,15 @@
 package engine.actions;
 
 
-import engine.components.groups.Position;
-import engine.components.groups.Velocity;
 import authoring.entities.Enemy;
 
 
 import java.util.ArrayList;
 import java.util.List;
 import authoring.entities.Player;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
+
 import java.util.function.Consumer;
 
 public class ScriptTester {

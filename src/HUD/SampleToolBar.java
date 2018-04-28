@@ -7,6 +7,7 @@ import GamePlayer.GamePlayerController;
 import Menu.LevelSelector;
 import engine.components.Component;
 import engine.components.Health;
+import engine.components.Lives;
 import engine.components.Player;
 import engine.components.Score;
 import javafx.scene.control.Label;
@@ -37,7 +38,8 @@ public class SampleToolBar extends ToolBar{
 		Health health = (Health) PlayerKeys.get(activeLevel).get(Health.KEY);
 		HealthLabel label2 = new HealthLabel(health.getData());
 		Player player = (Player) PlayerKeys.get(activeLevel).get(Player.KEY);
-		LivesLabel label3 = new LivesLabel((int) player.getData());
+		Lives lives = (Lives) PlayerKeys.get(activeLevel).get(Lives.KEY);
+		LivesLabel label3 = new LivesLabel((int) lives.getData());
 //		Score score = (Score) PlayerKeys.get(activeLevel).get(Score.KEY);
 //		ScoreLabel label4 = new ScoreLabel(score.getScore());
 	
