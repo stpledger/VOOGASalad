@@ -2,16 +2,19 @@ package authoring.views.properties;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import engine.components.Component;
+import engine.components.DataComponent;
+import engine.components.StringComponent;
 import javafx.scene.control.Button;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import authoring.components.PropertiesComponentForm;
-import authoring.factories.ClickElementType;
 import authoring.entities.Entity;
+import authoring.factories.ClickElementType;
+import authoring.forms.PropertiesComponentForm;
 
 /**
  * Opens up the Local Properties window so that an editor can edit certain features of an entity,
@@ -29,6 +32,8 @@ public class LocalPropertiesView extends PropertiesView {
 	private Consumer<List<Component>> onSubmit;
 	private Entity entity;
 	private String type;
+	
+	private Properties language = new Properties();
 
 	/**
 	 * Initialize the object with a given broadcast method
@@ -54,28 +59,32 @@ public class LocalPropertiesView extends PropertiesView {
 			if (!entity.contains(property)) {
 				cf = new PropertiesComponentForm(entity.getID(), property);
 			} else {
-				cf = new PropertiesComponentForm(entity.getID(), property);//, entity.get(property).getParameters());
+
+				if (entity.get(property) instanceof DataComponent) {
+					DataComponent dc = (DataComponent) entity.get(property);
+					cf = new PropertiesComponentForm(entity.getID(), property, String.valueOf(dc.getData()));
+				} else {
+					StringComponent sc = (StringComponent) entity.get(property);
+					cf = new PropertiesComponentForm(entity.getID(), property, sc.getData());
+				}
 			}
 			activeForms.add(cf);
-			currentRow++;
-			getRoot().add(cf, 0, currentRow);
+			getRoot().add(cf, 0, currentRow++);
 		}
-
 		try {
 			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getButtonBundle().getString("Submit"), e->{
 				List<Component> componentsToAdd = new ArrayList<>();
 				for (PropertiesComponentForm cf : activeForms) {
-					componentsToAdd.add((Component) cf.buildComponent());
+					componentsToAdd.add(cf.buildComponent());
 				}
 				onSubmit.accept(componentsToAdd);
-				this.makeAlert(this.title()+" has been updated!");
+				this.makeAlert(this.title() + " has been updated!");
 				this.close();
 			});
 			getRoot().add(submit, 0, currentRow);
 		} catch (Exception e1) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}
-
 	}
 
 	/**
@@ -85,6 +94,12 @@ public class LocalPropertiesView extends PropertiesView {
 	@Override
 	public String title() {
 		return String.format("Entity %d Local Properties", this.entity.getID());
+	}
+
+	@Override
+	public void setLanguage(Properties lang) {
+		language = lang;
+		
 	}
 
 }

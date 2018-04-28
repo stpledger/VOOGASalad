@@ -1,5 +1,6 @@
 package authoring.factories;
 
+import java.util.Properties;
 import java.util.function.Consumer;
 
 /**

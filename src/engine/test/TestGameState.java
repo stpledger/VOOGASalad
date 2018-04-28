@@ -37,37 +37,44 @@ public class TestGameState {
 		System.out.println("TestGameState");
 		entities = new HashMap<>();
 		ActionReader AR = new ActionReader();
+		
 		Sprite s = new Sprite(0,"Mario.png");
-		//Sprite s2 = new Sprite(1,"mario.png");
-		//Sprite s3 = new Sprite(2,"mario.png");
-		Sprite s4 = new Sprite(3,"mario.png");
+
+		//Sprite s4 = new Sprite(3,"mario.png");
 
 
-		Position p = new Position(0, 100, 100);
-		Dimension d = new Dimension(0, 100, 100);
-		Velocity v = new Velocity(0, 0, 0);
+		XPosition px = new XPosition(0, 100);
+		YPosition py = new YPosition(0, 100);
 
-		Acceleration a = new Acceleration(0, 0, 40);
+		Width w = new Width(0, 100);
+		Height h = new Height(0, 100);
+		XVelocity vx = new XVelocity(0, 0);
+		YVelocity vy = new YVelocity(0, 0);
+
+		XAcceleration ax = new XAcceleration(0, 0);
+		YAcceleration ay = new YAcceleration(0,40);
 		KeyInput k = new KeyInput(0);
 		k.addCode( KeyCode.RIGHT, (Consumer & Serializable) (e) -> {
-			v.setXVel(+50);
+			vx.setData(+50);
 		});
 		k.addCode(KeyCode.UP, (Consumer & Serializable)(e) ->
 		{
-			v.setYVel(-50);
+			vy.setData(-50);
 		});
 		k.addCode(KeyCode.DOWN,(Consumer & Serializable) (e) ->
 		{
-			v.setYVel(+50);
+			vy.setData(+50);
 		});
 		k.addCode(KeyCode.LEFT,(Consumer & Serializable) (e) ->
 		{
-			v.setXVel(-50);
+			vx.setData(-50);
 		});
-		Health h = new Health(0,10);
-		Damage damage = new Damage(0, 10, 1);
+		Health health = new Health(0,10);
+		DamageValue damage = new DamageValue(0, 10);
+		DamageLifetime dl = new DamageLifetime(0,1);
 		
 		Player play = new Player(0);
+		Lives lives = new Lives(0,3);
 
 		/**k.addCode(KeyCode.R, (Runnable & Serializable) () ->
 		 {
@@ -75,15 +82,23 @@ public class TestGameState {
 		 });**/
 
 		Map<String, Component> mario = new HashMap<>();
-		mario.put(Position.KEY, p);
-		mario.put(Dimension.KEY, d);
+		mario.put(XPosition.KEY, px);
+		mario.put(YPosition.KEY, py);
+		mario.put(Height.KEY, h);
+		mario.put(Lives.KEY, lives);
+		mario.put(Width.KEY, w);
 		mario.put(Sprite.KEY, s);
 
-		mario.put(Velocity.KEY, v);
-		mario.put(Acceleration.KEY, a);
+		mario.put(XVelocity.KEY, vx);
+		mario.put(YVelocity.KEY, vy);
+
+		mario.put(XAcceleration.KEY, ax);
+		mario.put(YAcceleration.KEY, ay);
+
 		mario.put(KeyInput.KEY, k);
-		mario.put(Health.KEY, h);
-		mario.put(Damage.KEY, damage);
+		mario.put(Health.KEY, health);
+		mario.put(DamageValue.KEY, damage);
+		mario.put(DamageLifetime.KEY, dl);
 		mario.put(Player.KEY, play);
 
 		//Map<String, Component> mario2 = new HashMap<>();
@@ -131,7 +146,7 @@ public class TestGameState {
 		 **/
 
 
-		Position p4 = new Position(3, 300, 300);
+		/*Position p4 = new Position(3, 300, 300);
 		Dimension d4 = new Dimension(3, 100, 100);
 		Health health4 = new Health(3, 10);
 
@@ -140,7 +155,7 @@ public class TestGameState {
 		mario4.put(Position.KEY, p4);
 		mario4.put(Dimension.KEY, d4);
 		mario4.put(Sprite.KEY, s4);
-		mario4.put(Health.KEY, health4);
+		mario4.put(Health.KEY, health4);*/
 
 
 		/**Conditional co1 = new Conditional(0);
@@ -158,7 +173,7 @@ public class TestGameState {
 		entities.put(0, mario);
 		//entities.put(1, mario2);
 		//entities.put(2, mario3);
-		entities.put(3, mario4);
+		//entities.put(3, mario4);
 		GameInitializer gi = new GameInitializer(entities, 300, 50, 50);
 		ih = gi.getInputHandler();
 		eng = new InternalEngine(gi.getSystems());

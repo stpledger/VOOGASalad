@@ -8,10 +8,14 @@ import java.util.Map;
 import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataWrite;
-import engine.components.*;
 
 import engine.components.Component;
-
+import engine.components.Height;
+import engine.components.Player;
+import engine.components.Sprite;
+import engine.components.Width;
+import engine.components.XPosition;
+import engine.components.YPosition;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;

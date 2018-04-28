@@ -16,7 +16,6 @@ import javafx.util.Duration;
 /**
  * Sprite component containing an image. Constructor and setter throw file not found if the filepath is incorrect.
  * @author fitzj
- * @author Yameng
  */
 public class Sprite extends SingleStringComponent {
 	public static final String FILE_PATH ="File:";

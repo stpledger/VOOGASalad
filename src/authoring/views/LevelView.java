@@ -1,5 +1,6 @@
 package authoring.views;
 
+import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
@@ -8,11 +9,21 @@ import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
 import authoring.gamestate.Level;
 import authoring.grid.Grid;
+import javafx.geometry.Insets;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 
 /**
  *  
@@ -30,13 +41,15 @@ public class LevelView extends ScrollPane {
 	private static final int ADD_FIVE = 5;
 	private static final int ADD_ONE = 1;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final Color DEFAULT_BACKGROUND = Color.WHITE;
+	private Properties language = new Properties();
 
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
 		this.eFactory = new ElementFactory();
 		this.addEntity = aE;
 		this.level = level;
-		this.content = new Grid();
+		this.content = new Grid(level);
 		this.content.getStyleClass().add("level-view-content");
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -50,15 +63,15 @@ public class LevelView extends ScrollPane {
 	 * @param levelNum Level number
 	 */
 	private void setupMouseClick(int levelNum) {
-		this.setOnMouseClicked(e -> {		
+		this.setOnMouseClicked(e -> {
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				ContextMenu cMenu = new ContextMenu();
 				try {
-					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e1->this.content.addCol(ADD_ONE));
-					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e1->this.content.addRow(ADD_ONE));
-					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add 5 Columns", e1->this.content.addCol(ADD_FIVE));
-					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add 5 Rows", e1->this.content.addRow(ADD_FIVE));
-					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Cancel", e1->cMenu.hide());
+					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addColumn"), e1->this.content.addCol(ADD_ONE));
+					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addRow"), e1->this.content.addRow(ADD_ONE));
+					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveColumn"), e1->this.content.addCol(ADD_FIVE));
+					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveRow"), e1->this.content.addRow(ADD_FIVE));
+					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("cancel"), e1->cMenu.hide());
 					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
 				} catch (Exception e1) {
 					LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
@@ -93,5 +106,11 @@ public class LevelView extends ScrollPane {
 	public Level getLevel() {
 		return this.level;
 	}
-
+	
+	/**
+	 * Sets the language of the levelview
+	 */
+	public void setLanguage(Properties lang) {
+		language = lang;
+	}
 }
