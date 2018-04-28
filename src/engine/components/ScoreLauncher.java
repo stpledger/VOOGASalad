@@ -4,28 +4,19 @@ package engine.components;
  * either give or subtract certain amount of score
  * @sv116
  */
-import java.util.Map;
 
-public class ScoreLauncher extends Component{
+
+public class ScoreLauncher extends SingleDataComponent{
     public static String KEY ="ScoreLauncher";
-    private double score;
 
-	public ScoreLauncher(int pid, double score) {
-		super(pid, KEY);
-		this.score=score;
-	}
-    
-	public void addScore(double s) {
-		score+=s;
+	public ScoreLauncher(int pid, double data) {
+		super(pid,data);
+		
 	}
 	
-	public double getScore() {
-		return this.score;
-	}
-	@Override
-	public Map<String, String> getParameters() {
-		// TODO Auto-generated method stub
-		return null;
+	public String getKey() {
+		return KEY;
+
 	}
 
 }

@@ -1,7 +1,8 @@
 package authoring.entities.componentbuilders;
 
 import engine.components.Component;
-import engine.components.Sprite;
+import engine.components.DataComponent;
+import engine.components.StringComponent;
 
 import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
@@ -18,20 +19,20 @@ public class SpriteBuilder implements ComponentBuilder {
 
 	private final static String FOLDER_PATH = "data/";
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
-	public SpriteBuilder() {
-		
-	}
+
 	
 	@Override
 	public Component build(int ID, Element e) {
 		try {
-			System.out.println("Trying to create " + e.getNodeName());
 			Class<?> clazz = Class.forName("engine.components." + e.getNodeName());
 			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
-			Component c = (Component) cons.newInstance(ID, e.getTextContent());
-			System.out.println("Component " + c + " created.");
-			return c;
+			Component component;
+			if (clazz.isInstance(DataComponent.class)) {
+				component = (Component) cons.newInstance(ID, Double.valueOf(e.getTextContent()));
+			} else {
+				component = (Component) cons.newInstance(ID, e.getTextContent());
+			}
+			return component;
 		} catch (Exception e2) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e2.toString(), e2);
 			e2.printStackTrace();

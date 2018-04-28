@@ -32,12 +32,11 @@ public class Grid extends GridPane {
 
 	private static final int DEFAULT_WIDTH = 1000;
 	private static final int DEFAULT_HEIGHT = 600;
-	
+
 	private int numRows;
 	private int numCols;
 	private List<List<Cell>> cells;
 	private int numberOfCells = 0;
-	
 	/**
 	 * Initializes the grid with a given number of rows and columns
 	 * @param width the desired width of the grid
@@ -47,7 +46,7 @@ public class Grid extends GridPane {
 		this.numRows = height/Entity.ENTITY_HEIGHT;
 		this.numCols = width/Entity.ENTITY_WIDTH;
 		this.cells = new ArrayList<>();
-		this.setBackground(new Background(new BackgroundImage(new Image("File:data/Collin.png"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+		this.setBackground(new Background(new BackgroundImage(new Image("File:data/images/devil.jpg"), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
 		
 		for (int i = 0; i < this.numRows; i++) {
 			cells.add(new ArrayList<>());
@@ -59,7 +58,7 @@ public class Grid extends GridPane {
 		}
 		this.setPrefSize(width, height);
 	}
-	
+
 	/**
 	 * Empty constructor, use default values
 	 */
@@ -83,7 +82,7 @@ public class Grid extends GridPane {
 			this.numRows++;
 		}
 	}
-	
+
 	/**
 	 * Adds a number of new columns to the grid
 	 * @param numTimes Number of columns to add 

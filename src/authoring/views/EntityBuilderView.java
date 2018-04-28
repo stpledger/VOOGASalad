@@ -13,10 +13,10 @@ import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
 import authoring.MainApplication;
-import authoring.components.EntityComponentFormCollection;
 import authoring.entities.data.EntityBuilderData;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
+import authoring.forms.EntityComponentFormCollection;
 import data.DataRead;
 import engine.components.Sprite;
 import javafx.embed.swing.SwingFXUtils;
