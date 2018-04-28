@@ -17,6 +17,7 @@ import labels.HealthLabel;
 import labels.LivesLabel;
 import labels.ScoreLabel;
 import labels.TimeLabel;
+import labels.VelocityLabel;
 
 public class SampleToolBar extends ToolBar{
 
@@ -24,13 +25,16 @@ public class SampleToolBar extends ToolBar{
 	private HUDFactory gameStatusFactory;
 	private int ActiveLevel;
 	private Map<String, Component> playerComponentsforLevel;
+	private VelocityLabel label4;
+	private HealthLabel label2;
+	private int count = 0;
 
 	/**
 	 * Builds a Sample Tool Bar that acts as the HUD for the game
 	 */
 	public SampleToolBar(int activeLevel, Map<Integer, Map<String, Component>> PlayerKeys) {
-//		ActiveLevel = activeLevel;
-//		playerComponentsforLevel = PlayerKeys.get(ActiveLevel);
+		ActiveLevel = activeLevel;
+		playerComponentsforLevel = PlayerKeys.get(ActiveLevel);
 //		gameStatusFactory = new HUDFactory(playerComponentsforLevel, listOfStates); //factory for all the labels
 //		toolbarLayout = gameStatusFactory.create(listOfStates);
 		//constructor to create a Sample Tool Bar
@@ -40,13 +44,26 @@ public class SampleToolBar extends ToolBar{
 		Player player = (Player) PlayerKeys.get(activeLevel).get(Player.KEY);
 		Lives lives = (Lives) PlayerKeys.get(activeLevel).get(Lives.KEY);
 		LivesLabel label3 = new LivesLabel((int) lives.getData());
+
 //		Score score = (Score) PlayerKeys.get(activeLevel).get(Score.KEY);
 //		ScoreLabel label4 = new ScoreLabel(score.getScore());
-	
-		toolbarLayout.getChildren().addAll(label2, label3);
+		toolbarLayout.getChildren().addAll(label2, label3, label4);
 		this.getItems().add(toolbarLayout);
 	}	
 	
+	/**
+	 * Update the gameState Values
+	 */
+	public void updateGameStatusLabels() {
+		//System.out.println(label4.extractGameStateValue(playerComponentsforLevel));
+		label4.update(label4.extractGameStateValue(playerComponentsforLevel));
+		label2.update(label2.extractGameStateValue(playerComponentsforLevel));
+	}
+	
+	
+	public void updateGameStatusValues(Map<Integer, Map<String, Component>> playerKeys) {
+		playerComponentsforLevel = playerKeys.get(ActiveLevel);
+	}
 	
 
 }

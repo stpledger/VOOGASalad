@@ -3,7 +3,6 @@ package GamePlayer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import buttons.FileUploadButton;
 import buttons.GameSelectButton;
 import data.DataGameState;
@@ -22,7 +21,6 @@ import javafx.stage.Stage;
  * Splash Screen for Selecting Games and Uploading Games
  * @author Ryan
  */
-
 public class SplashScreenView{
 	private Scene splashScene;
 	private Stage mySplashStage;
@@ -86,7 +84,6 @@ public class SplashScreenView{
 				col++; 		//if not, increment the number of columns
 			}
 		}
-
 	}
 
 	public List<GameSelectButton> getSplashScreenButtons() {
