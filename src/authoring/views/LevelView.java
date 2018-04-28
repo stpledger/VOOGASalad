@@ -72,7 +72,7 @@ public class LevelView extends ScrollPane {
 			}
 		});
 	}
-	
+
 	/**
 	 * Sets the onMouseReleased method for the content to handle dragging.
 	 */
@@ -97,7 +97,7 @@ public class LevelView extends ScrollPane {
 	public Level getLevel() {
 		return this.level;
 	}
-	
+
 	/**
 	 * Sets the language of the levelview
 	 */

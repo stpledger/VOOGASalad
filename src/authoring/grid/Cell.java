@@ -25,7 +25,7 @@ public class Cell extends Pane {
 		this.setPrefHeight(Entity.ENTITY_HEIGHT);
 		this.setStyle(DEFAULT_STYLE);
 	}
-	
+
 	/**
 	 * @return the entity that is within this cell, if it has one
 	 */
@@ -40,7 +40,7 @@ public class Cell extends Pane {
 	public void setEntity(Entity entity) {
 		this.entity = entity;
 	}
-	
+
 	/**
 	 * Check if this cell contains an entity.
 	 * @return true iff the cell contains an entity
@@ -48,5 +48,5 @@ public class Cell extends Pane {
 	public boolean containsEntity() {
 		return this.entity != null;
 	}
-	
+
 }

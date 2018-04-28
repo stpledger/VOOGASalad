@@ -30,7 +30,7 @@ public class Grid extends GridPane {
 
 	private static final int DEFAULT_WIDTH = 1000;
 	private static final int DEFAULT_HEIGHT = 600;
-	
+
 	private final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
 	private final String DRAGGED_OVER_STYLE = "-fx-background-color: #1CFEBA";
 
@@ -56,28 +56,28 @@ public class Grid extends GridPane {
 		this.entityID = 0;
 		for (int i = 0; i < this.numRows; i++) {
 			cells.add(new ArrayList<>());
-        		for (int j = 0; j < this.numCols; j++) {
-            		Cell c = new Cell();
-            		setupEntityDrop(c);
-            		setupLPVOpen(c);
-            		cells.get(i).add(c);
-            		this.add(c, j, i);
-            	}
+			for (int j = 0; j < this.numCols; j++) {
+				Cell c = new Cell();
+				setupEntityDrop(c);
+				setupLPVOpen(c);
+				cells.get(i).add(c);
+				this.add(c, j, i);
+			}
 		}
 		this.setPrefSize(width, height);
 	}
-	
+
 	/**
 	 * Empty constructor, use default values
 	 */
 	public Grid(Level level) {
 		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, level);
 	}
-	
+
 	private int getID() {
 		return this.entityID++;
 	}
-	
+
 	/**
 	 * Sets up the drag and drop utility used to add entities to the grid.
 	 * @param c Cell to add the mouse click event listener to
@@ -128,43 +128,44 @@ public class Grid extends GridPane {
 			e.consume();
 		});
 	}
-	
+
 	//TODO use element factory and language properties
 	private ContextMenu createMenu(Cell c, ImageView img) {
 		ContextMenu cMenu = new ContextMenu();
-		MenuItem removeEntity = new MenuItem("Remove Entity");
-		removeEntity.setOnAction(e-> this.clearCell(c));
-		cMenu.getItems().add(removeEntity);
-		return cMenu;
-	}
-	
-	private ContextMenu backgroundMenu(Cell c, ImageView img) {
-		ContextMenu cMenu = new ContextMenu();
 		try {
-			MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addCol(c, img, 1));
-			MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addRow(c, img, 1));
-			MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addCol(c, img, 5));
-			MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Rows", e2->this.addRow(c, img, 5));
-			MenuItem removeCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Column", e2->this.addCol(c, img, -1));
-			MenuItem removeRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Row", e2->this.addRow(c, img, -1));
-			MenuItem removeFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Five Columns", e2->this.addCol(c, img, -5));
-			MenuItem removeFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Five Rows", e2->this.addRow(c, img, -5));
-			MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Cancel", e2->cMenu.hide());
-			cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,removeCol,removeRow,removeFiveCol,removeFiveRow,cancel);
-		} catch (Exception e3) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e3.toString(), e3);
+			MenuItem removeEntity = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Entity", e->this.clearCell(c));
+			cMenu.getItems().add(removeEntity);
+		} catch(Exception e) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 		return cMenu;
 	}
-	
-	private void addCol(Cell cell, ImageView img, int numTimes) {
+
+	private ContextMenu backgroundMenu(Cell c, ImageView img) {
+		ContextMenu cMenu = new ContextMenu();
+		try {
+			MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addImageCol(c, img, 1));
+			MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addImageRow(c, img, 1));
+			MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addImageCol(c, img, 5));
+			MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Rows", e2->this.addImageRow(c, img, 5));
+			MenuItem removeCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Column", e2->this.addImageCol(c, img, -1));
+			MenuItem removeRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Row", e2->this.addImageRow(c, img, -1));
+			MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Cancel", e2->cMenu.hide());
+			cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,removeCol,removeRow,cancel);
+		} catch (Exception e) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+		}
+		return cMenu;
+	}
+
+	private void addImageCol(Cell cell, ImageView img, int numTimes) {
 		img.setFitWidth(img.getFitWidth()+numTimes*Entity.ENTITY_WIDTH);
 	}
 
-	private void addRow(Cell cell, ImageView img, int numTimes) {
+	private void addImageRow(Cell cell, ImageView img, int numTimes) {
 		img.setFitHeight(img.getFitHeight()+numTimes*Entity.ENTITY_HEIGHT);
 	}
-	
+
 	private void clearCell(Cell c) {
 		level.removeEntity(c.getEntity());
 		c.getChildren().clear();
@@ -188,7 +189,7 @@ public class Grid extends GridPane {
 			}
 		});
 	}
-	
+
 	/**
 	 * Adds new row of cells to the grid
 	 * @param numTimes Number of rows to add
