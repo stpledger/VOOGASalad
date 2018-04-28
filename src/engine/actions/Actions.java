@@ -3,9 +3,13 @@ package engine.actions;
 import authoring.entities.Entity;
 
 import engine.components.Component;
+import engine.components.Player;
+import engine.components.Score;
+import engine.components.XAcceleration;
 import engine.components.XPosition;
 import engine.components.YPosition;
 import engine.components.XVelocity;
+import engine.components.YAcceleration;
 import engine.components.YVelocity;
 import engine.components.groups.Position;
 import engine.components.groups.Velocity;
@@ -15,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 
@@ -31,48 +36,170 @@ public class Actions {
      * @param actor Entity moving left
      * @return left action
      */
-
-    public Consumer left (Entity actor) {
-        XVelocity v = (XVelocity) actor.get(XVelocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setData(-10);
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> moveLeft (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(XVelocity.KEY)) {
+    				XVelocity xv = (XVelocity) actor.get(XVelocity.KEY);
+    				xv.setData(-speed);
+    			}
+    		}
+    	};
     }
-
-    /**
-     * @param actor Entity moving right
-     * @return right action
-     */
-
-    public Consumer right (Entity actor) {
-        XVelocity v = (XVelocity) actor.get(XVelocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setData(10);
+	
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> moveRight (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(XVelocity.KEY)) {
+    				XVelocity xv = (XVelocity) actor.get(XVelocity.KEY);
+    				xv.setData(speed);
+    			}
+    		}
+    	};
     }
-
-    /**
-     * @param actor Entity moving up
-     * @return up action
-     */
-
-    public Consumer up (Entity actor) {
-        YVelocity v = (YVelocity) actor.get(YVelocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setData(-10);
+	
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> moveUp (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(YVelocity.KEY)) {
+    				YVelocity yv = (YVelocity) actor.get(YVelocity.KEY);
+    				yv.setData(-speed);
+    			}
+    		}
+    	};
     }
-
-    /**
-     * @param actor Entity moving down
-     * @return down action
-*/
-    public Consumer down (Entity actor) {
-        YVelocity v = (YVelocity) actor.get(YVelocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setData(10);
+	
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> moveDown (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(YVelocity.KEY)) {
+    				YVelocity yv = (YVelocity) actor.get(YVelocity.KEY);
+    				yv.setData(speed);
+    			}
+    		}
+    	};
     }
-
+	
+	
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> accelerateLeft (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(XAcceleration.KEY)) {
+    				XAcceleration xa = (XAcceleration) actor.get(XAcceleration.KEY);
+    				xa.setData(-speed);
+    			}
+    		}
+    	};
+    }
+	
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> accelerateRight (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(XAcceleration.KEY)) {
+    				XAcceleration xa = (XAcceleration) actor.get(XAcceleration.KEY);
+    				xa.setData(speed);
+    			}
+    		}
+    	};
+    }
+	
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> accelerateUp (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(YAcceleration.KEY)) {
+    				YAcceleration ya = (YAcceleration) actor.get(YAcceleration.KEY);
+    				ya.setData(-speed);
+    			}
+    		}
+    	};
+    }
+	
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> accelerateDown (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(YAcceleration.KEY)) {
+    				YAcceleration ya = (YAcceleration) actor.get(YAcceleration.KEY);
+    				ya.setData(speed);
+    			}
+    		}
+    	};
+    }
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> addScore (double score) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(Score.KEY)) {
+    				Score s = (Score) actor.get(Score.KEY);
+    				s.setData(s.getData() + score);
+    			}
+    		}
+    	};
+    }
+	
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	public static BiConsumer<Map<String, Component>,Map<String, Component>> transferScore() {
+		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+    		if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
+    			if(actor1.containsKey(Player.KEY) && actor1.containsKey(Score.KEY) && actor2.containsKey(Score.KEY)) {
+    				Score s1 = (Score) actor1.get(Score.KEY);
+    				Score s2 = (Score) actor2.get(Score.KEY);
+    				
+    				s1.setData(s1.getData() + s2.getData());
+    			}
+    		}
+    	};
+	}
+	
+	
+	@SuppressWarnings("unchecked")
+	public static BiConsumer<Map<String, Component>,Map<String, Component>> xFriction(double stickiness) {
+		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+    		if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
+    			if(actor1.containsKey(XVelocity.KEY) && actor1.containsKey(XAcceleration.KEY)) {
+    				XVelocity xv = (XVelocity) actor1.get(XVelocity.KEY);
+    				XAcceleration xa = (XAcceleration) actor1.get(XAcceleration.KEY);
+    				
+    				if(xv.getData() > 0) {
+    					xa.setData(-stickiness);
+    				} else if(xv.getData() < 0) {
+    					xa.setData(stickiness);
+    				}
+    			}
+    		}
+    	};
+	}
+	
+	
+    
+	
+	
+	
+	
+	
+	
+	
+	
     /**
      * This would be an AI component that has an enemy follow you
      * @param followed Player/entity being followed
      * @param tracker  Enemy/entity tracking the followed
      * @return action which result in the tracker moving towards the followed
      */
-    public Consumer followsYou (Entity followed, Entity tracker) {
+    public static Consumer followsYou (Entity followed, Entity tracker) {
         XPosition px = (XPosition) followed.get(XPosition.KEY);
         YPosition py = (YPosition) followed.get(YPosition.KEY);
         XPosition tx = (XPosition) tracker.get(XPosition.KEY);
@@ -95,7 +222,7 @@ public class Actions {
      * @param coordinates The positions the entity will visit
      * @return the actions which performs this method
      */
-    public Consumer patrol(Map<String, Component> actor, List<Position> coordinates) {
+    public static Consumer patrol(Map<String, Component> actor, List<Position> coordinates) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
         Position p = (Position) actor.get(Position.KEY);
 

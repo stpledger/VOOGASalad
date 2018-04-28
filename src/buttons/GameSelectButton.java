@@ -12,7 +12,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-public class GameSelectButton extends Button {
+public class GameSelectButton extends Button implements IGamePlayerButton{
 
 	private DataGameState gameState;
 	private SplashScreenView splash;
@@ -33,10 +33,10 @@ public class GameSelectButton extends Button {
 		gameImage.setFitWidth(100);
 		this.setGraphic(gameImage);
 		gameState = currentGameState;
-		this.setGameSelectEvent();
+		this.setEvent();
 	}
 	
-	private void setGameSelectEvent() {
+	public void setEvent() {
 		this.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
 				setGameSelectBoolean();
