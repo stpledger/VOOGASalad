@@ -5,7 +5,7 @@ package authoring.entities;
  * @author Hemanth Yakkali(hy115)
  *
  */
-public class Background extends Entity{
+public class Background extends NonInteractableEntity{
 
 	private static final String TYPE = "Background";
 	private String name;
@@ -16,7 +16,6 @@ public class Background extends Entity{
 		this.name = name;
 	}
 
-	@Override
 	protected void addDefaultComponents() {
 		this.setEntityType(TYPE);
 		this.setDimension(BKGRND_DIMENSION, BKGRND_DIMENSION);

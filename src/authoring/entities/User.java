@@ -7,7 +7,7 @@ import engine.components.Player;
  * @author Dylan Powers
  * @author Hemanth Yakkali(hy115)
  */
-public class User extends Entity {
+public class User extends InteractableEntity {
 
 	private final static String TYPE = "Player";
 	private String name;
