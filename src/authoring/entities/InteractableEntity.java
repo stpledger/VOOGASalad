@@ -150,14 +150,6 @@ public abstract class InteractableEntity extends Entity {
 	protected void setHealth(double health) {
 		this.add(new Health(this.getID(),health));
 	}
-
-	/**
-	 * 
-	 * @param type Type of entity
-	 */
-	protected void setEntityType(String type) {
-		this.add(new EntityType(this.getID(), type));
-	}
 	
 	/**
 	 * Get a component by name.
