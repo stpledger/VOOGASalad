@@ -52,7 +52,7 @@ public class InputHandler implements ISystem {
 			Map<String, Component> components = handledComponents.get(id);
 			KeyInput k = (KeyInput) components.get(KeyInput.KEY);
 
-			k.evaluate(activeCodes);
+			k.action(activeCodes, components);
 		}
 	}
 

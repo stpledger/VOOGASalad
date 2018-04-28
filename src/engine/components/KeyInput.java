@@ -16,7 +16,7 @@ import java.util.function.Consumer;
  */
 public class KeyInput extends Conditional {
 
-	private Map<KeyCode, Consumer<Object>> codes = new HashMap<>();
+	private Map<KeyCode, Consumer<Map<String, Component>>> codes = new HashMap<>();
 
 	public static String KEY = "KeyInput";
 	
@@ -35,32 +35,31 @@ public class KeyInput extends Conditional {
 	 * @param code the keycode that will trigger the action
 	 * @param con the action that happens when the key is pressed
 	 */
-	public void addCode (KeyCode code, Consumer<Object> con) {
+	public void addCode (KeyCode code, Consumer<Map<String, Component>> con) {
 		codes.put(code, con);
-		this.setCondition(() -> {
-			return codes;
-		});
-		setUpConditional();
 	}
 
 	/*public void action(KeyCode key) {
 		codes.get(key).accept(null);
 	}*/
-
+	
 	@SuppressWarnings("unchecked")
-	private void setUpConditional() {
-		this.setAction((map, set) -> {
-			if(map == null || !(map instanceof Map<?,?>)) return;
-			if(set == null || !(set instanceof Set<?>)) return;
-			Map<KeyCode,Consumer<Object>> codeMap = (Map<KeyCode, Consumer<Object>>) map;
-			Set<KeyCode> actives = (Set<KeyCode>) set;
-			codeMap.forEach((key, con) -> {
-				if(actives.contains(key)) {
-					con.accept(null);
-				}
-			}); 
-		});
+	public void action(Set<KeyCode> codeSet, Map<String, Component> entityMap) {
+        codeSet.forEach((key) -> {
+        	if(codes.containsKey(key)) {
+        		this.setAction((entity, o2) -> {
+        			if(entity instanceof Map<?,?>) {
+        				codes.get(key).accept((Map<String, Component>) entity);
+        			}
+        		});
+        		this.setCondition(() -> {
+        			return entityMap;
+        		});
+        		this.evaluate();
+        	}
+        });
 	}
+
 	
 	public String getKey() { 
 		return KEY; 
