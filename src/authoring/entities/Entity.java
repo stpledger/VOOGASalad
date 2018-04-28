@@ -121,8 +121,7 @@ public abstract class Entity extends ImageView {
 			}
 		}
 		return null;
-	}
-	
+	}	
 
 	/**
 	 * @return type of this entity
