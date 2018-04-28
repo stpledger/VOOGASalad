@@ -2,7 +2,6 @@ package authoring.grid;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 import authoring.entities.Entity;
