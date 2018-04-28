@@ -3,14 +3,14 @@ package engine.support;
 import java.lang.reflect.Constructor;
 import java.util.List;
 
-import engine.components.Acceleration;
 import engine.components.Component;
-import engine.components.Damage;
-import engine.components.Dimension;
 import engine.components.Health;
-import engine.components.Position;
 import engine.components.Sprite;
-import engine.components.Velocity;
+import engine.components.groups.Acceleration;
+import engine.components.groups.Damage;
+import engine.components.groups.Dimension;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
 
 public class ComponentBuilder {
 	public static Component buildComponent(int pid, String component, List<String> inputs) throws IllegalArgumentException {

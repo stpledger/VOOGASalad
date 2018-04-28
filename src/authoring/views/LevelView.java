@@ -8,7 +8,6 @@ import authoring.entities.Entity;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
 import authoring.gamestate.Level;
-import authoring.views.properties.LevelPropertiesView;
 import authoring.grid.Grid;
 import javafx.geometry.Insets;
 import javafx.scene.control.ContextMenu;
@@ -43,9 +42,7 @@ public class LevelView extends ScrollPane {
 	private static final int ADD_ONE = 1;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private final Color DEFAULT_BACKGROUND = Color.WHITE;
-	
 	private Properties language = new Properties();
-	
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
 		this.eFactory = new ElementFactory();
@@ -87,20 +84,19 @@ public class LevelView extends ScrollPane {
 					});
 					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
 				} catch (Exception e1) {
-					 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+					LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 				}
 				cMenu.show(this, e.getScreenX(), e.getScreenY());
 				cMenu.setAutoHide(true);
 			}
 		});
 	}
+	
 	/**
 	 * Sets the onMouseReleased method for the content to handle dragging.
 	 */
 	private void setupMouseDrag() {
-		content.setOnDragDetected(e -> {
-			this.drag = true;
-		});
+		content.setOnDragDetected(e -> this.drag = true);
 	}
 
 	/**

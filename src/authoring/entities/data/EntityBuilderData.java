@@ -8,8 +8,8 @@ import java.util.logging.Logger;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
-import authoring.components.ComponentForm;
-import authoring.components.EntityComponentForm;
+import authoring.forms.ComponentForm;
+import authoring.forms.EntityComponentForm;
 
 public class EntityBuilderData {
 	

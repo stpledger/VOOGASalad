@@ -1,21 +1,19 @@
 package GamePlayer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-
+import java.util.List;
 import java.util.Map;
-
 import HUD.SampleToolBar;
 import Menu.MenuGameBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
+import buttons.GameSelectButton;
 import buttons.SwitchGameButton;
+import data.DataGameState;
+import engine.components.Component;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -25,7 +23,7 @@ import javafx.util.Duration;
 public class GamePlayerController {
 	private final int WIDTH_SIZE = 800;
 	private final int HEIGHT_SIZE = 500;
-
+	private final int LEVEL_ONE = 1;
 	public final int FRAMES_PER_SECOND = 60;
 	public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -33,18 +31,18 @@ public class GamePlayerController {
 	private Stage myStage;
 	private Scene myScene;
 	private Pane gameRoot;
-	private Timeline myTimeline;
-	private GamePlayerSplashScreen gamePlayerSplash;
+	private SplashScreenView gamePlayerSplash;
 	private Scene mySplashScene;
-
 	private BorderPane myPane = new BorderPane();
 	private PauseMenu pauseMenu = new PauseMenu(this);
 	private GamePlayerEntityView gameView;
-
-	private File currentFile;
 	private FileUploadButton fileBtn;
 	private SwitchGameButton switchBtn;
 	private Map<Integer, Pane> levelEntityGroupMap; //map that is used to store the initial group for each level.
+	private DataGameState currentGameState;
+	public List<GameSelectButton> gameSelectButtonList;
+	private Timeline myTimeline;
+	private Map<Integer, Map<String, Component>> PlayerKeys;
 
 	private Timeline animation;
 
@@ -53,48 +51,32 @@ public class GamePlayerController {
 		myStage.setResizable(false);
 	}
 
-
-	public Scene intializeStartScene() {
-		gamePlayerSplash = new GamePlayerSplashScreen(myStage);
+	public Scene initializeStartScene() {
+		gamePlayerSplash = new SplashScreenView(myStage);
 		mySplashScene = gamePlayerSplash.getSplashScene();
 		connectButtonsToController();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
-		myScene.setOnKeyPressed(e -> {
-			if(e.getCode() == KeyCode.ESCAPE) {
-				pauseMenu.show(myStage);
-				//myTimeline.pause();
-			} else {
-				if(gameView != null) {
-					gameView.setInput(e.getCode());
-				}
-			}
-		});
-
-		myScene.setOnKeyReleased(e -> {
-			if(e.getCode() != KeyCode.ESCAPE) {
-				if(gameView != null) {
-					gameView.removeInput(e.getCode());
-				}
-			}
-		});
-		//return myScene;
+		assignKeyInputs();
 		return mySplashScene;
 	}
-
 
 	/**
 	 * Helper Method to establish button listener connection to the controller
 	 */
 	private void connectButtonsToController() {
+		gameSelectButtonList = gamePlayerSplash.getSplashScreenButtons();
+		for (GameSelectButton b : gameSelectButtonList) {
+			b.getGameSelectBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+				currentGameState = b.getGameState();
+				setGameView(currentGameState);
+				myStage.setScene(myScene);
+			});
+		}
 		fileBtn = gamePlayerSplash.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-			try{
-				myStage.setScene(myScene);
-				initializeGameStart();
-			}
-			catch(FileNotFoundException e){
-				System.out.println("File Does Not Exist");
-			}
+			currentGameState = fileBtn.getGameState();
+			setGameView(currentGameState);
+			myStage.setScene(myScene);
 		});
 
 		switchBtn = pauseMenu.switchBtn;
@@ -104,20 +86,19 @@ public class GamePlayerController {
 			//switchBtn.setSwitchBoolean(); //changes boolean value back to false
 		});
 	}
-
+	
 	/**
-	 * Method that begins displaying the game
-	 * @throws FileNotFoundException 
+	 * Method that sets the current scene of the game
 	 */
-	public void initializeGameStart() throws FileNotFoundException {
-		currentFile = fileBtn.getFile();
-		gameView = new GamePlayerEntityView(currentFile);
+	public void setGameView(DataGameState currentGame) {
+		gameView = new GamePlayerEntityView(currentGame);
+		PlayerKeys = gameView.getPlayerKeys();
 		levelEntityGroupMap = gameView.getlevelEntityMap();
-		gameRoot = levelEntityGroupMap.get(1);  //level 1
+		gameRoot = levelEntityGroupMap.get(LEVEL_ONE);  //level 1
 		myPane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
-		SampleToolBar sampleBar = new SampleToolBar(this);
+		SampleToolBar sampleBar = new SampleToolBar(LEVEL_ONE, PlayerKeys);
 		myPane.setTop(sampleBar);
 		initializeGameAnimation(); //begins the animation cycle
 	}
@@ -135,15 +116,12 @@ public class GamePlayerController {
 		animation.play();
 		myTimeline = animation;
 	}
+	
 	/**
 	 * Changes the display of the gave.
 	 * @param level to be loaded
 	 */
 	public void changeGameLevel(int level) {
-		/*int lastIndex = myPane.getChildren().size()-1;
-		myPane.getChildren().remove(lastIndex);
-		System.out.println(level);
-		myPane.getChildren().addAll(levelEntityGroupMap.get(level));*/
 		gameRoot = levelEntityGroupMap.get(level);
 		gameView.setActiveLevel(level);
 	}
@@ -168,18 +146,29 @@ public class GamePlayerController {
 		}
 	}
 
-
 	public void restartGame() {
-		try{
-			initializeGameStart();
-			//initializeLevelFile();
-		}
-		catch(FileNotFoundException e){
-			System.out.println("File Does Not Exist");
-		}
+		setGameView(currentGameState);
 	}
-
-
+	
+	private void assignKeyInputs() {
+		myScene.setOnKeyPressed(e -> {
+			if(e.getCode() == KeyCode.ESCAPE) {
+				pauseMenu.show(myStage);
+				//myTimeline.pause();
+			} else {
+				if(gameView != null) {
+					gameView.setInput(e.getCode());
+				}
+			}
+		});
+		myScene.setOnKeyReleased(e -> {
+			if(e.getCode() != KeyCode.ESCAPE) {
+				if(gameView != null) {
+					gameView.removeInput(e.getCode());
+				}
+			}
+		});
+	}
 
 	public void saveGame(){
 		gameView.saveGame();
