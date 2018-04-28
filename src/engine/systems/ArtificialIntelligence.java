@@ -49,18 +49,5 @@ public class ArtificialIntelligence implements  ISystem{
         }
     }
 
-    @Override
-    public void addComponent(int pid, String componentName) {
-        //get back to this
-    }
 
-    @Override
-    public void removeComponent(int pid, String componentName) {
-        //get back to this
-    }
-
-    @Override
-    public Map<Integer, Map<String, Component>> getHandledComponent() {
-        return handledComponents;
-    }
 }

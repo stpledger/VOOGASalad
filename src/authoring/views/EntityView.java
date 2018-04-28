@@ -1,20 +1,24 @@
 package authoring.views;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import authoring.entities.Entity;
 import authoring.entities.data.EntityLoader;
 import authoring.entities.data.PackageExplorer;
+import authoring.entities.data.SudoEntityLoader;
 import authoring.factories.Toolbar;
-
 import data.DataRead;
 import engine.components.Sprite;
 
@@ -25,12 +29,15 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-public class EntityView extends BorderPane {
+public class EntityView extends BorderPane implements AuthoringPane {
+	public final static String XML_EXTENSION = ".XML";
+	public final static String DEFAULT_LIST = "src/resources/defaults.properties";
 	public final static String ENTITIES_PACKAGE_NAME = "authoring/entities";
 	public final static  int ENITITY_VIEW_WIDTH = 300;
-	private ArrayList<String> tabsList = new ArrayList<>();
+	private static final String DEFAULTS_PACKAGE = "data/";
 	private ArrayList<String> entityTypes = new ArrayList<>();
 	private TabPane tabPane = new TabPane();
+	private Properties lang = new Properties();
 	
 
 	public EntityView() {
@@ -39,7 +46,22 @@ public class EntityView extends BorderPane {
 		this.getStyleClass().add("entity-view");
 		this.setTop(new Toolbar("Entities", buildToolbarConsumerMap()));
 		this.setCenter(tabPane);
-		entityTypes.addAll(Arrays.asList(PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE_NAME)));
+		entityTypes.addAll(Arrays.asList(PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE_NAME, ".class", "Entity")));
+		this.addDefaults();
+	}
+
+	private void addDefaults() {
+		try {
+			Properties defaults = new Properties();
+			defaults.load(new FileInputStream(DEFAULT_LIST));
+			for(Object entityName : defaults.keySet()) {
+				this.loadEntityFromFile(new File(DEFAULTS_PACKAGE + entityName.toString() + XML_EXTENSION ));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
@@ -50,7 +72,7 @@ public class EntityView extends BorderPane {
 		Map<String, Consumer> consumerMap = new HashMap<>();
 		BiConsumer<String, Map<Class, Object[]>> onClose = (entityType,componentAttributes) -> {saveEntity(entityType, componentAttributes);};
 		Consumer<?> newEntity = e -> {
-			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose);
+			EntityBuilderView entityBuilderView = new EntityBuilderView(entityTypes, onClose, lang);
 		};
 		Consumer<?> loadEntity = e -> {loadEntity();};
 		consumerMap.put("newEntity", newEntity);
@@ -64,6 +86,7 @@ public class EntityView extends BorderPane {
 	 */
 	private void addTab(String type) {
 		EntityTab temp = new EntityTab(type, ENITITY_VIEW_WIDTH);
+		temp.setLanguage(lang);
 		tabPane.getTabs().add(temp);
 	}
 
@@ -73,16 +96,14 @@ public class EntityView extends BorderPane {
 	 * @param componentAttributes Map<Class, Object[]> representing the class of a component and an object[] representing all the arguments the component takes in
 	 */
 	public void saveEntity(String entityType, Map<Class, Object[]> componentAttributes) {
-		//Turn the imageFile into a usableImage
+
 		Image image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 
-		if(tabsList.isEmpty() || !tabsList.contains(entityType)) { 
+		if(tabPane.getTabs().isEmpty() || !tabPane.getTabs().contains(entityType)) { 
 			addTab(entityType);
-			tabsList.add(entityType);
 		}   
-
 		for(Tab tab : tabPane.getTabs()) {
-			if(tab.getText().equals(entityType)) {
+			if(tab.getId().equals(entityType)) {
 				((EntityTab) tab).addNewEntity(entityType, componentAttributes);
 			}
 		}
@@ -91,10 +112,27 @@ public class EntityView extends BorderPane {
 	public void loadEntity() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Entity File");
-		File entityFile = fileChooser.showOpenDialog(this.getScene().getWindow());
-		EntityLoader entityLoader = new EntityLoader();
-		//TODO: Make this load an entity
-		
+		File entityFile = fileChooser.showOpenDialog(this.getScene().getWindow());	
+		loadEntityFromFile(entityFile);
+	}
+	
+	public void loadEntityFromFile(File entityFile) {
+		SudoEntityLoader entityLoader = new SudoEntityLoader();
+		try {
+			Object[] sudoEntity = entityLoader.buildEntity(entityFile);
+			saveEntity(sudoEntity[0].toString(),(Map<Class, Object[]>) sudoEntity[1]);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void setLanguage(Properties language) {
+		this.lang = language;
+		((Toolbar) this.getTop()).setLanguage(language);
+		for(Tab t : tabPane.getTabs()) {
+			t.setText(language.getProperty(t.getId(),t.getId()));
+		}
 	}
 
 }

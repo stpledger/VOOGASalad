@@ -1,16 +1,23 @@
 package engine.actions;
 
 import authoring.entities.Entity;
-import authoring.entities.Player;
+
+import engine.components.Component;
+import engine.components.Player;
+import engine.components.Score;
 import engine.components.XPosition;
 import engine.components.YPosition;
 import engine.components.XVelocity;
 import engine.components.YVelocity;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
+
 import java.io.Serializable;
-import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 
@@ -27,15 +34,41 @@ public class Actions {
      * @param actor Entity moving left
      * @return left action
      */
-    public Consumer left (Entity actor) {
-        XVelocity v = (XVelocity) actor.get(XVelocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setData(-10);
+	@SuppressWarnings("unchecked")
+	public Consumer<Map<String, Component>> moveLeft (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(XVelocity.KEY)) {
+    				XVelocity xv = (XVelocity) actor.get(XVelocity.KEY);
+    				xv.setData(speed);
+    			}
+    		}
+    	};
+    	
     }
+	
+	
+	@SuppressWarnings("unchecked")
+	public BiConsumer<Map<String, Component>,Map<String, Component>> transferScore() {
+		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+    		if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
+    			if(actor1.containsKey(Player.KEY) && actor1.containsKey(Score.KEY) && actor2.containsKey(Score.KEY)) {
+    				Score s1 = (Score) actor1.get(Score.KEY);
+    				Score s2 = (Score) actor2.get(Score.KEY);
+    				
+    				s1.setData(s1.getData() + s2.getData());
+    			}
+    		}
+    	};
+	}
+	
+	
 
     /**
      * @param actor Entity moving right
      * @return right action
      */
+
     public Consumer right (Entity actor) {
         XVelocity v = (XVelocity) actor.get(XVelocity.KEY);
         return (Serializable & Consumer) (e) -> v.setData(10);
@@ -45,6 +78,7 @@ public class Actions {
      * @param actor Entity moving up
      * @return up action
      */
+
     public Consumer up (Entity actor) {
         YVelocity v = (YVelocity) actor.get(YVelocity.KEY);
         return (Serializable & Consumer) (e) -> v.setData(-10);
@@ -53,7 +87,7 @@ public class Actions {
     /**
      * @param actor Entity moving down
      * @return down action
-     */
+*/
     public Consumer down (Entity actor) {
         YVelocity v = (YVelocity) actor.get(YVelocity.KEY);
         return (Serializable & Consumer) (e) -> v.setData(10);
@@ -78,6 +112,37 @@ public class Actions {
             vx.setData((px.getData() - tx.getData()) * myTime * 10);
             vy.setData((py.getData() - ty.getData()) * myTime * 10);
         };
+    }
+
+    /**
+     * A patrol action to be given to an AI component for enemies, blocks, etc. Goes to the given coordinates in
+     * order then repeats.
+     *
+     * @param actor The entity moving around
+     * @param coordinates The positions the entity will visit
+     * @return the actions which performs this method
+     */
+    public Consumer patrol(Map<String, Component> actor, List<Position> coordinates) {
+        Velocity v = (Velocity) actor.get(Velocity.KEY);
+        Position p = (Position) actor.get(Position.KEY);
+
+        AtomicReference<Position> destination = new AtomicReference<>(new Position(-1, coordinates.get(0).getXPos(), coordinates.get(0).getYPos()));
+        AtomicInteger current = new AtomicInteger();
+
+        return (Serializable & Consumer) (time) -> {
+            v.setXVel((destination.get().getXPos()-p.getXPos())/distance(p, destination.get()) * 100);
+            v.setYVel((destination.get().getYPos()-p.getYPos())/distance(p, destination.get()) * 100);
+            if (distance(p, destination.get()) < 10) {
+                if (current.get() == coordinates.size() - 1) current.set(0);
+                else current.getAndIncrement();
+                destination.set(coordinates.get(current.get()));
+            }
+        };
+    }
+
+
+    private static double distance (Position p1, Position p2) {
+        return Math.sqrt(Math.pow(p1.getYPos()-p2.getYPos(), 2) + Math.pow(p1.getXPos() - p2.getXPos(), 2)); //distance between two positions/points
     }
 
 }

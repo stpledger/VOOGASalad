@@ -3,6 +3,7 @@ package engine.components;
 import javafx.scene.input.KeyCode;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.HashMap;
 import java.util.function.Consumer;
 
@@ -13,16 +14,14 @@ import java.util.function.Consumer;
  *
  * @author cndracos
  */
-public class KeyInput implements Component {
+public class KeyInput extends Conditional {
 
-	private Map<KeyCode, Consumer> codes = new HashMap<>();
+	private Map<KeyCode, Consumer<Map<String, Component>>> codes = new HashMap<>();
 
 	public static String KEY = "KeyInput";
-
-	private int pid;
-
+	
 	public KeyInput(int pid) {
-		this.pid = pid;
+		super(pid);
 	}
 
 	public boolean containsCode (KeyCode key) {
@@ -36,19 +35,36 @@ public class KeyInput implements Component {
 	 * @param code the keycode that will trigger the action
 	 * @param con the action that happens when the key is pressed
 	 */
-	public void addCode (KeyCode code, Consumer con) {
+	public void addCode (KeyCode code, Consumer<Map<String, Component>> con) {
 		codes.put(code, con);
 	}
 
-	public void action(KeyCode key) {
+	/*public void action(KeyCode key) {
 		codes.get(key).accept(null);
+	}*/
+	
+	@SuppressWarnings("unchecked")
+	public void action(Set<KeyCode> codeSet, Map<String, Component> entityMap) {
+        codeSet.forEach((key) -> {
+        	if(codes.containsKey(key)) {
+        		this.setAction((entity, o2) -> {
+        			if(entity instanceof Map<?,?>) {
+        				codes.get(key).accept((Map<String, Component>) entity);
+        			}
+        		});
+        		this.setCondition(() -> {
+        			return entityMap;
+        		});
+        		this.evaluate();
+        	}
+        });
 	}
 
-	public String getKey() { return KEY; }
-
-	public int getPID() {
-		return pid;
+	
+	public String getKey() { 
+		return KEY; 
 	}
+
 }
 
 

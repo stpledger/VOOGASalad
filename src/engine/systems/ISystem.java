@@ -10,7 +10,5 @@ public interface ISystem {
     void removeComponent (int pid);
     void setActives(Set<Integer> actives);
     void execute(double time);
-    void addComponent(int pid, String componentName);
-    void removeComponent(int pid, String componentName);
-    Map<Integer, Map<String, Component>> getHandledComponent();
+
 }

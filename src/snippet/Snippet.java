@@ -1,6 +1,8 @@
-//package snippet;
+package snippet;
 
-//public class Snippet {
-//	buildSingleButtonMenu("addImage", addImageOnClick)
-//}
+
+public class Snippet {
+	//buildSingleButtonMenu("addImage", addImageOnClick);
+}
+
 

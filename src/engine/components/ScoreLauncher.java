@@ -4,27 +4,19 @@ package engine.components;
  * either give or subtract certain amount of score
  * @sv116
  */
-import java.util.Map;
 
-public class ScoreLauncher implements Component{
+
+public class ScoreLauncher extends SingleDataComponent{
     public static String KEY ="ScoreLauncher";
-    private double score;
-	private int pid;
 
-	public ScoreLauncher(int pid, double score) {
-		this.pid = pid;
-		this.score=score;
-	}
-    
-	public void addScore(double s) {
-		score+=s;
+	public ScoreLauncher(int pid, double data) {
+		super(pid,data);
+		
 	}
 	
-	public double getScore() {
-		return this.score;
+	public String getKey() {
+		return KEY;
+
 	}
 
-	public int getPID(){
-		return pid;
-	}
 }

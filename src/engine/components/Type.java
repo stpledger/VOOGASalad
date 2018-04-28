@@ -7,29 +7,18 @@ import java.util.Map;
  * @author Dylan Powers
  *
  */
-public class Type implements Component {
-	public String KEY = "Type";
-	private String type;
-	private int pid;
+public class Type extends SingleStringComponent {
+
+	public static String KEY = "Type";
 
 	public Type(int pid, String type) {
-		this.pid = pid;
-		this.type = type;
+		super(pid, type);
 	}
 
-	public String getType() {
-		return this.type;
-	}
-	
-	public void setType(String type) {
-		this.type = type;
-	}
-
-	public int getPID(){
-		return pid;
-	}
-
-	public String getKey(){
+	public String getKey() {
 		return KEY;
 	}
+
+
+
 }

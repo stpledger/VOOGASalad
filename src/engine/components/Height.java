@@ -1,5 +1,10 @@
 package engine.components;
 
+/**
+ * Data component representing an entity's height.
+ * @author fitzj
+ *
+ */
 public class Height extends SingleDataComponent {
 	
 	public Height(int pid, double data) {

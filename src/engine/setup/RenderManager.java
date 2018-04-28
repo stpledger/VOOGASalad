@@ -1,8 +1,6 @@
 package engine.setup;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import engine.components.groups.Position;
 
@@ -17,6 +15,7 @@ public class RenderManager {
     private final double renderDistance;
     private double centerX, centerY;
 
+    private List<Integer> swapList = new ArrayList<>();
     private Map<Integer, Position> withinRender = new HashMap<>(), outsideRender = new HashMap<>();
 
     /**
@@ -27,17 +26,7 @@ public class RenderManager {
      */
     public RenderManager (double renderDistance, double initialCenterX, double initialCenterY) {
         this.renderDistance = renderDistance;
-        centerX = initialCenterX;
-        centerY = initialCenterY;
-    }
-
-
-    public void setCenterX (double newCenterX) {
-        centerX = newCenterX; //sets a new center as the player moves
-    }
-
-    public void setCenterY (double newCenterY) {
-        centerY = newCenterY; //sets a new center as the player moves
+        centerX = initialCenterX; centerY = initialCenterY;
     }
 
     /**
@@ -49,26 +38,60 @@ public class RenderManager {
         else outsideRender.put(p.getPID(), p);
     }
 
-    public void garbageCollect() {
-        for (Position p : withinRender.values()) {
-            if (!withinRenderDistance(p.getXPos(), p.getYPos())) {
-                outsideRender.put(p.getPID(), p);
-                withinRender.remove(p.getPID());
-            }
-        }
-    }
 
-    public Set<Integer> renderObjects() {
-        for (Position p : outsideRender.values()) {
-            if (withinRenderDistance(p.getXPos(), p.getYPos())) {
-                withinRender.put(p.getPID(), p);
-                outsideRender.remove(p.getPID());
-            }
-        }
+    /**
+     * The main method called by the game loop, renders&garbage collects
+     * @param newCenterX the player's current x center
+     * @param newCenterY the player's current y center
+     * @return set of id's which are within the render
+     */
+    public Set<Integer> render(double newCenterX, double newCenterY) {
+        centerX = newCenterX; centerY = newCenterY;
+        garbageCollect(); renderObjects();
         return withinRender.keySet();
     }
 
+    public Set<Integer> render() {
+        render(centerX, centerY);
+        return withinRender.keySet();
+    }
+
+    private void garbageCollect() {
+        updateNodes(withinRender, outsideRender, false);
+    }
+
+    private void renderObjects() {
+        updateNodes(outsideRender, withinRender, true);
+    }
+
+    /**
+     * Swaps out nodes to/from within/outside render, uses an iterator to search positions then checks
+     * the boolean with withinRenderDistance helper method
+     *
+     * @param origin The render group (outside or inside) that the positions currently reside
+     * @param destination The (potential) new render group if it needs to be swapped
+     * @param intoRender dictates whether or not we are looking to go into or out of render
+     */
+    private void updateNodes (Map<Integer, Position> origin, Map<Integer, Position> destination, boolean intoRender) {
+        for (Iterator<Position> iterator = origin.values().iterator(); iterator.hasNext(); ) {
+            Position p = iterator.next();
+            if (withinRenderDistance(p.getXPos(), p.getYPos()) == intoRender) {
+                destination.put(p.getPID(), p);
+                swapList.add(p.getPID()); //has to store nodes to get listed, cannot do dynamically
+            }
+        }
+        removeOldNodes(origin);
+    }
+
+
+    private void removeOldNodes (Map<Integer, Position> updated) {
+        for (int i : swapList) {
+            updated.remove(i);
+        }
+        swapList.clear();
+    }
+
     private boolean withinRenderDistance(double x, double y) {
-        return centerX - x < renderDistance && centerY - y < renderDistance;
+        return Math.abs(centerX - x) < renderDistance && Math.abs(centerY - y) < renderDistance;
     }
 }
