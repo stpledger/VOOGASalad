@@ -100,6 +100,7 @@ public class Grid extends GridPane {
 				c.setEntity(en);
 				level.addEntity(en);
 				if(en.getType().equals("Noninteractable")) {
+					System.out.println("cocks!");
 					img.setOnMouseClicked(e1->{
 						if(e1.getClickCount()==2) {
 							ContextMenu cMenu = backgroundMenu(c, img);
