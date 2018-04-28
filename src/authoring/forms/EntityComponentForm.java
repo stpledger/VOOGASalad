@@ -34,6 +34,7 @@ public class EntityComponentForm extends AbstractComponentForm  implements Compo
 			TextField tf = (TextField) eFactory.buildElement(ElementType.TextField, "text");
 			tf.getStyleClass().add("component-text-field");
 			elements.add((Element) tf);
+			fields.add(tf);
 			col++;
 			this.add(tf, col, 0);
 		}
