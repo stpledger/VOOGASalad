@@ -8,15 +8,15 @@ import javafx.scene.control.Button;
 /**
  * 
  * @author Hemanth Yakkali(hy115)
+ * @author Collin Brown(cdb55)
  *
  */
 public class ButtonElement extends Button implements ClickableElement{
-	private String myOriginalName;
 
 	public ButtonElement(String text) {
 		super();
 		this.handleText(text);
-		this.myOriginalName = text;
+		this.setId(text);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class ButtonElement extends Button implements ClickableElement{
 	
 	@Override
 	public void setLanguage(Properties language) {
-		this.handleText(language.getProperty(this.myOriginalName, this.myOriginalName));
+		this.handleText(language.getProperty(this.getId()));
 	}
 
 }

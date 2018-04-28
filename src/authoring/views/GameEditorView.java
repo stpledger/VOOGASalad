@@ -22,11 +22,13 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import GamePlayer.Main;
 import authoring.entities.Entity;
+import authoring.entities.data.PackageExplorer;
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
 import authoring.factories.Toolbar;
 import authoring.gamestate.GameState;
 import authoring.gamestate.Level;
+import authoring.views.popups.SelectionBox;
 import authoring.views.properties.GlobalPropertiesView;
 import authoring.views.properties.HUDPropertiesView;
 import authoring.views.properties.LevelPropertiesView;
@@ -44,6 +46,7 @@ import data.DataWrite;
  *
  */
 public class GameEditorView extends BorderPane implements AuthoringPane{
+	private static final String LANGUAGE_PACKAGE = "resources.languages.";
 
 	private ArrayList<Tab> levelTabsList;
 	private GameState state;
@@ -94,8 +97,9 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	}
 
 	private void setMainViewLanguage() {
-		setMainViewLang.accept("cebuano");
-		//TODO: Make a popup
+		SelectionBox selectionBox = new SelectionBox(new String[] {"cebuano","english"}, selection -> { //TODO: Fix this hardcoding
+			setMainViewLang.accept((String) selection);
+		});
 	}
 
 

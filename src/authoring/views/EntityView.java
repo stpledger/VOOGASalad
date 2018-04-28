@@ -39,7 +39,7 @@ public class EntityView extends BorderPane implements AuthoringPane {
 		this.getStyleClass().add("entity-view");
 		this.setTop(new Toolbar("Entities", buildToolbarConsumerMap()));
 		this.setCenter(tabPane);
-		entityTypes.addAll(Arrays.asList(PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE_NAME)));
+		entityTypes.addAll(Arrays.asList(PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE_NAME, ".class", "Entity")));
 	}
 
 	/**
