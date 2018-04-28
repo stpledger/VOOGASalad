@@ -7,12 +7,10 @@ import java.io.FileNotFoundException;
  * @author Hemanth Yakkali(hy115)
  *
  */
-public class Block extends Entity {
+public class Block extends InteractableEntity {
 
 	private final static String TYPE =  "Block";
 	private String name;
-	private final static double BLOCK_HEALTH = 50;
-	private final static double BLOCK_DIMENSION = 25;
 
 	public Block(int ID, String name) {
 		super(ID);
@@ -21,9 +19,8 @@ public class Block extends Entity {
 
 	@Override
 	public void addDefaultComponents() {
-		this.setHealth(BLOCK_HEALTH);
 		this.setEntityType(TYPE);
-		this.setDimension(BLOCK_DIMENSION, BLOCK_DIMENSION);
+		this.setDimension(Entity.ENTITY_WIDTH, Entity.ENTITY_HEIGHT);
 		try {
 			this.setSprite("data/images/block.png");
 		} catch (FileNotFoundException e) {

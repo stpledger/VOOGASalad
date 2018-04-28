@@ -3,6 +3,7 @@ package authoring.entities;
 import java.io.FileNotFoundException;
 
 import engine.components.Component;
+import engine.components.EntityType;
 import engine.components.Height;
 import engine.components.Sprite;
 import engine.components.Width;
@@ -65,6 +66,14 @@ public abstract class Entity extends ImageView {
 	protected void setDimension(double width, double height) {
 		this.add(new Width(this.getID(),width));
 		this.add(new Height(this.getID(),height));
+	}
+	
+	/**
+	 * Set the type of an entity
+	 * @param type the type to set the entity to
+	 */
+	protected void setEntityType(String type) {
+		this.add(new EntityType(this.getID(), type));
 	}
 	
 	/**
