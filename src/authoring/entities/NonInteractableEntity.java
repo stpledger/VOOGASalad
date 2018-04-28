@@ -15,7 +15,7 @@ import engine.components.Component;
 public abstract class NonInteractableEntity extends Entity {
 
 	private final String NI_PROPERTIES_PATH = "resources.Entities/NonInteractable.properties";
-	private List<Component> components;
+	List<Component> components;
 	/**
 	 * Construct the entity with the given ID
 	 * @param ID

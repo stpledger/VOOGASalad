@@ -29,11 +29,11 @@ public class ComponentBuilder {
 			Component component;
 			System.out.println(clazz.getSuperclass());
 			if (SingleDataComponent.class.isAssignableFrom(clazz)) {
-				System.out.println("Probs bout to throw an exception");
 				component = (Component) cons.newInstance(ID, Double.valueOf(e.getTextContent()));
 			} else {
 				component = (Component) cons.newInstance(ID, e.getTextContent());
 			}
+			System.out.println("Component " + component + " created successfully.");
 			return component;
 		} catch (Exception e2) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e2.toString(), e2);

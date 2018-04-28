@@ -6,6 +6,9 @@
         <levelTime>0.0</levelTime>
         <levelDistance>0.0</levelDistance>
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
+>>>>>>> ec62f82d7f67b0935d2740ee886d50285c994139
         <HUDprops>
           <entry>
             <string>Health</string>
@@ -21,6 +24,11 @@
           </entry>
           <entry>
             <string>Time</string>
+<<<<<<< HEAD
+            <boolean>false</boolean>
+          </entry>
+        </HUDprops>
+=======
             <boolean>true</boolean>
           </entry>
         </HUDprops>
@@ -83,6 +91,7 @@
 =======
         <HUDprops/>
 <<<<<<< HEAD
+>>>>>>> ec62f82d7f67b0935d2740ee886d50285c994139
         <GProps/>
 =======
         <GProps>

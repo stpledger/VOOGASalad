@@ -43,6 +43,7 @@ public class LevelView extends ScrollPane {
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private final Color DEFAULT_BACKGROUND = Color.WHITE;
 	private Properties language = new Properties();
+
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
 		this.eFactory = new ElementFactory();
@@ -55,7 +56,6 @@ public class LevelView extends ScrollPane {
 		this.setContent((content));
 		this.setupMouseClick(levelNum);
 		this.setupMouseDrag();
-
 	}
 
 	/**
@@ -67,21 +67,11 @@ public class LevelView extends ScrollPane {
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				ContextMenu cMenu = new ContextMenu();
 				try {
-					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addColumn"), e1->{
-						this.content.addCol(ADD_ONE);
-					});
-					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addRow"), e1->{
-						this.content.addRow(ADD_ONE);
-					});
-					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveColumn"), e1->{
-						this.content.addCol(ADD_FIVE);
-					});
-					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveRow"), e1->{
-						this.content.addRow(ADD_FIVE);
-					});
-					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("cancel"), e1->{
-						cMenu.hide();
-					});
+					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addColumn"), e1->this.content.addCol(ADD_ONE));
+					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addRow"), e1->this.content.addRow(ADD_ONE));
+					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveColumn"), e1->this.content.addCol(ADD_FIVE));
+					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveRow"), e1->this.content.addRow(ADD_FIVE));
+					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("cancel"), e1->cMenu.hide());
 					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
 				} catch (Exception e1) {
 					LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);

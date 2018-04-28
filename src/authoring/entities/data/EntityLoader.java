@@ -70,7 +70,7 @@ public class EntityLoader {
 		entity.addAll(compsToAdd);
 		return entity;
 	}	
-	
+
 	/**
 	 * Get the root element of an xml file to parse
 	 * @param XMLFile the xml file to parse
