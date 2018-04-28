@@ -2,7 +2,6 @@ package authoring.grid;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Logger;
 
 import authoring.entities.Entity;
@@ -27,7 +26,6 @@ import javafx.scene.layout.GridPane;
  * A container class for all of the cells in a grid, which each represent entities if they are filled.
  * @author Hemanth Yakkali(hy115)
  * @author Dylan Powers
- *
  */
 public class Grid extends GridPane {
 
@@ -98,7 +96,7 @@ public class Grid extends GridPane {
 			try {
 				Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(),c.getLayoutY());
 				c.setEntity(en);
-				setupGridClick(c, img);
+				setupContextMenu(c, img);
 				level.addEntity(en);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
@@ -113,7 +111,12 @@ public class Grid extends GridPane {
 		});
 	}
 	
-	private void setupGridClick(Cell c, ImageView img) {
+	/**
+	 * Sets up mouse click listener that opens up the context menu for that particular cell.
+	 * @param c Cell 
+	 * @param img ImageView of the entity
+	 */
+	private void setupContextMenu(Cell c, ImageView img) {
 		c.setOnMouseClicked(e -> {
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				ContextMenu cMenu = new ContextMenu();
@@ -124,7 +127,7 @@ public class Grid extends GridPane {
 					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Grid Rows", e1->this.addRow(ADD_FIVE));
 					MenuItem close = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Close", e1->cMenu.hide());
 					if(c.containsEntity()) {
-						MenuItem openLPV = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Edit Entity", e1->this.openLPV(c));
+						MenuItem openLPV = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Edit Entity", e1->this.openLPV(c.getEntity()));
 						MenuItem removeEntity = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Entity", e1->this.clearCell(c));
 						cMenu.getItems().addAll(openLPV,removeEntity);
 						if(c.getEntity().getType().equals("Noninteractable")) {
@@ -148,27 +151,49 @@ public class Grid extends GridPane {
 		});
 	}
 	
-	private void openLPV(Cell c) {
-		PropertiesView pv = new LocalPropertiesView(c.getEntity(), componentList ->  {
+	/**
+	 * Opens up the local properties view for the specific entity.
+	 * @param en Entity 
+	 */
+	private void openLPV(Entity en) {
+		PropertiesView pv = new LocalPropertiesView(en, componentList ->  {
 			for (Component comp : componentList) {
-				c.getEntity().add(comp);
+				en.add(comp);
 			}
 		});
 		pv.open();
 	}
 	
-	private void addImageCol(Cell cell, ImageView img, int numTimes) {
-		img.setFitWidth(img.getFitWidth()+numTimes*Entity.ENTITY_WIDTH);
-		Entity en = cell.getEntity();
+	/**
+	 * Adds a specified number of columns to the entity. Should only be used for non-interactable
+	 * entities.
+	 * @param c Cell
+	 * @param img ImageView of an entity
+	 * @param numCols Number of columns to add
+	 */
+	private void addImageCol(Cell c, ImageView img, int numCols) {
+		img.setFitWidth(img.getFitWidth()+numCols*Entity.ENTITY_WIDTH);
+		Entity en = c.getEntity();
 		en.add(new Width(en.getID(),img.getFitWidth()));
 	}
 
-	private void addImageRow(Cell cell, ImageView img, int numTimes) {
-		img.setFitHeight(img.getFitHeight()+numTimes*Entity.ENTITY_HEIGHT);
-		Entity en = cell.getEntity();
+	/**
+	 * Adds a specified number of rows to the entity. Should only be used for non-interactable
+	 * entities.
+	 * @param c Cell
+	 * @param img ImageView of an entity
+	 * @param numRows Number of rows to add
+	 */
+	private void addImageRow(Cell c, ImageView img, int numRows) {
+		img.setFitHeight(img.getFitHeight()+numRows*Entity.ENTITY_HEIGHT);
+		Entity en = c.getEntity();
 		en.add(new Height(en.getID(),img.getFitHeight()));
 	}
 
+	/**
+	 * Removes image from the cell and removes entity from level object
+	 * @param c Cell
+	 */
 	private void clearCell(Cell c) {
 		level.removeEntity(c.getEntity());
 		c.getChildren().clear();
@@ -207,6 +232,10 @@ public class Grid extends GridPane {
 		}
 	}
 	
+	/**
+	 * Creates the next ID to be used when creating a new entity
+	 * @return Next ID for the next entity
+	 */
 	private int getID() {
 		return this.entityID++;
 	}
