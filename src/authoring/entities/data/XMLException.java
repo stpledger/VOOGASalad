@@ -26,6 +26,9 @@ public class XMLException extends RuntimeException {
 		super(String.format(message, values));
 	}
 	
+	/**
+	 * @return the default error message for this exception
+	 */
 	@Override
 	public String getMessage() {
 		return ERROR_MESSAGE;

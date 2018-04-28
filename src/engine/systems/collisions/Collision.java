@@ -88,10 +88,7 @@ public class Collision extends DefaultSystem{
 
 						if(handledComponents.get(key1).containsKey(Collidable.KEY)) {
 							Collidable cdb = (Collidable) handledComponents.get(key1).get(Collidable.KEY);
-							cdb.setCondition(() -> {
-								return handledComponents.get(key2);
-							}); 
-							cdb.evaluate(cd);
+							cdb.action(cd, handledComponents.get(key1), handledComponents.get(key2));
 						}
 						
 						if(handledComponents.get(key2).containsKey(Collidable.KEY)) {
@@ -104,7 +101,7 @@ public class Collision extends DefaultSystem{
 							else if(cd == CollisionDirection.Bot) cd2 = CollisionDirection.Top;
 							else if(cd == CollisionDirection.Left) cd2 = CollisionDirection.Right;
 							else cd2 = CollisionDirection.Left;
-							cdb.evaluate(cd2);
+							cdb.action(cd2, handledComponents.get(key2), handledComponents.get(key1));
 						}
 						
 						switch (cd) {
