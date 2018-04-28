@@ -99,7 +99,7 @@ public class EntityView extends BorderPane implements AuthoringPane {
 
 		Image image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 
-		if(tabPane.getTabs().isEmpty() || !tabPane.getTabs().contains(entityType)) { 
+		if(tabPane.getTabs().isEmpty() || !hasTab(entityType) ) { 
 			addTab(entityType);
 		}   
 		for(Tab tab : tabPane.getTabs()) {
@@ -109,6 +109,15 @@ public class EntityView extends BorderPane implements AuthoringPane {
 		}
 	}
 	
+	private boolean hasTab(String entityType) {
+		for(Tab t : tabPane.getTabs()) {
+			if(t.getId().equals(entityType)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void loadEntity() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Entity File");
