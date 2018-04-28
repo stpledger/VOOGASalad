@@ -5,7 +5,7 @@ package engine.components;
  * @author fitzj
  *
  */
-public interface StringComponent extends ReadStringComponent {
+public interface StringComponent {
 	public String getData();
 	public void setData(String data);
 	public String getKey();

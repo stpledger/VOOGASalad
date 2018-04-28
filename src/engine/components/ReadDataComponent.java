@@ -6,8 +6,9 @@ package engine.components;
  * 
  * @author fitzj
  */
-public interface ReadDataComponent extends Component {
+public interface ReadDataComponent {
 	public double getData();
 	public int getPID();
+	public String getKey();
 	
 }
