@@ -63,7 +63,7 @@ public class LevelView extends ScrollPane {
 	 * @param levelNum Level number
 	 */
 	private void setupMouseClick(int levelNum) {
-		this.setOnMouseClicked(e -> {		
+		this.setOnMouseClicked(e -> {
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				ContextMenu cMenu = new ContextMenu();
 				try {
