@@ -31,12 +31,12 @@ public class Grid extends GridPane {
 
 	private static final int DEFAULT_WIDTH = 1000;
 	private static final int DEFAULT_HEIGHT = 600;
+	private static final int ADD_FIVE = 5;
+	private static final int ADD_ONE = 1;
 
 	private final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
 	private final String DRAGGED_OVER_STYLE = "-fx-background-color: #1CFEBA";
 
-	private static final int ADD_FIVE = 5;
-	private static final int ADD_ONE = 1;
 	private int numRows;
 	private int numCols;
 	private List<List<Cell>> cells;
