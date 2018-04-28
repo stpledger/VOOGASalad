@@ -18,17 +18,6 @@ public class Block extends InteractableEntity {
 	}
 
 	@Override
-	public void addDefaultComponents() {
-		this.setEntityType(TYPE);
-		this.setDimension(Entity.ENTITY_WIDTH, Entity.ENTITY_HEIGHT);
-		try {
-			this.setSprite("data/images/block.png");
-		} catch (FileNotFoundException e) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
-		}
-	}
-
-	@Override
 	public String type() {
 		return TYPE;
 	}
