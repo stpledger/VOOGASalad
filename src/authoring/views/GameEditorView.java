@@ -97,7 +97,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	}
 
 	private void setMainViewLanguage() {
-		SelectionBox selectionBox = new SelectionBox(new String[] {"cebuano","english"}, selection -> { //TODO: Fix this hardcoding
+		SelectionBox selectionBox = new SelectionBox(new String[] {"cebuano","english"},new String[] {}, selection -> { //TODO: Fix this hardcoding
 			setMainViewLang.accept((String) selection);
 		});
 	}

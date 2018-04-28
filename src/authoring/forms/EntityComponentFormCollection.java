@@ -29,20 +29,29 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 	 * @return gridPane a gridpane filled with the necessary forms
 	 */
 	public void fillComponentsForms(String entityType) {
+		try {
 		currentRow = 0;
 		this.getChildren().clear();
 		ArrayList<ComponentForm> newActiveForms = new ArrayList<>();
 		for (String property : ResourceBundle.getBundle(getPropertiesPackage() + entityType).keySet()) {
 			if(!getExceptions().contains(property)) {
-				EntityComponentForm cf = new EntityComponentForm(property);
+				EntityComponentForm cf;
+				
+					cf = new EntityComponentForm(property);
+				
 				cf.setAlignment(Pos.CENTER);
 				newActiveForms.add(cf);
 				this.add(cf, 0, currentRow);
 				currentRow++;
+		
 			}
 		}
 		this.setActiveForms(newActiveForms);
 		this.createAddComponentButton(currentRow);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -50,16 +59,20 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 	 */
 	@Override
 	public void addComponent(Object componentName) {
-		ArrayList<ComponentForm> newActiveForms = (ArrayList<ComponentForm>) this.getActiveForms();
-		this.getChildren().remove(addComponentButton);
-		System.out.println(componentName);
-		EntityComponentForm cf = new EntityComponentForm((String) componentName);
-		cf.setAlignment(Pos.CENTER);
-		this.add(cf, 0, currentRow);
-		newActiveForms.add(cf);
-		this.setActiveForms(newActiveForms);
-		currentRow++;
-		this.createAddComponentButton(currentRow);
+		try {
+			ArrayList<ComponentForm> newActiveForms = (ArrayList<ComponentForm>) this.getActiveForms();
+			this.getChildren().remove(addComponentButton);
+			System.out.println(componentName);
+			EntityComponentForm cf = new EntityComponentForm((String) componentName);
+			cf.setAlignment(Pos.CENTER);
+			this.add(cf, 0, currentRow);
+			newActiveForms.add(cf);
+			this.setActiveForms(newActiveForms);
+			currentRow++;
+			this.createAddComponentButton(currentRow);
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
