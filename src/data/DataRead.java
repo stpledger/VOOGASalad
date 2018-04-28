@@ -1,9 +1,9 @@
 package data;
 
+import GamePlayer.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import authoring.entities.Entity;
 import authoring.gamestate.Level;
 import engine.components.Component;
 import javafx.embed.swing.SwingFXUtils;
@@ -27,7 +27,7 @@ public class DataRead  {
     private static final String FAIL_MESSAGE ="File could not be loaded";
     private static final String IMAGE_PATH = "data/images/";
     private static final String SOUND_PATH = "data/sounds/";
-    private static final String HIGHSCORE_PATH = "highscores/highscore.xml";
+    private static final String HIGHSCORE_PATH = "highscores.xml";
     private static final String GAME_PATH = "games/";
     private static final String EMPTY_IMAGE ="File:data/images/picture-placeholder.png";
     private static final String ERROR ="Error";
@@ -91,9 +91,10 @@ public class DataRead  {
         }
     }
 
-    public static Object loadHighscore(){
-        File hs = loadFile(path+FRONTSLASH +HIGHSCORE_PATH);
-        return (List<Object>) deserialize(hs);
+    public static Map<String,List<Person>> loadHighscore(){
+        File hs = loadFile(HIGHSCORE_PATH);
+        System.out.print(hs.getAbsolutePath());
+        return ((HighScore)deserialize(hs)).getHighscores();
 
     }
 
@@ -170,12 +171,13 @@ public class DataRead  {
             }
         }
         if(directory.getName().equals(target)){
+            System.out.println("Found Directory " + directory.getName());
             return directory;
         }
         else return null;
     }
     private static File loadFile(String path) {
-        String filePath =path.replace(BACKSLASH,FRONTSLASH);
+        String filePath = path.replace(BACKSLASH,FRONTSLASH);
         File file = new File(filePath);
         if(!file.exists())
             file = new File(FILE+filePath);
@@ -191,8 +193,11 @@ public class DataRead  {
                         throw new NullPointerException();
                 } catch (NullPointerException f) {
                     try {
-                        String fileName = filePath.substring(filePath.lastIndexOf(FRONTSLASH + 1));
-                        file = findInDirectory(getProjectName(), fileName);
+                        System.out.print(filePath);
+                        String fileName = filePath.substring(filePath.lastIndexOf(FRONTSLASH )+1);
+                        System.out.println("");
+                        System.out.println("Finding " + fileName + "   in  " + getProjectDir().getAbsolutePath());
+                        file = findInDirectory(getProjectDir(), fileName);
                     }
                     catch(NullPointerException g){
                         System.out.print("Error reading file DataRead line 240");
@@ -203,9 +208,9 @@ public class DataRead  {
         }
         return file;
     }
-    private static File getProjectName(){
+    private static File getProjectDir(){
         String superDir = System.getProperty(USER_DIR).replace(BACKSLASH,FRONTSLASH);
-        return new File(superDir.substring(superDir.lastIndexOf(FRONTSLASH)+1));
+        return new File(superDir);
     }
 
 

@@ -1,5 +1,6 @@
 package engine.setup;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -18,13 +19,11 @@ import engine.components.Component;
 public class SystemManager {
 
     private List<ISystem> systems;
-    private Collision collision;
-    private EntityManager em;
+    private RenderManager renderManager;
     
-    public SystemManager (List<ISystem> systems, Collision collision, EntityManager em) {
+    public SystemManager (List<ISystem> systems, RenderManager renderManager) {
         this.systems = systems;
-        this.collision = collision;
-        this.em = em;
+        this.renderManager = renderManager;
     }
 
     public void addSystem(ISystem system) {
@@ -47,19 +46,18 @@ public class SystemManager {
         for (ISystem s : systems) {
             s.removeComponent(pid);
         }
+        setActives(renderManager.render());
     }
 
-    public void addComponent(int pid, String componentName) {
-    		collision.update(em.getEntities());
+    public void addComponent(int pid, Component c) {
+            Map<String, Component> newComponent = new HashMap<>();
+            newComponent.put(c.getKey(), c);
     		for(ISystem s : systems) {
-			s.addComponent(pid, componentName);
+			s.addComponent(pid, newComponent);
 		}
     }
-    public void removeComponent(int pid, String componentName) {
-    		collision.update(em.getEntities());
-    		for(ISystem s : systems) {
-    			s.removeComponent(pid, componentName);
-    		}
+    public void removeComponent(int pid) {
+        removeEntity(pid);
     }
 
     /**

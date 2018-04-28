@@ -12,11 +12,13 @@ public interface IController {
 	
 	public void initializeGameStart() throws FileNotFoundException;
 	
-	public void intializeGameAnimation();
+	public void initializeGameAnimation();
 	
 	public Map<Integer, Pane> getGameLevelRoot();
 	
 	public void changeGameLevel(int level);
+	
+	public void setHighScoreView();
 	
 	public void restartGame();
 	

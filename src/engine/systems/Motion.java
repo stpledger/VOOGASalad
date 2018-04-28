@@ -58,19 +58,5 @@ public class Motion implements ISystem {
             p.setYPos(p.getYPos() + v.getYVel()*time);
         }
     }
-	@Override
-	public void addComponent(int pid, String componentName) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public void removeComponent(int pid, String componentName) {
-		// TODO Auto-generated method stub
-		
-	}
 
-    @Override
-	public Map<Integer, Map<String, Component>> getHandledComponent() {
-		return handledComponents;
-	}
 }

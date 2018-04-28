@@ -1,18 +1,36 @@
 package labels;
+import java.util.Map;
+
+import engine.components.Component;
+import engine.components.Player;
+
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 
-public class LivesLabel extends Label{
+public class LivesLabel extends Label implements IGameStatusLabel{
 
-	private int currentLives;
-	private final String Lives_LABEL_NAME = "Lives: ";
+	private final String LIVES_LABEL_NAME = "Lives: ";
+	private SimpleDoubleProperty livesProperty;
 	
 	
-	public LivesLabel(int lives) {
-		this.setText(Lives_LABEL_NAME);
-		currentLives = lives;
-		this.textProperty().bind(new SimpleIntegerProperty(currentLives).asString());
+	public LivesLabel() {
+
+		livesProperty = new SimpleDoubleProperty();
+		this.textProperty().bind(livesProperty.asString());
+	}
+
+
+	@Override
+	public double extractGameStateValue(Map<String, Component> playerStatusMap) {
+		Player player = (Player) playerStatusMap.get(Player.KEY);
+		return player.getLives();
+	}
+
+
+	@Override
+	public void update(double newValue) {
+		// TODO Auto-generated method stub
+		livesProperty.set(newValue);
 	}
 	
 	

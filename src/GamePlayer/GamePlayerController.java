@@ -7,6 +7,7 @@ import Menu.MenuGameBar;
 import Menu.PauseMenu;
 import buttons.FileUploadButton;
 import buttons.GameSelectButton;
+import buttons.IGamePlayerButton;
 import buttons.SwitchGameButton;
 import data.DataGameState;
 import engine.components.Component;
@@ -23,6 +24,7 @@ import javafx.util.Duration;
 public class GamePlayerController {
 	private final int WIDTH_SIZE = 800;
 	private final int HEIGHT_SIZE = 500;
+	private final int LEVEL_ONE = 1;
 	public final int FRAMES_PER_SECOND = 60;
 	public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
@@ -30,7 +32,7 @@ public class GamePlayerController {
 	private Stage myStage;
 	private Scene myScene;
 	private Pane gameRoot;
-	private SplashScreenController gamePlayerSplash;
+	private SplashScreenView gamePlayerSplash;
 	private Scene mySplashScene;
 	private BorderPane myPane = new BorderPane();
 	private PauseMenu pauseMenu = new PauseMenu(this);
@@ -39,10 +41,11 @@ public class GamePlayerController {
 	private SwitchGameButton switchBtn;
 	private Map<Integer, Pane> levelEntityGroupMap; //map that is used to store the initial group for each level.
 	private DataGameState currentGameState;
-	public List<GameSelectButton> gameSelectButtonList;
+	public List<IGamePlayerButton> gameSelectButtonList;
 	private Timeline myTimeline;
 	private Map<Integer, Map<String, Component>> PlayerKeys;
-
+	private SampleToolBar sampleBar;
+	private Map<Integer, Map<String, Boolean>> HUDPropMap;
 	private Timeline animation;
 
 	public GamePlayerController(Stage stage) {
@@ -50,30 +53,32 @@ public class GamePlayerController {
 		myStage.setResizable(false);
 	}
 
-
-	public Scene intializeStartScene() {
-		gamePlayerSplash = new SplashScreenController(myStage);
-		mySplashScene = gamePlayerSplash.getSplashScene();
+	public Scene initializeStartScene() {
+		//Testing HighScore Screen
+		HighScoreView highScoreScreen = new HighScoreView();
+		Scene highScore = highScoreScreen.getScene();
+		gamePlayerSplash = new SplashScreenView();
+		mySplashScene = gamePlayerSplash.getScene();
 		connectButtonsToController();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		assignKeyInputs();
 		return mySplashScene;
+		//return highScore;
+		
 	}
-
 
 	/**
 	 * Helper Method to establish button listener connection to the controller
 	 */
 	private void connectButtonsToController() {
-		gameSelectButtonList = gamePlayerSplash.getSplashScreenButtons();
-		for (GameSelectButton b : gameSelectButtonList) {
-			b.getGameSelectBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-				currentGameState = b.getGameState();
+		gameSelectButtonList = gamePlayerSplash.getButtons();
+		for (IGamePlayerButton b : gameSelectButtonList) {
+			((GameSelectButton) b).getGameSelectBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+				currentGameState = ((GameSelectButton) b).getGameState();
 				setGameView(currentGameState);
 				myStage.setScene(myScene);
 			});
 		}
-		
 		fileBtn = gamePlayerSplash.fileBtn;  //public variable need to encapsulate later
 		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 			currentGameState = fileBtn.getGameState();
@@ -87,29 +92,28 @@ public class GamePlayerController {
 			myStage.setScene(mySplashScene);
 			//switchBtn.setSwitchBoolean(); //changes boolean value back to false
 		});
-		
-		
 	}
 	
 	/**
 	 * Method that sets the current scene of the game
-	 * TODO: REFACTOR TO REDUCE REPEATED CODE.
 	 */
 	public void setGameView(DataGameState currentGame) {
 		gameView = new GamePlayerEntityView(currentGame);
+		HUDPropMap = gameView.getHudPropMap();
 		PlayerKeys = gameView.getPlayerKeys();
 		levelEntityGroupMap = gameView.getlevelEntityMap();
-		gameRoot = levelEntityGroupMap.get(1);  //level 1
+		gameRoot = levelEntityGroupMap.get(LEVEL_ONE);  //level 1
 		myPane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
-		SampleToolBar sampleBar = new SampleToolBar(this, PlayerKeys);
+		sampleBar = new SampleToolBar(LEVEL_ONE, PlayerKeys, HUDPropMap);
 		myPane.setTop(sampleBar);
 		initializeGameAnimation(); //begins the animation cycle
+		//set level change listener
+		/*gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
+			changeGameLevel(newVal.intValue());
+		});*/
 	}
-	
-
-	
 
 
 	/**
@@ -130,11 +134,8 @@ public class GamePlayerController {
 	 * @param level to be loaded
 	 */
 	public void changeGameLevel(int level) {
-		/*int lastIndex = myPane.getChildren().size()-1;
-		myPane.getChildren().remove(lastIndex);
-		System.out.println(level);
-		myPane.getChildren().addAll(levelEntityGroupMap.get(level));*/
 		gameRoot = levelEntityGroupMap.get(level);
+		myPane.setCenter(gameRoot);
 		gameView.setActiveLevel(level);
 	}
 
@@ -155,12 +156,24 @@ public class GamePlayerController {
 				renderTime = 0;
 			}
 			gameView.updateScroll(gameRoot);
+			//update PlayerKey Values;
+			PlayerKeys = gameView.getPlayerKeys();
+			sampleBar.updateGameStatusValues(PlayerKeys);
+			sampleBar.updateGameStatusLabels();
 		}
 	}
 
+	
+	public void setHighScoreView() {
+		HighScoreView highScoreScreen = new HighScoreView();
+		Scene highScore = highScoreScreen.getScene();
+		myStage.setScene(highScore);
+	}
+	
 	public void restartGame() {
 		setGameView(currentGameState);
 	}
+
 	
 	private void assignKeyInputs() {
 		myScene.setOnKeyPressed(e -> {

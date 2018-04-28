@@ -18,6 +18,8 @@ import java.util.function.BiConsumer;
 
 import javax.imageio.ImageIO;
 
+import authoring.MainApplication;
+import authoring.components.EntityComponentForm;
 import data.DataRead;
 import data.DataWrite;
 import engine.components.Component;

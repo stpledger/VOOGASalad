@@ -2,13 +2,16 @@ package engine.setup;
 
 import java.util.Map;
 import engine.components.Component;
+import engine.components.Damage;
 
 public class EntityManager {
 	private Map<Integer, Map<String, Component>> entities;
 	private SystemManager sm;
+	private RenderManager rm;
 	
-    public EntityManager(Map<Integer, Map<String, Component>> entities, SystemManager sm) {
+    public EntityManager(Map<Integer, Map<String, Component>> entities, RenderManager rm, SystemManager sm) {
     		this.entities = entities;
+    		this.rm = rm;
     		this.sm = sm;
 	}
     
@@ -32,13 +35,13 @@ public class EntityManager {
     		}
     		
     		Map<String, Component> map = entities.get(pid);
-    		if(map.containsKey(componentName)) {
+    		if(map.containsKey(componentName) && !componentName.equals(Damage.KEY)) {
     			System.out.println("Try Adding duplicate " + componentName + " component in EntityManager!");
     			return;
     		}
     		
     		map.put(componentName,component);
-    		sm.addComponent(pid,componentName);
+    		//sm.addComponent(pid,componentName);
     }
     
     public void removeComponent(int pid, String componentName, Component component) {
@@ -54,12 +57,16 @@ public class EntityManager {
 		}
 		
 		map.remove(componentName);
-		sm.removeComponent(pid,componentName);
+		//sm.removeComponent(pid,componentName);
     }
     
     public Component getComponent(int pid, String componentName) {
     		return entities.get(pid).get(componentName);
     }
 
-    
+    public void removeEntity (int pid) {
+    	entities.remove(pid);
+    	sm.removeEntity(pid);
+    	sm.setActives(rm.render());
+	}
 }

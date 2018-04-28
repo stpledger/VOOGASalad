@@ -5,26 +5,25 @@ import java.util.Map;
 
 import engine.components.*;
 import engine.setup.EntityManager;
+import engine.setup.SystemManager;
 
 public class CollisionHandler {
 	private String PLAYER = "player";
 	private DamageHandler damageHandler;
-	private SpriteHandler spriteHandler;
 	private LevelStatus levelStatus;
 	private ScoreHandler scoreHandler;
 	
-	public CollisionHandler(EntityManager em) {
-		damageHandler = new DamageHandler(em);
-		spriteHandler = new SpriteHandler();
+	public CollisionHandler(SystemManager sm) {
+		damageHandler = new DamageHandler(sm);
 		levelStatus = new LevelStatus();
-		scoreHandler = new ScoreHandler(em);
+		scoreHandler = new ScoreHandler(sm);
 	}
 
 	public void handle(Map<Integer, Map<String, Component>> handledComponents, int key1, int key2) {
 		
 		Map<String, Component> components1 = handledComponents.get(key1);
 		Map<String, Component> components2 = handledComponents.get(key2);
-		//System.out.println(key1+" "+ key2);
+
 		boolean flag1 = components1.containsKey(Player.KEY);
 		boolean flag2 = components2.containsKey(Player.KEY);
 		if(!flag1 && !flag2) {
@@ -41,9 +40,7 @@ public class CollisionHandler {
 	}
 	
 	private void handleCollision(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
-		//System.out.println("In Collision handler");
 		damageHandler.handle(playerID, player, colliderID, collider);
-		//spriteHandler.handle(playerID, player, colliderID, collider);
 		levelStatus.handle(playerID, player, colliderID, collider);
 		scoreHandler.handle(playerID, player, colliderID, collider);
 		
