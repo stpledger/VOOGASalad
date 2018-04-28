@@ -1,6 +1,9 @@
 package authoring.views;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,6 +17,7 @@ import java.util.function.Consumer;
 import authoring.entities.Entity;
 import authoring.entities.data.EntityLoader;
 import authoring.entities.data.PackageExplorer;
+import authoring.entities.data.SudoEntityLoader;
 import authoring.factories.Toolbar;
 import data.DataRead;
 import engine.components.Sprite;
@@ -26,8 +30,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public class EntityView extends BorderPane implements AuthoringPane {
+	public final static String XML_EXTENSION = ".XML";
+	public final static String DEFAULT_LIST = "src/resources/defaults.properties";
 	public final static String ENTITIES_PACKAGE_NAME = "authoring/entities";
 	public final static  int ENITITY_VIEW_WIDTH = 300;
+	private static final String DEFAULTS_PACKAGE = "data/defaults/";
 	private ArrayList<String> entityTypes = new ArrayList<>();
 	private TabPane tabPane = new TabPane();
 	private Properties lang = new Properties();
@@ -40,6 +47,21 @@ public class EntityView extends BorderPane implements AuthoringPane {
 		this.setTop(new Toolbar("Entities", buildToolbarConsumerMap()));
 		this.setCenter(tabPane);
 		entityTypes.addAll(Arrays.asList(PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE_NAME, ".class", "Entity")));
+		this.addDefaults();
+	}
+
+	private void addDefaults() {
+		try {
+			Properties defaults = new Properties();
+			defaults.load(new FileInputStream(DEFAULT_LIST));
+			for(Object entityName : defaults.keySet()) {
+				this.loadEntityFromFile(new File(DEFAULTS_PACKAGE + entityName.toString() + XML_EXTENSION ));
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	/**
@@ -80,7 +102,6 @@ public class EntityView extends BorderPane implements AuthoringPane {
 		if(tabPane.getTabs().isEmpty() || !tabPane.getTabs().contains(entityType)) { 
 			addTab(entityType);
 		}   
-
 		for(Tab tab : tabPane.getTabs()) {
 			if(tab.getId().equals(entityType)) {
 				((EntityTab) tab).addNewEntity(entityType, componentAttributes);
@@ -91,10 +112,18 @@ public class EntityView extends BorderPane implements AuthoringPane {
 	public void loadEntity() {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Open Entity File");
-		File entityFile = fileChooser.showOpenDialog(this.getScene().getWindow());
-		EntityLoader entityLoader = new EntityLoader();
-		//TODO: Make this load an entity
-		
+		File entityFile = fileChooser.showOpenDialog(this.getScene().getWindow());	
+		loadEntityFromFile(entityFile);
+	}
+	
+	public void loadEntityFromFile(File entityFile) {
+		SudoEntityLoader entityLoader = new SudoEntityLoader();
+		try {
+			Object[] sudoEntity = entityLoader.buildEntity(entityFile);
+			saveEntity(sudoEntity[0].toString(),(Map<Class, Object[]>) sudoEntity[1]);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override

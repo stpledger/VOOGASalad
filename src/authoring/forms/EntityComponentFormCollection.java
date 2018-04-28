@@ -1,7 +1,6 @@
 package authoring.forms;
 
 import java.util.ArrayList;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import javafx.geometry.Pos;
