@@ -74,7 +74,7 @@ public class Grid extends GridPane {
             			img.setOnMouseClicked(e1->{
             				if(e1.getClickCount()==2) {
             					System.out.println("cocks!");
-            					ContextMenu cMenu = createMenu(img);
+            					ContextMenu cMenu = createMenu(c, img);
             					cMenu.show(this, e1.getScreenX(), e1.getScreenY());
             					cMenu.setAutoHide(true);
             				}
@@ -85,7 +85,7 @@ public class Grid extends GridPane {
             				c.setEntity(en);
             			} catch (Exception e1) {
             				// TODO Auto-generated catch block
-            				e1.printStackTrace();
+        					LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
             			}
             			e.setDropCompleted(true);
             			e.consume();
@@ -109,39 +109,48 @@ public class Grid extends GridPane {
 		this.setPrefSize(width, height);
 	}
 	
-	private ContextMenu createMenu(ImageView img) {
+	private ContextMenu createMenu(Cell cell, ImageView img) {
 		ContextMenu cMenu = new ContextMenu();
 		try {
-			MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addCol(img, 1));
-			MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addRow(img, 1));
-			MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addCol(img, 5));
-			MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Rows", e2->this.addRow(img, 5));
-			MenuItem removeCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Column", e2->this.addCol(img, -1));
-			MenuItem removeRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Row", e2->this.addRow(img, -1));
-			MenuItem removeFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Five Columns", e2->this.addCol(img, -5));
-			MenuItem removeFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Five Rows", e2->this.addRow(img, -5));
+			MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addCol(cell, img, 1));
+			MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addRow(cell, img, 1));
+			MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addCol(cell, img, 5));
+			MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Rows", e2->this.addRow(cell, img, 5));
+			MenuItem removeCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Column", e2->this.addCol(cell, img, -1));
+			MenuItem removeRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Row", e2->this.addRow(cell, img, -1));
+			MenuItem removeFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Five Columns", e2->this.addCol(cell, img, -5));
+			MenuItem removeFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Five Rows", e2->this.addRow(cell, img, -5));
 			MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Cancel", e2->cMenu.hide());
 			cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,removeCol,removeRow,removeFiveCol,removeFiveRow,cancel);
 		} catch (Exception e3) {
-			e3.printStackTrace();
+			LOGGER.log(java.util.logging.Level.SEVERE, e3.toString(), e3);
 		}
 		return cMenu;
 	}
 	
-	private void addCol(ImageView img, int numTimes) {
+	private void addCol(Cell cell, ImageView img, int numTimes) {
 		img.setFitWidth(img.getFitWidth()+numTimes*Entity.ENTITY_WIDTH);
+		setNeighbors(img,cell);
 	}
 	
-	private void addRow(ImageView img, int numTimes) {
+	private void addRow(Cell cell, ImageView img, int numTimes) {
 		img.setFitHeight(img.getFitHeight()+numTimes*Entity.ENTITY_HEIGHT);
+		setNeighbors(img,cell);
 	}
 	
-	private void setNeighbors() {
-		
+	private void setNeighbors(ImageView img, Cell cell) {
+		double numWidth = img.getFitWidth()/Entity.ENTITY_WIDTH;
+		double numHeight = img.getFitHeight()/Entity.ENTITY_HEIGHT;
+
 		for(int i=0;i<this.numRows;i++) {
 			for(int j=0;j<this.numCols;j++) {
-				Cell cell = cells.get(i).get(j);
-				
+				if(cells.get(i).get(j).equals(cell)) {
+					for(int k=i;k<numWidth;k++) {
+						for(int m=j;m<numHeight;m++) {
+							cells.get(k).get(m).setOccupied(true);
+						}
+					}
+				}
 			}
 		}
 	}

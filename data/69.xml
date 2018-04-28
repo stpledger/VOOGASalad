@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="69"><Height>69.0</Height><XPosition>69.0</XPosition><Sprite>mario.png</Sprite><Name>69</Name><Health>69.0</Health><Type>Block</Type><YPosition>69.0</YPosition><Width>69.0</Width></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="69"><Sprite>mario.png</Sprite><Width>69.0</Width><XPosition>69.0</XPosition><YPosition>69.0</YPosition><Type>Block</Type><Height>69.0</Height><Health>69.0</Health><Name>69</Name></Entity>
