@@ -3,6 +3,8 @@ package engine.actions;
 import authoring.entities.Entity;
 
 import engine.components.Component;
+import engine.components.Player;
+import engine.components.Score;
 import engine.components.XPosition;
 import engine.components.YPosition;
 import engine.components.XVelocity;
@@ -15,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 
@@ -31,12 +34,35 @@ public class Actions {
      * @param actor Entity moving left
      * @return left action
      */
-    public Consumer moveLeft (Map<String, Component> actor, double speed) {
-    	//return (Serializable & Consumer) (actor) -> 
+	@SuppressWarnings("unchecked")
+	public Consumer<Map<String, Component>> moveLeft (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(XVelocity.KEY)) {
+    				XVelocity xv = (XVelocity) actor.get(XVelocity.KEY);
+    				xv.setData(speed);
+    			}
+    		}
+    	};
     	
-    	XVelocity v = (XVelocity) actor.get(XVelocity.KEY);
-    	return (Serializable & Consumer) (e) -> v.setData(-10);
     }
+	
+	
+	@SuppressWarnings("unchecked")
+	public BiConsumer<Map<String, Component>,Map<String, Component>> transferScore() {
+		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+    		if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
+    			if(actor1.containsKey(Player.KEY) && actor1.containsKey(Score.KEY) && actor2.containsKey(Score.KEY)) {
+    				Score s1 = (Score) actor1.get(Score.KEY);
+    				Score s2 = (Score) actor2.get(Score.KEY);
+    				
+    				s1.setData(s1.getData() + s2.getData());
+    			}
+    		}
+    	};
+	}
+	
+	
 
     /**
      * @param actor Entity moving right
