@@ -2,6 +2,7 @@ package authoring.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
@@ -19,8 +20,8 @@ import engine.components.Width;
 public abstract class InteractableEntity extends Entity {
 
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);   
+	private final String I_PROPERTIES_PATH = "resources.Entities/Interactable";
 	private final static String TYPE = "Interactable";
-	
 	/**
 	 * The constructor simply sets the ID of the entity and initializes its list of components
 	 * @param ID which identifies an entity
@@ -70,11 +71,14 @@ public abstract class InteractableEntity extends Entity {
 	 */
 	@Override
 	public void add(Component c) {
-		if (c != null) {
-			if (this.contains(c)) {
-				this.removeByName(c.getKey());
-			}
-			this.components.add(c);
+		// component must be in the list of addable components
+		if (ResourceBundle.getBundle(I_PROPERTIES_PATH).keySet().contains(c.getKey())) {
+        		if (c != null) {
+        			if (this.contains(c)) {
+        				this.removeByName(c.getKey());
+        			}
+        			this.components.add(c);
+        		}
 		}
 	}
 	

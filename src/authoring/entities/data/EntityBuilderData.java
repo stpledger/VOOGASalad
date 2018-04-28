@@ -4,6 +4,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 import authoring.forms.ComponentForm;
 
 public class EntityBuilderData {
@@ -11,7 +16,7 @@ public class EntityBuilderData {
 	private Map<Class, Object[]> componentAttributes = new HashMap<>();
 	
 	private final static String COMPONENT_PREFIX = "engine.components.";
-	
+	private final String NAME_ERROR_MESSAGE = "There must be a value in the \"Name\" field.\n";
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	public EntityBuilderData() {
@@ -40,16 +45,23 @@ public class EntityBuilderData {
 	 * @param list
 	 * @throws Exception
 	 */
-	public void save(List<ComponentForm> list) throws Exception  {
+	public void save(List<ComponentForm> list) throws Exception {
+		boolean seenName = false;
 		for(ComponentForm componentForm : list) {
 			Object[] tempArr = (Object[]) componentForm.buildComponent();
 			if(tempArr != null) {
+				try {
 				componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
+				} catch (Exception e) {
+					throw e;
+				}
+				if (componentForm.getName().equals("Name")) seenName = true;
 			}
 		}
-		
+		if (!seenName) {
+			AuthoringException e = new AuthoringException(NAME_ERROR_MESSAGE, AuthoringAlert.SHOW);
+		}
 		EntitySaver saver = new EntitySaver();
-		
 		saver.writeXML(componentAttributes,(String) this.componentAttributes.get(engine.components.Name.class)[0]);
 	}
 

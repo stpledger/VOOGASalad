@@ -14,6 +14,8 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 import engine.components.Type;
 
 /**
@@ -93,7 +95,7 @@ public class SudoEntityLoader {
 		if (nList != null && nList.getLength() > 0) {
             return nList.item(0).getTextContent();
         } else {
-        		throw new XMLException(ERROR_MESSAGE, name);
+        		throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW, name);
         }
 	}
 	
