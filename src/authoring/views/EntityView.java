@@ -34,7 +34,7 @@ public class EntityView extends BorderPane implements AuthoringPane {
 	public final static String DEFAULT_LIST = "src/resources/defaults.properties";
 	public final static String ENTITIES_PACKAGE_NAME = "authoring/entities";
 	public final static  int ENITITY_VIEW_WIDTH = 300;
-	private static final String DEFAULTS_PACKAGE = "data/defaults/";
+	private static final String DEFAULTS_PACKAGE = "data/";
 	private ArrayList<String> entityTypes = new ArrayList<>();
 	private TabPane tabPane = new TabPane();
 	private Properties lang = new Properties();

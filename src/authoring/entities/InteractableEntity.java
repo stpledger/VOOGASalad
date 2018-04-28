@@ -28,7 +28,6 @@ import javafx.scene.image.ImageView;
 public abstract class InteractableEntity extends Entity {
 
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);   
-	private List<Component> components;
 	
 	/**
 	 * The constructor simply sets the ID of the entity and initializes its list of components
@@ -37,6 +36,7 @@ public abstract class InteractableEntity extends Entity {
 	public InteractableEntity(int ID) {
 		super(ID);
 		components = new ArrayList<>();
+		addDefaultDimensions();
 		Consumer<List<Component>> onSubmit = componentsToAdd -> {
 			for (Component c : componentsToAdd) {
 				this.add(c);
@@ -49,6 +49,14 @@ public abstract class InteractableEntity extends Entity {
 			}
 			e.consume();
 		});
+	}
+	
+	/**
+	 * Adds the default dimension components to this entity.
+	 */
+	protected void addDefaultDimensions() {
+		this.add(new Width(this.getID(), Entity.ENTITY_WIDTH));
+		this.add(new Height(this.getID(), Entity.ENTITY_HEIGHT));
 	}
 
 	/**

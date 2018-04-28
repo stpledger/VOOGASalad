@@ -5,6 +5,7 @@ import authoring.entities.componentbuilders.*;
 import engine.components.Component;
 import engine.components.Type;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -62,15 +63,15 @@ public class EntityLoader {
 		Entity entity = (Entity) Class.forName(ENTITY_PREFIX + type).getDeclaredConstructors()[0].newInstance(ID, type);
 		NodeList nList = root.getChildNodes();
 		List<Component> compsToAdd = new ArrayList<>();
+		ComponentBuilder cb = new ComponentBuilder();
 		for (int i = 0; i < nList.getLength(); i++) {
 			Element e = (Element) nList.item(i);
-			ComponentBuilder cb = new SpriteBuilder();
 			compsToAdd.add(cb.build(ID, e));
 		}
 		entity.addAll(compsToAdd);
 		return entity;
 	}	
-	
+
 	/**
 	 * Get the root element of an xml file to parse
 	 * @param XMLFile the xml file to parse

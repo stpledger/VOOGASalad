@@ -14,6 +14,7 @@ public class Cell extends Pane {
 
 	private Entity entity;
 	private final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
+	private int number;
 	
 	/**
 	 * {@code Boolean} describes if cell is occupied by entity sprite
@@ -30,6 +31,7 @@ public class Cell extends Pane {
 		this.setPrefWidth(Entity.ENTITY_WIDTH);
 		this.setPrefHeight(Entity.ENTITY_HEIGHT);
 		this.setStyle(DEFAULT_STYLE);
+		this.number = number;
 	}
 	
 	/**
@@ -56,6 +58,12 @@ public class Cell extends Pane {
 		return isOccupied;
 	}
 
+	/**
+	 * @return the number (ID) of this cell
+	 */
+	public int getNumber() {
+		return this.number;
+	}
 	/**
 	 * 
 	 * @param isOccupied {@code Boolean} cell occupied by entity sprite
