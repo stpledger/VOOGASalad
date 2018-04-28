@@ -33,7 +33,7 @@ public class PackageExplorer {
 		}
 		List<String> classes = new ArrayList<>();
 		for (String filename : directory.list()) {
-			if (filename.endsWith(fileType) && !filename.startsWith(superClass)) { //Check to make sure its a class file and not the superclass
+			if (filename.endsWith(fileType) && !filename.contains(superClass)) { //Check to make sure its a class file and not the superclass
 				String classname = buildClassname(packageName, filename);
 				String clazz = classname.replace(".java", "");
 				// Strip everything except for the word following the last period (the actual class name)

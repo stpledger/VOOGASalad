@@ -4,6 +4,7 @@ import authoring.entities.Entity;
 import authoring.entities.componentbuilders.*;
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
+import authoring.entities.componentbuilders.ComponentBuilder;
 import engine.components.Component;
 import engine.components.Type;
 import engine.components.XPosition;

@@ -2,7 +2,6 @@ package authoring.views.properties;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.ResourceBundle;
 
 import engine.components.Component;
@@ -33,8 +32,6 @@ public class LocalPropertiesView extends PropertiesView {
 	private Entity entity;
 	private String type;
 	
-	private Properties language = new Properties();
-
 	/**
 	 * Initialize the object with a given broadcast method
 	 * @param entityNumber
@@ -93,12 +90,6 @@ public class LocalPropertiesView extends PropertiesView {
 	@Override
 	public String title() {
 		return String.format("Entity %d Local Properties", this.entity.getID());
-	}
-
-	@Override
-	public void setLanguage(Properties lang) {
-		language = lang;
-		
 	}
 
 }

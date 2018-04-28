@@ -10,7 +10,6 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
 import authoring.forms.ComponentForm;
-import authoring.forms.EntityComponentForm;
 
 public class EntityBuilderData {
 	
