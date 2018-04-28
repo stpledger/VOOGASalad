@@ -107,14 +107,14 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
-                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
-                      <implMethodName>lambda$1</implMethodName>
+                      <implMethodName>lambda$2</implMethodName>
                       <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
@@ -124,14 +124,14 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
-                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
-                      <implMethodName>lambda$2</implMethodName>
+                      <implMethodName>lambda$1</implMethodName>
                       <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
@@ -203,6 +203,37 @@
                 <key>Dimension</key>
                 <height>100.0</height>
                 <width>100.0</width>
+              </engine.components.Dimension>
+            </entry>
+          </map>
+        </entry>
+        <entry>
+          <int>4</int>
+          <map>
+            <entry>
+              <string>Sprite</string>
+              <engine.components.Sprite>
+                <pid>4</pid>
+                <key>Sprite</key>
+                <filename>mountain.jpg</filename>
+              </engine.components.Sprite>
+            </entry>
+            <entry>
+              <string>Position</string>
+              <engine.components.Position>
+                <pid>4</pid>
+                <key>Position</key>
+                <xPos>0.0</xPos>
+                <yPos>0.0</yPos>
+              </engine.components.Position>
+            </entry>
+            <entry>
+              <string>Dimension</string>
+              <engine.components.Dimension>
+                <pid>4</pid>
+                <key>Dimension</key>
+                <height>500.0</height>
+                <width>900.0</width>
               </engine.components.Dimension>
             </entry>
           </map>

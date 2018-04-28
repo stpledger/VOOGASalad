@@ -37,6 +37,16 @@ public class TestGameState {
 		//Sprite s2 = new Sprite(1,"mario.png");
 		//Sprite s3 = new Sprite(2,"mario.png");
 		Sprite s4 = new Sprite(3,"mario.png");
+		Sprite s5 = new Sprite(4, "mountain.jpg");
+
+		Position p5 = new Position(4, 0, 0);
+		Dimension d5 = new Dimension(4, 900, 500);
+
+		Map<String, Component> background = new HashMap<>();
+
+		background.put(Sprite.KEY, s5);
+		background.put(Position.KEY, p5);
+		background.put(Dimension.KEY, d5);
 
 
 		Position p = new Position(0, 100, 100);
@@ -154,6 +164,7 @@ public class TestGameState {
 		//entities.put(1, mario2);
 		//entities.put(2, mario3);
 		entities.put(3, mario4);
+		entities.put(4, background);
 		GameInitializer gi = new GameInitializer(entities, 300, 50, 50);
 		ih = gi.getInputHandler();
 		eng = new InternalEngine(gi.getSystems());
