@@ -32,9 +32,9 @@ import engine.setup.SystemManager;
  * @author cndracos
  */
 public class Actions {
-    private SystemManager SM;
-    public Actions(SystemManager SM){
-        this.SM = SM;
+    private SystemManager sm;
+    public Actions(SystemManager sm){
+        this.sm = sm;
     }
 
     /**
@@ -190,7 +190,18 @@ public class Actions {
 	
     
 	
-	
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> animateSprite (String filename, double dur, int count, int columns, int offsetX, int offsetY, int width, int height) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(Sprite.KEY)) {
+    				Sprite s = (Sprite) actor.get(Sprite.KEY);
+    				s.setData(filename);
+    				s.animate(dur, count, columns, offsetX, offsetY, width, height);
+    			}
+    		}
+    	};
+    }
 	
 	
 	

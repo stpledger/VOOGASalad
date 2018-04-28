@@ -36,9 +36,9 @@ public class TestGameState {
 	public TestGameState() throws FileNotFoundException {
 		System.out.println("TestGameState");
 		entities = new HashMap<>();
-		ActionReader AR = new ActionReader();
+		//ActionReader AR = new ActionReader();
 		
-		Sprite s = new Sprite(0,"Mario.png");
+		Sprite s = new Sprite(0,"mario.png");
 
 		//Sprite s4 = new Sprite(3,"mario.png");
 
@@ -100,7 +100,6 @@ public class TestGameState {
 		mario.put(DamageValue.KEY, damage);
 		mario.put(DamageLifetime.KEY, dl);
 		mario.put(Player.KEY, play);
-
 		//Map<String, Component> mario2 = new HashMap<>();
 
 		/**

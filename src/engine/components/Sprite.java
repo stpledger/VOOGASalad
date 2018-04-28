@@ -22,6 +22,10 @@ public class Sprite extends SingleStringComponent {
 	public static final String IMAGE_PATH ="data\\";
 	
 	public static String KEY = "Sprite";
+	
+	private boolean isPlaying = false;
+	
+	private String name;
 
 	@XStreamOmitField
 	private transient ImageView image;
@@ -32,6 +36,7 @@ public class Sprite extends SingleStringComponent {
 	public Sprite(int pid, String path) throws FileNotFoundException {
 	    super(pid, path);
 		setData(path);
+		name = path;
 	}
 	
 	public ImageView getImage() {
@@ -41,8 +46,12 @@ public class Sprite extends SingleStringComponent {
 
 	@Override
 	public void setData(String im) {
-
+		if(a != null) {
+			a.stop();
+			isPlaying = false;
+		}
 		try {
+			name = im;
 			image = new ImageView(DataRead.loadImage(im));
 			image.setPickOnBounds(true);
 			
@@ -58,22 +67,32 @@ public class Sprite extends SingleStringComponent {
 		a = new SpriteTransition(getImage(), duration, count, columns, offsetX, offsetY, width, height);
 		a.setCycleCount(Animation.INDEFINITE);
 		a.play();
+		isPlaying = true;
 	}
 	
 	public void pauseAnimation() {
 		if(a != null) {
 			a.pause();
+			isPlaying = false;
 		}
 	}
 	
 	public void playAnimation() {
 		if(a != null) {
-			a.play();			
+			a.play();
+			isPlaying = true;
 		}
+	}
+	
+	public boolean isPlaying() {
+		return isPlaying;
 	}
 	
 	public String getKey() {
 		return KEY;
+	}
+	public String getImageName() {
+		return name;
 	}
 }
 
