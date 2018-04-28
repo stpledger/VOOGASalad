@@ -81,13 +81,13 @@ public class HighScoreView extends BranchScreenView {
 	 * Displays a textfield that allows a person to enter their name.
 	 */
 	public void showRecordInput() {
-		requestRecordLayout = new VBox(100);
+		requestRecordLayout = new VBox(50);
 		submitButton = new Button("Submit");
 		TextField userNameField = new TextField();
 		submitButton.setOnAction(e->{addHighScore(userNameField.getText(), 50.0); 
 			hideRecordInput();
 		});
-		requestRecordLayout.getChildren().addAll(submitButton, userNameField);
+		requestRecordLayout.getChildren().addAll(userNameField, submitButton);
 		highScorePane.setRight(requestRecordLayout);
 	}
 	
