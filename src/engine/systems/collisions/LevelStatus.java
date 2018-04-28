@@ -1,14 +1,16 @@
 package engine.systems.collisions;
 
 import java.util.Map;
+import java.util.Set;
 
 import engine.components.Component;
 import engine.components.Player;
 import engine.components.Win;
+import engine.systems.ISystem;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-public class LevelStatus {
+public class LevelStatus implements ISystem {
 	double level;
 	private DoubleProperty levelStatus =new SimpleDoubleProperty();
 	public LevelStatus() {
@@ -33,6 +35,26 @@ public class LevelStatus {
 	}
 	public DoubleProperty getUpdate() {
 		return levelStatus;
+	}
+
+	@Override
+	public void addComponent(int pid, Map<String, Component> components) {
+
+	}
+
+	@Override
+	public void removeComponent(int pid) {
+
+	}
+
+	@Override
+	public void setActives(Set<Integer> actives) {
+
+	}
+
+	@Override
+	public void execute(double time) {
+
 	}
 }
 

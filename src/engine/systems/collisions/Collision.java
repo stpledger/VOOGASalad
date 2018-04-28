@@ -14,6 +14,7 @@ import engine.systems.DefaultSystem;
 public class Collision extends DefaultSystem {
 	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
 	private Map<Integer, Velocity> colliders;
+	private Set<Integer> activeComponents = new HashSet<>();
 	private CollisionHandler handler;
 
 	public Collision(SystemManager sm) {
@@ -24,7 +25,7 @@ public class Collision extends DefaultSystem {
 	public void execute(double time) {
 
 		colliders.forEach((key1, vel) -> {
-			handledComponents.forEach((key2, map) -> {
+			activeComponents.forEach((key2) -> {
 
 				if (key1 != key2) {
 
@@ -75,7 +76,7 @@ public class Collision extends DefaultSystem {
 
 							case Top:
 								p1.setYPos(p2.getYPos() - d1.getHeight());
-								((Velocity) handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(10);
+								((Velocity) handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
 								break;
 
 							case Bot:
@@ -111,7 +112,9 @@ public class Collision extends DefaultSystem {
 
 	@Override
 	public void setActives(Set<Integer> actives) {
-		//put in active listeners
+		Set<Integer> myActives = new HashSet<>(actives);
+		myActives.retainAll(handledComponents.keySet());
+		activeComponents = myActives;
 	}
 
 

@@ -25,12 +25,13 @@ public class HealthDamage implements ISystem {
 	}
 
 	public void addComponent(int pid, Map<String, Component> components) {
-		Map<String, Component> newComponents = new HashMap<>();
 		if (components.containsKey(Health.KEY)) {
+			Map<String, Component> newComponents = new HashMap<>();
 			newComponents.put(Health.KEY,components.get(Health.KEY));
 			handledComponents.put(pid, newComponents);
 		}
 		else if (components.containsKey(Damage.KEY) && handledComponents.containsKey(pid)) {
+			Map<String, Component> newComponents = handledComponents.get(pid);
 			Damage d = (Damage) components.get(Damage.KEY);
 			if (d.getParentID()!=pid) {
 				newComponents.put(Damage.KEY, d);
@@ -71,7 +72,6 @@ public class HealthDamage implements ISystem {
 					sm.removeEntity(key);
 					System.out.println("removing");
 				}
-
 			}
 		}
 	}
