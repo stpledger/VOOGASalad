@@ -54,12 +54,18 @@ public class GamePlayerController {
 	}
 
 	public Scene initializeStartScene() {
+		//Testing HighScore Screen
+		HighScoreView highScoreScreen = new HighScoreView(myStage);
+		Scene highScore = highScoreScreen.getHighScoreScene();
+		
 		gamePlayerSplash = new SplashScreenView(myStage);
 		mySplashScene = gamePlayerSplash.getSplashScene();
 		connectButtonsToController();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		assignKeyInputs();
 		return mySplashScene;
+		//return highScore;
+		
 	}
 
 	/**

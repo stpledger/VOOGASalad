@@ -21,7 +21,7 @@ import javafx.stage.Stage;
  * Splash Screen for Selecting Games and Uploading Games
  * @author Ryan
  */
-public class SplashScreenView{
+public class SplashScreenView {
 	private Scene splashScene;
 	private Stage mySplashStage;
 	private GridPane myGridPane;
