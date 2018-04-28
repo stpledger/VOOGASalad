@@ -5,8 +5,6 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-import com.sun.prism.paint.Color;
-
 import authoring.entities.Entity;
 import authoring.entities.data.EntityLoader;
 import authoring.factories.ClickElementType;
@@ -16,16 +14,10 @@ import authoring.views.properties.PropertiesView;
 import engine.components.Component;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundImage;
-import javafx.scene.layout.BackgroundPosition;
-import javafx.scene.layout.BackgroundRepeat;
-import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -79,7 +71,26 @@ public class Grid extends GridPane {
             			ImageView img = new ImageView(db.getImage());
             			img.setFitWidth(Entity.ENTITY_WIDTH);
             			img.setFitHeight(Entity.ENTITY_HEIGHT);
-            			createMenu(c,img);
+//            			createMenu(img);
+            			img.setOnMouseClicked(e1->{
+            				if(e1.getClickCount()==2) {
+            					System.out.println("cocks!");
+            					ContextMenu cMenu = new ContextMenu();
+        						try {
+									MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addCol(img, 1));
+									MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addRow(img, 1));
+									MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addCol(img, 5));
+									MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Rows", e2->this.addRow(img, 5));
+									MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Cancel", e2->cMenu.hide());
+									cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
+								} catch (Exception e3) {
+									// TODO Auto-generated catch block
+									e3.printStackTrace();
+								}
+            					cMenu.show(this, e1.getScreenX(), e1.getScreenY());
+            					cMenu.setAutoHide(true);
+            				}
+            			});
             			c.getChildren().add(img);
             			try {
             				Entity en = el.buildEntity(numberOfCells, db.getString());
@@ -108,27 +119,6 @@ public class Grid extends GridPane {
             	}
 		}
 		this.setPrefSize(width, height);
-	}
-	
-	private void createMenu(Cell cell, ImageView img) {
-		img.setOnMouseClicked(e->{
-			if(e.getButton().equals(MouseButton.PRIMARY)) {
-				System.out.println("cocks!");
-				ContextMenu cMenu = new ContextMenu();
-				try {
-					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "cocks!", e2->System.out.println("cocks!"));
-					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "cocks!", e2->System.out.println("cocks!"));
-					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "cocks!", e2->System.out.println("cocks!"));
-					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem,"cocks!", e2->System.out.println("cocks!"));
-					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("cancel"), e2->cMenu.hide());
-					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,cancel);
-				} catch (Exception e2) {
-					LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e2);
-				}
-				cMenu.show(this, e.getScreenX(), e.getScreenY());
-				cMenu.setAutoHide(true);
-			}
-		});
 	}
 	
 	private void addCol(ImageView img, int numTimes) {
@@ -188,6 +178,5 @@ public class Grid extends GridPane {
 			this.numCols++;
 		}
 	}
-	
 
 }
