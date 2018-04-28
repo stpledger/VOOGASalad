@@ -1,9 +1,10 @@
 package engine.components;
 
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class Conditional implements Component {
+public class Conditional implements Component, BehaviorComponent {
 
     public static String KEY = "Conditional";
     private Supplier<Object> conditional;
@@ -43,6 +44,16 @@ public class Conditional implements Component {
 	@Override
 	public int getPID() {
 		return pid;
+	}
+
+	@Override
+	public void addBehavior(Object identifier, Consumer con) {
+		setAction((e1, e2) -> con.accept(e1));
+	}
+
+	@Override
+	public void addBehavior(Object identifier, BiConsumer bic) {
+		setAction(bic);
 	}
 
     

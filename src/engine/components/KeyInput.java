@@ -5,7 +5,10 @@ import javafx.scene.input.KeyCode;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+
+import engine.systems.collisions.CollisionDirection;
 
 /**
  * This is the component class that allows the designer to assign an action to an entity based on a key code/key input,
@@ -14,7 +17,7 @@ import java.util.function.Consumer;
  *
  * @author cndracos
  */
-public class KeyInput extends Conditional {
+public class KeyInput extends Conditional implements BehaviorComponent {
 
 	private Map<KeyCode, Consumer<Map<String, Component>>> codes = new HashMap<>();
 
@@ -63,6 +66,22 @@ public class KeyInput extends Conditional {
 	
 	public String getKey() { 
 		return KEY; 
+	}
+
+	@Override
+	public void addBehavior(Object identifier, Consumer con) {
+		if(identifier instanceof KeyCode) {
+			this.addCode((KeyCode) identifier, con);
+		}
+	}
+
+	@Override
+	public void addBehavior(Object identifier, BiConsumer bic) {
+		if(identifier instanceof KeyCode) {
+			this.addCode((KeyCode) identifier, (entity) -> {
+				bic.accept(entity, null);
+			});
+		}
 	}
 
 }
