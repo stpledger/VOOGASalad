@@ -1,7 +1,7 @@
 package engine.actions;
 
 import authoring.entities.Entity;
-
+import engine.components.Health;
 import engine.components.Component;
 import engine.components.Player;
 import engine.components.Score;
@@ -11,7 +11,6 @@ import engine.components.XVelocity;
 import engine.components.YVelocity;
 import engine.components.groups.Position;
 import engine.components.groups.Velocity;
-
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -19,8 +18,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-
-
+import engine.components.DamageValue;
+import engine.components.DamageLifetime;
+import engine.components.Sprite;
+import engine.setup.SystemManager;
 
 /**
  * This is the actions class which contains many methods that return consumers representing actions in the
@@ -29,6 +30,10 @@ import java.util.function.Consumer;
  * @author cndracos
  */
 public class Actions {
+    private SystemManager SM;
+    public Actions(SystemManager SM){
+        this.SM = SM;
+    }
 
     /**
      * @param actor Entity moving left
@@ -94,6 +99,60 @@ public class Actions {
     }
 
     /**
+     * @return two new entity maps
+     */
+    public BiConsumer<Map<String, Component>, Map<String, Component>> damage(int pid1, int pid2){
+        return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+            if(actor1 != null && actor1.containsKey(Health.KEY)){
+                if(actor2 != null && actor2.containsKey(DamageLifetime.KEY) && actor2.containsKey(DamageValue.KEY)){
+                    DamageLifetime damagelifetime2 = (DamageLifetime)actor2.get(DamageLifetime.KEY);
+                    DamageValue damagevalue2 = (DamageValue)actor2.get(DamageValue.KEY);
+                    if(actor1.containsKey(DamageLifetime.KEY)){
+                        DamageValue damagevalue1 = (DamageValue)actor1.get(DamageValue.KEY);
+                        damagevalue1.setData(damagevalue1.getData() + damagevalue2.getData());
+                        actor1.put(DamageValue.KEY, damagevalue1);
+                    }
+                    else{
+                        actor1.put(DamageLifetime.KEY, damagelifetime2);
+                        actor1.put(DamageValue.KEY, damagevalue2);
+                        SM.addComponent(pid1, damagelifetime2);
+                        SM.addComponent(pid2, damagevalue2);
+                    }
+                }
+            }
+
+            if(actor2 != null && actor2.containsKey(Health.KEY)){
+                if(actor1 != null && actor1.containsKey(DamageLifetime.KEY) && actor1.containsKey(DamageValue.KEY)){
+                    DamageLifetime damagelifetime1 = (DamageLifetime)actor1.get(DamageLifetime.KEY);
+                    DamageValue damagevalue1 = (DamageValue)actor1.get(DamageValue.KEY);
+                    if(actor2.containsKey(DamageLifetime.KEY)){
+                        DamageValue damagevalue2 = (DamageValue)actor2.get(DamageValue.KEY);
+                        damagevalue2.setData(damagevalue2.getData() + damagevalue1.getData());
+                        actor2.put(DamageValue.KEY, damagevalue2);
+                    }
+                    else{
+                        actor2.put(DamageLifetime.KEY, damagelifetime1);
+                        actor2.put(DamageValue.KEY, damagevalue1);
+                        SM.addComponent(pid2, damagelifetime1);
+                        SM.addComponent(pid2, damagevalue1);
+                    }
+                }
+            }
+        };
+    }
+
+    /**
+     * @return two new entity maps
+     */
+    public Consumer<Map<String, Component>> changeSprite(Sprite alternative){
+        return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+            if(actor != null && actor.containsKey(Sprite.KEY)){
+                actor.put(Sprite.KEY, alternative);
+            }
+        };
+    }
+
+    /**
      * This would be an AI component that has an enemy follow you
      * @param followed Player/entity being followed
      * @param tracker  Enemy/entity tracking the followed
@@ -144,5 +203,7 @@ public class Actions {
     private static double distance (Position p1, Position p2) {
         return Math.sqrt(Math.pow(p1.getYPos()-p2.getYPos(), 2) + Math.pow(p1.getXPos() - p2.getXPos(), 2)); //distance between two positions/points
     }
+
+
 
 }
