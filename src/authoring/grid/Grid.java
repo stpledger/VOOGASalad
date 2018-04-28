@@ -94,6 +94,7 @@ public class Grid extends GridPane {
 		c.setOnDragDropped(e -> {
 			Dragboard db = e.getDragboard();
 			EntityLoader el = new EntityLoader();
+			c.setImage(db.getImage());
 			ImageView img = new ImageView(db.getImage());
 			try {
 				Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(),c.getLayoutY());

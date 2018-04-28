@@ -100,6 +100,7 @@ public class EntityLoader {
 	 * @return the text value of this certain element
 	 */
 	private String getTextValue(Element e, String name) {
+		System.out.println(e.getNodeName());
 		NodeList nList = e.getElementsByTagName(name);
 		if (nList != null && nList.getLength() > 0) {
             return nList.item(0).getTextContent();
@@ -118,7 +119,7 @@ public class EntityLoader {
 			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
 			return (ComponentBuilder) cons.newInstance();
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			//LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			// LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 			e.printStackTrace();
 		} 
 		return null;
