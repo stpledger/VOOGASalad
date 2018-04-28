@@ -77,14 +77,7 @@ public class HighScoreView extends BranchScreenView {
 	public void addHighScore() {
 		
 	}
-	
-	
-	/**
-	 * Method to obtain High Scores from the Data File
-	 */
-	public List<Person> getHighScores(){
-		
-	}
+
 
 
 

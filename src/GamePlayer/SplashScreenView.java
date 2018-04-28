@@ -8,6 +8,7 @@ import buttons.GameSelectButton;
 import buttons.IGamePlayerButton;
 import data.DataGameState;
 import data.DataRead;
+import data.DataWrite;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -37,6 +38,11 @@ public class SplashScreenView extends BranchScreenView{
 		gameSelectButtonList = new ArrayList<IGamePlayerButton>();
 		imageGameStateMap = DataRead.getAllGames();
 		splashScene = initializeScreen();
+		List<Person > peope = new ArrayList<>();
+		Person p =new Person("Conrad", 100.1);
+		peope.add(new Person("Hetflanth", 10.1));
+		DataWrite.saveHighscore(p);
+
 	}
 
 	@Override
