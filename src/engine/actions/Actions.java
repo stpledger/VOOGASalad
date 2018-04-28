@@ -2,7 +2,6 @@ package engine.actions;
 
 import authoring.entities.Entity;
 
-import authoring.entities.Player;
 import engine.components.Component;
 import engine.components.XPosition;
 import engine.components.YPosition;

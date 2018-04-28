@@ -1,5 +1,6 @@
 package authoring.entities;
 
+import engine.components.Lives;
 import engine.components.Player;
 
 /**
@@ -31,7 +32,8 @@ public class User extends InteractableEntity {
 		this.setHealth(INITIAL_HEALTH);
 		this.setEntityType(TYPE);
 		this.setDimension(PLAYER_WIDTH, PLAYER_HEIGHT);
-		this.add(new Player(this.getID(), INITIAL_LIVES));
+		this.add(new Player(this.getID()));
+		this.add(new Lives(this.getID(), INITIAL_LIVES));
 	}
 
 	@Override

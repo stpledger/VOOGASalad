@@ -13,17 +13,14 @@ import java.util.function.Consumer;
  *
  * @author cndracos
  */
-public class KeyInput implements Component {
+public class KeyInput extends Conditional {
 
 	private Map<KeyCode, Consumer> codes = new HashMap<>();
 
 	public static String KEY = "KeyInput";
 	
-	private int pid;
-
 	public KeyInput(int pid) {
-		this.pid = pid;
-
+		super(pid);
 	}
 
 	public boolean containsCode (KeyCode key) {
@@ -39,19 +36,24 @@ public class KeyInput implements Component {
 	 */
 	public void addCode (KeyCode code, Consumer con) {
 		codes.put(code, con);
+		this.setCondition(() -> {
+			return codes;
+		});
 	}
 
-	public void action(KeyCode key) {
+	/*public void action(KeyCode key) {
 		codes.get(key).accept(null);
-	}
+	}*/
 
+	private void setUpConditional() {
+		this.setAction((map) -> {
+			if(map == null || !(map instanceof Map<?,?>)) return;
+			
+		});
+	}
+	
 	public String getKey() { 
 		return KEY; 
-	}
-
-
-	public int getPID() {
-		return pid;
 	}
 
 }

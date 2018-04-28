@@ -1,25 +1,24 @@
 package engine.components;
 
-import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class Conditional implements Component {
 
-    public static String KEY = "Component";
-    private Supplier conditional;
-    private Consumer action;
+    public static String KEY = "Conditional";
+    private Supplier<Object> conditional;
+    private Consumer<Object> action;
     private int pid;
 
     public Conditional (int pid) {
         this.pid = pid;
     }
 
-    public void setCondition (Supplier conditional) {
+    public void setCondition (Supplier<Object> conditional) {
         this.conditional = conditional;
     }
 
-    public void setAction (Consumer action) {
+    public void setAction (Consumer<Object> action) {
         this.action = action;
     }
 
