@@ -1,7 +1,5 @@
 package authoring.entities;
 
-import java.io.FileNotFoundException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -11,16 +9,9 @@ import java.util.logging.Logger;
 import authoring.views.properties.LocalPropertiesView;
 
 import engine.components.Component;
-import engine.components.DamageLifetime;
-import engine.components.DamageValue;
-import engine.components.EntityType;
 import engine.components.Health;
 import engine.components.Height;
-import engine.components.Sprite;
 import engine.components.Width;
-import engine.components.XPosition;
-import engine.components.YPosition;
-import javafx.scene.image.ImageView;
 
 /**
  * Class to define entities that can be interacted with.
