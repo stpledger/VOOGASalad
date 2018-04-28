@@ -17,11 +17,7 @@ public class PackageExplorer {
 		//
 	}
 	
-	/**
-	 * Gets all of the class names from a given package. Useful when determining which properties can be changed.
-	 * @return a String array of classes from a given package
-	 */
-	public static String[] getElementsInPackage(String packageName) {
+	public static String[] getElementsInPackage(String packageName, String fileType, String superClass) {
 		ClassLoader cld = Thread.currentThread().getContextClassLoader();
 		if (cld == null) {
 			throw new IllegalStateException("Can't get class loader.");
@@ -37,7 +33,7 @@ public class PackageExplorer {
 		}
 		List<String> classes = new ArrayList<>();
 		for (String filename : directory.list()) {
-			if (filename.endsWith(".class") && !filename.startsWith("Entity")) { //Check to make sure its a class file and not the superclass
+			if (filename.endsWith(fileType) && !filename.startsWith(superClass)) { //Check to make sure its a class file and not the superclass
 				String classname = buildClassname(packageName, filename);
 				String clazz = classname.replace(".java", "");
 				// Strip everything except for the word following the last period (the actual class name)
@@ -45,6 +41,15 @@ public class PackageExplorer {
 			}
 		}
 		return classes.toArray(new String[classes.size()]);
+		
+	}
+	
+	/**
+	 * Gets all of the class names from a given package. Useful when determining which properties can be changed.
+	 * @return a String array of classes from a given package
+	 */
+	public static String[] getElementsInPackage(String packageName) {
+		return getElementsInPackage(packageName, "", "!");
 	}
 	
 	/**
@@ -79,5 +84,7 @@ public class PackageExplorer {
 		}
 		return 0;
 	}
+	
+	
 	
 }

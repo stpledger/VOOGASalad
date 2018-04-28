@@ -70,16 +70,16 @@ public class LevelView extends ScrollPane {
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				ContextMenu cMenu = new ContextMenu();
 				try {
-					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addColumn","Add Column"), e1->{
+					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addColumn"), e1->{
 						this.content.addCol(ADD_ONE);
 					});
-					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addRow","Add Row"), e1->{
+					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addRow"), e1->{
 						this.content.addRow(ADD_ONE);
 					});
-					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveColumn","Add 5 Columns"), e1->{
+					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveColumn"), e1->{
 						this.content.addCol(ADD_FIVE);
 					});
-					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveRow","Add 5 Row"), e1->{
+					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("addFiveRow"), e1->{
 						this.content.addRow(ADD_FIVE);
 					});
 					MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, language.getProperty("cancel"), e1->{
