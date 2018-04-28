@@ -1,20 +1,15 @@
 package engine.components;
 
-import java.util.HashMap;
-import java.util.Map;
-
-public class Win extends Component{
+public class Win extends SingleDataComponent {
 	public static String KEY = "WIN";
 	
 	public Win(int pid) {
-		super(pid, KEY);
+		super(pid, 0);
 		// TODO Auto-generated constructor stub
 	}
-	
-	@Override
-	public Map<String, String> getParameters(){
-		Map<String,String> res = new HashMap<>();
-		return res;
+
+	public String getKey() {
+		return KEY;
 	}
 
 }

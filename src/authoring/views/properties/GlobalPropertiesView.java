@@ -2,10 +2,12 @@ package authoring.views.properties;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import authoring.factories.ClickElementType;
+import authoring.factories.Element;
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
@@ -24,6 +26,8 @@ public class GlobalPropertiesView extends PropertiesView {
 	private static final String NAME = "Global Properties";
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
+	private Properties language = new Properties();
 	
 	public GlobalPropertiesView(List<Level> levels){
 		super();
@@ -45,8 +49,9 @@ public class GlobalPropertiesView extends PropertiesView {
 			TextField pathInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField, globalProps.getString("Filepath").split(",")[1]);
 			for(String property:globalProps.keySet()) {
 				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label, globalProps.getString(property).split(",")[0]);
-				currentRow++;
 				getRoot().addRow(currentRow, label);
+				currentRow++;
+				elements.add((Element) label);
 			}
 			getRoot().addColumn(1,livesInput,titleInput,pathInput);
 			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getButtonBundle().getString("Submit"), e->{
@@ -58,6 +63,7 @@ public class GlobalPropertiesView extends PropertiesView {
 				this.makeAlert(this.title()+" has been saved!");
 				this.close();
 			});
+			elements.add((Element) submit);	
 			currentRow++;
 			getRoot().add(submit, 0, currentRow);
 		} catch (Exception e1) {
