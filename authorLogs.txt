@@ -1,4 +1,4 @@
-Apr 27, 2018 10:56:17 PM authoring.entities.componentbuilders.SpriteBuilder build
+Apr 27, 2018 11:01:27 PM authoring.entities.componentbuilders.SpriteBuilder build
 SEVERE: java.lang.IllegalArgumentException: argument type mismatch
 java.lang.IllegalArgumentException: argument type mismatch
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
@@ -65,7 +65,7 @@ java.lang.IllegalArgumentException: argument type mismatch
 	at com.sun.glass.ui.View.handleMouseEvent(View.java:555)
 	at com.sun.glass.ui.View.notifyMouse(View.java:937)
 
-Apr 27, 2018 10:56:17 PM authoring.entities.componentbuilders.SpriteBuilder build
+Apr 27, 2018 11:01:27 PM authoring.entities.componentbuilders.SpriteBuilder build
 SEVERE: java.lang.IllegalArgumentException: argument type mismatch
 java.lang.IllegalArgumentException: argument type mismatch
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
@@ -132,7 +132,7 @@ java.lang.IllegalArgumentException: argument type mismatch
 	at com.sun.glass.ui.View.handleMouseEvent(View.java:555)
 	at com.sun.glass.ui.View.notifyMouse(View.java:937)
 
-Apr 27, 2018 10:56:17 PM authoring.entities.componentbuilders.SpriteBuilder build
+Apr 27, 2018 11:01:27 PM authoring.entities.componentbuilders.SpriteBuilder build
 SEVERE: java.lang.IllegalArgumentException: argument type mismatch
 java.lang.IllegalArgumentException: argument type mismatch
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
@@ -199,7 +199,7 @@ java.lang.IllegalArgumentException: argument type mismatch
 	at com.sun.glass.ui.View.handleMouseEvent(View.java:555)
 	at com.sun.glass.ui.View.notifyMouse(View.java:937)
 
-Apr 27, 2018 10:56:17 PM authoring.entities.componentbuilders.SpriteBuilder build
+Apr 27, 2018 11:01:27 PM authoring.entities.componentbuilders.SpriteBuilder build
 SEVERE: java.lang.IllegalArgumentException: argument type mismatch
 java.lang.IllegalArgumentException: argument type mismatch
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
@@ -266,7 +266,7 @@ java.lang.IllegalArgumentException: argument type mismatch
 	at com.sun.glass.ui.View.handleMouseEvent(View.java:555)
 	at com.sun.glass.ui.View.notifyMouse(View.java:937)
 
-Apr 27, 2018 10:56:17 PM authoring.entities.componentbuilders.SpriteBuilder build
+Apr 27, 2018 11:01:27 PM authoring.entities.componentbuilders.SpriteBuilder build
 SEVERE: java.lang.IllegalArgumentException: argument type mismatch
 java.lang.IllegalArgumentException: argument type mismatch
 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
