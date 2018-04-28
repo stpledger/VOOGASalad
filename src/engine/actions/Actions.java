@@ -5,9 +5,11 @@ import authoring.entities.Entity;
 import engine.components.Component;
 import engine.components.Player;
 import engine.components.Score;
+import engine.components.XAcceleration;
 import engine.components.XPosition;
 import engine.components.YPosition;
 import engine.components.XVelocity;
+import engine.components.YAcceleration;
 import engine.components.YVelocity;
 import engine.components.groups.Position;
 import engine.components.groups.Velocity;
@@ -40,13 +42,110 @@ public class Actions {
     		if(actor != null && (actor instanceof Map<?,?>)) {
     			if(actor.containsKey(XVelocity.KEY)) {
     				XVelocity xv = (XVelocity) actor.get(XVelocity.KEY);
+    				xv.setData(-speed);
+    			}
+    		}
+    	};
+    }
+	
+	@SuppressWarnings("unchecked")
+	public Consumer<Map<String, Component>> moveRight (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(XVelocity.KEY)) {
+    				XVelocity xv = (XVelocity) actor.get(XVelocity.KEY);
     				xv.setData(speed);
     			}
     		}
     	};
-    	
     }
 	
+	@SuppressWarnings("unchecked")
+	public Consumer<Map<String, Component>> moveUp (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(YVelocity.KEY)) {
+    				YVelocity yv = (YVelocity) actor.get(YVelocity.KEY);
+    				yv.setData(-speed);
+    			}
+    		}
+    	};
+    }
+	
+	@SuppressWarnings("unchecked")
+	public Consumer<Map<String, Component>> moveDown (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(YVelocity.KEY)) {
+    				YVelocity yv = (YVelocity) actor.get(YVelocity.KEY);
+    				yv.setData(speed);
+    			}
+    		}
+    	};
+    }
+	
+	
+	@SuppressWarnings("unchecked")
+	public Consumer<Map<String, Component>> accelerateLeft (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(XAcceleration.KEY)) {
+    				XAcceleration xa = (XAcceleration) actor.get(XAcceleration.KEY);
+    				xa.setData(-speed);
+    			}
+    		}
+    	};
+    }
+	
+	@SuppressWarnings("unchecked")
+	public Consumer<Map<String, Component>> accelerateRight (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(XAcceleration.KEY)) {
+    				XAcceleration xa = (XAcceleration) actor.get(XAcceleration.KEY);
+    				xa.setData(speed);
+    			}
+    		}
+    	};
+    }
+	
+	@SuppressWarnings("unchecked")
+	public Consumer<Map<String, Component>> accelerateUp (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(YAcceleration.KEY)) {
+    				YAcceleration ya = (YAcceleration) actor.get(YAcceleration.KEY);
+    				ya.setData(-speed);
+    			}
+    		}
+    	};
+    }
+	
+	@SuppressWarnings("unchecked")
+	public Consumer<Map<String, Component>> accelerateDown (double speed) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(YAcceleration.KEY)) {
+    				YAcceleration ya = (YAcceleration) actor.get(YAcceleration.KEY);
+    				ya.setData(speed);
+    			}
+    		}
+    	};
+    }
+	
+	
+	
+	@SuppressWarnings("unchecked")
+	public Consumer<Map<String, Component>> addScore (double score) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(Score.KEY)) {
+    				Score s = (Score) actor.get(Score.KEY);
+    				s.setData(s.getData() + score);
+    			}
+    		}
+    	};
+    }
 	
 	@SuppressWarnings("unchecked")
 	public BiConsumer<Map<String, Component>,Map<String, Component>> transferScore() {
@@ -63,36 +162,15 @@ public class Actions {
 	}
 	
 	
-
-    /**
-     * @param actor Entity moving right
-     * @return right action
-     */
-
-    public Consumer right (Entity actor) {
-        XVelocity v = (XVelocity) actor.get(XVelocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setData(10);
-    }
-
-    /**
-     * @param actor Entity moving up
-     * @return up action
-     */
-
-    public Consumer up (Entity actor) {
-        YVelocity v = (YVelocity) actor.get(YVelocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setData(-10);
-    }
-
-    /**
-     * @param actor Entity moving down
-     * @return down action
-*/
-    public Consumer down (Entity actor) {
-        YVelocity v = (YVelocity) actor.get(YVelocity.KEY);
-        return (Serializable & Consumer) (e) -> v.setData(10);
-    }
-
+    
+	
+	
+	
+	
+	
+	
+	
+	
     /**
      * This would be an AI component that has an enemy follow you
      * @param followed Player/entity being followed

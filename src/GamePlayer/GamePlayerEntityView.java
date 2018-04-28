@@ -54,6 +54,7 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	private static final double PANE_HEIGHT = 442;
 	private static final double PANE_WIDTH = 800;
 	private Map<Integer, Map<String, Component>> PlayerKeys;
+	private Map<Integer, Map<String, Boolean>> HUDPropMap;
 
 	/**
 	 * Constructor when given the gameState
@@ -61,17 +62,33 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	 */
 	public GamePlayerEntityView(DataGameState gameState) {
 		Levels = gameState.getGameState();
+		HUDPropMap = obtainHudProps(Levels);
 		PlayerKeys = new HashMap<>();
 		levelToInt();
 		LevelDisplays = createEntityGroupMap(Levels);
 		setActiveLevel(1);
 		initializeGamePlayerEntityView();
 	}
+	
+	
+	public Map<Integer, Map<String, Boolean>> getHudPropMap(){
+		return HUDPropMap;
+	}
+	
+	private Map<Integer, Map<String, Boolean>> obtainHudProps(Map<Level,Map<Integer,Map<String,Component>>> levels){
+		Map<Integer, Map<String, Boolean>> HUDPropMap = new HashMap<Integer, Map<String, Boolean>>();
+		int count = 1;
+		for (Level l: levels.keySet()) {
+			HUDPropMap.put(count, l.getHUDprops());
+			count++;
+		}
+		return HUDPropMap;	
+	}
 
 	/**
 	 * Converts Map of Levels to its Entities to Integers to Entities to make calling a particular level easier
 	 */
-	private void levelToInt() {
+	public void levelToInt() {
 		IntLevels = new HashMap<>();
 		for(Level level: Levels.keySet()){
 			IntLevels.put(level.getLevelNum(), Levels.get(level));
@@ -147,32 +164,6 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		//entities that have sprites and setup sprite images
 		return entityRoot;
 	}
-
-//	/**
-//	 * When a level change is invoked, reinitalize the GameInitializer to add functionality.
-//	 * @param levelNum
-//	 */
-//	public void reinitializeGameEngine(int levelNum) {
-//		int count = 1;
-//		Map<Integer, Map<String, Component>> currentLevel = null;
-//		for(Level level : Levels.keySet()) {
-//			if (count == levelNum) {
-//				
-//				currentLevel = Levels.get(level);
-//				System.out.println(currentLevel);
-//				break;
-//			}
-//			count++;
-//		}
-//		try {
-//			System.out.println(currentLevel);
-//			gameInitializer = new GameInitializer(currentLevel, Math.max(PANE_HEIGHT, PANE_WIDTH),
-//					ActivePlayerPos.getXPos(), ActivePlayerPos.getYPos()); //reinitializes the level.
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("Level Does Not Currently Exist Yet");
-//		} 
-//	}
 
 	/**
 	 * initialize the Game Initializer to create the systemManager and renderManager.
