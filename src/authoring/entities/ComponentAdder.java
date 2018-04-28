@@ -1,0 +1,40 @@
+package authoring.entities;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
+
+import java.util.ResourceBundle;
+
+import authoring.forms.PropertiesComponentForm;
+
+
+public class ComponentAdder {
+
+    Entity entity;
+
+    public ComponentAdder(Entity entity){
+        this.entity=entity;
+        createContextMenuList();
+    }
+
+
+    private ObservableList<MenuItem> createContextMenuList() {
+        ObservableList<MenuItem> menu = FXCollections.observableArrayList();
+        ResourceBundle compontents = ResourceBundle.getBundle("authoring.resources.Components");
+        for(String component : compontents.keySet()){
+            MenuItem menuItem = new MenuItem(component);
+            menuItem.setOnAction(e->{
+                Group root = new Group(new PropertiesComponentForm(entity.getID(),component));
+                Stage popup = new Stage();
+                popup.setScene(new Scene(root));
+                popup.show();
+            });
+            menu.add(menuItem);
+        }
+        return menu;
+    }
+}

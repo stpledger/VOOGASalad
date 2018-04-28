@@ -10,7 +10,6 @@ import authoring.gamestate.Level;
 /**
  * @author Conrad 
  * @author Collin Brown(cdb55)
- *
  */
 public class DataGameState {
     private Map<Level,Map<Integer, Map<String, Component>>> gameState;

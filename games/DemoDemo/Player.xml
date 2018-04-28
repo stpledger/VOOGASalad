@@ -55,15 +55,24 @@
                 <pid>0</pid>
                 <codes>
                   <entry>
+<<<<<<< HEAD
                     <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+=======
+                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+>>>>>>> 17ba9b3dac43e5997bda8ba201b4811254e401ff
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
+<<<<<<< HEAD
                       <implMethodName>lambda$1</implMethodName>
                       <implMethodSignature>(Lengine/components/YVelocity;Ljava/lang/Object;)V</implMethodSignature>
+=======
+                      <implMethodName>lambda$2</implMethodName>
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+>>>>>>> 17ba9b3dac43e5997bda8ba201b4811254e401ff
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                       <capturedArgs>
@@ -75,15 +84,24 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
+<<<<<<< HEAD
                     <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+=======
+                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+>>>>>>> 17ba9b3dac43e5997bda8ba201b4811254e401ff
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
+<<<<<<< HEAD
                       <implMethodName>lambda$0</implMethodName>
                       <implMethodSignature>(Lengine/components/XVelocity;Ljava/lang/Object;)V</implMethodSignature>
+=======
+                      <implMethodName>lambda$1</implMethodName>
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+>>>>>>> 17ba9b3dac43e5997bda8ba201b4811254e401ff
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                       <capturedArgs>
@@ -92,15 +110,24 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
+<<<<<<< HEAD
                     <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+=======
+                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+>>>>>>> 17ba9b3dac43e5997bda8ba201b4811254e401ff
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
+<<<<<<< HEAD
                       <implMethodName>lambda$3</implMethodName>
                       <implMethodSignature>(Lengine/components/XVelocity;Ljava/lang/Object;)V</implMethodSignature>
+=======
+                      <implMethodName>lambda$0</implMethodName>
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+>>>>>>> 17ba9b3dac43e5997bda8ba201b4811254e401ff
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                       <capturedArgs>
@@ -109,15 +136,24 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
+<<<<<<< HEAD
                     <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+=======
+                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+>>>>>>> 17ba9b3dac43e5997bda8ba201b4811254e401ff
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
+<<<<<<< HEAD
                       <implMethodName>lambda$2</implMethodName>
                       <implMethodSignature>(Lengine/components/YVelocity;Ljava/lang/Object;)V</implMethodSignature>
+=======
+                      <implMethodName>lambda$3</implMethodName>
+                      <implMethodSignature>(Lengine/components/Velocity;Ljava/lang/Object;)V</implMethodSignature>
+>>>>>>> 17ba9b3dac43e5997bda8ba201b4811254e401ff
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                       <capturedArgs>

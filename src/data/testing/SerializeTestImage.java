@@ -7,8 +7,8 @@
 
 //package data.testing;
 //
-//import data.DataGameState;
-//import data.DataWrite;
+//import DataGameState;
+//import DataWrite;
 //import engine.components.Component;
 //import engine.components.Sprite;
 //import frontend.components.Level;

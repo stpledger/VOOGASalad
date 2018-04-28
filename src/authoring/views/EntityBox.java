@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import data.DataRead;
-import engine.components.Name;
 import engine.components.Sprite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -46,7 +45,7 @@ public class EntityBox extends VBox {
 	}
 
 	private void setPreview() {
-		image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
+		image = DataRead.addImage((String) componentAttributes.get(Sprite.class)[0]);
 		imageView = new ImageView(image);
 		imageView.setFitHeight(boxDimension-IMAGE_BUFFER);
 		imageView.setFitWidth(boxDimension-IMAGE_BUFFER);

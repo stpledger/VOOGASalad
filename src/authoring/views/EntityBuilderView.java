@@ -195,7 +195,7 @@ public class EntityBuilderView extends Stage {
 		File imageFile = fileChooser.showOpenDialog(this);
 		try {
 			data.setComponent(Sprite.class, imageFile.getName());
-			DataRead.loadImage(imageFile);
+			DataRead.addImage(imageFile);
 			Image image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 			updateEntityPreview(image);
 		} catch (Exception e1){
