@@ -203,43 +203,23 @@ public class Actions {
      */
     public BiConsumer<Map<String, Component>, Map<String, Component>> damage(int pid1, int pid2){
         return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
-            if(actor1 != null && actor1.containsKey(Health.KEY)){
-                if(actor2 != null && actor2.containsKey(DamageLifetime.KEY) && actor2.containsKey(DamageValue.KEY)){
-                    DamageLifetime damagelifetime2 = (DamageLifetime)actor2.get(DamageLifetime.KEY);
-                    DamageValue damagevalue2 = (DamageValue)actor2.get(DamageValue.KEY);
-                    if(actor1.containsKey(DamageLifetime.KEY)){
-                        DamageValue damagevalue1 = (DamageValue)actor1.get(DamageValue.KEY);
-                        damagevalue1.setData(damagevalue1.getData() + damagevalue2.getData());
-                        actor1.put(DamageValue.KEY, damagevalue1);
-                    }
-                    else{
-                        actor1.put(DamageLifetime.KEY, damagelifetime2);
-                        actor1.put(DamageValue.KEY, damagevalue2);
-                        SM.addComponent(pid1, damagelifetime2);
-                        SM.addComponent(pid2, damagevalue2);
-                    }
-                }
-            }
-
-            if(actor2 != null && actor2.containsKey(Health.KEY)){
-                if(actor1 != null && actor1.containsKey(DamageLifetime.KEY) && actor1.containsKey(DamageValue.KEY)){
-                    DamageLifetime damagelifetime1 = (DamageLifetime)actor1.get(DamageLifetime.KEY);
-                    DamageValue damagevalue1 = (DamageValue)actor1.get(DamageValue.KEY);
-                    if(actor2.containsKey(DamageLifetime.KEY)){
-                        DamageValue damagevalue2 = (DamageValue)actor2.get(DamageValue.KEY);
-                        damagevalue2.setData(damagevalue2.getData() + damagevalue1.getData());
-                        actor2.put(DamageValue.KEY, damagevalue2);
-                    }
-                    else{
-                        actor2.put(DamageLifetime.KEY, damagelifetime1);
-                        actor2.put(DamageValue.KEY, damagevalue1);
-                        SM.addComponent(pid2, damagelifetime1);
-                        SM.addComponent(pid2, damagevalue1);
-                    }
-                }
-            }
+            giveDamage(pid1, actor1, pid2, actor2);
+		    giveDamage(pid2, actor2, pid1, actor1);
         };
     }
+    
+    private void giveDamage(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
+		if (player.containsKey(DamageValue.KEY) &&
+				player.containsKey(DamageLifetime.KEY) &&
+				collider.containsKey(Health.KEY)) {
+
+			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
+			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
+
+			sm.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
+			sm.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+		}
+	}
 
     /**
      * @return two new entity maps
