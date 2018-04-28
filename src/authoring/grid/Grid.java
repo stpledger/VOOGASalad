@@ -37,7 +37,7 @@ public class Grid extends GridPane {
 	private int numRows;
 	private int numCols;
 	private List<List<Cell>> cells;
-	private int numberOfCells = 0;
+	private int entityID;
 	private Level level;
 	private ElementFactory eFactory;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -53,10 +53,11 @@ public class Grid extends GridPane {
 		this.cells = new ArrayList<>();
 		this.level = level;
 		this.eFactory = new ElementFactory();
+		this.entityID = 0;
 		for (int i = 0; i < this.numRows; i++) {
 			cells.add(new ArrayList<>());
         		for (int j = 0; j < this.numCols; j++) {
-            		Cell c = new Cell(numberOfCells++);
+            		Cell c = new Cell();
             		setupEntityDrop(c);
             		setupLPVOpen(c);
             		cells.get(i).add(c);
@@ -71,6 +72,10 @@ public class Grid extends GridPane {
 	 */
 	public Grid(Level level) {
 		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, level);
+	}
+	
+	private int getID() {
+		return this.entityID++;
 	}
 	
 	/**
@@ -91,7 +96,7 @@ public class Grid extends GridPane {
 			EntityLoader el = new EntityLoader();
 			ImageView img = new ImageView(db.getImage());
 			try {
-				Entity en = el.buildEntity(c.getNumber(), db.getString());
+				Entity en = el.buildEntity(this.getID(), db.getString());
 				c.setEntity(en);
 				level.addEntity(en);
 				if(en.getType().equals("Noninteractable")) {
@@ -191,7 +196,7 @@ public class Grid extends GridPane {
 		for(int j = 0; j < numTimes; j++) {
 			this.cells.add(new ArrayList<>());
 			for (int i = 0; i < this.numCols; i++) {
-				Cell c = new Cell(numberOfCells++);
+				Cell c = new Cell();
 				this.cells.get(this.numRows).add(c);
 				this.add(c, i, this.numRows);
 			}
@@ -207,7 +212,7 @@ public class Grid extends GridPane {
 	public void addCol(int numTimes) {
 		for(int j = 0; j < numTimes; j++) {
 			for(int i = 0; i < this.numRows; i++) {
-				Cell c = new Cell(numberOfCells++);
+				Cell c = new Cell();
 				this.cells.get(i).add(c);
 				this.add(c, this.numCols, i);
 			}
