@@ -24,7 +24,6 @@ public class Cell extends Pane {
 		this.setPrefWidth(Entity.ENTITY_WIDTH);
 		this.setPrefHeight(Entity.ENTITY_HEIGHT);
 		this.setStyle(DEFAULT_STYLE);
-//		this.number = number;
 	}
 	
 	/**
@@ -41,14 +40,6 @@ public class Cell extends Pane {
 	public void setEntity(Entity entity) {
 		this.entity = entity;
 	}
-	
-//
-//	/**
-//	 * @return the number (ID) of this cell
-//	 */
-//	public int getNumber() {
-//		return this.number;
-//	}
 	
 	/**
 	 * Check if this cell contains an entity.
