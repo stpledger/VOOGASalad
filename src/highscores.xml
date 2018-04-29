@@ -149,7 +149,11 @@
         </GamePlayer.Person>
         <GamePlayer.Person>
           <name>
+<<<<<<< HEAD
             <value></value>
+=======
+            <value>john</value>
+>>>>>>> b5af344395313c1f947fd932a8c749670bb21172
             <valid>true</valid>
             <name></name>
           </name>
