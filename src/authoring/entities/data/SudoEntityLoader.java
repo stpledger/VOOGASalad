@@ -24,13 +24,12 @@ import engine.components.Type;
  *
  */
 public class SudoEntityLoader {
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	private DocumentBuilder documentBuilder;
 	private final String ERROR_MESSAGE = "The component %s is invalid.";
 	private final String COMPONENT_PREFIX = "engine.components.";
 	private final String TYPE = Type.KEY;
-	
+
 	public SudoEntityLoader() {
 		try {
 			documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -38,7 +37,7 @@ public class SudoEntityLoader {
 			//LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 	}
-	
+
 	/**
 	 * Get and build an entity that is represented by a given XML File.
 	 * @param entityName the name of the entity to pull the xml file for
@@ -66,7 +65,7 @@ public class SudoEntityLoader {
 		result[1] = sudoComponents;
 		return result;
 	}	
-	
+
 	/**
 	 * Get the root element of an xml file to parse
 	 * @param XMLFile the xml file to parse
@@ -83,7 +82,7 @@ public class SudoEntityLoader {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Get the text value contained within an XML element.
 	 * @param e the element to be queried
@@ -93,12 +92,12 @@ public class SudoEntityLoader {
 	private String getTextValue(Element e, String name) {
 		NodeList nList = e.getElementsByTagName(name);
 		if (nList != null && nList.getLength() > 0) {
-            return nList.item(0).getTextContent();
-        } else {
-        		throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW, name);
-        }
+			return nList.item(0).getTextContent();
+		} else {
+			throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW, name);
+		}
 	}
-	
+
 	/**
 	 * Given the root of the xml document, extract the type of the entity, which is necessary to instantiate it.
 	 * @param root the root of the xml document

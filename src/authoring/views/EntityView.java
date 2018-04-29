@@ -3,8 +3,6 @@ package authoring.views;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,7 +11,6 @@ import java.util.Properties;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import authoring.entities.data.EntityLoader;
 import authoring.entities.data.PackageExplorer;
 import authoring.entities.data.SudoEntityLoader;
 import authoring.factories.Toolbar;
@@ -35,7 +32,7 @@ public class EntityView extends BorderPane implements AuthoringPane {
 	private ArrayList<String> entityTypes = new ArrayList<>();
 	private TabPane tabPane = new TabPane();
 	private Properties lang = new Properties();
-	
+
 
 	public EntityView() {
 		super();
@@ -58,7 +55,7 @@ public class EntityView extends BorderPane implements AuthoringPane {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	/**
@@ -105,7 +102,7 @@ public class EntityView extends BorderPane implements AuthoringPane {
 			}
 		}
 	}
-	
+
 	private boolean hasTab(String entityType) {
 		for(Tab t : tabPane.getTabs()) {
 			if(t.getId().equals(entityType)) {
@@ -121,7 +118,7 @@ public class EntityView extends BorderPane implements AuthoringPane {
 		File entityFile = fileChooser.showOpenDialog(this.getScene().getWindow());	
 		loadEntityFromFile(entityFile);
 	}
-	
+
 	public void loadEntityFromFile(File entityFile) {
 		SudoEntityLoader entityLoader = new SudoEntityLoader();
 		try {
