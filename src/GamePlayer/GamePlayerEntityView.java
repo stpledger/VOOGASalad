@@ -180,7 +180,8 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	public void initializeGamePlayerEntityView() {
 		try {
 			gameInitializer = new GameInitializer(IntLevels.get(ActiveLevel),
-					Math.max(PANE_HEIGHT, PANE_WIDTH), ActivePlayerPosX.getData(), ActivePlayerPosY.getData());
+					Math.max(PANE_HEIGHT, 1000000)
+					, ActivePlayerPosX.getData(), ActivePlayerPosY.getData());
 			//gameInitializer = new GameInitializer(IntLevels.get(0)); //gets the first level map.
 		} catch (FileNotFoundException e) {
 			System.out.println("ActiveEntities not initialized");

@@ -19,12 +19,13 @@ import engine.systems.collisions.CollisionDirection;
  */
 public class KeyInput extends Conditional implements BehaviorComponent {
 
-	private Map<KeyCode, Consumer<Map<String, Component>>> codes = new HashMap<>();
+	private Map<KeyCode, Consumer<Map<String, Component>>> codes;
 
 	public static String KEY = "KeyInput";
 	
 	public KeyInput(int pid) {
 		super(pid);
+		codes = new HashMap<>();
 	}
 
 	public boolean containsCode (KeyCode key) {
@@ -40,6 +41,7 @@ public class KeyInput extends Conditional implements BehaviorComponent {
 	 */
 	public void addCode (KeyCode code, Consumer<Map<String, Component>> con) {
 		codes.put(code, con);
+		System.out.println(codes.toString());
 	}
 
 	/*public void action(KeyCode key) {
@@ -59,7 +61,6 @@ public class KeyInput extends Conditional implements BehaviorComponent {
         			return entityMap;
         		});
         		this.evaluate();*/
-        		
         		codes.get(key).accept(entityMap);
         	}
         });

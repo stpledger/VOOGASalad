@@ -28,7 +28,7 @@ public abstract class PropertiesView {
 	private Stage stage;
 	private ElementFactory eFactory = new ElementFactory();
 	protected ArrayList<Element> elements = new ArrayList<>();
-	
+
 	private Properties language = new Properties();
 
 	/**
@@ -53,19 +53,18 @@ public abstract class PropertiesView {
 		stage.show();
 		this.fill();
 	}
-	
+
 	public void close() {
 		stage.close();
 	}
-	
-	
+
 	protected Alert makeAlert(String content) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
 		alert.setContentText(content);
 		alert.show();
 		return alert;
 	}
-	
+
 	/**
 	 * Fills the window with the appropriate names and fields.
 	 * @param fields a map with component names that map {@code true} if the box should be strictly numeric, and {@code false} if not.
@@ -77,34 +76,33 @@ public abstract class PropertiesView {
 	 * @return the title of the window.
 	 */
 	protected abstract String title();
-    
-    /**
-     * Gets and returns the JavaFX-related root of the {@code PropertiesView}.
-     * @return the {@code GridPane} root.
-     */
+
+	/**
+	 * Gets and returns the JavaFX-related root of the {@code PropertiesView}.
+	 * @return the {@code GridPane} root.
+	 */
 	protected GridPane getRoot() {
 		return this.root;
 	}
-	
+
 	protected ResourceBundle getResourcesBundle(String props) {
 		return ResourceBundle.getBundle(PropertiesView.RESOURCES+props);
 	}
-	
+
 	protected ResourceBundle getButtonBundle() {
 		return ResourceBundle.getBundle(PropertiesView.BUTTON_RESOURCES);
 	}
-	
+
 	protected ElementFactory getElementFactory() {
 		return this.eFactory;
 	}
-	
+
 	public void setLanguage(Properties lang) {
 		language = lang;
 		System.out.println(elements.size());
 		for(Element e : elements) {
 			e.setLanguage(language);
 		}
-		
 	}
 
 }

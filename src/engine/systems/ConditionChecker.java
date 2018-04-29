@@ -16,9 +16,7 @@ public class ConditionChecker implements ISystem {
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
         if (components.containsKey(Conditional.KEY)) {
-            Map<String, Component> newComponents = new HashMap<>();
-            newComponents.put(Conditional.KEY, components.get(Conditional.KEY));
-            handledComponents.put(pid, newComponents);
+            handledComponents.put(pid, components);
         }
     }
 

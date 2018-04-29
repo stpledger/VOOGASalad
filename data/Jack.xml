@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="Jack"><DamageLifetime>0.0</DamageLifetime><Sprite>8Bit.png</Sprite><Type>User</Type><XAcceleration>0.0</XAcceleration><YAcceleration>50.0</YAcceleration><DamageValue>0.0</DamageValue><YVelocity>0.0</YVelocity><Health>100.0</Health><XVelocity>0.0</XVelocity><Name>Jack</Name></Entity>

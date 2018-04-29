@@ -19,6 +19,8 @@ import engine.components.groups.Damage;
 import engine.components.groups.Dimension;
 import engine.components.groups.Position;
 import engine.components.groups.Velocity;
+import engine.components.presets.PlayerMovement;
+
 import java.util.function.BiConsumer;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
@@ -36,7 +38,7 @@ public class TestGameState {
 		entities = new HashMap<>();
 		//ActionReader AR = new ActionReader();
 		
-		Sprite s = new Sprite(0,"Blob_Walk.png");
+		Sprite s = new Sprite(0,"braid.png");
 		//Sprite s4 = new Sprite(3,"mario.png");
 
 		Sprite s4 = new Sprite(3,"8Bit.png");
@@ -52,8 +54,8 @@ public class TestGameState {
 		Animated a = new Animated(0);
 		XAcceleration ax = new XAcceleration(0, 0);
 		YAcceleration ay = new YAcceleration(0,40);
-		KeyInput k = new KeyInput(0);
-		k.addCode( KeyCode.RIGHT, (Consumer<Map<String,Component>> & Serializable) (map) -> {
+		//KeyInput k = new KeyInput(0);
+		/*k.addCode( KeyCode.RIGHT, (Consumer<Map<String,Component>> & Serializable) (map) -> {
 			Actions.moveRight(100).accept(map);
 			//Actions.animateSprite("braid.png", 1000, 27, 7, 0, 0, 75, 85).accept(map);
 			if(!s.isPlaying()) 	s.animate(1000, 24, 6, 0, 0, 93, 158);//s.animate(1000, 27, 7, 0, 0, 75, 85);	
@@ -80,8 +82,10 @@ public class TestGameState {
 		k.addCode(KeyCode.SPACE,(Consumer & Serializable) (e) ->
 		{
 			vx.setData(0);
-		});
+		});*/
 
+		KeyInput k = new PlayerMovement(0, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN);
+		
 		Health health = new Health(0,50);
 		DamageValue damage = new DamageValue(0, 10);
 		DamageLifetime dl = new DamageLifetime(0,1);
@@ -219,9 +223,9 @@ public class TestGameState {
 		mario4.put(DamageLifetime.KEY, dl4);
 
 		entities.put(0, mario);
-		entities.put(1, mario2);
+		//entities.put(1, mario2);
 		//entities.put(2, mario3);
-		entities.put(3, mario4);
+		//entities.put(3, mario4);
 		GameInitializer gi = new GameInitializer(entities, 300, 50, 50);
 		ih = gi.getInputHandler();
 		eng = new InternalEngine(gi.getSystems());
