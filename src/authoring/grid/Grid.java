@@ -34,9 +34,9 @@ public class Grid extends GridPane {
 	private static final int DEFAULT_HEIGHT = 600;
 	private static final int ADD_FIVE = 5;
 	private static final int ADD_ONE = 1;
-
-	private final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
-	private final String DRAGGED_OVER_STYLE = "-fx-background-color: #1CFEBA";
+	private static final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
+	private static final String DRAGGED_OVER_STYLE = "-fx-background-color: #1CFEBA";
+	private static final String NON_INTERACT = "Noninteractable";
 
 	private int numRows;
 	private int numCols;
@@ -44,7 +44,6 @@ public class Grid extends GridPane {
 	private int entityID;
 	private Level level;
 	private ElementFactory eFactory;
-	private final String NON_INTERACT = "Noninteractable";
 
 	/**
 	 * Initializes the grid with a given number of rows and columns
@@ -139,8 +138,8 @@ public class Grid extends GridPane {
 						if(c.getEntity().getType().equals(NON_INTERACT)) {
 							MenuItem addImageCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addImageCol(c, (ImageView) c.getChildren().get(0), 1));
 							MenuItem addImageRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addImageRow(c, (ImageView) c.getChildren().get(0), 1));
-							MenuItem addImageFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addImageCol(c, (ImageView) c.getChildren().get(0), 5));
-							MenuItem addImageFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Rows", e2->this.addImageRow(c, (ImageView) c.getChildren().get(0), 5));
+							MenuItem addImageFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addImageCol(c, (ImageView) c.getChildren().get(0), ADD_FIVE));
+							MenuItem addImageFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Rows", e2->this.addImageRow(c, (ImageView) c.getChildren().get(0), ADD_FIVE));
 							MenuItem removeImageCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Column", e2->this.addImageCol(c, (ImageView) c.getChildren().get(0), -1));
 							MenuItem removeImageRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Row", e2->this.addImageRow(c, (ImageView) c.getChildren().get(0), -1));
 							cMenu.getItems().addAll(addImageCol, addImageRow, addImageFiveCol, addImageFiveRow, removeImageCol, removeImageRow);
