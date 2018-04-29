@@ -10,5 +10,4 @@ public interface ReadDataComponent {
 	public double getData();
 	public int getPID();
 	public String getKey();
-	
 }

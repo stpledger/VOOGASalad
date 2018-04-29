@@ -3,7 +3,7 @@ package engine.components;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
-public class Win extends SingleDataComponent {
+public class Win extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 	public static String KEY = "WIN";
 	private BooleanProperty winStatus = new SimpleBooleanProperty();
 	

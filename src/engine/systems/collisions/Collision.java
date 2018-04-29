@@ -14,8 +14,8 @@ import engine.components.XPosition;
 import engine.components.XVelocity;
 import engine.components.YPosition;
 import engine.components.YVelocity;
-import engine.setup.SystemManager;
 import engine.systems.DefaultSystem;
+
 
 public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();

@@ -13,6 +13,13 @@ import engine.components.Sprite;
 import engine.components.YPosition;
 import javafx.scene.input.KeyCode;
 
+/**
+ * Presets made for final demo/authoring.
+ * Contains more advanced game logic that can be expanded on, but is not included in systems.
+ * In this way, more "advanced" game makers can add their own code.
+ * @author fitzj
+ *
+ */
 public class PlayerMovement extends KeyInput {
 
 	private boolean crouched;
@@ -20,16 +27,20 @@ public class PlayerMovement extends KeyInput {
 	@SuppressWarnings("unchecked")
 	public PlayerMovement(int pid, KeyCode left, KeyCode right, KeyCode up, KeyCode down) {
 		super(pid);
+		
+		
+		
+		
 		crouched = false;
 		timing = System.currentTimeMillis();
+		
+		
+		
 		this.addCode(left, (Serializable & Consumer<Map<String,Component>>) (map) -> {
 			Actions.moveLeft(100).accept(map);
 			if(map.containsKey(Sprite.KEY)) {
 				Sprite s = (Sprite) map.get(Sprite.KEY);
-				if(!s.isPlaying()) {
-					//s.setData(".png");
-					//s.animate(1000, 27, 7, 0, 0, 75, 85);
-				}
+				
 				s.getImage().setScaleX(-1);
 			}
 		});
@@ -38,10 +49,7 @@ public class PlayerMovement extends KeyInput {
 			Actions.moveRight(100).accept(map);
 			if(map.containsKey(Sprite.KEY)) {
 				Sprite s = (Sprite) map.get(Sprite.KEY);
-				if(!s.isPlaying()) {
-					//s.setData("braid.png");
-					//s.animate(1000, 27, 7, 0, 0, 75, 85);
-				}
+				
 				s.getImage().setScaleX(1);
 			}
 		});

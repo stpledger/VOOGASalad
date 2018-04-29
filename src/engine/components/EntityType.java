@@ -1,6 +1,6 @@
 package engine.components;
 
-public class EntityType extends SingleStringComponent{
+public class EntityType extends SingleStringComponent  implements Component, StringComponent, ReadStringComponent {
 
 	public static final String KEY = "EntityType";
 

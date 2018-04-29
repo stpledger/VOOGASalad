@@ -68,7 +68,7 @@ public class Animate implements ISystem {
             		if(Math.abs(((XVelocity) components.get(XVelocity.KEY)).getData()) < 1) {
             			s.pauseAnimation();
             		} else {
-            			if(!s.isPlaying()) s.animate(1000, 27, 7, 0, 0, 75, 85);
+            			if(!s.isPlaying()) s.animate(1000, 24, 6, 0, 0, 93, 158);//s.animate(1000, 27, 7, 0, 0, 75, 85);
             		}
             	}
             }

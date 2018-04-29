@@ -5,7 +5,7 @@ package engine.components;
  * @author fitzj
  *
  */
-public class Lives extends SingleDataComponent {
+public class Lives extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 
 	public static final String KEY = "Lives";
 	
