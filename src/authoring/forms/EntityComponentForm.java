@@ -12,7 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 public class EntityComponentForm extends AbstractComponentForm implements ComponentForm {
-	
+
 	ElementFactory eFactory = new ElementFactory();
 	ArrayList<Element> elements = new ArrayList<>();
 	/**

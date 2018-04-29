@@ -21,7 +21,7 @@ import javafx.scene.Scene;
  */
 public class MainApplication extends Application {
 	Stage mainStage; 
-	
+
 	Consumer<Scene> changeScene = newScene -> {
 		mainStage.setScene(newScene);
 		mainStage.sizeToScene();
@@ -39,16 +39,16 @@ public class MainApplication extends Application {
 		File imageFile = new File("src/mystery.jpg");
 		Image image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 		mainStage.getIcons().add(image);
-        mainStage.setScene(s);
-        mainStage.sizeToScene();
-        mainStage.show();
-        mainStage.centerOnScreen();
+		mainStage.setScene(s);
+		mainStage.sizeToScene();
+		mainStage.show();
+		mainStage.centerOnScreen();
 	}
-	
-	
+
+
 	public static void main(String[] args) {
-        launch(args);
-    }
+		launch(args);
+	}
 
 }
 

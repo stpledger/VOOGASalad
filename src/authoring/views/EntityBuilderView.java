@@ -10,7 +10,6 @@ import java.util.Properties;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
-
 import javax.imageio.ImageIO;
 import authoring.MainApplication;
 import authoring.entities.data.EntityBuilderData;
@@ -49,7 +48,7 @@ public class EntityBuilderView extends Stage {
 	private ImageView entityPreview;
 	private ElementFactory eFactory;
 	private EntityComponentFormCollection componentFormCollection;
-	
+
 	private EntityBuilderData data;
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -76,7 +75,7 @@ public class EntityBuilderView extends Stage {
 		this.build();
 		this.open();
 	}
-	
+
 	/**
 	 * Builds the view to be displayed
 	 */
@@ -141,7 +140,7 @@ public class EntityBuilderView extends Stage {
 		}
 		return comboBox;
 	}
-	
+
 	private String getRealName(String selectedItem) {
 		String typeName = null;
 		for(Object t : language.keySet()) {
@@ -151,7 +150,7 @@ public class EntityBuilderView extends Stage {
 		}
 		return typeName;
 	}
-	
+
 	/**
 	 * Builds the menu on the buttom of the screen containing the save button
 	 * @return HBox bottomMenu
@@ -159,16 +158,16 @@ public class EntityBuilderView extends Stage {
 	 */
 	private HBox buildSingleButtonMenu(String name, Consumer onClick) throws Exception {
 		HBox hBox = new HBox();
-			Button b = (Button) eFactory.buildClickElement(ClickElementType.Button, name, onClick);
-			b.setText(language.getProperty(name));
-			b.setTooltip(new Tooltip(tooltipProperties.getProperty(name)));
-			b.getStyleClass().addAll("entity-builder-view-button",name);
-			hBox.setAlignment(Pos.CENTER);
-			hBox.getStyleClass().add("toolbar");
-			hBox.getChildren().add(b);
-			return hBox;
+		Button b = (Button) eFactory.buildClickElement(ClickElementType.Button, name, onClick);
+		b.setText(language.getProperty(name));
+		b.setTooltip(new Tooltip(tooltipProperties.getProperty(name)));
+		b.getStyleClass().addAll("entity-builder-view-button",name);
+		hBox.setAlignment(Pos.CENTER);
+		hBox.getStyleClass().add("toolbar");
+		hBox.getChildren().add(b);
+		return hBox;
 	}
-	
+
 
 	/**
 	 * Saves the current entity
@@ -201,5 +200,5 @@ public class EntityBuilderView extends Stage {
 			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}
 	}
-	
+
 }

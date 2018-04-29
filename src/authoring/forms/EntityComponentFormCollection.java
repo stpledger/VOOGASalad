@@ -17,6 +17,7 @@ import javafx.geometry.Pos;
  *
  */
 public class EntityComponentFormCollection extends AbstractComponentFormCollection {
+
 	
 	public EntityComponentFormCollection() {
 		super(EntityComponentForm.class);
@@ -24,29 +25,18 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 	
 	public EntityComponentFormCollection(String[] newExceptions, Consumer onSave) {
 		super(newExceptions, onSave, EntityComponentForm.class);	
+
 	}
 
 	@Override
 	protected void save(Consumer c) {
 		ArrayList<Object[]> componentsToAdd = new ArrayList<Object[]>();
 		for(ComponentForm cf : this.getActiveForms()) {
-			Component c = (Component) cf.buildComponent();
-			if(!c.getKey().isEmpty() && c.getClass().isInstance(DataComponent.class)) {
-				try {
-					((DataComponent) c).getData();
-					componentsToAdd.add(c);
-				} catch(Exception e) {
-					AuthoringException authorException = new AuthoringException(c.getKey() + "is not a valid integer", AuthoringAlert.SHOW);
-				}
-			} else if (!c.getKey().isEmpty() && c.getClass().isInstance(StringComponent.class)); {
-				componentsToAdd.add(c);
-			}
+			Object[] component = ((EntityComponentForm) cf).buildComponent();
+			componentsToAdd.add(component);	
 		}
 		onSave.accept(componentsToAdd);
 		
 	}
-
-	
-	
 }
 

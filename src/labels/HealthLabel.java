@@ -25,7 +25,7 @@ public class HealthLabel extends Label implements IGameStatusLabel{
 	@Override
 	public double extractGameStateValue(Map<String, Component> playerStatusMap) {
 		Health health = (Health) playerStatusMap.get(Health.KEY);
-		return health.getHealth();
+		return health.getData();
 	}
 
 	@Override

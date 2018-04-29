@@ -29,7 +29,7 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 	protected void save(Consumer onSave) {
 		ArrayList<Component> componentsToAdd = new ArrayList<Component>();
 		for(ComponentForm cf : this.getActiveForms()) {
-			Component c = (Component) cf.buildComponent();
+			Component c = (Component) ((PropertiesComponentForm) cf).buildComponent();
 			if(!c.getKey().isEmpty() && c.getClass().isInstance(DataComponent.class)) {
 				try {
 					((DataComponent) c).getData();

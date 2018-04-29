@@ -1,5 +1,8 @@
 package authoring.grid;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import authoring.entities.Entity;
 import authoring.gamestate.Level;
 import engine.components.StringComponent;
@@ -19,7 +22,7 @@ import javafx.scene.layout.Pane;
 public class Cell extends Pane {
 
 	private final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
-	private Entity entity;
+	private List<Entity> entityList;
 	private Image image;
 	private Level level;
 
@@ -29,53 +32,67 @@ public class Cell extends Pane {
 	 */
 	public Cell(Level level) {
 		this.level = level;
-		this.setEntity(null);
+		this.entityList = new ArrayList<Entity>();
 		this.setPrefWidth(Entity.ENTITY_WIDTH);
 		this.setPrefHeight(Entity.ENTITY_HEIGHT);
 		this.setStyle(DEFAULT_STYLE);
 		this.setUpDrag();
 	}
-	
+
+	/**
+	 * Sets up drag and drop utility which allows user to move entity between cells
+	 */
 	private void setUpDrag() {
 		this.setOnDragDetected(e -> {
 			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
 			ClipboardContent cc = new ClipboardContent();
 			cc.putImage(image);
-			cc.putString(((StringComponent)entity.get("Name")).getData());
+			cc.putString(((StringComponent)this.getEntity().get("Name")).getData());
 			db.setContent(cc);
 			e.consume();
 		});
 		this.setOnDragDone(e ->{
-			this.level.removeEntity(this.entity);
-			this.setEntity(null);
+			this.level.removeEntity(this.getEntity());
+			this.removeEntity(this.getEntity());
 			this.getChildren().clear();
 		});
-		
 	}
 
 	/**
-	 * @return the entity that is within this cell, if it has one
+	 * @return Last entity that was added to the list of entities
 	 */
 	public Entity getEntity() {
-		return entity;
+		return entityList.get(entityList.size()-1);
 	}
 
 	/**
-	 * Set the entity for this cell and marks cell as occupied
+	 * Adds an entity to list of entities
 	 * @param entity the entity to be placed in this cell
 	 */
-	public void setEntity(Entity entity) {
-		this.entity = entity;
+	public void addEntity(Entity entity) {
+		this.entityList.add(entity);
+	}
+
+	/**
+	 * Remove entity from the list of entities in this cell
+	 * @param entity Entity to be removed
+	 */
+	public void removeEntity(Entity entity) {
+		this.entityList.remove(entity);
 	}
 
 	/**
 	 * Check if this cell contains an entity.
-	 * @return true iff the cell contains an entity
+	 * @return true if the cell contains an entity
 	 */
 	public boolean containsEntity() {
-		return this.entity != null;
+		return this.entityList.size()>0;
 	}
 
+	/**
+	 * Sets image for the entity
+	 * @param i Image used to represent the entity
+	 */
 	public void setImage(Image i) {
 		image = i;
 	}

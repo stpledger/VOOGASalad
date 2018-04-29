@@ -26,13 +26,14 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final static String ENTITIES_PACKAGE = "engine.components.";
 	protected Properties language = new Properties();
-	
+
 	ElementFactory eFactory = new ElementFactory();
-	
+
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+
 	private List<ComponentForm> activeForms = new ArrayList<>();
 	private List<String> exceptions;
+
 	
 	protected int currentRow;
 	protected int entityID;
@@ -42,7 +43,7 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 	
 	private Class<?> componentFormType;
 	
-	private Consumer onSave;
+	protected Consumer onSave;
 
 	public AbstractComponentFormCollection(String[] newExceptions, Consumer c, Class cType) {
 		this(cType);
@@ -56,7 +57,7 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 		this.getStyleClass().add("component-form");
 		setExceptions(new ArrayList<>());
 	}
-	
+
 	protected void createAddComponentButton(int row) {
 		try {
 			addComponentButton = (Button) eFactory.buildClickElement(ClickElementType.Button,"AddComponent", onClick->{
@@ -69,7 +70,7 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 			this.setAlignment(Pos.CENTER);
 			this.getParent().getScene().getWindow().sizeToScene();
 		} catch (Exception e) {
-			 LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 	}
 	
@@ -105,13 +106,14 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 	public void setExceptions(List<String> exceptions) {
 		this.exceptions = exceptions;
 	}
-	
+
 	public void setLanguage(Properties lang) {
 		this.language = lang;
 		for(ComponentForm componentForm : activeForms) {
 			componentForm.setLanguage(this.language);
 		}
 	}
+
 	
 	public void setSaveConsumer(Consumer onSave) {
 		saveButton.setOnMouseClicked(e->{
