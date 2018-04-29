@@ -147,11 +147,11 @@ public class DataRead  {
         return xstream.fromXML(xml);
     }
 
-    private static  Animaate getAnimation(String name){
-        File animateDir = loadFile(ANIMATION_PATH);
-        File animateFolder = findInDirectory(animateDir,name);
-
-    }
+//    private static  Animaate getAnimation(String name){
+//        File animateDir = loadFile(ANIMATION_PATH);
+//        File animateFolder = findInDirectory(animateDir,name);
+//
+//    }
 
 
 
