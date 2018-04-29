@@ -75,6 +75,7 @@ public class EntityBuilderView extends Stage {
 		this.build();
 		this.open();
 	}
+	
 	/**
 	 * Builds the view to be displayed
 	 */

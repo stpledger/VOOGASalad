@@ -206,7 +206,6 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		Map<String, Component> player = new HashMap<>(PlayerKeys.get(ActiveLevel));
 		ActivePlayerPosX = (XPosition) player.get(XPosition.KEY);
 		ActivePlayerPosY = (YPosition) player.get(YPosition.KEY);
-
 	}
 	
 

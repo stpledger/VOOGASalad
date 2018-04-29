@@ -13,40 +13,53 @@
           <int>0</int>
           <map>
             <entry>
+              <string>EntityType</string>
+              <engine.components.EntityType>
+                <pid>0</pid>
+                <data>Player</data>
+              </engine.components.EntityType>
+            </entry>
+            <entry>
+              <string>Player</string>
+              <engine.components.Player>
+                <pid>0</pid>
+              </engine.components.Player>
+            </entry>
+            <entry>
               <string>Type</string>
               <engine.components.Type>
                 <pid>0</pid>
-                <data>Block</data>
+                <data>User</data>
               </engine.components.Type>
             </entry>
             <entry>
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>0</pid>
-                <data>300.0</data>
+                <data>100.0</data>
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>0</pid>
-                <data>dirt.jpg</data>
-                <name>dirt.jpg</name>
+                <data>bonn.jpeg</data>
+                <name>bonn.jpeg</name>
               </engine.components.Sprite>
             </entry>
             <entry>
               <string>Health</string>
               <engine.components.Health>
                 <pid>0</pid>
-                <data>50.0</data>
-                <initialHealth>50.0</initialHealth>
+                <data>100.0</data>
+                <initialHealth>100.0</initialHealth>
               </engine.components.Health>
             </entry>
             <entry>
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>0</pid>
-                <data>300.0</data>
+                <data>150.0</data>
               </engine.components.YPosition>
             </entry>
             <entry>
@@ -60,14 +73,14 @@
               <string>Width</string>
               <engine.components.Width>
                 <pid>0</pid>
-                <data>50.0</data>
+                <data>25.0</data>
               </engine.components.Width>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>0</pid>
-                <data>dirt</data>
+                <data>sleenee</data>
               </engine.components.Name>
             </entry>
           </map>
@@ -86,7 +99,7 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>1</pid>
-                <data>450.0</data>
+                <data>200.0</data>
               </engine.components.XPosition>
             </entry>
             <entry>
@@ -109,7 +122,7 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>1</pid>
-                <data>500.0</data>
+                <data>150.0</data>
               </engine.components.YPosition>
             </entry>
             <entry>
@@ -149,7 +162,7 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>2</pid>
-                <data>100.0</data>
+                <data>300.0</data>
               </engine.components.XPosition>
             </entry>
             <entry>
@@ -172,7 +185,7 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>2</pid>
-                <data>0.0</data>
+                <data>150.0</data>
               </engine.components.YPosition>
             </entry>
             <entry>
