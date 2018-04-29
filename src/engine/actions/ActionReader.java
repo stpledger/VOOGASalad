@@ -24,8 +24,7 @@ public class ActionReader {
     private Object[] invokeArgs;
 
     // Scott changed this to suppress errors
-    private static Actions actions = new Actions(new SystemManager(new RenderManager(0, 0, 0)));
-
+    private static Actions actions = new Actions();
 
     /**
      * This is the method which gets the action by having a series of private method calls

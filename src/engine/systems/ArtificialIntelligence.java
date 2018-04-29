@@ -20,9 +20,7 @@ public class ArtificialIntelligence implements  ISystem{
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
         if (components.containsKey(AI.KEY)) {
-            Map<String, Component> newComponents = new HashMap<>();
-            newComponents.put(AI.KEY,components.get(AI.KEY));
-            handledComponents.put(pid, newComponents);
+            handledComponents.put(pid, components);
         }
     }
 
@@ -45,7 +43,7 @@ public class ArtificialIntelligence implements  ISystem{
         for (int id : activeComponents) {
             Map<String, Component> components = handledComponents.get(id);
             AI ai = (AI) components.get(AI.KEY);
-            ai.doAction(time); //calls the AI action
+            ai.doAction(components); //calls the AI action
         }
     }
 
