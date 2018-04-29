@@ -37,8 +37,9 @@ import engine.setup.SystemManager;
  */
 public class Actions {
     private static SystemManager SM;
-    public Actions(SystemManager SM){
-        this.SM = SM;
+
+    public static void addSM (SystemManager sm){
+        SM = sm;
     }
 
     /**

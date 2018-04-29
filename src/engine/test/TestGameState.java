@@ -32,7 +32,6 @@ public class TestGameState {
 
 
 	public TestGameState() throws FileNotFoundException {
-		System.out.println("TestGameState");
 		entities = new HashMap<>();
 		
 		Sprite s = new Sprite(0, "8Bit.png");
@@ -116,7 +115,7 @@ public class TestGameState {
 
 		Position p2 = new Position(1, 100, 300);
 		Dimension d2 = new Dimension(1, 100, 100);
-		Sprite s2 = new Sprite(1,"Mario.png");
+		Sprite s2 = new Sprite(1,"8Bit.png");
 		Collidable collide2 = new Collidable(1);
 		collide.setOnDirection(CollisionDirection.Bot, Actions.damage());
 		collide.setOnDirection(CollisionDirection.Top, Actions.damage());
