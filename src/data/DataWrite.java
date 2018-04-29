@@ -36,7 +36,6 @@ public class DataWrite {
     private static final String ENTITY_PATH = "entity/";
     private static final String HIGHSCORE_FILE = "src/highscores.xml";
 
-    private static String gameName = "DemoDemo";
 
     public static void saveFile(GameState gameState, String fileName) throws Exception {
         //creates an xml file from an authoiring environment this method converts authoring gamestate to player
@@ -73,17 +72,17 @@ public class DataWrite {
         Map<String, List<Person>> people;
         try {
             people = DataRead.loadHighscore();
-            people.get(gameName).add(person);
+            people.get(game).add(person);
             hs = loadFile( HIGHSCORE_FILE);
         } catch (Exception e) {
             people = new HashMap<>();
-            if(!people.containsKey(gameName)){
+            if(!people.containsKey(game)){
                 List<Person> thepeeps = new ArrayList<>();
                 thepeeps.add(person);
-                people.put(gameName,thepeeps);
+                people.put(game,thepeeps);
             }
             else
-                people.get(gameName).add(person);
+                people.get(game).add(person);
             hs = new File(HIGHSCORE_FILE);
         }
         try {
