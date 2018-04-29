@@ -11,6 +11,7 @@ import buttons.IGamePlayerButton;
 import buttons.SwitchGameButton;
 import data.DataGameState;
 import engine.components.Component;
+import engine.components.Win;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -52,8 +53,10 @@ public class GamePlayerController {
 	private Map<Integer, Map<String, Boolean>> HUDPropMap;
 	private Timeline animation;
 	private String currentGameName;
+	// Why is this necessary?
 	private SimpleBooleanProperty gameOver = new SimpleBooleanProperty(false); //Boolean for the game not being over.
 
+	//TODO: REFACTOR SO THE CONTROLLER ACTUALLY DOES ALL OF THE CONTROLLING AND THE VIEW JUST MANAGES THE DISPLAY OF THE GAME
 	public GamePlayerController(Stage stage) {
 		myStage = stage;
 		myStage.setResizable(false);
@@ -71,8 +74,8 @@ public class GamePlayerController {
 		connectButtonsToController();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		assignKeyInputs();
-		return mySplashScene;
-		//return highScore;
+		//return mySplashScene;
+		return highScore;
 		
 	}
 
@@ -118,6 +121,11 @@ public class GamePlayerController {
 		myPane.setBottom(menuBar);
 		sampleBar = new SampleToolBar(LEVEL_ONE, PlayerKeys, HUDPropMap);
 		myPane.setTop(sampleBar);
+		for(Win w : gameView.getWinComponents()){
+			w.getWinStatus().addListener((o, oldVal, newVal) -> {
+				changeGameLevel(gameView.getActiveLevel() + 1);
+			});
+		}
 		initializeGameAnimation(); //begins the animation cycle
 		//set level change listener
 		/*gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
@@ -144,9 +152,14 @@ public class GamePlayerController {
 	 * @param level to be loaded
 	 */
 	public void changeGameLevel(int level) {
-		gameRoot = levelEntityGroupMap.get(level);
-		myPane.setCenter(gameRoot);
-		gameView.setActiveLevel(level);
+		if(level > gameView.getNumOfLevels()){
+			gameOver();
+		}
+		else {
+			gameRoot = levelEntityGroupMap.get(level);
+			myPane.setCenter(gameRoot);
+			gameView.setActiveLevel(level);
+		}
 	}
 
 	public Map<Integer, Pane> getGameLevelRoot(){
@@ -208,4 +221,9 @@ public class GamePlayerController {
 	public void saveGame(){
 		gameView.saveGame();
 	}
+
+	private void gameOver(){
+		//TODO add game over functionality like the high score screen
+	}
+
 }

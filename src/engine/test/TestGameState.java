@@ -63,7 +63,7 @@ public class TestGameState {
 			vx.setData(-50);
 		});
 
-		Health health = new Health(0,10);
+		Health health = new Health(0,50);
 		DamageValue damage = new DamageValue(0, 10);
 		DamageLifetime dl = new DamageLifetime(0,1);
 		

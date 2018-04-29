@@ -14,6 +14,7 @@ public class Background extends NonInteractableEntity{
 	public Background(int ID, String name) {
 		super(ID);
 		this.name = name;
+		addDefaultComponents();
 	}
 
 	protected void addDefaultComponents() {

@@ -11,42 +11,41 @@ import javafx.geometry.Pos;
  *
  */
 public class EntityComponentFormCollection extends AbstractComponentFormCollection {
-	
+
 	int currentRow;
-	
+
 	public EntityComponentFormCollection() {
 		super();
 	}
-	
+
 	public EntityComponentFormCollection(String[] newExceptions) {
 		super(newExceptions);
-		
 	}
-	
+
 	/**
 	 * Creates the forms and returns them as a GridPane
 	 * @return gridPane a gridpane filled with the necessary forms
 	 */
 	public void fillComponentsForms(String entityType) {
 		try {
-		currentRow = 0;
-		this.getChildren().clear();
-		ArrayList<ComponentForm> newActiveForms = new ArrayList<>();
-		for (String property : ResourceBundle.getBundle(getPropertiesPackage() + entityType).keySet()) {
-			if(!getExceptions().contains(property)) {
-				EntityComponentForm cf;
-				
-				cf = new EntityComponentForm(property);
-				
-				cf.setAlignment(Pos.CENTER);
-				newActiveForms.add(cf);
-				this.add(cf, 0, currentRow);
-				currentRow++;
-		
+			currentRow = 0;
+			this.getChildren().clear();
+			ArrayList<ComponentForm> newActiveForms = new ArrayList<>();
+			for (String property : ResourceBundle.getBundle(getPropertiesPackage() + entityType).keySet()) {
+				if(!getExceptions().contains(property)) {
+					EntityComponentForm cf;
+
+					cf = new EntityComponentForm(property);
+
+					cf.setAlignment(Pos.CENTER);
+					newActiveForms.add(cf);
+					this.add(cf, 0, currentRow);
+					currentRow++;
+
+				}
 			}
-		}
-		this.setActiveForms(newActiveForms);
-		this.createAddComponentButton(currentRow);
+			this.setActiveForms(newActiveForms);
+			this.createAddComponentButton(currentRow);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -74,6 +73,6 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 			e.printStackTrace();
 		}
 	}
-	
+
 }
 

@@ -1,11 +1,9 @@
 package authoring.views;
 
+import java.util.Properties;
 import java.util.function.Consumer;
 
 import authoring.entities.Entity;
-import authoring.factories.ClickElementType;
-import authoring.factories.ElementFactory;
-import authoring.factories.ElementType;
 import authoring.gamestate.Level;
 import authoring.grid.Grid;
 import javafx.scene.control.ScrollPane;
@@ -21,6 +19,8 @@ public class LevelView extends ScrollPane {
 	private Level level;
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
+
+	Properties language = new Properties();
 
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
 		this.getStyleClass().add("level-view");
@@ -59,4 +59,10 @@ public class LevelView extends ScrollPane {
 		return this.level;
 	}
 
+	/**
+	 * Sets the language of the levelview
+	 */
+	public void setLanguage(Properties lang) {
+		language = lang;
+	}
 }
