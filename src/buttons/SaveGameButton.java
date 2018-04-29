@@ -1,10 +1,7 @@
 package buttons;
 
 
-import GamePlayer.GamePlayerController;
 import Menu.PauseMenu;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 
 

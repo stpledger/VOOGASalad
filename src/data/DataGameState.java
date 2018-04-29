@@ -9,28 +9,28 @@ import authoring.gamestate.GameState;
 import authoring.gamestate.Level;
 /**
  * @author Conrad 
- * @author Collin Brown(cdb55)
  */
 public class DataGameState {
-    private Map<Level,Map<Integer, Map<String, Component>>> gameState;
-    private String gameName = "data";
-
-    /*@Author Conrad this class represents the complete information that is contained in a 
-     * game-- all levels which contain entities which contain all components 
+    /*@Author Conrad this class represents the complete information that is contained in a
+     * game-- all levels which contain entities which contain all components
      * additionally, this class provides utility methods for converting between authoring and player
      */
-    
-    /*creates a DataGameState from a map sent in from engine or player 
-     */
+
+    private Map<Level,Map<Integer, Map<String, Component>>> gameState;
+
+    private String gameName = "data";
+
     public DataGameState(Map<Level,Map<Integer, Map<String, Component>>> gameState, String gName) {
+        /*creates a DataGameState from a map sent in from engine or player
+         */
         this(gName);
         this.gameState = gameState;
     }
 
-    /*constructor that converts an authoring environment state to a state playable 
-     * by player and engine
-     */
     public DataGameState(GameState gameState, String gName) {
+        /*constructor that converts an authoring environment state to a state playable
+         * by player and engine
+         */
         this(gName);
         for(Level level : gameState.getLevels()) {
             Map<Integer, Map<String, Component>> entityMap = new HashMap<>();
@@ -45,30 +45,29 @@ public class DataGameState {
         }
     }
 
-    /*creates an empty gamestate which holds the place of a null values
-     * useful for errors when loading gamefiles
-     */
     public DataGameState(String gName){
-        this.gameState = new HashMap<Level,Map<Integer, Map<String, Component>>>();
+        /*creates an empty gamestate which holds the place of a null values
+         * useful for errors when loading gamefiles
+         */
+        this.gameState = new HashMap<>();
         gameName = gName;
     }
 
-    /*returns a map in a form that player and authoring engine can take
-     */
     public Map<Level,Map<Integer, Map<String, Component>>> getGameState() {
+        /*returns a map in a form that player and authoring engine can take
+         */
         return gameState;
     }
 
-    /*creates a map that represents the form of authoring's 
-     * game state-- useful for conversion between gamestates TODO clean this up
-     */
     public  Map<Level, Map<Integer,List<Component>>> getGameStateAuthoring() {
+        /*creates a map that represents the form of authoring's
+         * game state-- useful for conversion between gamestates
+         */
         Map<Level, Map<Integer,List<Component>>> authoringState = new HashMap<>();
-
         for(Level level : gameState.keySet()) {
             Map<Integer, List<Component>> entityMap = new HashMap<>();
             for (Integer integer : gameState.get(level).keySet()) {
-                List<Component> components = new ArrayList(gameState.get(level).get(integer).values());
+                ArrayList<Component> components = new ArrayList<>(gameState.get(level).get(integer).values());
                 entityMap.put(integer, components);
                 authoringState.put(level,entityMap);
             }
@@ -76,14 +75,13 @@ public class DataGameState {
         return authoringState;
     }
 
-    //gets name gets .... the name of the file
-	public String getGameName()
-    {
+	public String getGameName(){
+        //gets name gets .... the name of the file
         return gameName;
     }
 
-    //returns the list of all components in the gamestate for data writing
     public List<Component> getComponents() {
+        //returns the list of all components in the gamestate for data writing
         List<Component> componentList = new ArrayList<>();
         for(Map<Integer, Map<String,Component>> level : gameState.values())
             for(Map<String,Component> entity : level.values())
@@ -91,5 +89,4 @@ public class DataGameState {
         return componentList;
     }
 
-	
 }

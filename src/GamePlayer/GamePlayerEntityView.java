@@ -1,4 +1,4 @@
-package GamePlayer;
+package gameplayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -178,14 +178,10 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	 * @throws FileNotFoundException
 	 */
 	public void initializeGamePlayerEntityView() {
-		try {
-			gameInitializer = new GameInitializer(IntLevels.get(ActiveLevel),
-					Math.max(PANE_HEIGHT, 1000000)
-					, ActivePlayerPosX.getData(), ActivePlayerPosY.getData());
-			//gameInitializer = new GameInitializer(IntLevels.get(0)); //gets the first level map.
-		} catch (FileNotFoundException e) {
-			System.out.println("ActiveEntities not initialized");
-		}
+		gameInitializer = new GameInitializer(IntLevels.get(ActiveLevel),
+				Math.max(PANE_HEIGHT, 1000000)
+				, ActivePlayerPosX.getData(), ActivePlayerPosY.getData());
+		//gameInitializer = new GameInitializer(IntLevels.get(0)); //gets the first level map.
 
 		inputHandler = gameInitializer.getInputHandler();
 		renderManager = gameInitializer.getRenderManager();

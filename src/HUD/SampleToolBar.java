@@ -4,22 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import GamePlayer.GamePlayerController;
-import Menu.LevelSelector;
 import engine.components.Component;
-import engine.components.Health;
-import engine.components.Lives;
-import engine.components.Player;
-import engine.components.Score;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
-import labels.HealthLabel;
 import labels.IGameStatusLabel;
-import labels.LivesLabel;
-import labels.ScoreLabel;
-import labels.TimeLabel;
-import labels.VelocityLabel;
 
 public class SampleToolBar extends ToolBar{
 

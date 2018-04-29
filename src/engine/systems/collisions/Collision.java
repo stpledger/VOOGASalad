@@ -92,9 +92,7 @@ public class Collision extends DefaultSystem{
 						
 						if(handledComponents.get(key2).containsKey(Collidable.KEY)) {
 							Collidable cdb = (Collidable) handledComponents.get(key2).get(Collidable.KEY);
-							cdb.setCondition(() -> {
-								return handledComponents.get(key1);
-							}); 
+							
 							CollisionDirection cd2 = null;
 							if(cd == CollisionDirection.Top) cd2 = CollisionDirection.Bot;
 							else if(cd == CollisionDirection.Bot) cd2 = CollisionDirection.Top;
