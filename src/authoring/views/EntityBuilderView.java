@@ -75,6 +75,7 @@ public class EntityBuilderView extends Stage {
 		this.build();
 		this.open();
 	}
+	
 	/**
 	 * Builds the view to be displayed
 	 */
@@ -88,7 +89,7 @@ public class EntityBuilderView extends Stage {
 			this.saveMenu = buildSingleButtonMenu("save", e -> {save();});
 			addImageMenu = buildSingleButtonMenu("addImage", e -> {addImage();});
 			this.entityPreview = new ImageView();
-			updateEntityPreview(new Image("no_image.jpg"));
+			updateEntityPreview(new Image("games/DemoDemo/data/images/no_image.jpg"));
 			this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, componentFormCollection, saveMenu);
 			this.root.getStyleClass().add("entity-builder-view");
 		}  catch (Exception e) {

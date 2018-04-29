@@ -12,6 +12,8 @@ import authoring.gamestate.Level;
 import authoring.views.properties.LocalPropertiesView;
 import authoring.views.properties.PropertiesView;
 import engine.components.Component;
+import engine.components.Height;
+import engine.components.Width;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
@@ -24,13 +26,14 @@ import javafx.scene.layout.GridPane;
  * A container class for all of the cells in a grid, which each represent entities if they are filled.
  * @author Hemanth Yakkali(hy115)
  * @author Dylan Powers
- *
  */
 public class Grid extends GridPane {
 
 	private static final int DEFAULT_WIDTH = 1000;
 	private static final int DEFAULT_HEIGHT = 600;
-	
+	private static final int ADD_FIVE = 5;
+	private static final int ADD_ONE = 1;
+
 	private final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
 	private final String DRAGGED_OVER_STYLE = "-fx-background-color: #1CFEBA";
 
@@ -56,28 +59,23 @@ public class Grid extends GridPane {
 		this.entityID = 0;
 		for (int i = 0; i < this.numRows; i++) {
 			cells.add(new ArrayList<>());
-        		for (int j = 0; j < this.numCols; j++) {
-            		Cell c = new Cell();
-            		setupEntityDrop(c);
-            		setupLPVOpen(c);
-            		cells.get(i).add(c);
-            		this.add(c, j, i);
-            	}
+			for (int j = 0; j < this.numCols; j++) {
+				Cell c = new Cell();
+				setupEntityDrop(c);
+				cells.get(i).add(c);
+				this.add(c, j, i);
+			}
 		}
 		this.setPrefSize(width, height);
 	}
-	
+
 	/**
 	 * Empty constructor, use default values
 	 */
 	public Grid(Level level) {
 		this(DEFAULT_WIDTH, DEFAULT_HEIGHT, level);
 	}
-	
-	private int getID() {
-		return this.entityID++;
-	}
-	
+
 	/**
 	 * Sets up the drag and drop utility used to add entities to the grid.
 	 * @param c Cell to add the mouse click event listener to
@@ -94,30 +92,12 @@ public class Grid extends GridPane {
 		c.setOnDragDropped(e -> {
 			Dragboard db = e.getDragboard();
 			EntityLoader el = new EntityLoader();
-			c.setImage(db.getImage());
 			ImageView img = new ImageView(db.getImage());
 			try {
 				Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(),c.getLayoutY());
 				c.setEntity(en);
+				setupContextMenu(c, img);
 				level.addEntity(en);
-				if(en.getType().equals("Noninteractable")) {
-					System.out.println("cocks!");
-					img.setOnMouseClicked(e1->{
-						if(e1.getClickCount()==2) {
-							ContextMenu cMenu = backgroundMenu(c, img);
-							cMenu.show(this, e1.getScreenX(), e1.getScreenY());
-							cMenu.setAutoHide(true);
-						}
-					});
-				} else {
-					img.setOnMouseClicked(e1->{
-						if(e1.getClickCount()==2) {
-							ContextMenu cMenu = createMenu(c, img);
-							cMenu.show(this, e1.getScreenX(), e1.getScreenY());
-							cMenu.setAutoHide(true);
-						}
-					});
-				}
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
@@ -125,71 +105,100 @@ public class Grid extends GridPane {
 			img.setFitWidth(Entity.ENTITY_WIDTH);
 			img.setFitHeight(Entity.ENTITY_HEIGHT);
 			c.getChildren().add(img);
+			c.setImage(db.getImage());
 			e.setDropCompleted(true);
 			e.consume();
 		});
 	}
-	
-	//TODO use element factory and language properties
-	private ContextMenu createMenu(Cell c, ImageView img) {
-		ContextMenu cMenu = new ContextMenu();
-		MenuItem removeEntity = new MenuItem("Remove Entity");
-		removeEntity.setOnAction(e-> this.clearCell(c));
-		cMenu.getItems().add(removeEntity);
-		return cMenu;
-	}
-	
-	private ContextMenu backgroundMenu(Cell c, ImageView img) {
-		ContextMenu cMenu = new ContextMenu();
-		try {
-			MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addCol(c, img, 1));
-			MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addRow(c, img, 1));
-			MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addCol(c, img, 5));
-			MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Rows", e2->this.addRow(c, img, 5));
-			MenuItem removeCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Column", e2->this.addCol(c, img, -1));
-			MenuItem removeRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Row", e2->this.addRow(c, img, -1));
-			MenuItem removeFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Five Columns", e2->this.addCol(c, img, -5));
-			MenuItem removeFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Five Rows", e2->this.addRow(c, img, -5));
-			MenuItem cancel = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Cancel", e2->cMenu.hide());
-			cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,removeCol,removeRow,removeFiveCol,removeFiveRow,cancel);
-		} catch (Exception e3) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e3.toString(), e3);
-		}
-		return cMenu;
-	}
-	
-	private void addCol(Cell cell, ImageView img, int numTimes) {
-		img.setFitWidth(img.getFitWidth()+numTimes*Entity.ENTITY_WIDTH);
+
+	/**
+	 * Sets up mouse click listener that opens up the context menu for that particular cell.
+	 * @param c Cell 
+	 * @param img ImageView of the entity
+	 */
+	private void setupContextMenu(Cell c, ImageView img) {
+		c.setOnMouseClicked(e -> {
+			if(e.getButton().equals(MouseButton.SECONDARY)) {
+				ContextMenu cMenu = new ContextMenu();
+				try {
+					MenuItem addCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Grid Column", e1->this.addCol(ADD_ONE));
+					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Grid Row", e1->this.addRow(ADD_ONE));
+					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Grid Columns", e1->this.addCol(ADD_FIVE));
+					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Grid Rows", e1->this.addRow(ADD_FIVE));
+					MenuItem close = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Close", e1->cMenu.hide());
+					if(c.containsEntity()) {
+						MenuItem openLPV = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Edit Entity", e1->this.openLPV(c.getEntity()));
+						MenuItem removeEntity = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Entity", e1->this.clearCell(c));
+						cMenu.getItems().addAll(openLPV,removeEntity);
+						if(c.getEntity().getType().equals("Noninteractable")) {
+							MenuItem addImageCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addImageCol(c, img, 1));
+							MenuItem addImageRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addImageRow(c, img, 1));
+							MenuItem addImageFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addImageCol(c, img, 5));
+							MenuItem addImageFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Rows", e2->this.addImageRow(c, img, 5));
+							MenuItem removeImageCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Column", e2->this.addImageCol(c, img, -1));
+							MenuItem removeImageRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Row", e2->this.addImageRow(c, img, -1));
+							cMenu.getItems().addAll(addImageCol, addImageRow, addImageFiveCol, addImageFiveRow, removeImageCol, removeImageRow);
+						}
+					}
+					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,close);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				cMenu.show(c, e.getScreenX(), e.getScreenY());
+				cMenu.setAutoHide(true);
+			}
+		});
 	}
 
-	private void addRow(Cell cell, ImageView img, int numTimes) {
-		img.setFitHeight(img.getFitHeight()+numTimes*Entity.ENTITY_HEIGHT);
+	/**
+	 * Opens up the local properties view for the specific entity.
+	 * @param en Entity 
+	 */
+	private void openLPV(Entity en) {
+		PropertiesView pv = new LocalPropertiesView(en, componentList ->  {
+			for (Component comp : componentList) {
+				en.add(comp);
+			}
+		});
+		pv.open();
 	}
-	
+
+	/**
+	 * Adds a specified number of columns to the entity. Should only be used for non-interactable
+	 * entities.
+	 * @param c Cell
+	 * @param img ImageView of an entity
+	 * @param numCols Number of columns to add
+	 */
+	private void addImageCol(Cell c, ImageView img, int numCols) {
+		img.setFitWidth(img.getFitWidth()+numCols*Entity.ENTITY_WIDTH);
+		Entity en = c.getEntity();
+		en.add(new Width(en.getID(),img.getFitWidth()));
+	}
+
+	/**
+	 * Adds a specified number of rows to the entity. Should only be used for non-interactable
+	 * entities.
+	 * @param c Cell
+	 * @param img ImageView of an entity
+	 * @param numRows Number of rows to add
+	 */
+	private void addImageRow(Cell c, ImageView img, int numRows) {
+		img.setFitHeight(img.getFitHeight()+numRows*Entity.ENTITY_HEIGHT);
+		Entity en = c.getEntity();
+		en.add(new Height(en.getID(),img.getFitHeight()));
+	}
+
+	/**
+	 * Removes image from the cell and removes entity from level object
+	 * @param c Cell
+	 */
 	private void clearCell(Cell c) {
 		level.removeEntity(c.getEntity());
 		c.getChildren().clear();
 	}
 
-	/**
-	 * Sets up mouse click listener which when triggered, opens the local properties view.
-	 * @param c Cell to add the mouse click event listener to
-	 */
-	private void setupLPVOpen(Cell c) {
-		c.setOnMouseClicked(e1 -> {
-			if (e1.getButton().equals(MouseButton.SECONDARY)) {
-				if (c.containsEntity()) {
-					PropertiesView pv = new LocalPropertiesView(c.getEntity(), componentList ->  {
-						for (Component comp : componentList) {
-							c.getEntity().add(comp);
-						}
-					});
-					pv.open();
-				}
-			}
-		});
-	}
-	
 	/**
 	 * Adds new row of cells to the grid
 	 * @param numTimes Number of rows to add
@@ -221,6 +230,14 @@ public class Grid extends GridPane {
 			this.setPrefWidth(this.getPrefWidth() + Entity.ENTITY_WIDTH);
 			this.numCols++;
 		}
+	}
+
+	/**
+	 * Creates the next ID to be used when creating a new entity
+	 * @return Next ID for the next entity
+	 */
+	private int getID() {
+		return this.entityID++;
 	}
 
 }

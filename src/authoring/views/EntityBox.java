@@ -8,7 +8,6 @@ import engine.components.Sprite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
@@ -45,7 +44,7 @@ public class EntityBox extends VBox {
 	}
 
 	private void setPreview() {
-		image = DataRead.addImage((String) componentAttributes.get(Sprite.class)[0]);
+		image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 		imageView = new ImageView(image);
 		imageView.setFitHeight(boxDimension-IMAGE_BUFFER);
 		imageView.setFitWidth(boxDimension-IMAGE_BUFFER);

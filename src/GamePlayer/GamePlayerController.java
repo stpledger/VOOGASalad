@@ -16,11 +16,14 @@ import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import javafx.scene.image.ImageView;
 
 public class GamePlayerController {
 	private final int WIDTH_SIZE = 800;
@@ -48,6 +51,7 @@ public class GamePlayerController {
 	private SampleToolBar sampleBar;
 	private Map<Integer, Map<String, Boolean>> HUDPropMap;
 	private Timeline animation;
+	private String currentGameName;
 	private SimpleBooleanProperty gameOver = new SimpleBooleanProperty(false); //Boolean for the game not being over.
 
 	public GamePlayerController(Stage stage) {
@@ -57,8 +61,11 @@ public class GamePlayerController {
 
 	public Scene initializeStartScene() {
 		//Testing HighScore Screen
-		HighScoreView highScoreScreen = new HighScoreView();
-		Scene highScore = highScoreScreen.getScene();
+//		HighScoreView highScoreScreen = new HighScoreView();
+//		currentGameName = "DemoDemo";
+//		highScoreScreen.setGameName(currentGameName);
+//		highScoreScreen.setScore(100.0);
+		//Scene highScore = highScoreScreen.getScene();
 		gamePlayerSplash = new SplashScreenView();
 		mySplashScene = gamePlayerSplash.getScene();
 		connectButtonsToController();
@@ -77,6 +84,7 @@ public class GamePlayerController {
 		for (IGamePlayerButton b : gameSelectButtonList) {
 			((GameSelectButton) b).getGameSelectBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 				currentGameState = ((GameSelectButton) b).getGameState();
+				currentGameName = currentGameState.getGameName();
 				setGameView(currentGameState);
 				myStage.setScene(myScene);
 			});
@@ -166,11 +174,11 @@ public class GamePlayerController {
 	}
 
 	
-	public void setHighScoreView() {
-		HighScoreView highScoreScreen = new HighScoreView();
-		Scene highScore = highScoreScreen.getScene();
-		myStage.setScene(highScore);
-	}
+//	public void setHighScoreView() {
+//		HighScoreView highScoreScreen = new HighScoreView();
+//		Scene highScore = highScoreScreen.getScene();
+//		myStage.setScene(highScore);
+//	}
 	
 	public void restartGame() {
 		setGameView(currentGameState);

@@ -1,16 +1,12 @@
 package authoring.entities.componentbuilders;
 
 import engine.components.Component;
-import engine.components.DataComponent;
 import engine.components.SingleDataComponent;
-import engine.components.StringComponent;
 
 import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 /**
  * Class to build a sprite from a given image path
  * @author dylanpowers
