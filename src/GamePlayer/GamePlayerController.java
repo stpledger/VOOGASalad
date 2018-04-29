@@ -68,8 +68,8 @@ public class GamePlayerController {
 		connectButtonsToController();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		assignKeyInputs();
-		return mySplashScene;
-		//return highScore;
+		//return mySplashScene;
+		return highScore;
 		
 	}
 
