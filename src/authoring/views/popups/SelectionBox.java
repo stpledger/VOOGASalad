@@ -21,19 +21,20 @@ import javafx.stage.Stage;
  *
  */
 public class SelectionBox extends VBox implements PopUp {
-	
+
 	Properties language = new Properties();
 	ArrayList<Element> elements = new ArrayList<>();
 	String selection = "";
 	Stage stage;
-	
+
 	ElementFactory eFactory = new ElementFactory();
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+
 	public SelectionBox(String[] options, String[] exceptions, Consumer consumer){
 		this.fill(options, consumer, exceptions);
 		this.show();
 	}
+	
 	/**
 	 * Builds the list of options
 	 * @param options
@@ -42,17 +43,17 @@ public class SelectionBox extends VBox implements PopUp {
 		for(String o: options) {
 			if (!Arrays.asList(exceptions).contains(o)) {
 				try {
-				Label label = (Label) eFactory.buildElement(ElementType.Label, o);
-				label.getStyleClass().add("selection-label");
-				label.setAlignment(Pos.CENTER);
-				label.setPrefWidth(200);
-				label.setOnMouseClicked(e->{
-					selection = label.getId();
-					onClose(consumer);
-					stage.close();
-				});
-				this.getChildren().add(label);
-				elements.add((Element) label);
+					Label label = (Label) eFactory.buildElement(ElementType.Label, o);
+					label.getStyleClass().add("selection-label");
+					label.setAlignment(Pos.CENTER);
+					label.setPrefWidth(200);
+					label.setOnMouseClicked(e->{
+						selection = label.getId();
+						onClose(consumer);
+						stage.close();
+					});
+					this.getChildren().add(label);
+					elements.add((Element) label);
 				} catch (Exception e) {
 					LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 				}
@@ -68,14 +69,11 @@ public class SelectionBox extends VBox implements PopUp {
 		stage.getScene().getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		stage.show();
 		stage.sizeToScene();
-		
-		
 	}
 
 	@Override
 	public void onClose(Consumer consumer) {
 		consumer.accept(selection);
-		
 	}
 
 	public void setLanguage(Properties lang) {
@@ -83,7 +81,5 @@ public class SelectionBox extends VBox implements PopUp {
 		for(Element e: elements) {
 			e.setLanguage(language);
 		}
-		
-		
 	}
 }
