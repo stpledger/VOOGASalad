@@ -1,16 +1,7 @@
 package engine.actions;
 
 import authoring.entities.Entity;
-import engine.components.Health;
-import engine.components.Component;
-import engine.components.Player;
-import engine.components.Score;
-import engine.components.XAcceleration;
-import engine.components.XPosition;
-import engine.components.YPosition;
-import engine.components.XVelocity;
-import engine.components.YAcceleration;
-import engine.components.YVelocity;
+import engine.components.*;
 import engine.components.groups.Position;
 import engine.components.groups.Velocity;
 
@@ -24,9 +15,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import engine.components.DamageValue;
-import engine.components.DamageLifetime;
-import engine.components.Sprite;
+
 import engine.setup.SystemManager;
 
 /**
@@ -211,8 +200,14 @@ public class Actions {
      */
     public static BiConsumer<Map<String, Component>, Map<String, Component>> damage(){
         return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
-			giveDamage(actor1, actor2);
-			giveDamage(actor2, actor1);
+			if (actor1.containsKey(EntityType.KEY) && actor2.containsKey(EntityType.KEY)) {
+				EntityType e1 = (EntityType) actor1.get(EntityType.KEY);
+				EntityType e2 = (EntityType) actor1.get(EntityType.KEY);
+				if (!e1.getData().equals(e2.getData())) {
+					giveDamage(actor1, actor2);
+				}
+			}
+        	else giveDamage(actor1, actor2);
 		};
     }
     
@@ -248,21 +243,20 @@ public class Actions {
     /**
      * This would be an AI component that has an enemy follow you
      * @param followed Player/entity being followed
-     * @param tracker  Enemy/entity tracking the followed
      * @return action which result in the tracker moving towards the followed
      */
-    public static Consumer followsYou (Entity followed, Entity tracker) {
+    public static Consumer<Map <String, Component>> followsYou (Map<String, Component> followed, double speed) {
         XPosition px = (XPosition) followed.get(XPosition.KEY);
         YPosition py = (YPosition) followed.get(YPosition.KEY);
-        XPosition tx = (XPosition) tracker.get(XPosition.KEY);
-        YPosition ty = (YPosition) followed.get(YPosition.KEY);
-        XVelocity vx = (XVelocity) tracker.get(XVelocity.KEY);
-        YVelocity vy = (YVelocity) tracker.get(YVelocity.KEY);
 
-        return (Serializable & Consumer) (time) -> {
-            Double myTime = (Double) time;
-            vx.setData((px.getData() - tx.getData()) * myTime * 10);
-            vy.setData((py.getData() - ty.getData()) * myTime * 10);
+        return (Serializable & Consumer<Map <String, Component>>) (tracker) -> {
+			XPosition tx = (XPosition) tracker.get(XPosition.KEY);
+			YPosition ty = (YPosition) tracker.get(YPosition.KEY);
+			XVelocity vx = (XVelocity) tracker.get(XVelocity.KEY);
+			YVelocity vy = (YVelocity) tracker.get(YVelocity.KEY);
+
+            vx.setData((px.getData() - tx.getData())* speed);
+            vy.setData((py.getData() - ty.getData()) * speed);
         };
     }
 
@@ -270,18 +264,17 @@ public class Actions {
      * A patrol action to be given to an AI component for enemies, blocks, etc. Goes to the given coordinates in
      * order then repeats.
      *
-     * @param actor The entity moving around
      * @param coordinates The positions the entity will visit
      * @return the actions which performs this method
      */
-    public static Consumer patrol(Map<String, Component> actor, List<Point> coordinates) {
-        Velocity v = (Velocity) actor.get(Velocity.KEY);
-        Position p = (Position) actor.get(Position.KEY);
-
+    public static Consumer<Map <String, Component>> patrol(List<Point> coordinates) {
         AtomicReference<Point> destination = new AtomicReference<>(coordinates.get(0));
         AtomicInteger current = new AtomicInteger();
 
-        return (Serializable & Consumer) (time) -> {
+        return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+			Velocity v = (Velocity) actor.get(Velocity.KEY);
+			Position p = (Position) actor.get(Position.KEY);
+
             v.setXVel((destination.get().getX()-p.getXPos())/
 					(distance(p.getXPos(), p.getYPos(), destination.get().getX(), destination.get().getY()) * 100));
             v.setYVel((destination.get().getY()-p.getYPos())/

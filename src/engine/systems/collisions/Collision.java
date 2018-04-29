@@ -148,7 +148,7 @@ public class Collision extends DefaultSystem{
 
 	public void addComponent(int pid, Map<String, Component> components) {
 		
-		if(components.containsKey(XPosition.KEY) && 
+		if(		components.containsKey(XPosition.KEY) &&
 				components.containsKey(YPosition.KEY) && 
 				components.containsKey(Width.KEY) && 
 				components.containsKey(Height.KEY) &&

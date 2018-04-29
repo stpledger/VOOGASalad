@@ -77,16 +77,10 @@ public class TestGameState {
 		Lives lives = new Lives(0,3);
 
 		Collidable collide = new Collidable(0);
-		collide.setOnDirection(CollisionDirection.Bot, Actions.damage());
+		//collide.setOnDirection(CollisionDirection.Bot, Actions.damage());
 		collide.setOnDirection(CollisionDirection.Top, Actions.damage());
-		collide.setOnDirection(CollisionDirection.Left, Actions.damage());
-		collide.setOnDirection(CollisionDirection.Right, Actions.damage());
-		/**
-		k.addCode(KeyCode.R, (Runnable & Serializable) () ->
-		{
-			play.respawn(p, v, a);
-		});
-		**/
+		//collide.setOnDirection(CollisionDirection.Left, Actions.damage());
+		//collide.setOnDirection(CollisionDirection.Right, Actions.damage());
 
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(XPosition.KEY, px);
@@ -113,20 +107,39 @@ public class TestGameState {
 		Map<String, Component> mario2 = new HashMap<>();
 
 
-		Position p2 = new Position(1, 100, 300);
-		Dimension d2 = new Dimension(1, 100, 100);
-		Sprite s2 = new Sprite(1,"8Bit.png");
-		Collidable collide2 = new Collidable(1);
-		collide.setOnDirection(CollisionDirection.Bot, Actions.damage());
-		collide.setOnDirection(CollisionDirection.Top, Actions.damage());
-		collide.setOnDirection(CollisionDirection.Left, Actions.damage());
-		collide.setOnDirection(CollisionDirection.Right, Actions.damage());
+		XPosition px2 = new XPosition(1, 100);
+		YPosition py2 = new YPosition(1, 300);
+		XVelocity xv2 = new XVelocity(1, 10);
+		YVelocity yv2 = new YVelocity(1, 10);
+		Width w2 = new Width(1, 100);
+		Height h2 = new Height(1, 100);
+		DamageValue damage2 = new DamageValue(1, 10);
+		DamageLifetime dl2 = new DamageLifetime(1,1);
 
-		mario2.put(Position.KEY, p2);
-		mario2.put(Dimension.KEY, d2);
+
+		Sprite s2 = new Sprite(1,"8Bit.png");
+
+		AI ai2 = new AI(1);
+		ai2.setAction(Actions.followsYou(mario, .2));
+
+		Collidable collide2 = new Collidable(1);
+		collide2.setOnDirection(CollisionDirection.Bot, Actions.damage());
+		collide2.setOnDirection(CollisionDirection.Top, Actions.damage());
+		collide2.setOnDirection(CollisionDirection.Left, Actions.damage());
+		collide2.setOnDirection(CollisionDirection.Right, Actions.damage());
+
+		mario2.put(XPosition.KEY, px2);
+		mario2.put(YPosition.KEY, py2);
+		mario2.put(XVelocity.KEY, xv2);
+		mario2.put(YVelocity.KEY, yv2);
+		mario2.put(Width.KEY, w2);
+		mario2.put(Height.KEY, h2);
 		mario2.put(Sprite.KEY, s2);
-        mario2.put(Collidable.KEY,collide2);
-        
+		mario2.put(AI.KEY, ai2);
+		mario2.put(DamageValue.KEY, damage2);
+		mario2.put(DamageLifetime.KEY, dl2);
+		mario2.put(Collidable.KEY, collide2);
+
 		/**
 		 Position p3 = new Position(2, 300, 100);
 		 Dimension d3 = new Dimension(2, 100, 100);
@@ -160,12 +173,15 @@ public class TestGameState {
 		 **/
 
 
-		XPosition xp4 = new XPosition(3, 300);
+		XPosition xp4 = new XPosition(3, 500);
 		YPosition yp4 = new YPosition(3, 300);
 		Collidable c4 = new Collidable(3);
 		Width w4 = new Width(3, 100);
 		Height h4 = new Height(3, 100);
 		Health health4 = new Health(3, 10);
+
+		DamageValue damage4 = new DamageValue(4, 10);
+		DamageLifetime dl4 = new DamageLifetime(4,1);
 
 		Map<String, Component> mario4 = new HashMap<>();
 
@@ -176,19 +192,8 @@ public class TestGameState {
 		mario4.put(Sprite.KEY, s4);
 		mario4.put(Health.KEY, health4);
 		mario4.put(Collidable.KEY, c4);
-
-
-		/**Conditional co1 = new Conditional(0);
-		 Supplier su1 = (Supplier & Serializable) () -> null;
-
-		 co1.setCondition(su1);
-
-		 Consumer consumer = (Consumer & Serializable) (e) -> {
-		 int i = 10;
-		 };
-		 co1.setAction(consumer);
-
-		 mario.put(Conditional.KEY, co1);**/
+		mario4.put(DamageValue.KEY, damage4);
+		mario4.put(DamageLifetime.KEY, dl4);
 
 		entities.put(0, mario);
 		entities.put(1, mario2);
