@@ -3,9 +3,9 @@ package GamePlayer;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import buttons.FileUploadButton;
 import buttons.GameSelectButton;
+import buttons.IGamePlayerButton;
 import data.DataGameState;
 import data.DataRead;
 import javafx.beans.property.BooleanProperty;
@@ -20,31 +20,27 @@ import javafx.stage.Stage;
 
 /**
  * Splash Screen for Selecting Games and Uploading Games
- * @author Ryan
+ * @author Ryan Fu
  */
-
-public class SplashScreenView{
+public class SplashScreenView extends BranchScreenView{
 	private Scene splashScene;
-	private Stage mySplashStage;
 	private GridPane myGridPane;
 	private ScrollPane myScrollPane;
 	private Map<Image, DataGameState> imageGameStateMap;
-	private final int WIDTH_SIZE = 800;
-	private final int HEIGHT_SIZE = 500;
 	private final int ROW_NUM = 2;
 	private final int COL_NUM = 3;
 	public FileUploadButton fileBtn;
 	public DataGameState currentGame;
-	public List<GameSelectButton> gameSelectButtonList;
+	public List<IGamePlayerButton> gameSelectButtonList;
 
-	public SplashScreenView(Stage stage) {
-		gameSelectButtonList = new ArrayList<GameSelectButton>();
+	public SplashScreenView() {
+		gameSelectButtonList = new ArrayList<IGamePlayerButton>();
 		imageGameStateMap = DataRead.getAllGames();
-		mySplashStage = stage;
-		splashScene = initializeSplashScreen();
+		splashScene = initializeScreen();
 	}
 
-	public Scene getSplashScene() {
+	@Override
+	public Scene getScene() {
 		return splashScene;
 	}
 
@@ -52,7 +48,8 @@ public class SplashScreenView{
 	 * Initializes the Splash Screen with Components to select File
 	 * @return
 	 */
-	public Scene initializeSplashScreen() {
+	@Override
+	public Scene initializeScreen() {
 		myGridPane = new GridPane();
 		myGridPane = setupGridSpacing(myGridPane);
 		myGridPane.setGridLinesVisible(true);
@@ -65,6 +62,12 @@ public class SplashScreenView{
 		Scene currentScene= new Scene(myScrollPane,WIDTH_SIZE,HEIGHT_SIZE);		
 		return currentScene;
 	}
+	
+	@Override
+	public List<IGamePlayerButton> getButtons() {
+		return gameSelectButtonList;
+	}
+
 
 	//	/**
 	//	 * Method to dynamically create Game Select Buttons, Use when DataRead.getAllGames is working.
@@ -86,11 +89,6 @@ public class SplashScreenView{
 				col++; 		//if not, increment the number of columns
 			}
 		}
-
-	}
-
-	public List<GameSelectButton> getSplashScreenButtons() {
-		return gameSelectButtonList;
 	}
 
 
@@ -103,5 +101,9 @@ public class SplashScreenView{
 		}
 		return gridPane;
 	}
+
+
+
+
 
 }

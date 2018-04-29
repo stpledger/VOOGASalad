@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
-
 import data.DataRead;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
@@ -35,7 +34,8 @@ import authoring.views.properties.LevelPropertiesView;
 import engine.components.Component;
 import engine.components.EntityType;
 import engine.components.Sprite;
-import engine.components.groups.Position;
+import engine.components.XPosition;
+import engine.components.YPosition;
 import data.DataRead;
 
 import data.DataWrite;
@@ -129,7 +129,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 				levelTabsList.remove(t);
 				updateTabs.accept(levelTabsList);
 			});
-			((LevelView) t.getContent()).setLanguage(language);
+			//((LevelView) t.getContent()).setLanguage(language);
 			tabPane.getTabs().add(t);
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
@@ -270,12 +270,14 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			entity.add(c);
 			if(c.getKey().equals("Sprite")) {
 				Image image = DataRead.loadImage(((Sprite) c).getData());	
-
 				entity.setImage(image);
-			} else if(c.getKey().equals("Position")) {
-				Position p = (Position) c;
-				entity.setX(p.getXPos());
-				entity.setY(p.getYPos());
+			} else if(c.getKey().equals("XPosition")) {
+				XPosition p = (XPosition) c;
+				entity.setX(p.getData());
+				
+			} else if(c.getKey().equals("YPosition")) {
+				YPosition p = (YPosition) c;
+				entity.setY(p.getData());
 			}
 		}
 		return entity;
@@ -323,7 +325,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		toolbar.setLanguage(language);
 		for(Tab t : tabPane.getTabs()) {
 			t.setText(language.getProperty("Level")+ " " + (tabPane.getTabs().indexOf(t)+1)) ;
-			((LevelView) t.getContent()).setLanguage(language);
+			// ((LevelView) t.getContent()).setLanguage(language);
 		}
 		
 	}

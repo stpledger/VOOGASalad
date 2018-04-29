@@ -29,7 +29,7 @@ public abstract class AbstractComponentForm extends GridPane {
 	 */
 	protected boolean validComponent() {
 		for (TextField tf : this.fields) {
-			if (tf.getText() == null || tf.getText().trim().isEmpty()) {
+			if (tf.getId() == null || tf.getId().trim().isEmpty()) {
 				return false;
 			}
 		}

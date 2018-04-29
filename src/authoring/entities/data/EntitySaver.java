@@ -17,7 +17,7 @@ import org.w3c.dom.Document;
 
 /**
  * This class handles parsing of the XML files that set up the type of simulation.
- * @author dylanpowers
+ * @author Dylan Powers
  *
  */
 public class EntitySaver {
