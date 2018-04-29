@@ -183,10 +183,7 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		systemManager = gameInitializer.getSystemManager();
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
-
 		levelStatus = new LevelStatus();
-
-
 		/*levelStatus.getUpdate().addListener((o, oldVal, newVal) -> {
 	   //  some action based on the value of newVal like -1 game over, from 1 to 2 change to level two etc. 
 	  });*/
@@ -197,7 +194,6 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		Map<String, Component> player = new HashMap<>(PlayerKeys.get(ActiveLevel));
 		ActivePlayerPosX = (XPosition) player.get(XPosition.KEY);
 		ActivePlayerPosY = (YPosition) player.get(YPosition.KEY);
-
 	}
 	
 

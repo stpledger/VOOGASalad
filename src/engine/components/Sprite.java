@@ -20,6 +20,7 @@ import javafx.util.Duration;
 public class Sprite extends SingleStringComponent {
 	public static final String FILE_PATH ="File:";
 	public static final String IMAGE_PATH ="data\\";
+	private String name;
 	
 	public static String KEY = "Sprite";
 
@@ -32,6 +33,7 @@ public class Sprite extends SingleStringComponent {
 	public Sprite(int pid, String path) throws FileNotFoundException {
 	    super(pid, path);
 		setData(path);
+		name = path;
 	}
 	
 	public ImageView getImage() {
@@ -74,6 +76,10 @@ public class Sprite extends SingleStringComponent {
 	
 	public String getKey() {
 		return KEY;
+	}
+	
+	public String getImageFile() {
+		return name;
 	}
 }
 

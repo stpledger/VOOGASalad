@@ -36,7 +36,7 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 			if(!getExceptions().contains(property)) {
 				EntityComponentForm cf;
 				
-					cf = new EntityComponentForm(property);
+				cf = new EntityComponentForm(property);
 				
 				cf.setAlignment(Pos.CENTER);
 				newActiveForms.add(cf);

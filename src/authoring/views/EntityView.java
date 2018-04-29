@@ -8,13 +8,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import authoring.entities.Entity;
 import authoring.entities.data.EntityLoader;
 import authoring.entities.data.PackageExplorer;
 import authoring.entities.data.SudoEntityLoader;
@@ -27,7 +25,6 @@ import javafx.scene.control.TabPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 
 public class EntityView extends BorderPane implements AuthoringPane {
 	public final static String XML_EXTENSION = ".XML";
