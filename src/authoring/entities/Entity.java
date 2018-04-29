@@ -3,7 +3,7 @@ package authoring.entities;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.logging.Logger;
 import engine.components.Component;
 import engine.components.EntityType;
 import engine.components.Height;
@@ -22,8 +22,9 @@ public abstract class Entity extends ImageView {
 	private int ID;
 	public final static int ENTITY_WIDTH = 50;
 	public final static int ENTITY_HEIGHT = 50;
-	public List<Component> components;
+	List<Component> components;
 	public String type;
+	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	
 	/**
 	 * Set the ID of this entity
@@ -137,7 +138,6 @@ public abstract class Entity extends ImageView {
 	 * @return the name of this entity
 	 */
 	public abstract String name();
-	
 	/**
 	 * @return the list of components for this entity
 	 */

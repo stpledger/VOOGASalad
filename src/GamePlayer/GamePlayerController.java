@@ -48,6 +48,7 @@ public class GamePlayerController {
 	private SampleToolBar sampleBar;
 	private Map<Integer, Map<String, Boolean>> HUDPropMap;
 	private Timeline animation;
+	private String currentGameName;
 	private SimpleBooleanProperty gameOver = new SimpleBooleanProperty(false); //Boolean for the game not being over.
 
 	public GamePlayerController(Stage stage) {
@@ -58,14 +59,17 @@ public class GamePlayerController {
 	public Scene initializeStartScene() {
 		//Testing HighScore Screen
 		HighScoreView highScoreScreen = new HighScoreView();
+		currentGameName = "DemoDemo";
+		highScoreScreen.setGameName(currentGameName);
+		highScoreScreen.setScore(100.0);
 		Scene highScore = highScoreScreen.getScene();
 		gamePlayerSplash = new SplashScreenView();
 		mySplashScene = gamePlayerSplash.getScene();
 		connectButtonsToController();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		assignKeyInputs();
-		return mySplashScene;
-		//return highScore;
+		//return mySplashScene;
+		return highScore;
 		
 	}
 
@@ -77,6 +81,7 @@ public class GamePlayerController {
 		for (IGamePlayerButton b : gameSelectButtonList) {
 			((GameSelectButton) b).getGameSelectBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
 				currentGameState = ((GameSelectButton) b).getGameState();
+				currentGameName = currentGameState.getGameName();
 				setGameView(currentGameState);
 				myStage.setScene(myScene);
 			});
