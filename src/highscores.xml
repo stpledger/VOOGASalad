@@ -38,6 +38,30 @@
           <name></name>
         </score>
       </gameplayer.Person>
+      <gameplayer.Person>
+        <name>
+          <value>Conrad</value>
+          <valid>true</valid>
+          <name></name>
+        </name>
+        <score>
+          <value>100.1</value>
+          <valid>true</valid>
+          <name></name>
+        </score>
+      </gameplayer.Person>
+      <gameplayer.Person>
+        <name>
+          <value>Conrad</value>
+          <valid>true</valid>
+          <name></name>
+        </name>
+        <score>
+          <value>100.1</value>
+          <valid>true</valid>
+          <name></name>
+        </score>
+      </gameplayer.Person>
     </list>
   </entry>
 </map>
