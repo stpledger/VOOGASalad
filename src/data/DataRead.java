@@ -28,7 +28,7 @@ public class DataRead  {
     private static final String ENTITY_PATH = "data/entities/";
     private static final String PLAYER_TARGET = "Player.xml";
     private static final String ANIMATION_PATH = "data/animations";
-    private static final String AIMAGE = ""
+    private static final String AIMAGE = "";
 
     public static DataGameState loadPlayerFile(File xml) {
         /* receives a gamestate and loads it to the player
@@ -147,11 +147,11 @@ public class DataRead  {
         return xstream.fromXML(xml);
     }
 
-    private static  Animaate getAnimation(String name){
+    /*private static  Animaate getAnimation(String name){
         File animateDir = loadFile(ANIMATION_PATH);
         File animateFolder = findInDirectory(animateDir,name);
 
-    }
+    }*/
 
 
 

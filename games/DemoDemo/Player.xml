@@ -15,7 +15,6 @@
             <entry>
               <string>Collidable</string>
               <engine.components.Collidable>
-                <pid>0</pid>
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Top</engine.systems.collisions.CollisionDirection>
@@ -33,6 +32,7 @@
                     </java.util.function.BiConsumer>
                   </entry>
                 </actions>
+                <pid>0</pid>
               </engine.components.Collidable>
             </entry>
             <entry>
@@ -93,43 +93,12 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
-<<<<<<< HEAD
-                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-=======
-                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
->>>>>>> 9e481279e6c72c1e4bb67e012b7ae7c00aed3825
-                    <java.util.function.Consumer resolves-to="serialized-lambda">
-                      <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
-                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-<<<<<<< HEAD
-                      <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$0</implMethodName>
-                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
-                      <capturedArgs/>
-=======
-                      <implClass>engine/test/TestGameState</implClass>
-                      <implMethodName>lambda$0</implMethodName>
-                      <implMethodSignature>(Lengine/components/XVelocity;Ljava/lang/Object;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
-                      <capturedArgs>
-                        <engine.components.XVelocity reference="../../../../../../../entry[3]/engine.components.XVelocity"/>
-                      </capturedArgs>
->>>>>>> 9e481279e6c72c1e4bb67e012b7ae7c00aed3825
-                    </java.util.function.Consumer>
-                  </entry>
-                  <entry>
                     <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-<<<<<<< HEAD
                       <implClass>engine/components/presets/PlayerMovement</implClass>
                       <implMethodName>lambda$3</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
@@ -137,18 +106,6 @@
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
                       <capturedArgs>
                         <engine.components.presets.PlayerMovement reference="../../../../.."/>
-=======
-                      <implClass>engine/test/TestGameState</implClass>
-                      <implMethodName>lambda$2</implMethodName>
-                      <implMethodSignature>(Lengine/components/YVelocity;Ljava/lang/Object;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
-                      <capturedArgs>
-                        <engine.components.YVelocity>
-                          <pid>0</pid>
-                          <data>0.0</data>
-                        </engine.components.YVelocity>
->>>>>>> 9e481279e6c72c1e4bb67e012b7ae7c00aed3825
                       </capturedArgs>
                     </java.util.function.Consumer>
                   </entry>
@@ -159,7 +116,6 @@
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-<<<<<<< HEAD
                       <implClass>engine/components/presets/PlayerMovement</implClass>
                       <implMethodName>lambda$2</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
@@ -167,32 +123,35 @@
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
                       <capturedArgs>
                         <engine.components.presets.PlayerMovement reference="../../../../.."/>
-=======
-                      <implClass>engine/test/TestGameState</implClass>
-                      <implMethodName>lambda$1</implMethodName>
-                      <implMethodSignature>(Lengine/components/YVelocity;Ljava/lang/Object;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
-                      <capturedArgs>
-                        <engine.components.YVelocity reference="../../../../entry[3]/java.util.function.Consumer/capturedArgs/engine.components.YVelocity"/>
->>>>>>> 9e481279e6c72c1e4bb67e012b7ae7c00aed3825
                       </capturedArgs>
+                    </java.util.function.Consumer>
+                  </entry>
+                  <entry>
+                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/components/presets/PlayerMovement</implClass>
+                      <implMethodName>lambda$0</implMethodName>
+                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs/>
                     </java.util.function.Consumer>
                   </entry>
                 </codes>
                 <crouched>false</crouched>
+                <timing>1.52504352368E12</timing>
               </engine.components.presets.PlayerMovement>
             </entry>
             <entry>
               <string>YVelocity</string>
-<<<<<<< HEAD
               <engine.components.YVelocity>
                 <pid>0</pid>
                 <data>0.0</data>
               </engine.components.YVelocity>
-=======
-              <engine.components.YVelocity reference="../../entry[7]/engine.components.KeyInput/codes/entry[3]/java.util.function.Consumer/capturedArgs/engine.components.YVelocity"/>
->>>>>>> 9e481279e6c72c1e4bb67e012b7ae7c00aed3825
             </entry>
             <entry>
               <string>DamageValue</string>
@@ -258,180 +217,9 @@
             </entry>
           </map>
         </entry>
-<<<<<<< HEAD
-=======
-        <entry>
-          <int>1</int>
-          <map>
-            <entry>
-              <string>Collidable</string>
-              <engine.components.Collidable>
-                <pid>1</pid>
-                <actions>
-                  <entry>
-                    <engine.systems.collisions.CollisionDirection>Top</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry/map/entry/engine.components.Collidable/actions/entry/java.util.function.BiConsumer"/>
-                  </entry>
-                  <entry>
-                    <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry/map/entry/engine.components.Collidable/actions/entry/java.util.function.BiConsumer"/>
-                  </entry>
-                  <entry>
-                    <engine.systems.collisions.CollisionDirection>Left</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry/map/entry/engine.components.Collidable/actions/entry/java.util.function.BiConsumer"/>
-                  </entry>
-                  <entry>
-                    <engine.systems.collisions.CollisionDirection>Right</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry/map/entry/engine.components.Collidable/actions/entry/java.util.function.BiConsumer"/>
-                  </entry>
-                </actions>
-              </engine.components.Collidable>
-            </entry>
-            <entry>
-              <string>XPosition</string>
-              <engine.components.XPosition>
-                <pid>1</pid>
-                <data>100.0</data>
-              </engine.components.XPosition>
-            </entry>
-            <entry>
-              <string>XVelocity</string>
-              <engine.components.XVelocity>
-                <pid>1</pid>
-                <data>10.0</data>
-              </engine.components.XVelocity>
-            </entry>
-            <entry>
-              <string>Sprite</string>
-              <engine.components.Sprite>
-                <pid>1</pid>
-                <data>8Bit.png</data>
-                <name>8Bit.png</name>
-              </engine.components.Sprite>
-            </entry>
-            <entry>
-              <string>YPosition</string>
-              <engine.components.YPosition>
-                <pid>1</pid>
-                <data>300.0</data>
-              </engine.components.YPosition>
-            </entry>
-            <entry>
-              <string>AI</string>
-              <engine.components.AI>
-                <pid>1</pid>
-              </engine.components.AI>
-            </entry>
-            <entry>
-              <string>Height</string>
-              <engine.components.Height>
-                <pid>1</pid>
-                <data>100.0</data>
-              </engine.components.Height>
-            </entry>
-            <entry>
-              <string>DamageLifetime</string>
-              <engine.components.DamageLifetime>
-                <pid>1</pid>
-                <data>1.0</data>
-              </engine.components.DamageLifetime>
-            </entry>
-            <entry>
-              <string>YVelocity</string>
-              <engine.components.YVelocity>
-                <pid>1</pid>
-                <data>10.0</data>
-              </engine.components.YVelocity>
-            </entry>
-            <entry>
-              <string>Width</string>
-              <engine.components.Width>
-                <pid>1</pid>
-                <data>100.0</data>
-              </engine.components.Width>
-            </entry>
-            <entry>
-              <string>DamageValue</string>
-              <engine.components.DamageValue>
-                <pid>1</pid>
-                <data>10.0</data>
-              </engine.components.DamageValue>
-            </entry>
-          </map>
-        </entry>
-        <entry>
-          <int>3</int>
-          <map>
-            <entry>
-              <string>Collidable</string>
-              <engine.components.Collidable>
-                <pid>3</pid>
-                <actions/>
-              </engine.components.Collidable>
-            </entry>
-            <entry>
-              <string>XPosition</string>
-              <engine.components.XPosition>
-                <pid>3</pid>
-                <data>500.0</data>
-              </engine.components.XPosition>
-            </entry>
-            <entry>
-              <string>Sprite</string>
-              <engine.components.Sprite>
-                <pid>3</pid>
-                <data>8Bit.png</data>
-                <name>8Bit.png</name>
-              </engine.components.Sprite>
-            </entry>
-            <entry>
-              <string>YPosition</string>
-              <engine.components.YPosition>
-                <pid>3</pid>
-                <data>300.0</data>
-              </engine.components.YPosition>
-            </entry>
-            <entry>
-              <string>Health</string>
-              <engine.components.Health>
-                <pid>3</pid>
-                <data>10.0</data>
-                <initialHealth>10.0</initialHealth>
-              </engine.components.Health>
-            </entry>
-            <entry>
-              <string>Height</string>
-              <engine.components.Height>
-                <pid>3</pid>
-                <data>100.0</data>
-              </engine.components.Height>
-            </entry>
-            <entry>
-              <string>DamageLifetime</string>
-              <engine.components.DamageLifetime>
-                <pid>4</pid>
-                <data>1.0</data>
-              </engine.components.DamageLifetime>
-            </entry>
-            <entry>
-              <string>Width</string>
-              <engine.components.Width>
-                <pid>3</pid>
-                <data>100.0</data>
-              </engine.components.Width>
-            </entry>
-            <entry>
-              <string>DamageValue</string>
-              <engine.components.DamageValue>
-                <pid>4</pid>
-                <data>10.0</data>
-              </engine.components.DamageValue>
-            </entry>
-          </map>
-        </entry>
->>>>>>> 9e481279e6c72c1e4bb67e012b7ae7c00aed3825
       </map>
     </entry>
   </gameState>
   <gameName>DemoDemo</gameName>
+  <levelProgress>1.0</levelProgress>
 </data.DataGameState>

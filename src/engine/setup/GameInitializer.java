@@ -30,8 +30,7 @@ public class GameInitializer {
      *
      * @param entities
      */
-    public GameInitializer (Map <Integer, Map<String, Component>> entities,
-                            double renderDistance, double renderCenterX, double renderCenterY) {
+    public GameInitializer (Map <Integer, Map<String, Component>> entities, double renderDistance, double renderCenterX, double renderCenterY) {
 
         renderManager = new RenderManager(renderDistance, renderCenterX, renderCenterY);
         systemManager = new SystemManager(renderManager);
