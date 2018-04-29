@@ -90,7 +90,7 @@ public class EntityBuilderView extends Stage {
 			this.entityPreview = new ImageView();
 			File imageFile = new File("data/images/Collin.png");
 			updateEntityPreview(SwingFXUtils.toFXImage(ImageIO.read(imageFile), null));
-			this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, componentFormCollection, saveMenu);
+			this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, componentFormCollection);
 			this.root.getStyleClass().add("entity-builder-view");
 		}  catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
