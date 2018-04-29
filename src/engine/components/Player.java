@@ -1,5 +1,10 @@
 package engine.components;
 
+/**
+ * Flag component to delineate a player character
+ * @author fitzj
+ *
+ */
 public class Player extends FlagComponent {
 
 	public static final String KEY = "Player";

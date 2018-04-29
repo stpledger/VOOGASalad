@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
-
 import authoring.views.properties.LocalPropertiesView;
 
 import engine.components.Component;
@@ -29,6 +28,7 @@ public abstract class Entity extends ImageView {
 	private int ID;
 	public final static int ENTITY_WIDTH = 50;
 	public final static int ENTITY_HEIGHT = 50;
+
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	public List<Component> components;
 	public String type;
@@ -40,6 +40,7 @@ public abstract class Entity extends ImageView {
 	public Entity(int ID) {
 		this.ID = ID;
 		components = new ArrayList<>();
+
 		this.setFitWidth(ENTITY_WIDTH);
 		this.setFitHeight(ENTITY_HEIGHT);
 		Consumer<List<Component>> onSubmit = componentsToAdd -> {
@@ -170,10 +171,10 @@ public abstract class Entity extends ImageView {
 	 */
 	public abstract String name();
 
-
 	public void addComponent(){
 
 	}
+
 
 	/**
 	 * @return the list of components for this entity
