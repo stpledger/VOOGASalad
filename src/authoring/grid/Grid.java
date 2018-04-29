@@ -135,12 +135,13 @@ public class Grid extends GridPane {
 						MenuItem removeEntity = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Entity", e1->this.clearCell(c));
 						cMenu.getItems().addAll(openLPV,removeEntity);
 						if(c.getEntity().getType().equals(NON_INTERACT)) {
-							MenuItem addImageCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addImageCol(c, (ImageView) c.getChildren().get(0), 1));
-							MenuItem addImageRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addImageRow(c, (ImageView) c.getChildren().get(0), 1));
-							MenuItem addImageFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addImageCol(c, (ImageView) c.getChildren().get(0), ADD_FIVE));
-							MenuItem addImageFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Rows", e2->this.addImageRow(c, (ImageView) c.getChildren().get(0), ADD_FIVE));
-							MenuItem removeImageCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Column", e2->this.addImageCol(c, (ImageView) c.getChildren().get(0), -1));
-							MenuItem removeImageRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Row", e2->this.addImageRow(c, (ImageView) c.getChildren().get(0), -1));
+							ImageView bgrnd = (ImageView) c.getChildren().get(c.getChildren().size()-1);
+							MenuItem addImageCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addImageCol(c, bgrnd, 1));
+							MenuItem addImageRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addImageRow(c, bgrnd, 1));
+							MenuItem addImageFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addImageCol(c, bgrnd, ADD_FIVE));
+							MenuItem addImageFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Rows", e2->this.addImageRow(c, bgrnd, ADD_FIVE));
+							MenuItem removeImageCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Column", e2->this.addImageCol(c, bgrnd, -1));
+							MenuItem removeImageRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Row", e2->this.addImageRow(c, bgrnd, -1));
 							cMenu.getItems().addAll(addImageCol, addImageRow, addImageFiveCol, addImageFiveRow, removeImageCol, removeImageRow);
 						}
 					}

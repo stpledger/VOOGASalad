@@ -1,4 +1,4 @@
-package gameplayer;
+package GamePlayer;
 
 import java.util.Map;
 

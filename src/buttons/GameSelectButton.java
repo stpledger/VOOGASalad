@@ -1,6 +1,6 @@
 package buttons;
 
-import gameplayer.SplashScreenView;
+import GamePlayer.SplashScreenView;
 import data.DataGameState;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
