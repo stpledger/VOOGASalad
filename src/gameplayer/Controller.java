@@ -1,4 +1,4 @@
-package GamePlayer;
+package gameplayer;
 
 import java.util.List;
 import java.util.Map;
@@ -17,16 +17,13 @@ import javafx.animation.Timeline;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import javafx.scene.image.ImageView;
-
-public class GamePlayerController {
+public class Controller {
 	private final int WIDTH_SIZE = 800;
 	private final int HEIGHT_SIZE = 500;
 	private final int LEVEL_ONE = 1;
@@ -41,7 +38,7 @@ public class GamePlayerController {
 	private Scene mySplashScene;
 	private BorderPane myPane = new BorderPane();
 	private PauseMenu pauseMenu = new PauseMenu(this);
-	private GamePlayerEntityView gameView;
+	private GameView gameView;
 	private FileUploadButton fileBtn;
 	private SwitchGameButton switchBtn;
 	private Map<Integer, Pane> levelEntityGroupMap; //map that is used to store the initial group for each level.
@@ -57,7 +54,7 @@ public class GamePlayerController {
 	private SimpleBooleanProperty gameOver = new SimpleBooleanProperty(false); //Boolean for the game not being over.
 
 	//TODO: REFACTOR SO THE CONTROLLER ACTUALLY DOES ALL OF THE CONTROLLING AND THE VIEW JUST MANAGES THE DISPLAY OF THE GAME
-	public GamePlayerController(Stage stage) {
+	public Controller(Stage stage) {
 		myStage = stage;
 		myStage.setResizable(false);
 	}
@@ -74,8 +71,8 @@ public class GamePlayerController {
 		connectButtonsToController();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		assignKeyInputs();
-		//return mySplashScene;
-		return highScore;
+		return mySplashScene;
+		//return highScore;
 		
 	}
 
@@ -111,21 +108,21 @@ public class GamePlayerController {
 	 * Method that sets the current scene of the game
 	 */
 	public void setGameView(DataGameState currentGame) {
-		gameView = new GamePlayerEntityView(currentGame);
+		gameView = new GameView(currentGame);
 		HUDPropMap = gameView.getHudPropMap();
 		PlayerKeys = gameView.getPlayerKeys();
-		levelEntityGroupMap = gameView.getlevelEntityMap();
+		levelEntityGroupMap = gameView.getGameLevelDisplays();
 		gameRoot = levelEntityGroupMap.get(LEVEL_ONE);  //level 1
 		myPane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
 		sampleBar = new SampleToolBar(LEVEL_ONE, PlayerKeys, HUDPropMap);
 		myPane.setTop(sampleBar);
-		for(Win w : gameView.getWinComponents()){
+		/*for(Win w : gameView.getWinComponents()){
 			w.getWinStatus().addListener((o, oldVal, newVal) -> {
 				changeGameLevel(gameView.getActiveLevel() + 1);
 			});
-		}
+		}*/
 		initializeGameAnimation(); //begins the animation cycle
 		//set level change listener
 		/*gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {

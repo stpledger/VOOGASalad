@@ -1,6 +1,6 @@
 package data;
 
-import GamePlayer.Person;
+import gameplayer.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import authoring.entities.Entity;

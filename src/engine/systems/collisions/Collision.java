@@ -84,6 +84,7 @@ public class Collision extends DefaultSystem{
 
 					if (cd != null) {
 
+
 						if(handledComponents.get(key1).containsKey(Collidable.KEY)) {
 							Collidable cdb = (Collidable) handledComponents.get(key1).get(Collidable.KEY);
 							cdb.action(cd, handledComponents.get(key1), handledComponents.get(key2));
@@ -91,9 +92,7 @@ public class Collision extends DefaultSystem{
 						
 						if(handledComponents.get(key2).containsKey(Collidable.KEY)) {
 							Collidable cdb = (Collidable) handledComponents.get(key2).get(Collidable.KEY);
-							cdb.setCondition(() -> {
-								return handledComponents.get(key1);
-							}); 
+							
 							CollisionDirection cd2 = null;
 							if(cd == CollisionDirection.Top) cd2 = CollisionDirection.Bot;
 							else if(cd == CollisionDirection.Bot) cd2 = CollisionDirection.Top;
@@ -106,22 +105,22 @@ public class Collision extends DefaultSystem{
 
 						case Top:
 							y1.setData(y2.getData() - h1.getData());
-							((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
+							//((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
 							break;
 							
 						case Bot:
 							y1.setData(y2.getData() + h2.getData());
-							((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
+							//((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
 							break;
 							
 						case Left:
 							x1.setData(x2.getData() - w1.getData());
-							((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
+							//((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
 							break;
 							
 						case Right:
 							x1.setData(x2.getData() + w2.getData());
-							((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
+							//((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
 							break;
 
 						}

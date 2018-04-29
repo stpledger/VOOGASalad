@@ -1,6 +1,5 @@
 package buttons;
 
-import GamePlayer.GamePlayerController;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;

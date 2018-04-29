@@ -3,7 +3,7 @@ package Menu;
 import java.util.Map;
 import java.util.Set;
 
-import GamePlayer.GamePlayerController;
+import gameplayer.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
@@ -17,11 +17,11 @@ import javafx.scene.layout.Pane;
  */
 public class LevelSelector extends Menu {
 	private final String MENU_TITLE = "Level";
-	private GamePlayerController mainController;
+	private Controller mainController;
 	private  Map<Integer, Pane> levelEntityPaneMap;
 	private int levelCount;
 	
-	public LevelSelector(GamePlayerController g) {
+	public LevelSelector(Controller g) {
 		mainController = g;
 		levelEntityPaneMap = g.getGameLevelRoot();
 		System.out.println(levelEntityPaneMap);

@@ -1,4 +1,4 @@
-package GamePlayer;
+package gameplayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.stage.Stage;
 
 /**
  * Splash Screen for Selecting Games and Uploading Games
