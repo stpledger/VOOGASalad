@@ -9,18 +9,11 @@ import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataWrite;
 
-import engine.components.Component;
-import engine.components.Height;
-import engine.components.Player;
-import engine.components.Sprite;
-import engine.components.Width;
-import engine.components.XPosition;
-import engine.components.YPosition;
+import engine.components.*;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
 import engine.systems.InputHandler;
-import engine.systems.collisions.LevelStatus;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -45,7 +38,6 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	private InputHandler inputHandler;
 	private RenderManager renderManager;
 	private SystemManager systemManager;
-	private LevelStatus levelStatus;
 
 	private int ActiveLevel;
 	private XPosition ActivePlayerPosX;
@@ -153,6 +145,13 @@ public class GamePlayerEntityView implements IGamePlayerView{
 					if(entityComponents.containsKey(Player.KEY)){
                         PlayerKeys.put(levelNum, entityComponents);
                     }
+
+                    if (entityComponents.containsKey(Win.KEY)) {
+						Win w = (Win) entityComponents.get(Win.KEY);
+						w.getWinStatus().addListener((o, oldVal, newVal) -> {
+							winLevel();
+						});
+					}
 				}
 				//	JACK ADDED THIS .............
 				
@@ -192,7 +191,6 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		systemManager = gameInitializer.getSystemManager();
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
-		levelStatus = new LevelStatus();
 		/*levelStatus.getUpdate().addListener((o, oldVal, newVal) -> {
 	   //  some action based on the value of newVal like -1 game over, from 1 to 2 change to level two etc. 
 	  });*/
@@ -257,8 +255,7 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		}
     }
 
-    public LevelStatus getLevelStatus(){
-		return levelStatus;
-	}
+	public void winLevel(){
 
+	}
 }

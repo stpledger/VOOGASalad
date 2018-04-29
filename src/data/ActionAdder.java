@@ -27,7 +27,7 @@ public class ActionAdder {
     
     public void deleteComponent(Component component){
         entity.remove(component);
-    }
+    }*/
 
     public List<String> getActions(){
         List<String> methods = new ArrayList<>();
