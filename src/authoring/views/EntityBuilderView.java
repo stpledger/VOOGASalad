@@ -15,6 +15,7 @@ import authoring.MainApplication;
 import authoring.entities.data.EntityBuilderData;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
+import authoring.forms.ComponentForm;
 import authoring.forms.EntityComponentFormCollection;
 import data.DataRead;
 import engine.components.Sprite;
@@ -42,7 +43,6 @@ public class EntityBuilderView extends Stage {
 
 	private Properties tooltipProperties;
 	private Properties language = new Properties();
-	private HBox saveMenu;
 	private VBox root;
 	private List<String> entityTypes;
 	private ImageView entityPreview;
@@ -67,7 +67,8 @@ public class EntityBuilderView extends Stage {
 		language = lang;
 		this.entityTypes = (ArrayList<String>) eTypes;
 		this.eFactory = new ElementFactory();
-		this.componentFormCollection = new EntityComponentFormCollection(new String[] {"Sprite", "XPosition", "YPosition"});
+		String[] exceptions = new String[] {"Sprite", "XPosition", "YPosition"};
+		this.componentFormCollection = new EntityComponentFormCollection(exceptions, e->{save(e);});
 		this.componentFormCollection.setLanguage(language);
 		this.tooltipProperties = new Properties();
 		this.data = new EntityBuilderData();
@@ -85,12 +86,10 @@ public class EntityBuilderView extends Stage {
 			this.root = new VBox();
 			this.root.setAlignment(Pos.CENTER);
 			ComboBox<String> typeComboBox = buildTypeComboBox();
-			this.saveMenu = buildSingleButtonMenu("save", e -> {save();});
 			addImageMenu = buildSingleButtonMenu("addImage", e -> {addImage();});
 			this.entityPreview = new ImageView();
-			File imageFile = new File("data/images/Collin.png");
-			updateEntityPreview(SwingFXUtils.toFXImage(ImageIO.read(imageFile), null));
-			this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, componentFormCollection, saveMenu);
+			updateEntityPreview(new Image("no_image.jpg"));
+			this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, componentFormCollection);
 			this.root.getStyleClass().add("entity-builder-view");
 		}  catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
@@ -130,12 +129,10 @@ public class EntityBuilderView extends Stage {
 		ComboBox<String>comboBox = (ComboBox<String>) eFactory.buildClickElement(ClickElementType.ComboBox, "Select Object Type", null);
 		comboBox.setPromptText(language.getProperty("selectObjectType"));
 		comboBox.setOnAction(e -> {
-			data.setComponent(engine.components.Type.class, getRealName(comboBox.getSelectionModel().getSelectedItem()));
-			root.getChildren().remove(saveMenu);
-			componentFormCollection.fillComponentsForms(data.getType());
-			componentFormCollection.setLanguage(language);
-			root.getChildren().add(saveMenu);
-			this.sizeToScene();
+				data.setComponent(engine.components.Type.class, getRealName(comboBox.getSelectionModel().getSelectedItem()));
+				componentFormCollection.fill(data.getType());
+				componentFormCollection.setLanguage(language);
+				this.sizeToScene();
 		});
 		comboBox.getStyleClass().add("entity-builder-combo-box"); 
 		for(String et : entityTypes) {
@@ -175,9 +172,9 @@ public class EntityBuilderView extends Stage {
 	/**
 	 * Saves the current entity
 	 */
-	private void save(){
+	private void save(Object e){
 		try {
-			data.save(componentFormCollection.getActiveForms());
+			data.save((List<Object[]>) e);
 			onClose.accept(data.getType(), data.getComponentAttributes());
 			this.close();
 		}
