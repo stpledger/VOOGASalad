@@ -24,9 +24,10 @@ public class ActionAdder {
         }
         return actives;
     }
-    public void deleteComponent(Component component){
+    // suppressing errors
+    /*public void deleteComponent(Component component){
         entity.remove(component);
-    }
+    }*/
 
     public List<String> getActions(){
         List<String> methods = new ArrayList<>();

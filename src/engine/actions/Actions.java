@@ -38,7 +38,7 @@ public class Actions {
     }
 
     /**
-     * @param actor Entity moving left
+     * @param speed
      * @return left action
      */
 	@SuppressWarnings("unchecked")
@@ -252,8 +252,8 @@ public class Actions {
 			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
 			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
 
-			sm.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
-			sm.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+			SM.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
+			SM.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
 		}
 	}
 
