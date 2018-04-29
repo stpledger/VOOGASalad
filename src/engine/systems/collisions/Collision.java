@@ -14,16 +14,11 @@ import engine.systems.DefaultSystem;
 
 public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();
-	private List<Integer> colliders;
-	//private CollisionHandler handler;
-
-	/*public Collision(SystemManager sm) {
-		colliders = new ArrayList<>();
-		//handler = new CollisionHandler(sm);
-	}*/
+	private Set<Integer> colliders;
+	private Set<Integer> activeComponents;
 	
 	public Collision() {
-		colliders = new ArrayList<>();
+		colliders = new HashSet<>();
 	}
 
 	
@@ -32,9 +27,8 @@ public class Collision extends DefaultSystem{
 	}
 
 	public void execute(double time) {
-
-		colliders.forEach((key1) -> {
-			handledComponents.forEach((key2, map) -> {
+		handledComponents.forEach((key1, vel) -> {
+			activeComponents.forEach((key2) -> {
 
 				if (key1 != key2) {
 
@@ -105,6 +99,7 @@ public class Collision extends DefaultSystem{
 						}
 						
 						switch (cd) {
+
 						
 						case Top:
 							y1.setData(y2.getData() - h1.getData());
@@ -145,7 +140,10 @@ public class Collision extends DefaultSystem{
 
 	@Override
 	public void setActives(Set<Integer> actives) {
-		//put in active listeners
+		Set<Integer> myActives = new HashSet<>(actives);
+		myActives.retainAll(handledComponents.keySet());
+		myActives.retainAll(colliders);
+		activeComponents = myActives;
 	}
 
 

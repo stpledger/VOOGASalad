@@ -25,7 +25,7 @@ public class ActionAdder {
         return actives;
     }
     public void deleteComponent(Component component){
-        entity.remove(component);
+        ((Map<String, Component>) entity).remove(component);
     }
 
     public List<String> getActions(){

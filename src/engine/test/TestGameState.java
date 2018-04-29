@@ -38,8 +38,7 @@ public class TestGameState {
 		entities = new HashMap<>();
 		//ActionReader AR = new ActionReader();
 		
-		Sprite s = new Sprite(0,"mario.png");
-
+		Sprite s = new Sprite(0,"/Desktop/Blob_Walk.png");
 		//Sprite s4 = new Sprite(3,"mario.png");
 
 
@@ -75,11 +74,6 @@ public class TestGameState {
 		
 		Player play = new Player(0);
 		Lives lives = new Lives(0,3);
-
-		/**k.addCode(KeyCode.R, (Runnable & Serializable) () ->
-		 {
-		 play.respawn(p, v, a);
-		 });**/
 
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(XPosition.KEY, px);

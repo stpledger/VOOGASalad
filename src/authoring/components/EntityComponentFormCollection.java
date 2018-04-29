@@ -36,7 +36,13 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 		ArrayList<ComponentForm> newActiveForms = new ArrayList<>();
 		for (String property : ResourceBundle.getBundle(getPropertiesPackage() + entityType).keySet()) {
 			if(!getExceptions().contains(property)) {
-				EntityComponentForm cf = new EntityComponentForm(property);
+				EntityComponentForm cf = null;
+				try {
+					cf = new EntityComponentForm(property);
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				cf.setAlignment(Pos.CENTER);
 				newActiveForms.add(cf);
 				currentRow++;

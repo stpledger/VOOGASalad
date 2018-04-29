@@ -45,7 +45,7 @@ public class EntityBox extends VBox {
 	}
 
 	private void setPreview() {
-		image = DataRead.addImage((String) componentAttributes.get(Sprite.class)[0]);
+		image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 		imageView = new ImageView(image);
 		imageView.setFitHeight(boxDimension-IMAGE_BUFFER);
 		imageView.setFitWidth(boxDimension-IMAGE_BUFFER);

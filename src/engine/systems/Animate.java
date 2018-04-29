@@ -63,6 +63,7 @@ public class Animate implements ISystem {
 
             Map<String, Component> components = handledComponents.get(pid);
             Sprite s = (Sprite) components.get(Sprite.KEY);
+            if(!s.isPlaying()) 	s.animate(500, 24, 6, 0, 0, 50, 100);
             XPosition px = (XPosition) components.get(XPosition.KEY);
             YPosition py = (YPosition) components.get(YPosition.KEY);
             
