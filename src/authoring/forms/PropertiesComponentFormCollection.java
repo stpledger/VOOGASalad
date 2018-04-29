@@ -9,10 +9,9 @@ import javafx.geometry.Pos;
 public class PropertiesComponentFormCollection extends AbstractComponentFormCollection {
 	
 	private int currentRow;
-	private int entityID;
 	
 	public PropertiesComponentFormCollection(int eID, String[] newExceptions, Consumer onSave) {
-		super(newExceptions, onSave);
+		super(newExceptions, onSave, PropertiesComponentForm.class);
 		entityID = eID;
 	}
 	
@@ -40,27 +39,6 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 		currentRow++;
 		this.createSaveButton(currentRow);
 		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	@Override
-	public void addComponent(Object componentName) {
-		try {
-			ArrayList<ComponentForm> newActiveForms = (ArrayList<ComponentForm>) this.getActiveForms();
-			this.getChildren().remove(addComponentButton);
-			this.getChildren().remove(saveButton);
-			PropertiesComponentForm cf = new PropertiesComponentForm(entityID, (String) componentName);
-			cf.setAlignment(Pos.CENTER);
-			this.add(cf, 0, currentRow);
-			cf.setLanguage(language);
-			newActiveForms.add(cf);
-			this.setActiveForms(newActiveForms);
-			currentRow++;
-			this.createAddComponentButton(currentRow);
-			currentRow++;
-			this.createSaveButton(currentRow);
-		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}

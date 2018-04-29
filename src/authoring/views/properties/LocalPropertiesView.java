@@ -3,20 +3,13 @@ package authoring.views.properties;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 import engine.components.Component;
-import engine.components.DataComponent;
-import engine.components.StringComponent;
-import javafx.scene.control.Button;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import authoring.entities.Entity;
-import authoring.factories.ClickElementType;
 import authoring.forms.ComponentForm;
-import authoring.forms.EntityComponentFormCollection;
-import authoring.forms.PropertiesComponentForm;
 import authoring.forms.PropertiesComponentFormCollection;
 
 /**
