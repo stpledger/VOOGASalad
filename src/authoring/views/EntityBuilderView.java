@@ -88,8 +88,9 @@ public class EntityBuilderView extends Stage {
 			ComboBox<String> typeComboBox = buildTypeComboBox();
 			addImageMenu = buildSingleButtonMenu("addImage", e -> {addImage();});
 			this.entityPreview = new ImageView();
-			updateEntityPreview(new Image("no_image.jpg"));
-			this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, componentFormCollection);
+			File imageFile = new File("data/images/Collin.png");
+			updateEntityPreview(SwingFXUtils.toFXImage(ImageIO.read(imageFile), null));
+			this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, componentFormCollection, saveMenu);
 			this.root.getStyleClass().add("entity-builder-view");
 		}  catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
