@@ -2,7 +2,7 @@ package authoring.forms;
 
 import java.util.Properties;
 
-public interface ComponentForm {
+public interface ComponentForm{
 	
 	public Object buildComponent();
 

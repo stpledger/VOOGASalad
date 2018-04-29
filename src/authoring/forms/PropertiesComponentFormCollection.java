@@ -6,22 +6,14 @@ import java.util.function.Consumer;
 
 import javafx.geometry.Pos;
 
-/**
- * 
- * @author Collin Brown(cdb55)
- *
- */
-public class EntityComponentFormCollection extends AbstractComponentFormCollection {
+public class PropertiesComponentFormCollection extends AbstractComponentFormCollection {
 	
-	int currentRow;
+	private int currentRow;
+	private int entityID;
 	
-	public EntityComponentFormCollection() {
-		super();
-	}
-	
-	public EntityComponentFormCollection(String[] newExceptions) {
+	public PropertiesComponentFormCollection(int eID, String[] newExceptions) {
 		super(newExceptions);
-		
+		entityID = eID;
 	}
 	
 	/**
@@ -35,10 +27,8 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 		ArrayList<ComponentForm> newActiveForms = new ArrayList<>();
 		for (String property : ResourceBundle.getBundle(getPropertiesPackage() + entityType).keySet()) {
 			if(!getExceptions().contains(property)) {
-				EntityComponentForm cf;
-				
-					cf = new EntityComponentForm(property);
-				
+				PropertiesComponentForm cf;
+				cf = new PropertiesComponentForm(entityID, property);
 				cf.setAlignment(Pos.CENTER);
 				newActiveForms.add(cf);
 				this.add(cf, 0, currentRow);
@@ -54,16 +44,13 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 		}
 	}
 
-	/**
-	 * Adds a componentForm to the current list of active forms
-	 */
 	@Override
 	public void addComponent(Object componentName) {
 		try {
 			ArrayList<ComponentForm> newActiveForms = (ArrayList<ComponentForm>) this.getActiveForms();
 			this.getChildren().remove(addComponentButton);
 			System.out.println(componentName);
-			EntityComponentForm cf = new EntityComponentForm((String) componentName);
+			PropertiesComponentForm cf = new PropertiesComponentForm(entityID, (String) componentName);
 			cf.setAlignment(Pos.CENTER);
 			this.add(cf, 0, currentRow);
 			cf.setLanguage(language);
@@ -81,6 +68,5 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 		// TODO Auto-generated method stub
 		
 	}
-	
-}
 
+}

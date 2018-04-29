@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import authoring.entities.data.PackageExplorer;
@@ -81,6 +82,8 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 			componentForm.setLanguage(this.language);
 		}
 	}
+	
+	public abstract void setSaveConsumer(Consumer onSave);
 	
 	public abstract void addComponent(Object componentName);
 
