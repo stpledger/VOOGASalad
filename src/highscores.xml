@@ -147,6 +147,18 @@
             <name></name>
           </score>
         </GamePlayer.Person>
+        <GamePlayer.Person>
+          <name>
+            <value></value>
+            <valid>true</valid>
+            <name></name>
+          </name>
+          <score>
+            <value>100.0</value>
+            <valid>true</valid>
+            <name></name>
+          </score>
+        </GamePlayer.Person>
       </list>
     </entry>
   </hs>
