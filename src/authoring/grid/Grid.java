@@ -125,7 +125,7 @@ public class Grid extends GridPane {
 					MenuItem addRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Grid Row", e1->this.addRow(ADD_ONE));
 					MenuItem addFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Grid Columns", e1->this.addCol(ADD_FIVE));
 					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Grid Rows", e1->this.addRow(ADD_FIVE));
-					MenuItem close = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Close", e1->cMenu.hide());
+					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow);
 					if(c.containsEntity()) {
 						MenuItem openLPV = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Edit Entity", e1->this.openLPV(c.getEntity()));
 						MenuItem removeEntity = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Entity", e1->this.clearCell(c));
@@ -140,7 +140,6 @@ public class Grid extends GridPane {
 							cMenu.getItems().addAll(addImageCol, addImageRow, addImageFiveCol, addImageFiveRow, removeImageCol, removeImageRow);
 						}
 					}
-					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow,close);
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -148,6 +147,7 @@ public class Grid extends GridPane {
 				cMenu.show(c, e.getScreenX(), e.getScreenY());
 				cMenu.setAutoHide(true);
 			}
+			e.consume();
 		});
 	}
 
