@@ -69,17 +69,17 @@ public class DataWrite {
         Map<String, List<Person>> people;
         try {
             people = DataRead.loadHighscore();
-            people.get(game).add(person);
+            people.get(gameName).add(person);
             hs = loadFile( HIGHSCORE_FILE);
         } catch (Exception e) {
             people = new HashMap<>();
-            if(!people.containsKey(game)){
+            if(!people.containsKey(gameName)){
                 List<Person> thepeeps = new ArrayList<>();
                 thepeeps.add(person);
-                people.put(game,thepeeps);
+                people.put(gameName,thepeeps);
             }
             else
-                people.get(game).add(person);
+                people.get(gameName).add(person);
             hs = new File(HIGHSCORE_FILE);
         }
         try {
@@ -91,7 +91,7 @@ public class DataWrite {
     }
 
     public static void writeImage(File file) {
-        BufferedImage image = null;
+        BufferedImage image;
         try {
             image = ImageIO.read(file);
             File fileDest = new File(DEFAULT_IMAGEPATH + file.getName());
@@ -161,6 +161,7 @@ public class DataWrite {
 
         File gameFolder = new File(gameDir);
         if (!gameFolder.exists()) {
+            System.out.println("made a directory ");
             File dataFolder = new File(dataDir);
             gameFolder.mkdir();
 
@@ -170,8 +171,8 @@ public class DataWrite {
 
             File imageFolder = new File(imageDir);
             imageFolder.mkdir();
-            
-        } else {
+        }
+        else {
             deleteDir(gameFolder);
             makeFolders(name);
         }

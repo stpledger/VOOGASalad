@@ -28,7 +28,7 @@ public class DataRead  {
     private static final String ENTITY_PATH = "data/entities/";
     private static final String PLAYER_TARGET = "Player.xml";
     private static final String ANIMATION_PATH = "data/animations";
-    private static final String AIMAGE = ""
+    private static final String AIMAGE = "";
 
     public static DataGameState loadPlayerFile(File xml) {
         /* receives a gamestate and loads it to the player
@@ -59,7 +59,7 @@ public class DataRead  {
     public static Image loadImage(String name)throws RuntimeException {
         /*used to load all iamges in player
          */
-        File imageFile = loadFile(game + FRONTSLASH + IMAGE_PATH +name);
+        File imageFile = loadFile(gameName + IMAGE_PATH +name);
         return loadImage(imageFile);
     }
 
@@ -111,7 +111,7 @@ public class DataRead  {
     public static List<DataGameState> getSaves(){
         //loads all saves
         List<DataGameState> saves = new ArrayList<DataGameState>();
-        File file = loadFile(game + FRONTSLASH + SAVE_PATH);
+        File file = loadFile(gameName + FRONTSLASH + SAVE_PATH);
         for(File save : file.listFiles()){
             saves.add((DataGameState)deserialize(save));
         }
@@ -120,7 +120,7 @@ public class DataRead  {
 
     public static List<Image> getIcons(){
         List<Image> icons = new ArrayList<>();
-        File imageRepo = loadFile(game+IMAGE_PATH);
+        File imageRepo = loadFile(gameName+IMAGE_PATH);
         for(File image : imageRepo.listFiles()) {
             icons.add(loadImage(image));
         }
@@ -133,7 +133,7 @@ public class DataRead  {
          */
         try {
             DataGameState gameState = (DataGameState)deserialize(xml);
-            game=GAME_PATH + gameState.getGameName()+ FRONTSLASH;
+            gameName=GAME_PATH + gameState.getGameName()+ FRONTSLASH;
             return gameState;
         }
         catch(Exception e){
