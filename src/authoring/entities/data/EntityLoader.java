@@ -1,7 +1,6 @@
 package authoring.entities.data;
 
 import authoring.entities.Entity;
-import authoring.entities.componentbuilders.*;
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
 import authoring.entities.componentbuilders.ComponentBuilder;
@@ -11,11 +10,9 @@ import engine.components.XPosition;
 import engine.components.YPosition;
 
 import java.io.File;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -29,18 +26,14 @@ import org.w3c.dom.Document;
  *
  */
 public class EntityLoader {
-	
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	private DocumentBuilder documentBuilder;
 	private final String ERROR_MESSAGE = "The component %s is invalid.";
-	private final String COMPONENT_WRAPPER = "Component";
 	private final String ENTITY_PREFIX = "authoring.entities.";
-	private final String COMPONENT_BUILDER = "authoring.entities.componentbuilders.";
 	private final String XML_EXTENSION = ".xml";
 	private final String DATA_PREFIX = "data/";
 	private final String TYPE = Type.KEY;
-	
+
 	public EntityLoader() {
 		try {
 			documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
@@ -48,7 +41,7 @@ public class EntityLoader {
 			//LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 	}
-	
+
 	/**
 	 * Get and build an entity that is represented by a given XML File.
 	 * @param entityName the name of the entity to pull the xml file for
@@ -95,7 +88,7 @@ public class EntityLoader {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Get the text value contained within an XML element.
 	 * @param e the element to be queried
@@ -106,28 +99,12 @@ public class EntityLoader {
 		System.out.println(e.getNodeName());
 		NodeList nList = e.getElementsByTagName(name);
 		if (nList != null && nList.getLength() > 0) {
-            return nList.item(0).getTextContent();
-        } else {
-        		throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW, name);
-        }
+			return nList.item(0).getTextContent();
+		} else {
+			throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW, name);
+		}
 	}
-	
-	/**
-	 * Uses reflection to get the correct component builder.
-	 * @param name the name of the component to create using the builder
-	 */
-	private ComponentBuilder getComponentBuilder(String name) {
-		try {
-			Class<?> clazz = Class.forName(COMPONENT_BUILDER + name);
-			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
-			return (ComponentBuilder) cons.newInstance();
-		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			// LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
-			e.printStackTrace();
-		} 
-		return null;
-	}
-	
+
 	/**
 	 * Given the root of the xml document, extract the type of the entity, which is necessary to instantiate it.
 	 * @param root the root of the xml document

@@ -7,7 +7,11 @@ import engine.components.Component;
 import engine.components.Score;
 import engine.components.ScoreLauncher;
 import engine.setup.SystemManager;
-
+/**
+ * System that checks if the entity that contains score collided with the entity that
+ * has a scoreLauncher component and adds score to its current score
+ * author sv116
+ */
 public class ScoreHandler {
 private SystemManager sm;
 	

@@ -19,13 +19,13 @@ import javafx.scene.control.CheckBox;
  *
  */
 public class HUDPropertiesView extends PropertiesView{
-	
+
 	private List<Level> levels;
 	private static final String NAME = "HUD Properties";
-	
+
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
-	
+
+
 	public HUDPropertiesView(List<Level> levels) {
 		super();
 		this.levels = new ArrayList<>(levels);
@@ -53,7 +53,7 @@ public class HUDPropertiesView extends PropertiesView{
 			getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox);
 			getRoot().add(submit, 0, getRoot().getChildren().size());
 		} catch (Exception e2) {
-			 LOGGER.log(java.util.logging.Level.SEVERE, e2.toString(), e2);
+			LOGGER.log(java.util.logging.Level.SEVERE, e2.toString(), e2);
 		}	
 	}
 

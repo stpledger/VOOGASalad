@@ -2,14 +2,15 @@ package levelunlock;
 
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+//TODO: SHOULD THIS BE REFACTORED TO EXTEND SCENE INSTEAD?
 public class SelectLevel extends ScrollPane {
-
     private int LevelProgress;
     private int NumOfLevels;
     private ArrayList<LevelItem> Levels;
@@ -44,6 +45,10 @@ public class SelectLevel extends ScrollPane {
 
         MyScene = new Scene(this);
         MyScene.getStylesheets().add(getClass().getResource("LevelStyle.css").toExternalForm());
+
+        Button button = new Button("Completed Level 1");
+        button.setOnAction(e -> updateLevelProgress(2));
+        LevelColumn.getChildren().add(button);
     }
 
     private void createLevels(){
@@ -59,6 +64,10 @@ public class SelectLevel extends ScrollPane {
 
     public void updateLevelProgress(int levelProgress){
         LevelProgress = levelProgress;
+        for(LevelItem l : Levels){
+            // if level is less than level progress, set level to unlocked
+            l.setLocked(!(l.getLevel() <= levelProgress));
+        }
     }
 
     public Scene getMyScene(){

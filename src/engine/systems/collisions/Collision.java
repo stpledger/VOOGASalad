@@ -1,5 +1,9 @@
 package engine.systems.collisions;
-
+/**
+ * System that checks if the collision happens, and determines where it happens
+ * in relation to dimensions
+ * author jcf44, sv116
+ */
 import java.util.*;
 
 import engine.components.Collidable;

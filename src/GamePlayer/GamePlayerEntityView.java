@@ -2,6 +2,7 @@ package GamePlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -39,6 +40,7 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	private RenderManager renderManager;
 	private SystemManager systemManager;
 
+	private int NumOfLevels;
 	private int ActiveLevel;
 	private XPosition ActivePlayerPosX;
 	private YPosition ActivePlayerPosY;
@@ -47,6 +49,7 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	private static final double PANE_WIDTH = 800;
 	private Map<Integer, Map<String, Component>> PlayerKeys;
 	private Map<Integer, Map<String, Boolean>> HUDPropMap;
+	private ArrayList<Win> WinComponents;
 
 	/**
 	 * Constructor when given the gameState
@@ -54,13 +57,25 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	 */
 	public GamePlayerEntityView(DataGameState gameState) {
 		Levels = gameState.getGameState();
+		//testXML();
 		HUDPropMap = obtainHudProps(Levels);
 		PlayerKeys = new HashMap<>();
+		WinComponents = new ArrayList<>();
 		levelToInt();
+		NumOfLevels = IntLevels.keySet().size();
 		LevelDisplays = createEntityGroupMap(Levels);
 		setActiveLevel(1);
 		initializeGamePlayerEntityView();
 	}
+	
+//	//*** TESTING METHOD
+//	private void testXML() {
+//		for (Level l:Levels.keySet()) {
+//			System.out.println("1pqoiweurweq"+Levels.get(l).get(1).get("XPosition"));
+//			break;
+//		}
+//	}
+	
 	
 	
 	public Map<Integer, Map<String, Boolean>> getHudPropMap(){
@@ -137,13 +152,9 @@ public class GamePlayerEntityView implements IGamePlayerView{
                     }
 
                     if (entityComponents.containsKey(Win.KEY)) {
-						Win w = (Win) entityComponents.get(Win.KEY);
-						w.getWinStatus().addListener((o, oldVal, newVal) -> {
-							winLevel();
-						});
+						WinComponents.add((Win) entityComponents.get(Win.KEY));
 					}
 				}
-				
 				//	JACK ADDED THIS .............
 				
 				if(entityComponents.containsKey(Width.KEY) && entityComponents.containsKey(Height.KEY)) {
@@ -246,7 +257,15 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		}
     }
 
-	public void winLevel(){
+    public int getActiveLevel(){
+	    return ActiveLevel;
+    }
 
-	}
+    public int getNumOfLevels(){
+	    return NumOfLevels;
+    }
+
+    public ArrayList<Win> getWinComponents() {
+        return WinComponents;
+    }
 }

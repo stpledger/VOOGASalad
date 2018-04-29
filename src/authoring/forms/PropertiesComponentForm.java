@@ -4,7 +4,6 @@ import java.lang.reflect.Constructor;
 import java.util.Properties;
 
 import engine.components.Component;
-import engine.components.DataComponent;
 import engine.components.SingleDataComponent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -18,7 +17,7 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 
 	private int entity;
 	private TextField field;
-	
+
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
 	 * @param entity the entity that the component should be added to
@@ -70,7 +69,7 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 			return null;
 		}
 	}
-	
+
 	@Override
 	public String getName() {
 		return this.name;
@@ -78,6 +77,6 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	@Override
 	public void setLanguage(Properties language) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }
