@@ -174,7 +174,7 @@ public class EntityBuilderView extends Stage {
 	 */
 	private void save(Object e){
 		try {
-			data.save((List<ComponentForm>) e);
+			data.save((List<Object[]>) e);
 			onClose.accept(data.getType(), data.getComponentAttributes());
 			this.close();
 		}

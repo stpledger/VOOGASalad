@@ -43,21 +43,26 @@ public class EntityBuilderData {
 	 * @param list
 	 * @throws Exception
 	 */
-	public void save(List<ComponentForm> list) throws Exception {
-		for(ComponentForm componentForm : list) {
-			Object[] tempArr = (Object[]) componentForm.buildComponent();
-			if(tempArr != null) {
+	public void save(List<Object[]> list) throws Exception {
+		System.out.println(list.size());
+		for(Object[] component : list) {
+			if(component != null) {
 				try {
-					componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
+					System.out.println(component[0].toString() + ":" + component[1].toString());
+					componentAttributes.put(Class.forName(COMPONENT_PREFIX + component[0]), (Object[]) component[1]);
 				} catch (Exception e) {
 					throw e;
 				}
 			}
 		}
 		EntitySaver saver = new EntitySaver();
-		if (this.componentAttributes.get(engine.components.Name.class)[0] == null) {
+		try {
+		Object l = this.componentAttributes.get(engine.components.Name.class)[0];
+		} catch(Exception k){
 			AuthoringException e = new AuthoringException(NAME_ERROR_MESSAGE, AuthoringAlert.SHOW);
+			k.printStackTrace();
 		}
+		
 		saver.writeXML(componentAttributes, (String) this.componentAttributes.get(engine.components.Name.class)[0]);
 	}
 

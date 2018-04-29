@@ -59,7 +59,10 @@ public class EntityComponentForm extends AbstractComponentForm implements Compon
 				String text = fields.get(i).getText();
 				params[i] = cast(types[i+1], text);
 			}
-			return params;
+			Object[] p = new Object[2];
+			p[0] = this.getName().replace(COMPONENT_PREFIX, "");
+			p[1] = params;
+			return p;
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}

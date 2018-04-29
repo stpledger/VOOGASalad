@@ -1,8 +1,13 @@
 package authoring.forms;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import authoring.entities.data.PackageExplorer;
+import authoring.factories.Element;
+import authoring.factories.ElementFactory;
+import authoring.factories.ElementType;
 import engine.components.Component;
 import engine.components.SingleDataComponent;
 import javafx.scene.control.Label;
@@ -14,7 +19,8 @@ import javafx.scene.control.TextField;
  *
  */
 public class PropertiesComponentForm extends AbstractComponentForm implements ComponentForm {
-
+	ElementFactory eFactory = new ElementFactory();
+	ArrayList<Element> elements = new ArrayList<>();
 	private int entity;
 	private TextField field;
 
@@ -24,19 +30,31 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	 * @param name the name of the component
 	 * @param numFields the number of fields necessary for this component
 	 */
-	public PropertiesComponentForm(int entity, String name) {
-		this.entity = entity;
+	public PropertiesComponentForm(int entity, String name) throws Exception {
 		this.name = name;
-		this.add(new Label(name), 0, 0);
-		this.field = new TextField();
-		this.add(this.field, 1, 0);
+		int col = 0;
+		Label label = (Label) eFactory.buildElement(ElementType.Label, name);
+		label.getStyleClass().add("component-form-label");
+		col++;
+		this.add(label, col, 0);
+		this.numFields = PackageExplorer.getNumFields(name);
+		elements.add((Element) label);
+		for (int i = 0; i < (numFields-1); i++) {
+			TextField tf = (TextField) eFactory.buildElement(ElementType.TextField, "text");
+			tf.getStyleClass().add("component-text-field");
+			elements.add((Element) tf);
+			fields.add(tf);
+			col++;
+			this.add(tf, col, 0);
+		}
 	}
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
 	 * @param name the name of the component
 	 * @param existingValue the String form of the existing value of this component
+	 * @throws Exception 
 	 */
-	public PropertiesComponentForm(int entity, String name, String existingValue) {
+	public PropertiesComponentForm(int entity, String name, String existingValue) throws Exception {
 		this(entity, name);
 		this.field.setText(existingValue);
 	}

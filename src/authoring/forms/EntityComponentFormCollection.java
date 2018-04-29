@@ -1,15 +1,8 @@
 package authoring.forms;
 
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-import authoring.exceptions.AuthoringAlert;
-import authoring.exceptions.AuthoringException;
-import engine.components.Component;
-import engine.components.DataComponent;
-import engine.components.StringComponent;
-import javafx.geometry.Pos;
 
 /**
  * 
@@ -29,7 +22,7 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 	}
 
 	@Override
-	protected void save(Consumer c) {
+	protected void save(Consumer onSave) {
 		ArrayList<Object[]> componentsToAdd = new ArrayList<Object[]>();
 		for(ComponentForm cf : this.getActiveForms()) {
 			Object[] component = ((EntityComponentForm) cf).buildComponent();

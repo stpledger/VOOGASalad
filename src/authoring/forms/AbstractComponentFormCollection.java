@@ -125,13 +125,11 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 		try {
 		currentRow = 0;
 		this.getChildren().clear();
-		ArrayList<ComponentForm> newActiveForms = new ArrayList<>();
 		for (String property : ResourceBundle.getBundle(getPropertiesPackage() + entityType).keySet()) {
 			if(!getExceptions().contains(property)) {
 				this.addComponent(property);
 			}
 		}
-		this.setActiveForms(newActiveForms);
 		this.createAddComponentButton(currentRow);
 		currentRow++;
 		this.createSaveButton(currentRow);
@@ -156,7 +154,8 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 	
 	private void addComponent(String componentName) {
 		try {
-			ArrayList<ComponentForm> newActiveForms = (ArrayList<ComponentForm>) this.getActiveForms();
+			ArrayList<ComponentForm> newActiveForms = new ArrayList<>();
+			newActiveForms.addAll(this.getActiveForms());
 			ComponentForm cf = null;
 			if(componentFormType.equals(PropertiesComponentForm.class)) {
 				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance(entityID, (componentName));

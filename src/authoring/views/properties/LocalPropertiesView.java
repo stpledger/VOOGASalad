@@ -8,6 +8,7 @@ import engine.components.Component;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import authoring.MainApplication;
 import authoring.entities.Entity;
 import authoring.forms.ComponentForm;
 import authoring.forms.PropertiesComponentFormCollection;
