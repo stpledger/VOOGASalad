@@ -14,10 +14,8 @@ import org.w3c.dom.Element;
  */
 public class ComponentBuilder {
 
-	private final static String FOLDER_PATH = "data/";
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-	
 	public Component build(int ID, Element e) {
 		try {
 			Class<?> clazz = Class.forName("engine.components." + e.getNodeName());

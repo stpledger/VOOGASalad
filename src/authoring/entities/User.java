@@ -1,10 +1,8 @@
 package authoring.entities;
 
-import engine.components.KeyInput;
 import engine.components.Lives;
 import engine.components.Player;
 import engine.components.Score;
-import javafx.scene.input.KeyCode;
 
 /**
  * A class to represent the player object, and its default components.
