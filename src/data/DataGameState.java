@@ -19,6 +19,7 @@ public class DataGameState {
     private Map<Level,Map<Integer, Map<String, Component>>> gameState;
 
     private String gameName = "data";
+    private double levelProgress =1;
 
     public DataGameState(Map<Level,Map<Integer, Map<String, Component>>> gameState, String gName) {
         /*creates a DataGameState from a map sent in from engine or player
@@ -87,6 +88,10 @@ public class DataGameState {
             for(Map<String,Component> entity : level.values())
                componentList.addAll(entity.values());
         return componentList;
+    }
+
+    public double getLevelProgress(){
+        return levelProgress;
     }
 
 }

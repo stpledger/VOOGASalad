@@ -18,6 +18,7 @@ class DataUtils {
     static final String SAVE_PATH = "saves/";
     static final String GAME_PATH = "games/";
     static final String WRITE_ERROR = "Could not write file";
+    protected static String game= "";
 
 
     static File findInDirectory(File directory, String target){
@@ -92,6 +93,10 @@ class DataUtils {
         {
             System.out.print("Application not defined");
         }
+    }
+
+    static void setGame(String name){
+         game = name;
     }
 
 }
