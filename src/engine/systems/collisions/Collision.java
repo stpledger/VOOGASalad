@@ -10,20 +10,18 @@ import engine.components.XPosition;
 import engine.components.XVelocity;
 import engine.components.YPosition;
 import engine.components.YVelocity;
+import engine.setup.SystemManager;
 import engine.systems.DefaultSystem;
 
 public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();
-	private List<Integer> colliders;
-	//private CollisionHandler handler;
-
-	/*public Collision(SystemManager sm) {
-		colliders = new ArrayList<>();
-		//handler = new CollisionHandler(sm);
-	}*/
+	private Set<Integer> colliders;
+	private Set<Integer> activeComponents;
+	private DamageHandler dHandler;
 	
-	public Collision() {
-		colliders = new ArrayList<>();
+	public Collision(SystemManager sm) {
+		colliders = new HashSet<>();
+		dHandler = new DamageHandler(sm);
 	}
 
 	
@@ -32,9 +30,8 @@ public class Collision extends DefaultSystem{
 	}
 
 	public void execute(double time) {
-
-		colliders.forEach((key1) -> {
-			handledComponents.forEach((key2, map) -> {
+		activeComponents.forEach((key1) -> {
+			handledComponents.forEach((key2, vel) -> {
 
 				if (key1 != key2) {
 
@@ -84,7 +81,7 @@ public class Collision extends DefaultSystem{
 					}
 
 					if (cd != null) {
-						//handler.handle(handledComponents, key1, key2, cd);
+						dHandler.handle(key1, handledComponents.get(key1), key2, handledComponents.get(key2));
 
 						if(handledComponents.get(key1).containsKey(Collidable.KEY)) {
 							Collidable cdb = (Collidable) handledComponents.get(key1).get(Collidable.KEY);
@@ -103,9 +100,9 @@ public class Collision extends DefaultSystem{
 							else cd2 = CollisionDirection.Left;
 							cdb.action(cd2, handledComponents.get(key2), handledComponents.get(key1));
 						}
-						
+
 						switch (cd) {
-						
+
 						case Top:
 							y1.setData(y2.getData() - h1.getData());
 							((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
@@ -145,7 +142,10 @@ public class Collision extends DefaultSystem{
 
 	@Override
 	public void setActives(Set<Integer> actives) {
-		//put in active listeners
+		Set<Integer> myActives = new HashSet<>(actives);
+		myActives.retainAll(handledComponents.keySet());
+		myActives.retainAll(colliders);
+		activeComponents = myActives;
 	}
 
 

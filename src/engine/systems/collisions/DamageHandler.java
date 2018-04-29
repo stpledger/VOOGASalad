@@ -1,5 +1,6 @@
 package engine.systems.collisions;
 
+import java.util.HashMap;
 import java.util.Map;
 import engine.components.Component;
 import engine.components.DamageLifetime;
@@ -17,30 +18,23 @@ public class DamageHandler {
 	}
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
+		giveDamage(playerID, player, colliderID, collider);
+		giveDamage(colliderID, collider, playerID, player);
+	}
 
-
-		if (player.containsKey(DamageValue.KEY) && 
-				player.containsKey(DamageLifetime.KEY) && 
+	private void giveDamage(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
+		if (player.containsKey(DamageValue.KEY) &&
+				player.containsKey(DamageLifetime.KEY) &&
 				collider.containsKey(Health.KEY)) {
-			
+
 			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
 			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
-									
-			sm.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
-			sm.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
-				
-			
-		}
 
-		if (collider.containsKey(DamageValue.KEY) && 
-				collider.containsKey(DamageLifetime.KEY) && 
-				player.containsKey(Health.KEY)) {
+			Map<String, Component> newDamageComponents = new HashMap<>();
+			newDamageComponents.put(DamageValue.KEY, new DamageValue(playerID, dlv.getData()));
+			newDamageComponents.put(DamageLifetime.KEY, new DamageLifetime(playerID, dll.getData()));
 			
-			DamageValue dlv = (DamageValue) collider.get(DamageValue.KEY);
-			DamageLifetime dll = (DamageLifetime) collider.get(DamageLifetime.KEY);
-						
-			sm.addComponent(playerID, new DamageValue(colliderID, dlv.getData()));
-			sm.addComponent(playerID, new DamageLifetime(colliderID, dll.getData()));
+			sm.addEntity(colliderID, newDamageComponents);
 
 		}
 	}

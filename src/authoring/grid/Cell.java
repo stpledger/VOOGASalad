@@ -23,7 +23,6 @@ public class Cell extends Pane {
 
 	/**
 	 * To initialize a blank cell
-	 * @param number the (distinct) number of the cell
 	 */
 	public Cell() {
 		this.setEntity(null);

@@ -26,6 +26,7 @@ public class ActionReader {
     // Scott changed this to suppress errors
     private static Actions actions = new Actions(new SystemManager(new RenderManager(0, 0, 0)));
 
+
     /**
      * This is the method which gets the action by having a series of private method calls
      * which reads the parameters to return an action (Consumer)

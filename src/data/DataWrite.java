@@ -147,6 +147,7 @@ public class DataWrite {
     // Utility for adding imaged into a specified directory instead of a random directory in the user's computer
     public static String writeImage(String gameName, String imageName) throws IOException {
         File imageFile = new File(DEFAULT_IMAGEPATH + imageName);
+        System.out.print(imageFile.getAbsolutePath());
         try {
             BufferedImage image = ImageIO.read(imageFile);
             String filePath = GAME_FILEPATH + gameName + FRONTSLASH + DEFAULT_IMAGEPATH + imageName;
