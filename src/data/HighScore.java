@@ -1,6 +1,6 @@
 package data;
 
-import GamePlayer.Person;
+import gameplayer.Person;
 
 import java.util.List;
 import java.util.Map;

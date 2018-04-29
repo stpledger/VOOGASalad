@@ -1,4 +1,4 @@
-package GamePlayer;
+package gameplayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,6 @@ import buttons.GameSelectButton;
 import buttons.IGamePlayerButton;
 import data.DataGameState;
 import data.DataRead;
-import javafx.beans.property.BooleanProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -16,7 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.stage.Stage;
 
 /**
  * Splash Screen for Selecting Games and Uploading Games

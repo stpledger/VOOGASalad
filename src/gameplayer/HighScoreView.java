@@ -1,4 +1,4 @@
-package GamePlayer;
+package gameplayer;
 
 import java.util.List;
 import java.util.Map;
@@ -30,8 +30,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 public class HighScoreView extends BranchScreenView {
 	private Scene highScoreScene;
