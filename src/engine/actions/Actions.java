@@ -35,17 +35,13 @@ import engine.setup.SystemManager;
  * @author cndracos
  */
 public class Actions {
-    private SystemManager sm;
-    public Actions(SystemManager sm){
-        this.sm = sm;
+    private static SystemManager sm = null;
+
+    public static void setSM(SystemManager sman) {
+    	sm = sman;
     }
 
     /**
-<<<<<<< HEAD
-     * @param speed Entity moving left
-=======
-     * @param speed
->>>>>>> de89ceda846775ae15c0943a776690e1ba062765
      * @return left action
      */
 	@SuppressWarnings("unchecked")
@@ -194,14 +190,13 @@ public class Actions {
     	};
 	}
 
-	/**
-	 * @return two new entity mapsama
-	 */
-	public static Consumer<Map<String, Component>> lowGravity(){
+
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> yGravity(double force){
 		return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
 			if (actor != null && actor.containsKey(YAcceleration.KEY)) {
 				YAcceleration YAcc = (YAcceleration) actor.get(YAcceleration.KEY);
-				YAcc.setData(YAcc.getData() - 1.0);
+				YAcc.setData(force);
 			}
 		};
 	}
@@ -226,9 +221,10 @@ public class Actions {
     /**
      * @return two new entity mapsama
      */
-    public BiConsumer<Map<String, Component>, Map<String, Component>> damage(){
+    @SuppressWarnings("unchecked")
+	public BiConsumer<Map<String, Component>, Map<String, Component>> damage(){
         return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
-            if(actor1 != null && actor1.containsKey(Health.KEY)){
+            /*if(actor1 != null && actor1.containsKey(Health.KEY)){
                 if(actor2 != null && actor2.containsKey(DamageLifetime.KEY) && actor2.containsKey(DamageValue.KEY)){
                     DamageLifetime damagelifetime2 = (DamageLifetime)actor2.get(DamageLifetime.KEY);
                     DamageValue damagevalue2 = (DamageValue)actor2.get(DamageValue.KEY);
@@ -240,12 +236,17 @@ public class Actions {
                     else{
                         actor1.put(DamageLifetime.KEY, damagelifetime2);
                         actor1.put(DamageValue.KEY, damagevalue2);
-                        sm.addComponent(damagelifetime2.getPID(), damagelifetime2);
-                        sm.addComponent(damagevalue2.getPID(), damagevalue2);
+                        if(sm != null) {
+                        	sm.addComponent(damagelifetime2.getPID(), damagelifetime2);
+                        	sm.addComponent(damagevalue2.getPID(), damagevalue2);
+                        }
                     }
                 }
-            }
+            }*/
 
+            // Yameng - this should only cover actor 1 applying damage to actor 2. The other way around would be covered by adding the 
+        	// same behavior to actor 2
+            
             if(actor2 != null && actor2.containsKey(Health.KEY)){
                 if(actor1 != null && actor1.containsKey(DamageLifetime.KEY) && actor1.containsKey(DamageValue.KEY)){
                     DamageLifetime damagelifetime1 = (DamageLifetime)actor1.get(DamageLifetime.KEY);
@@ -258,37 +259,44 @@ public class Actions {
                     else{
                         actor2.put(DamageLifetime.KEY, damagelifetime1);
                         actor2.put(DamageValue.KEY, damagevalue1);
-                        sm.addComponent(damagelifetime1.getPID(), damagelifetime1);
-                        sm.addComponent(damagelifetime1.getPID(), damagevalue1);
+                        if(sm != null) {
+                        	sm.addComponent(damagelifetime1.getPID(), damagelifetime1);
+                        	sm.addComponent(damagelifetime1.getPID(), damagevalue1);
+                        }
                     }
                 }
             }
         };
     }
     
-    private void giveDamage(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
+    public static void giveDamage(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
 		if (player.containsKey(DamageValue.KEY) &&
 				player.containsKey(DamageLifetime.KEY) &&
 				collider.containsKey(Health.KEY)) {
 
 			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
 			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
-
-			SM.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
-			SM.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+			if(sm != null) {
+				sm.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
+				sm.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+			}
 		}
 	}
 
     /**
      * @return two new entity maps
      */
-    public Consumer<Map<String, Component>> changeSprite(Sprite alternative){
+    
+    // Behavior already supported in sprite class
+    
+    /*@SuppressWarnings("unchecked")
+	public Consumer<Map<String, Component>> changeSprite(Sprite alternative){
         return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
             if(actor != null && actor.containsKey(Sprite.KEY)){
                 actor.put(Sprite.KEY, alternative);
             }
         };
-    }
+    }*/
 
     /**
      * This would be an AI component that has an enemy follow you
@@ -296,7 +304,8 @@ public class Actions {
      * @param tracker  Enemy/entity tracking the followed
      * @return action which result in the tracker moving towards the followed
      */
-    public static Consumer followsYou (Entity followed, Entity tracker) {
+    @SuppressWarnings("unchecked")
+	public static Consumer<Double> followsYou (Entity followed, Entity tracker) {
         XPosition px = (XPosition) followed.get(XPosition.KEY);
         YPosition py = (YPosition) followed.get(YPosition.KEY);
         XPosition tx = (XPosition) tracker.get(XPosition.KEY);
@@ -304,7 +313,7 @@ public class Actions {
         XVelocity vx = (XVelocity) tracker.get(XVelocity.KEY);
         YVelocity vy = (YVelocity) tracker.get(YVelocity.KEY);
 
-        return (Serializable & Consumer) (time) -> {
+        return (Serializable & Consumer<Double>) (time) -> {
             Double myTime = (Double) time;
             vx.setData((px.getData() - tx.getData()) * myTime * 10);
             vy.setData((py.getData() - ty.getData()) * myTime * 10);
@@ -319,14 +328,15 @@ public class Actions {
      * @param coordinates The positions the entity will visit
      * @return the actions which performs this method
      */
-    public static Consumer patrol(Map<String, Component> actor, List<Point> coordinates) {
+    @SuppressWarnings("unchecked")
+	public static Consumer<Double> patrol(Map<String, Component> actor, List<Point> coordinates) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
         Position p = (Position) actor.get(Position.KEY);
 
         AtomicReference<Point> destination = new AtomicReference<>(coordinates.get(0));
         AtomicInteger current = new AtomicInteger();
 
-        return (Serializable & Consumer) (time) -> {
+        return (Serializable & Consumer<Double>) (time) -> {
             v.setXVel((destination.get().getX()-p.getXPos())/
 					(distance(p.getXPos(), p.getYPos(), destination.get().getX(), destination.get().getY()) * 100));
             v.setYVel((destination.get().getY()-p.getYPos())/
