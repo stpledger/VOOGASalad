@@ -1,4 +1,4 @@
-package GamePlayer;
+package gameplayer;
 
 import java.io.FileNotFoundException;
 import java.util.Map;

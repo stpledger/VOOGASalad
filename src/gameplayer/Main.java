@@ -1,4 +1,4 @@
-package GamePlayer;
+package gameplayer;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -15,7 +15,7 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception{
-		GamePlayerController gamePlayer = new GamePlayerController(primaryStage);
+		Controller gamePlayer = new Controller(primaryStage);
 		mainStage = primaryStage;
 		mainStage.setTitle(TITLE);
 		mainStage.setScene(gamePlayer.initializeStartScene());

@@ -19,7 +19,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import GamePlayer.Main;
+import gameplayer.Main;
 import authoring.entities.Entity;
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
