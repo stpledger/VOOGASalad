@@ -77,19 +77,19 @@
                 <pid>0</pid>
                 <codes>
                   <entry>
-                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
-                      <implMethodName>lambda$3</implMethodName>
+                      <implMethodName>lambda$0</implMethodName>
                       <implMethodSignature>(Lengine/components/XVelocity;Ljava/lang/Object;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                       <capturedArgs>
-                        <engine.components.XVelocity reference="../../../../../../../entry[3]/engine.components.XVelocity"/>
+                        <engine.components.XVelocity reference="../../../../../../../entry[2]/engine.components.XVelocity"/>
                       </capturedArgs>
                     </java.util.function.Consumer>
                   </entry>
@@ -114,19 +114,31 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
+<<<<<<< HEAD
+                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+=======
                     <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+>>>>>>> 598ceb3001e8cc2b59e950c4634561b23808d6e9
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.test.TestGameState</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/test/TestGameState</implClass>
+<<<<<<< HEAD
+                      <implMethodName>lambda$3</implMethodName>
+=======
                       <implMethodName>lambda$0</implMethodName>
+>>>>>>> 598ceb3001e8cc2b59e950c4634561b23808d6e9
                       <implMethodSignature>(Lengine/components/XVelocity;Ljava/lang/Object;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/lang/Object;)V</instantiatedMethodType>
                       <capturedArgs>
+<<<<<<< HEAD
+                        <engine.components.XVelocity reference="../../../../../../../entry[2]/engine.components.XVelocity"/>
+=======
                         <engine.components.XVelocity reference="../../../../../../../entry[3]/engine.components.XVelocity"/>
+>>>>>>> 598ceb3001e8cc2b59e950c4634561b23808d6e9
                       </capturedArgs>
                     </java.util.function.Consumer>
                   </entry>
@@ -152,7 +164,11 @@
             </entry>
             <entry>
               <string>YVelocity</string>
+<<<<<<< HEAD
+              <engine.components.YVelocity reference="../../entry[6]/engine.components.KeyInput/codes/entry[2]/java.util.function.Consumer/capturedArgs/engine.components.YVelocity"/>
+=======
               <engine.components.YVelocity reference="../../entry[7]/engine.components.KeyInput/codes/entry[2]/java.util.function.Consumer/capturedArgs/engine.components.YVelocity"/>
+>>>>>>> 598ceb3001e8cc2b59e950c4634561b23808d6e9
             </entry>
             <entry>
               <string>DamageValue</string>
@@ -209,6 +225,8 @@
                 <pid>0</pid>
                 <data>0.0</data>
               </engine.components.XAcceleration>
+<<<<<<< HEAD
+=======
             </entry>
           </map>
         </entry>
@@ -394,6 +412,7 @@
                 <pid>4</pid>
                 <data>10.0</data>
               </engine.components.DamageValue>
+>>>>>>> 598ceb3001e8cc2b59e950c4634561b23808d6e9
             </entry>
           </map>
         </entry>
