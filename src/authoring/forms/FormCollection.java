@@ -16,11 +16,6 @@ public interface FormCollection {
 	 */
 	public void setExceptions(String[] exceptions);
 	
-	/**
-	 * Add a componentForm to the form collection
-	 * @param componentName
-	 */
-	public void addComponent(Object componentName);
 	
 	/**
 	 * Sets the action when the save button is pressed
@@ -28,11 +23,6 @@ public interface FormCollection {
 	 */
 	public void setSaveConsumer(Consumer onSave);
 	
-	/**
-	 * Sets the list of currently active component forms
-	 * @param activeForms
-	 */
-	public void setActiveForms(List<ComponentForm> activeForms);
 	
 	/**
 	 * Gets a list of the currently active component forms

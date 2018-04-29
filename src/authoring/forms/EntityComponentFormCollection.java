@@ -4,6 +4,11 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
+import engine.components.Component;
+import engine.components.DataComponent;
+import engine.components.StringComponent;
 import javafx.geometry.Pos;
 
 /**
@@ -20,6 +25,27 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 	public EntityComponentFormCollection(String[] newExceptions, Consumer onSave) {
 		super(newExceptions, onSave, EntityComponentForm.class);	
 	}
+
+	@Override
+	protected void save(Consumer c) {
+		ArrayList<Object[]> componentsToAdd = new ArrayList<Object[]>();
+		for(ComponentForm cf : this.getActiveForms()) {
+			Component c = (Component) cf.buildComponent();
+			if(!c.getKey().isEmpty() && c.getClass().isInstance(DataComponent.class)) {
+				try {
+					((DataComponent) c).getData();
+					componentsToAdd.add(c);
+				} catch(Exception e) {
+					AuthoringException authorException = new AuthoringException(c.getKey() + "is not a valid integer", AuthoringAlert.SHOW);
+				}
+			} else if (!c.getKey().isEmpty() && c.getClass().isInstance(StringComponent.class)); {
+				componentsToAdd.add(c);
+			}
+		}
+		onSave.accept(componentsToAdd);
+		
+	}
+
 	
 	
 }

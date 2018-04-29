@@ -76,7 +76,7 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 	protected void createSaveButton(int row) {
 		try {
 			saveButton = (Button) eFactory.buildClickElement(ClickElementType.Button, "Save", onClick->{
-				onSave.accept(activeForms);
+				save(onSave);
 			});
 			this.add(saveButton, 0, row);
 			this.setAlignment(Pos.CENTER);
@@ -140,7 +140,7 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 		}
 	}
 	
-	public void update(Object componentName) {
+	private void update(Object componentName) {
 		this.getChildren().remove(addComponentButton);
 		this.getChildren().remove(saveButton);
 		this.addComponent((String) componentName);
@@ -152,7 +152,7 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 		
 	}
 	
-	public void addComponent(String componentName) {
+	private void addComponent(String componentName) {
 		try {
 			ArrayList<ComponentForm> newActiveForms = (ArrayList<ComponentForm>) this.getActiveForms();
 			ComponentForm cf = null;
@@ -171,6 +171,8 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 			e.printStackTrace();
 		}
 	}
+	
+	protected abstract void save(Consumer c);
 
 
 

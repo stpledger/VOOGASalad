@@ -4,8 +4,17 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
+import engine.components.Component;
+import engine.components.DataComponent;
+import engine.components.StringComponent;
 import javafx.geometry.Pos;
-
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class PropertiesComponentFormCollection extends AbstractComponentFormCollection {
 	
 	private int currentRow;
@@ -14,39 +23,27 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 		super(newExceptions, onSave, PropertiesComponentForm.class);
 		entityID = eID;
 	}
-	
-	/**
-	 * Creates the forms and returns them as a GridPane
-	 * @return gridPane a gridpane filled with the necessary forms
-	 */
-	public void fillComponentsForms(String entityType) {
-		try {
-		currentRow = 0;
-		this.getChildren().clear();
-		ArrayList<ComponentForm> newActiveForms = new ArrayList<>();
-		for (String property : ResourceBundle.getBundle(getPropertiesPackage() + entityType).keySet()) {
-			if(!getExceptions().contains(property)) {
-				PropertiesComponentForm cf;
-				cf = new PropertiesComponentForm(entityID, property);
-				cf.setAlignment(Pos.CENTER);
-				newActiveForms.add(cf);
-				this.add(cf, 0, currentRow);
-				currentRow++;
-			}
-		}
-		this.setActiveForms(newActiveForms);
-		this.createAddComponentButton(currentRow);
-		currentRow++;
-		this.createSaveButton(currentRow);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	@Override
-	public void setSaveConsumer(Consumer c) {
-		// TODO Auto-generated method stub
+	protected void save(Consumer onSave) {
+		ArrayList<Component> componentsToAdd = new ArrayList<Component>();
+		for(ComponentForm cf : this.getActiveForms()) {
+			Component c = (Component) cf.buildComponent();
+			if(!c.getKey().isEmpty() && c.getClass().isInstance(DataComponent.class)) {
+				try {
+					((DataComponent) c).getData();
+					componentsToAdd.add(c);
+				} catch(Exception e) {
+					AuthoringException authorException = new AuthoringException(c.getKey() + "is not a valid integer", AuthoringAlert.SHOW);
+				}
+			} else if (!c.getKey().isEmpty() && c.getClass().isInstance(StringComponent.class)); {
+				componentsToAdd.add(c);
+			}
+		}
+		onSave.accept(componentsToAdd);
 		
 	}
+
 
 }
