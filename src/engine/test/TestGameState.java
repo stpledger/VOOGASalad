@@ -11,6 +11,7 @@ import data.DataGameState;
 import data.DataWrite;
 import engine.Engine;
 import engine.InternalEngine;
+import engine.actions.Actions;
 import engine.components.*;
 
 import engine.setup.GameInitializer;
@@ -29,7 +30,7 @@ public class TestGameState {
 		entities = new HashMap<>();
 		//ActionReader AR = new ActionReader();
 		
-		Sprite s = new Sprite(0,"/Desktop/Blob_Walk.png");
+		Sprite s = new Sprite(0,"Blob_Walk.png");
 		//Sprite s4 = new Sprite(3,"mario.png");
 
 		Sprite s4 = new Sprite(3,"8Bit.png");
@@ -46,10 +47,12 @@ public class TestGameState {
 		XAcceleration ax = new XAcceleration(0, 0);
 		YAcceleration ay = new YAcceleration(0,40);
 		KeyInput k = new KeyInput(0);
-		k.addCode( KeyCode.RIGHT, (Consumer & Serializable) (e) -> {
-			vx.setData(+50);
-			if(!s.isPlaying()) 	s.animate(1000, 24, 6, 0, 0, 93, 158);
-
+		k.addCode( KeyCode.RIGHT, (Consumer<Map<String,Component>> & Serializable) (map) -> {
+			Actions.moveRight(100).accept(map);
+			//Actions.animateSprite("braid.png", 1000, 27, 7, 0, 0, 75, 85).accept(map);
+			if(!s.isPlaying()) 	s.animate(1000, 24, 6, 0, 0, 93, 158);//s.animate(1000, 27, 7, 0, 0, 75, 85);	
+			s.getImage().setScaleX(1);
+			//Actions.accelerateRight(100).accept(map);
 		});
 		k.addCode(KeyCode.UP, (Consumer & Serializable)(e) ->
 		{
@@ -62,6 +65,8 @@ public class TestGameState {
 		k.addCode(KeyCode.LEFT,(Consumer & Serializable) (e) ->
 		{
 			vx.setData(-50);
+			//if(!s.isPlaying()) s.animate(1000, 27, 7, 0, 0, 75, 85);						//s.animate(1000, 24, 6, 0, 0, 93, 158);
+			s.getImage().setScaleX(-1);
 		});
 		k.addCode(KeyCode.SPACE,(Consumer & Serializable) (e) ->
 		{

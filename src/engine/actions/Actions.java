@@ -199,8 +199,10 @@ public class Actions {
     		if(actor != null && (actor instanceof Map<?,?>)) {
     			if(actor.containsKey(Sprite.KEY)) {
     				Sprite s = (Sprite) actor.get(Sprite.KEY);
-    				s.setData(filename);
-    				s.animate(dur, count, columns, offsetX, offsetY, width, height);
+    				if(!s.isPlaying()) {
+    					s.setData(filename);
+    					s.animate(dur, count, columns, offsetX, offsetY, width, height);
+    				}
     			}
     		}
     	};

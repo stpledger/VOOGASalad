@@ -50,7 +50,7 @@ public class KeyInput extends Conditional implements BehaviorComponent {
 	public void action(Set<KeyCode> codeSet, Map<String, Component> entityMap) {
         codeSet.forEach((key) -> {
         	if(codes.containsKey(key)) {
-        		this.setAction((entity, o2) -> {
+        		/*this.setAction((entity, o2) -> {
         			if(entity instanceof Map<?,?>) {
         				codes.get(key).accept((Map<String, Component>) entity);
         			}
@@ -58,7 +58,9 @@ public class KeyInput extends Conditional implements BehaviorComponent {
         		this.setCondition(() -> {
         			return entityMap;
         		});
-        		this.evaluate();
+        		this.evaluate();*/
+        		
+        		codes.get(key).accept(entityMap);
         	}
         });
 	}
