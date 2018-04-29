@@ -19,7 +19,7 @@ public class LevelView extends ScrollPane {
 	private Level level;
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
-	
+
 	Properties language = new Properties();
 
 	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
