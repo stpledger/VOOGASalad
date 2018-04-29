@@ -3,18 +3,18 @@ package GamePlayer;
 import java.util.List;
 import java.util.Map;
 
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
-
-import com.restfb.DefaultFacebookClient;
-import com.restfb.FacebookClient;
-import com.restfb.FacebookClient.AccessToken;
-import com.restfb.Parameter;
-import com.restfb.Version;
-import com.restfb.json.JsonObject;
-import com.restfb.types.User;
+//import org.openqa.selenium.WebDriver;
+//import org.openqa.selenium.chrome.ChromeDriver;
+//import org.openqa.selenium.remote.DesiredCapabilities;
+//import org.openqa.selenium.remote.RemoteWebDriver;
+//
+//import com.restfb.DefaultFacebookClient;
+//import com.restfb.FacebookClient;
+//import com.restfb.FacebookClient.AccessToken;
+//import com.restfb.Parameter;
+//import com.restfb.Version;
+//import com.restfb.json.JsonObject;
+//import com.restfb.types.User;
 
 import buttons.IGamePlayerButton;
 import data.DataRead;
@@ -118,7 +118,7 @@ public class HighScoreView extends BranchScreenView {
 		submitButton.setOnAction(e->{addHighScore(userNameField.getText(), 50.0); 
 			hideRecordInput();
 		});
-		facebookAuthButton.setOnAction(e->{authenticateUser();});
+		//facebookAuthButton.setOnAction(e->{authenticateUser();});
 		requestRecordLayout.getChildren().addAll(userNameField, submitButton, facebookAuthButton);
 		highScorePane.setCenter(requestRecordLayout);
 	}
@@ -151,28 +151,29 @@ public class HighScoreView extends BranchScreenView {
 		System.out.println(data.size());
 	}
 
-	/**
-	 * Facebook Authentification Method 
-	 */
-	private void authenticateUser() {
-		System.setProperty("webdriver.chrome.driver", "/Users/Ryan/cs308/chromedriver");
-		WebDriver driver = new ChromeDriver();
-		driver.get(authUrl);
-		String accessToken;
-		while(true) {
-			if(!driver.getCurrentUrl().contains("facebook.com")) {
-				String url = driver.getCurrentUrl();
-				accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
-				accessToken = accessToken.split("&")[0];
-				driver.quit();
-				FacebookClient fbClient = new DefaultFacebookClient(accessToken, Version.VERSION_2_9);
-				User user = fbClient.fetchObject("me", User.class);
-				userNameField.setText(user.getName());
-				break;
-			}	
-		}
+//	/**
+//	 * Facebook Authentification Method 
+//	 */
+//	private void authenticateUser() {
+//		System.setProperty("webdriver.chrome.driver", "/Users/Ryan/cs308/chromedriver");
+//		WebDriver driver = new ChromeDriver();
+//		driver.get(authUrl);
+//		String accessToken;
+//		while(true) {
+//			if(!driver.getCurrentUrl().contains("facebook.com")) {
+//				String url = driver.getCurrentUrl();
+//				accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
+//				accessToken = accessToken.split("&")[0];
+//				driver.quit();
+//				FacebookClient fbClient = new DefaultFacebookClient(accessToken, Version.VERSION_2_9);
+//				User user = fbClient.fetchObject("me", User.class);
+//				userNameField.setText(user.getName());
+//				break;
+//			}	
+//		}
+//	
+//	}
 	
-	}
 	@Override
 	public List<IGamePlayerButton> getButtons() {
 		// TODO Auto-generated method stub

@@ -43,7 +43,7 @@ public class LevelPropertiesView extends PropertiesView{
 				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label,levelProps.getString(property));
 				currentRow++;
 				this.getRoot().add(label, 0, currentRow);
-				elements.add((Element) label);
+				this.getElementList().add((Element) label);
 			}
 			//TODO update text to be something meaningful from properties files
 			TextField infoText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,text);

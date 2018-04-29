@@ -49,7 +49,7 @@ public class HUDPropertiesView extends PropertiesView{
 				this.makeAlert(this.title()+" has been updated!");
 				this.close();
 			});
-			elements.addAll(Arrays.asList(new Element[] {(Element) livesBox, (Element)submit, (Element) healthBox, (Element) timeBox, (Element) levelBox}));
+			this.getElementList().addAll(Arrays.asList(new Element[] {(Element) livesBox, (Element)submit, (Element) healthBox, (Element) timeBox, (Element) levelBox}));
 			getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox);
 			getRoot().add(submit, 0, getRoot().getChildren().size());
 		} catch (Exception e2) {

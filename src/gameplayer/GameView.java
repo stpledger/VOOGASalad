@@ -1,7 +1,5 @@
 package GamePlayer;
 
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +18,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 /**
- * Class that controls how the entity objects are displayed
+ * Class that controls how the entity objects are displayed on the GamePlayer
  * @authors Ryan Fu & Scott Pledger
  *
  */
@@ -71,29 +69,18 @@ public class GameView implements IGamePlayerView{
 		initializeGameView();
 	}
 
-
 	//TODO: CHECK IF OBSELETE WITH NEW "LEVEL STATUS" CLASS
+	/**
+	 * Obtains heads-up display status map for each level in a game.
+	 * @return Map<Integer, Map<String, Boolean>> 
+	 */
 	public Map<Integer, Map<String, Boolean>> getHudPropMap(){
 		return hudPropMap;
 	}
 
 	/**
-	 * Method to obtain the map of heads-up display properties for each level.
-	 * @param levels
-	 * @return Map<Integer, Map<String,Boolean>>
-	 */
-	private Map<Integer, Map<String, Boolean>> obtainHudProps(Map<Level,Map<Integer,Map<String,Component>>> levels){
-		Map<Integer, Map<String, Boolean>> HUDPropMap = new HashMap<Integer, Map<String, Boolean>>();
-		int count = 1;
-		for (Level l: levels.keySet()) {
-			HUDPropMap.put(count, l.getHUDprops());
-			count++;
-		}
-		return HUDPropMap;
-	}
-
-	/**
 	 * Converts Map of levels to its Entities to Integers to Entities to make calling a particular level easier
+	 * @return Map<Integer, Map<Integer,Map<String,Component>>> 
 	 */
 	public Map<Integer, Map<Integer,Map<String,Component>>> levelToInt(Map<Level, Map<Integer,Map<String,Component>>> levelMap) {
 		Map<Integer, Map<Integer,Map<String,Component>>> temp = new HashMap<>();
@@ -111,80 +98,6 @@ public class GameView implements IGamePlayerView{
 		return gameLevelDisplays;
 	}
 
-	/**
-	 * Method that builds the entire map of level with groups of sprite images
-	 * @param map
-	 *
-	 */
-	private Map<Integer, Pane> createLevelDisplays(Map<Level, Map<Integer, Map<String, Component>>> map){
-		Map<Integer, Pane> levelEntityMap = new HashMap<>();
-		for(Level level : map.keySet()) {
-			levelEntityMap.put(level.getLevelNum(), createIndividualEntityGroup(map.get(level), level.getLevelNum()));
-		}
-		return levelEntityMap;
-	}
-
-	/**
-	 * Method that creates all the groups for each level in a levels.
-	 * @param entityMap
-	 * @return
-	 */
-	private Pane createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap, int levelNum) {
-		Pane entityRoot = new Pane();
-		Map<String, Component> entityComponents;
-		for(Integer i : entityMap.keySet()) {
-			entityComponents = entityMap.get(i);
-			if(entityComponents.containsKey(Sprite.KEY)) {
-				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
-				ImageView image = spriteComponent.getImage();
-
-				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
-					setSpritePosition(entityComponents, image);
-
-					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
-					if(entityComponents.containsKey(Player.KEY)){
-						playerKeys.put(levelNum, entityComponents);
-					}
-
-					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
-					if (entityComponents.containsKey(Win.KEY)) {
-						//winComponents.add((Win) entityComponents.get(Win.KEY));
-					}
-				}
-
-				if(entityComponents.containsKey(Width.KEY) && entityComponents.containsKey(Height.KEY)) {
-					setSpriteSize(entityComponents, image);
-				}
-
-				entityRoot.getChildren().add(image);
-			}
-		}
-		return entityRoot;
-	}
-
-	/**
-	 * Repositions the sprite image on the screen based on its position component
-	 * @param entityComponents - entity
-	 * @param image - sprite
-	 */
-	private void setSpritePosition(Map<String, Component> entityComponents, ImageView image){
-		XPosition px = (XPosition) entityComponents.get(XPosition.KEY);
-		YPosition py = (YPosition) entityComponents.get(YPosition.KEY);
-		image.setX(px.getData());
-		image.setY(py.getData());
-	}
-
-	/**
-	 * Resizes the sprite image on the screen based on its width and height components
-	 * @param entityComponents
-	 * @param image
-	 */
-	private void setSpriteSize(Map<String, Component> entityComponents, ImageView image){
-		Width w = (Width) entityComponents.get(Width.KEY);
-		Height h = (Height) entityComponents.get(Height.KEY);
-		image.setFitHeight(h.getData());
-		image.setFitWidth(w.getData());
-	}
 
 	/**
 	 * Connects View to Engine Systems (GameInitializer, InputHandler, RenderManager, SystemManager)
@@ -304,4 +217,95 @@ public class GameView implements IGamePlayerView{
 	/*public ArrayList<Win> getWinComponents() {
 		return winComponents;
 	}*/
+	
+	/**
+	 * Method to obtain the map of heads-up display properties for each level.
+	 * @param levels
+	 * @return Map<Integer, Map<String,Boolean>>
+	 */
+	private Map<Integer, Map<String, Boolean>> obtainHudProps(Map<Level,Map<Integer,Map<String,Component>>> levels){
+		Map<Integer, Map<String, Boolean>> HUDPropMap = new HashMap<Integer, Map<String, Boolean>>();
+		int count = 1;
+		for (Level l: levels.keySet()) {
+			HUDPropMap.put(count, l.getHUDprops());
+			count++;
+		}
+		return HUDPropMap;
+	}
+	
+	/**
+	 * Method that builds the entire map of level with groups of sprite images
+	 * @param map
+	 *
+	 */
+	private Map<Integer, Pane> createLevelDisplays(Map<Level, Map<Integer, Map<String, Component>>> map){
+		Map<Integer, Pane> levelEntityMap = new HashMap<>();
+		for(Level level : map.keySet()) {
+			levelEntityMap.put(level.getLevelNum(), createIndividualEntityGroup(map.get(level), level.getLevelNum()));
+		}
+		return levelEntityMap;
+	}
+
+	/**
+	 * Method that creates all the groups for each level in a levels.
+	 * @param entityMap
+	 * @return
+	 */
+	private Pane createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap, int levelNum) {
+		Pane entityRoot = new Pane();
+		Map<String, Component> entityComponents;
+		for(Integer i : entityMap.keySet()) {
+			entityComponents = entityMap.get(i);
+			if(entityComponents.containsKey(Sprite.KEY)) {
+				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
+				ImageView image = spriteComponent.getImage();
+
+				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
+					setSpritePosition(entityComponents, image);
+
+					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
+					if(entityComponents.containsKey(Player.KEY)){
+						playerKeys.put(levelNum, entityComponents);
+					}
+
+					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
+					if (entityComponents.containsKey(Win.KEY)) {
+						//winComponents.add((Win) entityComponents.get(Win.KEY));
+					}
+				}
+
+				if(entityComponents.containsKey(Width.KEY) && entityComponents.containsKey(Height.KEY)) {
+					setSpriteSize(entityComponents, image);
+				}
+
+				entityRoot.getChildren().add(image);
+			}
+		}
+		return entityRoot;
+	}
+
+	/**
+	 * Repositions the sprite image on the screen based on its position component
+	 * @param entityComponents - entity
+	 * @param image - sprite
+	 */
+	private void setSpritePosition(Map<String, Component> entityComponents, ImageView image){
+		XPosition px = (XPosition) entityComponents.get(XPosition.KEY);
+		YPosition py = (YPosition) entityComponents.get(YPosition.KEY);
+		image.setX(px.getData());
+		image.setY(py.getData());
+	}
+
+	/**
+	 * Resizes the sprite image on the screen based on its width and height components
+	 * @param entityComponents
+	 * @param image
+	 */
+	private void setSpriteSize(Map<String, Component> entityComponents, ImageView image){
+		Width w = (Width) entityComponents.get(Width.KEY);
+		Height h = (Height) entityComponents.get(Height.KEY);
+		image.setFitHeight(h.getData());
+		image.setFitWidth(w.getData());
+	}
+
 }
