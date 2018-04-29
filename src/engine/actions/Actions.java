@@ -243,6 +243,19 @@ public class Actions {
             }
         };
     }
+    
+    private void giveDamage(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
+		if (player.containsKey(DamageValue.KEY) &&
+				player.containsKey(DamageLifetime.KEY) &&
+				collider.containsKey(Health.KEY)) {
+
+			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
+			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
+
+			sm.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
+			sm.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+		}
+	}
 
     /**
      * @return two new entity maps
