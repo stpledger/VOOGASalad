@@ -1,11 +1,13 @@
 package authoring.views.properties;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
 import authoring.factories.ClickElementType;
+import authoring.factories.Element;
 import authoring.factories.ElementType;
 import authoring.gamestate.Level;
 import javafx.scene.control.Button;
@@ -22,6 +24,7 @@ public class HUDPropertiesView extends PropertiesView{
 	private static final String NAME = "HUD Properties";
 	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	
 	
 	public HUDPropertiesView(List<Level> levels) {
 		super();
@@ -46,6 +49,7 @@ public class HUDPropertiesView extends PropertiesView{
 				this.makeAlert(this.title()+" has been updated!");
 				this.close();
 			});
+			elements.addAll(Arrays.asList(new Element[] {(Element) livesBox, (Element)submit, (Element) healthBox, (Element) timeBox, (Element) levelBox}));
 			getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox);
 			getRoot().add(submit, 0, getRoot().getChildren().size());
 		} catch (Exception e2) {
@@ -57,5 +61,6 @@ public class HUDPropertiesView extends PropertiesView{
 	protected String title() {
 		return NAME;
 	}
+
 
 }

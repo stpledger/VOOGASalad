@@ -8,9 +8,14 @@ import java.util.Map;
 import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataWrite;
-import engine.components.*;
+
 import engine.components.Component;
-import engine.components.Dimension;
+import engine.components.Height;
+import engine.components.Player;
+import engine.components.Sprite;
+import engine.components.Width;
+import engine.components.XPosition;
+import engine.components.YPosition;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
@@ -34,14 +39,17 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	private Map<Integer, Pane> LevelDisplays;
 	private DataGameState gameState;
 	private File gameFile;
+
 	private GameInitializer gameInitializer;
+
 	private InputHandler inputHandler;
 	private RenderManager renderManager;
 	private SystemManager systemManager;
 	private LevelStatus levelStatus;
 
 	private int ActiveLevel;
-	private Position ActivePlayerPos;
+	private XPosition ActivePlayerPosX;
+	private YPosition ActivePlayerPosY;
 
 	private static final double PANE_HEIGHT = 442;
 	private static final double PANE_WIDTH = 800;
@@ -135,10 +143,11 @@ public class GamePlayerEntityView implements IGamePlayerView{
 				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
 				ImageView image = spriteComponent.getImage(); //gets the class of the sprite
 				
-				if (entityComponents.containsKey(Position.KEY)) {
-					Position p = (Position) entityComponents.get(Position.KEY);
-					image.setX(p.getXPos());
-					image.setY(p.getYPos());
+				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
+					XPosition px = (XPosition) entityComponents.get(XPosition.KEY);
+					YPosition py = (YPosition) entityComponents.get(YPosition.KEY);
+					image.setX(px.getData());
+					image.setY(py.getData());
 
 					// setting up values to track for window scroll
 					if(entityComponents.containsKey(Player.KEY)){
@@ -147,10 +156,11 @@ public class GamePlayerEntityView implements IGamePlayerView{
 				}
 				//	JACK ADDED THIS .............
 				
-				if(entityComponents.containsKey(Dimension.KEY)) {
-					Dimension dim = (Dimension) entityComponents.get(Dimension.KEY);
-					image.setFitHeight(dim.getHeight());
-					image.setFitWidth(dim.getWidth());
+				if(entityComponents.containsKey(Width.KEY) && entityComponents.containsKey(Height.KEY)) {
+					Width w = (Width) entityComponents.get(Width.KEY);
+					Height h = (Height) entityComponents.get(Height.KEY);
+					image.setFitHeight(h.getData());
+					image.setFitWidth(w.getData());
 				}
 				
 				//	Sizes images correctly	.................
@@ -171,7 +181,7 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	public void initializeGamePlayerEntityView() {
 		try {
 			gameInitializer = new GameInitializer(IntLevels.get(ActiveLevel),
-					Math.max(PANE_HEIGHT, PANE_WIDTH), ActivePlayerPos.getXPos(), ActivePlayerPos.getYPos());
+					Math.max(PANE_HEIGHT, PANE_WIDTH), ActivePlayerPosX.getData(), ActivePlayerPosY.getData());
 			//gameInitializer = new GameInitializer(IntLevels.get(0)); //gets the first level map.
 		} catch (FileNotFoundException e) {
 			System.out.println("ActiveEntities not initialized");
@@ -182,7 +192,7 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		systemManager = gameInitializer.getSystemManager();
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
-		//levelStatus = gameInitializer.getC().getCH().getLS();
+		levelStatus = new LevelStatus();
 		/*levelStatus.getUpdate().addListener((o, oldVal, newVal) -> {
 	   //  some action based on the value of newVal like -1 game over, from 1 to 2 change to level two etc. 
 	  });*/
@@ -191,8 +201,8 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	public void setActiveLevel(int i){
 		ActiveLevel = i;
 		Map<String, Component> player = new HashMap<>(PlayerKeys.get(ActiveLevel));
-		ActivePlayerPos = (Position) player.get(Position.KEY);
-		initializeGamePlayerEntityView();
+		ActivePlayerPosX = (XPosition) player.get(XPosition.KEY);
+		ActivePlayerPosY = (YPosition) player.get(YPosition.KEY);
 	}
 	
 
@@ -201,8 +211,8 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	}
 
 	public void render() {
-		double newCenterX = ActivePlayerPos.getXPos();
-		double newCenterY = ActivePlayerPos.getYPos();
+		double newCenterX = ActivePlayerPosX.getData();
+		double newCenterY = ActivePlayerPosY.getData();
 		systemManager.setActives(renderManager.render(newCenterX, newCenterY));
 	}
     
@@ -230,20 +240,20 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		double minY = gameRoot.getTranslateY() * -1;
 		double maxY = gameRoot.getTranslateY() * -1 + PANE_HEIGHT;
 
-		if(ActivePlayerPos.getYPos() - 100 < minY){
-			gameRoot.setTranslateY((ActivePlayerPos.getYPos() - 100) * -1);
+		if(ActivePlayerPosY.getData() - 100 < minY){
+			gameRoot.setTranslateY((ActivePlayerPosY.getData() - 100) * -1);
 		}
 
-		if(ActivePlayerPos.getYPos() + 200 > maxY){
-			gameRoot.setTranslateY(((ActivePlayerPos.getYPos() + 200) - PANE_HEIGHT) * -1);
+		if(ActivePlayerPosY.getData() + 200 > maxY){
+			gameRoot.setTranslateY(((ActivePlayerPosY.getData() + 200) - PANE_HEIGHT) * -1);
 		}
 
-		if(ActivePlayerPos.getXPos() - 100 < minX){
-			gameRoot.setTranslateX((ActivePlayerPos.getXPos() - 100) * -1);
+		if(ActivePlayerPosX.getData() - 100 < minX){
+			gameRoot.setTranslateX((ActivePlayerPosX.getData() - 100) * -1);
 		}
 
-		if(ActivePlayerPos.getXPos() + 400 > maxX){
-			gameRoot.setTranslateX(((ActivePlayerPos.getXPos() + 400) - PANE_WIDTH) * -1);
+		if(ActivePlayerPosX.getData() + 400 > maxX){
+			gameRoot.setTranslateX(((ActivePlayerPosX.getData() + 400) - PANE_WIDTH) * -1);
 		}
     }
 

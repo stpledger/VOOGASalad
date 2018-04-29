@@ -31,16 +31,12 @@ public class EntityBox extends VBox {
 		this.getStyleClass().add("entity-box");
 		this.setWidth(boxDimension);
 		this.setHeight(boxDimension);
-		
 		componentAttributes = m;
-		
 		setPreview();
-		
 		this.setOnDragDetected(e -> {
 			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
 			ClipboardContent cc = new ClipboardContent();
 			cc.putImage(image);
-			System.out.println(componentAttributes.get(engine.components.Name.class)[0].toString());
 			cc.putString(componentAttributes.get(engine.components.Name.class)[0].toString());	
 			db.setContent(cc);
 			e.consume();
@@ -48,7 +44,7 @@ public class EntityBox extends VBox {
 	}
 
 	private void setPreview() {
-		image = DataRead.addImage((String) componentAttributes.get(Sprite.class)[0]);
+		image = DataRead.loadImage((String) componentAttributes.get(Sprite.class)[0]);
 		imageView = new ImageView(image);
 		imageView.setFitHeight(boxDimension-IMAGE_BUFFER);
 		imageView.setFitWidth(boxDimension-IMAGE_BUFFER);

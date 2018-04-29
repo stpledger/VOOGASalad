@@ -1,9 +1,14 @@
 package authoring.entities.data;
 
-import authoring.entities.*;
+import authoring.entities.Entity;
 import authoring.entities.componentbuilders.*;
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
+import authoring.entities.componentbuilders.ComponentBuilder;
 import engine.components.Component;
 import engine.components.Type;
+import engine.components.XPosition;
+import engine.components.YPosition;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
@@ -11,7 +16,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -31,7 +35,7 @@ public class EntityLoader {
 	private DocumentBuilder documentBuilder;
 	private final String ERROR_MESSAGE = "The component %s is invalid.";
 	private final String COMPONENT_WRAPPER = "Component";
-	private final String ENTITY_PREFIX = "authoring.entities";
+	private final String ENTITY_PREFIX = "authoring.entities.";
 	private final String COMPONENT_BUILDER = "authoring.entities.componentbuilders.";
 	private final String XML_EXTENSION = ".xml";
 	private final String DATA_PREFIX = "data/";
@@ -58,20 +62,23 @@ public class EntityLoader {
 	 * @throws IllegalAccessException 
 	 * @throws InstantiationException 
 	 */
-	public void buildEntity(int ID, String entityName) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException, ClassNotFoundException {
+	public Entity buildEntity(int ID, String entityName, double x, double y) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, SecurityException, ClassNotFoundException {
 		Element root = getRootElement(new File(DATA_PREFIX + entityName + XML_EXTENSION));
 		String type = extractTypeFromRoot(root);
-		Entity entity = (Entity) Class.forName(ENTITY_PREFIX + type).getDeclaredConstructors()[0].newInstance();
+		Entity entity = (Entity) Class.forName(ENTITY_PREFIX + type).getDeclaredConstructors()[0].newInstance(ID, type);
 		NodeList nList = root.getChildNodes();
 		List<Component> compsToAdd = new ArrayList<>();
+		ComponentBuilder cb = new ComponentBuilder();
 		for (int i = 0; i < nList.getLength(); i++) {
 			Element e = (Element) nList.item(i);
-//			ComponentBuilder cb = getComponentBuilder(e.getNodeName());
-//			compsToAdd.add(cb.build(ID, e));
+			compsToAdd.add(cb.build(ID, e));
 		}
-		//return entity;
-	}
-	
+		compsToAdd.add(new XPosition(ID,x));
+		compsToAdd.add(new YPosition(ID,y));
+		entity.addAll(compsToAdd);
+		return entity;
+	}	
+
 	/**
 	 * Get the root element of an xml file to parse
 	 * @param XMLFile the xml file to parse
@@ -96,11 +103,12 @@ public class EntityLoader {
 	 * @return the text value of this certain element
 	 */
 	private String getTextValue(Element e, String name) {
+		System.out.println(e.getNodeName());
 		NodeList nList = e.getElementsByTagName(name);
 		if (nList != null && nList.getLength() > 0) {
             return nList.item(0).getTextContent();
         } else {
-        		throw new XMLException(ERROR_MESSAGE, name);
+        		throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW, name);
         }
 	}
 	
@@ -114,7 +122,7 @@ public class EntityLoader {
 			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
 			return (ComponentBuilder) cons.newInstance();
 		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException e) {
-			//LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			// LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 			e.printStackTrace();
 		} 
 		return null;

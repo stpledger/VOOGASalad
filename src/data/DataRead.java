@@ -105,8 +105,8 @@ public class DataRead  {
         for(File game : file.listFiles()){
           game = findInDirectory(game,PLAYER_TARGET);
           DataGameState playable = loadPlayerFile(game);
-          Image icon = getIcons().get(0);
-          games.put(icon, playable);
+          //Image icon = getIcons().get(0);
+          //games.put(icon, playable);
         }
         return games;
     }

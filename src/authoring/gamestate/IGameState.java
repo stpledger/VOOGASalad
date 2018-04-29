@@ -27,7 +27,5 @@ public interface IGameState {
 	public void removeLevel(Level level);
 
 	public List<Level> getLevels();
-
-	public void printState();
 }
 
