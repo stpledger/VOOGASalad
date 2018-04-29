@@ -100,6 +100,7 @@ public class DataWrite {
         BufferedImage image = null;
         try {
             image = ImageIO.read(file);
+            //Image noWhite = ImageUtil.convert();
             File fileDest = new File(DEFAULT_IMAGEPATH + file.getName());
             ImageIO.write(image, getFileType(file), fileDest);
         } catch (IOException e) {

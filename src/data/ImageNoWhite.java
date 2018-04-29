@@ -30,4 +30,5 @@ public class ImageNoWhite {
         BufferedImage whiteFilter = SwingFXUtils.fromFXImage(image, null);
         return SwingFXUtils.toFXImage((BufferedImage) convertAWT(whiteFilter), null);
     }
+
 }

@@ -13,12 +13,6 @@ import engine.InternalEngine;
 import engine.actions.Actions;
 import engine.components.*;
 
-import engine.components.groups.Acceleration;
-import engine.components.groups.Damage;
-import engine.components.groups.Dimension;
-import engine.components.groups.Position;
-import engine.components.groups.Velocity;
-import java.util.function.BiConsumer;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
 import engine.systems.collisions.CollisionDirection;

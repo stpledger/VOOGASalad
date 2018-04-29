@@ -65,12 +65,11 @@ public class DataRead  {
         } 
         catch (IllegalStateException e) {
             ErrorStatement(FAIL_MESSAGE + e.getMessage());
-            return new HashMap<Level,Map<Integer,List<Component>>>();
+            return new HashMap<>();
         }
     }
 
     public static Image loadImage(String name)throws RuntimeException {
-        Image image;
         File imageFile = loadFile(path + FRONTSLASH + IMAGE_PATH +name);
         return loadImage(imageFile);
     }
@@ -78,9 +77,11 @@ public class DataRead  {
    // public static List<DataGameState> getGames
 
     public static Image addImage(File file) {
+
         DataWrite.writeImage(file);
         return loadImage(file);
     }
+
     public static Image loadImage(File file) {
         try {
             BufferedImage image = ImageIO.read(file);
