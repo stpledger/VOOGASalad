@@ -1,4 +1,4 @@
-package GamePlayer;
+package gameplayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -178,19 +178,17 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	 * @throws FileNotFoundException
 	 */
 	public void initializeGamePlayerEntityView() {
-		try {
-			gameInitializer = new GameInitializer(IntLevels.get(ActiveLevel),
-					Math.max(PANE_HEIGHT, PANE_WIDTH), ActivePlayerPosX.getData(), ActivePlayerPosY.getData());
-			//gameInitializer = new GameInitializer(IntLevels.get(0)); //gets the first level map.
-		} catch (FileNotFoundException e) {
-			System.out.println("ActiveEntities not initialized");
-		}
+		gameInitializer = new GameInitializer(IntLevels.get(ActiveLevel),
+				Math.max(PANE_HEIGHT, 1000000)
+				, ActivePlayerPosX.getData(), ActivePlayerPosY.getData());
+		//gameInitializer = new GameInitializer(IntLevels.get(0)); //gets the first level map.
 
 		inputHandler = gameInitializer.getInputHandler();
 		renderManager = gameInitializer.getRenderManager();
 		systemManager = gameInitializer.getSystemManager();
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
+
 		/*levelStatus.getUpdate().addListener((o, oldVal, newVal) -> {
 	   //  some action based on the value of newVal like -1 game over, from 1 to 2 change to level two etc. 
 	  });*/

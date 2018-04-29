@@ -17,6 +17,9 @@ import java.util.function.Consumer;
 
 
 public class ResourceGetter {
+    /*@Author Conrad builds the prompt and browser that allows the user to import images from the internet
+
+     */
     private static final int HEIGHT = 615;
     private static final int WIDTH = 800;
 
@@ -24,6 +27,7 @@ public class ResourceGetter {
     public ResourceGetter() {}
 
     public void selectImage() {
+        /*build form*/
         Stage stage = new Stage();
         stage.setResizable(false);
         Browser b = new Browser(e->stage.close());
@@ -33,9 +37,10 @@ public class ResourceGetter {
     }
 }
 class Browser extends Region {
+    /*creates the broeser and prompts
+     */
 
     private static final String START_URL ="http://www.google.com";
-    private static final String IMAGE_ERROR = "Sorry, that's not an accepted image file";
     private static final String IMAGE_PROMPT = "Navigate to an image url (Hint: 'open image in new window')";
     private static final String NAMING_ERROR = "Sorry, name was not accepted. Try again. (Hint: use '.jpg', '.png', '.gif'";
     private static final String RENAME_IMAGE= "Give a name to this image";
@@ -63,7 +68,7 @@ class Browser extends Region {
         VBox view = new VBox();
         HBox menu = new HBox();
 
-        Button back = new Button(BACK_BUTTON); back.setOnAction( e->{setImageName(messager.getText());});
+        Button back = new Button(BACK_BUTTON); back.setOnAction( e->{back();});
         select =new Button(LOAD_BUTTON); select.setOnAction(e->{setImageName(messager.getText());});
         select.setDisable(true);
         Button forward= new Button(FORWARD_BUTTON); forward.setOnAction(e->{forward();});
@@ -75,7 +80,6 @@ class Browser extends Region {
         return view;
     }
 
-    //TODO get rid of misused image creation
     private void selectImage() {
         try {
             imageURL = new URL(browser.getEngine().getLocation());
@@ -88,6 +92,7 @@ class Browser extends Region {
             messager.abort();
         }
     }
+
     private void back() {
         try{
             webEngine.getHistory().go(-1);
@@ -97,6 +102,7 @@ class Browser extends Region {
         catch(Exception e)
         {}
     }
+
     private void forward() {
         try{
             webEngine.getHistory().go(1);

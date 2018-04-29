@@ -5,7 +5,10 @@ import javafx.scene.input.KeyCode;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashMap;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+
+import engine.systems.collisions.CollisionDirection;
 
 /**
  * This is the component class that allows the designer to assign an action to an entity based on a key code/key input,
@@ -14,14 +17,15 @@ import java.util.function.Consumer;
  *
  * @author cndracos
  */
-public class KeyInput extends Conditional {
+public class KeyInput extends Conditional implements BehaviorComponent {
 
-	private Map<KeyCode, Consumer<Map<String, Component>>> codes = new HashMap<>();
+	private Map<KeyCode, Consumer<Map<String, Component>>> codes;
 
 	public static String KEY = "KeyInput";
 	
 	public KeyInput(int pid) {
 		super(pid);
+		codes = new HashMap<>();
 	}
 
 	public boolean containsCode (KeyCode key) {
@@ -37,6 +41,7 @@ public class KeyInput extends Conditional {
 	 */
 	public void addCode (KeyCode code, Consumer<Map<String, Component>> con) {
 		codes.put(code, con);
+		System.out.println(codes.toString());
 	}
 
 	/*public void action(KeyCode key) {
@@ -47,7 +52,7 @@ public class KeyInput extends Conditional {
 	public void action(Set<KeyCode> codeSet, Map<String, Component> entityMap) {
         codeSet.forEach((key) -> {
         	if(codes.containsKey(key)) {
-        		this.setAction((entity, o2) -> {
+        		/*this.setAction((entity, o2) -> {
         			if(entity instanceof Map<?,?>) {
         				codes.get(key).accept((Map<String, Component>) entity);
         			}
@@ -55,7 +60,8 @@ public class KeyInput extends Conditional {
         		this.setCondition(() -> {
         			return entityMap;
         		});
-        		this.evaluate();
+        		this.evaluate();*/
+        		codes.get(key).accept(entityMap);
         	}
         });
 	}
@@ -63,6 +69,22 @@ public class KeyInput extends Conditional {
 	
 	public String getKey() { 
 		return KEY; 
+	}
+
+	@Override
+	public void addBehavior(Object identifier, Consumer con) {
+		if(identifier instanceof KeyCode) {
+			this.addCode((KeyCode) identifier, con);
+		}
+	}
+
+	@Override
+	public void addBehavior(Object identifier, BiConsumer bic) {
+		if(identifier instanceof KeyCode) {
+			this.addCode((KeyCode) identifier, (entity) -> {
+				bic.accept(entity, null);
+			});
+		}
 	}
 
 }

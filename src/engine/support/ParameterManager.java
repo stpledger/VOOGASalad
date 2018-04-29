@@ -21,6 +21,7 @@ public class ParameterManager {
 	 * @param component name of component class
 	 * @return a list of string[]: ["name of parameter", "type of parameter"]
 	 */
+	@SuppressWarnings("unchecked")
 	public static List<String[]> getParameters(String component){
 		List<String[]> parameters = new ArrayList<>();
 		Class<?> cls;
@@ -69,7 +70,7 @@ public class ParameterManager {
 	 */
 	private static boolean isValid(String component, List<String> inputs) {
 		List<String[]> parameters = getParameters(component);
-		int index = 0;
+		//int index = 0;
 		if(parameters.size() != inputs.size()) {
 			return false;
 		}

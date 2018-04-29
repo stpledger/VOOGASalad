@@ -121,7 +121,6 @@ public class Grid extends GridPane {
 	 * @param img ImageView of the entity
 	 */
 	private void setupContextMenu(Cell c) {
-		System.out.println("working??");
 		c.setOnMouseClicked(e -> {
 			if(e.getButton().equals(MouseButton.SECONDARY)) {
 				ContextMenu cMenu = new ContextMenu();
