@@ -265,13 +265,8 @@ public class Actions {
      * @param followed Player/entity being followed
      * @return action which result in the tracker moving towards the followed
      */
-<<<<<<< HEAD
 
-    @SuppressWarnings("unchecked")
-	public static Consumer<Map <String, Component>> followsYou (Map<String, Component> followed, double speed) {
-=======
     public static Consumer<Map <String, Component>> followsYou (Entity followed, double speed) {
->>>>>>> 9e481279e6c72c1e4bb67e012b7ae7c00aed3825
         XPosition px = (XPosition) followed.get(XPosition.KEY);
         YPosition py = (YPosition) followed.get(YPosition.KEY);
 
