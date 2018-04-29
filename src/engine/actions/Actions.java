@@ -17,6 +17,7 @@ import engine.components.groups.Velocity;
 import java.awt.Point;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -35,13 +36,13 @@ import engine.setup.SystemManager;
  * @author cndracos
  */
 public class Actions {
-    private SystemManager SM;
+    private static SystemManager SM;
     public Actions(SystemManager SM){
         this.SM = SM;
     }
 
     /**
-     * @param speed Entity moving left
+     * @param speed
      * @return left action
      */
 	@SuppressWarnings("unchecked")
@@ -116,7 +117,7 @@ public class Actions {
     		}
     	};
     }
-	
+
 	@SuppressWarnings("unchecked")
 	public static Consumer<Map<String, Component>> accelerateUp (double speed) {
     	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
@@ -190,37 +191,45 @@ public class Actions {
     		}
     	};
 	}
-	
-	
+
+	/**
+	 * @return two new entity mapsama
+	 */
+	public static Consumer<Map<String, Component>> lowGravity(){
+		return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+			if (actor != null && actor.containsKey(YAcceleration.KEY)) {
+				YAcceleration YAcc = (YAcceleration) actor.get(YAcceleration.KEY);
+				YAcc.setData(YAcc.getData() - 1.0);
+			}
+		};
+	}
     
-	
-	
-	
-	
-	
-	
-	
 	
     /**
-     * @return two new entity maps
+     * @return two new entity mapsama
      */
-    public BiConsumer<Map<String, Component>, Map<String, Component>> damage(int pid1, int pid2){
+    public static BiConsumer<Map<String, Component>, Map<String, Component>> damage(){
         return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
-            giveDamage(pid1, actor1, pid2, actor2);
-		    giveDamage(pid2, actor2, pid1, actor1);
-        };
+			giveDamage(actor1, actor2);
+			giveDamage(actor2, actor1);
+		};
     }
     
-    private void giveDamage(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
+    private static void giveDamage(Map<String, Component> player, Map<String, Component> collider) {
 		if (player.containsKey(DamageValue.KEY) &&
 				player.containsKey(DamageLifetime.KEY) &&
 				collider.containsKey(Health.KEY)) {
+			int playerID = player.get(DamageValue.KEY).getPID();
+			int colliderID = collider.get(Health.KEY).getPID();
 
 			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
 			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
 
-			SM.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
-			SM.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+			Map<String, Component> newDamageComponents = new HashMap<>();
+			newDamageComponents.put(DamageValue.KEY, new DamageValue(playerID, dlv.getData()));
+			newDamageComponents.put(DamageLifetime.KEY, new DamageLifetime(playerID, dll.getData()));
+
+			SM.addEntity(colliderID, newDamageComponents);
 		}
 	}
 

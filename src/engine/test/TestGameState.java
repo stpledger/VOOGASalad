@@ -5,17 +5,23 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
-
 import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataWrite;
 import engine.Engine;
 import engine.InternalEngine;
+import engine.actions.Actions;
 import engine.components.*;
 
+import engine.components.groups.Acceleration;
+import engine.components.groups.Damage;
 import engine.components.groups.Dimension;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
+import java.util.function.BiConsumer;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
+import engine.systems.collisions.CollisionDirection;
 import javafx.scene.input.KeyCode;
 
 public class TestGameState {
@@ -48,24 +54,40 @@ public class TestGameState {
 		k.addCode( KeyCode.RIGHT, (Consumer & Serializable) (e) -> {
 			vx.setData(+50);
 		});
+
 		k.addCode(KeyCode.UP, (Consumer & Serializable)(e) ->
 		{
 			vy.setData(-50);
 		});
+
 		k.addCode(KeyCode.DOWN,(Consumer & Serializable) (e) ->
 		{
 			vy.setData(+50);
 		});
+
 		k.addCode(KeyCode.LEFT,(Consumer & Serializable) (e) ->
 		{
 			vx.setData(-50);
 		});
+
 		Health health = new Health(0,10);
 		DamageValue damage = new DamageValue(0, 10);
 		DamageLifetime dl = new DamageLifetime(0,1);
 		
 		Player play = new Player(0);
 		Lives lives = new Lives(0,3);
+
+		Collidable collide = new Collidable(0);
+		collide.setOnDirection(CollisionDirection.Bot, Actions.damage());
+		collide.setOnDirection(CollisionDirection.Top, Actions.damage());
+		collide.setOnDirection(CollisionDirection.Left, Actions.damage());
+		collide.setOnDirection(CollisionDirection.Right, Actions.damage());
+		/**
+		k.addCode(KeyCode.R, (Runnable & Serializable) () ->
+		{
+			play.respawn(p, v, a);
+		});
+		**/
 
 		Map<String, Component> mario = new HashMap<>();
 		mario.put(XPosition.KEY, px);
@@ -87,19 +109,25 @@ public class TestGameState {
 		mario.put(DamageValue.KEY, damage);
 		mario.put(DamageLifetime.KEY, dl);
 		mario.put(Player.KEY, play);
+		mario.put(Collidable.KEY, collide);
 
-		//Map<String, Component> mario2 = new HashMap<>();
-
-		/**
-		 Position p2 = new Position(1, 100, 300);
-		 Dimension d2 = new Dimension(1, 100, 100);
-
-		 mario2.put(Position.KEY, p2);
-		 mario2.put(Dimension.KEY, d2);
-		 mario2.put(Sprite.KEY, s2);**/
+		Map<String, Component> mario2 = new HashMap<>();
 
 
+		Position p2 = new Position(1, 100, 300);
+		Dimension d2 = new Dimension(1, 100, 100);
+		Sprite s2 = new Sprite(1,"Mario.png");
+		Collidable collide2 = new Collidable(1);
+		collide.setOnDirection(CollisionDirection.Bot, Actions.damage());
+		collide.setOnDirection(CollisionDirection.Top, Actions.damage());
+		collide.setOnDirection(CollisionDirection.Left, Actions.damage());
+		collide.setOnDirection(CollisionDirection.Right, Actions.damage());
 
+		mario2.put(Position.KEY, p2);
+		mario2.put(Dimension.KEY, d2);
+		mario2.put(Sprite.KEY, s2);
+        mario2.put(Collidable.KEY,collide2);
+        
 		/**
 		 Position p3 = new Position(2, 300, 100);
 		 Dimension d3 = new Dimension(2, 100, 100);
@@ -164,7 +192,7 @@ public class TestGameState {
 		 mario.put(Conditional.KEY, co1);**/
 
 		entities.put(0, mario);
-		//entities.put(1, mario2);
+		entities.put(1, mario2);
 		//entities.put(2, mario3);
 		entities.put(3, mario4);
 		GameInitializer gi = new GameInitializer(entities, 300, 50, 50);

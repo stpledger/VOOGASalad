@@ -13,10 +13,30 @@
           <int>0</int>
           <map>
             <entry>
+<<<<<<< HEAD
               <string>Type</string>
               <engine.components.Type>
                 <pid>0</pid>
                 <data>Block</data>
+=======
+              <string>EntityType</string>
+              <engine.components.EntityType>
+                <pid>0</pid>
+                <data>Player</data>
+              </engine.components.EntityType>
+            </entry>
+            <entry>
+              <string>Player</string>
+              <engine.components.Player>
+                <pid>0</pid>
+              </engine.components.Player>
+            </entry>
+            <entry>
+              <string>Type</string>
+              <engine.components.Type>
+                <pid>0</pid>
+                <data>User</data>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Type>
             </entry>
             <entry>
@@ -30,43 +50,69 @@
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>0</pid>
+<<<<<<< HEAD
                 <data>8Bit.png</data>
+=======
+                <data>bonn.jpeg</data>
+                <name>bonn.jpeg</name>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Sprite>
             </entry>
             <entry>
               <string>Health</string>
               <engine.components.Health>
                 <pid>0</pid>
+<<<<<<< HEAD
                 <data>1.0</data>
                 <initialHealth>1.0</initialHealth>
+=======
+                <data>100.0</data>
+                <initialHealth>100.0</initialHealth>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Health>
             </entry>
             <entry>
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>0</pid>
+<<<<<<< HEAD
                 <data>100.0</data>
+=======
+                <data>150.0</data>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.YPosition>
             </entry>
             <entry>
               <string>Height</string>
               <engine.components.Height>
                 <pid>0</pid>
+<<<<<<< HEAD
                 <data>10.0</data>
+=======
+                <data>50.0</data>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Height>
             </entry>
             <entry>
               <string>Width</string>
               <engine.components.Width>
                 <pid>0</pid>
+<<<<<<< HEAD
                 <data>10.0</data>
+=======
+                <data>25.0</data>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Width>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>0</pid>
+<<<<<<< HEAD
                 <data>j</data>
+=======
+                <data>sleenee</data>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Name>
             </entry>
           </map>
@@ -85,22 +131,36 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>1</pid>
+<<<<<<< HEAD
                 <data>300.0</data>
+=======
+                <data>200.0</data>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>1</pid>
+<<<<<<< HEAD
                 <data>8Bit.png</data>
+=======
+                <data>dirt.jpg</data>
+                <name>dirt.jpg</name>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Sprite>
             </entry>
             <entry>
               <string>Health</string>
               <engine.components.Health>
                 <pid>1</pid>
+<<<<<<< HEAD
                 <data>1.0</data>
                 <initialHealth>1.0</initialHealth>
+=======
+                <data>50.0</data>
+                <initialHealth>50.0</initialHealth>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Health>
             </entry>
             <entry>
@@ -114,21 +174,33 @@
               <string>Height</string>
               <engine.components.Height>
                 <pid>1</pid>
+<<<<<<< HEAD
                 <data>10.0</data>
+=======
+                <data>50.0</data>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Height>
             </entry>
             <entry>
               <string>Width</string>
               <engine.components.Width>
                 <pid>1</pid>
+<<<<<<< HEAD
                 <data>10.0</data>
+=======
+                <data>50.0</data>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Width>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>1</pid>
+<<<<<<< HEAD
                 <data>j</data>
+=======
+                <data>dirt</data>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Name>
             </entry>
           </map>
@@ -147,22 +219,36 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>2</pid>
+<<<<<<< HEAD
                 <data>550.0</data>
+=======
+                <data>300.0</data>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>2</pid>
+<<<<<<< HEAD
                 <data>8Bit.png</data>
+=======
+                <data>dirt.jpg</data>
+                <name>dirt.jpg</name>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Sprite>
             </entry>
             <entry>
               <string>Health</string>
               <engine.components.Health>
                 <pid>2</pid>
+<<<<<<< HEAD
                 <data>1.0</data>
                 <initialHealth>1.0</initialHealth>
+=======
+                <data>50.0</data>
+                <initialHealth>50.0</initialHealth>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Health>
             </entry>
             <entry>
@@ -176,6 +262,7 @@
               <string>Height</string>
               <engine.components.Height>
                 <pid>2</pid>
+<<<<<<< HEAD
                 <data>10.0</data>
               </engine.components.Height>
             </entry>
@@ -363,11 +450,15 @@
               <engine.components.Height>
                 <pid>5</pid>
                 <data>10.0</data>
+=======
+                <data>50.0</data>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Height>
             </entry>
             <entry>
               <string>Width</string>
               <engine.components.Width>
+<<<<<<< HEAD
                 <pid>5</pid>
                 <data>10.0</data>
               </engine.components.Width>
@@ -494,11 +585,16 @@
               <engine.components.Width>
                 <pid>7</pid>
                 <data>10.0</data>
+=======
+                <pid>2</pid>
+                <data>50.0</data>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
               </engine.components.Width>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
+<<<<<<< HEAD
                 <pid>7</pid>
                 <data>j</data>
               </engine.components.Name>
@@ -872,6 +968,9 @@
               <string>Name</string>
               <engine.components.Name>
                 <pid>14</pid>
+=======
+                <pid>2</pid>
+>>>>>>> 687420c7b01d102bc58baed0eca4661e975d7b50
                 <data>dirt</data>
               </engine.components.Name>
             </entry>

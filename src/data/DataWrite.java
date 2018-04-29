@@ -1,27 +1,20 @@
 package data;
 
+import GamePlayer.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-
 import authoring.entities.Entity;
 import authoring.gamestate.GameState;
 import engine.components.Component;
 import engine.components.Sprite;
-
 import javafx.scene.control.Alert;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.*;
-
-import static engine.components.Sprite.IMAGE_PATH;
 
 public class DataWrite {
 
@@ -40,12 +33,17 @@ public class DataWrite {
     private static final String IMAGE_GETTER = "getImageFile";
     private static final String SOUND_GETTER = "getSoundFile";
     private static final String SOUND_DATAPATH = "sounds/";
-    private static final String SLASH = "/";
-    private static final String DEFAULT_IMAGEPATH = DATA_DATAPTH + SLASH + IMAGE_DATAPATH;
+    private static final String FRONTSLASH = "/";
+    private static final String BACKSLASH = "\\";
+    private static final String DEFAULT_IMAGEPATH = DATA_DATAPTH + FRONTSLASH + IMAGE_DATAPATH;
     private static final Set<Object> DATA_COMPONENTS = new HashSet<>(Arrays.asList(new Object[]{Sprite.class}));
     private static final Set<String> ACCEPTED_IMAGE_FILES = new HashSet<>(Arrays.asList(new String[]{"jpg", "png", "gif"}));
+    private static final String FILE ="File:";
     private static final String SAVE_PATH = "saves/";
     private static final String ENTITY_PATH = "entity/";
+    private static final String HIGHSCORE_FILE = "src/highscores.xml";
+    private static String gameName = "DemoDemo";
+    private static final String USER_DIR = "user.dir";
 
 
     //creates an xml file from an authoiring environment this method converts authoring gamestate to player
@@ -62,7 +60,7 @@ public class DataWrite {
 
     public static void saveGame(DataGameState dataGameState, String saveName) {
         String name = dataGameState.getGameName();
-        File game = new File(GAME_FILEPATH + name + SLASH + SAVE_PATH + saveName + XML_FILETYPE);
+        File game = new File(GAME_FILEPATH + name + FRONTSLASH + SAVE_PATH + saveName + XML_FILETYPE);
         FileOutputStream fos = null;
         try {
             fos = new FileOutputStream(game);
@@ -70,6 +68,32 @@ public class DataWrite {
             ErrorStatement(WRITE_ERROR);
         }
         serialize(dataGameState, fos);
+    }
+
+    public static void saveHighscore(Person person){
+        File hs;
+        Map<String, List<Person>> people;
+        try {
+            people = DataRead.loadHighscore();
+            people.get(gameName).add(person);
+            hs = loadFile( HIGHSCORE_FILE);
+        } catch (Exception e) {
+            people = new HashMap<>();
+            if(!people.containsKey(gameName)){
+                List<Person> thepeeps = new ArrayList<>();
+                thepeeps.add(person);
+                people.put(gameName,thepeeps);
+            }
+            else
+                people.get(gameName).add(person);
+            hs = new File(HIGHSCORE_FILE);
+        }
+        try {
+            FileOutputStream fos = new FileOutputStream(hs);
+            serialize(new HighScore(people), fos);
+        } catch (FileNotFoundException e) {
+            ErrorStatement(WRITE_ERROR);
+        }
     }
 
     public static void writeImage(File file) {
@@ -126,7 +150,7 @@ public class DataWrite {
         System.out.print(imageFile.getAbsolutePath());
         try {
             BufferedImage image = ImageIO.read(imageFile);
-            String filePath = GAME_FILEPATH + gameName + SLASH + DEFAULT_IMAGEPATH + imageName;
+            String filePath = GAME_FILEPATH + gameName + FRONTSLASH + DEFAULT_IMAGEPATH + imageName;
             File fileDest = new File(filePath);
             ImageIO.write(image, getFileType(imageFile), fileDest);
             return filePath;
@@ -139,10 +163,10 @@ public class DataWrite {
     //makes a folder system or cleans one out for data to be written
     private static void makeFolders(String name) {
         String gameDir = GAME_FILEPATH + name;
-        String saveDir = gameDir + SLASH + SAVE_PATH;
-        String dataDir = gameDir + SLASH + DATA_DATAPTH;
-        String imageDir = dataDir + SLASH + IMAGE_DATAPATH;
-        String soundDir = dataDir + SLASH + SOUND_DATAPATH;
+        String saveDir = gameDir + FRONTSLASH + SAVE_PATH;
+        String dataDir = gameDir + FRONTSLASH + DATA_DATAPTH;
+        String imageDir = dataDir + FRONTSLASH + IMAGE_DATAPATH;
+        String soundDir = dataDir + FRONTSLASH + SOUND_DATAPATH;
 
         File gameFolder = new File(gameDir);
         if (!gameFolder.exists()) {
@@ -157,6 +181,7 @@ public class DataWrite {
 
             File soundFolder = new File(soundDir);
             soundFolder.mkdir();
+            
         } else {
             deleteDir(gameFolder);
             makeFolders(name);
@@ -234,4 +259,52 @@ public class DataWrite {
         XStream xstream = new XStream(new DomDriver());
         xstream.toXML(o, fos);
     }
+    private static File loadFile(String path) {
+        String filePath =path.replace(BACKSLASH,FRONTSLASH);
+        File file = new File(filePath);
+        if(!file.exists())
+            file = new File(FILE+filePath);
+        if (!file.exists()) {
+            try {
+                file = new File(DataRead.class.getClassLoader().getResource(filePath).getFile());
+                if (!file.exists())
+                    throw new NullPointerException();
+            } catch (NullPointerException e) {
+                try {
+                    file = new File(DataRead.class.getClassLoader().getResource(FRONTSLASH + filePath).getFile());
+                    if (!file.exists())
+                        throw new NullPointerException();
+                } catch (NullPointerException f) {
+                    try {
+                        String fileName = filePath.substring(filePath.lastIndexOf(FRONTSLASH + 1));
+                        file = findInDirectory(getProjectDir(), fileName);
+                    }
+                    catch(NullPointerException g){
+                        System.out.print("Error reading file DataRead line 240");
+                        ErrorStatement(WRITE_ERROR);
+                    }
+                }
+            }
+        }
+        return file;
+    }
+    private static File getProjectDir(){
+        String superDir = System.getProperty(USER_DIR).replace(BACKSLASH,FRONTSLASH);
+        return new File(superDir);
+    }
+    private static File findInDirectory(File directory, String target){
+        if(directory.isDirectory()){
+            for(File subDir : directory.listFiles()){
+                File found = findInDirectory(subDir, target);
+                if(found!=null){
+                    return found;
+                }
+            }
+        }
+        if(directory.getName().equals(target)){
+            return directory;
+        }
+        else return null;
+    }
+
 }

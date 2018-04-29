@@ -1,14 +1,11 @@
 package authoring.forms;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Properties;
 
-import authoring.entities.data.PackageExplorer;
 import engine.components.Component;
 import engine.components.DataComponent;
-import engine.components.StringComponent;
+import engine.components.SingleDataComponent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -61,7 +58,7 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 		try {
 			Class<?> clazz = Class.forName(fullName);
 			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
-			if (clazz.isInstance(DataComponent.class)) {
+			if (SingleDataComponent.class.isAssignableFrom(clazz)) {
 				params[1] = Double.valueOf(this.field.getText());
 			} else {
 				params[1] = this.field.getText();
