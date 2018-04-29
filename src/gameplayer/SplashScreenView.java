@@ -8,11 +8,8 @@ import buttons.GameSelectButton;
 import buttons.IGamePlayerButton;
 import data.DataGameState;
 import data.DataRead;
-<<<<<<< HEAD:src/gameplayer/SplashScreenView.java
-=======
 import data.DataWrite;
 import javafx.beans.property.BooleanProperty;
->>>>>>> 5fa82e12d3a2f9d726356541e84ac5e6564615c5:src/GamePlayer/SplashScreenView.java
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
