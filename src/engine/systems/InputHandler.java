@@ -52,17 +52,8 @@ public class InputHandler implements ISystem {
 			Map<String, Component> components = handledComponents.get(id);
 			KeyInput k = (KeyInput) components.get(KeyInput.KEY);
 
-			for (KeyCode key : activeCodes) {
-				if (k.containsCode(key)) {
-					k.action(key);
-				}
-			}
+			k.evaluate(activeCodes);
 		}
-	}
-
-	public void addComponent(int pid, String componentName) {
-		// TODO Auto-generated method stub
-		
 	}
 
 
@@ -80,8 +71,4 @@ public class InputHandler implements ISystem {
 		activeCodes.add(code);
 	}
 
-	@Override
-	public Map<Integer, Map<String, Component>> getHandledComponent() {
-		return handledComponents;
-	}
 }

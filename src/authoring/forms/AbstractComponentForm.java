@@ -1,12 +1,10 @@
 package authoring.forms;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -31,7 +29,7 @@ public abstract class AbstractComponentForm extends GridPane {
 	 */
 	protected boolean validComponent() {
 		for (TextField tf : this.fields) {
-			if (tf.getText() == null || tf.getText().trim().isEmpty()) {
+			if (tf.getId() == null || tf.getId().trim().isEmpty()) {
 				return false;
 			}
 		}

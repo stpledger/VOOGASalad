@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 
 import authoring.entities.Entity;
 import authoring.factories.ClickElementType;
+import authoring.forms.ComponentForm;
 import authoring.forms.EntityComponentFormCollection;
 import authoring.forms.PropertiesComponentForm;
 import authoring.forms.PropertiesComponentFormCollection;
@@ -60,6 +61,7 @@ public class LocalPropertiesView extends PropertiesView {
 		return String.format("Entity %d Local Properties", this.entity.getID());
 	}
 
+
 	@Override
 	public void setLanguage(Properties lang) {
 		language = lang;
@@ -68,12 +70,22 @@ public class LocalPropertiesView extends PropertiesView {
 
 	@Override
 	protected void fill() {
-		componentFormCollection = new PropertiesComponentFormCollection(entity.getID(), new String[] {""});
+		componentFormCollection = new PropertiesComponentFormCollection(entity.getID(), new String[] {""}, e-> {save((List<ComponentForm>) e);});
 		this.getRoot().getChildren().add(componentFormCollection);
 		componentFormCollection.setLanguage(language);
 		componentFormCollection.fillComponentsForms(this.type);
 		this.getRoot().getScene().getWindow().sizeToScene();
 		
+	}
+	
+	private void save(List<ComponentForm> activeForms) {
+		List<Component> componentsToAdd = new ArrayList<>();
+		for(ComponentForm cf : activeForms) {
+			componentsToAdd.add((Component) cf.buildComponent());
+		}
+		onSubmit.accept(componentsToAdd);
+		this.makeAlert(this.title() + " has been updated!");
+		this.close();
 	}
 
 }

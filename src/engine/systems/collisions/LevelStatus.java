@@ -7,6 +7,7 @@ import engine.components.Player;
 import engine.components.Win;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import engine.components.Lives;
 
 public class LevelStatus {
 	double level;
@@ -18,7 +19,7 @@ public class LevelStatus {
 	
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
-		if(((Player)player.get(Player.KEY)).getData()<0) {
+		if(((Lives)player.get(Lives.KEY)).getData()<0) {
 			level =-1;  //GAME OVER (health system updated lives
 			updateStatus(level);
 		}

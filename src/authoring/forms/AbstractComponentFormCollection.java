@@ -28,10 +28,14 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 	private List<String> exceptions;
 	
 	protected Button addComponentButton;
+	protected Button saveButton;
+	
+	private Consumer onSave;
 
-	public AbstractComponentFormCollection(String[] newExceptions) {
+	public AbstractComponentFormCollection(String[] newExceptions, Consumer c) {
 		this();
 		getExceptions().addAll(Arrays.asList(newExceptions));
+		onSave = c;
 	}
 
 	public AbstractComponentFormCollection() {
@@ -41,18 +45,30 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 	
 	protected void createAddComponentButton(int row) {
 		try {
-			Button addComponent = (Button) eFactory.buildClickElement(ClickElementType.Button,"AddComponent", onClick->{
+			Button addComponentButton = (Button) eFactory.buildClickElement(ClickElementType.Button,"AddComponent", onClick->{
 				String[] options = PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE, ".class","Component");
 				String[] exceptions = new String[] {"Component","Conditional","DataComponent", "ReadDataComponent", "ReadStringComponent","StringComponent", "SingleDataComponent", "SingleStringComponent"};
 				SelectionBox  selectionBox = new SelectionBox(options, exceptions, us -> {addComponent(us);});
 				selectionBox.setLanguage(language);
 			});
-			addComponentButton = addComponent;
-			this.add(addComponent, 0, row);
+			this.add(addComponentButton, 0, row);
 			this.setAlignment(Pos.CENTER);
 			this.getParent().getScene().getWindow().sizeToScene();
 		} catch (Exception e) {
 			 LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+		}
+	}
+	
+	protected void createSaveButton(int row) {
+		try {
+			saveButton = (Button) eFactory.buildClickElement(ClickElementType.Button, "Save", onClick->{
+				onSave.accept(activeForms);
+			});
+			this.add(saveButton, 0, row);
+			this.setAlignment(Pos.CENTER);
+			this.getParent().getScene().getWindow().sizeToScene();
+		} catch (Exception e) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 	}
 
@@ -83,7 +99,11 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 		}
 	}
 	
-	public abstract void setSaveConsumer(Consumer onSave);
+	public void setSaveConsumer(Consumer onSave) {
+		saveButton.setOnMouseClicked(e->{
+			onSave.accept(this.getActiveForms());
+		});
+	}
 	
 	public abstract void addComponent(Object componentName);
 

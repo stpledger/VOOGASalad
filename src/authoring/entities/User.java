@@ -1,5 +1,6 @@
 package authoring.entities;
 
+import engine.components.Lives;
 import engine.components.Player;
 
 /**
@@ -19,9 +20,10 @@ public class User extends InteractableEntity {
 	 * Construct the object with a given ID
 	 * @param ID the ID of the parent object
 	 */
-	public User(int ID) {
+	public User(int ID, String name) {
 		super(ID);
 		addDefaultComponents();
+		this.name = name;
 	}
 
 	/**
@@ -31,7 +33,8 @@ public class User extends InteractableEntity {
 		this.setHealth(INITIAL_HEALTH);
 		this.setEntityType(TYPE);
 		this.setDimension(PLAYER_WIDTH, PLAYER_HEIGHT);
-		this.add(new Player(this.getID(), INITIAL_LIVES));
+		this.add(new Player(this.getID()));
+		this.add(new Lives(this.getID(), INITIAL_LIVES));
 	}
 
 	@Override

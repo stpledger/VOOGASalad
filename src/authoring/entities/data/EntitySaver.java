@@ -12,11 +12,12 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Element;
+import authoring.exceptions.AuthoringException;
 import org.w3c.dom.Document;
 
 /**
  * This class handles parsing of the XML files that set up the type of simulation.
- * @author dylanpowers
+ * @author Dylan Powers
  *
  */
 public class EntitySaver {
@@ -44,7 +45,6 @@ public class EntitySaver {
 		Element root = document.createElement(DOCUMENT_TITLE);
 		root.setAttribute("name", fileName);
 		document.appendChild(root);
-		
 		for (Class compClass : attributes.keySet()) {
 			String compName = compClass.getName().replace(COMPONENT_PREFIX, "");
 			Element comp = document.createElement(compName);
@@ -69,7 +69,7 @@ public class EntitySaver {
 		try {
 			return DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			throw new XMLException(e);
+			throw new AuthoringException(e);
 		}
 	}
 }

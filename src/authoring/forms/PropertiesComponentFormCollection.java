@@ -11,8 +11,8 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 	private int currentRow;
 	private int entityID;
 	
-	public PropertiesComponentFormCollection(int eID, String[] newExceptions) {
-		super(newExceptions);
+	public PropertiesComponentFormCollection(int eID, String[] newExceptions, Consumer onSave) {
+		super(newExceptions, onSave);
 		entityID = eID;
 	}
 	
@@ -33,13 +33,13 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 				newActiveForms.add(cf);
 				this.add(cf, 0, currentRow);
 				currentRow++;
-		
 			}
 		}
 		this.setActiveForms(newActiveForms);
 		this.createAddComponentButton(currentRow);
+		currentRow++;
+		this.createSaveButton(currentRow);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -49,7 +49,7 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 		try {
 			ArrayList<ComponentForm> newActiveForms = (ArrayList<ComponentForm>) this.getActiveForms();
 			this.getChildren().remove(addComponentButton);
-			System.out.println(componentName);
+			this.getChildren().remove(saveButton);
 			PropertiesComponentForm cf = new PropertiesComponentForm(entityID, (String) componentName);
 			cf.setAlignment(Pos.CENTER);
 			this.add(cf, 0, currentRow);
@@ -58,13 +58,15 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 			this.setActiveForms(newActiveForms);
 			currentRow++;
 			this.createAddComponentButton(currentRow);
+			currentRow++;
+			this.createSaveButton(currentRow);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
 	}
 
 	@Override
-	public void setSaveConsumer(Consumer onSave) {
+	public void setSaveConsumer(Consumer c) {
 		// TODO Auto-generated method stub
 		
 	}

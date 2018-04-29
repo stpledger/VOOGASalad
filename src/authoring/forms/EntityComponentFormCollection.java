@@ -19,9 +19,8 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 		super();
 	}
 	
-	public EntityComponentFormCollection(String[] newExceptions) {
-		super(newExceptions);
-		
+	public EntityComponentFormCollection(String[] newExceptions, Consumer onSave) {
+		super(newExceptions, onSave);	
 	}
 	
 	/**
@@ -37,7 +36,7 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 			if(!getExceptions().contains(property)) {
 				EntityComponentForm cf;
 				
-					cf = new EntityComponentForm(property);
+				cf = new EntityComponentForm(property);
 				
 				cf.setAlignment(Pos.CENTER);
 				newActiveForms.add(cf);
@@ -48,6 +47,8 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 		}
 		this.setActiveForms(newActiveForms);
 		this.createAddComponentButton(currentRow);
+		currentRow++;
+		this.createSaveButton(currentRow);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,6 +63,7 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 		try {
 			ArrayList<ComponentForm> newActiveForms = (ArrayList<ComponentForm>) this.getActiveForms();
 			this.getChildren().remove(addComponentButton);
+			this.getChildren().remove(saveButton);
 			System.out.println(componentName);
 			EntityComponentForm cf = new EntityComponentForm((String) componentName);
 			cf.setAlignment(Pos.CENTER);
@@ -71,15 +73,11 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 			this.setActiveForms(newActiveForms);
 			currentRow++;
 			this.createAddComponentButton(currentRow);
+			currentRow++;
+			this.createSaveButton(currentRow);
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void setSaveConsumer(Consumer onSave) {
-		// TODO Auto-generated method stub
-		
 	}
 	
 }
