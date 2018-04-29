@@ -13,14 +13,15 @@ import engine.systems.collisions.CollisionDirection;
  * @author fitzj
  *
  */
-public class Collidable extends Conditional implements BehaviorComponent {
+public class Collidable implements Component, BehaviorComponent {
 
 	public static final String KEY = "Collidable";
 	
 	private Map<CollisionDirection, BiConsumer<Map<String,Component>,Map<String,Component>>> actions;
+	private int pid;
 	
 	public Collidable(int pid) {
-		super(pid);
+		this.pid = pid;
 		actions = new HashMap<>();
 	}
 	
@@ -50,18 +51,11 @@ public class Collidable extends Conditional implements BehaviorComponent {
 	 * @param entityMap1	First entity, usually the one containing this component
 	 * @param entityMap2	Second entity, usually the one being collided with
 	 */
-	@SuppressWarnings("unchecked")
 	public void action(CollisionDirection cd, Map<String, Component> entityMap1, Map<String, Component> entityMap2) {
 		if(actions.containsKey(cd)) {
-			this.setAction((entity, entity2) -> {
-				if(entity instanceof Map<?,?> && entity2 instanceof Map<?,?>) {
-    				actions.get(cd).accept((Map<String, Component>) entity, (Map<String, Component>) entity2);
-    			}
-			});
-			this.setCondition(() -> {
-				return entityMap1;
-			});
-			this.evaluate(entityMap2);
+			
+			actions.get(cd).accept(entityMap1, entityMap2);
+
 		}
 	}
 
@@ -74,7 +68,7 @@ public class Collidable extends Conditional implements BehaviorComponent {
 	 * Adds a consumer, used by authoring
 	 */
 	@Override
-	public void addBehavior(Object identifier, Consumer con) {
+	public void addBehavior(Object identifier, Consumer<Map<String,Component>> con) {
 		if(identifier instanceof CollisionDirection) {
 			this.setOnDirection((CollisionDirection) identifier, con);
 		}
@@ -84,10 +78,15 @@ public class Collidable extends Conditional implements BehaviorComponent {
 	 * Adds a biconsumer, used by authoring
 	 */
 	@Override
-	public void addBehavior(Object identifier, BiConsumer bic) {
+	public void addBehavior(Object identifier, BiConsumer<Map<String,Component>,Map<String,Component>> bic) {
 		if(identifier instanceof CollisionDirection) {
 			this.setOnDirection((CollisionDirection) identifier, bic);
 		}
+	}
+
+	@Override
+	public int getPID() {
+		return pid;
 	}
 
 }

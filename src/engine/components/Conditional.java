@@ -6,7 +6,7 @@ import java.util.function.Supplier;
 
 /**
  * Runs a consumer or biconsumer using a supplier as its first argument, with an optional second argument
- * @author fitzj
+ * @author cndraco
  *
  */
 public class Conditional implements Component, BehaviorComponent {
