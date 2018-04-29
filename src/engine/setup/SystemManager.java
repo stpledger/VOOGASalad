@@ -17,7 +17,7 @@ import engine.components.Component;
  */
 public class SystemManager {
 
-    private static List<ISystem> systems;
+    private List<ISystem> systems;
     private RenderManager renderManager;
     
     public SystemManager (RenderManager renderManager) {

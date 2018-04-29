@@ -17,11 +17,11 @@ public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();
 	private Set<Integer> colliders;
 	private Set<Integer> activeComponents;
-	private DamageHandler dHandler;
+	//private DamageHandler dHandler;
 	
 	public Collision(SystemManager sm) {
 		colliders = new HashSet<>();
-		dHandler = new DamageHandler(sm);
+		//dHandler = new DamageHandler(sm);
 	}
 
 	
@@ -81,7 +81,7 @@ public class Collision extends DefaultSystem{
 					}
 
 					if (cd != null) {
-						dHandler.handle(key1, handledComponents.get(key1), key2, handledComponents.get(key2));
+						//dHandler.handle(key1, handledComponents.get(key1), key2, handledComponents.get(key2));
 
 						if(handledComponents.get(key1).containsKey(Collidable.KEY)) {
 							Collidable cdb = (Collidable) handledComponents.get(key1).get(Collidable.KEY);
