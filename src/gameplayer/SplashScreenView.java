@@ -1,4 +1,4 @@
-package GamePlayer;
+package gameplayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,11 @@ import buttons.GameSelectButton;
 import buttons.IGamePlayerButton;
 import data.DataGameState;
 import data.DataRead;
+<<<<<<< HEAD:src/gameplayer/SplashScreenView.java
+=======
+import data.DataWrite;
 import javafx.beans.property.BooleanProperty;
+>>>>>>> 5fa82e12d3a2f9d726356541e84ac5e6564615c5:src/GamePlayer/SplashScreenView.java
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
@@ -16,7 +20,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
-import javafx.stage.Stage;
 
 /**
  * Splash Screen for Selecting Games and Uploading Games
@@ -37,6 +40,11 @@ public class SplashScreenView extends BranchScreenView{
 		gameSelectButtonList = new ArrayList<IGamePlayerButton>();
 		imageGameStateMap = DataRead.getAllGames();
 		splashScene = initializeScreen();
+		List<Person > peope = new ArrayList<>();
+		Person p =new Person("Conrad", 100.1);
+		peope.add(new Person("Hetflanth", 10.1));
+		DataWrite.saveHighscore(p);
+
 	}
 
 	@Override

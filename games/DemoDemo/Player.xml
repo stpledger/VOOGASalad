@@ -229,7 +229,7 @@
                     <java.util.function.BiConsumer reference="../../../../../../../entry/map/entry/engine.components.Collidable/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                   <entry>
-                    <engine.systems.collisions.CollisionDirection>Right</engine.systems.collisions.CollisionDirection>
+                    <engine.systems.collisions.CollisionDirection>Top</engine.systems.collisions.CollisionDirection>
                     <java.util.function.BiConsumer reference="../../../../../../../entry/map/entry/engine.components.Collidable/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                   <entry>
