@@ -3,7 +3,12 @@ package authoring.entities;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
+
+import authoring.views.properties.LocalPropertiesView;
+
 import engine.components.Component;
 import engine.components.EntityType;
 import engine.components.Height;
@@ -12,6 +17,8 @@ import engine.components.Width;
 import engine.components.XPosition;
 import engine.components.YPosition;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+
 
 /**
  * Super class to represent the top level of the entity chain. 
@@ -22,10 +29,10 @@ public abstract class Entity extends ImageView {
 	private int ID;
 	public final static int ENTITY_WIDTH = 50;
 	public final static int ENTITY_HEIGHT = 50;
-	List<Component> components;
-	public String type;
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+	public List<Component> components;
+	public String type;
+
 	/**
 	 * Set the ID of this entity
 	 * @param ID the ID of this entity
@@ -33,6 +40,29 @@ public abstract class Entity extends ImageView {
 	public Entity(int ID) {
 		this.ID = ID;
 		components = new ArrayList<>();
+		this.setFitWidth(ENTITY_WIDTH);
+		this.setFitHeight(ENTITY_HEIGHT);
+		Consumer<List<Component>> onSubmit = componentsToAdd -> {
+			for (Component c : componentsToAdd) {
+				this.add(c);
+			}
+		};
+		this.setOnMouseClicked(e -> {
+			if (e.getButton().equals(MouseButton.SECONDARY)) {
+				LocalPropertiesView LPV = new LocalPropertiesView(this, onSubmit);
+				LPV.open();
+			}
+			e.consume();
+		});
+		this.setOnMouseDragged(e -> {
+			this.setPosition(e.getX() + this.getLayoutX() - this.getFitWidth()/2, e.getY() + this.getLayoutY() - this.getFitHeight()/2);
+			e.consume();
+		});
+		this.setOnKeyPressed( e->{
+			ComponentAdder cAdd = new ComponentAdder(this);
+				}
+		);
+		//addDefaultComponents();
 	}
 	
 	public String getType() {
@@ -88,7 +118,7 @@ public abstract class Entity extends ImageView {
 	
 	/**
 	 * Add a given component to this entity. 
-	 * @param component
+	 * param component
 	 */
 	public abstract void add(Component c);
 	
@@ -101,6 +131,7 @@ public abstract class Entity extends ImageView {
 			this.add(comp);
 		}
 	}
+
 	/**
 	 * Checks (explicitly) by name if the current entity already contains this component.
 	 * @param name the name of the component to check
@@ -138,10 +169,18 @@ public abstract class Entity extends ImageView {
 	 * @return the name of this entity
 	 */
 	public abstract String name();
+
+
+	public void addComponent(){
+
+	}
+
 	/**
 	 * @return the list of components for this entity
 	 */
 	public List<Component> getComponentList() {
 		return this.components;
 	}
+
+
 }

@@ -1,4 +1,4 @@
-package data;
+package data.jarutil;
 
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
@@ -38,6 +38,8 @@ public class JarWriter {
     public JarWriter(Stage primaryStage){
         this.primaryStage =  primaryStage;
         fileNames = new ArrayList<>();
+        ignore = new ArrayList<>();
+        modules = new ArrayList<>();
         getProjectName();
         getClassFiles();
     }
@@ -55,9 +57,8 @@ public class JarWriter {
     }
 
     public void getIgnore(){
-        ignore = new ArrayList<>();
         DirectoryChooser directoryChooser = new DirectoryChooser();
-        directoryChooser.setInitialDirectory(project);
+        directoryChooser.setInitialDirectory(classSource);
         directoryChooser.setTitle(IGNORE_PROMPT);
         while(true) {
             File ignoreFile = directoryChooser.showDialog((new Stage()));
@@ -96,13 +97,15 @@ public class JarWriter {
         moduleChooser.setTitle(MODULE_PROMPT);
         modules = moduleChooser.showOpenMultipleDialog(primaryStage);
         for(File module : modules){
-            module.renameTo(new File(classSource.getAbsolutePath() + BACKSLASH + module.getName()));
+            String pathMod = (classSource.getAbsolutePath() + BACKSLASH + module.getName());
+            pathMod = pathMod.replace(BACKSLASH,FRONTSLASH);
+            module.renameTo(new File(pathMod));
         }
     }
 
-    public void buildJar(){
+    public void buildJar(String name){
         JarZip zipper = new JarZip();
-        zipper.zip(classSource,fileNames,ignore,modules,project.getAbsolutePath(), outputDir,main);
+        zipper.zip(classSource,fileNames,ignore,modules,project.getAbsolutePath(), outputDir,main, name);
 
     }
 
