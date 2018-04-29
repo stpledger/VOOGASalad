@@ -32,6 +32,8 @@ public class HighScoreView extends BranchScreenView {
 	private Double finalScore;
 	private String finalGameName;
 	
+	//FaceBook Client Variables:
+	private String appID = "190769674886367";
 	//Data Structure to Display High Scores
 	private ObservableList<Person> data;
 	

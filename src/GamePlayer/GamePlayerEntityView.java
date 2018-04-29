@@ -54,6 +54,7 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	 */
 	public GamePlayerEntityView(DataGameState gameState) {
 		Levels = gameState.getGameState();
+		//testXML();
 		HUDPropMap = obtainHudProps(Levels);
 		PlayerKeys = new HashMap<>();
 		levelToInt();
@@ -61,6 +62,15 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		setActiveLevel(1);
 		initializeGamePlayerEntityView();
 	}
+	
+//	//*** TESTING METHOD
+//	private void testXML() {
+//		for (Level l:Levels.keySet()) {
+//			System.out.println("1pqoiweurweq"+Levels.get(l).get(1).get("XPosition"));
+//			break;
+//		}
+//	}
+	
 	
 	
 	public Map<Integer, Map<String, Boolean>> getHudPropMap(){
@@ -135,7 +145,6 @@ public class GamePlayerEntityView implements IGamePlayerView{
                         PlayerKeys.put(levelNum, entityComponents);
                     }
 				}
-				
 				//	JACK ADDED THIS .............
 				
 				if(entityComponents.containsKey(Dimension.KEY)) {
