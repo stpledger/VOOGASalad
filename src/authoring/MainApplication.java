@@ -36,7 +36,7 @@ public class MainApplication extends Application {
 		Scene s = new Scene(splashScreen, splashScreen.getWidth(), splashScreen.getHeight());
 		s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		mainStage.setTitle("One Class, One Method");
-		File imageFile = new File("src/mystery.jpg");
+		File imageFile = new File("data/images/mystery.jpg");
 		Image image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 		mainStage.getIcons().add(image);
         mainStage.setScene(s);

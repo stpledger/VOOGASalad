@@ -37,7 +37,10 @@ public class Cell extends Pane {
 		this.setStyle(DEFAULT_STYLE);
 		this.setUpDrag();
 	}
-	
+
+	/**
+	 * Sets up drag and drop utility which allows user to move entity between cells
+	 */
 	private void setUpDrag() {
 		this.setOnDragDetected(e -> {
 			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
@@ -52,7 +55,6 @@ public class Cell extends Pane {
 			this.setEntity(null);
 			this.getChildren().clear();
 		});
-		
 	}
 
 	/**
@@ -78,6 +80,10 @@ public class Cell extends Pane {
 		return this.entity != null;
 	}
 
+	/**
+	 * Sets image for the entity
+	 * @param i Image used to represent the entity
+	 */
 	public void setImage(Image i) {
 		image = i;
 	}

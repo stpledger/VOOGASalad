@@ -188,6 +188,7 @@ public class Grid extends GridPane {
 	private void addImageRow(Cell c, ImageView img, int numRows) {
 		img.setFitHeight(img.getFitHeight()+numRows*Entity.ENTITY_HEIGHT);
 		Entity en = c.getEntity();
+		System.out.println(img.getFitHeight());
 		en.add(new Height(en.getID(),img.getFitHeight()));
 	}
 
