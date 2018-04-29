@@ -47,7 +47,7 @@ public class Cell extends Pane {
 			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
 			ClipboardContent cc = new ClipboardContent();
 			cc.putImage(image);
-			cc.putString(((StringComponent) entity.get("Name")).getData());
+			cc.putString(((StringComponent)this.getEntity().get("Name")).getData());
 			db.setContent(cc);
 			e.consume();
 		});
@@ -72,7 +72,7 @@ public class Cell extends Pane {
 	public void addEntity(Entity entity) {
 		this.entityList.add(entity);
 	}
-	
+
 	/**
 	 * Remove entity from the list of entities in this cell
 	 * @param entity Entity to be removed

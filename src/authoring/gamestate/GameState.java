@@ -21,7 +21,7 @@ public class GameState implements IGameState {
 	 * It will then continue to keep track of the current state of the game by using the update method below.
 	 */
 	private List<Level> state;
-	
+
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public GameState() {
