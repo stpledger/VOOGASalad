@@ -1,9 +1,6 @@
 package authoring.grid;
 
 import java.awt.Insets;
-
-import com.sun.prism.paint.Color;
-
 import authoring.entities.Entity;
 import engine.components.StringComponent;
 import javafx.scene.image.Image;

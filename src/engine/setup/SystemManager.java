@@ -28,8 +28,6 @@ public class SystemManager {
     		this.systems = systems;
     }
 
-    public void addSystem(ISystem system) { systems.add(system); }
-
     /**
      * Method run when setting up the system. Passes the entity and all its components so that the
      * systems can pick from the option the relevant components, if any exist
@@ -50,9 +48,9 @@ public class SystemManager {
     }
 
     public void addComponent(int pid, Component c) {
-            Map<String, Component> newComponent = new HashMap<>();
-            newComponent.put(c.getKey(), c);
-    		for(ISystem s : systems) {
+        Map<String, Component> newComponent = new HashMap<>();
+        newComponent.put(c.getKey(), c);
+        for(ISystem s : systems) {
 			s.addComponent(pid, newComponent);
 		}
     }

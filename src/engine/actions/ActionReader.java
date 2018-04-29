@@ -19,7 +19,11 @@ public class ActionReader {
     private Method method;
     private Class[] methodParams;
     private Object[] invokeArgs;
-    private static Actions actions = new Actions();
+    private static Actions actions;
+
+    public ActionReader (Actions actions) {
+        this.actions = actions;
+    }
 
     /**
      * This is the method which gets the action by having a series of private method calls

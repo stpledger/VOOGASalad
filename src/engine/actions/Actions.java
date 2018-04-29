@@ -13,6 +13,9 @@ import engine.components.YAcceleration;
 import engine.components.YVelocity;
 import engine.components.groups.Position;
 import engine.components.groups.Velocity;
+
+import java.awt.Point;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
@@ -38,7 +41,7 @@ public class Actions {
     }
 
     /**
-     * @param actor Entity moving left
+     * @param speed Entity moving left
      * @return left action
      */
 	@SuppressWarnings("unchecked")
@@ -271,17 +274,19 @@ public class Actions {
      * @param coordinates The positions the entity will visit
      * @return the actions which performs this method
      */
-    public static Consumer patrol(Map<String, Component> actor, List<Position> coordinates) {
+    public static Consumer patrol(Map<String, Component> actor, List<Point> coordinates) {
         Velocity v = (Velocity) actor.get(Velocity.KEY);
         Position p = (Position) actor.get(Position.KEY);
 
-        AtomicReference<Position> destination = new AtomicReference<>(new Position(-1, coordinates.get(0).getXPos(), coordinates.get(0).getYPos()));
+        AtomicReference<Point> destination = new AtomicReference<>(coordinates.get(0));
         AtomicInteger current = new AtomicInteger();
 
         return (Serializable & Consumer) (time) -> {
-            v.setXVel((destination.get().getXPos()-p.getXPos())/distance(p, destination.get()) * 100);
-            v.setYVel((destination.get().getYPos()-p.getYPos())/distance(p, destination.get()) * 100);
-            if (distance(p, destination.get()) < 10) {
+            v.setXVel((destination.get().getX()-p.getXPos())/
+					(distance(p.getXPos(), p.getYPos(), destination.get().getX(), destination.get().getY()) * 100));
+            v.setYVel((destination.get().getY()-p.getYPos())/
+					(distance(p.getXPos(), p.getYPos(), destination.get().getX(), destination.get().getY()) * 100));
+            if ((distance(p.getXPos(), p.getYPos(), destination.get().getX(), destination.get().getY()) * 100) < 10) {
                 if (current.get() == coordinates.size() - 1) current.set(0);
                 else current.getAndIncrement();
                 destination.set(coordinates.get(current.get()));
@@ -290,8 +295,8 @@ public class Actions {
     }
 
 
-    private static double distance (Position p1, Position p2) {
-        return Math.sqrt(Math.pow(p1.getYPos()-p2.getYPos(), 2) + Math.pow(p1.getXPos() - p2.getXPos(), 2)); //distance between two positions/points
+    private static double distance (double x1, double y1, double x2, double y2) {
+        return Math.sqrt(Math.pow(y1-y2, 2) + Math.pow(x1 - x2, 2)); //distance between two positions/points
     }
 
 

@@ -132,6 +132,7 @@ public class HighScoreView extends BranchScreenView {
 		Map<String, List<Person>> highScoreMap = DataRead.loadHighscore(); //gives me map
 		data = FXCollections.observableArrayList(highScoreMap.get(finalGameName));
 		System.out.println(data.size());
+
 	}
 
 

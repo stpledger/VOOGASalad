@@ -1,5 +1,6 @@
 package engine.systems.collisions;
 
+import java.util.HashMap;
 import java.util.Map;
 import engine.components.Component;
 import engine.components.DamageLifetime;
@@ -29,8 +30,12 @@ public class DamageHandler {
 			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
 			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
 
-			sm.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
-			sm.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+			Map<String, Component> newDamageComponents = new HashMap<>();
+			newDamageComponents.put(DamageValue.KEY, new DamageValue(playerID, dlv.getData()));
+			newDamageComponents.put(DamageLifetime.KEY, new DamageLifetime(playerID, dll.getData()));
+			
+			sm.addEntity(colliderID, newDamageComponents);
+
 		}
 	}
 }
