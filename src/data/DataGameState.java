@@ -91,7 +91,7 @@ public class DataGameState {
     }
 
     public double getLevelProgress(){
-        return levelprogress;
+        return levelProgress;
     }
 
 }

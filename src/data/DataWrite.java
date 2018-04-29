@@ -64,9 +64,6 @@ public class DataWrite {
     //Horrible method refactor
     public static void saveHighscore(Person person){
         /* writes an individual person to a highscore table based on the game being played
-           because authoring is to damn lazy to do put highscores in the right place even though they have the map
-           SO... I deserialize the entire high score file make one if its not there, add a list if its a new game then
-           put the person in and write the entire thing back into data
          */
         File hs;
         Map<String, List<Person>> people;
@@ -124,7 +121,6 @@ public class DataWrite {
             FileOutputStream fos = new FileOutputStream(ENTITY_PATH + entity.name());
             serialize(entity, fos);
         } catch (FileNotFoundException e) {
-            // e.printStackTrace();
             System.out.print("Cannot load");
         }
     }
