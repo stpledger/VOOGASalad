@@ -270,7 +270,6 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			entity.add(c);
 			if(c.getKey().equals("Sprite")) {
 				Image image = DataRead.loadImage(((Sprite) c).getData());	
-
 				entity.setImage(image);
 			} else if(c.getKey().equals("XPosition")) {
 				XPosition p = (XPosition) c;
