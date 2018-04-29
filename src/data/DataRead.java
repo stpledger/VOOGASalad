@@ -3,13 +3,10 @@ package data;
 import GamePlayer.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
-
 import authoring.gamestate.Level;
 import engine.components.Component;
 import javafx.embed.swing.SwingFXUtils;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -31,6 +28,7 @@ public class DataRead  {
     private static final String ENTITY_PATH = "data/entities/";
     private static final String PLAYER_TARGET = "Player.xml";
     private static final String ANIMATION_PATH = "data/animations";
+    private static final String AIMAGE = ""
 
     public static DataGameState loadPlayerFile(File xml) {
         /* receives a gamestate and loads it to the player
@@ -152,6 +150,7 @@ public class DataRead  {
     private static  Animaate getAnimation(String name){
         File animateDir = loadFile(ANIMATION_PATH);
         File animateFolder = findInDirectory(animateDir,name);
+
     }
 
 
