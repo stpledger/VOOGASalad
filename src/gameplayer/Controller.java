@@ -1,14 +1,11 @@
 package gameplayer;
 
-import java.util.List;
 import java.util.Map;
 import HUD.SampleToolBar;
 import Menu.MenuGameBar;
 import Menu.PauseMenu;
-import buttons.IGamePlayerButton;
 import data.DataGameState;
 import engine.components.Component;
-import engine.components.Win;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -25,6 +22,7 @@ public class Controller {
 	public static final int FRAMES_PER_SECOND = 60;
 	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
 	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+
 	private double renderTime;
 	private Stage myStage;
 	private Scene myScene;
@@ -32,13 +30,13 @@ public class Controller {
 	private BorderPane myPane = new BorderPane();
 	private PauseMenu pauseMenu = new PauseMenu(this);
 	private GameView gameView;
-	private Map<Integer, Pane> levelEntityGroupMap; //map that is used to store the initial group for each level.
+
+	private Map<Integer, Pane> gameLevelDisplays;
 	private DataGameState currentGameState;
-	public List<IGamePlayerButton> gameSelectButtonList;
 	private Timeline myTimeline;
-	private Map<Integer, Map<String, Component>> PlayerKeys;
+	private Map<Integer, Map<String, Component>> playerKeys;
 	private SampleToolBar sampleBar;
-	private Map<Integer, Map<String, Boolean>> HUDPropMap;
+	private Map<Integer, Map<String, Boolean>> hudPropMap;
 	private Timeline animation;
 	private String currentGameName;
 	private DataGameState gameState;
@@ -49,34 +47,42 @@ public class Controller {
 		myStage.setResizable(false);
 	}
 
+	/**
+	 * Initializes controller scene
+	 * @return
+	 */
 	public Scene initializeStartScene() {
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		assignKeyInputs();
-		setGameView(gameState);
+		setGameView();
 		return myScene;
-
 	}
 
 	/**
 	 * Method that sets the current scene of the game
 	 */
-	public void setGameView(DataGameState currentGame) {
-		gameView = new GameView(currentGame);
-		HUDPropMap = gameView.getHudPropMap();
-		PlayerKeys = gameView.getPlayerKeys();
-		levelEntityGroupMap = gameView.getGameLevelDisplays();
-		gameRoot = levelEntityGroupMap.get(LEVEL_ONE);  //level 1
-		myPane.setCenter(gameRoot); //adds starting game Root to the file and placing it in the Center Pane
+	public void setGameView() {
+		gameView = new GameView(gameState);
+		hudPropMap = gameView.getHudPropMap();
+		playerKeys = gameView.getPlayerKeys();
+		gameLevelDisplays = gameView.getGameLevelDisplays();
+
+		gameRoot = gameLevelDisplays.get(LEVEL_ONE);
+		myPane.setCenter(gameRoot);
+
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
-		sampleBar = new SampleToolBar(LEVEL_ONE, PlayerKeys, HUDPropMap);
+
+		sampleBar = new SampleToolBar(LEVEL_ONE, playerKeys, hudPropMap);
 		myPane.setTop(sampleBar);
+
+		//TODO: IS THIS STUFF NECESSARY?
 		/*for(Win w : gameView.getWinComponents()){
 			w.getWinStatus().addListener((o, oldVal, newVal) -> {
 				changeGameLevel(gameView.getActiveLevel() + 1);
 			});
 		}*/
-		initializeGameAnimation(); //begins the animation cycle
+		initializeGameAnimation();
 		//set level change listener
 		/*gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
 			changeGameLevel(newVal.intValue());
@@ -94,7 +100,6 @@ public class Controller {
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
-		myTimeline = animation;
 	}
 
 	/**
@@ -106,14 +111,18 @@ public class Controller {
 			gameOver();
 		}
 		else {
-			gameRoot = levelEntityGroupMap.get(level);
+			gameRoot = gameLevelDisplays.get(level);
 			myPane.setCenter(gameRoot);
 			gameView.setActiveLevel(level);
 		}
 	}
 
+	/**
+	 * Returns the level game display
+	 * @return
+	 */
 	public Map<Integer, Pane> getGameLevelRoot(){
-		return levelEntityGroupMap;
+		return gameLevelDisplays;
 	}
 
 	/**
@@ -129,9 +138,8 @@ public class Controller {
 				renderTime = 0;
 			}
 			gameView.updateScroll(gameRoot);
-			//update PlayerKey Values;
-			PlayerKeys = gameView.getPlayerKeys();
-			sampleBar.updateGameStatusValues(PlayerKeys);
+			playerKeys = gameView.getPlayerKeys();
+			sampleBar.updateGameStatusValues(playerKeys);
 			sampleBar.updateGameStatusLabels();
 		}
 	}
@@ -143,11 +151,16 @@ public class Controller {
 	//		myStage.setScene(highScore);
 	//	}
 
+	/**
+	 * Restarts the current level
+	 */
 	public void restartGame() {
-		setGameView(currentGameState);
+		setGameView();
 	}
 
-
+	/**
+	 * Passes keys to engine and assigns escape key to pause menu
+	 */
 	private void assignKeyInputs() {
 		myScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
@@ -168,10 +181,16 @@ public class Controller {
 		});
 	}
 
+	/**
+	 * Saves game to a file
+	 */
 	public void saveGame(){
 		gameView.saveGame();
 	}
 
+	/**
+	 * Shows the high score screen
+	 */
 	private void gameOver(){
 		//TODO add game over functionality like the high score screen
 	}
