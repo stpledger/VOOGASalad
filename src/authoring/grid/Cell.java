@@ -1,6 +1,7 @@
 package authoring.grid;
 
 import authoring.entities.Entity;
+import authoring.gamestate.Level;
 import engine.components.StringComponent;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
@@ -20,12 +21,14 @@ public class Cell extends Pane {
 	private final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
 	private Entity entity;
 	private Image image;
+	private Level level;
 
 	/**
 	 * To initialize a blank cell
 	 * @param number the (distinct) number of the cell
 	 */
-	public Cell() {
+	public Cell(Level level) {
+		this.level = level;
 		this.setEntity(null);
 		this.setPrefWidth(Entity.ENTITY_WIDTH);
 		this.setPrefHeight(Entity.ENTITY_HEIGHT);
@@ -43,9 +46,11 @@ public class Cell extends Pane {
 			e.consume();
 		});
 		this.setOnDragDone(e ->{
+			this.level.removeEntity(this.entity);
 			this.setEntity(null);
 			this.getChildren().clear();
 		});
+		
 	}
 
 	/**

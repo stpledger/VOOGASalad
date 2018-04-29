@@ -47,6 +47,7 @@ public class Level {
 	}
 
 	public void removeEntity(Entity entity) {
+		System.out.println("Removed!");
 		this.entityList.remove(entity);
 	}
 
