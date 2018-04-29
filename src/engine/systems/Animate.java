@@ -63,11 +63,15 @@ public class Animate implements ISystem {
             XPosition px = (XPosition) components.get(XPosition.KEY);
             YPosition py = (YPosition) components.get(YPosition.KEY);
             
-            /*if(components.containsKey(XVelocity.KEY)) {
-            	if(Math.abs(((XVelocity) components.get(XVelocity.KEY)).getData()) < 0.1) {
-            		s.pauseAnimation();
+            if(components.containsKey(Animated.KEY)) {
+            	if(components.containsKey(XVelocity.KEY)) {
+            		if(Math.abs(((XVelocity) components.get(XVelocity.KEY)).getData()) < 0.1) {
+            			s.pauseAnimation();
+            		} else {
+            			if(!s.isPlaying()) s.animate(1000, 27, 7, 0, 0, 75, 85);
+            		}
             	}
-            }*/
+            }
             
             ImageView im = s.getImage();
             im.setX(px.getData()); //updates image x on position x pos

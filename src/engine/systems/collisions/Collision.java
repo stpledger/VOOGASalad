@@ -107,7 +107,7 @@ public class Collision extends DefaultSystem{
 
 						case Top:
 							y1.setData(y2.getData() - h1.getData());
-							((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
+							//((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
 							break;
 							
 						case Bot:
