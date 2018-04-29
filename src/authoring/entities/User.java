@@ -1,7 +1,13 @@
 package authoring.entities;
 
+import java.util.Map;
+
+import engine.actions.Actions;
+import engine.components.Collidable;
+import engine.components.Component;
 import engine.components.Lives;
 import engine.components.Player;
+import engine.systems.collisions.CollisionDirection;
 
 /**
  * A class to represent the player object, and its default components.
@@ -29,12 +35,22 @@ public class User extends InteractableEntity {
 	/**
 	 * Add the default components to the player object.
 	 */
+	@SuppressWarnings("unchecked")
 	public void addDefaultComponents() {
 		this.setHealth(INITIAL_HEALTH);
 		this.setEntityType(TYPE);
 		this.setDimension(PLAYER_WIDTH, PLAYER_HEIGHT);
 		this.add(new Player(this.getID()));
 		this.add(new Lives(this.getID(), INITIAL_LIVES));
+		
+		Collidable cbd = new Collidable(this.getID());
+		cbd.addBehavior(CollisionDirection.Top, (e1, e2) -> {
+			
+			Actions.moveUp(200).accept((Map<String, Component>) e1);
+			Actions.damage().accept((Map<String, Component>) e1, (Map<String, Component>) e2);
+			
+		});
+		
 	}
 
 	@Override

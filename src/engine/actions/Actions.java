@@ -222,7 +222,7 @@ public class Actions {
      * @return two new entity mapsama
      */
     @SuppressWarnings("unchecked")
-	public BiConsumer<Map<String, Component>, Map<String, Component>> damage(){
+	public static BiConsumer<Map<String, Component>, Map<String, Component>> damage(){
         return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
             /*if(actor1 != null && actor1.containsKey(Health.KEY)){
                 if(actor2 != null && actor2.containsKey(DamageLifetime.KEY) && actor2.containsKey(DamageValue.KEY)){
