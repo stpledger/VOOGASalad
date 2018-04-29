@@ -120,7 +120,7 @@ public class TestGameState {
 		Sprite s2 = new Sprite(1,"8Bit.png");
 
 		AI ai2 = new AI(1);
-		ai2.setAction(Actions.followsYou(mario, .2));
+		//ai2.setAction(Actions.followsYou(mario, .2));
 
 		Collidable collide2 = new Collidable(1);
 		collide2.setOnDirection(CollisionDirection.Bot, Actions.damage());

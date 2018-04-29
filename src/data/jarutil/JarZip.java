@@ -1,4 +1,4 @@
-package data;
+package data.jarutil;
 
 import java.io.*;
 import java.util.*;
@@ -30,17 +30,22 @@ public class JarZip
         ignoreSet = new HashSet<>();
     }
 
-    public void zip(File source, List<File> add, List<File> ignore, List<File> modules, String projectFolder, File out, File main){
+    public void zip(File source, List<File> add, List<File> ignore, List<File> modules, String projectFolder, File out, File main, String name){
         sourceFolder = source.getAbsolutePath().replace(BACKSLASH,FRONTSLASH);
         this.main = main;
+        this.projectFolder = projectFolder.replace(BACKSLASH,FRONTSLASH);
         System.out.println(sourceFolder);
         System.out.println(projectFolder);
         this.modules = modules;
-        outPath = out.getAbsolutePath() + FRONTSLASH +"Game";
+        outPath = (out.getAbsolutePath() + FRONTSLASH + name).replace(BACKSLASH,FRONTSLASH);
+        if(outPath.indexOf(JAR)==-1)
+            outPath = outPath + JAR;
         ignoreSet = new HashSet<>((ignore));
         this.projectFolder = projectFolder.replace(BACKSLASH,FRONTSLASH);
-        for(File file : add)
+        for(File file : add){
+           System.out.print(file.getAbsolutePath());
             addFile(file);
+        }
         buildManifest();
         generateFileList(source);
         zipIt(outPath);
@@ -102,7 +107,7 @@ public class JarZip
         }
     }
 
-    /**
+    /**C:\Users\Conrad\IdeaProjects\voogasalad_oneclassonemethod\out\production\voogasalad_oneclassonemethod\xstream-1.4.10.jar
      * Traverse a directory and get all files,
      * and add the file into fileList
      * @param node file or directory
@@ -152,13 +157,14 @@ public class JarZip
             System.out.print(module.getName());
         }
         System.out.print(main.getAbsolutePath());
-        manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, main);
+        manifest.getMainAttributes().put(Attributes.Name.MAIN_CLASS, getMain(main));
     }
 
 
     public String getMain(File main){
         String mainclass = main.getAbsolutePath();
         System.out.println(mainclass+ "     " + projectFolder +FRONTSLASH + SRC);
+        mainclass = mainclass.replace(BACKSLASH,FRONTSLASH);
         mainclass = mainclass.substring((projectFolder +FRONTSLASH + SRC).length());
         mainclass = mainclass.substring(0, mainclass.indexOf(PERIOD));
         mainclass= mainclass.replace(FRONTSLASH,PERIOD);

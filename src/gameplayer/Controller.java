@@ -61,11 +61,11 @@ public class Controller {
 
 	public Scene initializeStartScene() {
 		//Testing HighScore Screen
-		HighScoreView highScoreScreen = new HighScoreView();
-		currentGameName = "DemoDemo";
-		highScoreScreen.setGameName(currentGameName);
-		highScoreScreen.setScore(100.0);
-		Scene highScore = highScoreScreen.getScene();
+//		HighScoreView highScoreScreen = new HighScoreView();
+//		currentGameName = "DemoDemo";
+//		highScoreScreen.setGameName(currentGameName);
+//		highScoreScreen.setScore(100.0);
+		//Scene highScore = highScoreScreen.getScene();
 		gamePlayerSplash = new SplashScreenView();
 		mySplashScene = gamePlayerSplash.getScene();
 		connectButtonsToController();
@@ -184,11 +184,11 @@ public class Controller {
 	}
 
 	
-	public void setHighScoreView() {
-		HighScoreView highScoreScreen = new HighScoreView();
-		Scene highScore = highScoreScreen.getScene();
-		myStage.setScene(highScore);
-	}
+//	public void setHighScoreView() {
+//		HighScoreView highScoreScreen = new HighScoreView();
+//		Scene highScore = highScoreScreen.getScene();
+//		myStage.setScene(highScore);
+//	}
 	
 	public void restartGame() {
 		setGameView(currentGameState);

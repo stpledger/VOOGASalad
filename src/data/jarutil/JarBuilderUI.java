@@ -1,9 +1,11 @@
-package data;
+package data.jarutil;
 
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+
+import java.util.jar.JarOutputStream;
 
 import static javafx.application.Application.launch;
 
@@ -19,7 +21,8 @@ public class JarBuilderUI extends Application{
     public void start(Stage primaryStage) throws Exception {
         Group root = new Group();
         Scene sceen = new Scene(root, 10,10);
-        primaryStage.setScene(new JarWriterUI(400,primaryStage));
+        primaryStage.setScene(sceen);
         primaryStage.show();
+        JarWriterUI jWrite = new JarWriterUI();
     }
 }
