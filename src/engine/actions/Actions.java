@@ -113,7 +113,7 @@ public class Actions {
     		}
     	};
     }
-	
+
 	@SuppressWarnings("unchecked")
 	public static Consumer<Map<String, Component>> accelerateUp (double speed) {
     	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
@@ -187,21 +187,24 @@ public class Actions {
     		}
     	};
 	}
-	
-	
+
+	/**
+	 * @return two new entity mapsama
+	 */
+	public static Consumer<Map<String, Component>> lowGravity(){
+		return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+			if (actor != null && actor.containsKey(YAcceleration.KEY)) {
+				YAcceleration YAcc = (YAcceleration) actor.get(YAcceleration.KEY);
+				YAcc.setData(YAcc.getData() - 1.0);
+			}
+		};
+	}
     
 	
-	
-	
-	
-	
-	
-	
-	
     /**
-     * @return two new entity maps
+     * @return two new entity mapsama
      */
-    public BiConsumer<Map<String, Component>, Map<String, Component>> damage(int pid1, int pid2){
+    public static BiConsumer<Map<String, Component>, Map<String, Component>> damage(){
         return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
             if(actor1 != null && actor1.containsKey(Health.KEY)){
                 if(actor2 != null && actor2.containsKey(DamageLifetime.KEY) && actor2.containsKey(DamageValue.KEY)){
@@ -215,8 +218,8 @@ public class Actions {
                     else{
                         actor1.put(DamageLifetime.KEY, damagelifetime2);
                         actor1.put(DamageValue.KEY, damagevalue2);
-                        SM.addComponent(pid1, damagelifetime2);
-                        SM.addComponent(pid2, damagevalue2);
+                        SystemManager.addComponent(damagelifetime2.getPID(), damagelifetime2);
+                        SystemManager.addComponent(damagevalue2.getPID(), damagevalue2);
                     }
                 }
             }
@@ -233,8 +236,8 @@ public class Actions {
                     else{
                         actor2.put(DamageLifetime.KEY, damagelifetime1);
                         actor2.put(DamageValue.KEY, damagevalue1);
-                        SM.addComponent(pid2, damagelifetime1);
-                        SM.addComponent(pid2, damagevalue1);
+                        SystemManager.addComponent(damagelifetime1.getPID(), damagelifetime1);
+                        SystemManager.addComponent(damagelifetime1.getPID(), damagevalue1);
                     }
                 }
             }
