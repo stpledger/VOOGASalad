@@ -30,18 +30,20 @@ public class SelectLevel extends ScrollPane {
         stage.setHeight(PANE_HEIGHT);
 
         LevelColumn.prefWidthProperty().bind(stage.widthProperty());
+        LevelColumn.prefHeightProperty().bind(stage.heightProperty());
         LevelColumn.setSpacing(40);
         LevelColumn.setPadding(new Insets(40, 0, 40, 0));
-        LevelColumn.getStylesheets().add("LevelStyle.css");
+        LevelColumn.getStyleClass().add("vbox");
 
         createLevels();
 
         this.setContent(LevelColumn);
         this.setHbarPolicy(ScrollBarPolicy.NEVER);
         this.setVbarPolicy(ScrollBarPolicy.AS_NEEDED);
+        //this.getStyleClass().add("pane");
 
         MyScene = new Scene(this);
-        //MyScene.getStylesheets().add(getClass().getResource("LevelStyle.css").toExternalForm());
+        MyScene.getStylesheets().add(getClass().getResource("LevelStyle.css").toExternalForm());
     }
 
     private void createLevels(){

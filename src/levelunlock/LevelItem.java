@@ -27,8 +27,8 @@ public class LevelItem extends Button {
                 temp.setFitHeight(IMAGE_HEIGHT);
                 temp.setFitWidth(IMAGE_WIDTH);
                 this.setGraphic(temp);
-                /*this.getStyleClass().clear();
-                this.getStyleClass().add("lockedButton");*/
+                /*this.getStyleClass().clear();*/
+                this.getStyleClass().add("lockedButton");
             }
             else{
                 System.out.print("Unlocked Level");
@@ -36,8 +36,8 @@ public class LevelItem extends Button {
                 temp.setFitHeight(IMAGE_HEIGHT);
                 temp.setFitWidth(IMAGE_WIDTH);
                 this.setGraphic(temp);
-                /*this.getStyleClass().clear();
-                this.getStyleClass().add("unlockedButton");*/
+                /*this.getStyleClass().clear();*/
+                this.getStyleClass().add("unlockedButton");
             }
         });
         setLocked(true);
