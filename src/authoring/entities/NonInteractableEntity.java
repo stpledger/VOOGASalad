@@ -16,7 +16,6 @@ public abstract class NonInteractableEntity extends Entity {
 
 	private final static String NI_PROPERTIES_PATH = "resources.Entities/NonInteractable";
 	private final static String TYPE = "Noninteractable";
-	List<Component> components;
 	/**
 	 * Construct the entity with the given ID
 	 * @param ID
@@ -36,7 +35,7 @@ public abstract class NonInteractableEntity extends Entity {
 		if (ResourceBundle.getBundle(NI_PROPERTIES_PATH).keySet().contains(c.getKey())) {
 			components.add(c);
 		} else {
-			// TODO there should be an alert pop up here
+			// TODO report to the user here
 		}
 	}
 

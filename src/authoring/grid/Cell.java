@@ -47,7 +47,7 @@ public class Cell extends Pane {
 			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
 			ClipboardContent cc = new ClipboardContent();
 			cc.putImage(image);
-			cc.putString(((StringComponent)this.getEntity().get("Name")).getData());
+			cc.putString(((StringComponent) entity.get("Name")).getData());
 			db.setContent(cc);
 			e.consume();
 		});

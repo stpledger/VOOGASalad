@@ -24,6 +24,7 @@ public class ActionAdder {
         }
         return actives;
     }
+    
     public void deleteComponent(Component component){
         entity.remove(component);
     }
