@@ -14,7 +14,6 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Element;
 import authoring.exceptions.AuthoringException;
 import org.w3c.dom.Document;
-
 /**
  * This class handles parsing of the XML files that set up the type of simulation.
  * @author Dylan Powers
