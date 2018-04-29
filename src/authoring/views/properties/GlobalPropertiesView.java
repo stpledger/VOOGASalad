@@ -11,7 +11,6 @@ import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
 /**
@@ -38,18 +37,12 @@ public class GlobalPropertiesView extends PropertiesView {
 	protected void fill() {
 		ResourceBundle globalProps = this.getResourcesBundle(this.title().replace(" ", ""));
 		try {
-			int currentRow = 0;
+			this.createLabels(this.title().replace(" ", ""));
 			//text argument is empty, no text needed for these fields
 			TextField titleInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField,""); 
 			NumberField livesInput = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField,"");
 			TextField pathInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField,"");
 			this.getRoot().addColumn(1,livesInput,titleInput,pathInput);
-			for(String property:globalProps.keySet()) {
-				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label, globalProps.getString(property));
-				this.getRoot().add(label, 0, currentRow);
-				this.getElementList().add((Element) label);
-				currentRow++;
-			}
 			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getButtonBundle().getString("Submit"), e->{
 				for(Level level : levels) {
 					level.addGProp(globalProps.getString("Title"), titleInput.getText());
@@ -59,9 +52,8 @@ public class GlobalPropertiesView extends PropertiesView {
 				this.makeAlert(this.title()+" has been saved!"); //TODO put in properties file
 				this.close();
 			});
-			currentRow++;
 			this.getElementList().add((Element) submit);	
-			this.getRoot().add(submit, 0, currentRow);
+			this.getRoot().addColumn(0, submit);
 		} catch (Exception e1) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}

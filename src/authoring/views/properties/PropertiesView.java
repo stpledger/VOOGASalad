@@ -8,9 +8,11 @@ import java.util.ResourceBundle;
 import authoring.MainApplication;
 import authoring.factories.Element;
 import authoring.factories.ElementFactory;
+import authoring.factories.ElementType;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -31,14 +33,13 @@ public abstract class PropertiesView {
 	private Stage stage;
 	private ElementFactory eFactory = new ElementFactory();
 	private ArrayList<Element> elements = new ArrayList<>();
-
 	private Properties language = new Properties();
 
 	/**
 	 * Initialize the root of this window as a {@code GridPane}.
 	 */
 	public PropertiesView() {
-		root = new GridPane();
+		this.root = new GridPane();
 		root.setAlignment(Pos.CENTER);
 		root.setHgap(GRID_SEPARATION);
 		root.setVgap(GRID_SEPARATION);
@@ -68,6 +69,22 @@ public abstract class PropertiesView {
 	 * @return the title of the window.
 	 */
 	protected abstract String title();
+	
+	protected void createLabels(String propsName) {
+		int currentRow = 0;
+		ResourceBundle props = this.getResourcesBundle(propsName);
+		for (String property : props.keySet()) {
+			try {
+				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label,props.getString(property));
+				this.getRoot().add(label, 0, currentRow);
+				this.getElementList().add((Element) label);
+				currentRow++;
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	/**
 	 * Closes the stage
