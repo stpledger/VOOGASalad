@@ -1,7 +1,6 @@
 package authoring.entities;
 
 import java.io.FileNotFoundException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -11,46 +10,33 @@ import java.util.logging.Logger;
 import authoring.views.properties.LocalPropertiesView;
 
 import engine.components.Component;
-import engine.components.Damage;
-import engine.components.Dimension;
 import engine.components.EntityType;
-import engine.components.Health;
-import engine.components.Position;
+import engine.components.Height;
 import engine.components.Sprite;
-
+import engine.components.Width;
+import engine.components.XPosition;
+import engine.components.YPosition;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 
-import static authoring.components.AbstractComponentFormCollection.getPropertiesPackage;
 
 /**
- * 
- * @author Hemanth Yakkali(hy115)
+ * Super class to represent the top level of the entity chain. 
  * @author Dylan Powers
- * @author Collin Brown
- *
  */
-
-public abstract class Entity extends ImageView implements Serializable {
-
+public abstract class Entity extends ImageView {
+	
+	private int ID;
 	public final static int ENTITY_WIDTH = 50;
 	public final static int ENTITY_HEIGHT = 50;
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
-	/**
-	 * Unique ID to the entity
-	 */
-	private int ID;
+	public List<Component> components;
+	public String type;
 
 	/**
-	 * List of components which define the entity
+	 * Set the ID of this entity
+	 * @param ID the ID of this entity
 	 */
-	private List<Component> components;    
-
-	/**
-	 * The constructor simply sets the ID of the entity and initializes its list of components
-	 * @param ID which identifies an entity
-	 **/
 	public Entity(int ID) {
 		this.ID = ID;
 		components = new ArrayList<>();
@@ -76,85 +62,75 @@ public abstract class Entity extends ImageView implements Serializable {
 			ComponentAdder cAdd = new ComponentAdder(this);
 				}
 		);
-		addDefaultComponents();
+		//addDefaultComponents();
 	}
-
-
-	/**
-	 * Adds components that are inherent to the specific entity.
-	 */
-	protected abstract void addDefaultComponents();
-
-	/**
-	 * Gets the names of all of the components.
-	 * @return the names of all of the components
-	 *
-	 */
-	public List<String> getNames() {
-		List<String> ans = new ArrayList<>();
-		for (Component c : this.components) {
-			ans.add(c.getKey());
-		}
-		return ans;
-	}
-	/**
-	 * 
-	 * @param c Component object
-	 */
-	public void add(Component c) {
-		if (c != null) {
-			if (this.contains(c)) {
-				this.removeByName(c.getKey());
-			}
-			this.components.add(c);
-		}
+	
+	public String getType() {
+		return this.type;
 	}
 	
 	/**
-	 * Adds all the components in the list to the entity
-	 * @param componentList List<Component>
+	 * 
+	 * @return Unique ID of the entity
 	 */
-	public void addAll(List<Component> componentList) {
-		for(Component c: componentList) {
-			this.add(c);
-		}
+	public int getID() {
+		return this.ID;
+	}
+	
+	/**
+	 * 
+	 * @param filename File path of the sprite image
+	 * @throws FileNotFoundException
+	 */
+	protected void setSprite(String filename) throws FileNotFoundException {
+		this.add(new Sprite(this.getID(),filename));
+	}
+	
+	/**
+	 * 
+	 * @param x X position
+	 * @param y Y position
+	 */
+	public void setPosition(double x, double y) {
+		this.add(new XPosition(this.getID(), x));
+		this.add(new YPosition(this.getID(), y));
+		this.setLayoutX(x);
+		this.setLayoutY(y);
 	}
 
 	/**
 	 * 
-	 * @param c Component object
+	 * @param width Width of entity
+	 * @param height Height of entity
 	 */
-	public void remove (Component c) {
-		components.remove(c);
+	protected void setDimension(double width, double height) {
+		this.add(new Width(this.getID(),width));
+		this.add(new Height(this.getID(),height));
 	}
-
+	
 	/**
-	 * Remove a component based upon its String value.
-	 * @param name the name of the component to remove
+	 * Set the type of an entity
+	 * @param type the type to set the entity to
 	 */
-	private void removeByName(String name) {
-		for (Component c : this.components) {
-			if (c.getKey().equals(name)) {
-				this.remove(c);
-				return;
-			}
+	protected void setEntityType(String type) {
+		this.add(new EntityType(this.getID(), type));
+	}
+	
+	/**
+	 * Add a given component to this entity. 
+	 * param component
+	 */
+	public abstract void add(Component c);
+	
+	/**
+	 * Add all of the components in a given list to this entity by iterating through the list.
+	 * @param compsToAdd a collection of the components to add
+	 */
+	public void addAll(List<Component> compsToAdd) {
+		for (Component comp : compsToAdd) {
+			this.add(comp);
 		}
 	}
-
-	/**
-	 * Checks (by name) if the current entity already contains a given component.
-	 * @param c the component to check
-	 * @return true iff the component already belongs to this entity
-	 */
-	private boolean contains(Component c) {
-		for (Component existing : this.components) {
-			if (existing.getKey() == c.getKey()) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 
 	/**
 	 * Checks (explicitly) by name if the current entity already contains this component.
@@ -169,69 +145,6 @@ public abstract class Entity extends ImageView implements Serializable {
 		}
 		return false;
 	}
-
-	/**
-	 * Sets health, because every entity should always have health.
-	 * @param health
-	 */
-	protected void setHealth(double health) {
-		this.add(new Health(this.getID(),health));
-	}
-
-	/**
-	 * 
-	 * @param filename File path of the sprite image
-	 * @throws FileNotFoundException
-	 */
-	protected void setSprite(String filename) throws FileNotFoundException {
-		this.add(new Sprite(this.getID(),filename));
-	}
-
-	/**
-	 * 
-	 * @param width Width of entity
-	 * @param height Height of entity
-	 */
-	protected void setDimension(double width, double height) {
-		this.add(new Dimension(this.getID(),width,height));
-	}
-
-	/**
-	 * 
-	 * @param x X position
-	 * @param y Y position
-	 */
-	public void setPosition(double x, double y) {
-		this.removeByName("Position");
-		this.add(new Position(this.getID(), x, y));
-		this.setLayoutX(x);
-		this.setLayoutY(y);
-	}
-
-	/**
-	 * 
-	 * @param type Type of entity
-	 */
-	protected void setEntityType(String type) {
-		this.add(new EntityType(this.getID(),type));
-	}
-
-	/**
-	 * 
-	 * @param damage Double damage 
-	 * @param lifetime Double lifetime
-	 */
-	protected void setDamage(double damage, double lifetime) {
-		this.add(new Damage(this.getID(),damage,lifetime));
-	}
-
-	/**
-	 * 
-	 * @return Unique ID of the entity
-	 */
-	public int getID() {
-		return this.ID;
-	}
 	
 	/**
 	 * Get a component by name.
@@ -245,7 +158,7 @@ public abstract class Entity extends ImageView implements Serializable {
 			}
 		}
 		return null;
-	}
+	}	
 
 	/**
 	 * @return type of this entity
@@ -257,15 +170,15 @@ public abstract class Entity extends ImageView implements Serializable {
 	 */
 	public abstract String name();
 
+
 	public void addComponent(){
 
 	}
-	/**
-	 * 
-	 * @return List of components which define the entity
-	 */
 
-	public List<Component> getComponentList(){
+	/**
+	 * @return the list of components for this entity
+	 */
+	public List<Component> getComponentList() {
 		return this.components;
 	}
 

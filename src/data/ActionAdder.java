@@ -1,40 +1,60 @@
 package data;
 
+import authoring.entities.Block;
 import authoring.entities.Entity;
 import engine.actions.Actions;
 import engine.components.Component;
 
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
+import java.util.*;
 
 public class ActionAdder {
 
     private Entity entity;
+    private Map<Method, List<Type>> methodParams;
 
     public ActionAdder(Entity entity){
         this.entity=entity;
     }
-    public Map<String, Component> getActiveComponents(){
-        Map<String,Component> actives = new HashMap<>();
-        for(Component component : entity.getComponentList()){
-            actives.put(component.getKey(),component);
-        }
-        return actives;
-    }
-    public void deleteComponent(Component component){
-        entity.remove(component);
+    public static void main(String args[]) {
+        Entity e = new Block(1, "Block");
+        ActionAdder a = new ActionAdder(e);
+        a.getActions();
     }
 
-    public List<String> getActions(){
-        List<String> methods = new ArrayList<>();
-        for(Method method : Actions.class.getMethods()){
-            methods.add(method.getName());
-        }
-        return methods;
+    public Map<String, List<String>> getActions(){
+        Map<String, List<String>> paramChar = new HashMap<>();
+        methodParams = new HashMap<>();
+       for(Method method : Actions.class.getMethods()){
+           methodParams.put(method, Arrays.asList(method.getParameters()));
+           List<String> parameters = new ArrayList<>();
+           System.out.println(method.getName());
+
+           for(Type genericFieldType : method.getGenericParameterTypes()){
+               if(genericFieldType instanceof ParameterizedType){
+                   ParameterizedType aType = (ParameterizedType) genericFieldType;
+                   Type[] fieldArgTypes = aType.getActualTypeArguments();
+                   for(Type fieldArgType : fieldArgTypes){
+                       Class fieldArgClass = (Class) fieldArgType;
+                   }
+               }
+           }
+
+           for(Parameter param : Arrays.asList(method.getParameters())){
+               System.out.println("     "+param.getType().getName());
+               parameters.add(param.getName());
+
+           }
+           paramChar.put(method.getName(),parameters);
+       }
+       return paramChar;
     }
+
+
+
 
 
 

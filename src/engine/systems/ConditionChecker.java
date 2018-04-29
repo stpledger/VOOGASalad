@@ -12,6 +12,7 @@ public class ConditionChecker implements ISystem {
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents = new HashSet<>();
 
+
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
         if (components.containsKey(Conditional.KEY)) {
@@ -43,5 +44,6 @@ public class ConditionChecker implements ISystem {
             c.evaluate();
         }
     }
+
 
 }

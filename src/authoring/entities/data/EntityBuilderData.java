@@ -4,12 +4,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
-
-import authoring.components.ComponentForm;
-import authoring.components.EntityComponentForm;
+import authoring.forms.ComponentForm;
+import authoring.forms.EntityComponentForm;
 
 public class EntityBuilderData {
 	
@@ -30,11 +28,11 @@ public class EntityBuilderData {
 	 */
 	public void setComponent(Class c, String val) {
 		try {
-		if(componentAttributes.containsKey(c)) {
-			componentAttributes.remove(c);
-		}
+			if (componentAttributes.containsKey(c)) {
+				componentAttributes.remove(c);
+			}
 		componentAttributes.put(c, new Object[] {val});
-		}catch (Exception e) {
+		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
 		}
 	}

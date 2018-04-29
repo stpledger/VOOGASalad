@@ -8,9 +8,9 @@ import GamePlayer.GamePlayerController;
 import Menu.LevelSelector;
 import engine.components.Component;
 import engine.components.Health;
+import engine.components.Lives;
 import engine.components.Player;
 import engine.components.Score;
-import engine.components.Velocity;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToolBar;
 import javafx.scene.layout.HBox;
@@ -47,6 +47,7 @@ public class SampleToolBar extends ToolBar{
 			toolbarLayout.getChildren().add((Label) l);
 		}
 		//constructor to create a Sample Tool Bar
+
 //		toolbarLayout = new HBox(250); //adding spacing by 40 units
 //		Health health = (Health) PlayerKeys.get(activeLevel).get(Health.KEY);
 //		label2 = new HealthLabel(health.getHealth());

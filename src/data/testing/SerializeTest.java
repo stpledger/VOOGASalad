@@ -32,24 +32,32 @@ public class SerializeTest {
         params.add("1");
         params.add("3");
 
-        Acceleration entity1Acceleration = new Acceleration(1,1,0);
-        entity1Components.put("Acceleration", entity1Acceleration);
+        XAcceleration entity1AccelerationX = new XAcceleration(1,1);
+        YAcceleration entity1AccelerationY = new YAcceleration(1,0);
+        entity1Components.put("XAcceleration", entity1AccelerationX);
+        entity1Components.put("YAcceleration", entity1AccelerationY);
+
 
 
         params.clear();
         params.add("10");
         params.add("30");
 
-        Position entity1Position = new Position(1,10,30);
-        entity1Components.put("Position", entity1Position);
+        XPosition entity1PositionX = new XPosition(1,10);
+        YPosition entity1PositionY = new YPosition(1,30);
 
+        entity1Components.put("XPosition", entity1PositionX);
+        entity1Components.put("YPosition", entity1PositionY);
+        
         params.clear();
         params.add("5");
         params.add("0");
 
-        Velocity entity1Velocity = new Velocity(1,5,0);
-        entity1Components.put("Velocity", entity1Velocity);
+        XVelocity entity1VelocityX = new XVelocity(1,5);
+        YVelocity entity1VelocityY = new YVelocity(1,0);
 
+        entity1Components.put("XVelocity", entity1VelocityX);
+        entity1Components.put("YVelocity", entity1VelocityY);
 
         params.clear();
         params.add("Mario.png");
@@ -66,8 +74,12 @@ public class SerializeTest {
         params.add("4");
         params.add("10");
 //__________________________________________________
-        Acceleration entity2Acceleration = new Acceleration(2,4,10);
-        entity2Components.put("Acceleration", entity2Acceleration);
+        XAcceleration entity2AccelerationX = new XAcceleration(2,4);
+        YAcceleration entity2AccelerationY = new YAcceleration(2,10);
+
+        entity2Components.put("XAcceleration", entity2AccelerationX);
+        entity2Components.put("YAcceleration", entity2AccelerationY);
+
 
 
 
@@ -75,22 +87,32 @@ public class SerializeTest {
         params.add("100");
         params.add("50");
 
-        Position entity2Position = new Position(2, 0,0);
-        entity2Components.put(Position.KEY, entity2Position);
+        XPosition entity2PositionX = new XPosition(2, 0);
+        YPosition entity2PositionY = new YPosition(2, 0);
 
-        Dimension d = new Dimension (2, 20, 500);
-        entity2Components.put(Dimension.KEY, d);
+        entity2Components.put(XPosition.KEY, entity2PositionX);
+        entity2Components.put(YPosition.KEY, entity2PositionY);
+
+
+        Width w = new Width (2, 20);
+        Height h = new Height(2, 100);
+        entity2Components.put(Width.KEY, w);
+        entity2Components.put(Height.KEY, h);
+
 
         params.clear();
         params.add("1");
         params.add("-1");
 
-        Velocity entity2Velocity = new Velocity(2, 20,0);
-        entity2Components.put("Velocity", entity2Velocity);
+        XVelocity entity2VelocityX = new XVelocity(2, 20);
+        YVelocity entity2VelocityY = new YVelocity(2, 0);
+        entity2Components.put("XVelocity", entity2VelocityX);
+        entity2Components.put("YVelocity", entity2VelocityY);
+
 
 
         params.clear();
-        params.add("m ario.png");
+        params.add("mario.png");
 
         try {
             Sprite entity2Sprite = new Sprite(2, "Mario.png");

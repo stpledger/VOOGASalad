@@ -12,8 +12,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class ActionAdderView {
@@ -25,7 +24,7 @@ public class ActionAdderView {
     private static final int SIZE = 200;
     private static final double RATIO = 1.7;
     private static final String ADD = "Add an action";
-
+    private static final Set<String> ACCEPTED_IMAGE_FILES = new HashSet<>(Arrays.asList(new String[]{"AI", "Collidable", "KeyInput"}));
     public ActionAdderView(Entity entity){
         initStage();
         configureMenu();

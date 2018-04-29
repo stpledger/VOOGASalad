@@ -36,7 +36,7 @@ public class DataRead  {
     private static final String FILE ="File:";
     private static final String PERIOD = ".";
     private static final String SPACE ="";
-    private static final String ENTITY_PATH = "entity";
+    private static final String ENTITY_PATH = "data/entities/";
     private static String path = "";
     private static final Class CLASS = "Entity".getClass();
     private static final String SAVE_PATH = "saves/";
@@ -105,10 +105,15 @@ public class DataRead  {
         for(File game : file.listFiles()){
           game = findInDirectory(game,PLAYER_TARGET);
           DataGameState playable = loadPlayerFile(game);
-          Image icon = getIcons().get(0);
-          games.put(icon, playable);
+          //Image icon = getIcons().get(0);
+          //games.put(icon, playable);
         }
         return games;
+    }
+
+    public static List<File> getAllEntities(){
+        File entityDit = loadFile(ENTITY_PATH);
+        return Arrays.asList(entityDit.listFiles());
     }
 
     public static List<DataGameState> getSaves(){

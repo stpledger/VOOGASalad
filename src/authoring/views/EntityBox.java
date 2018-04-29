@@ -8,6 +8,7 @@ import engine.components.Sprite;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
@@ -31,16 +32,12 @@ public class EntityBox extends VBox {
 		this.getStyleClass().add("entity-box");
 		this.setWidth(boxDimension);
 		this.setHeight(boxDimension);
-		
 		componentAttributes = m;
-		
 		setPreview();
-		
 		this.setOnDragDetected(e -> {
 			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
 			ClipboardContent cc = new ClipboardContent();
 			cc.putImage(image);
-			System.out.println(componentAttributes.get(engine.components.Name.class)[0].toString());
 			cc.putString(componentAttributes.get(engine.components.Name.class)[0].toString());	
 			db.setContent(cc);
 			e.consume();

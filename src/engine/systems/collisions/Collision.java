@@ -2,46 +2,61 @@ package engine.systems.collisions;
 
 import java.util.*;
 
+import engine.components.Collidable;
 import engine.components.Component;
-import engine.components.Dimension;
-
-import engine.components.Position;
-import engine.components.Velocity;
-import engine.setup.EntityManager;
-import engine.setup.SystemManager;
+import engine.components.Height;
+import engine.components.Width;
+import engine.components.XPosition;
+import engine.components.XVelocity;
+import engine.components.YPosition;
+import engine.components.YVelocity;
 import engine.systems.DefaultSystem;
 
-public class Collision extends DefaultSystem {
-	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
-	private Map<Integer, Velocity> colliders;
-	private CollisionHandler handler;
+public class Collision extends DefaultSystem{
+	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();
+	private List<Integer> colliders;
+	//private CollisionHandler handler;
 
-	public Collision(SystemManager sm) {
-		colliders = new HashMap<>();
-		handler = new CollisionHandler(sm);
+	/*public Collision(SystemManager sm) {
+		colliders = new ArrayList<>();
+		//handler = new CollisionHandler(sm);
+	}*/
+	
+	public Collision() {
+		colliders = new ArrayList<>();
+	}
+
+	
+	public Map<Integer, Map<String, Component>> getHandledComponents(){
+		return handledComponents;
 	}
 
 	public void execute(double time) {
 
-		colliders.forEach((key1, vel) -> {
+		colliders.forEach((key1) -> {
 			handledComponents.forEach((key2, map) -> {
 
 				if (key1 != key2) {
 
-					Dimension d1 = (Dimension) handledComponents.get(key1).get(Dimension.KEY);
-					Dimension d2 = (Dimension) handledComponents.get(key2).get(Dimension.KEY);
-					Position p1 = (Position) handledComponents.get(key1).get(Position.KEY);
-					Position p2 = (Position) handledComponents.get(key2).get(Position.KEY);
+					Width w1 = (Width) handledComponents.get(key1).get(Width.KEY);
+					Height h1 = (Height) handledComponents.get(key1).get(Height.KEY);
+					Width w2 = (Width) handledComponents.get(key2).get(Width.KEY);
+					Height h2 = (Height) handledComponents.get(key2).get(Height.KEY);
+					
+					XPosition x1 = (XPosition) handledComponents.get(key1).get(XPosition.KEY);
+					YPosition y1 = (YPosition) handledComponents.get(key1).get(YPosition.KEY);
+					XPosition x2 = (XPosition) handledComponents.get(key2).get(XPosition.KEY);
+					YPosition y2 = (YPosition) handledComponents.get(key2).get(YPosition.KEY);
 
-					double topOverlap = p1.getYPos() + d1.getHeight() - p2.getYPos();
-					double botOverlap = p2.getYPos() + d2.getHeight() - p1.getYPos();
-					double leftOverlap = p1.getXPos() + d1.getWidth() - p2.getXPos();
-					double rightOverlap = p2.getXPos() + d2.getWidth() - p1.getXPos();
+					double topOverlap = y1.getData() + h1.getData() - y2.getData();
+					double botOverlap = y2.getData() + h2.getData() - y1.getData();
+					double leftOverlap = x1.getData() + w1.getData() - x2.getData();
+					double rightOverlap = x2.getData() + w2.getData() - x1.getData();
 
-					boolean to = topOverlap >= 0 && topOverlap <= d1.getHeight();
-					boolean bo = botOverlap >= 0 && botOverlap <= d2.getHeight();
-					boolean lo = leftOverlap >= 0 && leftOverlap <= d1.getWidth();
-					boolean ro = rightOverlap >= 0 && rightOverlap <= d2.getWidth();
+					boolean to = topOverlap >= 0 && topOverlap <= h1.getData();
+					boolean bo = botOverlap >= 0 && botOverlap <= h2.getData();
+					boolean lo = leftOverlap >= 0 && leftOverlap <= w1.getData();
+					boolean ro = rightOverlap >= 0 && rightOverlap <= w2.getData();
 
 					List<Double> overlaps = new ArrayList<>();
 					if (bo && !to && (lo || ro)) {
@@ -69,29 +84,47 @@ public class Collision extends DefaultSystem {
 					}
 
 					if (cd != null) {
-						handler.handle(handledComponents, key1, key2);
+						//handler.handle(handledComponents, key1, key2, cd);
 
+						if(handledComponents.get(key1).containsKey(Collidable.KEY)) {
+							Collidable cdb = (Collidable) handledComponents.get(key1).get(Collidable.KEY);
+							cdb.action(cd, handledComponents.get(key1), handledComponents.get(key2));
+						}
+						
+						if(handledComponents.get(key2).containsKey(Collidable.KEY)) {
+							Collidable cdb = (Collidable) handledComponents.get(key2).get(Collidable.KEY);
+							cdb.setCondition(() -> {
+								return handledComponents.get(key1);
+							}); 
+							CollisionDirection cd2 = null;
+							if(cd == CollisionDirection.Top) cd2 = CollisionDirection.Bot;
+							else if(cd == CollisionDirection.Bot) cd2 = CollisionDirection.Top;
+							else if(cd == CollisionDirection.Left) cd2 = CollisionDirection.Right;
+							else cd2 = CollisionDirection.Left;
+							cdb.action(cd2, handledComponents.get(key2), handledComponents.get(key1));
+						}
+						
 						switch (cd) {
-
-							case Top:
-								p1.setYPos(p2.getYPos() - d1.getHeight());
-								((Velocity) handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(10);
-								break;
-
-							case Bot:
-								p1.setYPos(p2.getYPos() + d2.getHeight());
-								((Velocity) handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setYVel(0);
-								break;
-
-							case Left:
-								p1.setXPos(p2.getXPos() - d1.getWidth());
-								((Velocity) handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-								break;
-
-							case Right:
-								p1.setXPos(p2.getXPos() + d2.getWidth());
-								((Velocity) handledComponents.get(p1.getParentID()).get(Velocity.KEY)).setXVel(0);
-								break;
+						
+						case Top:
+							y1.setData(y2.getData() - h1.getData());
+							((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
+							break;
+							
+						case Bot:
+							y1.setData(y2.getData() + h2.getData());
+							((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
+							break;
+							
+						case Left:
+							x1.setData(x2.getData() - w1.getData());
+							((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
+							break;
+							
+						case Right:
+							x1.setData(x2.getData() + w2.getData());
+							((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
+							break;
 
 						}
 					}
@@ -104,10 +137,11 @@ public class Collision extends DefaultSystem {
 		if (handledComponents.containsKey(pid)) {
 			handledComponents.remove(pid);
 		}
-		if (colliders.containsKey(pid)) {
+		if(colliders.contains(pid)) {
 			colliders.remove(pid);
 		}
 	}
+
 
 	@Override
 	public void setActives(Set<Integer> actives) {
@@ -116,10 +150,19 @@ public class Collision extends DefaultSystem {
 
 
 	public void addComponent(int pid, Map<String, Component> components) {
-		handledComponents.put(pid, components);
+		
+		if(components.containsKey(XPosition.KEY) && 
+				components.containsKey(YPosition.KEY) && 
+				components.containsKey(Width.KEY) && 
+				components.containsKey(Height.KEY) &&
+				components.containsKey(Collidable.KEY)) {
+		
+			handledComponents.put(pid, components);
 
-		if (components.containsKey(Velocity.KEY)) {
-			colliders.put(pid, (Velocity) components.get(Velocity.KEY));
+			if(components.containsKey(XVelocity.KEY) && components.containsKey(YVelocity.KEY)) {
+				colliders.add(pid);
+			}
+
 		}
 
 	}

@@ -1,8 +1,11 @@
 package authoring.views.properties;
 
+import java.util.ArrayList;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import authoring.MainApplication;
+import authoring.factories.Element;
 import authoring.factories.ElementFactory;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -24,6 +27,9 @@ public abstract class PropertiesView {
 	private GridPane root;
 	private Stage stage;
 	private ElementFactory eFactory = new ElementFactory();
+	protected ArrayList<Element> elements = new ArrayList<>();
+	
+	private Properties language = new Properties();
 
 	/**
 	 * Initialize the root of this window as a {@code GridPane}.
@@ -51,6 +57,7 @@ public abstract class PropertiesView {
 	public void close() {
 		stage.close();
 	}
+	
 	
 	protected Alert makeAlert(String content) {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -90,4 +97,14 @@ public abstract class PropertiesView {
 	protected ElementFactory getElementFactory() {
 		return this.eFactory;
 	}
+	
+	public void setLanguage(Properties lang) {
+		language = lang;
+		System.out.println(elements.size());
+		for(Element e : elements) {
+			e.setLanguage(language);
+		}
+		
+	}
+
 }

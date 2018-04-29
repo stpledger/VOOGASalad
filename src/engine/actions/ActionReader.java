@@ -72,9 +72,9 @@ public class ActionReader {
                 methodParams = declaredMethod.getParameterTypes();
             }
         }
-
         return methodParams;
     }
+
 
     /**
      * Creates the arguments needed to be passed to the method

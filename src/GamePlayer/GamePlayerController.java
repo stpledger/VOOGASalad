@@ -13,6 +13,7 @@ import data.DataGameState;
 import engine.components.Component;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
@@ -47,6 +48,7 @@ public class GamePlayerController {
 	private SampleToolBar sampleBar;
 	private Map<Integer, Map<String, Boolean>> HUDPropMap;
 	private Timeline animation;
+	private SimpleBooleanProperty gameOver = new SimpleBooleanProperty(false); //Boolean for the game not being over.
 
 	public GamePlayerController(Stage stage) {
 		myStage = stage;
