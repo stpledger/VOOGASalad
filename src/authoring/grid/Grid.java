@@ -44,6 +44,7 @@ public class Grid extends GridPane {
 	private Level level;
 	private ElementFactory eFactory;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final String NON_INTERACT = "Noninteractable";
 
 	/**
 	 * Initializes the grid with a given number of rows and columns
@@ -95,17 +96,21 @@ public class Grid extends GridPane {
 			EntityLoader el = new EntityLoader();
 			ImageView img = new ImageView(db.getImage());
 			try {
-				Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(),c.getLayoutY());
-				c.setEntity(en);
-				level.addEntity(en);
+				if(!c.containsEntity() || c.getEntity().getType().equals(NON_INTERACT)) { //can add entity to empty cell or cell with background entity
+					Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(),c.getLayoutY());
+					c.addEntity(en);
+					level.addEntity(en);
+					img.setFitWidth(Entity.ENTITY_WIDTH);
+					img.setFitHeight(Entity.ENTITY_HEIGHT);
+					c.getChildren().add(img);
+					c.setImage(db.getImage());
+				} else {
+					System.out.println("Entity is already here!");
+				}
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 			}
-			img.setFitWidth(Entity.ENTITY_WIDTH);
-			img.setFitHeight(Entity.ENTITY_HEIGHT);
-			c.getChildren().add(img);
-			c.setImage(db.getImage());
 			e.setDropCompleted(true);
 			e.consume();
 		});
@@ -131,7 +136,7 @@ public class Grid extends GridPane {
 						MenuItem openLPV = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Edit Entity", e1->this.openLPV(c.getEntity()));
 						MenuItem removeEntity = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Entity", e1->this.clearCell(c));
 						cMenu.getItems().addAll(openLPV,removeEntity);
-						if(c.getEntity().getType().equals("Noninteractable")) {
+						if(c.getEntity().getType().equals(NON_INTERACT)) {
 							MenuItem addImageCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addImageCol(c, (ImageView) c.getChildren().get(0), 1));
 							MenuItem addImageRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addImageRow(c, (ImageView) c.getChildren().get(0), 1));
 							MenuItem addImageFiveCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Columns", e2->this.addImageCol(c, (ImageView) c.getChildren().get(0), 5));
@@ -188,7 +193,6 @@ public class Grid extends GridPane {
 	private void addImageRow(Cell c, ImageView img, int numRows) {
 		img.setFitHeight(img.getFitHeight()+numRows*Entity.ENTITY_HEIGHT);
 		Entity en = c.getEntity();
-		System.out.println(img.getFitHeight());
 		en.add(new Height(en.getID(),img.getFitHeight()));
 	}
 
@@ -198,7 +202,8 @@ public class Grid extends GridPane {
 	 */
 	private void clearCell(Cell c) {
 		level.removeEntity(c.getEntity());
-		c.getChildren().clear();
+		c.removeEntity(c.getEntity());
+		c.getChildren().remove(c.getChildren().size()-1); //remove last node in children
 	}
 
 	/**
