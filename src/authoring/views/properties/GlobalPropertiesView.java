@@ -23,9 +23,9 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	private List<Level> levels;
 	private static final String NAME = "Global Properties";
-	
+
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-		
+
 	public GlobalPropertiesView(List<Level> levels){
 		super();
 		this.levels = new ArrayList<>(levels);
@@ -64,7 +64,7 @@ public class GlobalPropertiesView extends PropertiesView {
 			currentRow++;
 			getRoot().add(submit, 0, currentRow);
 		} catch (Exception e1) {
-			 LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}
 	}
 

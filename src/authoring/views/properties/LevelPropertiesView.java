@@ -16,13 +16,13 @@ import javafx.scene.control.TextField;
  * @author Hemanth Yakkali (hy115)
  */
 public class LevelPropertiesView extends PropertiesView{
-	
+
 	private int levelNum;
 	private Level level;
 	private String text = "text";
-	
+
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-		
+
 	public LevelPropertiesView(Level level, int levelNum) {
 		super();
 		this.levelNum = levelNum;
@@ -62,7 +62,7 @@ public class LevelPropertiesView extends PropertiesView{
 			currentRow++;
 			getRoot().add(button, 0, currentRow);
 		} catch (Exception e) {
-			 LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
 	}
 }

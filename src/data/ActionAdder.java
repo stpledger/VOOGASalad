@@ -24,8 +24,8 @@ public class ActionAdder {
         }
         return actives;
     }
-    // suppressing errors
-    /*public void deleteComponent(Component component){
+    
+    public void deleteComponent(Component component){
         entity.remove(component);
     }*/
 

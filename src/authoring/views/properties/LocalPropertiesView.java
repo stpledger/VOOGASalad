@@ -31,7 +31,7 @@ public class LocalPropertiesView extends PropertiesView {
 	private Consumer<List<Component>> onSubmit;
 	private Entity entity;
 	private String type;
-	
+
 	/**
 	 * Initialize the object with a given broadcast method
 	 * @param entityNumber
@@ -50,7 +50,7 @@ public class LocalPropertiesView extends PropertiesView {
 	protected void fill() {
 		int currentRow = 0;
 		List<PropertiesComponentForm> activeForms = new ArrayList<>();
-		
+
 		for (String property : ResourceBundle.getBundle(PROPERTIES_PACKAGE + type).keySet()) {
 			PropertiesComponentForm cf;
 			if (!entity.contains(property)) {

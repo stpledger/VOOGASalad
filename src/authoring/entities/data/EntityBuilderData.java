@@ -4,25 +4,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactoryConfigurationError;
 
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
 import authoring.forms.ComponentForm;
 
 public class EntityBuilderData {
-	
+
 	private Map<Class, Object[]> componentAttributes = new HashMap<>();
-	
+
 	private final static String COMPONENT_PREFIX = "engine.components.";
 	private final String NAME_ERROR_MESSAGE = "There must be a value in the \"Name\" field.\n";
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+
 	public EntityBuilderData() {
-		
+
 	}
-	
+
 	/**
 	 * Add a component to the entityBuilderData
 	 * @param c Class of component to be created
@@ -33,12 +31,12 @@ public class EntityBuilderData {
 			if (componentAttributes.containsKey(c)) {
 				componentAttributes.remove(c);
 			}
-		componentAttributes.put(c, new Object[] {val});
+			componentAttributes.put(c, new Object[] {val});
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
 		}
 	}
-	
+
 
 	/**
 	 * Saves an entity
@@ -50,7 +48,7 @@ public class EntityBuilderData {
 			Object[] tempArr = (Object[]) componentForm.buildComponent();
 			if(tempArr != null) {
 				try {
-				componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
+					componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
 				} catch (Exception e) {
 					throw e;
 				}

@@ -24,14 +24,14 @@ public class EntityTab extends Tab implements AuthoringPane {
 	Properties language = new Properties();
 	public static final double SCROLLBAR_WIDTH = 20;
 	public static final double VIEW_WIDTH = 0;
-	
+
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+
 	private ElementFactory eFactory;
-	
+
 	FlowPane pane;
 	ScrollPane externalPane;
-	
+
 	double myEntityViewWidth;
 
 	public EntityTab(String name, double entityViewWidth) {
@@ -56,7 +56,7 @@ public class EntityTab extends Tab implements AuthoringPane {
 		externalPane.setContent(pane);
 		this.setContent(externalPane);
 	}
-	
+
 	/**
 	 * Adds a new entity to the entityView
 	 * @param type the type of entity being created
@@ -73,7 +73,7 @@ public class EntityTab extends Tab implements AuthoringPane {
 						removeEntity(eb);
 					});
 					cMenu.getItems().add(delete);
-					
+
 					cMenu.setAutoHide(true);
 				} catch (Exception e1) {
 					LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
@@ -90,7 +90,7 @@ public class EntityTab extends Tab implements AuthoringPane {
 	public Node getNode() {
 		return pane;
 	}
-	
+
 	/**
 	 * Removes and entity from the entityView
 	 * @param eb the entitBox to be removed
@@ -103,7 +103,7 @@ public class EntityTab extends Tab implements AuthoringPane {
 	public void setLanguage(Properties lang) {
 		this.language = lang;
 		this.setText(language.getProperty(this.getId()));
-		
+
 	}
 
 
