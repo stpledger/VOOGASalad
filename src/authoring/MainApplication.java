@@ -6,7 +6,6 @@ import java.util.function.Consumer;
 
 import javax.imageio.ImageIO;
 
-
 import authoring.logging.AuthoringLogger;
 
 import javafx.application.Application;

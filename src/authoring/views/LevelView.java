@@ -2,19 +2,12 @@ package authoring.views;
 
 import java.util.Properties;
 import java.util.function.Consumer;
-import java.util.logging.Logger;
 
 import authoring.entities.Entity;
-import authoring.factories.ClickElementType;
-import authoring.factories.ElementFactory;
 import authoring.gamestate.Level;
 import authoring.grid.Grid;
-import javafx.scene.control.ContextMenu;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
 
 /**
  * @author Hemanth Yakkali((hy115)

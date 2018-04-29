@@ -6,14 +6,14 @@ import engine.components.DamageLifetime;
 import engine.components.DamageValue;
 import engine.components.Health;
 
-import engine.setup.EntityManager;
+import engine.setup.SystemManager;
 
 public class DamageHandler {
 	
-	private EntityManager em;
+	private SystemManager sm;
 	
-	public DamageHandler(EntityManager em) {
-		this.em = em;
+	public DamageHandler(SystemManager sm) {
+		this.sm = sm;
 	}
 	
 	public void handle(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
@@ -26,8 +26,8 @@ public class DamageHandler {
 			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
 			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
 									
-			em.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
-			em.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+			sm.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
+			sm.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
 				
 			
 		}
@@ -39,8 +39,8 @@ public class DamageHandler {
 			DamageValue dlv = (DamageValue) collider.get(DamageValue.KEY);
 			DamageLifetime dll = (DamageLifetime) collider.get(DamageLifetime.KEY);
 						
-			em.addComponent(playerID, new DamageValue(colliderID, dlv.getData()));
-			em.addComponent(playerID, new DamageLifetime(colliderID, dll.getData()));
+			sm.addComponent(playerID, new DamageValue(colliderID, dlv.getData()));
+			sm.addComponent(playerID, new DamageLifetime(colliderID, dll.getData()));
 
 		}
 	}

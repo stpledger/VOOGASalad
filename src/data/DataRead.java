@@ -1,9 +1,9 @@
 package data;
 
+import GamePlayer.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
-import authoring.entities.Entity;
 import authoring.gamestate.Level;
 import engine.components.Component;
 import javafx.embed.swing.SwingFXUtils;
@@ -14,10 +14,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.*;
-
-import static engine.components.Sprite.IMAGE_PATH;
 
 /*
     @Author Conrad defines methods for reading in various information from 
@@ -30,10 +27,12 @@ public class DataRead  {
     private static final String FAIL_MESSAGE ="File could not be loaded";
     private static final String IMAGE_PATH = "data/images/";
     private static final String SOUND_PATH = "data/sounds/";
+    private static final String HIGHSCORE_PATH = "highscores.xml";
     private static final String GAME_PATH = "games/";
     private static final String EMPTY_IMAGE ="File:data/images/picture-placeholder.png";
     private static final String ERROR ="Error";
-    private static final String SLASH = "/";
+    private static final String FRONTSLASH = "/";
+    private static final String BACKSLASH = "\\";
     private static final String FILE ="File:";
     private static final String PERIOD = ".";
     private static final String SPACE ="";
@@ -42,6 +41,7 @@ public class DataRead  {
     private static final Class CLASS = "Entity".getClass();
     private static final String SAVE_PATH = "saves/";
     private static final String PLAYER_TARGET = "Player.xml";
+    private static final String USER_DIR = "user.dir";
 
     /* receives a gamestate and loads it to the player
      * from buildState
@@ -70,63 +70,54 @@ public class DataRead  {
     }
 
     public static Image loadImage(String name)throws RuntimeException {
+        Image image;
+        File imageFile = loadFile(path + FRONTSLASH + IMAGE_PATH +name);
+        return loadImage(imageFile);
+    }
+
+   // public static List<DataGameState> getGames
+
+    public static Image addImage(File file) {
+        DataWrite.writeImage(file);
+        return loadImage(file);
+    }
+    public static Image loadImage(File file) {
         try {
-            return  new Image(FILE+path+IMAGE_PATH+name);
-        }
-        catch (Exception e) {
+            BufferedImage image = ImageIO.read(file);
+            return SwingFXUtils.toFXImage(image, null);
+        } catch (IOException e) {
             ErrorStatement(FAIL_MESSAGE);
             return new Image(EMPTY_IMAGE);
         }
     }
 
-   // public static List<DataGameState> getGames
+    public static Map<String,List<Person>> loadHighscore(){
+        File hs = loadFile(HIGHSCORE_PATH);
+        System.out.print(hs.getAbsolutePath());
+        return ((HighScore)deserialize(hs)).getHighscores();
 
-    public static Image loadImage(File file) {
-        try {
-            BufferedImage image = ImageIO.read(file);
-            DataWrite.writeImage(file);
-            return SwingFXUtils.toFXImage(image, null);
-        } catch (IOException e) {
-             ErrorStatement(FAIL_MESSAGE);
-           return new Image(EMPTY_IMAGE);
-        }
     }
+
 
     public static Map<Image, DataGameState> getAllGames() {
         Map<Image, DataGameState> games =new HashMap<>();
-        File file = new File(GAME_PATH);
+        File file = loadFile(GAME_PATH);
         for(File game : file.listFiles()){
-          game = new File(game.getAbsolutePath() + SLASH + PLAYER_TARGET);
+          game = findInDirectory(game,PLAYER_TARGET);
           DataGameState playable = loadPlayerFile(game);
-          Image icon = getIcons().get(0);
-          games.put(icon, playable);
+          //Image icon = getIcons().get(0);
+          //games.put(icon, playable);
         }
         return games;
     }
 
     public static List<DataGameState> getSaves(){
         List<DataGameState> saves = new ArrayList<DataGameState>();
-        File file = new File(path + SLASH + SAVE_PATH);
+        File file = loadFile(path + FRONTSLASH + SAVE_PATH);
         for(File save : file.listFiles()){
             saves.add((DataGameState)deserialize(save));
         }
         return saves;
-    }
-
-    public static List<Entity> getEntityList(){
-        List<Entity> entitySelect = new ArrayList<Entity>();
-        File f = new File(ENTITY_PATH);
-        for(File entityFile : f.listFiles()){
-            entitySelect.add((Entity)deserialize(entityFile));
-        }
-        return entitySelect;
-    }
-
-    // util file for finding filetype
-
-    private static String getFileType(File file) {
-        int fIndex = file.getName().indexOf(PERIOD);
-        return (fIndex == -1) ? SPACE : file.getName().substring(fIndex + 1);
     }
 
     /*prints an error to the screen
@@ -150,7 +141,7 @@ public class DataRead  {
     private static DataGameState buildState(File xml) {
         try {
             DataGameState gameState = (DataGameState)deserialize(xml);
-            path=GAME_PATH+gameState.getGameName()+SLASH;
+            path=GAME_PATH + gameState.getGameName()+ FRONTSLASH;
             return gameState;
         }
         catch(Exception e){
@@ -158,18 +149,69 @@ public class DataRead  {
             return new DataGameState(EMPTY_GAME);
         }
     }
-
     private static Object deserialize(File xml) {
-        XStream xstream = new XStream(new DomDriver()); // does not require XPP3 library
+        XStream xstream = new XStream(new DomDriver());
         return xstream.fromXML(xml);
     }
-
     public static List<Image> getIcons(){
         List<Image> icons = new ArrayList<>();
-        File imageRepo = new File(path+IMAGE_PATH);
-        System.out.println("image repo path" +imageRepo.getAbsolutePath());
-        for(File image : imageRepo.listFiles())
+        File imageRepo = loadFile(path+IMAGE_PATH);
+        for(File image : imageRepo.listFiles()) {
             icons.add(loadImage(image));
+        }
         return icons;
     }
+    private static File findInDirectory(File directory, String target){
+        if(directory.isDirectory()){
+            for(File subDir : directory.listFiles()){
+                File found = findInDirectory(subDir, target);
+                if(found!=null){
+                    return found;
+                }
+            }
+        }
+        if(directory.getName().equals(target)){
+            System.out.println("Found Directory " + directory.getName());
+            return directory;
+        }
+        else return null;
+    }
+    private static File loadFile(String path) {
+        String filePath = path.replace(BACKSLASH,FRONTSLASH);
+        File file = new File(filePath);
+        if(!file.exists())
+            file = new File(FILE+filePath);
+        if (!file.exists()) {
+            try {
+                file = new File(DataRead.class.getClassLoader().getResource(filePath).getFile());
+                if (!file.exists())
+                    throw new NullPointerException();
+            } catch (NullPointerException e) {
+                try {
+                    file = new File(DataRead.class.getClassLoader().getResource(FRONTSLASH + filePath).getFile());
+                    if (!file.exists())
+                        throw new NullPointerException();
+                } catch (NullPointerException f) {
+                    try {
+                        System.out.print(filePath);
+                        String fileName = filePath.substring(filePath.lastIndexOf(FRONTSLASH )+1);
+                        System.out.println("");
+                        System.out.println("Finding " + fileName + "   in  " + getProjectDir().getAbsolutePath());
+                        file = findInDirectory(getProjectDir(), fileName);
+                    }
+                    catch(NullPointerException g){
+                        System.out.print("Error reading file DataRead line 240");
+                        ErrorStatement(FAIL_MESSAGE);
+                    }
+                }
+            }
+        }
+        return file;
+    }
+    private static File getProjectDir(){
+        String superDir = System.getProperty(USER_DIR).replace(BACKSLASH,FRONTSLASH);
+        return new File(superDir);
+    }
+
+
 }

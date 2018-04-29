@@ -8,12 +8,14 @@ import java.util.Map;
 import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataWrite;
-import engine.components.*;
 
 import engine.components.Component;
-
-import engine.setup.EntityManager;
-
+import engine.components.Height;
+import engine.components.Player;
+import engine.components.Sprite;
+import engine.components.Width;
+import engine.components.XPosition;
+import engine.components.YPosition;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
@@ -23,7 +25,6 @@ import engine.systems.collisions.LevelStatus;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
-
 
 /**
  * Class that controls how the entity objects are displayed
@@ -53,6 +54,7 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	private static final double PANE_HEIGHT = 442;
 	private static final double PANE_WIDTH = 800;
 	private Map<Integer, Map<String, Component>> PlayerKeys;
+	private Map<Integer, Map<String, Boolean>> HUDPropMap;
 
 	/**
 	 * Constructor when given the gameState
@@ -60,17 +62,33 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	 */
 	public GamePlayerEntityView(DataGameState gameState) {
 		Levels = gameState.getGameState();
+		HUDPropMap = obtainHudProps(Levels);
 		PlayerKeys = new HashMap<>();
 		levelToInt();
 		LevelDisplays = createEntityGroupMap(Levels);
 		setActiveLevel(1);
 		initializeGamePlayerEntityView();
 	}
+	
+	
+	public Map<Integer, Map<String, Boolean>> getHudPropMap(){
+		return HUDPropMap;
+	}
+	
+	private Map<Integer, Map<String, Boolean>> obtainHudProps(Map<Level,Map<Integer,Map<String,Component>>> levels){
+		Map<Integer, Map<String, Boolean>> HUDPropMap = new HashMap<Integer, Map<String, Boolean>>();
+		int count = 1;
+		for (Level l: levels.keySet()) {
+			HUDPropMap.put(count, l.getHUDprops());
+			count++;
+		}
+		return HUDPropMap;	
+	}
 
 	/**
 	 * Converts Map of Levels to its Entities to Integers to Entities to make calling a particular level easier
 	 */
-	private void levelToInt() {
+	public void levelToInt() {
 		IntLevels = new HashMap<>();
 		for(Level level: Levels.keySet()){
 			IntLevels.put(level.getLevelNum(), Levels.get(level));
@@ -91,11 +109,10 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	 * 
 	 */
 	private Map<Integer, Pane> createEntityGroupMap(Map<Level, Map<Integer, Map<String, Component>>> map){
-		int count = 1;
 		Map<Integer, Pane> levelEntityMap = new HashMap<>();
 		for(Level level : map.keySet()) {
-			levelEntityMap.put(count, createIndividualEntityGroup(map.get(level), count));
-			count++;
+			levelEntityMap.put(level.getLevelNum(), createIndividualEntityGroup(map.get(level), level.getLevelNum()));
+			//levelEntityMap.put(count+1, createIndividualEntityGroup(Levels.get(level))); //TESTING DELETE
 		}
 		return levelEntityMap;
 	}
@@ -148,37 +165,11 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		return entityRoot;
 	}
 
-//	/**
-//	 * When a level change is invoked, reinitalize the GameInitializer to add functionality.
-//	 * @param levelNum
-//	 */
-//	public void reinitializeGameEngine(int levelNum) {
-//		int count = 1;
-//		Map<Integer, Map<String, Component>> currentLevel = null;
-//		for(Level level : Levels.keySet()) {
-//			if (count == levelNum) {
-//				
-//				currentLevel = Levels.get(level);
-//				System.out.println(currentLevel);
-//				break;
-//			}
-//			count++;
-//		}
-//		try {
-//			System.out.println(currentLevel);
-//			gameInitializer = new GameInitializer(currentLevel, Math.max(PANE_HEIGHT, PANE_WIDTH),
-//					ActivePlayerPos.getXPos(), ActivePlayerPos.getYPos()); //reinitializes the level.
-//		} catch (FileNotFoundException e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("Level Does Not Currently Exist Yet");
-//		} 
-//	}
-
 	/**
 	 * initialize the Game Initializer to create the systemManager and renderManager.
 	 * @throws FileNotFoundException
 	 */
-	private void initializeGamePlayerEntityView() {
+	public void initializeGamePlayerEntityView() {
 		try {
 			gameInitializer = new GameInitializer(IntLevels.get(ActiveLevel),
 					Math.max(PANE_HEIGHT, PANE_WIDTH), ActivePlayerPosX.getData(), ActivePlayerPosY.getData());
@@ -192,10 +183,10 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		systemManager = gameInitializer.getSystemManager();
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
-		levelStatus = gameInitializer.getC().getCH().getLS();
-		levelStatus.getUpdate().addListener((o, oldVal, newVal) -> {
+		levelStatus = new LevelStatus();
+		/*levelStatus.getUpdate().addListener((o, oldVal, newVal) -> {
 	   //  some action based on the value of newVal like -1 game over, from 1 to 2 change to level two etc. 
-	  });
+	  });*/
 	}
 
 	public void setActiveLevel(int i){
@@ -256,5 +247,9 @@ public class GamePlayerEntityView implements IGamePlayerView{
 			gameRoot.setTranslateX(((ActivePlayerPosX.getData() + 400) - PANE_WIDTH) * -1);
 		}
     }
+
+    public LevelStatus getLevelStatus(){
+		return levelStatus;
+	}
 
 }
