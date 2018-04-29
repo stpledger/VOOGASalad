@@ -2,10 +2,11 @@ package authoring.grid;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import authoring.entities.Entity;
 import authoring.entities.data.EntityLoader;
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
 import authoring.gamestate.Level;
@@ -43,7 +44,6 @@ public class Grid extends GridPane {
 	private int entityID;
 	private Level level;
 	private ElementFactory eFactory;
-	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private final String NON_INTERACT = "Noninteractable";
 
 	/**
@@ -95,8 +95,8 @@ public class Grid extends GridPane {
 			Dragboard db = e.getDragboard();
 			EntityLoader el = new EntityLoader();
 			ImageView img = new ImageView(db.getImage());
-			try {
-				if(!c.containsEntity() || c.getEntity().getType().equals(NON_INTERACT)) { //can add entity to empty cell or cell with background entity
+			if(!c.containsEntity() || c.getEntity().getType().equals(NON_INTERACT)) { //can add entity to empty cell or cell with background entity
+				try {
 					Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(),c.getLayoutY());
 					c.addEntity(en);
 					level.addEntity(en);
@@ -104,12 +104,12 @@ public class Grid extends GridPane {
 					img.setFitHeight(Entity.ENTITY_HEIGHT);
 					c.getChildren().add(img);
 					c.setImage(db.getImage());
-				} else {
-					System.out.println("Entity is already here!");
+
+				} catch (Exception e1) {
+					throw new AuthoringException("Cannot add entity to the cell!", AuthoringAlert.SHOW);
 				}
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+			} else {
+				throw new AuthoringException("Cell already contains an entity!", AuthoringAlert.SHOW);
 			}
 			e.setDropCompleted(true);
 			e.consume();
@@ -147,8 +147,7 @@ public class Grid extends GridPane {
 						}
 					}
 				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					throw new AuthoringException("Cannot create context menu!", AuthoringAlert.SHOW);
 				}
 				cMenu.show(c, e.getScreenX(), e.getScreenY());
 				cMenu.setAutoHide(true);
