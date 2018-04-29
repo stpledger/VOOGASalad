@@ -1,6 +1,8 @@
 package engine.components;
 
 import java.util.Map;
+import java.util.function.BiConsumer;
+
 import java.util.function.Consumer;
 
 /**
@@ -9,7 +11,7 @@ import java.util.function.Consumer;
  *
  * @author cndraco
  */
-public class AI implements Component {
+public class AI implements Component, BehaviorComponent {
 
 
     public static String KEY = "AI";
@@ -36,5 +38,17 @@ public class AI implements Component {
 
 	public int getPID() {
 		return pid;
+	}
+
+	public void addBehavior(Object identifier, Consumer con) {
+		setAction(con);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void addBehavior(Object identifier, BiConsumer bic) {
+		setAction((entity) -> {
+			bic.accept((Map<String, Component>) entity, null);
+		});
 	}
 }

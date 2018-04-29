@@ -88,7 +88,8 @@ public class EntityBuilderView extends Stage {
 			this.saveMenu = buildSingleButtonMenu("save", e -> {save();});
 			addImageMenu = buildSingleButtonMenu("addImage", e -> {addImage();});
 			this.entityPreview = new ImageView();
-			updateEntityPreview(new Image("games/DemoDemo/data/images/no_image.jpg"));
+			File imageFile = new File("data/images/Collin.png");
+			updateEntityPreview(SwingFXUtils.toFXImage(ImageIO.read(imageFile), null));
 			this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, componentFormCollection, saveMenu);
 			this.root.getStyleClass().add("entity-builder-view");
 		}  catch (Exception e) {
