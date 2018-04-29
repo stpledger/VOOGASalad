@@ -10,6 +10,7 @@ import data.DataGameState;
 import data.DataWrite;
 
 import engine.components.*;
+import engine.exceptions.EngineException;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
@@ -203,7 +204,12 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	
 
 	public void execute (double time) {
-		systemManager.execute(time);
+		try {
+			systemManager.execute(time);
+		} catch (EngineException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void render() {

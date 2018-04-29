@@ -1,6 +1,7 @@
 package engine.systems;
 
 import engine.components.*;
+import engine.exceptions.EngineException;
 import javafx.scene.image.ImageView;
 
 import java.util.HashSet;
@@ -54,7 +55,7 @@ public class Animate implements ISystem {
     }
 
     @Override
-    public void execute(double time) {
+    public void execute(double time) throws EngineException {
         for (int pid : activeComponents) {
 
             Map<String, Component> components = handledComponents.get(pid);
@@ -65,10 +66,12 @@ public class Animate implements ISystem {
             
             if(components.containsKey(Animated.KEY)) {
             	if(components.containsKey(XVelocity.KEY)) {
+            		Animated an = (Animated) components.get(Animated.KEY);
+        			if(!s.isPlaying()) an.animateSprite(s);
             		if(Math.abs(((XVelocity) components.get(XVelocity.KEY)).getData()) < 1) {
-            			s.pauseAnimation();
+            			if(s.isPlaying()) s.pauseAnimation();
             		} else {
-            			if(!s.isPlaying()) s.animate(1000, 24, 6, 0, 0, 93, 158);//s.animate(1000, 27, 7, 0, 0, 75, 85);
+            			s.playAnimation();
             		}
             	}
             }

@@ -85,7 +85,6 @@ public class Sprite extends SingleStringComponent implements Component, StringCo
 	public void pauseAnimation() {
 		if(a != null) {
 			a.pause();
-			isPlaying = false;
 		}
 	}
 	
@@ -95,7 +94,6 @@ public class Sprite extends SingleStringComponent implements Component, StringCo
 	public void playAnimation() {
 		if(a != null) {
 			a.play();
-			isPlaying = true;
 		}
 	}
 	

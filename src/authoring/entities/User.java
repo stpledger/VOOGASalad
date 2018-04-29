@@ -56,7 +56,7 @@ public class User extends InteractableEntity {
 		
 		this.add(new Jumps(this.getID(), 3));
 		
-		this.add(new Animated(this.getID()));
+		this.add(new Animated(this.getID(), "animations/blob/animation.properties"));
 	}
 
 	@Override

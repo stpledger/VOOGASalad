@@ -7,7 +7,7 @@ public class EngineException extends Exception {
 	private static final long serialVersionUID = 1L;
 	
 
-	EngineException(String invalidCommand){
+	public EngineException(String invalidCommand){
 		super(String.format(invalidCommand));
 		
 	}
