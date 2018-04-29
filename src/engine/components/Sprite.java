@@ -20,13 +20,12 @@ import javafx.util.Duration;
 public class Sprite extends SingleStringComponent {
 	public static final String FILE_PATH ="File:";
 	public static final String IMAGE_PATH ="data\\";
+	private String name;
 	
 	public static String KEY = "Sprite";
 	
 	private boolean isPlaying = false;
 	
-	private String name;
-
 	@XStreamOmitField
 	private transient ImageView image;
 	

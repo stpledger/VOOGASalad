@@ -46,7 +46,6 @@ public class EntityBuilderData {
 	 * @throws Exception
 	 */
 	public void save(List<ComponentForm> list) throws Exception {
-		boolean seenName = false;
 		for(ComponentForm componentForm : list) {
 			Object[] tempArr = (Object[]) componentForm.buildComponent();
 			if(tempArr != null) {
@@ -55,14 +54,13 @@ public class EntityBuilderData {
 				} catch (Exception e) {
 					throw e;
 				}
-				if (componentForm.getName().equals("Name")) seenName = true;
 			}
 		}
-		if (!seenName) {
+		EntitySaver saver = new EntitySaver();
+		if (this.componentAttributes.get(engine.components.Name.class)[0] == null) {
 			AuthoringException e = new AuthoringException(NAME_ERROR_MESSAGE, AuthoringAlert.SHOW);
 		}
-		EntitySaver saver = new EntitySaver();
-		saver.writeXML(componentAttributes,(String) this.componentAttributes.get(engine.components.Name.class)[0]);
+		saver.writeXML(componentAttributes, (String) this.componentAttributes.get(engine.components.Name.class)[0]);
 	}
 
 	/**

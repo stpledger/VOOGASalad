@@ -20,9 +20,10 @@ public class User extends InteractableEntity {
 	 * Construct the object with a given ID
 	 * @param ID the ID of the parent object
 	 */
-	public User(int ID) {
+	public User(int ID, String name) {
 		super(ID);
 		addDefaultComponents();
+		this.name = name;
 	}
 
 	/**

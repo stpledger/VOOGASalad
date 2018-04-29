@@ -1,5 +1,6 @@
 package authoring.entities;
 
+import authoring.forms.PropertiesComponentForm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.Group;
