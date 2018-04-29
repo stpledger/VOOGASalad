@@ -15,12 +15,13 @@ public class Main extends Application {
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception{
-		Controller gamePlayer = new Controller(primaryStage);
+		SplashScreenView splashScreen = new SplashScreenView(primaryStage);
 		mainStage = primaryStage;
 		mainStage.setTitle(TITLE);
-		mainStage.setScene(gamePlayer.initializeStartScene());
+		mainStage.setScene(splashScreen.getScene());
 		mainStage.show();
 	}
+	
 
 
 }

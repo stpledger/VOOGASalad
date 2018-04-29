@@ -5,17 +5,12 @@ import java.util.Map;
 import HUD.SampleToolBar;
 import Menu.MenuGameBar;
 import Menu.PauseMenu;
-import buttons.FileUploadButton;
-import buttons.GameSelectButton;
 import buttons.IGamePlayerButton;
-import buttons.SwitchGameButton;
 import data.DataGameState;
 import engine.components.Component;
 import engine.components.Win;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
@@ -24,23 +19,19 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Controller {
-	private final int WIDTH_SIZE = 800;
-	private final int HEIGHT_SIZE = 500;
-	private final int LEVEL_ONE = 1;
-	public final int FRAMES_PER_SECOND = 60;
-	public final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
-	public final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+	private static final int WIDTH_SIZE = 800;
+	private static final int HEIGHT_SIZE = 500;
+	private static final int LEVEL_ONE = 1;
+	public static final int FRAMES_PER_SECOND = 60;
+	public static final int MILLISECOND_DELAY = 1000 / FRAMES_PER_SECOND;
+	public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 	private double renderTime;
 	private Stage myStage;
 	private Scene myScene;
 	private Pane gameRoot;
-	private SplashScreenView gamePlayerSplash;
-	private Scene mySplashScene;
 	private BorderPane myPane = new BorderPane();
 	private PauseMenu pauseMenu = new PauseMenu(this);
 	private GameView gameView;
-	private FileUploadButton fileBtn;
-	private SwitchGameButton switchBtn;
 	private Map<Integer, Pane> levelEntityGroupMap; //map that is used to store the initial group for each level.
 	private DataGameState currentGameState;
 	public List<IGamePlayerButton> gameSelectButtonList;
@@ -50,60 +41,22 @@ public class Controller {
 	private Map<Integer, Map<String, Boolean>> HUDPropMap;
 	private Timeline animation;
 	private String currentGameName;
-	// Why is this necessary?
-	private SimpleBooleanProperty gameOver = new SimpleBooleanProperty(false); //Boolean for the game not being over.
+	private DataGameState gameState;
 
-	//TODO: REFACTOR SO THE CONTROLLER ACTUALLY DOES ALL OF THE CONTROLLING AND THE VIEW JUST MANAGES THE DISPLAY OF THE GAME
-	public Controller(Stage stage) {
+	public Controller(Stage stage, DataGameState currentGame) {
+		gameState = currentGame;
 		myStage = stage;
 		myStage.setResizable(false);
 	}
 
 	public Scene initializeStartScene() {
-		//Testing HighScore Screen
-//		HighScoreView highScoreScreen = new HighScoreView();
-//		currentGameName = "DemoDemo";
-//		highScoreScreen.setGameName(currentGameName);
-//		highScoreScreen.setScore(100.0);
-		//Scene highScore = highScoreScreen.getScene();
-		gamePlayerSplash = new SplashScreenView();
-		mySplashScene = gamePlayerSplash.getScene();
-		connectButtonsToController();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		assignKeyInputs();
-		return mySplashScene;
-		//return highScore;
-		
+		setGameView(gameState);
+		return myScene;
+
 	}
 
-	/**
-	 * Helper Method to establish button listener connection to the controller
-	 */
-	private void connectButtonsToController() {
-		gameSelectButtonList = gamePlayerSplash.getButtons();
-		for (IGamePlayerButton b : gameSelectButtonList) {
-			((GameSelectButton) b).getGameSelectBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-				currentGameState = ((GameSelectButton) b).getGameState();
-				currentGameName = currentGameState.getGameName();
-				setGameView(currentGameState);
-				myStage.setScene(myScene);
-			});
-		}
-		fileBtn = gamePlayerSplash.fileBtn;  //public variable need to encapsulate later
-		fileBtn.getFileBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-			currentGameState = fileBtn.getGameState();
-			setGameView(currentGameState);
-			myStage.setScene(myScene);
-		});
-
-		switchBtn = pauseMenu.switchBtn;
-		switchBtn.getSwitchBooleanProperty().addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-			pauseMenu.hide();
-			myStage.setScene(mySplashScene);
-			//switchBtn.setSwitchBoolean(); //changes boolean value back to false
-		});
-	}
-	
 	/**
 	 * Method that sets the current scene of the game
 	 */
@@ -143,7 +96,7 @@ public class Controller {
 		animation.play();
 		myTimeline = animation;
 	}
-	
+
 	/**
 	 * Changes the display of the gave.
 	 * @param level to be loaded
@@ -183,18 +136,18 @@ public class Controller {
 		}
 	}
 
-	
-//	public void setHighScoreView() {
-//		HighScoreView highScoreScreen = new HighScoreView();
-//		Scene highScore = highScoreScreen.getScene();
-//		myStage.setScene(highScore);
-//	}
-	
+
+	//	public void setHighScoreView() {
+	//		HighScoreView highScoreScreen = new HighScoreView();
+	//		Scene highScore = highScoreScreen.getScene();
+	//		myStage.setScene(highScore);
+	//	}
+
 	public void restartGame() {
 		setGameView(currentGameState);
 	}
 
-	
+
 	private void assignKeyInputs() {
 		myScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
