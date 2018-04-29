@@ -9,7 +9,9 @@ import java.util.Map;
 import java.util.*;
 
 import engine.components.Component;
-import engine.components.Damage;
+import engine.components.DamageLifetime;
+import engine.components.DamageValue;
+
 import engine.components.Health;
 
 import engine.setup.SystemManager;
@@ -17,10 +19,12 @@ import engine.setup.SystemManager;
 public class HealthDamage implements ISystem {
 	private Map<Integer, Map<String, Component>> handledComponents;
 	private Set<Integer> activeComponents;
+
 	private SystemManager sm;
 	
 	public HealthDamage(SystemManager sm) {
 		handledComponents = new HashMap<>();
+
 		this.sm = sm;
 	}
 
@@ -30,10 +34,13 @@ public class HealthDamage implements ISystem {
 			newComponents.put(Health.KEY,components.get(Health.KEY));
 			handledComponents.put(pid, newComponents);
 		}
-		else if (components.containsKey(Damage.KEY) && handledComponents.containsKey(pid)) {
-			Damage d = (Damage) components.get(Damage.KEY);
-			if (d.getParentID()!=pid) {
-				newComponents.put(Damage.KEY, d);
+		else if (components.containsKey(DamageValue.KEY) && components.containsKey(DamageLifetime.KEY) && handledComponents.containsKey(pid)) {
+			DamageValue d = (DamageValue) components.get(DamageValue.KEY);
+			DamageLifetime dl = (DamageLifetime) components.get(DamageLifetime.KEY);
+
+			if (d.getPID()!=pid) {
+				newComponents.put(DamageValue.KEY, d);
+				newComponents.put(DamageLifetime.KEY, dl);
 				handledComponents.put(pid, newComponents);
 			}
 		}
@@ -46,6 +53,7 @@ public class HealthDamage implements ISystem {
     	}  
 	}
 
+
 	public void setActives(Set<Integer> actives) {
 		Set<Integer> myActives = new HashSet<>(actives);
 		myActives.retainAll(handledComponents.keySet());
@@ -55,25 +63,28 @@ public class HealthDamage implements ISystem {
 	public void execute(double time) {
 		for (int key : activeComponents) {
 			Map<String, Component> map = handledComponents.get(key);
-			if(map.containsKey(Damage.KEY) && map.containsKey(Health.KEY)) {
+			if(map.containsKey(DamageValue.KEY) && map.containsKey(DamageLifetime.KEY) && map.containsKey(Health.KEY)) {
 				Health h = (Health) map.get(Health.KEY);
-				Damage d = (Damage) map.get(Damage.KEY);
+				DamageValue d = (DamageValue) map.get(DamageValue.KEY);
+				DamageLifetime dl = (DamageLifetime) map.get(DamageLifetime.KEY);
 
-				if (h.getParentID()!=d.getParentID()) {
-					h.setHealth(h.getHealth() - d.getDamage());
-					d.decrementLife();
-					if(d.getLifetime() == 0) {
+				if (h.getPID()!=d.getPID()) {
+					h.setData(h.getData() - d.getData());
+					dl.setData(dl.getData() - 1);
+					if(d.getData() <= 0) {
 						map.remove(d.getKey());
 					}
 				}
 
-				if(h.getHealth() <= 0) {
+				if(h.getData() <= 0) {
 					sm.removeEntity(key);
 					System.out.println("removing");
 				}
 
 			}
+
 		}
+
 	}
 
 }

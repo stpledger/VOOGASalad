@@ -1,25 +1,35 @@
 package labels;
-import java.text.MessageFormat;
+import java.util.Map;
 
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.StringBinding;
+import engine.components.Component;
+import engine.components.Player;
+
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 
-public class LivesLabel extends Label{
+public class LivesLabel extends Label implements IGameStatusLabel{
 
-	private int currentLives;
 	private final String LIVES_LABEL_NAME = "Lives: ";
-	private SimpleIntegerProperty livesProperty;
+	private SimpleDoubleProperty livesProperty;
 	
 	
-	public LivesLabel(int lives) {
-		currentLives = lives;
-		livesProperty = new SimpleIntegerProperty(currentLives);
-		StringBinding binding = Bindings.createStringBinding(
-	            () -> MessageFormat.format(LIVES_LABEL_NAME+"{0}", livesProperty.getValue()));
-		this.textProperty().bind(binding);
+	public LivesLabel() {
+
+		livesProperty = new SimpleDoubleProperty();
+		this.textProperty().bind(livesProperty.asString());
+	}
+
+
+	@Override
+	public double extractGameStateValue(Map<String, Component> playerStatusMap) {
+		return 0;
+	}
+
+
+	@Override
+	public void update(double newValue) {
+		// TODO Auto-generated method stub
+		livesProperty.set(newValue);
 	}
 	
 	

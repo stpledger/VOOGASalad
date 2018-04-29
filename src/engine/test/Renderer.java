@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import engine.components.Component;
-import engine.components.Dimension;
-import engine.components.Position;
+import engine.components.groups.Dimension;
+import engine.components.groups.Position;
 import engine.components.Sprite;
 import javafx.scene.Group;
 
@@ -29,8 +29,8 @@ public class Renderer implements Runnable {
 				Position p = (Position) map.get(Position.KEY);
 				Dimension d = (Dimension) map.get(Dimension.KEY);
 				
-				if(!rooted.contains(s.getParentID())) {
-					rooted.add(s.getParentID());
+				if(!rooted.contains(s.getPID())) {
+					rooted.add(s.getPID());
 					root.getChildren().add(s.getImage());
 				}
 				
@@ -41,8 +41,8 @@ public class Renderer implements Runnable {
 			} else if(map.containsKey(Sprite.KEY)) {
 				Sprite s = (Sprite) map.get(Sprite.KEY);
 				
-				if(rooted.contains(s.getParentID())) {
-					rooted.remove(s.getParentID());
+				if(rooted.contains(s.getPID())) {
+					rooted.remove(s.getPID());
 					root.getChildren().remove(s.getImage());
 				}
 			}

@@ -13,21 +13,19 @@ import javafx.scene.control.Label;
 
 public class HealthLabel extends Label implements IGameStatusLabel{
 
-	private double currentHealth;
 	private final String HEALTH_LABEL_NAME = "Health: ";
 	private SimpleDoubleProperty healthProperty;
 	
 	
-	public HealthLabel(double health) {
-		currentHealth = health;
-		healthProperty = new SimpleDoubleProperty(currentHealth);
+	public HealthLabel() {
+		healthProperty = new SimpleDoubleProperty();
 		this.textProperty().bind(healthProperty.asString());
 	}
 
 	@Override
 	public double extractGameStateValue(Map<String, Component> playerStatusMap) {
 		Health health = (Health) playerStatusMap.get(Health.KEY);
-		return health.getHealth();
+		return health.getData();
 	}
 
 	@Override

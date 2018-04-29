@@ -72,7 +72,6 @@ public class ActionReader {
                 methodParams = declaredMethod.getParameterTypes();
             }
         }
-
         return methodParams;
     }
 

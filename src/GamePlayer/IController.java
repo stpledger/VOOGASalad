@@ -18,6 +18,8 @@ public interface IController {
 	
 	public void changeGameLevel(int level);
 	
+	public void setHighScoreView();
+	
 	public void restartGame();
 	
 	public void saveGame();

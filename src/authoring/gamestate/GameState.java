@@ -3,9 +3,7 @@ package authoring.gamestate;
 import java.util.List;
 import java.util.logging.Logger;
 
-import authoring.entities.Entity;
 import data.DataWrite;
-import engine.components.Component;
 
 import java.util.ArrayList;
 
@@ -64,15 +62,5 @@ public class GameState implements IGameState {
 
 	public List<Level> getLevels() {
 		return state;
-	}
-
-	public void printState() {
-		for (Level level : this.state) {
-			for (Entity e : level.getEntityList()) {
-				for (Component c : e.getComponentList()) {
-					//					System.out.println(e.type() + " has component " + c.getKey());
-				}
-			}
-		}
 	}
 }

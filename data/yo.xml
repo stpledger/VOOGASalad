@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="yo"><Name>yo </Name><Type>Block </Type><Sprite>mario.png </Sprite></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="yo"><Sprite>mystery.jpg</Sprite><Type>Enemy</Type><Name>yo</Name></Entity>
