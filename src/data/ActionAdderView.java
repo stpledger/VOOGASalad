@@ -1,4 +1,4 @@
-package data;
+/*package data;
 
 import authoring.entities.Entity;
 import authoring.factories.ButtonElement;
@@ -68,4 +68,4 @@ public class ActionAdderView {
         ButtonElement add = new ButtonElement()
 
     }
-}
+}*/
