@@ -29,12 +29,8 @@ public class HealthDamage implements ISystem {
 
 	public void addComponent(int pid, Map<String, Component> components) {
 		if (components.containsKey(Health.KEY)) {
-			Map<String, Component> newComponents = new HashMap<>();
-			newComponents.put(Health.KEY,components.get(Health.KEY));
-			if(components.containsKey(Lives.KEY)) {
-				newComponents.put(Lives.KEY, components.get(Lives.KEY));
-			}
-			handledComponents.put(pid, newComponents);
+			
+			handledComponents.put(pid, components);
 			  
 		}
 		else if (handledComponents.containsKey(pid) && components.containsKey(DamageValue.KEY) && components.containsKey(DamageLifetime.KEY)) {

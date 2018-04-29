@@ -25,14 +25,14 @@ import engine.setup.SystemManager;
  * @author cndracos
  */
 public class Actions {
-    private static SystemManager SM;
+    private static SystemManager sm = null;
 
-    public static void addSM (SystemManager sm){
-        SM = sm;
+    public static void setSM(SystemManager sman) {
+    	sm = sman;
     }
 
     /**
-     * @param speed
+
      * @return left action
      */
 	@SuppressWarnings("unchecked")
@@ -148,7 +148,6 @@ public class Actions {
 	
 	
 	
-	
 	@SuppressWarnings("unchecked")
 	public static BiConsumer<Map<String, Component>,Map<String, Component>> transferScore() {
 		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
@@ -167,7 +166,7 @@ public class Actions {
 	@SuppressWarnings("unchecked")
 	public static BiConsumer<Map<String, Component>,Map<String, Component>> xFriction(double stickiness) {
 		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
-    		if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
+    		if(actor1 != null && (actor1 instanceof Map<?,?>)) {
     			if(actor1.containsKey(XVelocity.KEY) && actor1.containsKey(XAcceleration.KEY)) {
     				XVelocity xv = (XVelocity) actor1.get(XVelocity.KEY);
     				XAcceleration xa = (XAcceleration) actor1.get(XAcceleration.KEY);
@@ -182,23 +181,39 @@ public class Actions {
     	};
 	}
 
-	/**
-	 * @return two new entity mapsama
-	 */
-	public static Consumer<Map<String, Component>> lowGravity(){
+
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> yGravity(double force){
 		return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
 			if (actor != null && actor.containsKey(YAcceleration.KEY)) {
 				YAcceleration YAcc = (YAcceleration) actor.get(YAcceleration.KEY);
-				YAcc.setData(YAcc.getData() - 1.0);
+				YAcc.setData(force);
 			}
 		};
 	}
     
 	
+	@SuppressWarnings("unchecked")
+	public static Consumer<Map<String, Component>> animateSprite (String filename, double dur, int count, int columns, int offsetX, int offsetY, int width, int height) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+    		if(actor != null && (actor instanceof Map<?,?>)) {
+    			if(actor.containsKey(Sprite.KEY)) {
+    				Sprite s = (Sprite) actor.get(Sprite.KEY);
+    				if(!s.isPlaying()) {
+    					s.setData(filename);
+    					s.animate(dur, count, columns, offsetX, offsetY, width, height);
+    				}
+    			}
+    		}
+    	};
+    }
+	
+	
     /**
      * @return two new entity mapsama
      */
-    public static BiConsumer<Map<String, Component>, Map<String, Component>> damage(){
+    @SuppressWarnings("unchecked")
+	public static BiConsumer<Map<String, Component>, Map<String, Component>> damage(){
         return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
 			if (actor1.containsKey(EntityType.KEY) && actor2.containsKey(EntityType.KEY)) {
 				EntityType e1 = (EntityType) actor1.get(EntityType.KEY);
@@ -224,28 +239,39 @@ public class Actions {
 			Map<String, Component> newDamageComponents = new HashMap<>();
 			newDamageComponents.put(DamageValue.KEY, new DamageValue(playerID, dlv.getData()));
 			newDamageComponents.put(DamageLifetime.KEY, new DamageLifetime(playerID, dll.getData()));
-
-			SM.addEntity(colliderID, newDamageComponents);
+			if(sm != null) {
+				sm.addEntity(colliderID, newDamageComponents);
+			}
 		}
 	}
 
     /**
      * @return two new entity maps
      */
-    public Consumer<Map<String, Component>> changeSprite(Sprite alternative){
+    
+    // Behavior already supported in sprite class
+    
+    /*@SuppressWarnings("unchecked")
+	public Consumer<Map<String, Component>> changeSprite(Sprite alternative){
         return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
             if(actor != null && actor.containsKey(Sprite.KEY)){
                 actor.put(Sprite.KEY, alternative);
             }
         };
-    }
+    }*/
 
     /**
      * This would be an AI component that has an enemy follow you
      * @param followed Player/entity being followed
      * @return action which result in the tracker moving towards the followed
      */
+<<<<<<< HEAD
+
+    @SuppressWarnings("unchecked")
+	public static Consumer<Map <String, Component>> followsYou (Map<String, Component> followed, double speed) {
+=======
     public static Consumer<Map <String, Component>> followsYou (Entity followed, double speed) {
+>>>>>>> 9e481279e6c72c1e4bb67e012b7ae7c00aed3825
         XPosition px = (XPosition) followed.get(XPosition.KEY);
         YPosition py = (YPosition) followed.get(YPosition.KEY);
 
@@ -267,7 +293,9 @@ public class Actions {
      * @param coordinates The positions the entity will visit
      * @return the actions which performs this method
      */
-    public static Consumer<Map <String, Component>> patrol(List<Point> coordinates) {
+
+    @SuppressWarnings("unchecked")
+	public static Consumer<Map <String, Component>> patrol(List<Point> coordinates) {
         AtomicReference<Point> destination = new AtomicReference<>(coordinates.get(0));
         AtomicInteger current = new AtomicInteger();
 
