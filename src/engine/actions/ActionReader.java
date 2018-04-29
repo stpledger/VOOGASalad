@@ -1,5 +1,8 @@
 package engine.actions;
 
+import engine.setup.RenderManager;
+import engine.setup.SystemManager;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -19,11 +22,10 @@ public class ActionReader {
     private Method method;
     private Class[] methodParams;
     private Object[] invokeArgs;
-    private static Actions actions;
 
-    public ActionReader (Actions actions) {
-        this.actions = actions;
-    }
+
+    // Scott changed this to suppress errors
+    private static Actions actions = new Actions(new SystemManager(new RenderManager(0, 0, 0)));
 
     /**
      * This is the method which gets the action by having a series of private method calls

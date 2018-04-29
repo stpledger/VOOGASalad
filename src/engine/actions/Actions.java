@@ -41,7 +41,11 @@ public class Actions {
     }
 
     /**
+<<<<<<< HEAD
      * @param speed Entity moving left
+=======
+     * @param speed
+>>>>>>> de89ceda846775ae15c0943a776690e1ba062765
      * @return left action
      */
 	@SuppressWarnings("unchecked")
@@ -270,8 +274,8 @@ public class Actions {
 			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
 			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
 
-			sm.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
-			sm.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+			SM.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
+			SM.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
 		}
 	}
 
