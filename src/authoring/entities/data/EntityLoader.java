@@ -2,6 +2,9 @@ package authoring.entities.data;
 
 import authoring.entities.Entity;
 import authoring.entities.componentbuilders.*;
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
+import authoring.entities.componentbuilders.ComponentBuilder;
 import engine.components.Component;
 import engine.components.Type;
 import engine.components.XPosition;
@@ -105,7 +108,7 @@ public class EntityLoader {
 		if (nList != null && nList.getLength() > 0) {
             return nList.item(0).getTextContent();
         } else {
-        		throw new XMLException(ERROR_MESSAGE, name);
+        		throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW, name);
         }
 	}
 	

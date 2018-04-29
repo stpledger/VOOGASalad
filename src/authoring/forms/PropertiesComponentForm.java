@@ -1,14 +1,10 @@
 package authoring.forms;
 
 import java.lang.reflect.Constructor;
-import java.util.ArrayList;
-import java.util.Map;
 import java.util.Properties;
 
-import authoring.entities.data.PackageExplorer;
 import engine.components.Component;
 import engine.components.DataComponent;
-import engine.components.StringComponent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
