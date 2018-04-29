@@ -3,6 +3,19 @@ package GamePlayer;
 import java.util.List;
 import java.util.Map;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import com.restfb.DefaultFacebookClient;
+import com.restfb.FacebookClient;
+import com.restfb.FacebookClient.AccessToken;
+import com.restfb.Parameter;
+import com.restfb.Version;
+import com.restfb.json.JsonObject;
+import com.restfb.types.User;
+
 import buttons.IGamePlayerButton;
 import data.DataRead;
 import data.DataWrite;
@@ -31,6 +44,11 @@ public class HighScoreView extends BranchScreenView {
 	private TextField userNameField;
 	private Double finalScore;
 	private String finalGameName;
+	private Button facebookAuthButton;
+	private final String domain = "https://www.google.com/";
+	private final String appId = "190769674886367";
+	private final String authUrl = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id="+appId+"&redirect_uri="+domain+"&scope=public_profile,"
+			+ "user_photos,user_friends,user_hometown";
 	
 	//Data Structure to Display High Scores
 	private ObservableList<Person> data;
@@ -45,7 +63,6 @@ public class HighScoreView extends BranchScreenView {
 		displayHighScores();
 		highScoreScene = initializeScreen();
 		showRecordInput();
-		
 	}
 	
 	@Override
@@ -97,12 +114,14 @@ public class HighScoreView extends BranchScreenView {
 		requestRecordLayout = new HBox(50);
 		requestRecordLayout.setAlignment(Pos.CENTER);
 		submitButton = new Button("Submit");
-		TextField userNameField = new TextField();
+		facebookAuthButton = new Button("FB");
+		userNameField = new TextField();
 		userNameField.setMaxWidth(200);
 		submitButton.setOnAction(e->{addHighScore(userNameField.getText(), 50.0); 
 			hideRecordInput();
 		});
-		requestRecordLayout.getChildren().addAll(userNameField, submitButton);
+		facebookAuthButton.setOnAction(e->{authenticateUser();});
+		requestRecordLayout.getChildren().addAll(userNameField, submitButton, facebookAuthButton);
 		highScorePane.setCenter(requestRecordLayout);
 	}
 	
@@ -134,9 +153,28 @@ public class HighScoreView extends BranchScreenView {
 		System.out.println(data.size());
 	}
 
-
+	/**
+	 * Facebook Authentification Method 
+	 */
+	private void authenticateUser() {
+		System.setProperty("webdriver.chrome.driver", "/Users/Ryan/cs308/chromedriver");
+		WebDriver driver = new ChromeDriver();
+		driver.get(authUrl);
+		String accessToken;
+		while(true) {
+			if(!driver.getCurrentUrl().contains("facebook.com")) {
+				String url = driver.getCurrentUrl();
+				accessToken = url.replaceAll(".*#access_token=(.+)&.*", "$1");
+				accessToken = accessToken.split("&")[0];
+				driver.quit();
+				FacebookClient fbClient = new DefaultFacebookClient(accessToken, Version.VERSION_2_9);
+				User user = fbClient.fetchObject("me", User.class);
+				userNameField.setText(user.getName());
+				break;
+			}	
+		}
 	
-
+	}
 	@Override
 	public List<IGamePlayerButton> getButtons() {
 		// TODO Auto-generated method stub
