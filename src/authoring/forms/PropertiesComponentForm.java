@@ -1,8 +1,13 @@
 package authoring.forms;
 
 import java.lang.reflect.Constructor;
+import java.util.ArrayList;
 import java.util.Properties;
 
+import authoring.entities.data.PackageExplorer;
+import authoring.factories.Element;
+import authoring.factories.ElementFactory;
+import authoring.factories.ElementType;
 import engine.components.Component;
 import engine.components.SingleDataComponent;
 import javafx.scene.control.Label;
@@ -14,9 +19,7 @@ import javafx.scene.control.TextField;
  *
  */
 public class PropertiesComponentForm extends AbstractComponentForm implements ComponentForm {
-
 	private int entity;
-	private TextField field;
 
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
@@ -24,19 +27,17 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	 * @param name the name of the component
 	 * @param numFields the number of fields necessary for this component
 	 */
-	public PropertiesComponentForm(int entity, String name) {
-		this.entity = entity;
-		this.name = name;
-		this.add(new Label(name), 0, 0);
-		this.field = new TextField();
-		this.add(this.field, 1, 0);
+	public PropertiesComponentForm(int eID, String name) throws Exception {
+		super(name);
+		entity = eID;
 	}
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
 	 * @param name the name of the component
 	 * @param existingValue the String form of the existing value of this component
+	 * @throws Exception 
 	 */
-	public PropertiesComponentForm(int entity, String name, String existingValue) {
+	public PropertiesComponentForm(int entity, String name, String existingValue) throws Exception {
 		this(entity, name);
 		this.field.setText(existingValue);
 	}
