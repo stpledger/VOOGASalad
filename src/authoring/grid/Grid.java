@@ -13,12 +13,10 @@ import authoring.views.properties.LocalPropertiesView;
 import authoring.views.properties.PropertiesView;
 import engine.components.Component;
 import engine.components.Height;
-import engine.components.StringComponent;
 import engine.components.Width;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.TransferMode;
@@ -45,7 +43,6 @@ public class Grid extends GridPane {
 	private int entityID;
 	private Level level;
 	private ElementFactory eFactory;
-	private Cell previousCell;
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	/**
@@ -64,7 +61,6 @@ public class Grid extends GridPane {
 			cells.add(new ArrayList<>());
 			for (int j = 0; j < this.numCols; j++) {
 				Cell c = new Cell(this.level);
-//				setupDrag(c);
 				setupEntityDrop(c);
 				setupContextMenu(c);
 				cells.get(i).add(c);
@@ -155,24 +151,6 @@ public class Grid extends GridPane {
 			e.consume();
 		});
 	}
-	
-//	private void setupDrag(Cell c) {
-//		c.setOnDragDetected(e -> {
-//			System.out.println("Detected!");
-//			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
-//			ClipboardContent cc = new ClipboardContent();
-//			cc.putImage(c.getImage());
-//			cc.putString(((StringComponent)c.getEntity().get("Name")).getData());
-//			db.setContent(cc);
-//			e.consume();
-//		});
-//		c.setOnDragDone(e ->{
-//			this.level.removeEntity(c.getEntity());
-//			c.setEntity(null);
-//			c.getChildren().clear();
-//			System.out.println("Done!!!");
-//		});
-//	}
 
 	/**
 	 * Opens up the local properties view for the specific entity.
