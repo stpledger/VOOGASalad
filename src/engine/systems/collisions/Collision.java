@@ -112,17 +112,17 @@ public class Collision extends DefaultSystem{
 							
 						case Bot:
 							y1.setData(y2.getData() + h2.getData());
-							((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
+							//((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
 							break;
 							
 						case Left:
 							x1.setData(x2.getData() - w1.getData());
-							((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
+							//((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
 							break;
 							
 						case Right:
 							x1.setData(x2.getData() + w2.getData());
-							((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
+							//((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
 							break;
 
 						}

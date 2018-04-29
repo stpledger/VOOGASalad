@@ -7,6 +7,7 @@ import java.util.function.Consumer;
 import engine.actions.Actions;
 import engine.components.Component;
 import engine.components.Height;
+import engine.components.Jumps;
 import engine.components.KeyInput;
 import engine.components.Sprite;
 import engine.components.YPosition;
@@ -15,11 +16,12 @@ import javafx.scene.input.KeyCode;
 public class PlayerMovement extends KeyInput {
 
 	private boolean crouched;
-	
+	private double timing;
 	@SuppressWarnings("unchecked")
 	public PlayerMovement(int pid, KeyCode left, KeyCode right, KeyCode up, KeyCode down) {
 		super(pid);
 		crouched = false;
+		timing = System.currentTimeMillis();
 		this.addCode(left, (Serializable & Consumer<Map<String,Component>>) (map) -> {
 			Actions.moveLeft(100).accept(map);
 			if(map.containsKey(Sprite.KEY)) {
@@ -45,13 +47,27 @@ public class PlayerMovement extends KeyInput {
 		});
 		
 		this.addCode(up, (Serializable & Consumer<Map<String,Component>>) (map) -> {
-			Actions.moveUp(100).accept(map);
+			long time = System.currentTimeMillis();
+			Actions.xFriction(0).accept(map, null);
+			if(map.containsKey(Jumps.KEY) && time - timing > 200) {
+				
+				Jumps s = (Jumps) map.get(Jumps.KEY);
+				if(s.getData() > 0) {
+					Actions.moveUp(200).accept(map);
+					s.setData(s.getData() - 1);
+					timing = time;
+
+				} 
+			}
+			
 			if(map.containsKey(Sprite.KEY)) {
 				Sprite s = (Sprite) map.get(Sprite.KEY);
 				if(s.isPlaying()) {
 					s.pauseAnimation();
 				}
 			}
+			
+			
 			if(map.containsKey(Height.KEY)) {
 				Height s = (Height) map.get(Height.KEY);
 				if(crouched) {

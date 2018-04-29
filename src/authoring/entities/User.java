@@ -1,17 +1,9 @@
 package authoring.entities;
 
-import java.io.Serializable;
-import java.util.Map;
-import java.util.function.Consumer;
-
-import engine.actions.Actions;
-import engine.components.BehaviorComponent;
-import engine.components.Collidable;
-import engine.components.Component;
-import engine.components.KeyInput;
+import engine.components.Animated;
+import engine.components.Jumps;
 import engine.components.Lives;
 import engine.components.Player;
-import engine.systems.collisions.CollisionDirection;
 import javafx.scene.input.KeyCode;
 import engine.components.Score;
 import engine.components.presets.PlayerCollision;
@@ -41,7 +33,6 @@ public class User extends InteractableEntity {
 	/**
 	 * Add the default components to the player object.
 	 */
-	@SuppressWarnings("unchecked")
 	public void addDefaultComponents() {
 		this.setHealth(INITIAL_HEALTH);
 		this.setEntityType(TYPE);
@@ -62,6 +53,10 @@ public class User extends InteractableEntity {
 		this.add(new PlayerMovement(this.getID(), KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN));
 		
 		this.add(new Score(this.getID(), 0));
+		
+		this.add(new Jumps(this.getID(), 3));
+		
+		this.add(new Animated(this.getID()));
 	}
 
 	@Override

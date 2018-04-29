@@ -1,5 +1,6 @@
 package engine.actions;
 
+import authoring.entities.Entity;
 import engine.components.*;
 import engine.components.groups.Position;
 import engine.components.groups.Velocity;
@@ -165,7 +166,7 @@ public class Actions {
 	@SuppressWarnings("unchecked")
 	public static BiConsumer<Map<String, Component>,Map<String, Component>> xFriction(double stickiness) {
 		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
-    		if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
+    		if(actor1 != null && (actor1 instanceof Map<?,?>)) {
     			if(actor1.containsKey(XVelocity.KEY) && actor1.containsKey(XAcceleration.KEY)) {
     				XVelocity xv = (XVelocity) actor1.get(XVelocity.KEY);
     				XAcceleration xa = (XAcceleration) actor1.get(XAcceleration.KEY);
