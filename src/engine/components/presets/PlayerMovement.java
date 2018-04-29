@@ -45,7 +45,7 @@ public class PlayerMovement extends KeyInput {
 		});
 		
 		this.addCode(up, (Serializable & Consumer<Map<String,Component>>) (map) -> {
-			Actions.moveUp(200).accept(map);
+			Actions.moveUp(100).accept(map);
 			if(map.containsKey(Sprite.KEY)) {
 				Sprite s = (Sprite) map.get(Sprite.KEY);
 				if(s.isPlaying()) {

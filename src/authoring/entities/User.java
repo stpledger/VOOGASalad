@@ -14,6 +14,7 @@ import engine.components.Player;
 import engine.systems.collisions.CollisionDirection;
 import javafx.scene.input.KeyCode;
 import engine.components.Score;
+import engine.components.presets.PlayerCollision;
 import engine.components.presets.PlayerMovement;
 
 /**
@@ -48,18 +49,17 @@ public class User extends InteractableEntity {
 		this.add(new Player(this.getID()));
 		this.add(new Lives(this.getID(), INITIAL_LIVES));
 		
-		Collidable cbd = new Collidable(this.getID());
+		/*Collidable cbd = new Collidable(this.getID());
 		cbd.addBehavior(CollisionDirection.Top, (e1, e2) -> {
 			
 			Actions.moveUp(200).accept((Map<String, Component>) e1);
 			//Actions.damage().accept((Map<String, Component>) e1, (Map<String, Component>) e2);
 			
-		});
-		this.add(cbd);
+		});*/
 		
-		KeyInput k = new PlayerMovement(this.getID(), KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN);
+		this.add(new PlayerCollision(this.getID()));
 		
-		this.add(k);
+		this.add(new PlayerMovement(this.getID(), KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN));
 		
 		this.add(new Score(this.getID(), 0));
 	}
