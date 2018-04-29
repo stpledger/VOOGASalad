@@ -10,7 +10,6 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
-
 import data.DataRead;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
@@ -130,7 +129,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 				levelTabsList.remove(t);
 				updateTabs.accept(levelTabsList);
 			});
-			((LevelView) t.getContent()).setLanguage(language);
+			//((LevelView) t.getContent()).setLanguage(language);
 			tabPane.getTabs().add(t);
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
@@ -327,7 +326,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		toolbar.setLanguage(language);
 		for(Tab t : tabPane.getTabs()) {
 			t.setText(language.getProperty("Level")+ " " + (tabPane.getTabs().indexOf(t)+1)) ;
-			((LevelView) t.getContent()).setLanguage(language);
+			// ((LevelView) t.getContent()).setLanguage(language);
 		}
 		
 	}
