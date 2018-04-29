@@ -94,7 +94,7 @@ public class Grid extends GridPane {
 			EntityLoader el = new EntityLoader();
 			ImageView img = new ImageView(db.getImage());
 			try {
-				Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(),c.getLayoutY());
+				Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(), c.getLayoutY());
 				c.setEntity(en);
 				setupContextMenu(c, img);
 				level.addEntity(en);

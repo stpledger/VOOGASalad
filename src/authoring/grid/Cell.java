@@ -1,6 +1,7 @@
 package authoring.grid;
 
 import authoring.entities.Entity;
+import engine.components.SingleStringComponent;
 import engine.components.StringComponent;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
@@ -38,7 +39,7 @@ public class Cell extends Pane {
 			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
 			ClipboardContent cc = new ClipboardContent();
 			cc.putImage(image);
-			cc.putString(((StringComponent)entity.get("Name")).getData());
+			cc.putString(((StringComponent) entity.get("Name")).getData());
 			db.setContent(cc);
 			e.consume();
 		});

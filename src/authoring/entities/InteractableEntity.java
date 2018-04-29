@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import authoring.views.properties.LocalPropertiesView;
-
+import engine.components.Collidable;
 import engine.components.Component;
 import engine.components.Health;
 import engine.components.Height;
@@ -43,6 +43,8 @@ public abstract class InteractableEntity extends Entity {
 			}
 			e.consume();
 		});
+		// all interactable components should be collidable, so add the component
+		this.add(new Collidable(ID));
 	}
 	
 	/**
