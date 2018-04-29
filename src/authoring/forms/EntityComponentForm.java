@@ -13,8 +13,6 @@ import javafx.scene.control.TextField;
 
 public class EntityComponentForm extends AbstractComponentForm implements ComponentForm {
 
-	ElementFactory eFactory = new ElementFactory();
-	ArrayList<Element> elements = new ArrayList<>();
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
 	 * @param name the name of the component
@@ -22,22 +20,7 @@ public class EntityComponentForm extends AbstractComponentForm implements Compon
 	 * @throws Exception 
 	 */
 	public EntityComponentForm(String name) throws Exception {
-		this.name = name;
-		int col = 0;
-		Label label = (Label) eFactory.buildElement(ElementType.Label, name);
-		label.getStyleClass().add("component-form-label");
-		col++;
-		this.add(label, col, 0);
-		this.numFields = PackageExplorer.getNumFields(name);
-		elements.add((Element) label);
-		for (int i = 0; i < (numFields-1); i++) {
-			TextField tf = (TextField) eFactory.buildElement(ElementType.TextField, "text");
-			tf.getStyleClass().add("component-text-field");
-			elements.add((Element) tf);
-			fields.add(tf);
-			col++;
-			this.add(tf, col, 0);
-		}
+		super(name);
 	}
 
 	/**

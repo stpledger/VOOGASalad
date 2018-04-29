@@ -19,10 +19,7 @@ import javafx.scene.control.TextField;
  *
  */
 public class PropertiesComponentForm extends AbstractComponentForm implements ComponentForm {
-	ElementFactory eFactory = new ElementFactory();
-	ArrayList<Element> elements = new ArrayList<>();
 	private int entity;
-	private TextField field;
 
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
@@ -30,23 +27,9 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	 * @param name the name of the component
 	 * @param numFields the number of fields necessary for this component
 	 */
-	public PropertiesComponentForm(int entity, String name) throws Exception {
-		this.name = name;
-		int col = 0;
-		Label label = (Label) eFactory.buildElement(ElementType.Label, name);
-		label.getStyleClass().add("component-form-label");
-		col++;
-		this.add(label, col, 0);
-		this.numFields = PackageExplorer.getNumFields(name);
-		elements.add((Element) label);
-		for (int i = 0; i < (numFields-1); i++) {
-			TextField tf = (TextField) eFactory.buildElement(ElementType.TextField, "text");
-			tf.getStyleClass().add("component-text-field");
-			elements.add((Element) tf);
-			fields.add(tf);
-			col++;
-			this.add(tf, col, 0);
-		}
+	public PropertiesComponentForm(int eID, String name) throws Exception {
+		super(name);
+		entity = eID;
 	}
 	/**
 	 * Constructs the form with the given name and number of fields necessary, as determined by reflection.
