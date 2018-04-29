@@ -13,7 +13,7 @@ import engine.components.DamageLifetime;
 import engine.components.DamageValue;
 
 import engine.components.Health;
-
+import engine.components.Lives;
 import engine.setup.SystemManager;
 
 public class HealthDamage implements ISystem {
@@ -24,17 +24,21 @@ public class HealthDamage implements ISystem {
 	
 	public HealthDamage(SystemManager sm) {
 		handledComponents = new HashMap<>();
-
 		this.sm = sm;
 	}
 
 	public void addComponent(int pid, Map<String, Component> components) {
-		Map<String, Component> newComponents = new HashMap<>();
 		if (components.containsKey(Health.KEY)) {
+			Map<String, Component> newComponents = new HashMap<>();
 			newComponents.put(Health.KEY,components.get(Health.KEY));
+			if(components.containsKey(Lives.KEY)) {
+				newComponents.put(Lives.KEY, components.get(Lives.KEY));
+			}
 			handledComponents.put(pid, newComponents);
+			  
 		}
-		else if (components.containsKey(DamageValue.KEY) && components.containsKey(DamageLifetime.KEY) && handledComponents.containsKey(pid)) {
+		else if (handledComponents.containsKey(pid) && components.containsKey(DamageValue.KEY) && components.containsKey(DamageLifetime.KEY)) {
+			Map<String, Component> newComponents = handledComponents.get(pid);
 			DamageValue d = (DamageValue) components.get(DamageValue.KEY);
 			DamageLifetime dl = (DamageLifetime) components.get(DamageLifetime.KEY);
 
@@ -43,6 +47,7 @@ public class HealthDamage implements ISystem {
 				newComponents.put(DamageLifetime.KEY, dl);
 				handledComponents.put(pid, newComponents);
 			}
+			
 		}
 		
 	}
@@ -77,10 +82,25 @@ public class HealthDamage implements ISystem {
 				}
 
 				if(h.getData() <= 0) {
+					if(map.containsKey(Lives.KEY)) {
+						System.out.println("Entity has lives");
+					  Lives l =((Lives) map.get(Lives.KEY));
+							l.setData(l.getData()-1);
+							System.out.println(l.getData());
+					   if(l.getData()>=0) {
+						h.resetHealth();
+					   }
+					   else {
+						   sm.removeEntity(key);
+							System.out.println("removing e");
+					   }
+					}
+					else {
 					sm.removeEntity(key);
 					System.out.println("removing");
+					}
+					//lives-health
 				}
-
 			}
 
 		}

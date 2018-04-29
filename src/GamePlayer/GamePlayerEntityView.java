@@ -2,6 +2,7 @@ package GamePlayer;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,18 +10,11 @@ import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataWrite;
 
-import engine.components.Component;
-import engine.components.Height;
-import engine.components.Player;
-import engine.components.Sprite;
-import engine.components.Width;
-import engine.components.XPosition;
-import engine.components.YPosition;
+import engine.components.*;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
 import engine.systems.InputHandler;
-import engine.systems.collisions.LevelStatus;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -45,8 +39,8 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	private InputHandler inputHandler;
 	private RenderManager renderManager;
 	private SystemManager systemManager;
-	private LevelStatus levelStatus;
 
+	private int NumOfLevels;
 	private int ActiveLevel;
 	private XPosition ActivePlayerPosX;
 	private YPosition ActivePlayerPosY;
@@ -55,6 +49,7 @@ public class GamePlayerEntityView implements IGamePlayerView{
 	private static final double PANE_WIDTH = 800;
 	private Map<Integer, Map<String, Component>> PlayerKeys;
 	private Map<Integer, Map<String, Boolean>> HUDPropMap;
+	private ArrayList<Win> WinComponents;
 
 	/**
 	 * Constructor when given the gameState
@@ -65,7 +60,9 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		//testXML();
 		HUDPropMap = obtainHudProps(Levels);
 		PlayerKeys = new HashMap<>();
+		WinComponents = new ArrayList<>();
 		levelToInt();
+		NumOfLevels = IntLevels.keySet().size();
 		LevelDisplays = createEntityGroupMap(Levels);
 		setActiveLevel(1);
 		initializeGamePlayerEntityView();
@@ -153,6 +150,10 @@ public class GamePlayerEntityView implements IGamePlayerView{
 					if(entityComponents.containsKey(Player.KEY)){
                         PlayerKeys.put(levelNum, entityComponents);
                     }
+
+                    if (entityComponents.containsKey(Win.KEY)) {
+						WinComponents.add((Win) entityComponents.get(Win.KEY));
+					}
 				}
 				//	JACK ADDED THIS .............
 				
@@ -192,7 +193,6 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		systemManager = gameInitializer.getSystemManager();
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
-		levelStatus = new LevelStatus();
 		/*levelStatus.getUpdate().addListener((o, oldVal, newVal) -> {
 	   //  some action based on the value of newVal like -1 game over, from 1 to 2 change to level two etc. 
 	  });*/
@@ -257,8 +257,15 @@ public class GamePlayerEntityView implements IGamePlayerView{
 		}
     }
 
-    public LevelStatus getLevelStatus(){
-		return levelStatus;
-	}
+    public int getActiveLevel(){
+	    return ActiveLevel;
+    }
 
+    public int getNumOfLevels(){
+	    return NumOfLevels;
+    }
+
+    public ArrayList<Win> getWinComponents() {
+        return WinComponents;
+    }
 }

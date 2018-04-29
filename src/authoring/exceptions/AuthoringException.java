@@ -12,14 +12,14 @@ public class AuthoringException extends RuntimeException {
 	// serialization
 	private static final long serialVersionUID = 1L;
 	private static final String DEFAULT_ERROR_MESSAGE = "Something is wrong. Please try again.\n";
-	
+
 	/**
 	 * Create an exception based upon a different caught exception
 	 */
 	public AuthoringException(Throwable cause) {
 		super(cause);
 	}
-	
+
 	/**
 	 * Throw a new exception that reads a given message
 	 * @param message message to be read
@@ -31,7 +31,7 @@ public class AuthoringException extends RuntimeException {
 			this.displayAlert(message);
 		}
 	}
-	
+
 	/**
 	 * Raises a new exception with the given message
 	 * @param message the message to raise the exception with
@@ -42,7 +42,7 @@ public class AuthoringException extends RuntimeException {
 			this.displayAlert(message);
 		}
 	}
-	
+
 	/**
 	 * @return the default error message for this exception
 	 */
@@ -50,7 +50,7 @@ public class AuthoringException extends RuntimeException {
 	public String getMessage() {
 		return DEFAULT_ERROR_MESSAGE;
 	}
-	
+
 	/**
 	 * Show an alert with a given message.
 	 * @param message the message to be displayed on the alert
@@ -60,7 +60,7 @@ public class AuthoringException extends RuntimeException {
 		a.setContentText(message);
 		a.showAndWait();
 	}
-	
+
 	/**
 	 * Show an alert with the given message and values.
 	 * @param message the message to be displayed on the alert
@@ -69,7 +69,7 @@ public class AuthoringException extends RuntimeException {
 	public void displayAlert(String message, Object... values) {
 		this.displayAlert(String.format(message, values));
 	}
-	
+
 	/**
 	 * Display an alert with the default message
 	 */

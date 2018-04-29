@@ -112,7 +112,7 @@ public class SerializeTest {
 
 
         params.clear();
-        params.add("mario.png");
+        params.add("games/DemoDemo/data/images/mario.png");
 
         try {
             Sprite entity2Sprite = new Sprite(2, "Mario.png");

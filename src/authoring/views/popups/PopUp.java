@@ -9,10 +9,10 @@ import java.util.function.Consumer;
  *
  */
 public interface PopUp {
-	
+
 	public void show();
-	
+
 	public void onClose(Consumer<?> consumer);
-	
+
 	public void setLanguage(Properties lang);
 }

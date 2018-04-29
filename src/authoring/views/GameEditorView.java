@@ -21,7 +21,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import GamePlayer.Main;
 import authoring.entities.Entity;
-import authoring.entities.data.PackageExplorer;
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
 import authoring.factories.Toolbar;
@@ -36,8 +35,6 @@ import engine.components.EntityType;
 import engine.components.Sprite;
 import engine.components.XPosition;
 import engine.components.YPosition;
-import data.DataRead;
-
 import data.DataWrite;
 
 /**
@@ -46,7 +43,6 @@ import data.DataWrite;
  *
  */
 public class GameEditorView extends BorderPane implements AuthoringPane{
-	private static final String LANGUAGE_PACKAGE = "resources.languages.";
 
 	private ArrayList<Tab> levelTabsList;
 	private GameState state;
@@ -58,7 +54,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	private Consumer<List<Tab>> updateTabs = tabList -> { updateTabsMethod(tabList); };
 	private static final int BLOCK_DEFAULT_WIDTH = 50;
 	private Consumer<String> setMainViewLang;
-	
+
 	Properties language = new Properties();
 
 	/**
@@ -242,7 +238,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			}
 		}
 	}
-	
+
 	/**
 	 * Opens the levelPropertiesView
 	 */
@@ -274,7 +270,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			} else if(c.getKey().equals("XPosition")) {
 				XPosition p = (XPosition) c;
 				entity.setX(p.getData());
-				
+
 			} else if(c.getKey().equals("YPosition")) {
 				YPosition p = (YPosition) c;
 				entity.setY(p.getData());
@@ -327,7 +323,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			t.setText(language.getProperty("Level")+ " " + (tabPane.getTabs().indexOf(t)+1)) ;
 			// ((LevelView) t.getContent()).setLanguage(language);
 		}
-		
+
 	}
 
 }

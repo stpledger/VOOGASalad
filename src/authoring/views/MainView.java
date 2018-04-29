@@ -22,21 +22,21 @@ public class MainView {
 	public static final String DEFAULT_LANGUAGE = "english";
 	public static final String PROPERTIES_EXTENSION = ".properties";
 	private Properties language;
-	
+
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+
 	private static final double DEFAULT_HEIGHT = 600;
 	private static final double DEFAULT_WIDTH = 1200;
 	private BorderPane border;
 	private GameEditorView gameEditorView;
 	private EntityView componentView;
-	
+
 	private double ideHeight = DEFAULT_HEIGHT;
 	private double ideWidth = DEFAULT_WIDTH;
-	
+
 	private Consumer setLangConsumer = (langName) -> {setLanguage((String) langName);};
 	private List<AuthoringPane> authorPaneList = new ArrayList<>();
-	
+
 
 	/**
 	 * Creates an instance of GameAuthoringEnvironment Based on a file
@@ -116,8 +116,8 @@ public class MainView {
 	public void setIDEWidth(double ideWidth) {
 		this.ideWidth = ideWidth;
 	}
-	
-	
+
+
 	/**
 	 * Sets the language properties associated with this view
 	 * @param langName String of the language name

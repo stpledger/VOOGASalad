@@ -27,11 +27,11 @@ public class EntitySaver {
 	public static final String ERROR_MESSAGE = "XML file does not properly represent %s";
 	private static final String FOLDER_PATH = "data/";
 	private static final CharSequence COMPONENT_PREFIX = "engine.components.";
-	
+
 	public EntitySaver() {
 		DOCUMENT_BUILDER = getDocumentBuilder();
 	}
-	
+
 	/**
 	 * Writes the data given in a map, to a given XML file.
 	 * Most code was taken from https://examples.javacodegeeks.com/core-java/xml/parsers/documentbuilderfactory/create-xml-file-in-java-using-dom-parser-example/
@@ -50,17 +50,17 @@ public class EntitySaver {
 			Element comp = document.createElement(compName);
 			root.appendChild(comp);
 			for (Object o : attributes.get(compClass)) {
-        			comp.appendChild(document.createTextNode(String.valueOf(o)));
+				comp.appendChild(document.createTextNode(String.valueOf(o)));
 			}
 		}
-		
+
 		Transformer t = TransformerFactory.newInstance().newTransformer();
 		DOMSource ds = new DOMSource(document);
 		StreamResult sr = new StreamResult(new File(FOLDER_PATH + fileName + XML_EXTENSION));
 		t.transform(ds, sr);
 		System.out.println("XML file created and saved to " + FOLDER_PATH + fileName);
 	}
-	
+
 	/**
 	 * Generate the {@code DocumentBuilder} for finding and parsing the root of the document.
 	 * @return a {@code DocumentBuilder} object
