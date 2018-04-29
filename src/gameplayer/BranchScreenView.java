@@ -1,4 +1,4 @@
-package gameplayer;
+package GamePlayer;
 
 import java.util.List;
 import buttons.IGamePlayerButton;
