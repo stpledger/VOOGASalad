@@ -192,7 +192,6 @@ public class GamePlayerEntityView implements IGamePlayerView{
 
 		//added code for listening if level should change, not sure this is the best place to put it, but it works
 
-		//levelStatus = new LevelStatus();
 		/*levelStatus.getUpdate().addListener((o, oldVal, newVal) -> {
 	   //  some action based on the value of newVal like -1 game over, from 1 to 2 change to level two etc. 
 	  });*/

@@ -1,7 +1,5 @@
 package authoring.grid;
 
-import java.awt.Insets;
-
 import authoring.entities.Entity;
 import authoring.gamestate.Level;
 import engine.components.StringComponent;
@@ -27,7 +25,6 @@ public class Cell extends Pane {
 
 	/**
 	 * To initialize a blank cell
-	 * @param number the (distinct) number of the cell
 	 */
 	public Cell(Level level) {
 		this.level = level;

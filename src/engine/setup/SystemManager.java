@@ -47,11 +47,11 @@ public class SystemManager {
         setActives(renderManager.render());
     }
 
+
     public void addComponent(int pid, Component c) {
         Map<String, Component> newComponent = new HashMap<>();
         newComponent.put(c.getKey(), c);
         for(ISystem s : systems) {
-
 			s.addComponent(pid, newComponent);
 		}
     }

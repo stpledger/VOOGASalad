@@ -1,5 +1,9 @@
 package engine.systems.collisions;
-
+/**
+ * System that checks if the collision happens, and determines where it happens
+ * in relation to dimensions
+ * author jcf44, sv116
+ */
 import java.util.*;
 
 import engine.components.Collidable;
@@ -17,11 +21,9 @@ public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();
 	private Set<Integer> colliders;
 	private Set<Integer> activeComponents;
-	//private DamageHandler dHandler;
 	
-	public Collision(SystemManager sm) {
+	public Collision () {
 		colliders = new HashSet<>();
-		//dHandler = new DamageHandler(sm);
 	}
 
 	
@@ -81,7 +83,7 @@ public class Collision extends DefaultSystem{
 					}
 
 					if (cd != null) {
-						//dHandler.handle(key1, handledComponents.get(key1), key2, handledComponents.get(key2));
+
 
 						if(handledComponents.get(key1).containsKey(Collidable.KEY)) {
 							Collidable cdb = (Collidable) handledComponents.get(key1).get(Collidable.KEY);
@@ -151,7 +153,7 @@ public class Collision extends DefaultSystem{
 
 	public void addComponent(int pid, Map<String, Component> components) {
 		
-		if(components.containsKey(XPosition.KEY) && 
+		if(		components.containsKey(XPosition.KEY) &&
 				components.containsKey(YPosition.KEY) && 
 				components.containsKey(Width.KEY) && 
 				components.containsKey(Height.KEY) &&

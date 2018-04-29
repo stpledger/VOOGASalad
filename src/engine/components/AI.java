@@ -2,6 +2,7 @@ package engine.components;
 
 import java.util.Map;
 import java.util.function.BiConsumer;
+
 import java.util.function.Consumer;
 
 /**
@@ -15,7 +16,7 @@ public class AI implements Component, BehaviorComponent {
 
     public static String KEY = "AI";
 
-    private Consumer action;
+    private Consumer<Map<String, Component>> action;
 
     private int pid;
     
@@ -23,12 +24,12 @@ public class AI implements Component, BehaviorComponent {
         this.pid = pid;
     }
 
-    public void setAction (Consumer action) {
+    public void setAction (Consumer<Map<String, Component>> action) {
         this.action = action;
     }
 
-    public void doAction(Double time) {
-        action.accept(time);
+    public void doAction(Map<String, Component> components) {
+        action.accept(components);
     }
 
 	public String getKey() {

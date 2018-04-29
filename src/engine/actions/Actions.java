@@ -1,31 +1,20 @@
 package engine.actions;
 
-import authoring.entities.Entity;
-import engine.components.Health;
-import engine.components.Component;
-import engine.components.Player;
-import engine.components.Score;
-import engine.components.XAcceleration;
-import engine.components.XPosition;
-import engine.components.YPosition;
-import engine.components.XVelocity;
-import engine.components.YAcceleration;
-import engine.components.YVelocity;
+import engine.components.*;
 import engine.components.groups.Position;
 import engine.components.groups.Velocity;
 
 import java.awt.Point;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import engine.components.DamageValue;
-import engine.components.DamageLifetime;
-import engine.components.Sprite;
+
 import engine.setup.SystemManager;
 
 /**
@@ -42,6 +31,7 @@ public class Actions {
     }
 
     /**
+
      * @return left action
      */
 	@SuppressWarnings("unchecked")
@@ -224,61 +214,32 @@ public class Actions {
     @SuppressWarnings("unchecked")
 	public static BiConsumer<Map<String, Component>, Map<String, Component>> damage(){
         return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
-            /*if(actor1 != null && actor1.containsKey(Health.KEY)){
-                if(actor2 != null && actor2.containsKey(DamageLifetime.KEY) && actor2.containsKey(DamageValue.KEY)){
-                    DamageLifetime damagelifetime2 = (DamageLifetime)actor2.get(DamageLifetime.KEY);
-                    DamageValue damagevalue2 = (DamageValue)actor2.get(DamageValue.KEY);
-                    if(actor1.containsKey(DamageLifetime.KEY)){
-                        DamageValue damagevalue1 = (DamageValue)actor1.get(DamageValue.KEY);
-                        damagevalue1.setData(damagevalue1.getData() + damagevalue2.getData());
-                        actor1.put(DamageValue.KEY, damagevalue1);
-                    }
-                    else{
-                        actor1.put(DamageLifetime.KEY, damagelifetime2);
-                        actor1.put(DamageValue.KEY, damagevalue2);
-                        if(sm != null) {
-                        	sm.addComponent(damagelifetime2.getPID(), damagelifetime2);
-                        	sm.addComponent(damagevalue2.getPID(), damagevalue2);
-                        }
-                    }
-                }
-            }*/
-
-            // Yameng - this should only cover actor 1 applying damage to actor 2. The other way around would be covered by adding the 
-        	// same behavior to actor 2
-            
-            if(actor2 != null && actor2.containsKey(Health.KEY)){
-                if(actor1 != null && actor1.containsKey(DamageLifetime.KEY) && actor1.containsKey(DamageValue.KEY)){
-                    DamageLifetime damagelifetime1 = (DamageLifetime)actor1.get(DamageLifetime.KEY);
-                    DamageValue damagevalue1 = (DamageValue)actor1.get(DamageValue.KEY);
-                    if(actor2.containsKey(DamageLifetime.KEY)){
-                        DamageValue damagevalue2 = (DamageValue)actor2.get(DamageValue.KEY);
-                        damagevalue2.setData(damagevalue2.getData() + damagevalue1.getData());
-                        actor2.put(DamageValue.KEY, damagevalue2);
-                    }
-                    else{
-                        actor2.put(DamageLifetime.KEY, damagelifetime1);
-                        actor2.put(DamageValue.KEY, damagevalue1);
-                        if(sm != null) {
-                        	sm.addComponent(damagelifetime1.getPID(), damagelifetime1);
-                        	sm.addComponent(damagelifetime1.getPID(), damagevalue1);
-                        }
-                    }
-                }
-            }
-        };
+			if (actor1.containsKey(EntityType.KEY) && actor2.containsKey(EntityType.KEY)) {
+				EntityType e1 = (EntityType) actor1.get(EntityType.KEY);
+				EntityType e2 = (EntityType) actor1.get(EntityType.KEY);
+				if (!e1.getData().equals(e2.getData())) {
+					giveDamage(actor1, actor2);
+				}
+			}
+        	else giveDamage(actor1, actor2);
+		};
     }
     
-    public static void giveDamage(int playerID, Map<String, Component> player, int colliderID, Map<String, Component> collider) {
+    private static void giveDamage(Map<String, Component> player, Map<String, Component> collider) {
 		if (player.containsKey(DamageValue.KEY) &&
 				player.containsKey(DamageLifetime.KEY) &&
 				collider.containsKey(Health.KEY)) {
+			int playerID = player.get(DamageValue.KEY).getPID();
+			int colliderID = collider.get(Health.KEY).getPID();
 
 			DamageValue dlv = (DamageValue) player.get(DamageValue.KEY);
 			DamageLifetime dll = (DamageLifetime) player.get(DamageLifetime.KEY);
+
+			Map<String, Component> newDamageComponents = new HashMap<>();
+			newDamageComponents.put(DamageValue.KEY, new DamageValue(playerID, dlv.getData()));
+			newDamageComponents.put(DamageLifetime.KEY, new DamageLifetime(playerID, dll.getData()));
 			if(sm != null) {
-				sm.addComponent(colliderID, new DamageValue(playerID, dlv.getData()));
-				sm.addComponent(colliderID, new DamageLifetime(playerID, dll.getData()));
+				sm.addEntity(colliderID, newDamageComponents);
 			}
 		}
 	}
@@ -301,22 +262,22 @@ public class Actions {
     /**
      * This would be an AI component that has an enemy follow you
      * @param followed Player/entity being followed
-     * @param tracker  Enemy/entity tracking the followed
      * @return action which result in the tracker moving towards the followed
      */
+
     @SuppressWarnings("unchecked")
-	public static Consumer<Double> followsYou (Entity followed, Entity tracker) {
+	public static Consumer<Map <String, Component>> followsYou (Map<String, Component> followed, double speed) {
         XPosition px = (XPosition) followed.get(XPosition.KEY);
         YPosition py = (YPosition) followed.get(YPosition.KEY);
-        XPosition tx = (XPosition) tracker.get(XPosition.KEY);
-        YPosition ty = (YPosition) followed.get(YPosition.KEY);
-        XVelocity vx = (XVelocity) tracker.get(XVelocity.KEY);
-        YVelocity vy = (YVelocity) tracker.get(YVelocity.KEY);
 
-        return (Serializable & Consumer<Double>) (time) -> {
-            Double myTime = (Double) time;
-            vx.setData((px.getData() - tx.getData()) * myTime * 10);
-            vy.setData((py.getData() - ty.getData()) * myTime * 10);
+        return (Serializable & Consumer<Map <String, Component>>) (tracker) -> {
+			XPosition tx = (XPosition) tracker.get(XPosition.KEY);
+			YPosition ty = (YPosition) tracker.get(YPosition.KEY);
+			XVelocity vx = (XVelocity) tracker.get(XVelocity.KEY);
+			YVelocity vy = (YVelocity) tracker.get(YVelocity.KEY);
+
+            vx.setData((px.getData() - tx.getData())* speed);
+            vy.setData((py.getData() - ty.getData()) * speed);
         };
     }
 
@@ -324,19 +285,19 @@ public class Actions {
      * A patrol action to be given to an AI component for enemies, blocks, etc. Goes to the given coordinates in
      * order then repeats.
      *
-     * @param actor The entity moving around
      * @param coordinates The positions the entity will visit
      * @return the actions which performs this method
      */
-    @SuppressWarnings("unchecked")
-	public static Consumer<Double> patrol(Map<String, Component> actor, List<Point> coordinates) {
-        Velocity v = (Velocity) actor.get(Velocity.KEY);
-        Position p = (Position) actor.get(Position.KEY);
 
+    @SuppressWarnings("unchecked")
+	public static Consumer<Map <String, Component>> patrol(List<Point> coordinates) {
         AtomicReference<Point> destination = new AtomicReference<>(coordinates.get(0));
         AtomicInteger current = new AtomicInteger();
 
-        return (Serializable & Consumer<Double>) (time) -> {
+        return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+			Velocity v = (Velocity) actor.get(Velocity.KEY);
+			Position p = (Position) actor.get(Position.KEY);
+
             v.setXVel((destination.get().getX()-p.getXPos())/
 					(distance(p.getXPos(), p.getYPos(), destination.get().getX(), destination.get().getY()) * 100));
             v.setYVel((destination.get().getY()-p.getYPos())/
