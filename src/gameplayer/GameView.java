@@ -262,6 +262,12 @@ public class GameView implements IGamePlayerView{
 		Map<String, Component> entityComponents;
 		for(Integer i : entityMap.keySet()) {
 			entityComponents = entityMap.get(i);
+			//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
+			if(entityComponents.containsKey(Player.KEY)){
+				playerKeys.put(levelNum, entityComponents);
+				System.out.println("putting in player for level " + levelNum);
+			}
+
 			if(entityComponents.containsKey(Sprite.KEY)) {
 				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
 				ImageView image = spriteComponent.getImage();
@@ -269,10 +275,6 @@ public class GameView implements IGamePlayerView{
 				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
 					setSpritePosition(entityComponents, image);
 
-					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
-					if(entityComponents.containsKey(Player.KEY)){
-						playerKeys.put(levelNum, entityComponents);
-					}
 
 					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
 					if (entityComponents.containsKey(Win.KEY)) {
