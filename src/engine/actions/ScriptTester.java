@@ -1,18 +1,5 @@
 package engine.actions;
 
-
-import authoring.entities.Enemy;
-
-import authoring.entities.User;
-import java.util.ArrayList;
-import java.util.List;
-
-import engine.components.Player;
-import engine.components.groups.Position;
-import engine.components.groups.Velocity;
-
-import java.util.function.Consumer;
-
 public class ScriptTester {
 
     public static void main (String [] args) {

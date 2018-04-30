@@ -1,7 +1,5 @@
 package engine.actions;
 
-import engine.setup.RenderManager;
-import engine.setup.SystemManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;

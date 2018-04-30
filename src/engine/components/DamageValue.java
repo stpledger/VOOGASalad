@@ -6,7 +6,7 @@ package engine.components;
  * 
  * @author fitzj
  */
-public class DamageValue extends SingleDataComponent {
+public class DamageValue extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 	
 	public DamageValue(int pid, double data) {
 		super(pid, data);

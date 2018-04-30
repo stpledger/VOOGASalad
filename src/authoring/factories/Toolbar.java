@@ -38,7 +38,6 @@ public class Toolbar extends MenuBar{
 		super();
 		this.consumerMap = cm;
 		this.toolbarName = name;
-		this.menuProperties = new ArrayList<>();
 		this.getStyleClass().add("toolbar");
 		addMenus(getMenuProperties());
 	}
@@ -48,7 +47,7 @@ public class Toolbar extends MenuBar{
 	 * @param menuProperties
 	 */
 	private void addMenus(List<Pair<String,Properties>> menuProperties) {
-		this.menuProperties = menuProperties;
+		this.menuProperties = new ArrayList<>(menuProperties);
 		List<Pair<String,Properties>> tempMenuProperties = this.menuProperties;
 		for(Pair<String, Properties> p: tempMenuProperties) {
 			this.getMenus().add((createMenu(p.getKey(),p.getValue())));

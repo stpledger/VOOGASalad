@@ -79,15 +79,11 @@ public class ActionAdder {
           ActionReader aRead = new ActionReader();
           for (Supplier supplier : suppliers)
               args.add(supplier.getData());
-          args = reverse(args);
-
           System.out.print("Supplier with " + args.size() + " items");
           if (component.equals(AI))
              configureAI(aRead.getAction(methodName,args));
           if (component.equals(COLLIDABLE))
               configureCollidable((BiConsumer)aRead.getAction(methodName, args));
-          if (component.equals(COLLISIONACTION))
-              configureCollisionAction(aRead.getAction(methodName, args));
           if(component.equals(KEYCODE))
               configureKeyInput(aRead.getAction(methodName,args));
       }
@@ -102,10 +98,6 @@ public class ActionAdder {
 
     private void configureCollidable(BiConsumer action){
         ((engine.components.Collidable) entity.get(COLLIDABLE)).setOnDirection((CollisionDirection) input.getData(),action);
-    }
-
-    private void configureCollisionAction(Consumer action){
-        ((engine.components.CollisionAction) entity.get(COLLISIONACTION)).addAction((CollisionDirection) input.getData(),action);
     }
 
     private void configureKeyInput(Consumer action){

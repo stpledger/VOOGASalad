@@ -21,8 +21,5 @@ public class Main extends Application {
 		mainStage.setScene(splashScreen.getScene());
 		mainStage.show();
 	}
-	
-
-
 }
 

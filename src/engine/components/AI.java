@@ -14,14 +14,15 @@ import java.util.function.Consumer;
 public class AI implements Component, BehaviorComponent {
 
 
-    public static String KEY = "AI";
+    public static final String KEY = "AI";
 
-    private Consumer<Map<String, Component>> action;
+    private Consumer<Map<String, Component>> action ;
 
     private int pid;
     
     public AI (int pid) {
         this.pid = pid;
+         action = e->{};
     }
 
     public void setAction (Consumer<Map<String, Component>> action) {
@@ -40,11 +41,12 @@ public class AI implements Component, BehaviorComponent {
 		return pid;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void addBehavior(Object identifier, Consumer con) {
 		setAction(con);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void addBehavior(Object identifier, BiConsumer bic) {
 		setAction((entity) -> {

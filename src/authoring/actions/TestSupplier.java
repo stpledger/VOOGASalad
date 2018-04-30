@@ -7,8 +7,7 @@ import authoring.gamestate.Level;
 import data.DataRead;
 import data.DataWrite;
 import engine.components.*;
-import engine.components.groups.Position;
-import engine.components.groups.Velocity;
+
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -30,8 +29,6 @@ public class TestSupplier extends Application{
 
 
         Entity block = new Block(1,"Block");
-        block.add(new Position(1,0,0));
-        block.add(new Velocity(1,0,0));
         block.add(new XPosition(1,0));
         block.add(new YPosition(1,0));
         block.add(new AI(1));
@@ -40,8 +37,20 @@ public class TestSupplier extends Application{
         block.add(new KeyInput(1));
         block.add(new Sprite(1,"8Bit.png"));
         block.add(new Player(1));
+
+        Block block1 = new Block(2,"block2");
+        block1.add(new XPosition(2,40));
+        block1.add(new YPosition(2,40));
+        block1.add(new AI(1));
+        block1.add(new XVelocity(2,0));
+        block1.add(new YVelocity(2,0));
+        block1.add(new KeyInput(2));
+        block1.add(new Sprite(2,"8Bit.png"));
+        block1.add(new Player(2));
+
         Level le = new Level(1);
         le.addEntity(block);
+        le.addEntity(block1);
         List<Level > levels = new ArrayList<>();
         block.setImage(DataRead.loadImage("8Bit.png"));
         GameState g = new GameState();
@@ -55,7 +64,7 @@ public class TestSupplier extends Application{
                 e1.printStackTrace();
             }
         });
-        root.getChildren().addAll(block,b);
+        root.getChildren().addAll(block,block1,b);
 
         ActionAdderView pSup = new ActionAdderView(block);
 

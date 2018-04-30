@@ -5,9 +5,8 @@ import java.util.Properties;
 import javafx.scene.control.Label;
 
 /**
- * 
+ * Handles the creation of a Label through the use of the ElementFactory. 
  * @author Hemanth Yakkali(hy115)
- * @author Collin Brown(cdb55)
  *
  */
 public class LabelElement extends Label implements Element{

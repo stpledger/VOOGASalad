@@ -14,14 +14,19 @@ import javafx.scene.input.KeyCode;
  * System which delegates key codes pressed by the user to the components which contain that key code such that
  * they can then perform their actions
  *
- * @author cndracos, sv116
+ * @author cndracos, sv116, fitzj
  */
 public class InputHandler implements ISystem {
-	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
+	private Map<Integer, Map<String, Component>> handledComponents;
 
-	private Set<Integer> activeComponents = new HashSet<>();
-	private Set<KeyCode> activeCodes = new HashSet<>();
+	private Set<Integer> activeComponents;
+	private Set<KeyCode> activeCodes;
 
+	public InputHandler() {
+		activeComponents = new HashSet<>();
+		activeCodes = new HashSet<>();
+		handledComponents = new HashMap<>();
+	}
 
 	@Override
 	public void addComponent(int pid, Map<String, Component> components) {

@@ -1,6 +1,7 @@
 package engine.systems;
 
 import engine.components.Component;
+import engine.exceptions.EngineException;
 
 import java.util.Map;
 import java.util.Set;
@@ -12,6 +13,5 @@ public interface ISystem {
 	void addComponent (int pid, Map<String, Component> components);
     void removeComponent (int pid);
     void setActives(Set<Integer> actives);
-    void execute(double time);
-
+    void execute(double time) throws EngineException;
 }

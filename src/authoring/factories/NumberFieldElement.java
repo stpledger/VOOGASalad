@@ -3,7 +3,7 @@ package authoring.factories;
 import java.util.Properties;
 
 /**
- * 
+ * Handles the creation of a NumberField through the use of the ElementFactory. 
  * @author Hemanth Yakkali(hy115)
  *
  */

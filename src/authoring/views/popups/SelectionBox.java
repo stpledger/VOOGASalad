@@ -22,13 +22,14 @@ import javafx.stage.Stage;
  */
 public class SelectionBox extends VBox implements PopUp {
 
-	Properties language = new Properties();
-	ArrayList<Element> elements = new ArrayList<>();
-	String selection = "";
-	Stage stage;
-
-	ElementFactory eFactory = new ElementFactory();
+	private Properties language = new Properties();
+	private ArrayList<Element> elements = new ArrayList<>();
+	private String selection = "";
+	private Stage stage;
+	private ElementFactory eFactory = new ElementFactory();
+	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final static int WIDTH = 200;
 
 	public SelectionBox(String[] options, String[] exceptions, Consumer consumer){
 		this.fill(options, consumer, exceptions);
@@ -46,7 +47,7 @@ public class SelectionBox extends VBox implements PopUp {
 					Label label = (Label) eFactory.buildElement(ElementType.Label, o);
 					label.getStyleClass().add("selection-label");
 					label.setAlignment(Pos.CENTER);
-					label.setPrefWidth(200);
+					label.setPrefWidth(WIDTH);
 					label.setOnMouseClicked(e->{
 						selection = label.getId();
 						onClose(consumer);
