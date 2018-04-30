@@ -282,9 +282,10 @@ public class GameView implements IGamePlayerView{
 						//winComponents.add((Win) entityComponents.get(Win.KEY));
 					}
 				}
-				System.out.println("dont skip pls");
 				if (entityComponents.containsKey(EntityType.KEY)) {
+					System.out.println("dont skip pls");
 					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(EntityType.KEY);
+					System.out.println(entityTypeComponent.getData());
 					if (entityTypeComponent.getData().equals("Background")) {
 						System.out.println("background!!!");
 						entityRoot.getChildren().add(0, image);

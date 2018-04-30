@@ -3,16 +3,12 @@ package authoring.views.properties;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
-import authoring.factories.ClickElementType;
-import authoring.factories.Element;
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 /**
@@ -22,7 +18,6 @@ import javafx.scene.control.TextField;
 public class GlobalPropertiesView extends PropertiesView {
 
 	private List<Level> levels;
-	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public GlobalPropertiesView(List<Level> levels){
 		super();
@@ -44,7 +39,7 @@ public class GlobalPropertiesView extends PropertiesView {
 			NumberField livesInput = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField,"");
 			TextField pathInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField,"");
 			this.getRoot().addColumn(1,livesInput,titleInput,pathInput);
-			Button submit = this.makeSubmitButton(e->{
+			this.makeSubmitButton(e->{
 				for(Level level : levels) {
 					level.addGProp(globalProps.getString("Title"), titleInput.getText());
 					level.addGProp(globalProps.getString("Lives"), livesInput.getText());
@@ -53,8 +48,6 @@ public class GlobalPropertiesView extends PropertiesView {
 				this.makeSubmitAlert();
 				this.close();
 			});
-			this.getElementList().add((Element) submit);	
-			this.getRoot().addColumn(0, submit);
 		} catch (Exception e1) {
 			throw new AuthoringException("Could not create form!",AuthoringAlert.SHOW);
 		}

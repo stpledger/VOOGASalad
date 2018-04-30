@@ -43,7 +43,7 @@ public class LocalPropertiesView extends PropertiesView {
 	@Override
 	public String title() {
 		String[] title = this.getFormBundle().getString("Local").split(" ");
-		return title[0]+" "+this.entity.getID()+" "+title[1];
+		return title[0]+" "+this.entity.getID()+" "+title[1]; //need to split to add level number in the middle
 	}
 
 	@Override

@@ -1,26 +1,20 @@
 package authoring.views.properties;
 
-import java.util.logging.Logger;
-
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
-import authoring.factories.ClickElementType;
-import authoring.factories.Element;
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 /**
+ * Creates properties view form that allows user to update the properties for the specific level.
  * @author Hemanth Yakkali (hy115)
  */
 public class LevelPropertiesView extends PropertiesView{
 
 	private int levelNum;
 	private Level level;
-
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public LevelPropertiesView(Level level, int levelNum) {
 		super();
@@ -31,7 +25,7 @@ public class LevelPropertiesView extends PropertiesView{
 	@Override
 	protected String title() {
 		String[] title = this.getFormBundle().getString("Level").split(" ");
-		return title[0]+" "+levelNum+" "+title[1];
+		return title[0]+" "+levelNum+" "+title[1]; //need to split to add level number in the middle
 	}
 
 	@Override
@@ -43,15 +37,13 @@ public class LevelPropertiesView extends PropertiesView{
 			TextField diffText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,"");
 			NumberField timeNumber = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField,"");
 			this.getRoot().addColumn(1,diffText,timeNumber,infoText);
-			Button submit = this.makeSubmitButton(e->{
+			this.makeSubmitButton(e->{
 				level.setLevelInfo(infoText.getText());
 				level.setLevelDifficulty(diffText.getText());
 				level.setLevelTime(Double.parseDouble(timeNumber.getText()));
 				this.makeSubmitAlert();
 				this.close();
 			});
-			this.getElementList().add((Element) submit);
-			this.getRoot().addColumn(0, submit);
 		} catch (Exception e) {
 			throw new AuthoringException("Could not create form!",AuthoringAlert.SHOW);
 		}

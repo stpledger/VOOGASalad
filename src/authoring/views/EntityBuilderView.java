@@ -15,7 +15,6 @@ import authoring.MainApplication;
 import authoring.entities.data.EntityBuilderData;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
-import authoring.forms.ComponentForm;
 import authoring.forms.EntityComponentFormCollection;
 import data.DataRead;
 import engine.components.Sprite;
@@ -108,7 +107,6 @@ public class EntityBuilderView extends Stage {
 		this.setScene(s);
 		this.show();
 	}
-
 
 	/**
 	 * Updates the image preview for the entity
