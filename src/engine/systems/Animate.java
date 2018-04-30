@@ -21,7 +21,7 @@ import java.util.HashMap;
  * moved in earlier systems, so that what the user sees moving on the screen mimics the values of that entity's
  * position, velocity, and acceleration components
  *
- * @author cndracos
+ * @author cndracos, fitzj
  */
 public class Animate implements ISystem {
     private Map<Integer, Map<String, Component>> handledComponents;
