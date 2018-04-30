@@ -73,6 +73,9 @@ public class LocalPropertiesView extends PropertiesView {
 	}
 	
 	private void save(List<Component> componentsToAdd) {
+		for(Component c : componentsToAdd) {
+			System.out.println("Here: " + c.toString());
+		}
 		onSubmit.accept(componentsToAdd);
 		this.makeAlert(this.title() + " has been updated!");
 		this.close();

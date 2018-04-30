@@ -79,11 +79,13 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	@Override
 	public void setLanguage(Properties language) {
 		// TODO Auto-generated method stub
-
 	}
 	@Override
 	public void setValue(Object currentValue) {
-		this.field.setText((String) currentValue);
-		
+		try {
+			this.field.setText((String) currentValue);
+		} catch(ClassCastException e) {
+			this.field.setText(Double.toString((double) (currentValue)));
+		}		
 	}
 }

@@ -67,11 +67,10 @@ public abstract class AbstractComponentForm extends GridPane {
 	 * @return true if the user fully entered everything that they should enter
 	 */
 	protected boolean validComponent() {
-		for (TextField tf : this.fields) {
-			if (tf.getId() == null || tf.getId().trim().isEmpty()) {
+		TextField tf = this.field;
+			if (tf.getText().isEmpty()) {
 				return false;
 			}
-		}
 		return true;
 	}
 
