@@ -12,7 +12,17 @@ import engine.Engine;
 import engine.InternalEngine;
 import engine.actions.Actions;
 import engine.components.*;
+import engine.systems.collisions.CollisionDirection;
 
+
+import engine.components.groups.Acceleration;
+import engine.components.groups.Damage;
+import engine.components.groups.Dimension;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
+import engine.components.presets.PlayerMovement;
+
+import java.util.function.BiConsumer;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
 import engine.systems.collisions.CollisionDirection;
@@ -27,8 +37,10 @@ public class TestGameState {
 
 	public TestGameState() throws FileNotFoundException {
 		entities = new HashMap<>();
+		//ActionReader AR = new ActionReader();
 		
-		Sprite s = new Sprite(0, "8Bit.png");
+		Sprite s = new Sprite(0,"braid.png");
+		//Sprite s4 = new Sprite(3,"mario.png");
 
 		Sprite s4 = new Sprite(3,"8Bit.png");
 
@@ -40,12 +52,16 @@ public class TestGameState {
 		Height h = new Height(0, 100);
 		XVelocity vx = new XVelocity(0, 0);
 		YVelocity vy = new YVelocity(0, 0);
-
+		Animated a = new Animated(0);
 		XAcceleration ax = new XAcceleration(0, 0);
 		YAcceleration ay = new YAcceleration(0,40);
-		KeyInput k = new KeyInput(0);
-		k.addCode( KeyCode.RIGHT, (Consumer & Serializable) (e) -> {
-			vx.setData(+50);
+		//KeyInput k = new KeyInput(0);
+		/*k.addCode( KeyCode.RIGHT, (Consumer<Map<String,Component>> & Serializable) (map) -> {
+			Actions.moveRight(100).accept(map);
+			//Actions.animateSprite("braid.png", 1000, 27, 7, 0, 0, 75, 85).accept(map);
+			if(!s.isPlaying()) 	s.animate(1000, 24, 6, 0, 0, 93, 158);//s.animate(1000, 27, 7, 0, 0, 75, 85);	
+			s.getImage().setScaleX(1);
+			//Actions.accelerateRight(100).accept(map);
 		});
 
 		k.addCode(KeyCode.UP, (Consumer & Serializable)(e) ->
@@ -61,8 +77,16 @@ public class TestGameState {
 		k.addCode(KeyCode.LEFT,(Consumer & Serializable) (e) ->
 		{
 			vx.setData(-50);
+			//if(!s.isPlaying()) s.animate(1000, 27, 7, 0, 0, 75, 85);						//s.animate(1000, 24, 6, 0, 0, 93, 158);
+			s.getImage().setScaleX(-1);
 		});
+		k.addCode(KeyCode.SPACE,(Consumer & Serializable) (e) ->
+		{
+			vx.setData(0);
+		});*/
 
+		KeyInput k = new PlayerMovement(0, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN);
+		
 		Health health = new Health(0,50);
 		DamageValue damage = new DamageValue(0, 10);
 		DamageLifetime dl = new DamageLifetime(0,1);
@@ -73,6 +97,7 @@ public class TestGameState {
 		Collidable collide = new Collidable(0);
 		//collide.setOnDirection(CollisionDirection.Bot, Actions.damage());
 		collide.setOnDirection(CollisionDirection.Top, Actions.damage());
+
 		//collide.setOnDirection(CollisionDirection.Left, Actions.damage());
 		//collide.setOnDirection(CollisionDirection.Right, Actions.damage());
 
@@ -96,10 +121,19 @@ public class TestGameState {
 		mario.put(DamageValue.KEY, damage);
 		mario.put(DamageLifetime.KEY, dl);
 		mario.put(Player.KEY, play);
+		mario.put(Animated.KEY, a);
+		//Map<String, Component> mario2 = new HashMap<>();
+
+		/**
+		 Position p2 = new Position(1, 100, 300);
+		 Dimension d2 = new Dimension(1, 100, 100);
+
+		 mario2.put(Position.KEY, p2);
+		 mario2.put(Dimension.KEY, d2);
+		 mario2.put(Sprite.KEY, s2);**/
 		mario.put(Collidable.KEY, collide);
 
 		Map<String, Component> mario2 = new HashMap<>();
-
 
 		XPosition px2 = new XPosition(1, 100);
 		YPosition py2 = new YPosition(1, 300);
@@ -114,7 +148,7 @@ public class TestGameState {
 		Sprite s2 = new Sprite(1,"8Bit.png");
 
 		AI ai2 = new AI(1);
-		ai2.setAction(Actions.followsYou(mario, .2));
+		//ai2.setAction(Actions.followsYou(mario, .2));
 
 		Collidable collide2 = new Collidable(1);
 		collide2.setOnDirection(CollisionDirection.Bot, Actions.damage());
@@ -190,9 +224,9 @@ public class TestGameState {
 		mario4.put(DamageLifetime.KEY, dl4);
 
 		entities.put(0, mario);
-		entities.put(1, mario2);
+		//entities.put(1, mario2);
 		//entities.put(2, mario3);
-		entities.put(3, mario4);
+		//entities.put(3, mario4);
 		GameInitializer gi = new GameInitializer(entities, 300, 50, 50);
 		ih = gi.getInputHandler();
 		eng = new InternalEngine(gi.getSystems());

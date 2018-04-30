@@ -27,12 +27,8 @@ public class Motion implements ISystem {
         	components.containsKey(YVelocity.KEY) && 
         	components.containsKey(XPosition.KEY) &&
         	components.containsKey(YPosition.KEY)) {
-                Map<String, Component> newComponents = new HashMap<>();
-                newComponents.put(XVelocity.KEY,components.get(XVelocity.KEY));
-                newComponents.put(YVelocity.KEY,components.get(YVelocity.KEY));
-                newComponents.put(XPosition.KEY,components.get(XPosition.KEY));
-                newComponents.put(YPosition.KEY,components.get(YPosition.KEY));
-                handledComponents.put(pid, newComponents);
+                
+                handledComponents.put(pid, components);
             }
         }
     /**

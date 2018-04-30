@@ -17,7 +17,7 @@ import engine.components.Component;
  */
 public class SystemManager {
 
-    private static List<ISystem> systems;
+    private List<ISystem> systems;
     private RenderManager renderManager;
     
     public SystemManager (RenderManager renderManager) {
@@ -47,7 +47,8 @@ public class SystemManager {
         setActives(renderManager.render());
     }
 
-    public static void addComponent(int pid, Component c) {
+
+    public void addComponent(int pid, Component c) {
         Map<String, Component> newComponent = new HashMap<>();
         newComponent.put(c.getKey(), c);
         for(ISystem s : systems) {

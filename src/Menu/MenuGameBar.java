@@ -1,16 +1,11 @@
 package Menu;
 
 import java.util.Map;
-import java.util.Set;
 
-import GamePlayer.GamePlayerController;
-import authoring.gamestate.Level;
+import GamePlayer.Controller;
 import engine.components.Component;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
 
 /**
  * ComboBox Class that allows user to select the corresponding level
@@ -24,7 +19,7 @@ public class MenuGameBar extends MenuBar{
 	
 	private LevelSelector levelMenu;
 
-	public MenuGameBar(GamePlayerController g) {
+	public MenuGameBar(Controller g) {
 				levelMenu = new LevelSelector(g);
 				//Set<Level> levelKeySet = levelMap.keySet();
 				//size = levelKeySet.size();

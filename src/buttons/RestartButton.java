@@ -1,6 +1,6 @@
 package buttons;
 
-import GamePlayer.GamePlayerController;
+import GamePlayer.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -8,9 +8,9 @@ import javafx.scene.control.Button;
 public class RestartButton extends Button{
 
 	private final String BUTTON_NAME = "Restart Game";
-	private GamePlayerController gameController;
+	private Controller gameController;
 	
-	public RestartButton(GamePlayerController g) {
+	public RestartButton(Controller g) {
 		gameController = g;
 		this.setText(BUTTON_NAME);
 		this.setRestartEvent();

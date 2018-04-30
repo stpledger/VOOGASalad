@@ -32,13 +32,7 @@ public class Accelerate implements ISystem{
 			components.containsKey(XVelocity.KEY) &&
 			components.containsKey(YVelocity.KEY)) {
 			
-			Map<String, Component> newComponents = new HashMap<>();
-			newComponents.put(XAcceleration.KEY,components.get(XAcceleration.KEY));
-			newComponents.put(YAcceleration.KEY,components.get(YAcceleration.KEY));
-			newComponents.put(XVelocity.KEY,components.get(XVelocity.KEY));
-			newComponents.put(YVelocity.KEY,components.get(YVelocity.KEY));
-			
-			handledComponents.put(pid, newComponents);
+			handledComponents.put(pid, components);
 		}
     	
     }

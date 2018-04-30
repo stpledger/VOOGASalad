@@ -23,8 +23,9 @@ public class LivesLabel extends Label implements IGameStatusLabel{
 
 	@Override
 	public double extractGameStateValue(Map<String, Component> playerStatusMap) {
-		Lives lives = (Lives) playerStatusMap.get(Lives.KEY);
-		return lives.getData();
+		Player player = (Player) playerStatusMap.get(Player.KEY);
+
+		return 0;
 	}
 
 
