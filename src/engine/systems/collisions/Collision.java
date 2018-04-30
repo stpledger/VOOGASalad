@@ -1,5 +1,9 @@
 package engine.systems.collisions;
-
+/**
+ * System that checks if the collision happens, and determines where it happens
+ * in relation to dimensions
+ * author jcf44, sv116
+ */
 import java.util.*;
 
 import engine.components.Collidable;
@@ -10,20 +14,16 @@ import engine.components.XPosition;
 import engine.components.XVelocity;
 import engine.components.YPosition;
 import engine.components.YVelocity;
+import engine.setup.SystemManager;
 import engine.systems.DefaultSystem;
 
 public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();
-	private List<Integer> colliders;
-	//private CollisionHandler handler;
-
-	/*public Collision(SystemManager sm) {
-		colliders = new ArrayList<>();
-		//handler = new CollisionHandler(sm);
-	}*/
+	private Set<Integer> colliders;
+	private Set<Integer> activeComponents;
 	
-	public Collision() {
-		colliders = new ArrayList<>();
+	public Collision () {
+		colliders = new HashSet<>();
 	}
 
 	
@@ -32,9 +32,8 @@ public class Collision extends DefaultSystem{
 	}
 
 	public void execute(double time) {
-
-		colliders.forEach((key1) -> {
-			handledComponents.forEach((key2, map) -> {
+		activeComponents.forEach((key1) -> {
+			handledComponents.forEach((key2, vel) -> {
 
 				if (key1 != key2) {
 
@@ -84,49 +83,44 @@ public class Collision extends DefaultSystem{
 					}
 
 					if (cd != null) {
-						//handler.handle(handledComponents, key1, key2, cd);
+
 
 						if(handledComponents.get(key1).containsKey(Collidable.KEY)) {
 							Collidable cdb = (Collidable) handledComponents.get(key1).get(Collidable.KEY);
-							cdb.setCondition(() -> {
-								return handledComponents.get(key2);
-							}); 
-							cdb.evaluate(cd);
+							cdb.action(cd, handledComponents.get(key1), handledComponents.get(key2));
 						}
 						
 						if(handledComponents.get(key2).containsKey(Collidable.KEY)) {
 							Collidable cdb = (Collidable) handledComponents.get(key2).get(Collidable.KEY);
-							cdb.setCondition(() -> {
-								return handledComponents.get(key1);
-							}); 
+							
 							CollisionDirection cd2 = null;
 							if(cd == CollisionDirection.Top) cd2 = CollisionDirection.Bot;
 							else if(cd == CollisionDirection.Bot) cd2 = CollisionDirection.Top;
 							else if(cd == CollisionDirection.Left) cd2 = CollisionDirection.Right;
 							else cd2 = CollisionDirection.Left;
-							cdb.evaluate(cd2);
+							cdb.action(cd2, handledComponents.get(key2), handledComponents.get(key1));
 						}
-						
+
 						switch (cd) {
-						
+
 						case Top:
 							y1.setData(y2.getData() - h1.getData());
-							((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
+							//((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
 							break;
 							
 						case Bot:
 							y1.setData(y2.getData() + h2.getData());
-							((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
+							//((YVelocity) handledComponents.get(key1).get(YVelocity.KEY)).setData(0);
 							break;
 							
 						case Left:
 							x1.setData(x2.getData() - w1.getData());
-							((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
+							//((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
 							break;
 							
 						case Right:
 							x1.setData(x2.getData() + w2.getData());
-							((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
+							//((XVelocity) handledComponents.get(key1).get(XVelocity.KEY)).setData(0);
 							break;
 
 						}
@@ -148,13 +142,16 @@ public class Collision extends DefaultSystem{
 
 	@Override
 	public void setActives(Set<Integer> actives) {
-		//put in active listeners
+		Set<Integer> myActives = new HashSet<>(actives);
+		myActives.retainAll(handledComponents.keySet());
+		myActives.retainAll(colliders);
+		activeComponents = myActives;
 	}
 
 
 	public void addComponent(int pid, Map<String, Component> components) {
 		
-		if(components.containsKey(XPosition.KEY) && 
+		if(		components.containsKey(XPosition.KEY) &&
 				components.containsKey(YPosition.KEY) && 
 				components.containsKey(Width.KEY) && 
 				components.containsKey(Height.KEY) &&

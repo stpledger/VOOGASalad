@@ -1,5 +1,8 @@
 package engine.actions;
 
+import engine.setup.RenderManager;
+import engine.setup.SystemManager;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -19,6 +22,8 @@ public class ActionReader {
     private Method method;
     private Class[] methodParams;
     private Object[] invokeArgs;
+
+    // Scott changed this to suppress errors
     private static Actions actions = new Actions();
 
     /**
@@ -74,6 +79,7 @@ public class ActionReader {
         }
         return methodParams;
     }
+
 
     /**
      * Creates the arguments needed to be passed to the method

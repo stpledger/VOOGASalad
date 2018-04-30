@@ -5,7 +5,7 @@ import java.util.Properties;
 import javafx.scene.control.TextField;
 
 /**
- * 
+ * Handles the creation of a TextField through the use of the ElementFactory. 
  * @author Hemanth Yakkali(hy115)
  *
  */

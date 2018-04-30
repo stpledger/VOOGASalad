@@ -8,6 +8,7 @@ import buttons.GameSelectButton;
 import buttons.IGamePlayerButton;
 import data.DataGameState;
 import data.DataRead;
+import data.DataWrite;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -26,6 +27,7 @@ public class SplashScreenView extends BranchScreenView{
 	private Scene splashScene;
 	private GridPane myGridPane;
 	private ScrollPane myScrollPane;
+	private Stage myStage;
 	private Map<Image, DataGameState> imageGameStateMap;
 	private final int ROW_NUM = 2;
 	private final int COL_NUM = 3;
@@ -33,10 +35,15 @@ public class SplashScreenView extends BranchScreenView{
 	public DataGameState currentGame;
 	public List<IGamePlayerButton> gameSelectButtonList;
 
-	public SplashScreenView() {
+	public SplashScreenView(Stage stage) {
+		myStage = stage;
 		gameSelectButtonList = new ArrayList<IGamePlayerButton>();
 		imageGameStateMap = DataRead.getAllGames();
 		splashScene = initializeScreen();
+		List<Person > peope = new ArrayList<>();
+		Person p =new Person("Conrad", 100.1);
+		peope.add(new Person("Hetflanth", 10.1));
+		DataWrite.saveHighscore(p);
 	}
 
 	@Override
@@ -53,7 +60,7 @@ public class SplashScreenView extends BranchScreenView{
 		myGridPane = new GridPane();
 		myGridPane = setupGridSpacing(myGridPane);
 		myGridPane.setGridLinesVisible(true);
-		fileBtn = new FileUploadButton();
+		fileBtn = new FileUploadButton(myStage);
 		fileBtn.setMaxSize(WIDTH_SIZE/3, HEIGHT_SIZE/2);
 		myGridPane.add(fileBtn, 2, 1);
 		assignGameSelectButtons();
@@ -68,17 +75,16 @@ public class SplashScreenView extends BranchScreenView{
 		return gameSelectButtonList;
 	}
 
-
-	//	/**
-	//	 * Method to dynamically create Game Select Buttons, Use when DataRead.getAllGames is working.
-	//	 */
+		/**
+		 * Method to dynamically create Game Select Buttons, Use when DataRead.getAllGames is working.
+		 */
 	private void assignGameSelectButtons() {
 		int row = 0;
 		int col = 0;
 		for (Image image: imageGameStateMap.keySet()) {  //attains each image and the corresponding game file
 			DataGameState currentDataGameState = imageGameStateMap.get(image);
 			String nameOfGame = currentDataGameState.getGameName();
-			GameSelectButton currentButton = new GameSelectButton(this, nameOfGame, currentDataGameState, image);
+			GameSelectButton currentButton = new GameSelectButton(myStage, nameOfGame, currentDataGameState, image);
 			currentButton.setMaxSize(WIDTH_SIZE/COL_NUM, HEIGHT_SIZE/ROW_NUM);
 			gameSelectButtonList.add(currentButton); //add buttons to a list.
 			myGridPane.add(currentButton, col, row);

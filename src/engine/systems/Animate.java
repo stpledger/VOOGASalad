@@ -31,11 +31,7 @@ public class Animate implements ISystem {
         	components.containsKey(YPosition.KEY) &&
         	components.containsKey(Sprite.KEY)) {
         	
-            Map<String, Component> newComponents = new HashMap<>();
-            newComponents.put(XPosition.KEY,components.get(XPosition.KEY));
-            newComponents.put(YPosition.KEY,components.get(YPosition.KEY));
-            newComponents.put(Sprite.KEY,components.get(Sprite.KEY));
-            handledComponents.put(pid, newComponents);
+            handledComponents.put(pid, components);
         }
     }
 
@@ -63,12 +59,31 @@ public class Animate implements ISystem {
 
             Map<String, Component> components = handledComponents.get(pid);
             Sprite s = (Sprite) components.get(Sprite.KEY);
+                        
             XPosition px = (XPosition) components.get(XPosition.KEY);
             YPosition py = (YPosition) components.get(YPosition.KEY);
+            
+            if(components.containsKey(Animated.KEY)) {
+            	if(components.containsKey(XVelocity.KEY)) {
+            		if(Math.abs(((XVelocity) components.get(XVelocity.KEY)).getData()) < 1) {
+            			s.pauseAnimation();
+            		} else {
+            			if(!s.isPlaying()) s.animate(1000, 27, 7, 0, 0, 75, 85);
+            		}
+            	}
+            }
             
             ImageView im = s.getImage();
             im.setX(px.getData()); //updates image x on position x pos
             im.setY(py.getData()); //updates image y on position y pos
+            
+            if(components.containsKey(Width.KEY) && components.containsKey(Height.KEY)) {
+            	Width w = (Width) components.get(Width.KEY);
+            	Height h = (Height) components.get(Height.KEY);
+            	im.setFitWidth(w.getData());
+            	im.setFitHeight(h.getData());
+            }
+            
         }
     }
 
