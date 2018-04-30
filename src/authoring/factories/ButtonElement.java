@@ -6,9 +6,8 @@ import java.util.function.Consumer;
 import javafx.scene.control.Button;
 
 /**
- * 
+ * Handles the creation of a button through the use of the ElementFactory. 
  * @author Hemanth Yakkali(hy115)
- * @author Collin Brown(cdb55)
  *
  */
 public class ButtonElement extends Button implements ClickableElement{

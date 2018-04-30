@@ -1,7 +1,7 @@
 package gameplayer;
 
-import java.util.Map;
 
+import java.util.Map;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
@@ -11,7 +11,7 @@ public interface IController {
 	 * Initializes controller scene
 	 * @return
 	 */
-	public Scene initializeStartScene();
+	public Scene getControllerScene();
 	
 	/**
 	 * Changes the display of the gave.

@@ -17,7 +17,7 @@ import javafx.scene.input.KeyCode;
  * @author cndracos, sv116, fitzj
  */
 public class InputHandler implements ISystem {
-	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
+	private Map<Integer, Map<String, Component>> handledComponents;
 
 	private Set<Integer> activeComponents;
 	private Set<KeyCode> activeCodes;
@@ -25,6 +25,7 @@ public class InputHandler implements ISystem {
 	public InputHandler() {
 		activeComponents = new HashSet<>();
 		activeCodes = new HashSet<>();
+		handledComponents = new HashMap<>();
 	}
 
 	@Override

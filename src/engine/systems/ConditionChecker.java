@@ -9,10 +9,13 @@ import java.util.Map;
 import java.util.Set;
 
 public class ConditionChecker implements ISystem {
-    private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
-    private Set<Integer> activeComponents = new HashSet<>();
+    private Map<Integer, Map<String, Component>> handledComponents;
+    private Set<Integer> activeComponents;
 
-    public ConditionChecker() {}
+    public ConditionChecker() {
+    	handledComponents = new HashMap<>();
+    	activeComponents = new HashSet<>();
+    }
 
     @Override
     public void addComponent(int pid, Map<String, Component> components) {

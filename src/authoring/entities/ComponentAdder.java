@@ -29,7 +29,7 @@ public class ComponentAdder {
         for(String component : compontents.keySet()){
             MenuItem menuItem = new MenuItem(component);
             menuItem.setOnAction(e->{
-                Group root = null;
+                Group root = new Group();
 				try {
 					root = new Group(new PropertiesComponentForm(entity.getID(),component));
 				} catch (Exception e1) {

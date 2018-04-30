@@ -2,9 +2,6 @@ package engine.setup;
 
 import java.util.*;
 
-import engine.components.groups.Position;
-
-
 /**
  * Class which renders entities in and out of being acted upon based in a center location and rendering distance
  *
