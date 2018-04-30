@@ -38,7 +38,7 @@ public class FileUploadButton extends Button implements IGamePlayerButton {
 				@Override public void handle(ActionEvent e) {
 					fileUpload(); //activate the file upload method
 					gameController = new Controller(myStage, gameState);
-					myStage.setScene(gameController.initializeStartScene());
+					myStage.setScene(gameController.getControllerScene());
 				}
 			});
 		}

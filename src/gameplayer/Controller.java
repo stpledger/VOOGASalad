@@ -43,17 +43,17 @@ public class Controller implements IController{
 		gameState = currentGame;
 		myStage = stage;
 		myStage.setResizable(false);
+		this.gameManager = new GameManager(gameState);
+		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
+		assignKeyInputs();
+		setGameView();
 	}
 
 	/**
 	 * Initializes controller scene
 	 * @return
 	 */
-	public Scene initializeStartScene() {
-		this.gameManager = new GameManager(gameState);
-		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
-		assignKeyInputs();
-		setGameView();
+	public Scene getControllerScene() {
 		return myScene;
 	}
 	
