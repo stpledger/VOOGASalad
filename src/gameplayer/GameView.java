@@ -35,11 +35,6 @@ public class GameView implements IGamePlayerView{
 	private SystemManager systemManager;
 	private GameManager gameManager;
 
-	//private int numOfLevels;
-	//private int activeLevel;
-	//private XPosition activePlayerPosX;
-	//private YPosition activePlayerPosY;
-
 	private static final double PANE_HEIGHT = 442;
 	private static final double PANE_WIDTH = 800;
 	private static final int LEVEL_ONE = 1;
@@ -49,10 +44,7 @@ public class GameView implements IGamePlayerView{
 	private static final int RIGHT_BOUND = 400;
 	private static final int INVERT = -1;
 
-	//private Map<Integer, Map<String, Component>> playerKeys;
 	private Map<Integer, Map<String, Boolean>> hudPropMap;
-	//TODO: TALK TO STEFANI ABOUT NEW "LEVEL STATUS" CLASS
-	//private ArrayList<Win> winComponents;
 
 	/**
 	 * Constructor when given the gameState
@@ -69,7 +61,6 @@ public class GameView implements IGamePlayerView{
 		initializeGameView();
 	}
 
-	//TODO: CHECK IF OBSELETE WITH NEW "LEVEL STATUS" CLASS
 	/**
 	 * Obtains heads-up display status map for each level in a game.
 	 * @return Map<Integer, Map<String, Boolean>> 
@@ -116,11 +107,6 @@ public class GameView implements IGamePlayerView{
 	 */
 	public void setActiveLevel(int activelevel){
 		gameManager.setActiveLevel(activelevel);
-		/*
-		activeLevel = activelevel;
-		Map<String, Component> player = new HashMap<>(playerKeys.get(activeLevel));
-		activePlayerPosX = (XPosition) player.get(XPosition.KEY);
-		activePlayerPosY = (YPosition) player.get(YPosition.KEY);*/
 	}
 
 	/**

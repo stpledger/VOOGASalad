@@ -32,8 +32,6 @@ public class Controller {
 	private GameView gameView;
 
 	private Map<Integer, Pane> gameLevelDisplays;
-	private Timeline myTimeline;
-	//private Map<Integer, Map<String, Component>> playerKeys;
 	private SampleToolBar sampleBar;
 	private Map<Integer, Map<String, Boolean>> hudPropMap;
 	private Timeline animation;
