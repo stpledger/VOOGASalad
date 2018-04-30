@@ -5,7 +5,7 @@ package engine.components;
  * @author fitzj
  *
  */
-public class Width extends SingleDataComponent {
+public class Width extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 	
 	public Width(int pid, double data) {
 		super(pid, data);

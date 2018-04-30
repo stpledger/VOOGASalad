@@ -1,7 +1,5 @@
+package gameplayer;
 
-package GamePlayer;
-
-import java.io.FileNotFoundException;
 import java.util.Map;
 
 import javafx.scene.Scene;

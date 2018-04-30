@@ -5,6 +5,12 @@ import engine.components.DataComponent;
 import engine.components.XAcceleration;
 import engine.components.YAcceleration;
 
+/**
+ * Group of 2 components representing one concept: In this case, x and y acceleration being grouped together
+ * Should only be used during transition between engine design, to single data components
+ * That is - should not be in final design
+ * @author fitzj
+ */
 public class Acceleration implements Component {
 
 	private DataComponent xa;

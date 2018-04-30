@@ -157,6 +157,7 @@ public class Actions {
     				Score s2 = (Score) actor2.get(Score.KEY);
     				
     				s1.setData(s1.getData() + s2.getData());
+    				s2.setData(0);
     			}
     		}
     	};

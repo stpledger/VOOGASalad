@@ -30,11 +30,12 @@ public class ComponentAdder {
             MenuItem menuItem = new MenuItem(component);
             menuItem.setOnAction(e->{
                 Group root = null;
-                try {
-                    root = new Group(new PropertiesComponentForm(entity.getID(),component));
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+				try {
+					root = new Group(new PropertiesComponentForm(entity.getID(),component));
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
                 Stage popup = new Stage();
                 popup.setScene(new Scene(root));
                 popup.show();
