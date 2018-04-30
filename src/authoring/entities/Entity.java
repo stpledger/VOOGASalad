@@ -21,6 +21,7 @@ import javafx.scene.input.MouseButton;
 /**
  * Super class to represent the top level of the entity chain. 
  * @author Dylan Powers
+ * @author Hemanth Yakkali
  */
 public abstract class Entity extends ImageView {
 	

@@ -3,7 +3,7 @@ package authoring.factories;
 import authoring.languages.AuthoringLanguage;
 
 /**
- * 
+ * Interface to be implemented by any Element class.
  * @author Hemanth Yakkali(hy115)
  *
  */

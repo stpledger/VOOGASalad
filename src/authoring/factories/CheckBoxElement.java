@@ -5,9 +5,8 @@ import java.util.Properties;
 import javafx.scene.control.CheckBox;
 
 /**
- * 
+ * Handles the creation of a CheckBox through the use of the ElementFactory. 
  * @author Hemanth Yakkali(hy115)
- * @author Collin Brown(cdb55)
  *
  */
 public class CheckBoxElement extends CheckBox implements Element{
