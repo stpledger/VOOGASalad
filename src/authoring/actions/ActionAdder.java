@@ -5,7 +5,6 @@ import engine.actions.ActionReader;
 import engine.actions.Actions;
 import engine.systems.collisions.CollisionDirection;
 import javafx.scene.input.KeyCode;
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
@@ -27,7 +26,6 @@ public class ActionAdder {
     private List<Supplier> suppliers;
     private static final String AI = "AI";
     private static final String COLLIDABLE = "Collidable";
-    private static final String COLLISIONACTION = "CollisionAction";
     private static final String KEYCODE = "KeyInput";
 
     ActionAdder(Entity entity){

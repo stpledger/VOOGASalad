@@ -1,5 +1,8 @@
 package data;
 
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
+import com.sun.imageio.plugins.common.ImageUtil;
 import gameplayer.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -7,6 +10,8 @@ import authoring.entities.Entity;
 import authoring.gamestate.GameState;
 import engine.components.Component;
 import engine.components.Sprite;
+import javafx.scene.image.Image;
+
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -98,7 +103,7 @@ public class DataWrite {
             File fileDest = new File(DEFAULT_IMAGEPATH + file.getName());
             ImageIO.write(image, getFileType(file), fileDest);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new AuthoringException("couldnt load", AuthoringAlert.NO_SHOW);
         }
 
     }
