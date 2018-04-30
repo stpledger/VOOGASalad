@@ -157,7 +157,6 @@ public class Controller implements IController{
 		myScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
 				pauseMenu.show(myStage);
-				//myTimeline.pause();
 			} else {
 				if(gameView != null) {
 					gameView.setInput(e.getCode());
