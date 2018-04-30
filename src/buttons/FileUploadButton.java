@@ -5,7 +5,7 @@ import java.io.File;
 
 import data.DataGameState;
 import data.DataRead;
-import gameplayer.Controller;
+import GamePlayer.Controller;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;

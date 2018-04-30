@@ -42,7 +42,8 @@ public class LocalPropertiesView extends PropertiesView {
 	 */
 	@Override
 	public String title() {
-		return String.format("Entity %d Local Properties", this.entity.getID());
+		String[] title = this.getButtonBundle().getString("Local").split(" ");
+		return title[0]+" "+this.entity.getID()+" "+title[1];
 	}
 
 	@Override
@@ -61,7 +62,7 @@ public class LocalPropertiesView extends PropertiesView {
 	
 	private void save(List<Component> componentsToAdd) {
 		onSubmit.accept(componentsToAdd);
-		this.makeAlert(this.title() + " has been updated!");
+		this.makeSubmitAlert();
 		this.close();
 	}
 

@@ -1,4 +1,4 @@
-package gameplayer;
+package GamePlayer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -282,10 +282,11 @@ public class GameView implements IGamePlayerView{
 						//winComponents.add((Win) entityComponents.get(Win.KEY));
 					}
 				}
-
+				System.out.println("dont skip pls");
 				if (entityComponents.containsKey(EntityType.KEY)) {
 					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(EntityType.KEY);
 					if (entityTypeComponent.getData().equals("Background")) {
+						System.out.println("background!!!");
 						entityRoot.getChildren().add(0, image);
 						continue;
 					}

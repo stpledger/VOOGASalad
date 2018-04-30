@@ -21,14 +21,17 @@ import javafx.scene.control.CheckBox;
 public class HUDPropertiesView extends PropertiesView{
 
 	private List<Level> levels;
-	private static final String NAME = "HUD Properties";
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-
 
 	public HUDPropertiesView(List<Level> levels) {
 		super();
 		this.levels = new ArrayList<>(levels);
+	}
+	
+	@Override
+	protected String title() {
+		return this.getButtonBundle().getString("HUD");
 	}
 
 	@Override
@@ -46,7 +49,7 @@ public class HUDPropertiesView extends PropertiesView{
 					level.addHUDProp(HUDProps.getString("Time"), timeBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Levels"), levelBox.isSelected());
 				}
-				this.makeAlert(this.title()+" has been updated!");
+				this.makeSubmitAlert();
 				this.close();
 			});
 			this.getElementList().addAll(Arrays.asList(new Element[] {(Element) livesBox, (Element)submit, (Element) healthBox, (Element) timeBox, (Element) levelBox}));
@@ -54,11 +57,6 @@ public class HUDPropertiesView extends PropertiesView{
 		} catch (Exception e2) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e2.toString(), e2);
 		}	
-	}
-
-	@Override
-	protected String title() {
-		return NAME;
 	}
 
 }

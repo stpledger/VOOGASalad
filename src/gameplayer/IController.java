@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 package GamePlayer;
-=======
-package gameplayer;
->>>>>>> 26e8f6b0b1bed98bfb35b300f0b49fd1d18e6429
 
 import java.util.Map;
 import javafx.scene.Scene;

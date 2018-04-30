@@ -48,7 +48,7 @@ public class GlobalPropertiesView extends PropertiesView {
 					level.addGProp(globalProps.getString("Lives"), livesInput.getText());
 					level.addGProp(globalProps.getString("Filepath"), pathInput.getText());
 				}
-				this.makeAlert(this.getButtonBundle().getString("Global")+" " +this.getButtonBundle().getString("Save")); //TODO put in properties file
+				this.makeSubmitAlert();
 				this.close();
 			});
 			this.getElementList().add((Element) submit);	

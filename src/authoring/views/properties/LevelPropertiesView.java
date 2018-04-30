@@ -28,7 +28,8 @@ public class LevelPropertiesView extends PropertiesView{
 
 	@Override
 	protected String title() {
-		return "Level "+levelNum+" Properties";
+		String[] title = this.getButtonBundle().getString("Level").split(" ");
+		return title[0]+" "+levelNum+" "+title[1];
 	}
 
 	@Override
@@ -44,7 +45,7 @@ public class LevelPropertiesView extends PropertiesView{
 				level.setLevelInfo(infoText.getText());
 				level.setLevelDifficulty(diffText.getText());
 				level.setLevelTime(Double.parseDouble(timeNumber.getText()));
-				this.makeAlert(this.title()+" has been updated!");
+				this.makeSubmitAlert();
 				this.close();
 			});
 			this.getElementList().add((Element) submit);

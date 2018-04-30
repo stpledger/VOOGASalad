@@ -27,9 +27,8 @@ import javafx.stage.Stage;
  */
 public abstract class PropertiesView implements AuthoringLanguage {
 	private static final String RESOURCES = "resources.views.Properties/";
-	private static final String BUTTON_RESOURCES = "resources.views.Properties/ButtonProperties";
+	private static final String FORM_RESOURCES = "resources.views.Properties/FormProperties";
 	private static final int GRID_SEPARATION = 10;
-	private static final int SIZE = 450;
 	private GridPane root;
 	private Stage stage;
 	private ElementFactory eFactory = new ElementFactory();
@@ -102,9 +101,9 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	 * @param content Content to be shown in the confirmation alert window.
 	 * @return Confirmation Alert that contains the specified content.
 	 */
-	protected Alert makeAlert(String content) {
+	protected Alert makeSubmitAlert() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setContentText(content);
+		alert.setContentText(this.title()+ " " +this.getButtonBundle().getString("Save"));
 		alert.show();
 		return alert;
 	}
@@ -131,7 +130,7 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	 * @return ResourceBundle with names for buttons
 	 */
 	protected ResourceBundle getButtonBundle() {
-		return ResourceBundle.getBundle(PropertiesView.BUTTON_RESOURCES);
+		return ResourceBundle.getBundle(PropertiesView.FORM_RESOURCES);
 	}
 
 	/**
