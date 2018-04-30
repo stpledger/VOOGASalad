@@ -9,10 +9,16 @@ import authoring.entities.data.PackageExplorer;
 import authoring.factories.Element;
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
+import engine.components.DataComponent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
+/**
+ * 
+ * @author Collin Brown
+ *
+ */
 public abstract class AbstractComponentForm extends GridPane {
 	protected static final String COMPONENT_PREFIX = "engine.components.";
 	protected String name;
@@ -40,8 +46,14 @@ public abstract class AbstractComponentForm extends GridPane {
 		this.numFields = PackageExplorer.getNumFields(name);
 		elements.add((Element) label);
 		for (int i = 0; i < (numFields-1); i++) {
-			TextField tf = (TextField) eFactory.buildElement(ElementType.TextField, "text");
+			TextField tf = null;
+			if(DataComponent.class.isAssignableFrom(Class.forName(COMPONENT_PREFIX + name))) {
+				tf = (TextField) eFactory.buildElement(ElementType.NumberField, "Enter a Number");
+			} else {
+				tf = (TextField) eFactory.buildElement(ElementType.TextField, "Enter Text");
+			}
 			tf.getStyleClass().add("component-text-field");
+			field = tf;
 			elements.add((Element) tf);
 			fields.add(tf);
 			col++;
@@ -55,11 +67,10 @@ public abstract class AbstractComponentForm extends GridPane {
 	 * @return true if the user fully entered everything that they should enter
 	 */
 	protected boolean validComponent() {
-		for (TextField tf : this.fields) {
-			if (tf.getId() == null || tf.getId().trim().isEmpty()) {
+		TextField tf = this.field;
+			if (tf.getText().isEmpty()) {
 				return false;
 			}
-		}
 		return true;
 	}
 

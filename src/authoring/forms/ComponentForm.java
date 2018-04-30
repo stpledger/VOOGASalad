@@ -11,4 +11,6 @@ public interface ComponentForm extends AuthoringLanguage{
 
 	public void setAlignment(Pos center);
 
+	public void setValue(Object currentValue);
+
 }
