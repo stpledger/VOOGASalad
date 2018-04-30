@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import authoring.entities.data.PackageExplorer;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
+import authoring.languages.AuthoringLanguage;
 import authoring.views.popups.SelectionBox;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -22,7 +23,7 @@ import javafx.scene.layout.GridPane;
  * @author Collin Brown(cdb55)
  *
  */
-public abstract class AbstractComponentFormCollection extends GridPane {
+public abstract class AbstractComponentFormCollection extends GridPane implements AuthoringLanguage{
 	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final static String ENTITIES_PACKAGE = "engine.components.";
 	protected Properties language = new Properties();
@@ -107,6 +108,7 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 		this.exceptions = exceptions;
 	}
 
+	@Override
 	public void setLanguage(Properties lang) {
 		this.language = lang;
 		for(ComponentForm componentForm : activeForms) {
