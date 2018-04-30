@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * @author Hemanth Yakkali (hy115)
  *
  */
-public class GameState implements IGameState {
+public class GameState {
 
 	/**
 	 * This object should only be constructed once, upon initialization of the authoring environment.
@@ -28,7 +28,6 @@ public class GameState implements IGameState {
 		state = new ArrayList<>();
 	}
 
-	@Override
 	public void save() {
 		try {
 			DataWrite.saveFile(this, this.name);
@@ -42,7 +41,6 @@ public class GameState implements IGameState {
 	 * Updates the current state by adding a new level object to the list of levels.
 	 * @param level The level object to add
 	 */
-	@Override
 	public void addLevel(Level level) {
 		if(!state.contains(level)) {
 			state.add(level);
@@ -53,7 +51,6 @@ public class GameState implements IGameState {
 	 * Updates the current state my removing a level object.
 	 * param level The level object to remove
 	 */
-	@Override
 	public void removeLevel(Level level) {
 		if(state.contains(level)) {
 			state.remove(level);

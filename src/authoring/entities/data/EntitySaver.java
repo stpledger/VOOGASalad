@@ -50,6 +50,7 @@ public class EntitySaver {
 		root.setAttribute("game", DataUtils.getGame());
 		document.appendChild(root);
 		for (Class compClass : attributes.keySet()) {
+			// get rid of everything in front of the name itself
 			String compName = compClass.getName().replace(COMPONENT_PREFIX, "");
 			Element comp = document.createElement(compName);
 			root.appendChild(comp);
@@ -57,7 +58,6 @@ public class EntitySaver {
 				comp.appendChild(document.createTextNode(String.valueOf(o)));
 			}
 		}
-
 		Transformer t = TransformerFactory.newInstance().newTransformer();
 		DOMSource ds = new DOMSource(document);
 		StreamResult sr = new StreamResult(new File(FOLDER_PATH + fileName + XML_EXTENSION));
