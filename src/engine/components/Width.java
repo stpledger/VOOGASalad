@@ -6,12 +6,12 @@ package engine.components;
  *
  */
 public class Width extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
-	
+
+	public static final String KEY = "Width";
+
 	public Width(int pid, double data) {
 		super(pid, data);
 	}
-
-	public static final String KEY = "Width";
 
 	public String getKey() {
 		return KEY;

@@ -6,12 +6,14 @@ package engine.components;
  * @author Yameng Liu
  */
 public class YPosition extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
+
+	public static final String KEY = "YPosition";
+
 	
 	public YPosition(int pid, double data) {
 		super(pid, data);
 	}
 
-	public static final String KEY = "YPosition";
 
 	public String getKey() {
 		return KEY;

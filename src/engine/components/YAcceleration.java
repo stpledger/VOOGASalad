@@ -6,12 +6,14 @@ package engine.components;
  * @author Yameng Liu
  */
 public class YAcceleration extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
+
+	public static final String KEY = "YAcceleration";
+
 	
 	public YAcceleration(int pid, double data) {
 		super(pid, data);
 	}
 
-	public static final String KEY = "YAcceleration";
 
 	public String getKey() {
 		return KEY;
