@@ -8,13 +8,11 @@ import java.util.Properties;
  *
  */
 public class NumberFieldElement extends NumberField implements Element{
-	
-	private String myOriginalName;
-	
+		
 	public NumberFieldElement(String text) {
 		super();
 		this.handleText(text);
-		this.myOriginalName = text;
+		this.setId(text);
 	}
 
 	@Override
@@ -24,7 +22,7 @@ public class NumberFieldElement extends NumberField implements Element{
 
 	@Override
 	public void setLanguage(Properties language) {
-		this.handleText(language.getProperty(this.myOriginalName, this.myOriginalName));
+		this.handleText(language.getProperty(this.getId(), this.getId()));
 	}
 
 }
