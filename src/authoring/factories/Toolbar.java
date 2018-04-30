@@ -16,6 +16,7 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.util.Pair;
+
 /**
  * 
  * @author Collin Brown(cdb55)
@@ -107,7 +108,6 @@ public class Toolbar extends MenuBar{
 				menuItem.setText(language.getProperty(menuItem.getId(), menuItem.getId()));
 			}
 		}
-
 	}
 }
 
