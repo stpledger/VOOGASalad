@@ -11,7 +11,7 @@ public interface IController {
 	 * Initializes controller scene
 	 * @return
 	 */
-	public Scene initializeStartScene();
+	public Scene getControllerScene();
 	
 	/**
 	 * Changes the display of the gave.
