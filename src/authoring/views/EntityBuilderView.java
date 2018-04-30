@@ -87,6 +87,7 @@ public class EntityBuilderView extends Stage {
 			ComboBox<String> typeComboBox = buildTypeComboBox();
 			addImageMenu = buildSingleButtonMenu("addImage", e -> {addImage();});
 			this.entityPreview = new ImageView();
+
 			File imageFile = new File("data/images/Collin.png");
 			updateEntityPreview(SwingFXUtils.toFXImage(ImageIO.read(imageFile), null));
 			this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, componentFormCollection);

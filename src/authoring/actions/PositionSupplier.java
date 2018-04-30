@@ -36,25 +36,20 @@ public class PositionSupplier extends Supplier {
         super(ANCHOR_PROMPT,SIZE,SIZE,e);
         path = new ArrayList<>();
         points = new ArrayList<>();
-        configureInit();
     }
 
-    private void configureInit(){
+
+    protected void configureMenu(){
         myStage.initStyle(StageStyle.TRANSPARENT);
         myScene.setFill(Color.rgb(0, 0, 0, 0.05));
         myScene.setOnMouseClicked(e->logKey(e));
-    }
-
-    protected void configureMenu(){
 
         menu.setLayoutX(LOCATION);
         menu.setLayoutY(LOCATION);
         ButtonElement redo = new ButtonElement(REDO);
         redo.setOnAction(e-> { restart();});
-        prompt = new Text(ANCHOR_PROMPT);
+        prompt.setText(ANCHOR_PROMPT);
         buttons.getChildren().add(redo);
-        menu.getChildren().addAll(prompt,buttons);
-        root.getChildren().add(menu);
     }
 
     @Override
