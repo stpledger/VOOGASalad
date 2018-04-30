@@ -17,7 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 /**
- * Class that controls how the entity objects are displayed on the GamePlayer
+ * Class that controls how the entity objects are displayed on the gameplayer
  * @authors Ryan Fu & Scott Pledger
  *
  */
@@ -32,7 +32,11 @@ public class GameView implements IGamePlayerView{
 	private InputHandler inputHandler;
 	private RenderManager renderManager;
 	private SystemManager systemManager;
-	private GameManager gameManager;
+
+	private int numOfLevels;
+	private int activeLevel;
+	private XPosition activePlayerPosX;
+	private YPosition activePlayerPosY;
 
 	private static final double PANE_HEIGHT = 442;
 	private static final double PANE_WIDTH = 800;
@@ -43,23 +47,28 @@ public class GameView implements IGamePlayerView{
 	private static final int RIGHT_BOUND = 400;
 	private static final int INVERT = -1;
 
+	private Map<Integer, Map<String, Component>> playerKeys;
 	private Map<Integer, Map<String, Boolean>> hudPropMap;
+	//TODO: TALK TO STEFANI ABOUT NEW "LEVEL STATUS" CLASS
+	//private ArrayList<Win> winComponents;
 
 	/**
 	 * Constructor when given the gameState
 	 * @param gamestate
 	 */
-	public GameView(DataGameState gamestate, GameManager gamemanager) {
+	public GameView(DataGameState gamestate) {
 		gameState = gamestate;
-		this.gameManager = gamemanager;
 		levels = gameState.getGameState();
 		hudPropMap = obtainHudProps(levels);
+		playerKeys = new HashMap<>();
 		intLevels = levelToInt(levels);
+		numOfLevels = intLevels.keySet().size();
 		gameLevelDisplays = createLevelDisplays(levels);
 		setActiveLevel(LEVEL_ONE);
 		initializeGameView();
 	}
 
+	//TODO: CHECK IF OBSELETE WITH NEW "LEVEL STATUS" CLASS
 	/**
 	 * Obtains heads-up display status map for each level in a game.
 	 * @return Map<Integer, Map<String, Boolean>> 
@@ -93,8 +102,8 @@ public class GameView implements IGamePlayerView{
 	 * Connects View to Engine Systems (GameInitializer, InputHandler, RenderManager, SystemManager)
 	 */
 	public void initializeGameView() {
-		gameInitializer = new GameInitializer(intLevels.get(gameManager.getActiveLevel()),
-				Math.max(PANE_HEIGHT, PANE_WIDTH), gameManager.getActivePlayerPosX(), gameManager.getActivePlayerPosY());
+		gameInitializer = new GameInitializer(intLevels.get(activeLevel),
+				Math.max(PANE_HEIGHT, PANE_WIDTH), activePlayerPosX.getData(), activePlayerPosY.getData());
 		inputHandler = gameInitializer.getInputHandler();
 		renderManager = gameInitializer.getRenderManager();
 		systemManager = gameInitializer.getSystemManager();
@@ -105,7 +114,10 @@ public class GameView implements IGamePlayerView{
 	 * @param activelevel - level you wish to display
 	 */
 	public void setActiveLevel(int activelevel){
-		gameManager.setActiveLevel(activelevel);
+		activeLevel = activelevel;
+		Map<String, Component> player = new HashMap<>(playerKeys.get(activeLevel));
+		activePlayerPosX = (XPosition) player.get(XPosition.KEY);
+		activePlayerPosY = (YPosition) player.get(YPosition.KEY);
 	}
 
 	/**
@@ -125,8 +137,8 @@ public class GameView implements IGamePlayerView{
 	 * Renders all changes to the objects sprite
 	 */
 	public void render() {
-		double newCenterX = gameManager.getActivePlayerPosX();
-		double newCenterY = gameManager.getActivePlayerPosY();
+		double newCenterX = activePlayerPosX.getData();
+		double newCenterY = activePlayerPosY.getData();
 		systemManager.setActives(renderManager.render(newCenterX, newCenterY));
 	}
 
@@ -147,6 +159,14 @@ public class GameView implements IGamePlayerView{
 	}
 
 	/**
+	 * Returns a map of the player components for each level
+	 * @return
+	 */
+	public Map<Integer, Map<String, Component>> getPlayerKeys(){
+		return playerKeys;
+	}
+
+	/**
 	 * Saves the current game state to a new file
 	 */
 	public void saveGame(){
@@ -164,20 +184,20 @@ public class GameView implements IGamePlayerView{
 		double minY = gameRoot.getTranslateY() * INVERT;
 		double maxY = gameRoot.getTranslateY() * INVERT + PANE_HEIGHT;
 
-		if(gameManager.getActivePlayerPosY() - TOP_BOUND < minY){
-			gameRoot.setTranslateY((gameManager.getActivePlayerPosY() - TOP_BOUND) * INVERT);
+		if(activePlayerPosY.getData() - TOP_BOUND < minY){
+			gameRoot.setTranslateY((activePlayerPosY.getData() - TOP_BOUND) * INVERT);
 		}
 
-		if(gameManager.getActivePlayerPosY() + BOTTOM_BOUND > maxY){
-			gameRoot.setTranslateY(((gameManager.getActivePlayerPosY() + BOTTOM_BOUND) - PANE_HEIGHT) * INVERT);
+		if(activePlayerPosY.getData() + BOTTOM_BOUND > maxY){
+			gameRoot.setTranslateY(((activePlayerPosY.getData() + BOTTOM_BOUND) - PANE_HEIGHT) * INVERT);
 		}
 
-		if(gameManager.getActivePlayerPosX() - LEFT_BOUND < minX){
-			gameRoot.setTranslateX((gameManager.getActivePlayerPosX() - LEFT_BOUND) * INVERT);
+		if(activePlayerPosX.getData() - LEFT_BOUND < minX){
+			gameRoot.setTranslateX((activePlayerPosX.getData() - LEFT_BOUND) * INVERT);
 		}
 
-		if(gameManager.getActivePlayerPosX() + RIGHT_BOUND > maxX){
-			gameRoot.setTranslateX(((gameManager.getActivePlayerPosX() + RIGHT_BOUND) - PANE_WIDTH) * INVERT);
+		if(activePlayerPosX.getData() + RIGHT_BOUND > maxX){
+			gameRoot.setTranslateX(((activePlayerPosX.getData() + RIGHT_BOUND) - PANE_WIDTH) * INVERT);
 		}
 	}
 
@@ -204,17 +224,17 @@ public class GameView implements IGamePlayerView{
 	private Map<Integer, Pane> createLevelDisplays(Map<Level, Map<Integer, Map<String, Component>>> map){
 		Map<Integer, Pane> levelEntityMap = new HashMap<>();
 		for(Level level : map.keySet()) {
-			levelEntityMap.put(level.getLevelNum(), createIndividualLevelDisplay(map.get(level), level.getLevelNum()));
+			levelEntityMap.put(level.getLevelNum(), createIndividualEntityGroup(map.get(level), level.getLevelNum()));
 		}
 		return levelEntityMap;
 	}
 
 	/**
-	 * Method that creates all the panes for each level in a game.
+	 * Method that creates all the groups for each level in a levels.
 	 * @param entityMap
 	 * @return
 	 */
-	private Pane createIndividualLevelDisplay(Map<Integer, Map<String, Component>> entityMap, int levelNum) {
+	private Pane createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap, int levelNum) {
 		Pane entityRoot = new Pane();
 		Map<String, Component> entityComponents;
 		for(Integer i : entityMap.keySet()) {
@@ -225,6 +245,16 @@ public class GameView implements IGamePlayerView{
 
 				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
 					setSpritePosition(entityComponents, image);
+
+					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
+					if(entityComponents.containsKey(Player.KEY)){
+						playerKeys.put(levelNum, entityComponents);
+					}
+
+					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
+					if (entityComponents.containsKey(Win.KEY)) {
+						//winComponents.add((Win) entityComponents.get(Win.KEY));
+					}
 				}
 				
 				if (entityComponents.containsKey(Type.KEY)) {

@@ -1,4 +1,4 @@
-package engine.test;
+/*package engine.test;
 
 import java.awt.Point;
 import java.io.FileNotFoundException;
@@ -92,7 +92,7 @@ public class TestGameState {
 		k.addCode(KeyCode.SPACE,(Consumer & Serializable) (e) ->
 		{
 			vx.setData(0);
-		});*/
+		});*//*
 
 		KeyInput k = new PlayerMovement(0, KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN);
 		
@@ -177,7 +177,7 @@ public class TestGameState {
 		mario2.put(AI.KEY, ai2);
 		mario2.put(DamageValue.KEY, damage2);
 		mario2.put(DamageLifetime.KEY, dl2);
-		mario2.put(Collidable.KEY, collide2);**/
+		mario2.put(Collidable.KEY, collide2);**//*
 
 
 		XPosition xp3 = new XPosition(2, 300);
@@ -238,7 +238,7 @@ public class TestGameState {
 		mario4.put(Health.KEY, health4);
 		mario4.put(Collidable.KEY, c4);
 		mario4.put(DamageValue.KEY, damage4);
-		mario4.put(DamageLifetime.KEY, dl4); **/
+		mario4.put(DamageLifetime.KEY, dl4); **//*
 
 		entities.put(0, mario);
 		//entities.put(1, mario2);
@@ -270,3 +270,4 @@ public class TestGameState {
 	public InputHandler getIH() { return ih; }
 
 }
+*/

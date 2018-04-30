@@ -1,5 +1,7 @@
 package data.jarutil;
 
+import data.DataUtils;
+
 import java.io.*;
 import java.util.*;
 import java.util.jar.Attributes;
@@ -23,6 +25,7 @@ public class JarZip
     private final String PERIOD = ".";
     private final String FRONTSLASH ="/";
     private final String BACKSLASH = "\\";
+    private final String FAILED = "Failed to Make Jar";
 
     JarZip(){
         fileList = new ArrayList<>();
@@ -61,18 +64,14 @@ public class JarZip
         byte[] buffer = new byte[1024];
 
         try{
-            System.out.println(zipFile);
             zipFile.replace(BACKSLASH,FRONTSLASH);
-            System.out.println(zipFile);
 
             FileOutputStream fos = new FileOutputStream(zipFile);
             JarOutputStream jos = new JarOutputStream(fos,manifest);
 
-            System.out.println("Output to Zip : " + zipFile);
 
             for(String file : this.fileList){
 
-                System.out.println("File Added : " + file.replace(BACKSLASH,FRONTSLASH));
                 JarEntry ze= new JarEntry(file.replace(BACKSLASH,FRONTSLASH));
                 jos.putNextEntry(ze);
                 FileInputStream in = new FileInputStream(sourceFolder + FRONTSLASH + file);
@@ -85,10 +84,9 @@ public class JarZip
 
             for(String file : this.addList){
 
-                System.out.println("File Added : " + file.replace(BACKSLASH,FRONTSLASH));
                 JarEntry ze= new JarEntry(file.replace(BACKSLASH,FRONTSLASH));
                 jos.putNextEntry(ze);
-                System.out.println(projectFolder + '/' + file);
+                System.out.println(projectFolder +FRONTSLASH + file);
                 FileInputStream in = new FileInputStream(projectFolder + FRONTSLASH + file);
                 int len;
                 while ((len = in.read(buffer)) > 0) {
@@ -101,9 +99,9 @@ public class JarZip
             //remember close it
             jos.close();
 
-            System.out.println("Done");
         }catch(IOException ex){
-            ex.printStackTrace();
+            DataUtils.ErrorStatement(FAILED);
+
         }
     }
 
@@ -114,7 +112,6 @@ public class JarZip
      */
     public void generateFileList(File node){
         if(node.isFile() && !ignoreSet.contains(node)){
-            System.out.println(generateZipEntry(node.getAbsolutePath(),sourceFolder));
             fileList.add(generateZipEntry(node.getAbsolutePath(),sourceFolder));
         }
         if(node.isDirectory()&& !ignoreSet.contains(node)){
@@ -128,7 +125,6 @@ public class JarZip
 
     public void addFile(File node){
         if(node.isFile() && !ignoreSet.contains(node)){
-            System.out.println(generateZipEntry(node.getAbsolutePath(),projectFolder));
             addList.add(generateZipEntry(node.getAbsolutePath(),projectFolder));
         }        System.out.println(generateZipEntry(node.getAbsoluteFile().toString(),projectFolder));
         if(node.isDirectory()){

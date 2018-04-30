@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="C:/Users/fitzj/workspace/xstream-1.4.10/lib/xstream-1.4.10.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="/Users/dylanpowers/Downloads/xstream-1.4.10/lib/xstream-1.4.10.jar"/>
 	<classpathentry kind="lib" path="/Users/dylanpowers/Downloads/xstream-1.4.10/lib/xstream-benchmark-1.4.10.jar"/>
 	<classpathentry kind="lib" path="/Users/dylanpowers/Downloads/xstream-1.4.10/lib/xstream-hibernate-1.4.10.jar"/>
 	<classpathentry kind="lib" path="/Users/dylanpowers/Downloads/xstream-1.4.10/lib/xstream-jmh-1.4.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
+=======
+	<classpathentry kind="output" path="target/classes"/>
+>>>>>>> a9306abc9855132701419db6de13ca3f5c214fab
 </classpath>
