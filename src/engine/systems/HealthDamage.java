@@ -12,6 +12,7 @@ import engine.setup.SystemManager;
 
 /**
  * A system that handles what happens when two entities collide, one having health component and the other damage
+ * @author cndracos
  * @author sv116
  * @author Yameng Liu
  */
