@@ -5,7 +5,7 @@ package engine.components;
  * @author fitzj
  *
  */
-public class Height extends SingleDataComponent {
+public class Height extends SingleDataComponent  implements Component, DataComponent, ReadDataComponent {
 	
 	public Height(int pid, double data) {
 		super(pid, data);

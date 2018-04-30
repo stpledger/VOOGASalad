@@ -1,4 +1,4 @@
-package GamePlayer;
+package gameplayer;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -8,6 +8,7 @@ import data.DataGameState;
 import data.DataWrite;
 
 import engine.components.*;
+import engine.exceptions.EngineException;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
@@ -126,7 +127,12 @@ public class GameView implements IGamePlayerView{
 	 * @param time
 	 */
 	public void execute (double time) {
-		systemManager.execute(time);
+		try {
+			systemManager.execute(time);
+		} catch (EngineException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**

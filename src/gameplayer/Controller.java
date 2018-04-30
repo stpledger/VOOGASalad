@@ -1,4 +1,4 @@
-package GamePlayer;
+package gameplayer;
 
 import java.util.Map;
 import HUD.SampleToolBar;

@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  */
 public class Conditional implements Component, BehaviorComponent {
 
-    public static String KEY = "Conditional";
+    public static final String KEY = "Conditional";
     private Supplier<Object> conditional;
     private BiConsumer<Object, Object> action;
     private int pid;

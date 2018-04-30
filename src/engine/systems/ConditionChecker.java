@@ -12,6 +12,7 @@ public class ConditionChecker implements ISystem {
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents = new HashSet<>();
 
+    public ConditionChecker() {}
 
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
