@@ -176,4 +176,11 @@ public abstract class Entity extends ImageView {
 		return this.components;
 	}
 
+<<<<<<< HEAD
+=======
+	public void remove (Component c) {
+		components.remove(c);
+	}
+
+>>>>>>> 8b9a4c2ded3d6e342d92067163c04e521680615e
 }

@@ -7,7 +7,6 @@ import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataWrite;
 import engine.components.*;
-import engine.exceptions.EngineException;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
@@ -114,12 +113,7 @@ public class GameView implements IGamePlayerView{
 	 * @param time
 	 */
 	public void execute (double time) {
-		try {
-			systemManager.execute(time);
-		} catch (EngineException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		systemManager.execute(time);
 	}
 
 	/**
@@ -183,6 +177,27 @@ public class GameView implements IGamePlayerView{
 	}
 
 	/**
+	 * Returns current active level
+	 * @return
+	 */
+	public int getActiveLevel(){
+		return activeLevel;
+	}
+
+	/**
+	 * Returns the number of levels
+	 * @return
+	 */
+	public int getNumOfLevels(){
+		return numOfLevels;
+	}
+
+	//TODO: IS THIS NECESSARY?
+	/*public ArrayList<Win> getWinComponents() {
+		return winComponents;
+	}*/
+	
+	/**
 	 * Method to obtain the map of heads-up display properties for each level.
 	 * @param levels
 	 * @return Map<Integer, Map<String,Boolean>>
@@ -196,7 +211,7 @@ public class GameView implements IGamePlayerView{
 		}
 		return HUDPropMap;
 	}
-
+	
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
 	 * @param map
@@ -220,18 +235,17 @@ public class GameView implements IGamePlayerView{
 		Map<String, Component> entityComponents;
 		for(Integer i : entityMap.keySet()) {
 			entityComponents = entityMap.get(i);
-
 			if(entityComponents.containsKey(Sprite.KEY)) {
 				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
 				ImageView image = spriteComponent.getImage();
 
 				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
 					setSpritePosition(entityComponents, image);
-
 				}
-
-				if (entityComponents.containsKey(EntityType.KEY)) {
-					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(EntityType.KEY);
+				
+				if (entityComponents.containsKey(Type.KEY)) {
+					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(Type.KEY);
+					System.out.println(entityTypeComponent.getData());
 					if (entityTypeComponent.getData().equals("Background")) {
 						entityRoot.getChildren().add(0, image);
 						continue;

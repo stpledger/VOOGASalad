@@ -1,5 +1,9 @@
 package data;
 
+<<<<<<< HEAD
+=======
+import GamePlayer.Person;
+>>>>>>> 8b9a4c2ded3d6e342d92067163c04e521680615e
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import authoring.entities.Entity;
