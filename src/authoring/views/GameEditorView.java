@@ -19,7 +19,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import GamePlayer.Main;
 import authoring.entities.Entity;
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
@@ -38,6 +37,7 @@ import engine.components.EntityType;
 import engine.components.Sprite;
 import engine.components.XPosition;
 import engine.components.YPosition;
+import GamePlayer.Main;
 import data.DataWrite;
 
 /**

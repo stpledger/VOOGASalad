@@ -2,6 +2,7 @@ package engine.components;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import engine.systems.collisions.CollisionDirection;
 
@@ -9,7 +10,7 @@ public class CollisionAction implements Component {
 
 	public static final String KEY = "CollisionAction";
 
-	private Map<CollisionDirection, Runnable> directions;
+	private Map<CollisionDirection, Consumer<Void>> directions;
 	
 	private int pid;
 	
@@ -19,7 +20,7 @@ public class CollisionAction implements Component {
 		directions = new HashMap<>();
 	}
 
-	public void addAction(CollisionDirection cd, Runnable r) {
+	public void addAction(CollisionDirection cd, Consumer r) {
 		directions.put(cd,  r);
 	}
 	
@@ -28,7 +29,7 @@ public class CollisionAction implements Component {
 	}
 
 	public void action(CollisionDirection cd) {
-		directions.get(cd).run();
+		directions.get(cd).accept(null);
 	}
 
 	public String getKey() {

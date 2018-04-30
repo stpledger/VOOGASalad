@@ -49,12 +49,13 @@ public class SystemManager {
 
 
     public void addComponent(int pid, Component c) {
-            Map<String, Component> newComponent = new HashMap<>();
-            newComponent.put(c.getKey(), c);
-    		for(ISystem s : systems) {
+        Map<String, Component> newComponent = new HashMap<>();
+        newComponent.put(c.getKey(), c);
+        for(ISystem s : systems) {
 			s.addComponent(pid, newComponent);
 		}
     }
+
     public void removeComponent(int pid) {
         removeEntity(pid);
     }

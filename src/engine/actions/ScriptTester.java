@@ -3,10 +3,11 @@ package engine.actions;
 
 import authoring.entities.Enemy;
 
-
+import authoring.entities.User;
 import java.util.ArrayList;
 import java.util.List;
-import authoring.entities.Player;
+
+import engine.components.Player;
 import engine.components.groups.Position;
 import engine.components.groups.Velocity;
 
@@ -15,10 +16,10 @@ import java.util.function.Consumer;
 public class ScriptTester {
 
     public static void main (String [] args) {
-
+      /**
        ActionReader AR = new ActionReader();
        List<Object> arguments = new ArrayList<>();
-       Player player = new Player(1, "Mario");
+       User player = new User(1, "Mario");
        Position p = new Position(1, 100, 100);
        player.add(p);
        Enemy enemy = new Enemy(2, "Enemy");
@@ -31,6 +32,6 @@ public class ScriptTester {
        Consumer c = AR.getAction("followsYou", arguments);
        c.accept(10.0);
        System.out.println(v.getXVel());
-
+      **/
     }
 }

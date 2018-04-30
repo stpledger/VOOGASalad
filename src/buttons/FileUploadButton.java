@@ -5,6 +5,7 @@ import java.io.File;
 
 import data.DataGameState;
 import data.DataRead;
+import GamePlayer.Controller;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -21,8 +22,10 @@ public class FileUploadButton extends Button implements IGamePlayerButton {
 		private File uploadedFile;
 		private DataGameState gameState;
 		private BooleanProperty fileBoolean;
+		private Controller gameController;
 		
-		public FileUploadButton() {
+		public FileUploadButton(Stage stage) {
+			myStage = stage;
 			this.setText(BUTTON_NAME);
 			this.setEvent();
 			fileBoolean = new SimpleBooleanProperty(false);
@@ -34,6 +37,8 @@ public class FileUploadButton extends Button implements IGamePlayerButton {
 			this.setOnAction(new EventHandler<ActionEvent>() {
 				@Override public void handle(ActionEvent e) {
 					fileUpload(); //activate the file upload method
+					gameController = new Controller(myStage, gameState);
+					myStage.setScene(gameController.initializeStartScene());
 				}
 			});
 		}
@@ -53,29 +58,29 @@ public class FileUploadButton extends Button implements IGamePlayerButton {
 	        		uploadedFile = file;
 	        		gameState = DataRead.loadPlayerFile(file);
 	        		System.out.println("File Uploaded");
-	        		setFileBoolean(); //game file has been uploaded
+	        		//setFileBoolean(); //game file has been uploaded
 	        }
 	       
 		}
-		
-		public File getFile() {
-			return uploadedFile;
-		}
-		
-		public DataGameState getGameState() {
-			return gameState;
-		}
-		
-		public Boolean isFile() {
-			return (uploadedFile!=null);
-		}
-		
-		public BooleanProperty getFileBooleanProperty() {
-			return fileBoolean;
-		}
-		
-		public void setFileBoolean() {
-			fileBoolean.setValue(!fileBoolean.getValue());
-		}
+//		
+//		public File getFile() {
+//			return uploadedFile;
+//		}
+//		
+//		public DataGameState getGameState() {
+//			return gameState;
+//		}
+//		
+//		public Boolean isFile() {
+//			return (uploadedFile!=null);
+//		}
+//		
+//		public BooleanProperty getFileBooleanProperty() {
+//			return fileBoolean;
+//		}
+//		
+//		public void setFileBoolean() {
+//			fileBoolean.setValue(!fileBoolean.getValue());
+//		}
 		
 }	

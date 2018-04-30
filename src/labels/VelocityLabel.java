@@ -3,7 +3,7 @@ import java.text.MessageFormat;
 import java.util.Map;
 
 import engine.components.Component;
-import engine.components.Velocity;
+import engine.components.XVelocity;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -26,8 +26,8 @@ public class VelocityLabel extends Label implements IGameStatusLabel{
 	
 	//Interface method to extract the data given a playerStatus Map.
 	public double extractGameStateValue(Map<String, Component> playerStatusMap) {
-		Velocity velocity = (Velocity) playerStatusMap.get(Velocity.KEY);
-		return velocity.getXVel();
+		XVelocity velocity = (XVelocity) playerStatusMap.get(XVelocity.KEY);
+		return velocity.getData();
 	}
 	
 	public void update(double newValue) {

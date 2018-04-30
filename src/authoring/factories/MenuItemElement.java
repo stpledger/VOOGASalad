@@ -6,7 +6,7 @@ import java.util.function.Consumer;
 import javafx.scene.control.MenuItem;
 
 /**
- * 
+ * Handles the creation of a MenuItem through the use of the ElementFactory. 
  * @author Hemanth Yakkali(hy115)
  *
  */

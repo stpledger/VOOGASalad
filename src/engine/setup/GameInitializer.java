@@ -3,6 +3,7 @@ package engine.setup;
 import java.io.FileNotFoundException;
 import java.util.*;
 
+import engine.actions.Actions;
 import engine.components.Component;
 import engine.components.XPosition;
 import engine.components.YPosition;
@@ -29,11 +30,11 @@ public class GameInitializer {
      *
      * @param entities
      */
-    public GameInitializer (Map <Integer, Map<String, Component>> entities,
-                            double renderDistance, double renderCenterX, double renderCenterY) throws FileNotFoundException {
+    public GameInitializer (Map <Integer, Map<String, Component>> entities, double renderDistance, double renderCenterX, double renderCenterY) {
 
         renderManager = new RenderManager(renderDistance, renderCenterX, renderCenterY);
         systemManager = new SystemManager(renderManager);
+        Actions.setSM(systemManager);
         inputHandler = new InputHandler();
         addSystems();
 
@@ -76,7 +77,7 @@ public class GameInitializer {
         systems.add(new Motion());
         systems.add(new ConditionChecker());
         systems.add((new ArtificialIntelligence()));
-        systems.add(new Collision());//new Collision(systemManager));
+        systems.add(new Collision());
         systems.add(new HealthDamage(systemManager));
         systems.add(new Animate());
         systems.add(inputHandler);
