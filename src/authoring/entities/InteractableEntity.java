@@ -79,6 +79,7 @@ public abstract class InteractableEntity extends Entity {
         			}
         			this.components.add(c);
         		}
+        		
 	}
 
 	/**
