@@ -3,6 +3,7 @@ package engine.components;
 /**
  * Data component representing y acceleration of entity
  * @author fitzj
+ * @author Yameng Liu
  */
 public class YAcceleration extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 	

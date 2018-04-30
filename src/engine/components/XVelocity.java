@@ -3,6 +3,7 @@ package engine.components;
 /**
  * Data component representing x velocity of entity
  * @author fitzj
+ * @author Yameng Liu
  */
 public class XVelocity extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 	

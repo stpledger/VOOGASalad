@@ -227,8 +227,6 @@ public class GameView implements IGamePlayerView{
 					setSpritePosition(entityComponents, image);
 				}
 				
-				
-				
 				if (entityComponents.containsKey(Type.KEY)) {
 					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(Type.KEY);
 					System.out.println(entityTypeComponent.getData());
