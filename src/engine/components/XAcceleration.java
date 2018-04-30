@@ -3,6 +3,7 @@ package engine.components;
 /**
  * Data component representing acceleration in x direction of an entity
  * @author fitzj
+ * @author Yameng Liu
  */
 public class XAcceleration extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 	

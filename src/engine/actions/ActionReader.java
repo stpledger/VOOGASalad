@@ -18,7 +18,7 @@ import java.util.function.Consumer;
 public class ActionReader {
     private String methodName;
     private Method method;
-    private Class[] methodParams;
+    private Class<?>[] methodParams;
     private Object[] invokeArgs;
 
     // Scott changed this to suppress errors
@@ -32,7 +32,7 @@ public class ActionReader {
      * @param arguments The arguments that the action would need in order to execute
      * @return the action specified in the form of a Consumer
      */
-    public Consumer getAction(String methodName, List<Object> arguments) {
+    public Consumer<?> getAction(String methodName, List<Object> arguments) {
         this.methodName = methodName;
         methodParams = getMethodParams(actions.getClass());
 
@@ -50,7 +50,7 @@ public class ActionReader {
         invokeArgs = getInvokeArguments(arguments);
 
         try {
-            return (Consumer) method.invoke(actions, invokeArgs); //finally invokes the appropriate method with the given arguments and returns the Consumer
+            return (Consumer<?>) method.invoke(actions, invokeArgs); //finally invokes the appropriate method with the given arguments and returns the Consumer
         } catch (IllegalAccessException e) {
             System.out.println("I don't know what this exception is catching");
         } catch (InvocationTargetException e) {
@@ -66,7 +66,7 @@ public class ActionReader {
      * @param clazz the Action class as a Class object
      * @return array of Class object which specify the parameters of the method being looked for
      */
-    private Class[] getMethodParams (Class clazz) {
+    private Class<?>[] getMethodParams (Class<?> clazz) {
         methodParams = new Class[0];
         Method[] declaredMethods = clazz.getDeclaredMethods();
 

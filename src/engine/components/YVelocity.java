@@ -3,6 +3,7 @@ package engine.components;
 /**
  * Data component representing y velocity of entity
  * @author fitzj
+ * @author Yameng Liu
  */
 public class YVelocity extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 	
