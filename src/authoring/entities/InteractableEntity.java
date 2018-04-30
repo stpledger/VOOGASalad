@@ -75,14 +75,14 @@ public abstract class InteractableEntity extends Entity {
 	public void add(Component c) {
 		// component must be in the list of addable components
 
-		//if (ResourceBundle.getBundle(I_PROPERTIES_PATH).keySet().contains(c.getKey())) {
+		if (ResourceBundle.getBundle(I_PROPERTIES_PATH).keySet().contains(c.getKey())) {
         		if (c != null) {
         			if (this.contains(c)) {
         				this.removeByName(c.getKey());
         			}
         			this.components.add(c);
         		}
-		//}
+		}
 	}
 	
 	/**
