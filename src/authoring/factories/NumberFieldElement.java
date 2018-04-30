@@ -19,7 +19,7 @@ public class NumberFieldElement extends NumberField implements Element{
 	public void handleText(String text) {
 		this.setPromptText(text);
 	}
-	
+
 	@Override
 	public void setLanguage(Properties language) {
 		this.handleText(language.getProperty(this.myOriginalName, this.myOriginalName));

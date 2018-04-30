@@ -2,6 +2,8 @@ package authoring.views.properties;
 
 import java.util.logging.Logger;
 
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 import authoring.factories.ClickElementType;
 import authoring.factories.Element;
 import authoring.factories.ElementType;
@@ -51,7 +53,7 @@ public class LevelPropertiesView extends PropertiesView{
 			this.getElementList().add((Element) submit);
 			this.getRoot().addColumn(0, submit);
 		} catch (Exception e) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			throw new AuthoringException("Could not create form!",AuthoringAlert.SHOW);
 		}
 	}
 

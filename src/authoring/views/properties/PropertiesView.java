@@ -7,6 +7,8 @@ import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
 import authoring.MainApplication;
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 import authoring.factories.ClickElementType;
 import authoring.factories.Element;
 import authoring.factories.ElementFactory;
@@ -86,8 +88,7 @@ public abstract class PropertiesView implements AuthoringLanguage {
 				this.getElementList().add((Element) label);
 				currentRow++;
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new AuthoringException("Could not create labels!",AuthoringAlert.SHOW);
 			}
 		}
 	}
@@ -121,8 +122,7 @@ public abstract class PropertiesView implements AuthoringLanguage {
 			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button,this.getFormBundle().getString("Submit"), e->event.accept(null));
 			return submit;
 		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
+			throw new AuthoringException("Submit button could not be made!",AuthoringAlert.SHOW);
 		}
 	}
 

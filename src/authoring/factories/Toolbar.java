@@ -25,11 +25,11 @@ public class Toolbar extends MenuBar{
 	private String toolbarName;
 	private Map<String,Consumer> consumerMap;
 	private List<Pair<String,Properties>> menuProperties;
-	
+
 	private Properties language = new Properties();
 
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-	
+
 	/**
 	 * Creates a Toolbar based on all of the .properties files saved in the directory src/res/~name~
 	 * @param name
@@ -88,13 +88,13 @@ public class Toolbar extends MenuBar{
 			try {
 				p.load(new FileInputStream(f));
 			} catch (IOException e) {
-				 LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+				LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 			}
 			menuProperties.add(new Pair(f.getName().replace(".properties", ""),p));
 		}
 		return menuProperties;	
 	}
-	
+
 	/**
 	 * Updates all of the text elements to contain the proper language
 	 * @param Language
@@ -107,7 +107,7 @@ public class Toolbar extends MenuBar{
 				menuItem.setText(language.getProperty(menuItem.getId(), menuItem.getId()));
 			}
 		}
-		
+
 	}
 }
 

@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Logger;
 
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 import authoring.factories.ClickElementType;
 import authoring.factories.Element;
 import authoring.factories.ElementType;
@@ -55,7 +57,7 @@ public class HUDPropertiesView extends PropertiesView{
 			this.getElementList().addAll(Arrays.asList(new Element[] {(Element) livesBox, (Element)submit, (Element) healthBox, (Element) timeBox, (Element) levelBox}));
 			getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox,submit);
 		} catch (Exception e2) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e2.toString(), e2);
+			throw new AuthoringException("Could not create form!",AuthoringAlert.SHOW);
 		}	
 	}
 
