@@ -8,7 +8,7 @@ package engine.components;
  */
 public class Type extends SingleStringComponent implements Component, StringComponent, ReadStringComponent {
 
-	public static String KEY = "Type";
+	public static final String KEY = "Type";
 
 	public Type(int pid, String type) {
 		super(pid, type);

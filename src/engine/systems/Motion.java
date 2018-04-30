@@ -1,7 +1,9 @@
 package engine.systems;
 
-
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import engine.components.Component;
 import engine.components.XPosition;
@@ -18,9 +20,13 @@ import engine.components.YVelocity;
  */
 
 public class Motion implements ISystem {
-	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
-    private Set<Integer> activeComponents = new HashSet<>();
+	private Map<Integer, Map<String, Component>> handledComponents;
+    private Set<Integer> activeComponents;
 
+    public Motion() {
+    	handledComponents = new HashMap<>();
+    	activeComponents = new HashSet<>();
+    }
 
     public void addComponent(int pid, Map<String, Component> components) {
         if (components.containsKey(XVelocity.KEY) && 

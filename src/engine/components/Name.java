@@ -7,7 +7,7 @@ package engine.components;
  */
 public class Name extends SingleStringComponent implements Component, StringComponent, ReadStringComponent{
 
-	public static String KEY = "Name";
+	public static final String KEY = "Name";
 	public Name(int pid, String name) {
 		super(pid, name);
 	}

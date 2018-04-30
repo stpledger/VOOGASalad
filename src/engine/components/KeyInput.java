@@ -19,7 +19,7 @@ public class KeyInput implements Component, BehaviorComponent {
 
 	private Map<KeyCode, Consumer<Map<String, Component>>> codes;
 
-	public static String KEY = "KeyInput";
+	public static final String KEY = "KeyInput";
 	
 	private int pid;
 	

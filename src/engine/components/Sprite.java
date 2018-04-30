@@ -21,7 +21,7 @@ public class Sprite extends SingleStringComponent implements Component, StringCo
 
 	private String name;
 	
-	public static String KEY = "Sprite";
+	public static final String KEY = "Sprite";
 	
 	/**
 	 * Boolean used to track state of animation. Not used for non-animated sprites.
@@ -41,7 +41,9 @@ public class Sprite extends SingleStringComponent implements Component, StringCo
 	}
 	
 	public ImageView getImage() {
-		if (image == null) setData(getData());
+		if (image == null) {
+			setData(getData());
+		}
 		return image;
 	}
 

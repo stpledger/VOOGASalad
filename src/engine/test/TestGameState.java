@@ -245,10 +245,6 @@ public class TestGameState {
 	}
 
 
-	public void run(Renderer r) {
-		//FixedSteps fs = new FixedSteps((time) -> eng.update(time), r, (fps) -> System.out.println("FPS: " + fps));
-		//fs.start();
-	}
 
 	public InputHandler getIH() { return ih; }
 

@@ -4,9 +4,9 @@ package engine.systems;
  * @author sv116
  */
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
-
-import java.util.*;
+import java.util.Set;
 
 import engine.components.Component;
 import engine.components.DamageLifetime;
