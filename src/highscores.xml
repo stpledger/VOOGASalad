@@ -1,7 +1,43 @@
 <map>
   <entry>
-    <string>games/DemoDemo/</string>
+    <string>games/cocks/</string>
     <list>
+      <GamePlayer.Person>
+        <name>
+          <value>Conrad</value>
+          <valid>true</valid>
+          <name></name>
+        </name>
+        <score>
+          <value>100.1</value>
+          <valid>true</valid>
+          <name></name>
+        </score>
+      </GamePlayer.Person>
+      <GamePlayer.Person>
+        <name>
+          <value>Conrad</value>
+          <valid>true</valid>
+          <name></name>
+        </name>
+        <score>
+          <value>100.1</value>
+          <valid>true</valid>
+          <name></name>
+        </score>
+      </GamePlayer.Person>
+      <GamePlayer.Person>
+        <name>
+          <value>Conrad</value>
+          <valid>true</valid>
+          <name></name>
+        </name>
+        <score>
+          <value>100.1</value>
+          <valid>true</valid>
+          <name></name>
+        </score>
+      </GamePlayer.Person>
       <GamePlayer.Person>
         <name>
           <value>Conrad</value>

@@ -20,7 +20,6 @@ import javafx.scene.control.TextField;
 public class GlobalPropertiesView extends PropertiesView {
 
 	private List<Level> levels;
-	private static final String NAME = "Global Properties";
 	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public GlobalPropertiesView(List<Level> levels){
@@ -30,7 +29,7 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	@Override
 	protected String title() {
-		return NAME;
+		return this.getButtonBundle().getString("Global");
 	}
 
 	@Override
@@ -49,7 +48,7 @@ public class GlobalPropertiesView extends PropertiesView {
 					level.addGProp(globalProps.getString("Lives"), livesInput.getText());
 					level.addGProp(globalProps.getString("Filepath"), pathInput.getText());
 				}
-				this.makeAlert(this.title()+" has been saved!"); //TODO put in properties file
+				this.makeAlert(this.getButtonBundle().getString("Global")+" " +this.getButtonBundle().getString("Save")); //TODO put in properties file
 				this.close();
 			});
 			this.getElementList().add((Element) submit);	
