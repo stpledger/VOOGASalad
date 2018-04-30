@@ -2,6 +2,7 @@ package labels;
 import java.util.Map;
 
 import engine.components.Component;
+import engine.components.Lives;
 import engine.components.Player;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -22,8 +23,8 @@ public class LivesLabel extends Label implements IGameStatusLabel{
 
 	@Override
 	public double extractGameStateValue(Map<String, Component> playerStatusMap) {
-		Player player = (Player) playerStatusMap.get(Player.KEY);
-		return player.getData();
+		Lives lives = (Lives) playerStatusMap.get(Lives.KEY);
+		return lives.getData();
 	}
 
 

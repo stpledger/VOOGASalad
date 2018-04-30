@@ -144,4 +144,8 @@ public abstract class Entity extends ImageView {
 	public List<Component> getComponentList() {
 		return this.components;
 	}
+
+	public void remove (Component c) {
+		components.remove(c);
+	}
 }
