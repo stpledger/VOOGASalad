@@ -9,6 +9,7 @@ import authoring.MainApplication;
 import authoring.factories.Element;
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
+import authoring.languages.AuthoringLanguage;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -24,7 +25,7 @@ import javafx.stage.Stage;
  * @author Dylan Powers
  * @author Hemanth Yakkali
  */
-public abstract class PropertiesView {
+public abstract class PropertiesView implements AuthoringLanguage {
 	private static final String RESOURCES = "resources.views.Properties/";
 	private static final String BUTTON_RESOURCES = "resources.views.Properties/ButtonProperties";
 	private static final int GRID_SEPARATION = 10;
@@ -149,6 +150,7 @@ public abstract class PropertiesView {
 		return this.elements;
 	}
 
+	@Override
 	public void setLanguage(Properties lang) {
 		language = lang;
 		System.out.println(elements.size());

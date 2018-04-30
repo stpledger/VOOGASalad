@@ -6,6 +6,7 @@ import java.util.function.Consumer;
 import authoring.entities.Entity;
 import authoring.gamestate.Level;
 import authoring.grid.Grid;
+import authoring.languages.AuthoringLanguage;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 
@@ -13,7 +14,7 @@ import javafx.scene.input.MouseEvent;
  * @author Hemanth Yakkali((hy115)
  * @author Collin Brown(cdb55)
  */
-public class LevelView extends ScrollPane {
+public class LevelView extends ScrollPane implements AuthoringLanguage{
 
 	private Grid content;
 	private Level level;
@@ -62,6 +63,7 @@ public class LevelView extends ScrollPane {
 	/**
 	 * Sets the language of the levelview
 	 */
+	@Override
 	public void setLanguage(Properties lang) {
 		language = lang;
 	}

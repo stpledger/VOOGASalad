@@ -1,11 +1,8 @@
 package engine.actions;
 
-import engine.setup.RenderManager;
-import engine.setup.SystemManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.util.List;
 import java.util.function.Consumer;
 

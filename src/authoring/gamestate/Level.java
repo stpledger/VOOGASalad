@@ -22,7 +22,7 @@ public class Level {
 	private String levelText;
 	private double levelTime;
 	private double levelDistance;
-
+	public final static String ERROR_MESSAGE = "Error creating level. Please try again or consult documentation.";
 	@XStreamOmitField
 	private transient List<Entity> entityList;
 

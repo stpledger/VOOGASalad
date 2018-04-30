@@ -40,6 +40,7 @@ public class SplashScreenView extends BranchScreenView{
 		myStage = stage;
 		imageGameStateMap = DataRead.getAllGames();
 		splashScene = initializeScreen();
+
 	}
 
 	/**

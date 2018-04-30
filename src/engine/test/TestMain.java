@@ -1,22 +1,11 @@
 package engine.test;
 
-import javafx.application.Application;
-import javafx.stage.Stage;
+import java.io.FileNotFoundException;
 
 
-public class TestMain extends Application {
+public class TestMain {
 		
-	public static void main(String[] args) {
-		launch(args);
+	public static void main(String[] args) throws FileNotFoundException {
+		new TestGameState();
 	}
-	
-	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Test");
-		TestPlayer tp = new TestPlayer();
-		primaryStage.setScene(tp.getScene());
-		primaryStage.show();
-		
-	}
-	
-	
 }

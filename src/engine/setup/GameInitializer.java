@@ -1,15 +1,22 @@
 package engine.setup;
 
-import java.io.FileNotFoundException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import engine.actions.Actions;
 import engine.components.Component;
 import engine.components.XPosition;
 import engine.components.YPosition;
-import engine.components.groups.Position;
 import engine.exceptions.EngineException;
-import engine.systems.*;
+import engine.systems.Accelerate;
+import engine.systems.Animate;
+import engine.systems.ArtificialIntelligence;
+import engine.systems.ConditionChecker;
+import engine.systems.HealthDamage;
+import engine.systems.ISystem;
+import engine.systems.InputHandler;
+import engine.systems.Motion;
 import engine.systems.collisions.Collision;
 
 /**

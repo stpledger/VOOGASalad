@@ -98,7 +98,7 @@ public class Animate implements ISystem {
             Sprite s = (Sprite) components.get(Sprite.KEY);
         	Animated an = (Animated) components.get(Animated.KEY);
 			if(!s.isPlaying()) {
-				an.animateSprite(s);
+				s.animate(an.getData());
 			}
         	if(components.containsKey(XVelocity.KEY)) {
         		if(Math.abs(((XVelocity) components.get(XVelocity.KEY)).getData()) < 1) {
