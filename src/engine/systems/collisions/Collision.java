@@ -2,7 +2,7 @@ package engine.systems.collisions;
 /**
  * System that checks if the collision happens, and determines where it happens
  * in relation to dimensions
- * author jcf44, sv116
+ * author jcf44, sv116, Yameng Liu
  */
 import java.util.Map;
 import java.util.Set;
