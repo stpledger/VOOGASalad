@@ -5,7 +5,7 @@ package engine.components;
  * @author fitzj
  *
  */
-public class Player extends FlagComponent {
+public class Player extends FlagComponent implements Component {
 
 	public static final String KEY = "Player";
 	

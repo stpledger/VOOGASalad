@@ -1,18 +1,21 @@
 package engine.test;
 
+import java.awt.*;
 import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataWrite;
-import engine.Engine;
-import engine.InternalEngine;
 import engine.actions.Actions;
 import engine.components.*;
+import engine.components.Component;
 import engine.systems.collisions.CollisionDirection;
+
 
 import engine.components.groups.Acceleration;
 import engine.components.groups.Damage;
@@ -24,13 +27,12 @@ import engine.components.presets.PlayerMovement;
 import java.util.function.BiConsumer;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
-import engine.systems.collisions.CollisionDirection;
 import javafx.scene.input.KeyCode;
 
 public class TestGameState {
 
 	private Map<Integer, Map<String, Component>> entities;
-	private Engine eng;
+	//private Engine eng;
 	private InputHandler ih;
 
 
@@ -38,10 +40,10 @@ public class TestGameState {
 		entities = new HashMap<>();
 		//ActionReader AR = new ActionReader();
 		
-		Sprite s = new Sprite(0,"braid.png");
-		//Sprite s4 = new Sprite(3,"mario.png");
+		Sprite s = new Sprite(0,"mario.png");
+		Sprite s3 = new Sprite(2,"8Bit.png");
 
-		Sprite s4 = new Sprite(3,"8Bit.png");
+		//Sprite s4 = new Sprite(3,"8Bit.png");
 
 
 		XPosition px = new XPosition(0, 100);
@@ -51,9 +53,9 @@ public class TestGameState {
 		Height h = new Height(0, 100);
 		XVelocity vx = new XVelocity(0, 0);
 		YVelocity vy = new YVelocity(0, 0);
-		Animated a = new Animated(0);
+		//Animated a = new Animated(0);
 		XAcceleration ax = new XAcceleration(0, 0);
-		YAcceleration ay = new YAcceleration(0,40);
+		YAcceleration ay = new YAcceleration(0,0);
 		//KeyInput k = new KeyInput(0);
 		/*k.addCode( KeyCode.RIGHT, (Consumer<Map<String,Component>> & Serializable) (map) -> {
 			Actions.moveRight(100).accept(map);
@@ -121,6 +123,9 @@ public class TestGameState {
 		mario.put(DamageLifetime.KEY, dl);
 		mario.put(Player.KEY, play);
 		mario.put(Animated.KEY, a);
+		mario.put(Collidable.KEY, collide);
+
+
 		//Map<String, Component> mario2 = new HashMap<>();
 
 		/**
@@ -130,9 +135,8 @@ public class TestGameState {
 		 mario2.put(Position.KEY, p2);
 		 mario2.put(Dimension.KEY, d2);
 		 mario2.put(Sprite.KEY, s2);**/
-		mario.put(Collidable.KEY, collide);
 
-		Map<String, Component> mario2 = new HashMap<>();
+		/**Map<String, Component> mario2 = new HashMap<>();
 
 		XPosition px2 = new XPosition(1, 100);
 		YPosition py2 = new YPosition(1, 300);
@@ -165,42 +169,48 @@ public class TestGameState {
 		mario2.put(AI.KEY, ai2);
 		mario2.put(DamageValue.KEY, damage2);
 		mario2.put(DamageLifetime.KEY, dl2);
-		mario2.put(Collidable.KEY, collide2);
+		mario2.put(Collidable.KEY, collide2);**/
 
-		/**
-		 Position p3 = new Position(2, 300, 100);
-		 Dimension d3 = new Dimension(2, 100, 100);
-		 Velocity v3 = new Velocity(2, 0, 0);
-		 Acceleration a3 = new Acceleration(2, 0, 0);
+
+		XPosition xp3 = new XPosition(2, 300);
+		YPosition yp3 = new YPosition(2, 100);
+		Width w3 = new Width(2, 100);
+		Height he3 = new Height(2, 100);
+		XVelocity xv3 = new XVelocity(2, 0);
+		YVelocity yv3 = new YVelocity(2, 0);
+		XAcceleration xa3 = new XAcceleration(2, 0);
+		YAcceleration ya3 = new YAcceleration(2, 0);
+
 		 Health h3 = new Health(2,10);
-		 DamageLauncher launcher3 = new DamageLauncher(0,2,2);
+		 //DamageLauncher launcher3 = new DamageLauncher(0,2,2);
 		 Win win3 = new Win(2);
 
-		 List<Object> arguments = new ArrayList<>();
 		 Map<String, Component> mario3 = new HashMap<>();
-		 arguments.add(mario3);
-		 List<Position> coordinates = new ArrayList<>();
-		 coordinates.add(new Position(-1, 500, 100));
-		 coordinates.add(new Position(-1, 200, 200));
-		 coordinates.add(new Position(-1, 500, 400));
-		 arguments.add(coordinates);
+		 List<Point> coordinates = new ArrayList<>();
+		 coordinates.add(new Point(500, 100));
+		 coordinates.add(new Point(200, 200));
+		 coordinates.add(new Point(500, 400));
 
-		 mario3.put(Position.KEY, p3);
-		 mario3.put(Dimension.KEY, d3);
+		 mario3.put(XPosition.KEY, xp3);
+		 mario3.put(YPosition.KEY, yp3);
+		 mario3.put(Width.KEY, w3);
+		 mario3.put(Height.KEY, he3);
 		 mario3.put(Sprite.KEY, s3);
-		 mario3.put(Velocity.KEY, v3);
-		 mario3.put(Acceleration.KEY, a3);
+		 mario3.put(XVelocity.KEY, xv3);
+		 mario3.put(YVelocity.KEY, yv3);
+		 mario3.put(XAcceleration.KEY, xa3);
+		 mario3.put(YAcceleration.KEY, ya3);
 		 mario3.put(Health.KEY, h3);
-		 mario3.put(DamageLauncher.KEY, launcher3);
+		 //mario3.put(DamageLauncher.KEY, launcher3);
 		 mario3.put(Win.KEY, win3);
 		 AI ai = new AI(2);
-		 ai.setAction(AR.getAction("patrol", arguments));
+		 ai.setAction(Actions.patrol(coordinates, 20));
 		 mario3.put(AI.KEY, ai);
 
-		 **/
 
 
-		XPosition xp4 = new XPosition(3, 500);
+
+		/**XPosition xp4 = new XPosition(3, 500);
 		YPosition yp4 = new YPosition(3, 300);
 		Collidable c4 = new Collidable(3);
 		Width w4 = new Width(3, 100);
@@ -220,15 +230,15 @@ public class TestGameState {
 		mario4.put(Health.KEY, health4);
 		mario4.put(Collidable.KEY, c4);
 		mario4.put(DamageValue.KEY, damage4);
-		mario4.put(DamageLifetime.KEY, dl4);
+		mario4.put(DamageLifetime.KEY, dl4); **/
 
 		entities.put(0, mario);
 		//entities.put(1, mario2);
-		//entities.put(2, mario3);
+		entities.put(2, mario3);
 		//entities.put(3, mario4);
 		GameInitializer gi = new GameInitializer(entities, 300, 50, 50);
 		ih = gi.getInputHandler();
-		eng = new InternalEngine(gi.getSystems());
+		//eng = new InternalEngine(gi.getSystems());
 
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);
@@ -248,10 +258,6 @@ public class TestGameState {
 	}
 
 
-	public void run(Renderer r) {
-		FixedSteps fs = new FixedSteps((time) -> eng.update(time), r, (fps) -> System.out.println("FPS: " + fps));
-		fs.start();
-	}
 
 	public InputHandler getIH() { return ih; }
 

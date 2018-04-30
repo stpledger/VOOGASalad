@@ -1,6 +1,9 @@
 package engine.systems;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import engine.components.Component;
 import engine.components.XAcceleration;
@@ -17,8 +20,13 @@ import engine.components.YVelocity;
  */
 
 public class Accelerate implements ISystem{
-	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
+	private Map<Integer, Map<String, Component>> handledComponents;
 	private Set<Integer> activeComponents;
+	
+	public Accelerate() {
+		handledComponents = new HashMap<>();
+		activeComponents = new HashSet<>();
+	}
 
 	/**
 	 * Adds acceleration and velocity components from <String, Component> Map

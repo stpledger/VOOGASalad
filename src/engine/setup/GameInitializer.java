@@ -8,6 +8,7 @@ import engine.components.Component;
 import engine.components.XPosition;
 import engine.components.YPosition;
 import engine.components.groups.Position;
+import engine.exceptions.EngineException;
 import engine.systems.*;
 import engine.systems.collisions.Collision;
 
@@ -54,7 +55,7 @@ public class GameInitializer {
         systemManager.setActives(renderManager.render(50, 50));
     }
 
-    public void execute (double time) {
+    public void execute (double time) throws EngineException {
         systemManager.execute(time); //runs all functions of the systems
     }
 

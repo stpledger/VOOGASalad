@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
+import java.util.ResourceBundle;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import authoring.entities.data.PackageExplorer;
@@ -11,9 +13,15 @@ import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
 import authoring.views.popups.SelectionBox;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public abstract class AbstractComponentFormCollection extends GridPane {
 	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final static String ENTITIES_PACKAGE = "engine.components.";
@@ -26,28 +34,52 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 	private List<ComponentForm> activeForms = new ArrayList<>();
 	private List<String> exceptions;
 
+	
+	protected int currentRow;
+	protected int entityID;
+	
 	protected Button addComponentButton;
+	protected Button saveButton;
+	
+	private Class<?> componentFormType;
+	
+	protected Consumer onSave;
 
-	public AbstractComponentFormCollection(String[] newExceptions) {
-		this();
+	public AbstractComponentFormCollection(String[] newExceptions, Consumer c, Class cType) {
+		this(cType);
 		getExceptions().addAll(Arrays.asList(newExceptions));
+		onSave = c;
+		
 	}
 
-	public AbstractComponentFormCollection() {
+	public AbstractComponentFormCollection(Class cType) {
+		componentFormType = cType;
 		this.getStyleClass().add("component-form");
 		setExceptions(new ArrayList<>());
 	}
 
 	protected void createAddComponentButton(int row) {
 		try {
-			Button addComponent = (Button) eFactory.buildClickElement(ClickElementType.Button,"AddComponent", onClick->{
+			addComponentButton = (Button) eFactory.buildClickElement(ClickElementType.Button,"AddComponent", onClick->{
 				String[] options = PackageExplorer.getElementsInPackage(ENTITIES_PACKAGE, ".class","Component");
 				String[] exceptions = new String[] {"Component","Conditional","DataComponent", "ReadDataComponent", "ReadStringComponent","StringComponent", "SingleDataComponent", "SingleStringComponent"};
-				SelectionBox  selectionBox = new SelectionBox(options, exceptions, us -> {addComponent(us);});
+				SelectionBox  selectionBox = new SelectionBox(options, exceptions, us -> {update(us);});
 				selectionBox.setLanguage(language);
 			});
-			addComponentButton = addComponent;
-			this.add(addComponent, 0, row);
+			this.add(addComponentButton, 0, row);
+			this.setAlignment(Pos.CENTER);
+			this.getParent().getScene().getWindow().sizeToScene();
+		} catch (Exception e) {
+			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+		}
+	}
+	
+	protected void createSaveButton(int row) {
+		try {
+			saveButton = (Button) eFactory.buildClickElement(ClickElementType.Button, "Save", onClick->{
+				save(onSave);
+			});
+			this.add(saveButton, 0, row);
 			this.setAlignment(Pos.CENTER);
 			this.getParent().getScene().getWindow().sizeToScene();
 		} catch (Exception e) {
@@ -82,7 +114,66 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 		}
 	}
 
-	public abstract void addComponent(Object componentName);
+	
+	public void setSaveConsumer(Consumer onSave) {
+		saveButton.setOnMouseClicked(e->{
+			onSave.accept(this.getActiveForms());
+		});
+	}
+	
+	public void fill(String entityType) {
+		try {
+		currentRow = 0;
+		this.getChildren().clear();
+		for (String property : ResourceBundle.getBundle(getPropertiesPackage() + entityType).keySet()) {
+			if(!getExceptions().contains(property)) {
+				this.addComponent(property);
+			}
+		}
+		this.createAddComponentButton(currentRow);
+		currentRow++;
+		this.createSaveButton(currentRow);
+		currentRow++;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	private void update(Object componentName) {
+		this.getChildren().remove(addComponentButton);
+		this.getChildren().remove(saveButton);
+		this.addComponent((String) componentName);
+		this.createAddComponentButton(currentRow);
+		currentRow++;
+		this.createSaveButton(currentRow);
+		currentRow++;
+		
+		
+	}
+	
+	private void addComponent(String componentName) {
+		try {
+			ArrayList<ComponentForm> newActiveForms = new ArrayList<>();
+			newActiveForms.addAll(this.getActiveForms());
+			ComponentForm cf = null;
+			if(componentFormType.equals(PropertiesComponentForm.class)) {
+				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance(entityID, (componentName));
+			} else {
+				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance((componentName));
+			}
+			cf.setAlignment(Pos.CENTER);
+			this.add((Node) cf, 0, currentRow);
+			cf.setLanguage(language);
+			newActiveForms.add(cf);
+			this.setActiveForms(newActiveForms);
+			currentRow++;
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	protected abstract void save(Consumer c);
 
 
 

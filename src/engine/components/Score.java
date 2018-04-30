@@ -5,7 +5,7 @@ package engine.components;
  * @author fitzj
  *
  */
-public class Score extends SingleDataComponent {
+public class Score extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 	
 	public static final String KEY = "Score";
 	

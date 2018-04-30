@@ -11,19 +11,21 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import javafx.animation.Animation;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
-import javafx.util.Duration;
 
 /**
  * Sprite component containing an image. Constructor and setter throw file not found if the filepath is incorrect.
+ * Allows for animation with a special system tool. Animation system calls the sprite's animate method to do this.
  * @author fitzj
  */
-public class Sprite extends SingleStringComponent {
-	public static final String FILE_PATH ="File:";
-	public static final String IMAGE_PATH ="data\\";
+public class Sprite extends SingleStringComponent implements Component, StringComponent, ReadStringComponent {
+
 	private String name;
 	
-	public static String KEY = "Sprite";
+	public static final String KEY = "Sprite";
 	
+	/**
+	 * Boolean used to track state of animation. Not used for non-animated sprites.
+	 */
 	private boolean isPlaying = false;
 	
 	@XStreamOmitField
@@ -39,7 +41,9 @@ public class Sprite extends SingleStringComponent {
 	}
 	
 	public ImageView getImage() {
-		if (image == null) setData(getData());
+		if (image == null) {
+			setData(getData());
+		}
 		return image;
 	}
 
@@ -59,29 +63,46 @@ public class Sprite extends SingleStringComponent {
 		
 	}
 	
-	public void animate(double dur, int count, int columns, int offsetX, int offsetY, int width, int height) {
-		Duration duration = new Duration(dur);
-		getImage().setViewport(new Rectangle2D(offsetX, offsetY, width, height));
-		a = new SpriteTransition(getImage(), duration, count, columns, offsetX, offsetY, width, height);
+	/**
+	 * Animates sprite using a Sprite Transition, a kind of animation that changes the image's viewport.
+	 * @param time		Total time for animation (one cycle through sprite sheet)
+	 * @param total		Total number of images on sprite sheet
+	 * @param columns	Number of columns of sprite sheet
+	 * @param x			x offset of sprite sheet - should be made to be 0 normally
+	 * @param y			y offset of sprite sheet - should be made to be 0 normally
+	 * @param w			Width of each image on sprite sheet
+	 * @param h			Height of each image on sprite sheet
+	 */
+	public void animate(double time, int total, int columns, int x, int y, int w, int h) {
+		getImage().setViewport(new Rectangle2D(x, y, w, h));
+		a = new SpriteTransition(getImage(), time, total, columns, x, y, w, h);
 		a.setCycleCount(Animation.INDEFINITE);
 		a.play();
 		isPlaying = true;
 	}
 	
+	/**
+	 * Pauses animation
+	 */
 	public void pauseAnimation() {
 		if(a != null) {
 			a.pause();
-			isPlaying = false;
 		}
 	}
 	
+	/**
+	 * Plays animation, does not work if animiate  has not been called
+	 */
 	public void playAnimation() {
 		if(a != null) {
 			a.play();
-			isPlaying = true;
 		}
 	}
 	
+	/**
+	 * Returns if the animation is playing
+	 * @return	If the animation is playing
+	 */
 	public boolean isPlaying() {
 		return isPlaying;
 	}

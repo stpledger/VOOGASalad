@@ -21,7 +21,7 @@ import javafx.scene.layout.Pane;
  */
 public class Cell extends Pane {
 
-	private final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
+	private final static String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
 	private List<Entity> entityList;
 	private Image image;
 	private Level level;
@@ -31,7 +31,7 @@ public class Cell extends Pane {
 	 */
 	public Cell(Level level) {
 		this.level = level;
-		this.entityList = new ArrayList<Entity>();
+		this.entityList = new ArrayList<>();
 		this.setPrefWidth(Entity.ENTITY_WIDTH);
 		this.setPrefHeight(Entity.ENTITY_HEIGHT);
 		this.setStyle(DEFAULT_STYLE);
@@ -85,7 +85,7 @@ public class Cell extends Pane {
 	 * @return true if the cell contains an entity
 	 */
 	public boolean containsEntity() {
-		return this.entityList.size()>0;
+		return !this.entityList.isEmpty();
 	}
 
 	/**

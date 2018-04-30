@@ -4,7 +4,13 @@ package engine.systems.collisions;
  * in relation to dimensions
  * author jcf44, sv116
  */
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 import engine.components.Collidable;
 import engine.components.Component;
@@ -14,8 +20,8 @@ import engine.components.XPosition;
 import engine.components.XVelocity;
 import engine.components.YPosition;
 import engine.components.YVelocity;
-import engine.setup.SystemManager;
 import engine.systems.DefaultSystem;
+
 
 public class Collision extends DefaultSystem{
 	private Map<Integer, Map<String,Component>> handledComponents = new HashMap<>();
@@ -32,7 +38,7 @@ public class Collision extends DefaultSystem{
 	}
 
 	public void execute(double time) {
-		activeComponents.forEach((key1) -> {
+		activeComponents.forEach(key1 -> {
 			handledComponents.forEach((key2, vel) -> {
 
 				if (key1 != key2) {
@@ -76,10 +82,18 @@ public class Collision extends DefaultSystem{
 					CollisionDirection cd = null;
 
 					if (overlaps.size() > 0) {
-						if (overlaps.get(0) == topOverlap) cd = CollisionDirection.Top;
-						else if (overlaps.get(0) == botOverlap) cd = CollisionDirection.Bot;
-						else if (overlaps.get(0) == rightOverlap) cd = CollisionDirection.Right;
-						else if (overlaps.get(0) == leftOverlap) cd = CollisionDirection.Left;
+						if (overlaps.get(0) == topOverlap) {
+							cd = CollisionDirection.Top;
+						}
+						else if (overlaps.get(0) == botOverlap) {
+							cd = CollisionDirection.Bot;
+						}
+						else if (overlaps.get(0) == rightOverlap) {
+							cd = CollisionDirection.Right;
+						}
+						else if (overlaps.get(0) == leftOverlap) {
+							cd = CollisionDirection.Left;
+						}
 					}
 
 					if (cd != null) {
@@ -94,10 +108,18 @@ public class Collision extends DefaultSystem{
 							Collidable cdb = (Collidable) handledComponents.get(key2).get(Collidable.KEY);
 							
 							CollisionDirection cd2 = null;
-							if(cd == CollisionDirection.Top) cd2 = CollisionDirection.Bot;
-							else if(cd == CollisionDirection.Bot) cd2 = CollisionDirection.Top;
-							else if(cd == CollisionDirection.Left) cd2 = CollisionDirection.Right;
-							else cd2 = CollisionDirection.Left;
+							if(cd == CollisionDirection.Top) {
+								cd2 = CollisionDirection.Bot;
+							}
+							else if(cd == CollisionDirection.Bot) {
+								cd2 = CollisionDirection.Top;
+							}
+							else if(cd == CollisionDirection.Left) {
+								cd2 = CollisionDirection.Right;
+							}
+							else {
+								cd2 = CollisionDirection.Left;
+							}
 							cdb.action(cd2, handledComponents.get(key2), handledComponents.get(key1));
 						}
 

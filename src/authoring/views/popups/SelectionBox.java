@@ -22,12 +22,12 @@ import javafx.stage.Stage;
  */
 public class SelectionBox extends VBox implements PopUp {
 
-	Properties language = new Properties();
-	ArrayList<Element> elements = new ArrayList<>();
-	String selection = "";
-	Stage stage;
-
-	ElementFactory eFactory = new ElementFactory();
+	private Properties language = new Properties();
+	private ArrayList<Element> elements = new ArrayList<>();
+	private String selection = "";
+	private Stage stage;
+	private ElementFactory eFactory = new ElementFactory();
+	
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public SelectionBox(String[] options, String[] exceptions, Consumer consumer){
