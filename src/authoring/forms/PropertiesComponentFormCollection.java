@@ -1,27 +1,26 @@
 package authoring.forms;
 
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 import java.util.function.Consumer;
 
-import authoring.exceptions.AuthoringAlert;
-import authoring.exceptions.AuthoringException;
+import authoring.entities.Entity;
 import engine.components.Component;
 import engine.components.DataComponent;
 import engine.components.StringComponent;
-import javafx.geometry.Pos;
+
 /**
  * 
  * @author Collin Brown(cdb55)
  *
  */
 public class PropertiesComponentFormCollection extends AbstractComponentFormCollection {
-	
+	Entity entity;
 	private int currentRow;
 	
-	public PropertiesComponentFormCollection(int eID, String[] newExceptions, Consumer onSave) {
+	public PropertiesComponentFormCollection(Entity en, String[] newExceptions, Consumer onSave) {
 		super(newExceptions, onSave, PropertiesComponentForm.class);
-		entityID = eID;
+		entity = en;
+		entityID = entity.getID();
 	}
 
 
@@ -29,19 +28,39 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 	protected void save(Consumer onSave) {
 		ArrayList<Component> componentsToAdd = new ArrayList<Component>();
 		for(ComponentForm cf : this.getActiveForms()) {
+			try {
 			Component c = (Component) ((PropertiesComponentForm) cf).buildComponent();
-			if(!c.getKey().isEmpty() && c.getClass().isInstance(DataComponent.class)) {
-				try {
-					((DataComponent) c).getData();
-					componentsToAdd.add(c);
-				} catch(Exception e) {
-					AuthoringException authorException = new AuthoringException(c.getKey() + "is not a valid integer", AuthoringAlert.SHOW);
-				}
-			} else if (!c.getKey().isEmpty() && c.getClass().isInstance(StringComponent.class)); {
-				componentsToAdd.add(c);
+			componentsToAdd.add(c);		
+			} catch(Exception e) {
+				e.printStackTrace();
 			}
+			
 		}
 		onSave.accept(componentsToAdd);
+		
+	}
+
+
+	@Override
+	protected boolean hasCurrentValue(String componentName) {
+		for(Component c: entity.getComponentList()) {
+			if(c.getKey().equals(componentName)) {
+				return true;
+			}
+		}
+		return false;
+		
+	}
+
+
+	@Override
+	protected Object getCurrentValue(String componentName) {
+		Component component = entity.get(componentName);
+		if(DataComponent.class.isAssignableFrom(component.getClass())) {
+			return ((DataComponent) component).getData();
+		} else {
+			return ((StringComponent) component).getData();
+		}
 		
 	}
 

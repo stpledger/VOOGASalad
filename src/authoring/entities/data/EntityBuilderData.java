@@ -9,6 +9,11 @@ import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
 import authoring.forms.ComponentForm;
 
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class EntityBuilderData {
 
 	private Map<Class, Object[]> componentAttributes = new HashMap<>();
