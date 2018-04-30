@@ -1,6 +1,10 @@
 package engine.components;
 
-public class YPosition extends SingleDataComponent {
+/**
+ * Data component representing y position of entity
+ * @author fitzj
+ */
+public class YPosition extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 	
 	public YPosition(int pid, double data) {
 		super(pid, data);

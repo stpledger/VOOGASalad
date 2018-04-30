@@ -6,7 +6,7 @@ package engine.components;
  *
  */
 
-public class Health extends SingleDataComponent {
+public class Health extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 	private double initialHealth;
 	public static final String KEY = "Health";
 	

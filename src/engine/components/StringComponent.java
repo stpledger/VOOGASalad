@@ -10,4 +10,5 @@ public interface StringComponent {
 	public void setData(String data);
 	public int getPID();
 	public void setPID(int pid);
+	public String getKey();
 }

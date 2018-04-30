@@ -1,6 +1,6 @@
 package data;
 
-import GamePlayer.Person;
+import gameplayer.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import authoring.entities.Entity;
@@ -94,6 +94,7 @@ public class DataWrite {
         BufferedImage image = null;
         try {
             image = ImageIO.read(file);
+            //Image noWhite = ImageUtil.convert();
             File fileDest = new File(DEFAULT_IMAGEPATH + file.getName());
             ImageIO.write(image, getFileType(file), fileDest);
         } catch (IOException e) {
