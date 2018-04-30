@@ -15,6 +15,7 @@ public class EntityBuilderData {
 
 	private final static String COMPONENT_PREFIX = "engine.components.";
 	private final String NAME_ERROR_MESSAGE = "There must be a value in the \"Name\" field.\n";
+	private final String COMPONENT_ERROR_MESSAGE = "The component %s does not exist. Please check the package engine.components to make sure that the component has been created.\n";
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public EntityBuilderData() {
@@ -33,7 +34,7 @@ public class EntityBuilderData {
 			}
 			componentAttributes.put(c, new Object[] {val});
 		} catch (Exception e) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
+			throw new AuthoringException(COMPONENT_ERROR_MESSAGE, AuthoringAlert.SHOW, c.getName());
 		}
 	}
 
@@ -50,13 +51,13 @@ public class EntityBuilderData {
 				try {
 					componentAttributes.put(Class.forName(COMPONENT_PREFIX + componentForm.getName()), tempArr);
 				} catch (Exception e) {
-					throw e;
+					throw new AuthoringException(COMPONENT_ERROR_MESSAGE, AuthoringAlert.SHOW, componentForm.getName());
 				}
 			}
 		}
 		EntitySaver saver = new EntitySaver();
 		if (this.componentAttributes.get(engine.components.Name.class)[0] == null) {
-			AuthoringException e = new AuthoringException(NAME_ERROR_MESSAGE, AuthoringAlert.SHOW);
+			throw new AuthoringException(NAME_ERROR_MESSAGE, AuthoringAlert.SHOW);
 		}
 		saver.writeXML(componentAttributes, (String) this.componentAttributes.get(engine.components.Name.class)[0]);
 	}

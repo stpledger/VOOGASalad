@@ -23,7 +23,6 @@ public class MainApplication extends Application {
 		mainStage.sizeToScene();
 		mainStage.centerOnScreen();
 	};
-
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		AuthoringLogger.setup();

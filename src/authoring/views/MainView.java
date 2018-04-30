@@ -40,18 +40,21 @@ public class MainView {
 
 	/**
 	 * Creates an instance of GameAuthoringEnvironment Based on a file
-	 * @param selectedFile the selected file to load a game from
+	 * @param name the name of the game to load/create
 	 */
-	public MainView(File selectedFile) {
-		gameEditorView = new GameEditorView(setLangConsumer);
+	public MainView(String name) {
+		// TODO check if name exists in path
+		gameEditorView = new GameEditorView(setLangConsumer, name);
+		
 		this.build();
 	}
+	
 	/**
 	 * Creates a new instance of GameAuthoringEnvironment
 	 * 
 	 */
-	public MainView() {
-		gameEditorView = new GameEditorView(setLangConsumer);
+	public MainView(File selectedFile) {
+		gameEditorView = new GameEditorView(setLangConsumer, selectedFile.getName());
 		this.build();
 	}
 

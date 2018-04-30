@@ -21,9 +21,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import GamePlayer.Main;
 import authoring.entities.Entity;
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
 import authoring.factories.Toolbar;
+import authoring.gamestate.GameNameChooser;
 import authoring.gamestate.GameState;
 import authoring.gamestate.Level;
 import authoring.views.popups.SelectionBox;
@@ -50,17 +53,20 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	private Toolbar toolbar;
 	private ElementFactory eFactory;
 	private int nextEntityID  = 0;
+	private final String SAVE_ERROR = "Game could not be saved.";
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private Consumer<List<Tab>> updateTabs = tabList -> { updateTabsMethod(tabList); };
 	private static final int BLOCK_DEFAULT_WIDTH = 50;
 	private Consumer<String> setMainViewLang;
+	private String name;
 
 	Properties language = new Properties();
 
 	/**
 	 * Default Constructor creates a Borderpane with a toolbar in the top, tabPane in the center, and a gamestate object
+	 * @param name the name of the game being created
 	 */
-	public GameEditorView(Consumer<String> setLanguage) {
+	public GameEditorView(Consumer<String> setLanguage, String name) {
 		super();
 		setMainViewLang = setLanguage;
 		this.toolbar = new Toolbar("GameEditor", buildToolbarFunctionMap());
@@ -68,6 +74,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		this.tabPane = new TabPane();
 		this.levelTabsList = new ArrayList<>();
 		this.state = new GameState();
+		state.setName(name);
 		this.setCenter(tabPane);
 		this.eFactory = new ElementFactory();
 		addLevel();
@@ -128,7 +135,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			//((LevelView) t.getContent()).setLanguage(language);
 			tabPane.getTabs().add(t);
 		} catch (Exception e) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
+			throw new AuthoringException(Level.ERROR_MESSAGE, AuthoringAlert.SHOW);
 		}
 	}
 
@@ -158,6 +165,8 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 
 	private void newGameMethod() {
 		state = new GameState();
+		GameNameChooser gnc = new GameNameChooser();
+		gnc.showAndWait(name -> state.setName(name));
 		levelTabsList = new ArrayList<>();
 		tabPane.getTabs().clear();
 	}
@@ -172,7 +181,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 				try { 
 					new Main().start(new Stage());
 				} catch (Exception e) { 
-					LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
+					throw new AuthoringException(e, AuthoringAlert.NO_SHOW);
 				}
 			}	
 		});	
@@ -209,9 +218,9 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	 */
 	private void saveGameMethod() {
 		try {
-			DataWrite.saveFile(this.state, "MyFirstGame");
+			this.state.save();
 		} catch (Exception ex) {
-			LOGGER.log(java.util.logging.Level.SEVERE, ex.getMessage(), ex);
+			throw new AuthoringException(SAVE_ERROR, AuthoringAlert.SHOW);
 		}
 	}
 
@@ -233,7 +242,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 					Entity entity = createEntityFromComponentList(entityID, componentList);
 					levelView.addEntity(entity);
 				} catch (Exception e) {
-					LOGGER.log(java.util.logging.Level.SEVERE, "Error creating entity: " + entityID, e);
+					throw new AuthoringException(Entity.ERROR_MESSAGE, AuthoringAlert.SHOW);
 				}
 			}
 		}
@@ -290,7 +299,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			((LevelView) tabPane.getSelectionModel().getSelectedItem().getContent()).addEntity(entity);
 			nextEntityID++;
 		} catch (Exception e) {
-			LOGGER.log(java.util.logging.Level.SEVERE, "Error creating new entity", e);
+			throw new AuthoringException(Entity.ERROR_MESSAGE, AuthoringAlert.SHOW);
 		}
 	}
 
