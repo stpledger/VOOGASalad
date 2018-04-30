@@ -32,19 +32,20 @@ public class Controller {
 	private GameView gameView;
 
 	private Map<Integer, Pane> gameLevelDisplays;
-	private DataGameState currentGameState;
 	private Timeline myTimeline;
-	private Map<Integer, Map<String, Component>> playerKeys;
+	//private Map<Integer, Map<String, Component>> playerKeys;
 	private SampleToolBar sampleBar;
 	private Map<Integer, Map<String, Boolean>> hudPropMap;
 	private Timeline animation;
 	private String currentGameName;
 	private DataGameState gameState;
+	private GameManager gameManager;
 
 	public Controller(Stage stage, DataGameState currentGame) {
 		gameState = currentGame;
 		myStage = stage;
 		myStage.setResizable(false);
+		gameManager = new GameManager(currentGame);
 	}
 
 	/**
@@ -62,9 +63,8 @@ public class Controller {
 	 * Method that sets the current scene of the game
 	 */
 	public void setGameView() {
-		gameView = new GameView(gameState);
+		gameView = new GameView(gameState, gameManager);
 		hudPropMap = gameView.getHudPropMap();
-		playerKeys = gameView.getPlayerKeys();
 		gameLevelDisplays = gameView.getGameLevelDisplays();
 
 		gameRoot = gameLevelDisplays.get(LEVEL_ONE);
@@ -73,20 +73,10 @@ public class Controller {
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
 
-		sampleBar = new SampleToolBar(LEVEL_ONE, playerKeys, hudPropMap);
+		sampleBar = new SampleToolBar(LEVEL_ONE, gameManager.getPlayerKeys(), hudPropMap);
 		myPane.setTop(sampleBar);
 
-		//TODO: IS THIS STUFF NECESSARY?
-		/*for(Win w : gameView.getWinComponents()){
-			w.getWinStatus().addListener((o, oldVal, newVal) -> {
-				changeGameLevel(gameView.getActiveLevel() + 1);
-			});
-		}*/
 		initializeGameAnimation();
-		//set level change listener
-		/*gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
-			changeGameLevel(newVal.intValue());
-		});*/
 	}
 
 
@@ -107,7 +97,7 @@ public class Controller {
 	 * @param level to be loaded
 	 */
 	public void changeGameLevel(int level) {
-		if(level > gameView.getNumOfLevels()){
+		if(level > gameManager.getNumOfLevels()){
 			gameOver();
 		}
 		else {
@@ -138,8 +128,7 @@ public class Controller {
 				renderTime = 0;
 			}
 			gameView.updateScroll(gameRoot);
-			playerKeys = gameView.getPlayerKeys();
-			sampleBar.updateGameStatusValues(playerKeys);
+			sampleBar.updateGameStatusValues(gameManager.getPlayerKeys());
 			sampleBar.updateGameStatusLabels();
 		}
 	}
