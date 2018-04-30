@@ -1,8 +1,9 @@
 package authoring.gamestate;
 
 import java.util.List;
-import java.util.logging.Logger;
 
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 import data.DataWrite;
 
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ public class GameState implements IGameState {
 	 * It will then continue to keep track of the current state of the game by using the update method below.
 	 */
 	private List<Level> state;
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	private static String name;
 
 	public GameState() {
@@ -35,7 +35,7 @@ public class GameState implements IGameState {
 		try {
 			DataWrite.saveFile(this, name);
 		} catch (Exception e) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			throw new AuthoringException("Error with saving game file!",AuthoringAlert.SHOW);
 		}
 	}
 

@@ -31,6 +31,7 @@ import javafx.stage.Stage;
  * @author Hemanth Yakkali
  */
 public abstract class PropertiesView implements AuthoringLanguage {
+	
 	private static final String RESOURCES = "resources.views.Properties/";
 	private static final String FORM_RESOURCES = "resources.views.Properties/FormProperties";
 	private static final int GRID_SEPARATION = 10;
