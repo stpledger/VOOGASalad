@@ -2,7 +2,7 @@ package Menu;
 
 import java.util.Map;
 
-import gameplayer.Controller;
+import GamePlayer.Controller;
 import engine.components.Component;
 import javafx.collections.ObservableList;
 import javafx.scene.control.MenuBar;

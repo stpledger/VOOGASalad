@@ -1,4 +1,4 @@
-package gameplayer;
+package GamePlayer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +44,6 @@ public class SplashScreenView extends BranchScreenView{
 		Person p =new Person("Conrad", 100.1);
 		peope.add(new Person("Hetflanth", 10.1));
 		DataWrite.saveHighscore(p);
-
 	}
 
 	@Override
