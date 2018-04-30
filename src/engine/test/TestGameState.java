@@ -207,7 +207,7 @@ public class TestGameState {
 		 //mario3.put(DamageLauncher.KEY, launcher3);
 		 mario3.put(Win.KEY, win3);
 		 AI ai = new AI(2);
-		 ai.setAction(Actions.patrol(coordinates));
+		 ai.setAction(Actions.patrol(coordinates, 20));
 		 mario3.put(AI.KEY, ai);
 
 
