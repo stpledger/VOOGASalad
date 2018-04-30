@@ -22,6 +22,7 @@ public abstract class Entity extends ImageView {
 	private int ID;
 	public final static int ENTITY_WIDTH = 50;
 	public final static int ENTITY_HEIGHT = 50;
+	public final static String ERROR_MESSAGE = "Error creating entity. Please try again.";
 	List<Component> components;
 	public String type;
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);

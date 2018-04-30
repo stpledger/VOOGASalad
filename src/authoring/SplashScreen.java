@@ -10,6 +10,8 @@ import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import authoring.gamestate.GameNameChooser;
+import authoring.gamestate.GameState;
 import authoring.views.MainView;
 
 import javafx.geometry.Pos;
@@ -75,13 +77,18 @@ public class SplashScreen extends VBox {
 		s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		changeScene.accept(s);
 	}
+	
 	public void newAuthor() {
-		MainView mainView  = new MainView();
-		Parent layout = mainView.build();
-		Scene s = new Scene(layout, mainView.getIDEWidth(), mainView.getIDEHeight());
-		s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
-		changeScene.accept(s);
+		GameNameChooser gcn = new GameNameChooser();
+		gcn.showAndWait(name -> {
+			MainView mainView  = new MainView(name);
+			Parent layout = mainView.build();
+			Scene s = new Scene(layout, mainView.getIDEWidth(), mainView.getIDEHeight());
+			s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+			changeScene.accept(s);
+		});
 	}
+	
 
 	/**
 	 * Builds a button with the text equivalent to 
