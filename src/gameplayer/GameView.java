@@ -51,9 +51,9 @@ public class GameView implements IGamePlayerView{
 	 * Constructor when given the gameState
 	 * @param gamestate
 	 */
-	public GameView(DataGameState gamestate, GameManager gameManager) {
+	public GameView(DataGameState gamestate, GameManager gamemanager) {
 		gameState = gamestate;
-		this.gameManager = gameManager;
+		this.gameManager = gamemanager;
 		levels = gameState.getGameState();
 		hudPropMap = obtainHudProps(levels);
 		intLevels = levelToInt(levels);
@@ -206,26 +206,21 @@ public class GameView implements IGamePlayerView{
 	private Map<Integer, Pane> createLevelDisplays(Map<Level, Map<Integer, Map<String, Component>>> map){
 		Map<Integer, Pane> levelEntityMap = new HashMap<>();
 		for(Level level : map.keySet()) {
-			levelEntityMap.put(level.getLevelNum(), createIndividualEntityGroup(map.get(level), level.getLevelNum()));
+			levelEntityMap.put(level.getLevelNum(), createIndividualLevelDisplay(map.get(level), level.getLevelNum()));
 		}
 		return levelEntityMap;
 	}
 
 	/**
-	 * Method that creates all the groups for each level in a levels.
+	 * Method that creates all the panes for each level in a game.
 	 * @param entityMap
 	 * @return
 	 */
-	private Pane createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap, int levelNum) {
+	private Pane createIndividualLevelDisplay(Map<Integer, Map<String, Component>> entityMap, int levelNum) {
 		Pane entityRoot = new Pane();
 		Map<String, Component> entityComponents;
 		for(Integer i : entityMap.keySet()) {
 			entityComponents = entityMap.get(i);
-			//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
-			if(entityComponents.containsKey(Player.KEY)){
-				playerKeys.put(levelNum, entityComponents);
-				System.out.println("putting in player for level " + levelNum);
-			}
 
 			if(entityComponents.containsKey(Sprite.KEY)) {
 				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);

@@ -43,7 +43,6 @@ public class Controller implements IController{
 		gameState = currentGame;
 		myStage = stage;
 		myStage.setResizable(false);
-		gameManager = new GameManager(currentGame);
 	}
 
 	/**
@@ -51,33 +50,11 @@ public class Controller implements IController{
 	 * @return
 	 */
 	public Scene initializeStartScene() {
+		this.gameManager = new GameManager(gameState);
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
 		assignKeyInputs();
 		setGameView();
 		return myScene;
-	}
-
-	/**
-	 * Changes the display of the gave.
-	 * @param level to be loaded
-	 */
-	public void changeGameLevel(int level) {
-		if(level > gameView.getNumOfLevels()){
-			gameOver();
-		}
-		else {
-			gameRoot = gameLevelDisplays.get(level);
-			myPane.setCenter(gameRoot);
-			gameView.setActiveLevel(level);
-		}
-	}
-
-	/**
-	 * Returns the level game display
-	 * @return
-	 */
-	public Map<Integer, Pane> getGameLevelRoot(){
-		return gameLevelDisplays;
 	}
 	
 	/**
