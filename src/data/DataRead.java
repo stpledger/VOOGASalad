@@ -97,7 +97,10 @@ public class DataRead  {
         File file = loadFile(GAME_PATH);
         for(File game : file.listFiles()){
           DataGameState playable = loadPlayerFile(findInDirectory(game,PLAYER_TARGET));
-          Image icon = getIcons().get(0);
+          Image icon = null;
+          try {
+          icon = getIcons().get(0);
+          }catch(Exception e) {e.printStackTrace();}
           games.put(icon, playable);
         }
         return games;

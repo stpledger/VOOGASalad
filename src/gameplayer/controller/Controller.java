@@ -1,4 +1,3 @@
-
 package gameplayer.controller;
 
 import java.util.Map;
@@ -17,7 +16,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Controller implements IController {
+public class Controller implements IController{
 	private static final int WIDTH_SIZE = 800;
 	private static final int HEIGHT_SIZE = 500;
 	private static final int LEVEL_ONE = 1;
@@ -34,13 +33,12 @@ public class Controller implements IController {
 	private GameView gameView;
 
 	private Map<Integer, Pane> gameLevelDisplays;
-	private DataGameState currentGameState;
-	private Map<Integer, Map<String, Component>> playerKeys;
 	private SampleToolBar sampleBar;
 	private Map<Integer, Map<String, Boolean>> hudPropMap;
 	private Timeline animation;
 	private String currentGameName;
 	private DataGameState gameState;
+	private GameManager gameManager;
 
 	public Controller(Stage stage, DataGameState currentGame) {
 		myPane = new BorderPane();
@@ -48,40 +46,18 @@ public class Controller implements IController {
 		gameState = currentGame;
 		myStage = stage;
 		myStage.setResizable(false);
+		this.gameManager = new GameManager(gameState);
+		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
+		assignKeyInputs();
+		setGameView();
 	}
 
 	/**
 	 * Initializes controller scene
 	 * @return
 	 */
-	public Scene initializeStartScene() {
-		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
-		assignKeyInputs();
-		setGameView();
+	public Scene getControllerScene() {
 		return myScene;
-	}
-
-	/**
-	 * Changes the display of the gave.
-	 * @param level to be loaded
-	 */
-	public void changeGameLevel(int level) {
-		if(level > gameView.getNumOfLevels()){
-			gameOver();
-		}
-		else {
-			gameRoot = gameLevelDisplays.get(level);
-			myPane.setCenter(gameRoot);
-			gameView.setActiveLevel(level);
-		}
-	}
-
-	/**
-	 * Returns the level game display
-	 * @return
-	 */
-	public Map<Integer, Pane> getGameLevelRoot(){
-		return gameLevelDisplays;
 	}
 	
 	/**
@@ -101,35 +77,17 @@ public class Controller implements IController {
 	/**
 	 * Method that sets the current scene of the game
 	 */
-	private void setGameView() {
+	public void setGameView() {
 		gameView = new GameView(gameState);
 		hudPropMap = gameView.getHudPropMap();
-		playerKeys = gameView.getPlayerKeys();
 		gameLevelDisplays = gameView.getGameLevelDisplays();
 		gameRoot = gameLevelDisplays.get(LEVEL_ONE);
 		myPane.setCenter(gameRoot);
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
-<<<<<<< HEAD:src/gameplayer/Controller.java
-
-		sampleBar = new SampleToolBar(LEVEL_ONE, playerKeys, hudPropMap);
-		myPane.setTop(sampleBar);
-
-		//TODO: IS THIS STUFF NECESSARY?
-		/*for(Win w : gameView.getWinComponents()){
-			w.getWinStatus().addListener((o, oldVal, newVal) -> {
-				changeGameLevel(gameView.getActiveLevel() + 1);
-			});
-		}*/
-=======
 		sampleBar = new SampleToolBar(LEVEL_ONE, gameManager.getPlayerKeys(), hudPropMap);
 		myPane.setTop(sampleBar);
->>>>>>> 727e46d96542bfe11fad7c0f6afd6a0ce1f94c89:src/gameplayer/controller/Controller.java
 		initializeGameAnimation();
-		//set level change listener
-		/*gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
-			changeGameLevel(newVal.intValue());
-		});*/
 	}
 	
 	/**
@@ -144,7 +102,29 @@ public class Controller implements IController {
 		animation.play();
 	}
 
-	
+	/**
+	 * Changes the display of the gave.
+	 * @param level to be loaded
+	 */
+	public void changeGameLevel(int level) {
+		if(level > gameManager.getNumOfLevels()){
+			gameOver();
+		}
+		else {
+			gameRoot = gameLevelDisplays.get(level);
+			myPane.setCenter(gameRoot);
+			gameView.setActiveLevel(level);
+		}
+	}
+
+	/**
+	 * Returns the level game display
+	 * @return
+	 */
+	public Map<Integer, Pane> getGameLevelRoot(){
+		return gameLevelDisplays;
+	}
+
 	/**
 	 * Step method that repeats the animation by checking entities using render and system Manager
 	 * @param elapsedTime
@@ -158,8 +138,7 @@ public class Controller implements IController {
 				renderTime = 0;
 			}
 			gameView.updateScroll(gameRoot);
-			playerKeys = gameView.getPlayerKeys();
-			sampleBar.updateGameStatusValues(playerKeys);
+			sampleBar.updateGameStatusValues(gameManager.getPlayerKeys());
 			sampleBar.updateGameStatusLabels();
 		}
 	}
