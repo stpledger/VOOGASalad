@@ -4,6 +4,7 @@ package gameplayer.controller;
 import java.util.Map;
 
 import data.DataGameState;
+import engine.components.Component;
 import gameplayer.hud.SampleToolBar;
 import gameplayer.menu.MenuGameBar;
 import gameplayer.menu.PauseMenu;
