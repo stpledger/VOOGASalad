@@ -1,4 +1,3 @@
-
 package gameplayer.controller;
 
 import java.util.Map;
@@ -100,6 +99,12 @@ public class Controller implements IController {
 	}
 
 	/**
+	 * Returns the GamePlayer main controller scene to play the game.
+	 */
+	public Scene getControllerScene() {
+		return myScene;
+	}
+	/**
 	 * Method that sets the current scene of the game
 	 */
 	private void setGameView() {
@@ -111,21 +116,8 @@ public class Controller implements IController {
 		myPane.setCenter(gameRoot);
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
-<<<<<<< HEAD:src/gameplayer/Controller.java
-
 		sampleBar = new SampleToolBar(LEVEL_ONE, playerKeys, hudPropMap);
 		myPane.setTop(sampleBar);
-
-		//TODO: IS THIS STUFF NECESSARY?
-		/*for(Win w : gameView.getWinComponents()){
-			w.getWinStatus().addListener((o, oldVal, newVal) -> {
-				changeGameLevel(gameView.getActiveLevel() + 1);
-			});
-		}*/
-=======
-		sampleBar = new SampleToolBar(LEVEL_ONE, gameManager.getPlayerKeys(), hudPropMap);
-		myPane.setTop(sampleBar);
->>>>>>> 727e46d96542bfe11fad7c0f6afd6a0ce1f94c89:src/gameplayer/controller/Controller.java
 		initializeGameAnimation();
 		//set level change listener
 		/*gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
@@ -178,7 +170,6 @@ public class Controller implements IController {
 		myScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
 				pauseMenu.show(myStage);
-				//myTimeline.pause();
 			} else {
 				if(gameView != null) {
 					gameView.setInput(e.getCode());
@@ -200,5 +191,7 @@ public class Controller implements IController {
 	private void gameOver(){
 		//TODO add game over functionality like the high score screen
 	}
+
+
 
 }

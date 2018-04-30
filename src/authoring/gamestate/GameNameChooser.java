@@ -10,8 +10,10 @@ import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
 import authoring.views.AuthoringPane;
 import authoring.views.popups.PopUp;
+import data.DataUtils;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -30,7 +32,9 @@ public class GameNameChooser implements AuthoringPane {
 	private final int TEXT_WIDTH = 300;
 	private final String BACKGROUND_CSS = "name-selector";
 	private final String TEXT_FIELD_CSS = "name-text-box";
+	private final String LABEL_CSS = "name-label";
 	private final String PROMPT = "Please select a name for your game!";
+	private final String LABEL_TEXT = "Game Name: ";
 	private VBox root;
 	private TextField field;
 	private String name;
@@ -57,7 +61,9 @@ public class GameNameChooser implements AuthoringPane {
 		try {
 			field = (TextField) ef.buildElement(ElementType.TextField, PROMPT);
 			field.setMaxWidth(TEXT_WIDTH);
-			root.getChildren().add(field);
+			Label label = new Label(LABEL_TEXT);
+			label.getStyleClass().add(LABEL_CSS);
+			root.getChildren().addAll(label, field);
 			field.getStyleClass().add(TEXT_FIELD_CSS);
 		} catch (Exception e) {
 			throw new AuthoringException(e, AuthoringAlert.NO_SHOW);
@@ -69,23 +75,16 @@ public class GameNameChooser implements AuthoringPane {
 		scene.addEventHandler(KeyEvent.KEY_PRESSED, key -> {
 			if (key.getCode().equals(KeyCode.ENTER)) {
 				if (!(field.getText() == null || field.getText().trim().isEmpty())) {
+					DataUtils.setGame(field.getText());
 					onClose.accept(field.getText());
 					stage.close();
 				} else {
 					throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW);
 				}
-			}
-				
+			}	
 		});
 	}
 
-	/**
-	 * Gets the name contained in this box. Should only happen after the stage has closed.
-	 */
-	public String getName() {
-		if (this.name != null) return this.name;
-		throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW);
-	}
 	/**
 	 * Sets the language of this pane
 	 */

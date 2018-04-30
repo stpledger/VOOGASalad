@@ -5,12 +5,9 @@ import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
-import authoring.views.properties.LocalPropertiesView;
 import engine.components.Collidable;
 import engine.components.Component;
 import engine.components.Health;
-import engine.components.Height;
-import engine.components.Width;
 
 /**
  * Class to define entities that can be interacted with.
@@ -19,7 +16,7 @@ import engine.components.Width;
 public abstract class InteractableEntity extends Entity {
 
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);   
-	private final static String TYPE = "Interactable";
+	
 	/**
 	 * The constructor simply sets the ID of the entity and initializes its list of components
 	 * @param ID which identifies an entity
@@ -27,30 +24,14 @@ public abstract class InteractableEntity extends Entity {
 	public InteractableEntity(int ID) {
 		super(ID);
 		components = new ArrayList<>();
-		this.type = TYPE;
-		addDefaultDimensions();
+		this.setInteractable(true);
 		Consumer<List<Component>> onSubmit = componentsToAdd -> {
 			for (Component c : componentsToAdd) {
 				this.add(c);
 			}
 		};
-		this.setOnMouseClicked(e -> {
-			if(e.getClickCount() == 2) {
-				LocalPropertiesView LPV = new LocalPropertiesView(this, onSubmit);
-				LPV.open();
-			}
-			e.consume();
-		});
 		// all interactable components should be collidable, so add the component
 		this.add(new Collidable(ID));
-	}
-
-	/**
-	 * Adds the default dimension components to this entity.
-	 */
-	protected void addDefaultDimensions() {
-		this.add(new Width(this.getID(), Entity.ENTITY_WIDTH));
-		this.add(new Height(this.getID(), Entity.ENTITY_HEIGHT));
 	}
 
 	/**
@@ -72,12 +53,12 @@ public abstract class InteractableEntity extends Entity {
 	@Override
 	public void add(Component c) {
 		// component must be in the list of addable components
-        		if (c != null) {
-        			if (this.contains(c)) {
-        				this.removeByName(c.getKey());
-        			}
-        			this.components.add(c);
-        		}
+		if (c != null) {
+			if (this.contains(c)) {
+				this.removeByName(c.getKey());
+			}
+			this.components.add(c);
+		}
 	}
 
 	/**
@@ -137,7 +118,6 @@ public abstract class InteractableEntity extends Entity {
 	 * 
 	 * @return List of components which define the entity
 	 */
-
 	public List<Component> getComponentList(){
 		return this.components;
 	}
