@@ -52,7 +52,7 @@ public class HUDPropertiesView extends PropertiesView{
 			});
 			this.getElementList().addAll(Arrays.asList(new Element[] {(Element) livesBox, (Element) healthBox, (Element) timeBox, (Element) levelBox}));
 		} catch (Exception e2) {
-			throw new AuthoringException("Could not create form!",AuthoringAlert.SHOW);
+			throw new AuthoringException(this.getFormBundle().getString("FormError"),AuthoringAlert.SHOW);
 		}	
 	}
 

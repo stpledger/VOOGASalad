@@ -45,7 +45,7 @@ public class LevelPropertiesView extends PropertiesView{
 				this.close();
 			});
 		} catch (Exception e) {
-			throw new AuthoringException("Could not create form!",AuthoringAlert.SHOW);
+			throw new AuthoringException(this.getFormBundle().getString("FormError"), AuthoringAlert.SHOW);
 		}
 	}
 

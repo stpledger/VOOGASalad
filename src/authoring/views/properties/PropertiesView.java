@@ -88,7 +88,7 @@ public abstract class PropertiesView implements AuthoringLanguage {
 				this.getElementList().add((Element) label);
 				currentRow++;
 			} catch (Exception e) {
-				throw new AuthoringException("Could not create labels!",AuthoringAlert.SHOW);
+				throw new AuthoringException(this.getFormBundle().getString("LabelError"),AuthoringAlert.SHOW);
 			}
 		}
 	}
@@ -113,9 +113,9 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	}
 	
 	/**
-	 * Makes a submit button that performs an action on click.
+	 * Makes a submit button that performs an action on click. Submit button is then added
+	 * to the root and to the element list.
 	 * @param event Action that the button will perform on click.
-	 * @return Returns a submit button that has the specified event listener.
 	 */
 	protected Button makeSubmitButton(Consumer<Void> event) {
 		try {
@@ -124,7 +124,7 @@ public abstract class PropertiesView implements AuthoringLanguage {
 			this.root.addColumn(0, submit);
 			return submit;
 		} catch (Exception e) {
-			throw new AuthoringException("Submit button could not be made!",AuthoringAlert.SHOW);
+			throw new AuthoringException(this.getFormBundle().getString("SubmitError"), AuthoringAlert.SHOW);
 		}
 	}
 

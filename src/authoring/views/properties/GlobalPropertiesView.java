@@ -49,7 +49,7 @@ public class GlobalPropertiesView extends PropertiesView {
 				this.close();
 			});
 		} catch (Exception e1) {
-			throw new AuthoringException("Could not create form!",AuthoringAlert.SHOW);
+			throw new AuthoringException(this.getFormBundle().getString("FormError"),AuthoringAlert.SHOW);
 		}
 	}
 
