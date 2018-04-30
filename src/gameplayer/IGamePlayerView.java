@@ -62,12 +62,6 @@ public interface IGamePlayerView {
 	public void removeInput (KeyCode code);
 	
 	/**
-	 * Returns a map of the player components for each level
-	 * @return
-	 */
-	public Map<Integer, Map<String, Component>> getPlayerKeys();
-	
-	/**
 	 * Saves the current game state to a new file
 	 */
 	public void saveGame();
@@ -77,17 +71,5 @@ public interface IGamePlayerView {
 	 * @param gameRoot
 	 */
 	public void updateScroll(Pane gameRoot);
-	
-	/**
-	 * Returns current active level
-	 * @return integer
-	 */
-	public int getActiveLevel();
-	
-	/**
-	 * Returns the number of levels
-	 * @return
-	 */
-	public int getNumOfLevels();
 	
 }

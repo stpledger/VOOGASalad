@@ -174,6 +174,7 @@ public class HighScoreView extends BranchScreenView {
 //	
 //	}
 	
+
 	public List<IGamePlayerButton> getButtons() {
 		// TODO Auto-generated method stub
 		return null;
