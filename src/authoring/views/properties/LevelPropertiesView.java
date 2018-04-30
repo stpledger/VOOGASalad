@@ -31,7 +31,7 @@ public class LevelPropertiesView extends PropertiesView{
 	@Override
 	protected void fill() {
 		try {
-			this.createLabels(this.title().replaceAll("[0-9]", "").replaceAll(" ", ""));
+			this.createLabels(this.getFormBundle().getString("Level").replaceAll(" ", ""));
 			//text argument is empty, no text needed for these fields
 			TextField infoText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,"");
 			TextField diffText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,"");
