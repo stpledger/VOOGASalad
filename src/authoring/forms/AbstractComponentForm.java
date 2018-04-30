@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
+import authoring.entities.data.PackageExplorer;
+import authoring.factories.Element;
+import authoring.factories.ElementFactory;
+import authoring.factories.ElementType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -19,8 +23,31 @@ public abstract class AbstractComponentForm extends GridPane {
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	protected Properties language = new Properties();
+	
+	protected ElementFactory eFactory = new ElementFactory();
+	protected ArrayList<Element> elements = new ArrayList<>();
+	protected TextField field;
 
 	protected abstract Object buildComponent();
+	
+	public AbstractComponentForm(String name) throws Exception {
+		this.name = name;
+		int col = 0;
+		Label label = (Label) eFactory.buildElement(ElementType.Label, name);
+		label.getStyleClass().add("component-form-label");
+		col++;
+		this.add(label, col, 0);
+		this.numFields = PackageExplorer.getNumFields(name);
+		elements.add((Element) label);
+		for (int i = 0; i < (numFields-1); i++) {
+			TextField tf = (TextField) eFactory.buildElement(ElementType.TextField, "text");
+			tf.getStyleClass().add("component-text-field");
+			elements.add((Element) tf);
+			fields.add(tf);
+			col++;
+			this.add(tf, col, 0);
+		}
+	}
 
 	/**
 	 * Check if the user fully entered something in this form. If the form has multiple text boxes, then

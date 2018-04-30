@@ -5,6 +5,12 @@ import engine.components.DataComponent;
 import engine.components.XPosition;
 import engine.components.YPosition;
 
+/**
+ * Group of 2 components representing one concept: In this case, x and y position being grouped together
+ * Should only be used during transition between engine design, to single data components
+ * That is - should not be in final design
+ * @author fitzj
+ */
 public class Position implements Component {
 
 	public static final String KEY = "Position";

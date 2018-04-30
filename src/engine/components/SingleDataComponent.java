@@ -2,6 +2,8 @@ package engine.components;
 
 /**
  * Component containing a single double as data. Implements component interfaces for reading and read/writing.
+ * Abstract class to make other data classes easier to write.
+ * Not able to instantiate because each class needs a unique key.
  * @author fitzj
  *
  */
