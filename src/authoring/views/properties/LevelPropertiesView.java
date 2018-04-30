@@ -41,7 +41,7 @@ public class LevelPropertiesView extends PropertiesView{
 			TextField diffText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,"");
 			NumberField timeNumber = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField,"");
 			this.getRoot().addColumn(1,diffText,timeNumber,infoText);
-			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button,this.getFormBundle().getString("Submit"), e->{
+			Button submit = this.makeSubmitButton(e->{
 				level.setLevelInfo(infoText.getText());
 				level.setLevelDifficulty(diffText.getText());
 				level.setLevelTime(Double.parseDouble(timeNumber.getText()));

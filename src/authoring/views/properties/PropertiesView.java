@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import authoring.MainApplication;
+import authoring.factories.ClickElementType;
 import authoring.factories.Element;
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
@@ -13,6 +15,7 @@ import authoring.languages.AuthoringLanguage;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
@@ -106,6 +109,16 @@ public abstract class PropertiesView implements AuthoringLanguage {
 		alert.setContentText(this.title()+ " " +this.getFormBundle().getString("Save"));
 		alert.show();
 		return alert;
+	}
+	
+	protected Button makeSubmitButton(Consumer<Void> event) {
+		try {
+			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button,this.getFormBundle().getString("Submit"), e->event.accept(null));
+			return submit;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	/**
