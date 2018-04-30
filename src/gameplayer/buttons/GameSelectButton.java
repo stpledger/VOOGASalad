@@ -34,7 +34,7 @@ public class GameSelectButton extends Button implements IGamePlayerButton{
 	public void setEvent() {
 		this.setOnAction(e -> {
 			gameController = new Controller(myStage, myGameState);
-			myStage.setScene(gameController.getControllerScene());
+			myStage.setScene(gameController.initializeStartScene());
 		});
 	}
 }

@@ -174,6 +174,13 @@ public class GameView implements IGamePlayerView{
 	}
 
 	/**
+	 * Returns Number of Levels
+	 * @return
+	 */
+	public int getNumOfLevels() {
+		return numOfLevels;
+	}
+	/**
 	 * Updates the view of the Pane so that it scrolls with the player's movement. Allows for some free movement without scrolling
 	 * @param gameRoot
 	 */
@@ -298,5 +305,6 @@ public class GameView implements IGamePlayerView{
 		image.setFitHeight(h.getData());
 		image.setFitWidth(w.getData());
 	}
+
 
 }

@@ -3,6 +3,7 @@ package gameplayer.controller;
 import java.util.Map;
 
 import data.DataGameState;
+import engine.components.Component;
 import gameplayer.hud.SampleToolBar;
 import gameplayer.menu.MenuGameBar;
 import gameplayer.menu.PauseMenu;
@@ -98,6 +99,12 @@ public class Controller implements IController {
 	}
 
 	/**
+	 * Returns the GamePlayer main controller scene to play the game.
+	 */
+	public Scene getControllerScene() {
+		return myScene;
+	}
+	/**
 	 * Method that sets the current scene of the game
 	 */
 	private void setGameView() {
@@ -184,5 +191,7 @@ public class Controller implements IController {
 	private void gameOver(){
 		//TODO add game over functionality like the high score screen
 	}
+
+
 
 }
