@@ -1,4 +1,3 @@
-
 package gameplayer.controller;
 
 import java.util.Map;
@@ -110,21 +109,8 @@ public class Controller implements IController {
 		myPane.setCenter(gameRoot);
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
-<<<<<<< HEAD:src/gameplayer/Controller.java
-
 		sampleBar = new SampleToolBar(LEVEL_ONE, playerKeys, hudPropMap);
 		myPane.setTop(sampleBar);
-
-		//TODO: IS THIS STUFF NECESSARY?
-		/*for(Win w : gameView.getWinComponents()){
-			w.getWinStatus().addListener((o, oldVal, newVal) -> {
-				changeGameLevel(gameView.getActiveLevel() + 1);
-			});
-		}*/
-=======
-		sampleBar = new SampleToolBar(LEVEL_ONE, gameManager.getPlayerKeys(), hudPropMap);
-		myPane.setTop(sampleBar);
->>>>>>> 727e46d96542bfe11fad7c0f6afd6a0ce1f94c89:src/gameplayer/controller/Controller.java
 		initializeGameAnimation();
 		//set level change listener
 		/*gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
