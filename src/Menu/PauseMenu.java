@@ -1,6 +1,6 @@
 package Menu;
 
-import GamePlayer.Controller;
+import gameplayer.Controller;
 import buttons.RestartButton;
 import buttons.SaveGameButton;
 import buttons.SwitchGameButton;

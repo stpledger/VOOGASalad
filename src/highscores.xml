@@ -2,7 +2,7 @@
   <entry>
     <string>DemoDemo</string>
     <list>
-      <gameplayer.Person>
+      <GamePlayer.Person>
         <name>
           <value>Conrad</value>
           <valid>true</valid>
@@ -13,7 +13,7 @@
           <valid>true</valid>
           <name></name>
         </score>
-      </gameplayer.Person>
+      </GamePlayer.Person>
     </list>
   </entry>
 </map>
