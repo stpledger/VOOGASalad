@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Keeps track of the current state of the authoring environment, so that the author can save/load games dynamically. 
  *
  * @author Dylan Powers
- * @author Hemanth Yakkali(hy115)
+ * @author Hemanth Yakkali (hy115)
  *
  */
 public class GameState implements IGameState {
@@ -21,8 +21,8 @@ public class GameState implements IGameState {
 	 * It will then continue to keep track of the current state of the game by using the update method below.
 	 */
 	private List<Level> state;
-
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private static String name;
 
 	public GameState() {
 		state = new ArrayList<>();
@@ -31,7 +31,7 @@ public class GameState implements IGameState {
 	@Override
 	public void save() {
 		try {
-			DataWrite.saveFile(this,"Test");
+			DataWrite.saveFile(this, this.name);
 			System.out.println("saved!");
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
@@ -62,5 +62,21 @@ public class GameState implements IGameState {
 
 	public List<Level> getLevels() {
 		return state;
+	}
+	
+	/**
+	 * Set the name of the current game.
+	 * @param name the name of the game to set
+	 */
+	public void setName(String name) {
+		GameState.name = name;
+	}
+	
+	/**
+	 * Get the current name of the game. Useful for finding certain objects in directories.
+	 * @return the name of the current game represented by this state object
+	 */
+	public static String getName() {
+		return GameState.name;
 	}
 }

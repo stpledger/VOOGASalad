@@ -44,7 +44,7 @@ public abstract class InteractableEntity extends Entity {
 		// all interactable components should be collidable, so add the component
 		this.add(new Collidable(ID));
 	}
-	
+
 	/**
 	 * Adds the default dimension components to this entity.
 	 */
@@ -72,16 +72,14 @@ public abstract class InteractableEntity extends Entity {
 	@Override
 	public void add(Component c) {
 		// component must be in the list of addable components
-		//if (ResourceBundle.getBundle(I_PROPERTIES_PATH).keySet().contains(c.getKey())) {
-        		if (c != null) {
-        			if (this.contains(c)) {
-        				this.removeByName(c.getKey());
-        			}
-        			this.components.add(c);
-        		}
-		//}
+		if (c != null) {
+			if (this.contains(c)) {
+				this.removeByName(c.getKey());
+			}
+			this.components.add(c);
+		}
 	}
-	
+
 	/**
 	 * Adds all the components in the list to the entity
 	 * @param componentList List<Component>

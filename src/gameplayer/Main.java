@@ -21,8 +21,11 @@ public class Main extends Application {
 		mainStage.setScene(splashScreen.getScene());
 		mainStage.show();
 	}
+<<<<<<< HEAD:src/gameplayer/Main.java
 	
 
 
+=======
+>>>>>>> 4de28c5e80740c94e2b2b8866e14cadf803afd1d:src/GamePlayer/Main.java
 }
 
