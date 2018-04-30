@@ -35,54 +35,33 @@ public class Controller implements IController {
 
 	private Map<Integer, Pane> gameLevelDisplays;
 	private DataGameState currentGameState;
-	private Map<Integer, Map<String, Component>> playerKeys;
 	private SampleToolBar sampleBar;
 	private Map<Integer, Map<String, Boolean>> hudPropMap;
 	private Timeline animation;
 	private String currentGameName;
 	private DataGameState gameState;
+	private GameManager gameManager;
 
 	public Controller(Stage stage, DataGameState currentGame) {
-		myPane = new BorderPane();
-		pauseMenu = new PauseMenu(myStage);
 		gameState = currentGame;
 		myStage = stage;
 		myStage.setResizable(false);
+		this.gameManager = new GameManager(gameState);
+		myPane = new BorderPane();
+		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
+		pauseMenu = new PauseMenu(myStage);
+		assignKeyInputs();
+		setGameView();
 	}
-
+	
 	/**
 	 * Initializes controller scene
 	 * @return
 	 */
-	public Scene initializeStartScene() {
-		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
-		assignKeyInputs();
-		setGameView();
+	public Scene getControllerScene() {
 		return myScene;
 	}
 
-	/**
-	 * Changes the display of the gave.
-	 * @param level to be loaded
-	 */
-	public void changeGameLevel(int level) {
-		if(level > gameView.getNumOfLevels()){
-			gameOver();
-		}
-		else {
-			gameRoot = gameLevelDisplays.get(level);
-			myPane.setCenter(gameRoot);
-			gameView.setActiveLevel(level);
-		}
-	}
-
-	/**
-	 * Returns the level game display
-	 * @return
-	 */
-	public Map<Integer, Pane> getGameLevelRoot(){
-		return gameLevelDisplays;
-	}
 	
 	/**
 	 * Restarts the current level
@@ -97,32 +76,50 @@ public class Controller implements IController {
 	public void saveGame(){
 		gameView.saveGame();
 	}
-
+	
 	/**
-	 * Returns the GamePlayer main controller scene to play the game.
+	 * Changes the display of the gave.
+	 * @param level to be loaded
 	 */
-	public Scene getControllerScene() {
-		return myScene;
+	public void changeGameLevel(int level) {
+		if(level > gameManager.getNumOfLevels()){
+			gameOver();
+		}
+		else {
+			gameRoot = gameLevelDisplays.get(level);
+			myPane.setCenter(gameRoot);
+			gameView.setActiveLevel(level);
+		}
 	}
+	
+	/**
+	 * Returns the level game display
+	 * @return
+	 */
+	public Map<Integer, Pane> getGameLevelRoot(){
+		return gameLevelDisplays;
+	}
+
+
+	
 	/**
 	 * Method that sets the current scene of the game
 	 */
 	private void setGameView() {
-		gameView = new GameView(gameState);
+		gameView = new GameView(gameState, gameManager);
 		hudPropMap = gameView.getHudPropMap();
-		playerKeys = gameView.getPlayerKeys();
 		gameLevelDisplays = gameView.getGameLevelDisplays();
+		
 		gameRoot = gameLevelDisplays.get(LEVEL_ONE);
 		myPane.setCenter(gameRoot);
+		
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
-		sampleBar = new SampleToolBar(LEVEL_ONE, playerKeys, hudPropMap);
+		
+		sampleBar = new SampleToolBar(LEVEL_ONE, gameManager.getPlayerKeys(), hudPropMap);
 		myPane.setTop(sampleBar);
+		
 		initializeGameAnimation();
-		//set level change listener
-		/*gameView.getLevelStatus().getUpdate().addListener((o, oldVal, newVal) -> {
-			changeGameLevel(newVal.intValue());
-		});*/
 	}
 	
 	/**
@@ -151,8 +148,7 @@ public class Controller implements IController {
 				renderTime = 0;
 			}
 			gameView.updateScroll(gameRoot);
-			playerKeys = gameView.getPlayerKeys();
-			sampleBar.updateGameStatusValues(playerKeys);
+			sampleBar.updateGameStatusValues(gameManager.getPlayerKeys());
 			sampleBar.updateGameStatusLabels();
 		}
 	}

@@ -32,6 +32,7 @@ public class GameView implements IGamePlayerView{
 	private InputHandler inputHandler;
 	private RenderManager renderManager;
 	private SystemManager systemManager;
+	private GameManager gameManager;
 
 	private int numOfLevels;
 	private int activeLevel;
@@ -49,15 +50,14 @@ public class GameView implements IGamePlayerView{
 
 	private Map<Integer, Map<String, Component>> playerKeys;
 	private Map<Integer, Map<String, Boolean>> hudPropMap;
-	//TODO: TALK TO STEFANI ABOUT NEW "LEVEL STATUS" CLASS
-	//private ArrayList<Win> winComponents;
 
 	/**
 	 * Constructor when given the gameState
 	 * @param gamestate
 	 */
-	public GameView(DataGameState gamestate) {
+	public GameView(DataGameState gamestate, GameManager gamemanager) {
 		gameState = gamestate;
+		this.gameManager = gamemanager;
 		levels = gameState.getGameState();
 		hudPropMap = obtainHudProps(levels);
 		playerKeys = new HashMap<>();
@@ -68,7 +68,6 @@ public class GameView implements IGamePlayerView{
 		initializeGameView();
 	}
 
-	//TODO: CHECK IF OBSELETE WITH NEW "LEVEL STATUS" CLASS
 	/**
 	 * Obtains heads-up display status map for each level in a game.
 	 * @return Map<Integer, Map<String, Boolean>> 
@@ -102,8 +101,8 @@ public class GameView implements IGamePlayerView{
 	 * Connects View to Engine Systems (GameInitializer, InputHandler, RenderManager, SystemManager)
 	 */
 	public void initializeGameView() {
-		gameInitializer = new GameInitializer(intLevels.get(activeLevel),
-				Math.max(PANE_HEIGHT, PANE_WIDTH), activePlayerPosX.getData(), activePlayerPosY.getData());
+		gameInitializer = new GameInitializer(intLevels.get(gameManager.getActiveLevel()),
+				Math.max(PANE_HEIGHT, PANE_WIDTH), gameManager.getActivePlayerPosX(), gameManager.getActivePlayerPosY());
 		inputHandler = gameInitializer.getInputHandler();
 		renderManager = gameInitializer.getRenderManager();
 		systemManager = gameInitializer.getSystemManager();
@@ -114,10 +113,7 @@ public class GameView implements IGamePlayerView{
 	 * @param activelevel - level you wish to display
 	 */
 	public void setActiveLevel(int activelevel){
-		activeLevel = activelevel;
-		Map<String, Component> player = new HashMap<>(playerKeys.get(activeLevel));
-		activePlayerPosX = (XPosition) player.get(XPosition.KEY);
-		activePlayerPosY = (YPosition) player.get(YPosition.KEY);
+		gameManager.setActiveLevel(activelevel);
 	}
 
 	/**
@@ -136,8 +132,8 @@ public class GameView implements IGamePlayerView{
 	 * Renders all changes to the objects sprite
 	 */
 	public void render() {
-		double newCenterX = activePlayerPosX.getData();
-		double newCenterY = activePlayerPosY.getData();
+		double newCenterX = gameManager.getActivePlayerPosX();
+		double newCenterY = gameManager.getActivePlayerPosY();
 		systemManager.setActives(renderManager.render(newCenterX, newCenterY));
 	}
 
@@ -157,13 +153,6 @@ public class GameView implements IGamePlayerView{
 		inputHandler.removeCode(code);
 	}
 
-	/**
-	 * Returns a map of the player components for each level
-	 * @return
-	 */
-	public Map<Integer, Map<String, Component>> getPlayerKeys(){
-		return playerKeys;
-	}
 
 	/**
 	 * Saves the current game state to a new file
@@ -174,13 +163,6 @@ public class GameView implements IGamePlayerView{
 	}
 
 	/**
-	 * Returns Number of Levels
-	 * @return
-	 */
-	public int getNumOfLevels() {
-		return numOfLevels;
-	}
-	/**
 	 * Updates the view of the Pane so that it scrolls with the player's movement. Allows for some free movement without scrolling
 	 * @param gameRoot
 	 */
@@ -190,20 +172,20 @@ public class GameView implements IGamePlayerView{
 		double minY = gameRoot.getTranslateY() * INVERT;
 		double maxY = gameRoot.getTranslateY() * INVERT + PANE_HEIGHT;
 
-		if(activePlayerPosY.getData() - TOP_BOUND < minY){
-			gameRoot.setTranslateY((activePlayerPosY.getData() - TOP_BOUND) * INVERT);
+		if(gameManager.getActivePlayerPosY() - TOP_BOUND < minY){
+			gameRoot.setTranslateY((gameManager.getActivePlayerPosY() - TOP_BOUND) * INVERT);
 		}
 
-		if(activePlayerPosY.getData() + BOTTOM_BOUND > maxY){
-			gameRoot.setTranslateY(((activePlayerPosY.getData() + BOTTOM_BOUND) - PANE_HEIGHT) * INVERT);
+		if(gameManager.getActivePlayerPosY() + BOTTOM_BOUND > maxY){
+			gameRoot.setTranslateY(((gameManager.getActivePlayerPosY() + BOTTOM_BOUND) - PANE_HEIGHT) * INVERT);
 		}
 
-		if(activePlayerPosX.getData() - LEFT_BOUND < minX){
-			gameRoot.setTranslateX((activePlayerPosX.getData() - LEFT_BOUND) * INVERT);
+		if(gameManager.getActivePlayerPosX() - LEFT_BOUND < minX){
+			gameRoot.setTranslateX((gameManager.getActivePlayerPosX() - LEFT_BOUND) * INVERT);
 		}
 
-		if(activePlayerPosX.getData() + RIGHT_BOUND > maxX){
-			gameRoot.setTranslateX(((activePlayerPosX.getData() + RIGHT_BOUND) - PANE_WIDTH) * INVERT);
+		if(gameManager.getActivePlayerPosX() + RIGHT_BOUND > maxX){
+			gameRoot.setTranslateX(((gameManager.getActivePlayerPosX() + RIGHT_BOUND) - PANE_WIDTH) * INVERT);
 		}
 	}
 
@@ -251,18 +233,10 @@ public class GameView implements IGamePlayerView{
 
 				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
 					setSpritePosition(entityComponents, image);
-
-					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
-					if(entityComponents.containsKey(Player.KEY)){
-						playerKeys.put(levelNum, entityComponents);
-					}
-
-					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
-					if (entityComponents.containsKey(Win.KEY)) {
-						//winComponents.add((Win) entityComponents.get(Win.KEY));
-					}
 				}
-
+				if(entityComponents.containsKey(Width.KEY) && entityComponents.containsKey(Height.KEY)) {
+					setSpriteSize(entityComponents, image);
+				}
 				if (entityComponents.containsKey(Type.KEY)) {
 					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(Type.KEY);
 					System.out.println(entityTypeComponent.getData());
@@ -271,11 +245,6 @@ public class GameView implements IGamePlayerView{
 						continue;
 					}
 				}
-
-				if(entityComponents.containsKey(Width.KEY) && entityComponents.containsKey(Height.KEY)) {
-					setSpriteSize(entityComponents, image);
-				}
-
 				entityRoot.getChildren().add(image);
 			}
 		}
