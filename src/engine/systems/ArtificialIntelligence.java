@@ -3,49 +3,32 @@ package engine.systems;
 import engine.components.AI;
 import engine.components.Component;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * System which calls the AI components' actions if they are within rendering dinstance
  *
- * @author cndracos
+ * @author cndracos, fitzj
  */
-public class ArtificialIntelligence implements  ISystem{
-    private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
-    private Set<Integer> activeComponents = new HashSet<>();
+public class ArtificialIntelligence extends AbstractSystem implements  ISystem{
 
-    public ArtificialIntelligence() {}
+    public ArtificialIntelligence() {
+    	super();
+    }
     
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
-        if (components.containsKey(AI.KEY)) {
-            handledComponents.put(pid, components);
+        if (this.checkComponents(components, AI.KEY)) {
+        	this.directAddComponent(pid, components);
         }
-    }
-
-    @Override
-    public void removeComponent(int pid) {
-        if(handledComponents.containsKey(pid)) {
-            handledComponents.remove(pid);
-        }
-    }
-
-    @Override
-    public void setActives(Set<Integer> actives) {
-        Set<Integer> myActives = new HashSet<>(actives);
-        myActives.retainAll(handledComponents.keySet());
-        activeComponents = myActives;
     }
 
     @Override
     public void execute(double time) {
-        for (int id : activeComponents) {
-            Map<String, Component> components = handledComponents.get(id);
+        for (int id : this.getActives()) {
+            Map<String, Component> components = this.getHandled().get(id);
             AI ai = (AI) components.get(AI.KEY);
-            ai.doAction(components); //calls the AI action
+            ai.doAction(components);
         }
     }
 

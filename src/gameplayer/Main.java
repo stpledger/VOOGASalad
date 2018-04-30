@@ -1,5 +1,6 @@
-package GamePlayer;
+package gameplayer;
 
+import gameplayer.view.SplashScreenView;
 import javafx.application.Application;
 import javafx.stage.Stage;
 

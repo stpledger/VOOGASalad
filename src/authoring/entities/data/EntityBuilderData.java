@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
-import authoring.forms.ComponentForm;
 
 /**
  * 
@@ -63,12 +62,12 @@ public class EntityBuilderData {
 		}
 		EntitySaver saver = new EntitySaver();
 		try {
-		Object l = this.componentAttributes.get(engine.components.Name.class)[0];
+			Object l = this.componentAttributes.get(engine.components.Name.class)[0];
 		} catch(Exception k){
 			AuthoringException e = new AuthoringException(NAME_ERROR_MESSAGE, AuthoringAlert.SHOW);
 			k.printStackTrace();
 		}
-		
+
 		saver.writeXML(componentAttributes, (String) this.componentAttributes.get(engine.components.Name.class)[0]);
 	}
 

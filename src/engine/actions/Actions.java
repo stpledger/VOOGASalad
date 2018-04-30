@@ -2,8 +2,6 @@ package engine.actions;
 
 import authoring.entities.Entity;
 import engine.components.*;
-import engine.components.groups.Position;
-import engine.components.groups.Velocity;
 
 import java.awt.Point;
 
@@ -23,6 +21,7 @@ import engine.setup.SystemManager;
  * form of lambdas to be used by the entities in the game
  *
  * @author cndracos
+ * @author Yameng Liu
  */
 public class Actions {
     private static SystemManager sm = null;
@@ -194,22 +193,6 @@ public class Actions {
 	}
     
 	
-	@SuppressWarnings("unchecked")
-	public static Consumer<Map<String, Component>> animateSprite (String filename, double dur, int count, int columns, int offsetX, int offsetY, int width, int height) {
-    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
-    		if(actor != null && (actor instanceof Map<?,?>)) {
-    			if(actor.containsKey(Sprite.KEY)) {
-    				Sprite s = (Sprite) actor.get(Sprite.KEY);
-    				if(!s.isPlaying()) {
-    					s.setData(filename);
-    					s.animate(dur, count, columns, offsetX, offsetY, width, height);
-    				}
-    			}
-    		}
-    	};
-    }
-	
-	
     /**
      * @return two new entity mapsama
      */
@@ -267,7 +250,8 @@ public class Actions {
      * @return action which result in the tracker moving towards the followed
      */
 
-    public static Consumer<Map <String, Component>> followsYou (Entity followed, double speed) {
+    @SuppressWarnings("unchecked")
+	public static Consumer<Map <String, Component>> followsYou (Entity followed, double speed) {
         XPosition px = (XPosition) followed.get(XPosition.KEY);
         YPosition py = (YPosition) followed.get(YPosition.KEY);
 

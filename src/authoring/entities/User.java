@@ -49,13 +49,9 @@ public class User extends InteractableEntity {
 		});*/
 
 		this.add(new PlayerCollision(this.getID()));
-
 		this.add(new PlayerMovement(this.getID(), KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN));
-
 		this.add(new Score(this.getID(), 0));
-
 		this.add(new Jumps(this.getID(), 3));
-		
 		this.add(new Animated(this.getID(), "animations/blob/animation.properties"));
 	}
 

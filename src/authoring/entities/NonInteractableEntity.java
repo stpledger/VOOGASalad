@@ -15,7 +15,7 @@ public abstract class NonInteractableEntity extends Entity {
 
 	private final static String NI_PROPERTIES_PATH = "resources.Entities/NonInteractable";
 	private final static String TYPE = "Noninteractable";
-	
+
 	/**
 	 * Construct the entity with the given ID
 	 * @param ID

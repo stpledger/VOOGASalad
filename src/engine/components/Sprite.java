@@ -4,12 +4,12 @@ import java.io.FileNotFoundException;
 
 
 import data.DataRead;
+import engine.exceptions.EngineException;
 import engine.systems.SpriteTransition;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 
 import javafx.animation.Animation;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.ImageView;
 
 /**
@@ -72,10 +72,10 @@ public class Sprite extends SingleStringComponent implements Component, StringCo
 	 * @param y			y offset of sprite sheet - should be made to be 0 normally
 	 * @param w			Width of each image on sprite sheet
 	 * @param h			Height of each image on sprite sheet
+	 * @throws EngineException 
 	 */
-	public void animate(double time, int total, int columns, int x, int y, int w, int h) {
-		getImage().setViewport(new Rectangle2D(x, y, w, h));
-		a = new SpriteTransition(getImage(), time, total, columns, x, y, w, h);
+	public void animate(String file) throws EngineException {
+		a = new SpriteTransition(getImage(), file);
 		a.setCycleCount(Animation.INDEFINITE);
 		a.play();
 		isPlaying = true;

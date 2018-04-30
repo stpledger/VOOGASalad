@@ -3,6 +3,7 @@ package engine.components;
 /**
  * Data component representing x position of entity
  * @author fitzj
+ * @author Yameng Liu
  */
 public class XPosition extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 	

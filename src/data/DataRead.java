@@ -1,10 +1,10 @@
 package data;
 
-import GamePlayer.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import authoring.gamestate.Level;
 import engine.components.Component;
+import gameplayer.view.Person;
 import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javax.imageio.ImageIO;
