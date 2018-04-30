@@ -1,7 +1,6 @@
 package gameplayer.menu;
 
 import java.util.Map;
-
 import engine.components.Component;
 import gameplayer.controller.Controller;
 import javafx.collections.ObservableList;

@@ -1,5 +1,4 @@
 package gameplayer.view;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -118,7 +117,7 @@ public class GameView implements IGamePlayerView{
 			systemManager.execute(time);
 		} catch (EngineException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Engine Exception");
 		}
 	}
 
@@ -196,7 +195,7 @@ public class GameView implements IGamePlayerView{
 		}
 		return HUDPropMap;
 	}
-
+	
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
 	 * @param map
@@ -220,18 +219,19 @@ public class GameView implements IGamePlayerView{
 		Map<String, Component> entityComponents;
 		for(Integer i : entityMap.keySet()) {
 			entityComponents = entityMap.get(i);
-
 			if(entityComponents.containsKey(Sprite.KEY)) {
 				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
 				ImageView image = spriteComponent.getImage();
 
 				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
 					setSpritePosition(entityComponents, image);
-
 				}
-
-				if (entityComponents.containsKey(EntityType.KEY)) {
-					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(EntityType.KEY);
+				
+				
+				
+				if (entityComponents.containsKey(Type.KEY)) {
+					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(Type.KEY);
+					System.out.println(entityTypeComponent.getData());
 					if (entityTypeComponent.getData().equals("Background")) {
 						entityRoot.getChildren().add(0, image);
 						continue;

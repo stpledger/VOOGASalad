@@ -22,7 +22,7 @@ public class DataUtils {
 
 
     public static File findInDirectory(File directory, String target){
-        System.out.println("Directory is " + directory.getAbsolutePath() + "   looking for"+ target);
+//        System.out.println("Directory is " + directory.getAbsolutePath() + "   looking for"+ target);
         if(directory.isDirectory()){
             for(File subDir : directory.listFiles()){
                 File found = findInDirectory(subDir, target);
@@ -32,7 +32,7 @@ public class DataUtils {
             }
         }
         if(directory.getName().equals(target)){
-            System.out.println("Directory is foun " + directory.getName());
+//            System.out.println("Directory is foun " + directory.getName());
 
             return directory;
         }

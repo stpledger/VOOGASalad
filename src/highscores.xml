@@ -1,6 +1,10 @@
 <map>
   <entry>
+<<<<<<< HEAD
+    <string>games/cocks/</string>
+=======
     <string>DemoDemo</string>
+>>>>>>> 26e8f6b0b1bed98bfb35b300f0b49fd1d18e6429
     <list>
       <GamePlayer.Person>
         <name>
@@ -50,6 +54,8 @@
           <name></name>
         </score>
       </GamePlayer.Person>
+<<<<<<< HEAD
+=======
       <GamePlayer.Person>
         <name>
           <value>Conrad</value>
@@ -242,6 +248,7 @@
           <name></name>
         </score>
       </GamePlayer.Person>
+>>>>>>> 26e8f6b0b1bed98bfb35b300f0b49fd1d18e6429
     </list>
   </entry>
 </map>
