@@ -1,9 +1,6 @@
 package engine.systems;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import engine.components.Component;
 import engine.components.XPosition;
@@ -16,51 +13,30 @@ import engine.components.YVelocity;
  * ISystem to apply changes in positions to an object based on changes in velocities
  * Required component: Position, Velocity
  *
- * @author Yameng
+ * @author Yameng, fitzj
  */
 
-public class Motion implements ISystem {
-	private Map<Integer, Map<String, Component>> handledComponents;
-    private Set<Integer> activeComponents;
+public class Motion extends AbstractSystem implements ISystem {
 
     public Motion() {
-    	handledComponents = new HashMap<>();
-    	activeComponents = new HashSet<>();
+    	super();
     }
 
+    @Override
     public void addComponent(int pid, Map<String, Component> components) {
-        if (components.containsKey(XVelocity.KEY) && 
-        	components.containsKey(YVelocity.KEY) && 
-        	components.containsKey(XPosition.KEY) &&
-        	components.containsKey(YPosition.KEY)) {
-                
-                handledComponents.put(pid, components);
-            }
-        }
-    /**
-     * Removes position and velocity component from system map
-     * @param pid parent ID of Velocity component to be removed
-     */
-    @Override
-    public void removeComponent(int pid) {
-        if(handledComponents.containsKey(pid)) {
-            handledComponents.remove(pid);
+        if(this.checkComponents(components, XVelocity.KEY, YVelocity.KEY, XPosition.KEY, YPosition.KEY)) {
+        	this.directAddComponent(pid, components);
         }
     }
-
-    @Override
-    public void setActives(Set<Integer> actives) {
-        Set<Integer> myActives = new HashSet<>(actives);
-        myActives.retainAll(handledComponents.keySet());
-        activeComponents = myActives;
-    }
+    
 
     /**
      * Apply changes in velocities to positions
      */
+    @Override
     public void execute(double time) {
-        for (int pid : activeComponents) {
-            Map<String, Component> components = handledComponents.get(pid);
+        for (int pid : this.getActives()) {
+            Map<String, Component> components = this.getHandled().get(pid);
 
             XVelocity vx = (XVelocity) components.get(XVelocity.KEY);
             YVelocity vy = (YVelocity) components.get(YVelocity.KEY);

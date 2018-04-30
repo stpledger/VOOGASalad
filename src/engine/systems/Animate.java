@@ -10,11 +10,7 @@ import engine.components.XVelocity;
 import engine.components.YPosition;
 import engine.exceptions.EngineException;
 import javafx.scene.image.ImageView;
-
-import java.util.HashSet;
-import java.util.Set;
 import java.util.Map;
-import java.util.HashMap;
 
 /**
  * System which updates the entity's sprite depending on its position component which may (or may not) have been
@@ -23,15 +19,11 @@ import java.util.HashMap;
  *
  * @author cndracos, fitzj
  */
-public class Animate implements ISystem {
-    private Map<Integer, Map<String, Component>> handledComponents;
-    private Set<Integer> activeComponents;
+public class Animate extends AbstractSystem implements ISystem {
 
     public Animate() {
-    	handledComponents = new HashMap<>();
-    	activeComponents = new HashSet<>();
+    	super();
     }
-    
     
     /**
      * Adds components which it can act upon, choosing only the entities which have both a position AND
@@ -41,49 +33,34 @@ public class Animate implements ISystem {
      */
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
-        if (components.containsKey(XPosition.KEY) && 
-        	components.containsKey(YPosition.KEY) &&
-        	components.containsKey(Sprite.KEY)) {
-        	
-            handledComponents.put(pid, components);
+        if(this.checkComponents(components, XPosition.KEY, YPosition.KEY, Sprite.KEY)) {
+        	this.directAddComponent(pid, components);
         }
     }
 
-    @Override
-    public void removeComponent(int pid) {
-        if(handledComponents.containsKey(pid)) {
-            Sprite s = (Sprite) handledComponents.get(pid).get(Sprite.KEY);
-            s.getImage().setVisible(false);
-            handledComponents.remove(pid);
-        }
-    }
-
-
-
-    @Override
-    public void setActives(Set<Integer> actives) {
-        Set<Integer> myActives = new HashSet<>(actives);
-        myActives.retainAll(handledComponents.keySet());
-        activeComponents = myActives;
-    }
-
+    /**
+     * Updates sprite positions, resizes them, and animates if necessary
+     * @param time	Amount of time passed since last execution
+     */
     @Override
     public void execute(double time) throws EngineException {
-        for (int pid : activeComponents) {
+        for (int pid : this.getActives()) {
 
-            Map<String, Component> components = handledComponents.get(pid);
+            Map<String, Component> components = this.getHandled().get(pid);
             Sprite s = (Sprite) components.get(Sprite.KEY);
                         
             XPosition px = (XPosition) components.get(XPosition.KEY);
             YPosition py = (YPosition) components.get(YPosition.KEY);
             
-            this.animateComponents(components);
+            if(this.checkComponents(components, Animated.KEY)) {
+                this.animateComponents(components);
+            }
             
             ImageView im = s.getImage();
-            im.setX(px.getData()); //updates image x on position x pos
-            im.setY(py.getData()); //updates image y on position y pos
+            im.setX(px.getData());
+            im.setY(py.getData());
             
-            if(components.containsKey(Width.KEY) && components.containsKey(Height.KEY)) {
+            if(this.checkComponents(components, Width.KEY, Height.KEY)) {
             	Width w = (Width) components.get(Width.KEY);
             	Height h = (Height) components.get(Height.KEY);
             	im.setFitWidth(w.getData());
@@ -94,21 +71,19 @@ public class Animate implements ISystem {
     }
 
 	private void animateComponents(Map<String, Component> components) throws EngineException {
-		if(components.containsKey(Animated.KEY)) {
-            Sprite s = (Sprite) components.get(Sprite.KEY);
-        	Animated an = (Animated) components.get(Animated.KEY);
-			if(!s.isPlaying()) {
-				s.animate(an.getData());
-			}
-        	if(components.containsKey(XVelocity.KEY)) {
-        		if(Math.abs(((XVelocity) components.get(XVelocity.KEY)).getData()) < 1) {
-        			if(s.isPlaying()) {
-        				s.pauseAnimation();
-        			}
-        		} else {
-        			s.playAnimation();
-        		}
-        	}
+        Sprite s = (Sprite) components.get(Sprite.KEY);
+    	Animated an = (Animated) components.get(Animated.KEY);
+		if(!s.isPlaying()) {
+			s.animate(an.getData());
+		}
+    	if(this.checkComponents(components, XVelocity.KEY)) {
+    		if(Math.abs(((XVelocity) components.get(XVelocity.KEY)).getData()) < 1) {
+    			if(s.isPlaying()) {
+    				s.pauseAnimation();
+    			}
+    		} else {
+    			s.playAnimation();
+    		}
         }
 	}
 

@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.components.Component;
+import engine.exceptions.EngineException;
 
 /**
  * Abstract system class to make implementing systems much easier.
@@ -87,9 +88,10 @@ public abstract class AbstractSystem implements ISystem {
 	/**
 	 * Calls on system to modify components accordingly, given a time period
 	 * @param time	Amount of time passed since last execution
+	 * @throws EngineException 
 	 */
 	@Override
-	public abstract void execute(double time);
+	public abstract void execute(double time) throws EngineException;
 	
 	/**
 	 * Special method for subsystems to get handled components
