@@ -15,7 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Controller {
+public class Controller implements IController{
 	private static final int WIDTH_SIZE = 800;
 	private static final int HEIGHT_SIZE = 500;
 	private static final int LEVEL_ONE = 1;
@@ -58,6 +58,43 @@ public class Controller {
 	}
 
 	/**
+	 * Changes the display of the gave.
+	 * @param level to be loaded
+	 */
+	public void changeGameLevel(int level) {
+		if(level > gameView.getNumOfLevels()){
+			gameOver();
+		}
+		else {
+			gameRoot = gameLevelDisplays.get(level);
+			myPane.setCenter(gameRoot);
+			gameView.setActiveLevel(level);
+		}
+	}
+
+	/**
+	 * Returns the level game display
+	 * @return
+	 */
+	public Map<Integer, Pane> getGameLevelRoot(){
+		return gameLevelDisplays;
+	}
+	
+	/**
+	 * Restarts the current level
+	 */
+	public void restartGame() {
+		setGameView();
+	}
+
+	/**
+	 * Saves game to a file
+	 */
+	public void saveGame(){
+		gameView.saveGame();
+	}
+
+	/**
 	 * Method that sets the current scene of the game
 	 */
 	public void setGameView() {
@@ -76,12 +113,11 @@ public class Controller {
 
 		initializeGameAnimation();
 	}
-
-
+	
 	/**
 	 * Begins the animation cycle count of the animation after game has started
 	 */
-	public void initializeGameAnimation() {
+	private void initializeGameAnimation() {
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
 				e -> step(SECOND_DELAY));
 		animation = new Timeline();
@@ -131,19 +167,11 @@ public class Controller {
 		}
 	}
 
-
 	//	public void setHighScoreView() {
 	//		HighScoreView highScoreScreen = new HighScoreView();
 	//		Scene highScore = highScoreScreen.getScene();
 	//		myStage.setScene(highScore);
 	//	}
-
-	/**
-	 * Restarts the current level
-	 */
-	public void restartGame() {
-		setGameView();
-	}
 
 	/**
 	 * Passes keys to engine and assigns escape key to pause menu
@@ -166,13 +194,6 @@ public class Controller {
 				}
 			}
 		});
-	}
-
-	/**
-	 * Saves game to a file
-	 */
-	public void saveGame(){
-		gameView.saveGame();
 	}
 
 	/**

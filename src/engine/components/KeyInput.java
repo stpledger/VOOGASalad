@@ -8,23 +8,23 @@ import java.util.HashMap;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
-import engine.systems.collisions.CollisionDirection;
-
 /**
  * This is the component class that allows the designer to assign an action to an entity based on a key code/key input,
- * such that the user can decide what should be done by the entity either by a preset selection or writing in his/her
+ * such that the user can decide what should be done by the entity either by a preset selection or writing in their
  * own code
  *
- * @author cndracos
+ * @author cndracos, fitzj
  */
-public class KeyInput extends Conditional implements BehaviorComponent {
+public class KeyInput implements Component, BehaviorComponent {
 
 	private Map<KeyCode, Consumer<Map<String, Component>>> codes;
 
-	public static String KEY = "KeyInput";
+	public static final String KEY = "KeyInput";
+	
+	private int pid;
 	
 	public KeyInput(int pid) {
-		super(pid);
+		this.pid = pid;
 		codes = new HashMap<>();
 	}
 
@@ -41,26 +41,11 @@ public class KeyInput extends Conditional implements BehaviorComponent {
 	 */
 	public void addCode (KeyCode code, Consumer<Map<String, Component>> con) {
 		codes.put(code, con);
-		System.out.println(codes.toString());
 	}
-
-	/*public void action(KeyCode key) {
-		codes.get(key).accept(null);
-	}*/
 	
-	@SuppressWarnings("unchecked")
 	public void action(Set<KeyCode> codeSet, Map<String, Component> entityMap) {
         codeSet.forEach((key) -> {
         	if(codes.containsKey(key)) {
-        		/*this.setAction((entity, o2) -> {
-        			if(entity instanceof Map<?,?>) {
-        				codes.get(key).accept((Map<String, Component>) entity);
-        			}
-        		});
-        		this.setCondition(() -> {
-        			return entityMap;
-        		});
-        		this.evaluate();*/
         		codes.get(key).accept(entityMap);
         	}
         });
@@ -72,21 +57,25 @@ public class KeyInput extends Conditional implements BehaviorComponent {
 	}
 
 	@Override
-	public void addBehavior(Object identifier, Consumer con) {
+	public void addBehavior(Object identifier, Consumer<Map<String,Component>> con) {
 		if(identifier instanceof KeyCode) {
 			this.addCode((KeyCode) identifier, con);
 		}
 	}
 
 	@Override
-	public void addBehavior(Object identifier, BiConsumer bic) {
+	public void addBehavior(Object identifier, BiConsumer<Map<String,Component>,Map<String,Component>> bic) {
 		if(identifier instanceof KeyCode) {
 			this.addCode((KeyCode) identifier, (entity) -> {
 				bic.accept(entity, null);
 			});
 		}
 	}
+	
 
+	public int getPID() {
+		return pid;
+	}
 }
 
 

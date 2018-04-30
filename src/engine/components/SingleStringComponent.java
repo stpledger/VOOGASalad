@@ -2,6 +2,8 @@ package engine.components;
 
 /**
  * Component containing a single string as data. Implements component interfaces for reading and read/writing.
+ * Abstract class to make other string classes easier to write.
+ * Not able to instantiate because each class needs a unique key.
  * @author fitzj
  *
  */

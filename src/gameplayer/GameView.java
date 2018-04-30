@@ -8,6 +8,7 @@ import data.DataGameState;
 import data.DataWrite;
 
 import engine.components.*;
+import engine.exceptions.EngineException;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
@@ -114,7 +115,12 @@ public class GameView implements IGamePlayerView{
 	 * @param time
 	 */
 	public void execute (double time) {
-		systemManager.execute(time);
+		try {
+			systemManager.execute(time);
+		} catch (EngineException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -215,6 +221,12 @@ public class GameView implements IGamePlayerView{
 		Map<String, Component> entityComponents;
 		for(Integer i : entityMap.keySet()) {
 			entityComponents = entityMap.get(i);
+			//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
+			if(entityComponents.containsKey(Player.KEY)){
+				playerKeys.put(levelNum, entityComponents);
+				System.out.println("putting in player for level " + levelNum);
+			}
+
 			if(entityComponents.containsKey(Sprite.KEY)) {
 				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
 				ImageView image = spriteComponent.getImage();
