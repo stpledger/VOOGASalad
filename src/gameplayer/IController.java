@@ -1,12 +1,6 @@
-<<<<<<< HEAD
-package gameplayer;
-=======
 package GamePlayer;
 
-import java.io.FileNotFoundException;
->>>>>>> harmanth
 import java.util.Map;
-
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 
