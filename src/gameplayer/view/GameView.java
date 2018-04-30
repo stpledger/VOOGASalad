@@ -1,5 +1,4 @@
 package gameplayer.view;
-
 import java.util.HashMap;
 import java.util.Map;
 
