@@ -29,7 +29,7 @@ public class Controller implements IController{
 	private Scene myScene;
 	private Pane gameRoot;
 	private BorderPane myPane;
-	private PauseMenu pauseMenu = new PauseMenu(this);
+	private PauseMenu pauseMenu;
 	private GameView gameView;
 
 	private Map<Integer, Pane> gameLevelDisplays;
@@ -42,6 +42,7 @@ public class Controller implements IController{
 
 	public Controller(Stage stage, DataGameState currentGame) {
 		myPane = new BorderPane();
+		pauseMenu = new PauseMenu(myStage);
 		gameState = currentGame;
 		myStage = stage;
 		myStage.setResizable(false);

@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Popup;
+import javafx.stage.Stage;
 
 public class PauseMenu extends Popup {
 	
@@ -15,14 +16,15 @@ public class PauseMenu extends Popup {
 	private RestartButton restartBtn;
 	public SwitchGameButton switchBtn;
 	private Controller gamePlayerController;
+	private Stage myStage;
 	/**
 	 * Constructor for the Pause Menu Popup
 	 */
-	public PauseMenu(Controller g) {
-		gamePlayerController = g;
+	public PauseMenu(Stage stage) {
+		myStage = stage;
 		VBox pane = new VBox();
 		saveBtn = new SaveGameButton(this);
-		switchBtn = new SwitchGameButton();
+		switchBtn = new SwitchGameButton(stage);
 		restartBtn = new RestartButton(gamePlayerController);
 		pane.setSpacing(10);
 		pane.setAlignment(Pos.CENTER);

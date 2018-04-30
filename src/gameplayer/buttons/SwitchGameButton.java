@@ -1,32 +1,24 @@
 package gameplayer.buttons;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
+import gameplayer.view.SplashScreenView;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
 public class SwitchGameButton extends Button implements IGamePlayerButton{
 	private final String BUTTON_NAME = "Switch Games";
-	private BooleanProperty switchBoolean;
+	private Stage myStage;
 	
-	public SwitchGameButton() {
+	public SwitchGameButton(Stage stage) {
+		myStage = stage;
 		this.setText(BUTTON_NAME);
-		switchBoolean = new SimpleBooleanProperty(false);
 		this.setEvent();
 	}
 
 	public void setEvent() {
-		this.setOnAction(e-> setSwitchBoolean());
-		// TODO Auto-generated method stub
-		
+		this.setOnAction(e-> {
+			SplashScreenView splashScreen = new SplashScreenView(myStage);
+			myStage.setScene(splashScreen.getScene());
+		});	
 	}
 	
-	public BooleanProperty getSwitchBooleanProperty() {
-		return switchBoolean;
-	}
-	
-	public void setSwitchBoolean() {
-		switchBoolean.setValue(!switchBoolean.getValue());
-	}
-
-
 }
