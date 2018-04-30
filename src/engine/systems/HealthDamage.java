@@ -61,46 +61,48 @@ public class HealthDamage implements ISystem {
 		activeComponents = myActives;
 	}
 
+	private void kill(int key) {
+		Map<String,Component> map = handledComponents.get(key);
+		if(map.containsKey(Lives.KEY)) {
+			Lives l =((Lives) map.get(Lives.KEY));
+			Health h = (Health) map.get(Health.KEY);
+			l.setData(l.getData()-1);
+			if(l.getData()>=0) {
+				h.resetHealth();
+			} else {
+			   sm.removeEntity(key);
+			}
+		} else {
+			sm.removeEntity(key);
+		}
+	}
+	
 	public void execute(double time) {
 		for (int key : activeComponents) {
 			Map<String, Component> map = handledComponents.get(key);
 			if(map.containsKey(DamageValue.KEY) && map.containsKey(DamageLifetime.KEY) && map.containsKey(Health.KEY)) {
-				Health h = (Health) map.get(Health.KEY);
-				DamageValue d = (DamageValue) map.get(DamageValue.KEY);
-				DamageLifetime dl = (DamageLifetime) map.get(DamageLifetime.KEY);
-
-				if (h.getPID()!=d.getPID()) {
-					h.setData(h.getData() - d.getData());
-					dl.setData(dl.getData() - 1);
-					if(d.getData() <= 0) {
-						map.remove(d.getKey());
-					}
-				}
-
-				if(h.getData() <= 0) {
-					if(map.containsKey(Lives.KEY)) {
-						System.out.println("Entity has lives");
-					  Lives l =((Lives) map.get(Lives.KEY));
-							l.setData(l.getData()-1);
-							System.out.println(l.getData());
-					   if(l.getData()>=0) {
-						h.resetHealth();
-					   }
-					   else {
-						   sm.removeEntity(key);
-							System.out.println("removing e");
-					   }
-					}
-					else {
-					sm.removeEntity(key);
-					System.out.println("removing");
-					}
-					//lives-health
-				}
+				this.processDamage(key);
 			}
+		}
+	}
 
+	private void processDamage(int key) {
+		Map<String,Component> map = handledComponents.get(key);
+		Health h = (Health) map.get(Health.KEY);
+		DamageValue d = (DamageValue) map.get(DamageValue.KEY);
+		DamageLifetime dl = (DamageLifetime) map.get(DamageLifetime.KEY);
+
+		if (h.getPID()!=d.getPID()) {
+			h.setData(h.getData() - d.getData());
+			dl.setData(dl.getData() - 1);
+			if(d.getData() <= 0) {
+				map.remove(d.getKey());
+			}
 		}
 
+		if(h.getData() <= 0) {
+			this.kill(key);
+		}		
 	}
 
 }
