@@ -122,7 +122,7 @@ public class TestGameState {
 		mario.put(DamageValue.KEY, damage);
 		mario.put(DamageLifetime.KEY, dl);
 		mario.put(Player.KEY, play);
-		mario.put(Animated.KEY, a);
+		//mario.put(Animated.KEY, a);
 		mario.put(Collidable.KEY, collide);
 
 

@@ -109,8 +109,10 @@ public class GameManager {
      */
     public void setActiveLevel(int level) {
         this.activeLevel = level;
-        this.activePlayerPosX = (XPosition) playerKeys.get(level).get(XPosition.KEY);
-        this.activePlayerPosY = (YPosition) playerKeys.get(level).get(YPosition.KEY);
+        if(level <= this.numOfLevels){
+            this.activePlayerPosX = (XPosition) playerKeys.get(level).get(XPosition.KEY);
+            this.activePlayerPosY = (YPosition) playerKeys.get(level).get(YPosition.KEY);
+        }
     }
 
 }
