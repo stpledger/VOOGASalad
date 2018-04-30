@@ -95,8 +95,12 @@ public class DataUtils {
         }
     }
 
-    static void setGame(String name){
+    public static void setGame(String name){
          game = name;
+    }
+    
+    public static String getGame() {
+    		return game;
     }
 
 }

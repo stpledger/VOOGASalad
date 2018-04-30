@@ -31,7 +31,7 @@ public class EntityLoader {
 	private final String ERROR_MESSAGE = "The component %s is invalid.";
 	private final String ENTITY_PREFIX = "authoring.entities.";
 	private final String XML_EXTENSION = ".xml";
-	private final String DATA_PREFIX = "data/";
+	private final String DATA_PREFIX = "data/entities/";
 	private final String TYPE = Type.KEY;
 
 	public EntityLoader() {

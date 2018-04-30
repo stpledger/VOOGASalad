@@ -15,6 +15,8 @@ import org.w3c.dom.Element;
 
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
+import data.DataUtils;
+
 import org.w3c.dom.Document;
 /**
  * This class handles parsing of the XML files that set up the type of simulation.
@@ -26,7 +28,7 @@ public class EntitySaver {
 	private static final String DOCUMENT_TITLE = "Entity";
 	private static final String XML_EXTENSION = ".xml";
 	public static final String ERROR_MESSAGE = "XML file does not properly represent %s";
-	private static final String FOLDER_PATH = "data/";
+	private static final String FOLDER_PATH = "data/entities/";
 	private static final CharSequence COMPONENT_PREFIX = "engine.components.";
 
 	public EntitySaver() {
@@ -45,6 +47,7 @@ public class EntitySaver {
 		Document document = DOCUMENT_BUILDER.newDocument();
 		Element root = document.createElement(DOCUMENT_TITLE);
 		root.setAttribute("name", fileName);
+		root.setAttribute("game", DataUtils.getGame());
 		document.appendChild(root);
 		for (Class compClass : attributes.keySet()) {
 			String compName = compClass.getName().replace(COMPONENT_PREFIX, "");
