@@ -2,6 +2,7 @@ package authoring.actions;
 
 import authoring.entities.Entity;
 import authoring.factories.ButtonElement;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
@@ -56,7 +57,6 @@ public abstract class Supplier {
         buttons = new HBox();
         prompt = new Text();
         menu.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
-
         enter = new ButtonElement(ENTER);
         enter.setOnAction(e->close());
         cancel = new ButtonElement(CANCEL);

@@ -36,7 +36,7 @@ public class DataWrite {
     private static final String ENTITY_PATH = "entity/";
     private static final String HIGHSCORE_FILE = "src/highscores.xml";
 
-
+    
     public static void saveFile(GameState gameState, String fileName) throws Exception {
         //creates an xml file from an authoiring environment this method converts authoring gamestate to player
         // gamestate then writes to xml
