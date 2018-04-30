@@ -1,17 +1,14 @@
 package authoring.factories;
 
-import java.util.Properties;
+import authoring.languages.AuthoringLanguage;
 
 /**
  * 
  * @author Hemanth Yakkali(hy115)
- * @author Collin Brown(cdb55)
  *
  */
-public interface Element {
+public interface Element extends AuthoringLanguage{
 
 	public void handleText(String text);
 	
-	public void setLanguage(Properties language);
-
 }

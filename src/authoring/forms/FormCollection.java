@@ -16,13 +16,11 @@ public interface FormCollection {
 	 */
 	public void setExceptions(String[] exceptions);
 	
-	
 	/**
 	 * Sets the action when the save button is pressed
 	 * @param onSave
 	 */
 	public void setSaveConsumer(Consumer onSave);
-	
 	
 	/**
 	 * Gets a list of the currently active component forms

@@ -3,7 +3,6 @@ package authoring.entities;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 import authoring.views.properties.LocalPropertiesView;
@@ -39,8 +38,7 @@ public abstract class Entity extends ImageView {
 	 */
 	public Entity(int ID) {
 		this.ID = ID;
-		components = new ArrayList<>();
-
+		this.components = new ArrayList<>();
 		this.setFitWidth(ENTITY_WIDTH);
 		this.setFitHeight(ENTITY_HEIGHT);
 		Consumer<List<Component>> onSubmit = componentsToAdd -> {
@@ -63,7 +61,6 @@ public abstract class Entity extends ImageView {
 			ComponentAdder cAdd = new ComponentAdder(this);
 				}
 		);
-		//addDefaultComponents();
 	}
 	
 	public String getType() {
@@ -171,17 +168,11 @@ public abstract class Entity extends ImageView {
 	 */
 	public abstract String name();
 
-	public void addComponent(){
-
-	}
-
-
 	/**
 	 * @return the list of components for this entity
 	 */
 	public List<Component> getComponentList() {
 		return this.components;
 	}
-
 
 }

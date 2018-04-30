@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
+import authoring.languages.AuthoringLanguage;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -20,7 +21,7 @@ import javafx.scene.layout.FlowPane;
  * @author Collin Brown(Cdb55)
  *
  */
-public class EntityTab extends Tab implements AuthoringPane {
+public class EntityTab extends Tab implements AuthoringLanguage {
 	Properties language = new Properties();
 	public static final double SCROLLBAR_WIDTH = 20;
 	public static final double VIEW_WIDTH = 0;

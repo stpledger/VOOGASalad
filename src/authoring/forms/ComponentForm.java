@@ -1,17 +1,13 @@
 package authoring.forms;
 
-import java.util.Properties;
-
+import authoring.languages.AuthoringLanguage;
 import javafx.geometry.Pos;
 
-	
-public interface ComponentForm {
+public interface ComponentForm extends AuthoringLanguage{
 
 	public Object buildComponent();
 
 	public String getName();
-
-	public void setLanguage(Properties language);
 
 	public void setAlignment(Pos center);
 
