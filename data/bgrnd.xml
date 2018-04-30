@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="bgrnd"><Name>bgrnd</Name><Type>Background</Type><Sprite>bonn.jpeg</Sprite></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="bgrnd"><Sprite>bonn.jpeg</Sprite><Type>Background</Type><Name>bgrnd</Name></Entity>
