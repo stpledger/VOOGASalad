@@ -29,7 +29,12 @@ public class ComponentAdder {
         for(String component : compontents.keySet()){
             MenuItem menuItem = new MenuItem(component);
             menuItem.setOnAction(e->{
-                Group root = new Group(new PropertiesComponentForm(entity.getID(),component));
+                Group root = null;
+                try {
+                    root = new Group(new PropertiesComponentForm(entity.getID(),component));
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
                 Stage popup = new Stage();
                 popup.setScene(new Scene(root));
                 popup.show();
