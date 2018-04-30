@@ -21,6 +21,7 @@ import engine.setup.SystemManager;
  * form of lambdas to be used by the entities in the game
  *
  * @author cndracos
+ * @author Yameng Liu
  */
 public class Actions {
     private static SystemManager sm = null;

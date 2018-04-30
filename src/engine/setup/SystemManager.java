@@ -15,6 +15,7 @@ import engine.exceptions.EngineException;
  * components (and entities) a smooth process along with running the execute methods.
  *
  * @author cndracos
+ * @author Yameng Liu
  */
 public class SystemManager {
 
