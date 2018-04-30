@@ -34,11 +34,6 @@ public class GameView implements IGamePlayerView{
 	private SystemManager systemManager;
 	private GameManager gameManager;
 
-	private int numOfLevels;
-	private int activeLevel;
-	private XPosition activePlayerPosX;
-	private YPosition activePlayerPosY;
-
 	private static final double PANE_HEIGHT = 442;
 	private static final double PANE_WIDTH = 800;
 	private static final int LEVEL_ONE = 1;
@@ -48,7 +43,6 @@ public class GameView implements IGamePlayerView{
 	private static final int RIGHT_BOUND = 400;
 	private static final int INVERT = -1;
 
-	private Map<Integer, Map<String, Component>> playerKeys;
 	private Map<Integer, Map<String, Boolean>> hudPropMap;
 
 	/**
@@ -60,9 +54,7 @@ public class GameView implements IGamePlayerView{
 		this.gameManager = gamemanager;
 		levels = gameState.getGameState();
 		hudPropMap = obtainHudProps(levels);
-		playerKeys = new HashMap<>();
 		intLevels = levelToInt(levels);
-		numOfLevels = intLevels.keySet().size();
 		gameLevelDisplays = createLevelDisplays(levels);
 		setActiveLevel(LEVEL_ONE);
 		initializeGameView();
