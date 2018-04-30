@@ -17,8 +17,11 @@ import java.util.function.Consumer;
 import engine.setup.SystemManager;
 
 /**
- * This is the actions class which contains many methods that return consumers representing actions in the
- * form of lambdas to be used by the entities in the game
+ * This is the actions class which contains methods that represent any in-game actions done by an entity outside of
+ * what is strictly defined by its component's values i.e. these are methods that act upon the components themselves,
+ * given by the user. Each action is a consumer which accepts the entity's components such that it can act on them
+ * as such, and in some actions that represent collisions, accept both the given entity's and the one it collides with's
+ * components.
  *
  * @author cndracos
  * @author Yameng Liu
@@ -194,7 +197,13 @@ public class Actions {
     
 	
     /**
-     * @return two new entity mapsama
+	 *
+	 * This is the main action which deals with components damaging one another. This method will be given
+	 * to an entity, and defines ONLY HOW IT DAMAGES THE OTHER ENTITY, if that entity has health. In order for
+	 * the original entity to be damaged by the other, the other must have this action as well, hence this
+	 * represents a one-way transfer of damage.
+	 *
+     * @return Damage action
      */
     @SuppressWarnings("unchecked")
 	public static BiConsumer<Map<String, Component>, Map<String, Component>> damage(){
@@ -202,7 +211,7 @@ public class Actions {
 			if (actor1.containsKey(EntityType.KEY) && actor2.containsKey(EntityType.KEY)) {
 				EntityType e1 = (EntityType) actor1.get(EntityType.KEY);
 				EntityType e2 = (EntityType) actor1.get(EntityType.KEY);
-				if (!e1.getData().equals(e2.getData())) {
+				if (!e1.getData().equals(e2.getData())) { //cannot harm same entity type
 					giveDamage(actor1, actor2);
 				}
 			}
@@ -224,7 +233,7 @@ public class Actions {
 			newDamageComponents.put(DamageValue.KEY, new DamageValue(playerID, dlv.getData()));
 			newDamageComponents.put(DamageLifetime.KEY, new DamageLifetime(playerID, dll.getData()));
 			if(sm != null) {
-				sm.addEntity(colliderID, newDamageComponents);
+				sm.addEntity(colliderID, newDamageComponents); //passes new damage to the HealthDamage system
 			}
 		}
 	}
