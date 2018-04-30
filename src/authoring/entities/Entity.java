@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
-import authoring.views.properties.LocalPropertiesView;
 
 import engine.components.Component;
 import engine.components.EntityType;
@@ -15,7 +14,6 @@ import engine.components.Width;
 import engine.components.XPosition;
 import engine.components.YPosition;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 
 
 /**
@@ -31,13 +29,16 @@ public abstract class Entity extends ImageView {
 	public final static String ERROR_MESSAGE = "Error creating entity. Please try again.";
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 	protected List<Component> components;
-	protected String type;
+	private boolean entityType;
+	private String presetType;
+	private String name;
 
 	/**
 	 * Set the ID of this entity
 	 * @param ID the ID of this entity
 	 */
 	public Entity(int ID) {
+		System.out.println("making entity!");
 		this.ID = ID;
 		this.components = new ArrayList<>();
 		this.setFitWidth(ENTITY_WIDTH);
@@ -47,13 +48,6 @@ public abstract class Entity extends ImageView {
 				this.add(c);
 			}
 		};
-		this.setOnMouseClicked(e -> {
-			if (e.getButton().equals(MouseButton.SECONDARY)) {
-				LocalPropertiesView LPV = new LocalPropertiesView(this, onSubmit);
-				LPV.open();
-			}
-			e.consume();
-		});
 		this.setOnMouseDragged(e -> {
 			this.setPosition(e.getX() + this.getLayoutX() - this.getFitWidth()/2, e.getY() + this.getLayoutY() - this.getFitHeight()/2);
 			e.consume();
@@ -62,10 +56,6 @@ public abstract class Entity extends ImageView {
 			ComponentAdder cAdd = new ComponentAdder(this);
 				}
 		);
-	}
-	
-	public String getType() {
-		return this.type;
 	}
 	
 	/**
@@ -158,16 +148,54 @@ public abstract class Entity extends ImageView {
 		}
 		return null;
 	}	
-
-	/**
-	 * @return type of this entity
-	 */
-	public abstract String type();
 	
 	/**
-	 * @return the name of this entity
+	 * 
+	 * @param type Interact type, either interactable or noninteractable
 	 */
-	public abstract String name();
+	protected void setInteractable(boolean bool) {
+		this.entityType = bool;
+	}
+	
+	/**
+	 * 
+	 * @return Interact type, either interactable or noninteractable
+	 */
+	public boolean getInteractable() {
+		return this.entityType;
+	}
+	
+	/**
+	 * 
+	 * @param type Preset type of the entity, i.e. user, block, etc.
+	 */
+	protected void setPresetType(String type) {
+		this.presetType = type;
+	}
+	
+	/**
+	 * 
+	 * @return Preset type of the entity, i.e. user, block, etc.
+	 */
+	public String getPresetType() {
+		return this.presetType;
+	}
+	
+	/**
+	 * 
+	 * @param name Name of the entity
+	 */
+	protected void setName(String name) {
+		this.name = name;
+	}
+	
+	/**
+	 * 
+	 * @return Name of the entity
+	 */
+	public String getName() {
+		return this.name;
+	}
 
 	/**
 	 * @return the list of components for this entity
@@ -176,6 +204,9 @@ public abstract class Entity extends ImageView {
 		return this.components;
 	}
 
+	/**
+	 * @param c Component class to remove
+	 */
 	public void remove (Component c) {
 		components.remove(c);
 	}

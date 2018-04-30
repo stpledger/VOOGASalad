@@ -120,7 +120,7 @@ public class DataWrite {
         }
         try {
 
-            FileOutputStream fos = new FileOutputStream(ENTITY_PATH + entity.name());
+            FileOutputStream fos = new FileOutputStream(ENTITY_PATH + entity.getName());
             serialize(entity, fos);
         } catch (FileNotFoundException e) {
             System.out.print("Cannot load");

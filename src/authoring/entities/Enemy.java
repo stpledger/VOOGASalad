@@ -8,20 +8,11 @@ package authoring.entities;
 public class Enemy extends InteractableEntity {
 
 	private final static String TYPE = "Enemy";
-	private String name;
 
 	public Enemy(int ID, String name) {
 		super(ID);
-		this.name = name;
+		this.setName(name);
+		this.setPresetType(TYPE);
 	}
 
-	@Override
-	public String type() {
-		return TYPE;
-	}
-	
-	@Override
-	public String name() {
-		return this.name;
-	}
 }
