@@ -21,9 +21,9 @@ public class Level {
 	private double levelTime;
 	private Map<String,Boolean> HUDprops;
 	private Map<String,String> GProps;
-	
+
 	public final static String ERROR_MESSAGE = "Error creating level. Please try again or consult documentation.";
-	
+
 	@XStreamOmitField
 	private transient List<Entity> entityList;
 

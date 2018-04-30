@@ -67,7 +67,7 @@ public class GameState implements IGameState {
 	public List<Level> getLevels() {
 		return state;
 	}
-	
+
 	/**
 	 * Set the name of the current game.
 	 * @param name the name of the game to set
@@ -75,7 +75,7 @@ public class GameState implements IGameState {
 	public void setName(String name) {
 		GameState.name = name;
 	}
-	
+
 	/**
 	 * Get the current name of the game. Useful for finding certain objects in directories.
 	 * @return the name of the current game represented by this state object

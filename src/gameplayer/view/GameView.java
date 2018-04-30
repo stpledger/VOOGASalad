@@ -180,7 +180,7 @@ public class GameView implements IGamePlayerView{
 			gameRoot.setTranslateX(((gameManager.getActivePlayerPosX() + RIGHT_BOUND) - PANE_WIDTH) * INVERT);
 		}
 	}
-	
+
 	/**
 	 * Method to obtain the map of heads-up display properties for each level.
 	 * @param levels
@@ -195,7 +195,7 @@ public class GameView implements IGamePlayerView{
 		}
 		return HUDPropMap;
 	}
-	
+
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
 	 * @param map
@@ -226,7 +226,7 @@ public class GameView implements IGamePlayerView{
 				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
 					setSpritePosition(entityComponents, image);
 				}
-				
+
 				if (entityComponents.containsKey(Type.KEY)) {
 					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(Type.KEY);
 					System.out.println(entityTypeComponent.getData());
