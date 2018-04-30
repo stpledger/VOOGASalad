@@ -6,5 +6,5 @@
 	<classpathentry kind="lib" path="/Users/hyakkali/Downloads/xstream-1.4.10/lib/xstream-benchmark-1.4.10.jar"/>
 	<classpathentry kind="lib" path="/Users/hyakkali/Downloads/xstream-1.4.10/lib/xstream-hibernate-1.4.10.jar"/>
 	<classpathentry kind="lib" path="/Users/hyakkali/Downloads/xstream-1.4.10/lib/xstream-jmh-1.4.10.jar"/>
-	<classpathentry kind="output" path="bin"/>
+	<classpathentry kind="output" path="target/classes"/>
 </classpath>

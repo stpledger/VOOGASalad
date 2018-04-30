@@ -13,19 +13,20 @@ import authoring.entities.Entity;
  * Class that holds level properties such as level number, level information, etc. Also holds 
  * list of entities and maps for HUD properties and Global properties.
  * @author Hemanth Yakkali(hy115)
+ *
  */
 public class Level {
 
 	private int levelNum;
 	private String levelInfo;
 	private double levelTime;
-	private Map<String,Boolean> HUDprops;
-	private Map<String,String> GProps;
 	
 	public final static String ERROR_MESSAGE = "Error creating level. Please try again or consult documentation.";
 	
 	@XStreamOmitField
 	private transient List<Entity> entityList;
+	private Map<String,Boolean> HUDprops;
+	private Map<String,String> GProps;
 
 	public Level(int levelNum) {
 		this.levelNum = levelNum;

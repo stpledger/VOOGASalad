@@ -8,7 +8,9 @@ import java.util.Properties;
  *
  */
 public class NumberFieldElement extends NumberField implements Element{
+	
 	private String myOriginalName;
+	
 	public NumberFieldElement(String text) {
 		super();
 		this.handleText(text);

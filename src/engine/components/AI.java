@@ -13,7 +13,6 @@ import java.util.function.Consumer;
  */
 public class AI implements Component, BehaviorComponent {
 
-
     public static final String KEY = "AI";
 
     private Consumer<Map<String, Component>> action;
@@ -48,7 +47,7 @@ public class AI implements Component, BehaviorComponent {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void addBehavior(Object identifier, BiConsumer bic) {
-		setAction((entity) -> {
+		setAction(entity -> {
 			bic.accept((Map<String, Component>) entity, null);
 		});
 	}

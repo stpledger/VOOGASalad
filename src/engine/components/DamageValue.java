@@ -7,12 +7,12 @@ package engine.components;
  * @author fitzj
  */
 public class DamageValue extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
-	
+
+	public static final String KEY = "DamageValue";
+
 	public DamageValue(int pid, double data) {
 		super(pid, data);
 	}
-
-	public static final String KEY = "DamageValue";
 
 	public String getKey() {
 		return KEY;
