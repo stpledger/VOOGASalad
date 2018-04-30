@@ -103,7 +103,7 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	 */
 	protected Alert makeSubmitAlert() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setContentText(this.title()+ " " +this.getButtonBundle().getString("Save"));
+		alert.setContentText(this.title()+ " " +this.getFormBundle().getString("Save"));
 		alert.show();
 		return alert;
 	}
@@ -129,7 +129,7 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	 * 
 	 * @return ResourceBundle with names for buttons
 	 */
-	protected ResourceBundle getButtonBundle() {
+	protected ResourceBundle getFormBundle() {
 		return ResourceBundle.getBundle(PropertiesView.FORM_RESOURCES);
 	}
 

@@ -28,7 +28,7 @@ public class LevelPropertiesView extends PropertiesView{
 
 	@Override
 	protected String title() {
-		String[] title = this.getButtonBundle().getString("Level").split(" ");
+		String[] title = this.getFormBundle().getString("Level").split(" ");
 		return title[0]+" "+levelNum+" "+title[1];
 	}
 
@@ -41,7 +41,7 @@ public class LevelPropertiesView extends PropertiesView{
 			TextField diffText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,"");
 			NumberField timeNumber = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField,"");
 			this.getRoot().addColumn(1,diffText,timeNumber,infoText);
-			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button,this.getButtonBundle().getString("Submit"), e->{
+			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button,this.getFormBundle().getString("Submit"), e->{
 				level.setLevelInfo(infoText.getText());
 				level.setLevelDifficulty(diffText.getText());
 				level.setLevelTime(Double.parseDouble(timeNumber.getText()));

@@ -29,7 +29,7 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	@Override
 	protected String title() {
-		return this.getButtonBundle().getString("Global");
+		return this.getFormBundle().getString("Global");
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class GlobalPropertiesView extends PropertiesView {
 			NumberField livesInput = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField,"");
 			TextField pathInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField,"");
 			this.getRoot().addColumn(1,livesInput,titleInput,pathInput);
-			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getButtonBundle().getString("Submit"), e->{
+			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getFormBundle().getString("Submit"), e->{
 				for(Level level : levels) {
 					level.addGProp(globalProps.getString("Title"), titleInput.getText());
 					level.addGProp(globalProps.getString("Lives"), livesInput.getText());

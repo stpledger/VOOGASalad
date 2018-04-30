@@ -42,7 +42,7 @@ public class LocalPropertiesView extends PropertiesView {
 	 */
 	@Override
 	public String title() {
-		String[] title = this.getButtonBundle().getString("Local").split(" ");
+		String[] title = this.getFormBundle().getString("Local").split(" ");
 		return title[0]+" "+this.entity.getID()+" "+title[1];
 	}
 
