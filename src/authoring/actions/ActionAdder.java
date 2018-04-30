@@ -1,11 +1,11 @@
 package authoring.actions;
 
 import authoring.entities.Entity;
+import data.DataUtils;
 import engine.actions.ActionReader;
 import engine.actions.Actions;
 import engine.systems.collisions.CollisionDirection;
 import javafx.scene.input.KeyCode;
-
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
@@ -27,8 +27,8 @@ public class ActionAdder {
     private List<Supplier> suppliers;
     private static final String AI = "AI";
     private static final String COLLIDABLE = "Collidable";
-    private static final String COLLISIONACTION = "CollisionAction";
     private static final String KEYCODE = "KeyInput";
+    private static final String FAILED = "Couldnt make action";
 
     ActionAdder(Entity entity){
         this.entity=entity;
@@ -79,20 +79,17 @@ public class ActionAdder {
           ActionReader aRead = new ActionReader();
           for (Supplier supplier : suppliers)
               args.add(supplier.getData());
-          args = reverse(args);
-
           System.out.print("Supplier with " + args.size() + " items");
           if (component.equals(AI))
              configureAI(aRead.getAction(methodName,args));
           if (component.equals(COLLIDABLE))
               configureCollidable((BiConsumer)aRead.getAction(methodName, args));
-          if (component.equals(COLLISIONACTION))
-              configureCollisionAction(aRead.getAction(methodName, args));
           if(component.equals(KEYCODE))
               configureKeyInput(aRead.getAction(methodName,args));
       }
       catch(Exception e){
-          e.printStackTrace();
+          DataUtils.ErrorStatement(FAILED);
+          System.out.print("Error loading in ine 92 ActionAdder");
       }
     }
 
@@ -102,10 +99,6 @@ public class ActionAdder {
 
     private void configureCollidable(BiConsumer action){
         ((engine.components.Collidable) entity.get(COLLIDABLE)).setOnDirection((CollisionDirection) input.getData(),action);
-    }
-
-    private void configureCollisionAction(Consumer action){
-        ((engine.components.CollisionAction) entity.get(COLLISIONACTION)).addAction((CollisionDirection) input.getData(),action);
     }
 
     private void configureKeyInput(Consumer action){

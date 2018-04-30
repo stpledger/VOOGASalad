@@ -6,13 +6,13 @@ package engine.components;
  * 
  * @author fitzj
  */
-public class DamageLifetime extends SingleDataComponent {
+public class DamageLifetime extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
+
+	public static final String KEY = "DamageLifetime";
 	
 	public DamageLifetime(int pid, double data) {
 		super(pid, data);
 	}
-
-	public static final String KEY = "DamageLifetime";
 
 	public String getKey() {
 		return KEY;

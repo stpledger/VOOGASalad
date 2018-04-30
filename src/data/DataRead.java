@@ -1,6 +1,8 @@
 package data;
 
-import GamePlayer.Person;
+
+
+import gameplayer.view.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import authoring.gamestate.Level;
@@ -59,7 +61,7 @@ public class DataRead  {
     public static Image loadImage(String name)throws RuntimeException {
         /*used to load all iamges in player
          */
-        File imageFile = loadFile(game + FRONTSLASH + IMAGE_PATH +name);
+        File imageFile = loadFile(gameName + IMAGE_PATH +name);
         return loadImage(imageFile);
     }
 
@@ -111,7 +113,7 @@ public class DataRead  {
     public static List<DataGameState> getSaves(){
         //loads all saves
         List<DataGameState> saves = new ArrayList<DataGameState>();
-        File file = loadFile(game + FRONTSLASH + SAVE_PATH);
+        File file = loadFile(gameName + FRONTSLASH + SAVE_PATH);
         for(File save : file.listFiles()){
             saves.add((DataGameState)deserialize(save));
         }
@@ -120,7 +122,7 @@ public class DataRead  {
 
     public static List<Image> getIcons(){
         List<Image> icons = new ArrayList<>();
-        File imageRepo = loadFile(game+IMAGE_PATH);
+        File imageRepo = loadFile(gameName+IMAGE_PATH);
         for(File image : imageRepo.listFiles()) {
             icons.add(loadImage(image));
         }
@@ -133,7 +135,7 @@ public class DataRead  {
          */
         try {
             DataGameState gameState = (DataGameState)deserialize(xml);
-            game=GAME_PATH + gameState.getGameName()+ FRONTSLASH;
+            gameName=GAME_PATH + gameState.getGameName()+ FRONTSLASH;
             return gameState;
         }
         catch(Exception e){
@@ -147,11 +149,11 @@ public class DataRead  {
         return xstream.fromXML(xml);
     }
 
-    /*private static  Animaate getAnimation(String name){
-        File animateDir = loadFile(ANIMATION_PATH);
-        File animateFolder = findInDirectory(animateDir,name);
-
-    }*/
+//    private static  Animaate getAnimation(String name){
+//        File animateDir = loadFile(ANIMATION_PATH);
+//        File animateFolder = findInDirectory(animateDir,name);
+//
+//    }
 
 
 

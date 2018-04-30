@@ -1,7 +1,5 @@
 package engine.systems;
 
-
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
@@ -14,47 +12,38 @@ import javafx.scene.input.KeyCode;
  * System which delegates key codes pressed by the user to the components which contain that key code such that
  * they can then perform their actions
  *
- * @author cndracos, sv116
+ * @author cndracos, sv116, fitzj
  */
-public class InputHandler implements ISystem {
-	private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
+public class InputHandler extends AbstractSystem implements ISystem {
 
-	private Set<Integer> activeComponents = new HashSet<>();
-	private Set<KeyCode> activeCodes = new HashSet<>();
+	private Set<KeyCode> activeCodes;
 
+	public InputHandler() {
+		super();
+		activeCodes = new HashSet<>();
+	}
 
 	@Override
 	public void addComponent(int pid, Map<String, Component> components) {
-		if (components.containsKey(KeyInput.KEY)) {
-			
-			handledComponents.put(pid, components);
+		if (this.checkComponents(components, KeyInput.KEY)) {
+			this.directAddComponent(pid, components);
 		}
 	}
 
-	@Override
-	public void removeComponent(int pid) {
-		if (handledComponents.containsKey(pid)) {
-			handledComponents.remove(pid);
-		}
-	}
-
-	@Override
-	public void setActives(Set<Integer> actives) {
-		Set<Integer> myActives = new HashSet<>(actives);
-		myActives.retainAll(handledComponents.keySet());
-		activeComponents = myActives;
-	}
 
 	@Override
 	public void execute(double time) {
-		for (int id : activeComponents) {
-			Map<String, Component> components = handledComponents.get(id);
+		for (int id : this.getActives()) {
+			Map<String, Component> components = this.getHandled().get(id);
 			KeyInput k = (KeyInput) components.get(KeyInput.KEY);
 			k.action(activeCodes, components);
 		}
 	}
 
-
+	/**
+	 * Removes code from activeCode list when user releases key
+	 * @param code	Key being released
+	 */
 	public void removeCode(KeyCode code) {
 		if(activeCodes.contains(code)) {
 			activeCodes.remove(code);

@@ -6,8 +6,8 @@ import java.util.function.Consumer;
 import javafx.scene.control.ComboBox;
 
 /**
- * 
- * @author Collin Brown(cdb55)
+ * Handles the creation of a ComboBox through the use of the ElementFactory. 
+ * @author Hemanth Yakkali
  *
  */
 public class ComboBoxElement extends ComboBox implements ClickableElement {

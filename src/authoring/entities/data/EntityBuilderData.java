@@ -9,12 +9,18 @@ import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
 import authoring.forms.ComponentForm;
 
+/**
+ * 
+ * @author Collin Brown(cdb55)
+ *
+ */
 public class EntityBuilderData {
 
 	private Map<Class, Object[]> componentAttributes = new HashMap<>();
 
 	private final static String COMPONENT_PREFIX = "engine.components.";
 	private final String NAME_ERROR_MESSAGE = "There must be a value in the \"Name\" field.\n";
+	private final String COMPONENT_ERROR_MESSAGE = "The component %s does not exist. Please check the package engine.components to make sure that the component has been created.\n";
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public EntityBuilderData() {
@@ -33,7 +39,7 @@ public class EntityBuilderData {
 			}
 			componentAttributes.put(c, new Object[] {val});
 		} catch (Exception e) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e.getMessage(), e);
+			throw new AuthoringException(COMPONENT_ERROR_MESSAGE, AuthoringAlert.SHOW, c.getName());
 		}
 	}
 
@@ -51,7 +57,7 @@ public class EntityBuilderData {
 					System.out.println(component[0].toString() + ":" + component[1].toString());
 					componentAttributes.put(Class.forName(COMPONENT_PREFIX + component[0]), (Object[]) component[1]);
 				} catch (Exception e) {
-					throw e;
+					throw new AuthoringException(COMPONENT_ERROR_MESSAGE, AuthoringAlert.SHOW, component);
 				}
 			}
 		}

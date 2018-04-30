@@ -3,10 +3,10 @@ package engine.components;
 /**
  * Data component representing an entity's health.
  * @author fitzj
- *
+ * @author Yameng Liu
  */
 
-public class Health extends SingleDataComponent {
+public class Health extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 	private double initialHealth;
 	public static final String KEY = "Health";
 	

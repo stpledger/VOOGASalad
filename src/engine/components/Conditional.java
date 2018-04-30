@@ -11,7 +11,7 @@ import java.util.function.Supplier;
  */
 public class Conditional implements Component, BehaviorComponent {
 
-    public static String KEY = "Conditional";
+    public static final String KEY = "Conditional";
     private Supplier<Object> conditional;
     private BiConsumer<Object, Object> action;
     private int pid;
@@ -66,11 +66,13 @@ public class Conditional implements Component, BehaviorComponent {
 		return pid;
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void addBehavior(Object identifier, Consumer con) {
 		setAction((e1, e2) -> con.accept(e1));
 	}
 
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void addBehavior(Object identifier, BiConsumer bic) {
 		setAction(bic);

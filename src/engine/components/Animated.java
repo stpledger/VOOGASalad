@@ -1,16 +1,17 @@
 package engine.components;
 
+
 /**
- * Flag component to mark if an entity is animated. May be changed to point to the animation's folder.
+ * 
  * @author fitzj
  *
  */
-public class Animated extends FlagComponent {
+public class Animated extends SingleStringComponent implements Component, StringComponent, ReadStringComponent {
 
 	public static final String KEY = "Animated";
 	
-	public Animated(int pid) {
-		super(pid);
+	public Animated(int pid, String filepath) {
+		super(pid, filepath);
 	}
 
 	@Override

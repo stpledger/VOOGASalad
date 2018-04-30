@@ -1,41 +1,46 @@
 package engine.test;
 
-import java.awt.*;
+import java.awt.Point;
 import java.io.FileNotFoundException;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataWrite;
-import engine.Engine;
-import engine.InternalEngine;
 import engine.actions.Actions;
-import engine.components.*;
+import engine.components.AI;
+import engine.components.Collidable;
 import engine.components.Component;
+import engine.components.DamageLifetime;
+import engine.components.DamageValue;
+import engine.components.Health;
+import engine.components.Height;
+import engine.components.KeyInput;
+import engine.components.Lives;
+import engine.components.Player;
+import engine.components.Sprite;
+import engine.components.Width;
+import engine.components.Win;
+import engine.components.XAcceleration;
+import engine.components.XPosition;
+import engine.components.XVelocity;
+import engine.components.YAcceleration;
+import engine.components.YPosition;
+import engine.components.YVelocity;
 import engine.systems.collisions.CollisionDirection;
 
-
-import engine.components.groups.Acceleration;
-import engine.components.groups.Damage;
-import engine.components.groups.Dimension;
-import engine.components.groups.Position;
-import engine.components.groups.Velocity;
 import engine.components.presets.PlayerMovement;
 
-import java.util.function.BiConsumer;
 import engine.setup.GameInitializer;
 import engine.systems.InputHandler;
-import engine.systems.collisions.CollisionDirection;
 import javafx.scene.input.KeyCode;
 
 public class TestGameState {
 
 	private Map<Integer, Map<String, Component>> entities;
-	private Engine eng;
+	//private Engine eng;
 	private InputHandler ih;
 
 
@@ -56,7 +61,7 @@ public class TestGameState {
 		Height h = new Height(0, 100);
 		XVelocity vx = new XVelocity(0, 0);
 		YVelocity vy = new YVelocity(0, 0);
-		Animated a = new Animated(0);
+		//Animated a = new Animated(0);
 		XAcceleration ax = new XAcceleration(0, 0);
 		YAcceleration ay = new YAcceleration(0,0);
 		//KeyInput k = new KeyInput(0);
@@ -125,7 +130,7 @@ public class TestGameState {
 		mario.put(DamageValue.KEY, damage);
 		mario.put(DamageLifetime.KEY, dl);
 		mario.put(Player.KEY, play);
-		mario.put(Animated.KEY, a);
+		//mario.put(Animated.KEY, a);
 		mario.put(Collidable.KEY, collide);
 
 
@@ -241,7 +246,7 @@ public class TestGameState {
 		//entities.put(3, mario4);
 		GameInitializer gi = new GameInitializer(entities, 300, 50, 50);
 		ih = gi.getInputHandler();
-		eng = new InternalEngine(gi.getSystems());
+		//eng = new InternalEngine(gi.getSystems());
 
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);
@@ -261,10 +266,6 @@ public class TestGameState {
 	}
 
 
-	public void run(Renderer r) {
-		FixedSteps fs = new FixedSteps((time) -> eng.update(time), r, (fps) -> System.out.println("FPS: " + fps));
-		fs.start();
-	}
 
 	public InputHandler getIH() { return ih; }
 

@@ -3,6 +3,8 @@ package authoring.forms;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
+import authoring.entities.Entity;
+
 
 /**
  * 
@@ -10,14 +12,13 @@ import java.util.function.Consumer;
  *
  */
 public class EntityComponentFormCollection extends AbstractComponentFormCollection {
-
 	
 	public EntityComponentFormCollection() {
 		super(EntityComponentForm.class);
 	}
 	
-	public EntityComponentFormCollection(String[] newExceptions, Consumer onSave) {
-		super(newExceptions, onSave, EntityComponentForm.class);	
+	public EntityComponentFormCollection( String[] newExceptions, Consumer onSave) {
+		super(newExceptions, onSave, EntityComponentForm.class);
 
 	}
 
@@ -30,6 +31,16 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 		}
 		onSave.accept(componentsToAdd);
 		
+	}
+
+	@Override
+	protected boolean hasCurrentValue(String componentName) {
+		return false;
+	}
+
+	@Override
+	protected Object getCurrentValue(String componentName) {
+		return null;
 	}
 }
 

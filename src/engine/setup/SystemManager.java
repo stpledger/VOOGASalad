@@ -7,6 +7,7 @@ import java.util.Set;
 
 import engine.systems.ISystem;
 import engine.components.Component;
+import engine.exceptions.EngineException;
 
 /**
  * This is the class which delegates actions and components to the systems, allowing an efficient distribution of
@@ -14,6 +15,7 @@ import engine.components.Component;
  * components (and entities) a smooth process along with running the execute methods.
  *
  * @author cndracos
+ * @author Yameng Liu
  */
 public class SystemManager {
 
@@ -70,7 +72,7 @@ public class SystemManager {
         }
     }
 
-    public void execute (double time) {
+    public void execute (double time) throws EngineException {
         for (ISystem s: systems) {
             s.execute(time);
         }
