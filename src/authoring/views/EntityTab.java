@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
+import authoring.languages.AuthoringLanguage;
 import javafx.scene.Node;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
@@ -103,7 +104,6 @@ public class EntityTab extends Tab implements AuthoringLanguage {
 	public void setLanguage(Properties lang) {
 		this.language = lang;
 		this.setText(language.getProperty(this.getId()));
-
 	}
 
 

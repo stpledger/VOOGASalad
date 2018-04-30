@@ -16,7 +16,7 @@ import engine.components.presets.PlayerMovement;
  */
 public class User extends InteractableEntity {
 
-	private final static String TYPE = "Player";
+	private final static String TYPE = "User";
 	private String name;
 	private final static double INITIAL_HEALTH = 100;
 	private final static int INITIAL_LIVES = 10;
