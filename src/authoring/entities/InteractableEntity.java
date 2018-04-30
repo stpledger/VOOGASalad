@@ -72,12 +72,12 @@ public abstract class InteractableEntity extends Entity {
 	@Override
 	public void add(Component c) {
 		// component must be in the list of addable components
-        		if (c != null) {
-        			if (this.contains(c)) {
-        				this.removeByName(c.getKey());
-        			}
-        			this.components.add(c);
-        		}
+		if (c != null) {
+			if (this.contains(c)) {
+				this.removeByName(c.getKey());
+			}
+			this.components.add(c);
+		}
 	}
 
 	/**
@@ -137,7 +137,6 @@ public abstract class InteractableEntity extends Entity {
 	 * 
 	 * @return List of components which define the entity
 	 */
-
 	public List<Component> getComponentList(){
 		return this.components;
 	}

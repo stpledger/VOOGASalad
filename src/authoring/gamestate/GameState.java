@@ -8,11 +8,10 @@ import data.DataWrite;
 import java.util.ArrayList;
 
 /**
- * Keeps track of the current state of the authoring environment, so that the author can save/load games dynamically. 
- *
+ * Keeps track of the current state of the authoring environment, so that the author 
+ * can save/load games dynamically. 
  * @author Dylan Powers
  * @author Hemanth Yakkali (hy115)
- *
  */
 public class GameState implements IGameState {
 
@@ -28,11 +27,13 @@ public class GameState implements IGameState {
 		state = new ArrayList<>();
 	}
 
+	/**
+	 * Saves the GameState into an XML file
+	 */
 	@Override
 	public void save() {
 		try {
-			DataWrite.saveFile(this, this.name);
-			System.out.println("saved!");
+			DataWrite.saveFile(this, name);
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
 		}
@@ -60,6 +61,9 @@ public class GameState implements IGameState {
 		}
 	}
 
+	/**
+	 * @return GameState, which is a list of levels
+	 */
 	public List<Level> getLevels() {
 		return state;
 	}

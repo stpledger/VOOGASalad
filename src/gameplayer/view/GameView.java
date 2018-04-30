@@ -7,6 +7,7 @@ import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataWrite;
 import engine.components.*;
+import engine.exceptions.EngineException;
 import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
@@ -113,7 +114,11 @@ public class GameView implements IGamePlayerView{
 	 * @param time
 	 */
 	public void execute (double time) {
-		systemManager.execute(time);
+		try {
+			systemManager.execute(time);
+		} catch (EngineException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -175,27 +180,6 @@ public class GameView implements IGamePlayerView{
 			gameRoot.setTranslateX(((gameManager.getActivePlayerPosX() + RIGHT_BOUND) - PANE_WIDTH) * INVERT);
 		}
 	}
-
-	/**
-	 * Returns current active level
-	 * @return
-	 */
-	public int getActiveLevel(){
-		return activeLevel;
-	}
-
-	/**
-	 * Returns the number of levels
-	 * @return
-	 */
-	public int getNumOfLevels(){
-		return numOfLevels;
-	}
-
-	//TODO: IS THIS NECESSARY?
-	/*public ArrayList<Win> getWinComponents() {
-		return winComponents;
-	}*/
 	
 	/**
 	 * Method to obtain the map of heads-up display properties for each level.
