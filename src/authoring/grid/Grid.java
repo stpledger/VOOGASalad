@@ -37,7 +37,6 @@ public class Grid extends GridPane {
 	private static final int ADD_ONE = 1;
 	private static final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
 	private static final String DRAGGED_OVER_STYLE = "-fx-background-color: #1CFEBA";
-	private static final String NON_INTERACT = "Noninteractable";
 
 	private int numRows;
 	private int numCols;
@@ -95,20 +94,15 @@ public class Grid extends GridPane {
 			Dragboard db = e.getDragboard();
 			EntityLoader el = new EntityLoader();
 			ImageView img = new ImageView(db.getImage());
-			if(!c.containsEntity() || c.getEntity().getType().equals(NON_INTERACT)) { //can add entity to empty cell or cell with background entity
+			if(!c.containsEntity() || !c.getEntity().getInteractable()) { //can add entity to empty cell or cell with background entity
 				try {
 					Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(),c.getLayoutY());
 					c.addEntity(en);
 					level.addEntity(en);
 					img.setFitWidth(Entity.ENTITY_WIDTH);
 					img.setFitHeight(Entity.ENTITY_HEIGHT);
-//					if(en.getType().equals(NON_INTERACT)) {
-//						c.getChildren().add(0, element);
-//					}
 					c.getChildren().add(img);
-					c.rearrangeEntities();
 					c.setImage(db.getImage());
-
 				} catch (Exception e1) {
 					throw new AuthoringException("Cannot add entity to the cell!", AuthoringAlert.SHOW);
 				}
@@ -140,8 +134,8 @@ public class Grid extends GridPane {
 						MenuItem actionConfig = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Edit Entity Actions", e1->{
 							ActionAdderView a = new ActionAdderView(c.getEntity());});
 						MenuItem removeEntity = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Entity", e1->this.clearCell(c));
-						cMenu.getItems().addAll(openLPV,removeEntity,actionConfig);
-						if(c.getEntity().getType().equals(NON_INTERACT)) {
+						cMenu.getItems().addAll(openLPV,removeEntity);
+						if(!c.getEntity().getInteractable()) {
 							ImageView bgrnd = (ImageView) c.getChildren().get(c.getChildren().size()-1);
 							MenuItem addImageCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addImageCol(c, bgrnd, 1));
 							MenuItem addImageRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Row", e2->this.addImageRow(c, bgrnd, 1));
@@ -153,6 +147,7 @@ public class Grid extends GridPane {
 						}
 					}
 				} catch (Exception e1) {
+					e1.printStackTrace();
 					throw new AuthoringException("Cannot create context menu!", AuthoringAlert.SHOW);
 				}
 				cMenu.show(c, e.getScreenX(), e.getScreenY());

@@ -10,7 +10,8 @@ import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import authoring.entities.Entity;
 
 /**
- * 
+ * Class that holds level properties such as level number, level information, etc. Also holds 
+ * list of entities and maps for HUD properties and Global properties.
  * @author Hemanth Yakkali(hy115)
  *
  */
@@ -18,14 +19,12 @@ public class Level {
 
 	private int levelNum;
 	private String levelInfo;
-	private String levelDifficulty;
-	private String levelText;
 	private double levelTime;
-	private double levelDistance;
+	
 	public final static String ERROR_MESSAGE = "Error creating level. Please try again or consult documentation.";
+	
 	@XStreamOmitField
 	private transient List<Entity> entityList;
-
 	private Map<String,Boolean> HUDprops;
 	private Map<String,String> GProps;
 
@@ -36,6 +35,10 @@ public class Level {
 		this.GProps = new HashMap<>();
 	}
 
+	/**
+	 * 
+	 * @param entity Entity to be added to the list of entities
+	 */
 	public void addEntity(Entity entity) {
 		for (Entity other : entityList) {
 			if (entity.getID() == other.getID()) {
@@ -43,90 +46,110 @@ public class Level {
 			}
 		}
 		this.entityList.add(entity);
-		System.out.println("Added!");
 	}
 
+	/**
+	 * 
+	 * @param entity Entity to be removed from the list of entities
+	 */
 	public void removeEntity(Entity entity) {
-		System.out.println("Removed!");
 		this.entityList.remove(entity);
 	}
 
-	public String getLevelDifficulty() {
-		return this.levelDifficulty;
-	}
-
+	/**
+	 * 
+	 * @return List of entities
+	 */
 	public List<Entity> getEntityList(){
 		return entityList;
 	}
 
-	public void setLevelDifficulty(String levelDifficulty) {
-		this.levelDifficulty = levelDifficulty;
-	}
-
+	/**
+	 * 
+	 * @return Information about the level
+	 */
 	public String getLevelInfo() {
 		return this.levelInfo;
 	}
 
+	/**
+	 * 
+	 * @param levelInfo Information about the level
+	 */
 	public void setLevelInfo(String levelInfo) {
 		this.levelInfo = levelInfo;
 	}
 
+	/**
+	 * 
+	 * @return Level number
+	 */
 	public int getLevelNum() {
 		return this.levelNum;
 	}
 
+	/**
+	 * 
+	 * @param levelNum Level number
+	 */
 	public void setLevelNum(int levelNum) {
 		this.levelNum = levelNum;
 	}
 
-	public String getLevelText() {
-		return levelText;
-	}
-
-	public void setLevelText(String levelText) {
-		this.levelText = levelText;
-	}
-
+	/**
+	 * 
+	 * @return Time for the level
+	 */
 	public double getLevelTime() {
 		return levelTime;
 	}
 
+	/**
+	 * 
+	 * @param levelTime Time for the level
+	 */
 	public void setLevelTime(double levelTime) {
 		this.levelTime = levelTime;
 	}
 
-	public double getLevelDistance() {
-		return levelDistance;
-	}
-
-	public void setLevelDistance(double levelDistance) {
-		this.levelDistance = levelDistance;
-	}
-
+	/**
+	 * 
+	 * @return Map of HUD properties
+	 */
 	public Map<String,Boolean> getHUDprops() {
 		return this.HUDprops;
 	}
 
-	public void setHUDprops(Map<String,Boolean> hUDprops) {
-		this.HUDprops = hUDprops;
-	}
-
+	/**
+	 * 
+	 * @param prop HUD property
+	 * @param bool {@code Boolean} if property should be displayed in game player
+	 */
 	public void addHUDProp(String prop, Boolean bool) {
 		this.HUDprops.put(prop, bool);
 	}
 
-	public void setGProps(Map<String,String> gProps) {
-		GProps = gProps;
-	}
-
+	/**
+	 * 
+	 * @param prop Global property
+	 * @param value Value of the global property
+	 */
 	public void addGProp(String prop, String value) {
 		this.GProps.put(prop, value);
 	}
 
+	/**
+	 * 
+	 * @param prop HUD property to be removed from HUD properties map
+	 */
 	public void removeHUDProp(String prop) {
 		this.HUDprops.remove(prop);
 	}
 
+	/**
+	 * 
+	 * @param prop Global property to be removed from Global properties map
+	 */
 	public void removeGProp(String prop) {
 		this.GProps.remove(prop);
 	}

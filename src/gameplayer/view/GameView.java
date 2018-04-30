@@ -128,8 +128,7 @@ public class GameView implements IGamePlayerView{
 		try {
 			systemManager.execute(time);
 		} catch (EngineException e) {
-			// TODO Auto-generated catch block
-			System.out.println("Engine Exception");
+			e.printStackTrace();
 		}
 	}
 
@@ -215,7 +214,7 @@ public class GameView implements IGamePlayerView{
 		}
 		return HUDPropMap;
 	}
-	
+
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
 	 * @param map
@@ -256,7 +255,7 @@ public class GameView implements IGamePlayerView{
 						//winComponents.add((Win) entityComponents.get(Win.KEY));
 					}
 				}
-				
+
 				if (entityComponents.containsKey(Type.KEY)) {
 					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(Type.KEY);
 					System.out.println(entityTypeComponent.getData());

@@ -27,7 +27,7 @@ public class ButtonElement extends Button implements ClickableElement{
 	public void handleConsumer(Consumer<Void> event) {
 		this.setOnAction(e->event.accept(null));
 	}
-	
+
 	@Override
 	public void setLanguage(Properties language) {
 		this.handleText(language.getProperty(this.getId(), this.getId()));
