@@ -1,6 +1,7 @@
 package authoring.actions;
 
 import authoring.entities.Entity;
+import data.DataUtils;
 import engine.actions.ActionReader;
 import engine.actions.Actions;
 import engine.systems.collisions.CollisionDirection;
@@ -27,6 +28,7 @@ public class ActionAdder {
     private static final String AI = "AI";
     private static final String COLLIDABLE = "Collidable";
     private static final String KEYCODE = "KeyInput";
+    private static final String FAILED = "Couldnt make action";
 
     ActionAdder(Entity entity){
         this.entity=entity;
@@ -86,7 +88,8 @@ public class ActionAdder {
               configureKeyInput(aRead.getAction(methodName,args));
       }
       catch(Exception e){
-          e.printStackTrace();
+          DataUtils.ErrorStatement(FAILED);
+          System.out.print("Error loading in ine 92 ActionAdder");
       }
     }
 

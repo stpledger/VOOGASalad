@@ -5,7 +5,7 @@ import java.io.File;
 
 import data.DataGameState;
 import data.DataRead;
-import gameplayer.Controller;
+import GamePlayer.Controller;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -38,7 +38,7 @@ public class FileUploadButton extends Button implements IGamePlayerButton {
 				@Override public void handle(ActionEvent e) {
 					fileUpload(); //activate the file upload method
 					gameController = new Controller(myStage, gameState);
-					myStage.setScene(gameController.getControllerScene());
+					myStage.setScene(gameController.initializeStartScene());
 				}
 			});
 		}

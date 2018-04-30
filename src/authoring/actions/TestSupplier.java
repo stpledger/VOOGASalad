@@ -58,11 +58,7 @@ public class TestSupplier extends Application{
         primaryStage.show();
         Button b = new Button("Add a file");
         b.setOnAction(e-> {
-            try {
-                DataWrite.saveFile(g,"ConradActions");
-            } catch (Exception e1) {
-                e1.printStackTrace();
-            }
+   
         });
         root.getChildren().addAll(block,block1,b);
 

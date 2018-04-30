@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="dirt"><Health>50</Health><Name>dirt</Name><Type>Block</Type><Sprite>dirt.jpg</Sprite></Entity>
+=======
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="dirt"><Health>10.0</Health><Name>dirt</Name><Type>Block</Type><Sprite>dirt.jpg</Sprite></Entity>
+>>>>>>> 727e46d96542bfe11fad7c0f6afd6a0ce1f94c89

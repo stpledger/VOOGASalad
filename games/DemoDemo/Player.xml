@@ -78,6 +78,7 @@
                 <codes>
                   <entry>
                     <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+<<<<<<< HEAD
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
@@ -95,6 +96,8 @@
                   </entry>
                   <entry>
                     <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+=======
+>>>>>>> 727e46d96542bfe11fad7c0f6afd6a0ce1f94c89
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
@@ -111,14 +114,14 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
-                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$0</implMethodName>
+                      <implMethodName>lambda$1</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
@@ -140,10 +143,29 @@
                       <capturedArgs/>
                     </java.util.function.Consumer>
                   </entry>
+                  <entry>
+                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/components/presets/PlayerMovement</implClass>
+                      <implMethodName>lambda$0</implMethodName>
+                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs/>
+                    </java.util.function.Consumer>
+                  </entry>
                 </codes>
                 <pid>0</pid>
                 <crouched>false</crouched>
+<<<<<<< HEAD
                 <timing>1.525058023063E12</timing>
+=======
+                <timing>1.525058171854E12</timing>
+>>>>>>> 727e46d96542bfe11fad7c0f6afd6a0ce1f94c89
               </engine.components.presets.PlayerMovement>
             </entry>
             <entry>

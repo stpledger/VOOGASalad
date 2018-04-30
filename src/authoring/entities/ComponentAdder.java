@@ -10,9 +10,6 @@ import javafx.stage.Stage;
 
 import java.util.ResourceBundle;
 
-import authoring.forms.PropertiesComponentForm;
-
-
 public class ComponentAdder {
 
     Entity entity;

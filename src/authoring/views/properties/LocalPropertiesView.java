@@ -42,7 +42,8 @@ public class LocalPropertiesView extends PropertiesView {
 	 */
 	@Override
 	public String title() {
-		return String.format("Entity %d Local Properties", this.entity.getID());
+		String[] title = this.getFormBundle().getString("Local").split(" ");
+		return title[0]+" "+this.entity.getID()+" "+title[1]; //need to split to add level number in the middle
 	}
 
 	@Override
@@ -64,7 +65,7 @@ public class LocalPropertiesView extends PropertiesView {
 			System.out.println("Here: " + c.toString());
 		}
 		onSubmit.accept(componentsToAdd);
-		this.makeAlert(this.title() + " has been updated!");
+		this.makeSubmitAlert();
 		this.close();
 	}
 

@@ -1,6 +1,6 @@
 package buttons;
 
-import gameplayer.Controller;
+import GamePlayer.Controller;
 import data.DataGameState;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -17,18 +17,17 @@ public class GameSelectButton extends Button implements IGamePlayerButton{
 	private Stage myStage;
 	private BooleanProperty gameSelectBoolean;
 	private Controller gameController;
-	private DataGameState myGameState;
 	
 	/**
 	 * 
 	 * @param name of the Game
-	 * @param currentGameState of the GameData to be imported
+	 * @param file of the GameData to be imported
 	 * @param image of the Game to used for the button.
 	 */
 	public GameSelectButton(Stage stage, String name, DataGameState currentGameState, Image image) {
 		gameSelectBoolean = new SimpleBooleanProperty(false);
-		myGameState = currentGameState;
 		myStage = stage;
+		gameController = new Controller(myStage, currentGameState);
 		this.setText(name);
 		ImageView gameImage = new ImageView(image);
 		gameImage.setFitHeight(100);
@@ -39,10 +38,10 @@ public class GameSelectButton extends Button implements IGamePlayerButton{
 	}
 	
 	public void setEvent() {
-
-		this.setOnAction(e -> {
-			gameController = new Controller(myStage, myGameState);
-			myStage.setScene(gameController.getControllerScene());
+		this.setOnAction(new EventHandler<ActionEvent>() {
+			@Override public void handle(ActionEvent e) {
+				myStage.setScene(gameController.initializeStartScene());
+			}
 		});
 	}
 //	
