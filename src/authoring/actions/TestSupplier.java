@@ -58,7 +58,7 @@ public class TestSupplier extends Application{
         primaryStage.show();
         Button b = new Button("Add a file");
         b.setOnAction(e-> {
-   
+
         });
         root.getChildren().addAll(block,block1,b);
 

@@ -37,7 +37,7 @@ import engine.components.EntityType;
 import engine.components.Sprite;
 import engine.components.XPosition;
 import engine.components.YPosition;
-import GamePlayer.Main;
+import gameplayer.Main;
 
 /**
  * 

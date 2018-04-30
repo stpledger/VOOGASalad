@@ -1,5 +1,5 @@
-package gameplayer.view;
 
+package gameplayer.view;
 import java.util.List;
 import java.util.Map;
 

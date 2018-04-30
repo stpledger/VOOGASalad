@@ -3,13 +3,14 @@ package data;
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
 
+
+import gameplayer.view.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import authoring.entities.Entity;
 import authoring.gamestate.GameState;
 import engine.components.Component;
 import engine.components.Sprite;
-import gameplayer.view.Person;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
