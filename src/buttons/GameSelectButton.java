@@ -1,7 +1,8 @@
 package buttons;
 
-import GamePlayer.Controller;
 import data.DataGameState;
+import gameplayer.buttons.IGamePlayerButton;
+import gameplayer.controller.Controller;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
@@ -40,7 +41,7 @@ public class GameSelectButton extends Button implements IGamePlayerButton{
 	public void setEvent() {
 		this.setOnAction(new EventHandler<ActionEvent>() {
 			@Override public void handle(ActionEvent e) {
-				myStage.setScene(gameController.initializeStartScene());
+				myStage.setScene(gameController.getControllerScene());
 			}
 		});
 	}

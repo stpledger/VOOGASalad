@@ -44,7 +44,7 @@ public class KeyInput implements Component, BehaviorComponent {
 	}
 	
 	public void action(Set<KeyCode> codeSet, Map<String, Component> entityMap) {
-        codeSet.forEach((key) -> {
+        codeSet.forEach(key -> {
         	if(codes.containsKey(key)) {
         		codes.get(key).accept(entityMap);
         	}
@@ -66,7 +66,7 @@ public class KeyInput implements Component, BehaviorComponent {
 	@Override
 	public void addBehavior(Object identifier, BiConsumer<Map<String,Component>,Map<String,Component>> bic) {
 		if(identifier instanceof KeyCode) {
-			this.addCode((KeyCode) identifier, (entity) -> {
+			this.addCode((KeyCode) identifier, entity -> {
 				bic.accept(entity, null);
 			});
 		}
