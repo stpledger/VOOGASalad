@@ -3,14 +3,12 @@ package authoring.views.properties;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
-import authoring.factories.ClickElementType;
-import authoring.factories.Element;
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
-import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 /**
@@ -20,8 +18,6 @@ import javafx.scene.control.TextField;
 public class GlobalPropertiesView extends PropertiesView {
 
 	private List<Level> levels;
-	private static final String NAME = "Global Properties";
-	private static final Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	public GlobalPropertiesView(List<Level> levels){
 		super();
@@ -30,7 +26,7 @@ public class GlobalPropertiesView extends PropertiesView {
 
 	@Override
 	protected String title() {
-		return NAME;
+		return this.getFormBundle().getString("Global");
 	}
 
 	@Override
@@ -43,19 +39,17 @@ public class GlobalPropertiesView extends PropertiesView {
 			NumberField livesInput = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField,"");
 			TextField pathInput = (TextField) this.getElementFactory().buildElement(ElementType.TextField,"");
 			this.getRoot().addColumn(1,livesInput,titleInput,pathInput);
-			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button, this.getButtonBundle().getString("Submit"), e->{
+			this.makeSubmitButton(e->{
 				for(Level level : levels) {
 					level.addGProp(globalProps.getString("Title"), titleInput.getText());
 					level.addGProp(globalProps.getString("Lives"), livesInput.getText());
 					level.addGProp(globalProps.getString("Filepath"), pathInput.getText());
 				}
-				this.makeAlert(this.title()+" has been saved!"); //TODO put in properties file
+				this.makeSubmitAlert();
 				this.close();
 			});
-			this.getElementList().add((Element) submit);	
-			this.getRoot().addColumn(0, submit);
 		} catch (Exception e1) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+			throw new AuthoringException(this.getFormBundle().getString("FormError"),AuthoringAlert.SHOW);
 		}
 	}
 

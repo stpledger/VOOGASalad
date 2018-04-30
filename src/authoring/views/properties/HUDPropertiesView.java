@@ -4,31 +4,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Logger;
 
-import authoring.factories.ClickElementType;
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 import authoring.factories.Element;
 import authoring.factories.ElementType;
 import authoring.gamestate.Level;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 
 /**
- * 
+ * Creates properties view form that allows user to update the HUD properties of the game.
  * @author Hemanth Yakkali(hy115)
  *
  */
 public class HUDPropertiesView extends PropertiesView{
 
 	private List<Level> levels;
-	private static final String NAME = "HUD Properties";
-
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-
 
 	public HUDPropertiesView(List<Level> levels) {
 		super();
 		this.levels = new ArrayList<>(levels);
+	}
+	
+	@Override
+	protected String title() {
+		return this.getFormBundle().getString("HUD");
 	}
 
 	@Override
@@ -39,26 +39,21 @@ public class HUDPropertiesView extends PropertiesView{
 			CheckBox healthBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Health"));
 			CheckBox timeBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Time"));
 			CheckBox levelBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Levels"));
-			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button,this.getButtonBundle().getString("Submit"), e->{
+			this.getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox);
+			this.makeSubmitButton(e->{
 				for(Level level : levels) {
 					level.addHUDProp(HUDProps.getString("Lives"), livesBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Health"), healthBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Time"), timeBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Levels"), levelBox.isSelected());
 				}
-				this.makeAlert(this.title()+" has been updated!");
+				this.makeSubmitAlert();
 				this.close();
 			});
-			this.getElementList().addAll(Arrays.asList(new Element[] {(Element) livesBox, (Element)submit, (Element) healthBox, (Element) timeBox, (Element) levelBox}));
-			getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox,submit);
+			this.getElementList().addAll(Arrays.asList(new Element[] {(Element) livesBox, (Element) healthBox, (Element) timeBox, (Element) levelBox}));
 		} catch (Exception e2) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e2.toString(), e2);
+			throw new AuthoringException(this.getFormBundle().getString("FormError"),AuthoringAlert.SHOW);
 		}	
-	}
-
-	@Override
-	protected String title() {
-		return NAME;
 	}
 
 }

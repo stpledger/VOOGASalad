@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.function.Consumer;
 
 import authoring.MainApplication;
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
+import authoring.factories.ClickElementType;
 import authoring.factories.Element;
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
@@ -13,6 +17,7 @@ import authoring.languages.AuthoringLanguage;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
@@ -27,9 +32,8 @@ import javafx.stage.Stage;
  */
 public abstract class PropertiesView implements AuthoringLanguage {
 	private static final String RESOURCES = "resources.views.Properties/";
-	private static final String BUTTON_RESOURCES = "resources.views.Properties/ButtonProperties";
+	private static final String FORM_RESOURCES = "resources.views.Properties/FormProperties";
 	private static final int GRID_SEPARATION = 10;
-	private static final int SIZE = 450;
 	private GridPane root;
 	private Stage stage;
 	private ElementFactory eFactory = new ElementFactory();
@@ -84,8 +88,7 @@ public abstract class PropertiesView implements AuthoringLanguage {
 				this.getElementList().add((Element) label);
 				currentRow++;
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new AuthoringException(this.getFormBundle().getString("LabelError"),AuthoringAlert.SHOW);
 			}
 		}
 	}
@@ -102,11 +105,27 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	 * @param content Content to be shown in the confirmation alert window.
 	 * @return Confirmation Alert that contains the specified content.
 	 */
-	protected Alert makeAlert(String content) {
+	protected Alert makeSubmitAlert() {
 		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setContentText(content);
+		alert.setContentText(this.title()+ " " +this.getFormBundle().getString("Save"));
 		alert.show();
 		return alert;
+	}
+	
+	/**
+	 * Makes a submit button that performs an action on click. Submit button is then added
+	 * to the root and to the element list.
+	 * @param event Action that the button will perform on click.
+	 */
+	protected Button makeSubmitButton(Consumer<Void> event) {
+		try {
+			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button,this.getFormBundle().getString("Submit"), e->event.accept(null));
+			this.elements.add((Element) submit);
+			this.root.addColumn(0, submit);
+			return submit;
+		} catch (Exception e) {
+			throw new AuthoringException(this.getFormBundle().getString("SubmitError"), AuthoringAlert.SHOW);
+		}
 	}
 
 	/**
@@ -130,8 +149,8 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	 * 
 	 * @return ResourceBundle with names for buttons
 	 */
-	protected ResourceBundle getButtonBundle() {
-		return ResourceBundle.getBundle(PropertiesView.BUTTON_RESOURCES);
+	protected ResourceBundle getFormBundle() {
+		return ResourceBundle.getBundle(PropertiesView.FORM_RESOURCES);
 	}
 
 	/**

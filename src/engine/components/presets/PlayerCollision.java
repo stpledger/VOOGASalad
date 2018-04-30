@@ -10,6 +10,13 @@ import engine.components.Component;
 import engine.components.Jumps;
 import engine.systems.collisions.CollisionDirection;
 
+/**
+ * Presets made for final demo/authoring.
+ * Contains more advanced game logic that can be expanded on, but is not included in systems.
+ * In this way, more "advanced" game makers can add their own code.
+ * @author fitzj
+ *
+ */
 public class PlayerCollision extends Collidable {
 
 	@SuppressWarnings("unchecked")

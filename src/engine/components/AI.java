@@ -14,7 +14,7 @@ import java.util.function.Consumer;
 public class AI implements Component, BehaviorComponent {
 
 
-    public static String KEY = "AI";
+    public static final String KEY = "AI";
 
     private Consumer<Map<String, Component>> action;
 

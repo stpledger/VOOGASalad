@@ -5,9 +5,9 @@ package engine.components;
  * @author Dylan Powers
  *
  */
-public class Name extends SingleStringComponent {
+public class Name extends SingleStringComponent implements Component, StringComponent, ReadStringComponent{
 
-	public static String KEY = "Name";
+	public static final String KEY = "Name";
 	public Name(int pid, String name) {
 		super(pid, name);
 	}

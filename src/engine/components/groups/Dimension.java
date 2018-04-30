@@ -5,6 +5,12 @@ import engine.components.DataComponent;
 import engine.components.Height;
 import engine.components.Width;
 
+/**
+ * Group of 2 components representing one concept: In this case, width and height being grouped together
+ * Should only be used during transition between engine design, to single data components
+ * That is - should not be in final design
+ * @author fitzj
+ */
 public class Dimension implements Component {
 	public static final String KEY = "Dimension";
 
