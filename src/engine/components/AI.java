@@ -40,11 +40,12 @@ public class AI implements Component, BehaviorComponent {
 		return pid;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public void addBehavior(Object identifier, Consumer con) {
 		setAction(con);
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void addBehavior(Object identifier, BiConsumer bic) {
 		setAction((entity) -> {
