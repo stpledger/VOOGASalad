@@ -111,6 +111,11 @@ public abstract class PropertiesView implements AuthoringLanguage {
 		return alert;
 	}
 	
+	/**
+	 * Makes a submit button that performs an action on click.
+	 * @param event Action that the button will perform on click.
+	 * @return Returns a submit button that has the specified event listener.
+	 */
 	protected Button makeSubmitButton(Consumer<Void> event) {
 		try {
 			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button,this.getFormBundle().getString("Submit"), e->event.accept(null));
