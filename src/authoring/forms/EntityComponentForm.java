@@ -62,4 +62,10 @@ public class EntityComponentForm extends AbstractComponentForm implements Compon
 			e.setLanguage(language);
 		}
 	}
+
+	@Override
+	public void setValue(Object currentValue) {
+		this.field.setText((String) currentValue);
+		
+	}
 }

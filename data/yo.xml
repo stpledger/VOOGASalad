@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="yo"><Type>Block</Type><Name>yo</Name><Sprite>no_image.jpg</Sprite><Health>50.0</Health></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="yo"><Type>Background</Type><Sprite>mystery.jpg</Sprite><Name>yo</Name></Entity>

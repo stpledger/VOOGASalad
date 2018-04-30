@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 /**
  * A wrapper class for forms that contains the label name and the text fields necessary, and can build components upon completion.
  * @author dylanpowers
+ * @author Collin Brown(cdb55)
  *
  */
 public class PropertiesComponentForm extends AbstractComponentForm implements ComponentForm {
@@ -79,5 +80,10 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	public void setLanguage(Properties language) {
 		// TODO Auto-generated method stub
 
+	}
+	@Override
+	public void setValue(Object currentValue) {
+		this.field.setText((String) currentValue);
+		
 	}
 }

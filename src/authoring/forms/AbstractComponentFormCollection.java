@@ -152,6 +152,10 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 		
 	}
 	
+	/**
+	 * Adds a new component form to the active set of forms
+	 * @param componentName
+	 */
 	private void addComponent(String componentName) {
 		try {
 			ArrayList<ComponentForm> newActiveForms = new ArrayList<>();
@@ -161,6 +165,9 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance(entityID, (componentName));
 			} else {
 				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance((componentName));
+			}
+			if(hasCurrentValue(componentName)) {
+				cf.setValue(getCurrentValue(componentName));
 			}
 			cf.setAlignment(Pos.CENTER);
 			this.add((Node) cf, 0, currentRow);
@@ -172,6 +179,9 @@ public abstract class AbstractComponentFormCollection extends GridPane {
 			e.printStackTrace();
 		}
 	}
+	
+	protected abstract boolean hasCurrentValue(String componentName);
+	protected abstract Object getCurrentValue(String componentName);
 	
 	protected abstract void save(Consumer c);
 

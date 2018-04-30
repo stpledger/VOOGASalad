@@ -64,7 +64,7 @@ public class LocalPropertiesView extends PropertiesView {
 
 	@Override
 	protected void fill() {
-		componentFormCollection = new PropertiesComponentFormCollection(entity.getID(), new String[] {""}, e-> {save((List<Component>) e);});
+		componentFormCollection = new PropertiesComponentFormCollection(entity, new String[] {""}, e-> {save((List<Component>) e);});
 		this.getRoot().getChildren().add(componentFormCollection);
 		componentFormCollection.setLanguage(language);
 		componentFormCollection.fill(this.type);
