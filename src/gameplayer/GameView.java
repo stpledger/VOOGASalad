@@ -217,7 +217,7 @@ public class GameView implements IGamePlayerView{
 	/*public ArrayList<Win> getWinComponents() {
 		return winComponents;
 	}*/
-	
+
 	/**
 	 * Method to obtain the map of heads-up display properties for each level.
 	 * @param levels
@@ -232,7 +232,7 @@ public class GameView implements IGamePlayerView{
 		}
 		return HUDPropMap;
 	}
-	
+
 	/**
 	 * Method that builds the entire map of level with groups of sprite images
 	 * @param map
@@ -268,9 +268,18 @@ public class GameView implements IGamePlayerView{
 						playerKeys.put(levelNum, entityComponents);
 					}
 
+
 					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
 					if (entityComponents.containsKey(Win.KEY)) {
 						//winComponents.add((Win) entityComponents.get(Win.KEY));
+					}
+				}
+
+				if (entityComponents.containsKey(EntityType.KEY)) {
+					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(EntityType.KEY);
+					if (entityTypeComponent.getData().equals("Background")) {
+						entityRoot.getChildren().add(0, image);
+						continue;
 					}
 				}
 
