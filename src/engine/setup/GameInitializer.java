@@ -8,7 +8,6 @@ import engine.actions.Actions;
 import engine.components.Component;
 import engine.components.XPosition;
 import engine.components.YPosition;
-import engine.components.groups.Position;
 import engine.exceptions.EngineException;
 import engine.systems.Accelerate;
 import engine.systems.Animate;

@@ -1,4 +1,4 @@
-package engine.components.groups;
+package engine.setup;
 
 import engine.components.Component;
 import engine.components.DataComponent;
