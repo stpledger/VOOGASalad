@@ -45,13 +45,16 @@ public abstract class PropertiesView {
 	 * Opens the Property Editor window.
 	 */
 	public void open() {
+		root.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		stage = new Stage();
 		stage.setTitle(this.title());
 		root.getStyleClass().add("properties-view");
-		stage.setScene(new Scene(root, WIDTH, HEIGHT));
+		stage.setScene(new Scene(root));
 		stage.getScene().getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		stage.show();
 		this.fill();
+		stage.sizeToScene();
+		stage.getScene().getWindow().sizeToScene();
 	}
 
 	public void close() {
