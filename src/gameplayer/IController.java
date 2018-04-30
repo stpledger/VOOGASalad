@@ -1,7 +1,7 @@
 package gameplayer;
 
-import java.util.Map;
 
+import java.util.Map;
 import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 

@@ -3,9 +3,10 @@ package authoring.factories;
 import java.util.function.Consumer;
 
 /**
- * 
+ * Factory class that is used to build a frontend element that is defined in this package. Example
+ * elements include buttons and menuitems. A new frontend element can be added by adding a new field
+ * to either the Enum ElementType or the Enum ClickElementType.
  * @author Hemanth Yakkali(hy115)
- *
  */
 public class ElementFactory {
 
@@ -18,7 +19,7 @@ public class ElementFactory {
 	public ElementFactory() {}
 
 	/**
-	 * 
+	 * Builds a non-clickable element of a specified type and contains the specified text.
 	 * @param elementName Type of Element to be created
 	 * @param text {@code String} text to be placed in the new Element
 	 * @return Desired element
@@ -30,6 +31,14 @@ public class ElementFactory {
 		return (Element) elementClass.getConstructor(text.getClass()).newInstance(text);		
 	}
 	
+	/**
+	 * Builds a clickable element of a particular type containing a specific action and text.
+	 * @param elementName Type of Element to be created
+	 * @param text {@code String} text to be placed in the new Element
+	 * @param event {@code Consumer} event that the element will perform on action
+	 * @return Desired clickable element
+	 * @throws Exception
+	 */
 	public Element buildClickElement(ClickElementType elementName, String text, Consumer<Void> event) throws Exception {
 		String builderName = PACKAGE_NAME+elementName+ELEMENT;
 		Class<?> elementClass = Class.forName(builderName);

@@ -12,9 +12,10 @@ import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Element;
+
+import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
 import org.w3c.dom.Document;
-
 /**
  * This class handles parsing of the XML files that set up the type of simulation.
  * @author Dylan Powers
@@ -69,7 +70,7 @@ public class EntitySaver {
 		try {
 			return DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			throw new AuthoringException(e);
+			throw new AuthoringException(e, AuthoringAlert.NO_SHOW);
 		}
 	}
 }

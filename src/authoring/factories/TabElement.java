@@ -5,7 +5,7 @@ import java.util.Properties;
 import javafx.scene.control.Tab;
 
 /**
- * 
+ * Handles the creation of a Tab through the use of the ElementFactory. 
  * @author Hemanth Yakkali(hy115)
  *
  */

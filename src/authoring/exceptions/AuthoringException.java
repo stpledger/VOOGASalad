@@ -16,8 +16,11 @@ public class AuthoringException extends RuntimeException {
 	/**
 	 * Create an exception based upon a different caught exception
 	 */
-	public AuthoringException(Throwable cause) {
+	public AuthoringException(Throwable cause, AuthoringAlert indication) {
 		super(cause);
+		if (indication.equals(AuthoringAlert.SHOW)) {
+			this.displayAlert();
+		}
 	}
 
 	/**
