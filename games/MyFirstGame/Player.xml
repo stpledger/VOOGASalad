@@ -15,6 +15,12 @@
             <entry>
               <string>Collidable</string>
 <<<<<<< HEAD
+              <engine.components.presets.PlayerCollision>
+                <actions>
+                  <entry>
+                    <engine.systems.collisions.CollisionDirection>Top</engine.systems.collisions.CollisionDirection>
+=======
+<<<<<<< HEAD
               <engine.components.Collidable>
                 <actions/>
                 <pid>0</pid>
@@ -38,13 +44,18 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Right</engine.systems.collisions.CollisionDirection>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
                     <java.util.function.BiConsumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
                       <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerCollision</implClass>
+<<<<<<< HEAD
+                      <implMethodName>lambda$0</implMethodName>
+=======
                       <implMethodName>lambda$3</implMethodName>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
                       <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
@@ -67,14 +78,22 @@
                     </java.util.function.BiConsumer>
                   </entry>
                   <entry>
+<<<<<<< HEAD
+                    <engine.systems.collisions.CollisionDirection>Right</engine.systems.collisions.CollisionDirection>
+=======
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
                     <java.util.function.BiConsumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
                       <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerCollision</implClass>
+<<<<<<< HEAD
+                      <implMethodName>lambda$3</implMethodName>
+=======
                       <implMethodName>lambda$1</implMethodName>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
                       <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
@@ -82,14 +101,22 @@
                     </java.util.function.BiConsumer>
                   </entry>
                   <entry>
+<<<<<<< HEAD
+                    <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
+=======
                     <engine.systems.collisions.CollisionDirection>Top</engine.systems.collisions.CollisionDirection>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
                     <java.util.function.BiConsumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
                       <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerCollision</implClass>
+<<<<<<< HEAD
+                      <implMethodName>lambda$1</implMethodName>
+=======
                       <implMethodName>lambda$0</implMethodName>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
                       <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
@@ -105,12 +132,19 @@
               <engine.components.Player>
                 <pid>0</pid>
               </engine.components.Player>
+<<<<<<< HEAD
+=======
 >>>>>>> b3d68753a1e443444f85a3ea31bea44bf84d5a9d
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>0</pid>
+<<<<<<< HEAD
+                <data>mario.png</data>
+                <name>mario.png</name>
+=======
 <<<<<<< HEAD
                 <data>dirt.jpg</data>
                 <name>dirt.jpg</name>
@@ -118,6 +152,7 @@
                 <data>mario.png</data>
                 <name>mario.png</name>
 >>>>>>> b3d68753a1e443444f85a3ea31bea44bf84d5a9d
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -125,6 +160,10 @@
               <string>Health</string>
               <engine.components.Health>
                 <pid>0</pid>
+<<<<<<< HEAD
+                <data>100.0</data>
+                <initialHealth>100.0</initialHealth>
+=======
 <<<<<<< HEAD
                 <data>10.0</data>
                 <initialHealth>10.0</initialHealth>
@@ -153,6 +192,7 @@
 =======
                 <data>50.0</data>
                 <initialHealth>50.0</initialHealth>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
               </engine.components.Health>
             </entry>
             <entry>
@@ -168,38 +208,7 @@
                 <pid>0</pid>
                 <codes>
                   <entry>
-                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
-                    <java.util.function.Consumer resolves-to="serialized-lambda">
-                      <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
-                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-                      <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$0</implMethodName>
-                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
-                      <capturedArgs/>
-                    </java.util.function.Consumer>
-                  </entry>
-                  <entry>
-                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
-                    <java.util.function.Consumer resolves-to="serialized-lambda">
-                      <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
-                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-                      <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$2</implMethodName>
-                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
-                      <implMethodKind>7</implMethodKind>
-                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
-                      <capturedArgs>
-                        <engine.components.presets.PlayerMovement reference="../../../../.."/>
-                      </capturedArgs>
-                    </java.util.function.Consumer>
-                  </entry>
-                  <entry>
+<<<<<<< HEAD
                     <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
@@ -217,6 +226,93 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
+=======
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
+                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/components/presets/PlayerMovement</implClass>
+                      <implMethodName>lambda$0</implMethodName>
+                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs/>
+                    </java.util.function.Consumer>
+                  </entry>
+                  <entry>
+<<<<<<< HEAD
+                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+=======
+                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/components/presets/PlayerMovement</implClass>
+<<<<<<< HEAD
+                      <implMethodName>lambda$1</implMethodName>
+                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs/>
+                    </java.util.function.Consumer>
+                  </entry>
+                  <entry>
+                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+=======
+                      <implMethodName>lambda$2</implMethodName>
+                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>7</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs>
+                        <engine.components.presets.PlayerMovement reference="../../../../.."/>
+                      </capturedArgs>
+                    </java.util.function.Consumer>
+                  </entry>
+                  <entry>
+                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/components/presets/PlayerMovement</implClass>
+<<<<<<< HEAD
+                      <implMethodName>lambda$2</implMethodName>
+=======
+                      <implMethodName>lambda$3</implMethodName>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
+                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>7</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs>
+                        <engine.components.presets.PlayerMovement reference="../../../../.."/>
+                      </capturedArgs>
+                    </java.util.function.Consumer>
+                  </entry>
+                  <entry>
+<<<<<<< HEAD
+                    <javafx.scene.input.KeyCode>D</javafx.scene.input.KeyCode>
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.actions.Actions</capturingClass>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/actions/Actions</implClass>
+                      <implMethodName>lambda$3</implMethodName>
+                      <implMethodSignature>(DLjava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs>
+                        <double>900.0</double>
+                      </capturedArgs>
+=======
                     <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
@@ -229,11 +325,16 @@
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
                       <capturedArgs/>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
                     </java.util.function.Consumer>
                   </entry>
                 </codes>
                 <crouched>false</crouched>
+<<<<<<< HEAD
+                <timing>1.525048234269E12</timing>
+=======
                 <timing>1.525037709064E12</timing>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
               </engine.components.presets.PlayerMovement>
             </entry>
             <entry>
@@ -243,12 +344,33 @@
                 <data>3.0</data>
                 <max>3</max>
               </engine.components.Jumps>
+<<<<<<< HEAD
+=======
 >>>>>>> b3d68753a1e443444f85a3ea31bea44bf84d5a9d
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>0</pid>
+<<<<<<< HEAD
+                <data>Mario</data>
+              </engine.components.Name>
+            </entry>
+            <entry>
+              <string>EntityType</string>
+              <engine.components.EntityType>
+                <pid>0</pid>
+                <data>Player</data>
+              </engine.components.EntityType>
+            </entry>
+            <entry>
+              <string>Score</string>
+              <engine.components.Score>
+                <pid>0</pid>
+                <data>0.0</data>
+              </engine.components.Score>
+=======
 <<<<<<< HEAD
                 <data>dirt</data>
               </engine.components.Name>
@@ -335,17 +457,33 @@
                 <actions/>
                 <pid>2</pid>
               </engine.components.Collidable>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
             </entry>
             <entry>
               <string>Type</string>
               <engine.components.Type>
+<<<<<<< HEAD
+                <pid>0</pid>
+                <data>User</data>
+=======
                 <pid>2</pid>
                 <data>Block</data>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
               </engine.components.Type>
             </entry>
             <entry>
               <string>XPosition</string>
               <engine.components.XPosition>
+<<<<<<< HEAD
+                <pid>0</pid>
+                <data>250.0</data>
+              </engine.components.XPosition>
+            </entry>
+            <entry>
+              <string>YPosition</string>
+              <engine.components.YPosition>
+                <pid>0</pid>
+=======
                 <pid>2</pid>
                 <data>150.0</data>
               </engine.components.XPosition>
@@ -371,10 +509,17 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>2</pid>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
                 <data>150.0</data>
               </engine.components.YPosition>
             </entry>
             <entry>
+<<<<<<< HEAD
+              <string>Animated</string>
+              <engine.components.Animated>
+                <pid>0</pid>
+              </engine.components.Animated>
+=======
               <string>Height</string>
               <engine.components.Height>
                 <pid>2</pid>
@@ -444,17 +589,30 @@
                 <pid>4</pid>
                 <data>150.0</data>
               </engine.components.YPosition>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
             </entry>
             <entry>
               <string>Height</string>
               <engine.components.Height>
+<<<<<<< HEAD
+                <pid>0</pid>
+=======
                 <pid>4</pid>
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
                 <data>50.0</data>
               </engine.components.Height>
             </entry>
             <entry>
               <string>Width</string>
               <engine.components.Width>
+<<<<<<< HEAD
+                <pid>0</pid>
+                <data>50.0</data>
+              </engine.components.Width>
+            </entry>
+          </map>
+        </entry>
+=======
                 <pid>4</pid>
                 <data>50.0</data>
               </engine.components.Width>
@@ -2191,8 +2349,13 @@
         </entry>
 =======
 >>>>>>> b3d68753a1e443444f85a3ea31bea44bf84d5a9d
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
       </map>
     </entry>
   </gameState>
   <gameName>MyFirstGame</gameName>
+<<<<<<< HEAD
+  <levelProgress>1.0</levelProgress>
+=======
+>>>>>>> 76c05e8e709980213665dd1630ae1a5fa1bd69e7
 </data.DataGameState>

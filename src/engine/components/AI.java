@@ -16,12 +16,13 @@ public class AI implements Component, BehaviorComponent {
 
     public static final String KEY = "AI";
 
-    private Consumer<Map<String, Component>> action;
+    private Consumer<Map<String, Component>> action ;
 
     private int pid;
     
     public AI (int pid) {
         this.pid = pid;
+         action = e->{};
     }
 
     public void setAction (Consumer<Map<String, Component>> action) {

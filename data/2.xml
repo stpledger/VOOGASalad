@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="2"><Type>Enemy</Type><YVelocity>2.0</YVelocity><DamageLifetime>2.0</DamageLifetime><Name>2</Name><DamageValue>2.0</DamageValue><XVelocity>2.0</XVelocity><Health>2.0</Health><YAcceleration>2.0</YAcceleration><XAcceleration>2.0</XAcceleration><Sprite>IMG_1478 - Copy.JPG</Sprite></Entity>
