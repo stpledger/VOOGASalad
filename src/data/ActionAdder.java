@@ -27,7 +27,7 @@ public class ActionAdder {
     
     /*public void deleteComponent(Component component){
         entity.remove(component);
-    }*/
+    }
 
 
     public List<String> getActions(){
@@ -36,7 +36,7 @@ public class ActionAdder {
             methods.add(method.getName());
         }
         return methods;
-    }
+    }**/
 
 
 

@@ -4,7 +4,7 @@ import javafx.scene.control.Alert;
 
 import java.io.File;
 
-class DataUtils {
+public class DataUtils {
    /* Author @Conrad defines all useful data things that either write or read would need
 
     */
@@ -21,8 +21,8 @@ class DataUtils {
     protected static String game= "";
 
 
-    static File findInDirectory(File directory, String target){
-        System.out.println("Directory is " + directory.getAbsolutePath() + "   looking for"+ target);
+    public static File findInDirectory(File directory, String target){
+//        System.out.println("Directory is " + directory.getAbsolutePath() + "   looking for"+ target);
         if(directory.isDirectory()){
             for(File subDir : directory.listFiles()){
                 File found = findInDirectory(subDir, target);
@@ -32,14 +32,14 @@ class DataUtils {
             }
         }
         if(directory.getName().equals(target)){
-            System.out.println("Directory is foun " + directory.getName());
+//            System.out.println("Directory is foun " + directory.getName());
 
             return directory;
         }
         else return null;
     }
 
-    static File loadFile(String path) {
+    public static File loadFile(String path) {
         String filePath = path.replace(BACKSLASH,FRONTSLASH);
         File file = new File(filePath);
         System.out.println("TRYING TO FIND "+filePath);
@@ -77,12 +77,12 @@ class DataUtils {
         return file;
     }
 
-    static File getProjectDir(){
+    public static File getProjectDir(){
         String superDir = System.getProperty(USER_DIR).replace(BACKSLASH,FRONTSLASH);
         return new File(superDir);
     }
 
-    static void ErrorStatement(String error)  {
+    public static void ErrorStatement(String error)  {
         try {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle(ERROR);

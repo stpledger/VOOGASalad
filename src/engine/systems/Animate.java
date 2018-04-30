@@ -1,6 +1,14 @@
 package engine.systems;
 
-import engine.components.*;
+import engine.components.Animated;
+import engine.components.Component;
+import engine.components.Height;
+import engine.components.Sprite;
+import engine.components.Width;
+import engine.components.XPosition;
+import engine.components.XVelocity;
+import engine.components.YPosition;
+import engine.exceptions.EngineException;
 import javafx.scene.image.ImageView;
 
 import java.util.HashSet;
@@ -16,9 +24,15 @@ import java.util.HashMap;
  * @author cndracos
  */
 public class Animate implements ISystem {
-    private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
+    private Map<Integer, Map<String, Component>> handledComponents;
     private Set<Integer> activeComponents;
 
+    public Animate() {
+    	handledComponents = new HashMap<>();
+    	activeComponents = new HashSet<>();
+    }
+    
+    
     /**
      * Adds components which it can act upon, choosing only the entities which have both a position AND
      * a Sprite component
@@ -54,7 +68,7 @@ public class Animate implements ISystem {
     }
 
     @Override
-    public void execute(double time) {
+    public void execute(double time) throws EngineException {
         for (int pid : activeComponents) {
 
             Map<String, Component> components = handledComponents.get(pid);
@@ -63,15 +77,7 @@ public class Animate implements ISystem {
             XPosition px = (XPosition) components.get(XPosition.KEY);
             YPosition py = (YPosition) components.get(YPosition.KEY);
             
-            if(components.containsKey(Animated.KEY)) {
-            	if(components.containsKey(XVelocity.KEY)) {
-            		if(Math.abs(((XVelocity) components.get(XVelocity.KEY)).getData()) < 1) {
-            			s.pauseAnimation();
-            		} else {
-            			if(!s.isPlaying()) s.animate(1000, 27, 7, 0, 0, 75, 85);
-            		}
-            	}
-            }
+            this.animateComponents(components);
             
             ImageView im = s.getImage();
             im.setX(px.getData()); //updates image x on position x pos
@@ -86,5 +92,24 @@ public class Animate implements ISystem {
             
         }
     }
+
+	private void animateComponents(Map<String, Component> components) throws EngineException {
+		if(components.containsKey(Animated.KEY)) {
+            Sprite s = (Sprite) components.get(Sprite.KEY);
+        	Animated an = (Animated) components.get(Animated.KEY);
+			if(!s.isPlaying()) {
+				an.animateSprite(s);
+			}
+        	if(components.containsKey(XVelocity.KEY)) {
+        		if(Math.abs(((XVelocity) components.get(XVelocity.KEY)).getData()) < 1) {
+        			if(s.isPlaying()) {
+        				s.pauseAnimation();
+        			}
+        		} else {
+        			s.playAnimation();
+        		}
+        	}
+        }
+	}
 
 }

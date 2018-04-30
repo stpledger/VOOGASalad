@@ -262,15 +262,16 @@ public class GameView implements IGamePlayerView{
 
 				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
 					setSpritePosition(entityComponents, image);
-
-					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
-					if(entityComponents.containsKey(Player.KEY)){
-						playerKeys.put(levelNum, entityComponents);
-					}
-
-					//TODO: IS THIS NECESSARY AFTER THE NEW "LEVEL STATUS" CLASS?
-					if (entityComponents.containsKey(Win.KEY)) {
-						//winComponents.add((Win) entityComponents.get(Win.KEY));
+				}
+				
+				
+				
+				if (entityComponents.containsKey(Type.KEY)) {
+					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(Type.KEY);
+					System.out.println(entityTypeComponent.getData());
+					if (entityTypeComponent.getData().equals("Background")) {
+						entityRoot.getChildren().add(0, image);
+						continue;
 					}
 				}
 

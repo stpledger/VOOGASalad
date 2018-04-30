@@ -157,6 +157,7 @@ public class Actions {
     				Score s2 = (Score) actor2.get(Score.KEY);
     				
     				s1.setData(s1.getData() + s2.getData());
+    				s2.setData(0);
     			}
     		}
     	};
@@ -290,19 +291,21 @@ public class Actions {
      */
 
     @SuppressWarnings("unchecked")
-	public static Consumer<Map <String, Component>> patrol(List<Point> coordinates) {
+	public static Consumer<Map <String, Component>> patrol(List<Point> coordinates, double speed) {
         AtomicReference<Point> destination = new AtomicReference<>(coordinates.get(0));
         AtomicInteger current = new AtomicInteger();
 
         return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
-			Velocity v = (Velocity) actor.get(Velocity.KEY);
-			Position p = (Position) actor.get(Position.KEY);
+			XVelocity xv = (XVelocity) actor.get(XVelocity.KEY);
+			YVelocity yv = (YVelocity) actor.get(YVelocity.KEY);
+			XPosition xp = (XPosition) actor.get(XPosition.KEY);
+			YPosition yp = (YPosition) actor.get(YPosition.KEY);
 
-            v.setXVel((destination.get().getX()-p.getXPos())/
-					(distance(p.getXPos(), p.getYPos(), destination.get().getX(), destination.get().getY()) * 100));
-            v.setYVel((destination.get().getY()-p.getYPos())/
-					(distance(p.getXPos(), p.getYPos(), destination.get().getX(), destination.get().getY()) * 100));
-            if ((distance(p.getXPos(), p.getYPos(), destination.get().getX(), destination.get().getY()) * 100) < 10) {
+            xv.setData((destination.get().getX()-xp.getData())/
+					(distance(xp.getData(), yp.getData(), destination.get().getX(), destination.get().getY())) * speed);
+            yv.setData((destination.get().getY()-yp.getData())/
+					(distance(xp.getData(), yp.getData(), destination.get().getX(), destination.get().getY())) * speed);
+            if ((distance(xp.getData(), yp.getData(), destination.get().getX(), destination.get().getY())) < 10) {
                 if (current.get() == coordinates.size() - 1) current.set(0);
                 else current.getAndIncrement();
                 destination.set(coordinates.get(current.get()));

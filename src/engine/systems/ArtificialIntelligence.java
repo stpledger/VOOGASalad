@@ -17,6 +17,8 @@ public class ArtificialIntelligence implements  ISystem{
     private Map<Integer, Map<String, Component>> handledComponents = new HashMap<>();
     private Set<Integer> activeComponents = new HashSet<>();
 
+    public ArtificialIntelligence() {}
+    
     @Override
     public void addComponent(int pid, Map<String, Component> components) {
         if (components.containsKey(AI.KEY)) {

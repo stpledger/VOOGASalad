@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="Hemanth"><Name>Hemanth</Name><Type>User</Type><XAcceleration>0.0</XAcceleration><DamageLifetime>0.0</DamageLifetime><XVelocity>0.0</XVelocity><Sprite>Hemanth.png</Sprite><YAcceleration>0.0</YAcceleration><Health>100.0</Health><YVelocity>0.0</YVelocity><DamageValue>0.0</DamageValue></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="Hemanth"><Health>100.0</Health><Name>Hemanth</Name><Type>Block</Type><Sprite>Hemanth.png</Sprite></Entity>

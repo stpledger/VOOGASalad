@@ -38,7 +38,6 @@ import engine.components.Sprite;
 import engine.components.XPosition;
 import engine.components.YPosition;
 import GamePlayer.Main;
-import data.DataWrite;
 
 /**
  * 
