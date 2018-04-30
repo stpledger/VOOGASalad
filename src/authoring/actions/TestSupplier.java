@@ -6,10 +6,9 @@ import authoring.gamestate.GameState;
 import authoring.gamestate.Level;
 import data.DataRead;
 import data.DataWrite;
-import engine.components.KeyInput;
-import engine.components.Sprite;
-import engine.components.XPosition;
-import engine.components.YPosition;
+import engine.components.*;
+import engine.components.groups.Position;
+import engine.components.groups.Velocity;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -28,11 +27,19 @@ public class TestSupplier extends Application{
         Group root = new Group();
         Scene myScene = new Scene(root, 500,500, Color.AQUA);
         primaryStage.setScene(myScene);
+
+
         Entity block = new Block(1,"Block");
+        block.add(new Position(1,0,0));
+        block.add(new Velocity(1,0,0));
         block.add(new XPosition(1,0));
         block.add(new YPosition(1,0));
-        block .add(new KeyInput(1));
+        block.add(new AI(1));
+        block.add(new XVelocity(1,0));
+        block.add(new YVelocity(1,0));
+        block.add(new KeyInput(1));
         block.add(new Sprite(1,"8Bit.png"));
+        block.add(new Player(1));
         Level le = new Level(1);
         le.addEntity(block);
         List<Level > levels = new ArrayList<>();
@@ -49,6 +56,7 @@ public class TestSupplier extends Application{
             }
         });
         root.getChildren().addAll(block,b);
+
         ActionAdderView pSup = new ActionAdderView(block);
 
 

@@ -22,7 +22,7 @@ import javafx.scene.layout.Pane;
  * @authors Ryan Fu & Scott Pledger
  *
  */
-public class GameView implements IGamePlayerView{
+public class GameView implements gameplayer.IGamePlayerView {
 	private DataGameState gameState;
 
 	private Map<Level,Map<Integer,Map<String,Component>>> levels;

@@ -20,11 +20,17 @@
               </engine.components.Collidable>
             </entry>
             <entry>
-              <string>XPosition</string>
-              <engine.components.XPosition>
+              <string>Player</string>
+              <engine.components.Player>
+                <pid>1</pid>
+              </engine.components.Player>
+            </entry>
+            <entry>
+              <string>XVelocity</string>
+              <engine.components.XVelocity>
                 <pid>1</pid>
                 <data>0.0</data>
-              </engine.components.XPosition>
+              </engine.components.XVelocity>
             </entry>
             <entry>
               <string>Sprite</string>
@@ -34,6 +40,92 @@
                 <name>8Bit.png</name>
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
+            </entry>
+            <entry>
+              <string>Position</string>
+              <engine.components.groups.Position>
+                <xa class="engine.components.XPosition">
+                  <pid>1</pid>
+                  <data>0.0</data>
+                </xa>
+                <ya class="engine.components.YPosition">
+                  <pid>1</pid>
+                  <data>0.0</data>
+                </ya>
+              </engine.components.groups.Position>
+            </entry>
+            <entry>
+              <string>AI</string>
+              <engine.components.AI>
+                <action resolves-to="serialized-lambda">
+                  <capturingClass>engine.actions.Actions</capturingClass>
+                  <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                  <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                  <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                  <implClass>engine/actions/Actions</implClass>
+                  <implMethodName>lambda$15</implMethodName>
+                  <implMethodSignature>(Ljava/util/concurrent/atomic/AtomicReference;Ljava/util/concurrent/atomic/AtomicInteger;Ljava/util/List;Ljava/util/Map;)V</implMethodSignature>
+                  <implMethodKind>6</implMethodKind>
+                  <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
+                  <capturedArgs>
+                    <java.util.concurrent.atomic.AtomicReference>
+                      <value class="java.awt.Point">
+                        <x>70</x>
+                        <y>30</y>
+                      </value>
+                    </java.util.concurrent.atomic.AtomicReference>
+                    <java.util.concurrent.atomic.AtomicInteger>
+                      <value>0</value>
+                    </java.util.concurrent.atomic.AtomicInteger>
+                    <list>
+                      <java.awt.Point reference="../../java.util.concurrent.atomic.AtomicReference/value"/>
+                      <java.awt.Point>
+                        <x>10</x>
+                        <y>64</y>
+                      </java.awt.Point>
+                      <java.awt.Point>
+                        <x>-54</x>
+                        <y>33</y>
+                      </java.awt.Point>
+                    </list>
+                  </capturedArgs>
+                </action>
+                <pid>1</pid>
+              </engine.components.AI>
+            </entry>
+            <entry>
+              <string>KeyInput</string>
+              <engine.components.KeyInput>
+                <pid>1</pid>
+                <codes/>
+              </engine.components.KeyInput>
+            </entry>
+            <entry>
+              <string>Velocity</string>
+              <engine.components.groups.Velocity>
+                <xa class="engine.components.XVelocity">
+                  <pid>1</pid>
+                  <data>0.0</data>
+                </xa>
+                <ya class="engine.components.YVelocity">
+                  <pid>1</pid>
+                  <data>0.0</data>
+                </ya>
+              </engine.components.groups.Velocity>
+            </entry>
+            <entry>
+              <string>YVelocity</string>
+              <engine.components.YVelocity>
+                <pid>1</pid>
+                <data>0.0</data>
+              </engine.components.YVelocity>
+            </entry>
+            <entry>
+              <string>XPosition</string>
+              <engine.components.XPosition>
+                <pid>1</pid>
+                <data>0.0</data>
+              </engine.components.XPosition>
             </entry>
             <entry>
               <string>YPosition</string>
@@ -48,31 +140,6 @@
                 <pid>1</pid>
                 <data>50.0</data>
               </engine.components.Height>
-            </entry>
-            <entry>
-              <string>KeyInput</string>
-              <engine.components.KeyInput>
-                <pid>1</pid>
-                <codes>
-                  <entry>
-                    <javafx.scene.input.KeyCode>K</javafx.scene.input.KeyCode>
-                    <java.util.function.Consumer resolves-to="serialized-lambda">
-                      <capturingClass>engine.actions.Actions</capturingClass>
-                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-                      <implClass>engine/actions/Actions</implClass>
-                      <implMethodName>lambda$4</implMethodName>
-                      <implMethodSignature>(DLjava/util/Map;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
-                      <capturedArgs>
-                        <double>6.0</double>
-                      </capturedArgs>
-                    </java.util.function.Consumer>
-                  </entry>
-                </codes>
-              </engine.components.KeyInput>
             </entry>
             <entry>
               <string>Width</string>

@@ -35,6 +35,8 @@ public abstract class Supplier {
         init(prompt,xsize,ysize);
         entity = e;
         configureMenu();
+        myStage.show();
+
     }
 
     private void init(String prompt, int xsize, int ysize){
@@ -46,7 +48,6 @@ public abstract class Supplier {
         myStage.setTitle(prompt);
         myStage.setAlwaysOnTop(true);
         myStage.setScene(myScene);
-        myStage.show();
         setupMenu();
     }
 
