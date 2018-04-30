@@ -19,5 +19,4 @@ public class Type extends SingleStringComponent implements Component, StringComp
 	}
 
 
-
 }
