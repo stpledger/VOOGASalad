@@ -30,7 +30,12 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 		for(ComponentForm cf : this.getActiveForms()) {
 			try {
 			Component c = (Component) ((PropertiesComponentForm) cf).buildComponent();
+			if(c.equals(null)) {
+				continue;
+			}
 			componentsToAdd.add(c);		
+			} catch(NullPointerException e) {
+				
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
