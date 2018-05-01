@@ -69,8 +69,7 @@ public class GameInitializer {
 
     public InputHandler getInputHandler() {
          return inputHandler;
-
-         }
+    }
 
     public RenderManager getRenderManager() { return renderManager; }
 

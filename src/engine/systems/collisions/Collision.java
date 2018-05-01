@@ -2,13 +2,12 @@ package engine.systems.collisions;
 /**
  * System that checks if the collision happens, and determines where it happens
  * in relation to dimensions
- * author jcf44, sv116, Yameng Liu
+ * author jcf44, sv116
  */
 import java.util.Map;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
@@ -20,41 +19,40 @@ import engine.components.XPosition;
 import engine.components.XVelocity;
 import engine.components.YPosition;
 import engine.components.YVelocity;
+import engine.systems.AbstractSystem;
 import engine.systems.ISystem;
 
 
-public class Collision implements ISystem {
-	private Map<Integer, Map<String,Component>> handledComponents;
+public class Collision extends AbstractSystem implements ISystem {
 	private Set<Integer> colliders;
-	private Set<Integer> activeComponents;
 	
 	public Collision () {
+		super();
 		colliders = new HashSet<>();
-		handledComponents = new HashMap<>();
-		activeComponents = new HashSet<>();
 	}
 
 	public void execute(double time) {
-		activeComponents.forEach(key1 -> {
-			handledComponents.forEach((key2, vel) -> {
+		this.getActives().forEach(key1 -> {
+			this.getHandled().forEach((key2, map2) -> {
 				if(key1 != key2) {
-					checkCollision(key1, key2);
+					Map<String,Component> map1 = this.getHandled().get(key1);
+					checkCollision(map1, map2);
 				}
 			});
 		});
 	}
 
-	private void checkCollision(Integer key1, Integer key2) {
+	private void checkCollision(Map<String, Component> map1, Map<String, Component> map2) {
 
-		Width w1 = (Width) handledComponents.get(key1).get(Width.KEY);
-		Height h1 = (Height) handledComponents.get(key1).get(Height.KEY);
-		Width w2 = (Width) handledComponents.get(key2).get(Width.KEY);
-		Height h2 = (Height) handledComponents.get(key2).get(Height.KEY);
+		Width w1 = (Width) map1.get(Width.KEY);
+		Height h1 = (Height) map1.get(Height.KEY);
+		Width w2 = (Width) map2.get(Width.KEY);
+		Height h2 = (Height) map2.get(Height.KEY);
 		
-		XPosition x1 = (XPosition) handledComponents.get(key1).get(XPosition.KEY);
-		YPosition y1 = (YPosition) handledComponents.get(key1).get(YPosition.KEY);
-		XPosition x2 = (XPosition) handledComponents.get(key2).get(XPosition.KEY);
-		YPosition y2 = (YPosition) handledComponents.get(key2).get(YPosition.KEY);
+		XPosition x1 = (XPosition) map1.get(XPosition.KEY);
+		YPosition y1 = (YPosition) map1.get(YPosition.KEY);
+		XPosition x2 = (XPosition) map2.get(XPosition.KEY);
+		YPosition y2 = (YPosition) map2.get(YPosition.KEY);
 
 		
 
@@ -63,7 +61,7 @@ public class Collision implements ISystem {
 		
 		if (cd != null) {
 
-			this.evaluateCollidable(cd, key1, key2);
+			this.evaluateCollidable(cd, map1, map2);
 			
 			switch (cd) {
 
@@ -88,15 +86,14 @@ public class Collision implements ISystem {
 	}
 
 
-	private void evaluateCollidable(CollisionDirection cd, Integer key1, Integer key2) {
-		if(handledComponents.get(key1).containsKey(Collidable.KEY)) {
-			Collidable cdb = (Collidable) handledComponents.get(key1).get(Collidable.KEY);
-			cdb.action(cd, handledComponents.get(key1), handledComponents.get(key2));
+	private void evaluateCollidable(CollisionDirection cd, Map<String, Component> map1, Map<String, Component> map2) {
+		if(this.checkComponents(map1, Collidable.KEY)) {
+			Collidable cdb = (Collidable) map1.get(Collidable.KEY);
+			cdb.action(cd, map1, map2);
 		}
 		
-		if(handledComponents.get(key2).containsKey(Collidable.KEY)) {
-			Collidable cdb = (Collidable) handledComponents.get(key2).get(Collidable.KEY);
-			
+		if(this.checkComponents(map2, Collidable.KEY)) {
+			Collidable cdb = (Collidable) map2.get(Collidable.KEY);
 			CollisionDirection cd2 = null;
 			if(cd == CollisionDirection.Top) {
 				cd2 = CollisionDirection.Bot;
@@ -110,7 +107,7 @@ public class Collision implements ISystem {
 			else {
 				cd2 = CollisionDirection.Left;
 			}
-			cdb.action(cd2, handledComponents.get(key2), handledComponents.get(key1));
+			cdb.action(cd2, map2, map1);
 		}
 		
 	}
@@ -131,16 +128,16 @@ public class Collision implements ISystem {
 		
 		List<Double> overlaps = new ArrayList<>();
 		
-		if (bo && !to && (lo || ro)) {
+		if (bo && (lo || ro)) {
 			overlaps.add(botOverlap);
 		}
-		if (to && !bo && (lo || ro)) {
+		if (to && (lo || ro)) {
 			overlaps.add(topOverlap);
 		}
-		if (lo && !ro && (to || bo)) {
+		if (lo && (to || bo)) {
 			overlaps.add(leftOverlap);
 		}
-		if (ro && !lo && (to || bo)) {
+		if (ro && (to || bo)) {
 			overlaps.add(rightOverlap);
 		}
 		
@@ -166,40 +163,21 @@ public class Collision implements ISystem {
 
 
 	public void removeComponent(int pid) {
-		if (handledComponents.containsKey(pid)) {
-			handledComponents.remove(pid);
+		Map<Integer, Map<String,Component>> handled = this.getHandled();
+		if(handled.containsKey(pid)) {
+			handled.remove(pid);
 		}
 		if(colliders.contains(pid)) {
 			colliders.remove(pid);
 		}
 	}
 
-
-	public void setActives(Set<Integer> actives) {
-		Set<Integer> myActives = new HashSet<>(actives);
-		myActives.retainAll(handledComponents.keySet());
-		myActives.retainAll(colliders);
-		activeComponents = myActives;
-	}
-
-
 	public void addComponent(int pid, Map<String, Component> components) {
-		
-		if(		components.containsKey(XPosition.KEY) &&
-				components.containsKey(YPosition.KEY) && 
-				components.containsKey(Width.KEY) && 
-				components.containsKey(Height.KEY) &&
-				components.containsKey(Collidable.KEY)) {
-		
-			handledComponents.put(pid, components);
-
-			if(components.containsKey(XVelocity.KEY) && components.containsKey(YVelocity.KEY)) {
+		if(this.checkComponents(components, XPosition.KEY, YPosition.KEY, Width.KEY, Height.KEY, Collidable.KEY)) {
+			this.directAddComponent(pid, components);
+			if(this.checkComponents(components, XVelocity.KEY, YVelocity.KEY)) {
 				colliders.add(pid);
 			}
-
 		}
-
 	}
-
-
 }

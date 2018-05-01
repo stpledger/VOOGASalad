@@ -9,10 +9,9 @@ import java.util.function.Consumer;
  * Component to be added to enemies that have 'custom' actions (following the player), moving in a circle, etc.,
  * to be implemented by the designer by writing in a method for the entity to perform.
  *
- * @author cndraco
+ * @author cndracos
  */
 public class AI implements Component, BehaviorComponent {
-
 
     public static final String KEY = "AI";
 
@@ -25,11 +24,19 @@ public class AI implements Component, BehaviorComponent {
          action = e->{};
     }
 
-    public void setAction (Consumer<Map<String, Component>> action) {
+	/**
+	 * Sets the action for an AI to perform on its own components
+	 * @param action
+	 */
+	public void setAction (Consumer<Map<String, Component>> action) {
         this.action = action;
     }
 
-    public void doAction(Map<String, Component> components) {
+	/**
+	 * Does the action on its components based off of the logic of the actions
+	 * @param components
+	 */
+	public void doAction(Map<String, Component> components) {
         action.accept(components);
     }
 
@@ -49,7 +56,7 @@ public class AI implements Component, BehaviorComponent {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public void addBehavior(Object identifier, BiConsumer bic) {
-		setAction((entity) -> {
+		setAction(entity -> {
 			bic.accept((Map<String, Component>) entity, null);
 		});
 	}

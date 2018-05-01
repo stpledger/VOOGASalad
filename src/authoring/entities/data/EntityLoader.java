@@ -31,14 +31,14 @@ public class EntityLoader {
 	private final String ERROR_MESSAGE = "The component %s is invalid.";
 	private final String ENTITY_PREFIX = "authoring.entities.";
 	private final String XML_EXTENSION = ".xml";
-	private final String DATA_PREFIX = "data/";
+	private final String DATA_PREFIX = "data/entities/";
 	private final String TYPE = Type.KEY;
 
 	public EntityLoader() {
 		try {
 			documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
-			//LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
+			throw new AuthoringException(e, AuthoringAlert.NO_SHOW);
 		}
 	}
 
@@ -66,6 +66,7 @@ public class EntityLoader {
 			Element e = (Element) nList.item(i);
 			compsToAdd.add(cb.build(ID, e));
 		}
+		// ALWAYS have to add X and Y positions
 		compsToAdd.add(new XPosition(ID,x));
 		compsToAdd.add(new YPosition(ID,y));
 		entity.addAll(compsToAdd);
@@ -83,10 +84,8 @@ public class EntityLoader {
 			Document XMLDoc = documentBuilder.parse(XMLFile);
 			return XMLDoc.getDocumentElement();
 		} catch (Exception e) {
-			//LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
-			e.printStackTrace();
+			throw new AuthoringException(e, AuthoringAlert.NO_SHOW);
 		}
-		return null;
 	}
 
 	/**
