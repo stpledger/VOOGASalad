@@ -41,15 +41,17 @@ public class Controller implements IController {
 	private String currentGameName;
 	private DataGameState gameState;
 	private GameManager gameManager;
+	private DataGameState initialGameState;
 
 	public Controller(Stage stage, DataGameState currentGame) {
+		initialGameState = currentGame;
 		gameState = currentGame;
 		myStage = stage;
 		myStage.setResizable(false);
 		this.gameManager = new GameManager(gameState);
 		myPane = new BorderPane();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
-		pauseMenu = new PauseMenu(myStage);
+		pauseMenu = new PauseMenu(myStage, this);
 		assignKeyInputs();
 		setGameView();
 	}
@@ -64,10 +66,9 @@ public class Controller implements IController {
 
 	
 	/**
-	 * Restarts the current level
+	 * Restarts the current game
 	 */
 	public void restartGame() {
-		setGameView();
 	}
 
 	/**
@@ -101,6 +102,12 @@ public class Controller implements IController {
 	}
 
 
+	/**
+	 * Returns the Current Data GameState from the Controller
+	 */
+	public DataGameState getInitialGameState() {
+		return initialGameState;
+	}
 	
 	/**
 	 * Method that sets the current scene of the game
