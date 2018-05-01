@@ -51,10 +51,10 @@ public class TestGameState {
 		
 		play.put(XPosition.KEY, new XPosition(1,0));
 		play.put(YPosition.KEY, new YPosition(1,100));
-		play.put(XVelocity.KEY, new XVelocity(1,0));
+		play.put(XVelocity.KEY, new XVelocity(1,300));
 		play.put(YVelocity.KEY, new YVelocity(1,0));
 		play.put(XAcceleration.KEY, new XAcceleration(1,0));
-		play.put(YAcceleration.KEY, new YAcceleration(1,300));
+		play.put(YAcceleration.KEY, new YAcceleration(1,0));
 		play.put(Sprite.KEY, new Sprite(1,"Collin.png"));
 		u.getComponentList().forEach(comp -> {
 			play.put(comp.getKey(), comp);

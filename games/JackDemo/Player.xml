@@ -90,7 +90,7 @@
               <string>XVelocity</string>
               <engine.components.XVelocity>
                 <pid>1</pid>
-                <data>0.0</data>
+                <data>300.0</data>
               </engine.components.XVelocity>
             </entry>
             <entry>
@@ -188,7 +188,7 @@
                 </codes>
                 <pid>1</pid>
                 <crouched>false</crouched>
-                <timing>1.525070846347E12</timing>
+                <timing>1.525071091869E12</timing>
               </engine.components.presets.PlayerMovement>
             </entry>
             <entry>
@@ -210,7 +210,7 @@
               <string>YAcceleration</string>
               <engine.components.YAcceleration>
                 <pid>1</pid>
-                <data>300.0</data>
+                <data>0.0</data>
               </engine.components.YAcceleration>
             </entry>
             <entry>
