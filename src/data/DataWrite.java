@@ -3,7 +3,6 @@ package data;
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
 
-
 import gameplayer.view.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -124,7 +123,7 @@ public class DataWrite {
         }
         try {
 
-            FileOutputStream fos = new FileOutputStream(ENTITY_PATH + entity.name());
+            FileOutputStream fos = new FileOutputStream(ENTITY_PATH + entity.getName());
             serialize(entity, fos);
         } catch (FileNotFoundException e) {
             System.out.print("Cannot load");

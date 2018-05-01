@@ -32,7 +32,7 @@ public class LocalPropertiesView extends PropertiesView {
 	public LocalPropertiesView(Entity entity, Consumer<List<Component>> onSubmit) {
 		super();
 		this.entity = entity;
-		this.type = entity.type();
+		this.type = entity.getPresetType();
 		this.onSubmit = onSubmit;
 	}
 

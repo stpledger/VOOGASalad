@@ -1,7 +1,6 @@
 package authoring.grid;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import authoring.entities.Entity;
@@ -22,7 +21,6 @@ import javafx.scene.layout.Pane;
  */
 public class Cell extends Pane {
 
-	private final static String NON_INTERACT = "Noninteractable";
 	private final static String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
 	private List<Entity> entityList;
 	private Image image;
@@ -57,13 +55,6 @@ public class Cell extends Pane {
 			this.removeEntity(this.getEntity());
 			this.getChildren().clear();
 		});
-	}
-	
-	public void rearrangeEntities() {
-		if(this.containsEntity() && this.getEntity().getType().equals(NON_INTERACT)) {
-			System.out.println("Doing it!");
-			Collections.reverse(this.getChildren());
-		}
 	}
 
 	/**

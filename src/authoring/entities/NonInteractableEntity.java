@@ -14,8 +14,7 @@ import engine.components.Component;
 public abstract class NonInteractableEntity extends Entity {
 
 	private final static String NI_PROPERTIES_PATH = "resources.Entities/NonInteractable";
-	private final static String TYPE = "Noninteractable";
-	
+
 	/**
 	 * Construct the entity with the given ID
 	 * @param ID
@@ -23,7 +22,7 @@ public abstract class NonInteractableEntity extends Entity {
 	public NonInteractableEntity(int ID) {
 		super(ID);
 		components = new ArrayList<>();
-		this.type = TYPE;
+		this.setInteractable(false);
 	}
 
 	/**
@@ -38,15 +37,5 @@ public abstract class NonInteractableEntity extends Entity {
 			// TODO report to the user here
 		}
 	}
-
-	/**
-	 * @return the type of this entity
-	 */
-	public abstract String type();
-
-	/**
-	 * @return the name of this entity
-	 */
-	public abstract String name();
 
 }

@@ -210,5 +210,11 @@
 
 .name-text-box {
     -fx-background-color: secondary-color;
+    -fx-text-fill: primary-color;
+}
+
+.name-label {
+    -fx-text-fill: primary-color;
+    -fx-font-size: 20;
 }
     

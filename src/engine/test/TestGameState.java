@@ -102,8 +102,8 @@ public class TestGameState {
 
 			entities.put(k, ent);
 		}
-		
-		
+
+
 
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);

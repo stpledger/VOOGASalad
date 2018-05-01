@@ -34,12 +34,10 @@ public class LevelPropertiesView extends PropertiesView{
 			this.createLabels(this.getFormBundle().getString("Level").replaceAll(" ", ""));
 			//text argument is empty, no text needed for these fields
 			TextField infoText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,"");
-			TextField diffText = (TextField) this.getElementFactory().buildElement(ElementType.TextField,"");
 			NumberField timeNumber = (NumberField) this.getElementFactory().buildElement(ElementType.NumberField,"");
-			this.getRoot().addColumn(1,diffText,timeNumber,infoText);
+			this.getRoot().addColumn(1,timeNumber,infoText);
 			this.makeSubmitButton(e->{
 				level.setLevelInfo(infoText.getText());
-				level.setLevelDifficulty(diffText.getText());
 				level.setLevelTime(Double.parseDouble(timeNumber.getText()));
 				this.makeSubmitAlert();
 				this.close();

@@ -16,7 +16,7 @@ public class PackageExplorer {
 	public PackageExplorer() {
 		//
 	}
-	
+
 	public static String[] getElementsInPackage(String packageName, String fileType, String superClass) {
 		ClassLoader cld = Thread.currentThread().getContextClassLoader();
 		if (cld == null) {
@@ -41,9 +41,9 @@ public class PackageExplorer {
 			}
 		}
 		return classes.toArray(new String[classes.size()]);
-		
+
 	}
-	
+
 	/**
 	 * Gets all of the class names from a given package. Useful when determining which properties can be changed.
 	 * @return a String array of classes from a given package
@@ -51,7 +51,7 @@ public class PackageExplorer {
 	public static String[] getElementsInPackage(String packageName) {
 		return getElementsInPackage(packageName, "", "!");
 	}
-	
+
 	/**
 	 * Builds the class name to fully represent a given class
 	 * @param pckgName the package to look for the class ine
@@ -61,7 +61,7 @@ public class PackageExplorer {
 	private static String buildClassname(String pckgName, String fileName) {
 		return pckgName + '.' + fileName.replace(".class", "");
 	}
-	
+
 	/**
 	 * Given a name of a component class in the engine, find the number of fields that it takes and their types.
 	 * This is required for generating the appropriate amount of text boxes
@@ -84,7 +84,7 @@ public class PackageExplorer {
 		}
 		return 0;
 	}
-	
-	
-	
+
+
+
 }
