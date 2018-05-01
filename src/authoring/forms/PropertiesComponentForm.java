@@ -50,6 +50,7 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	 */
 	public Component buildComponent() {
 		if (!validComponent()) {
+			System.out.println();
 			return null;
 		}
 		String fullName =  COMPONENT_PREFIX + this.name;
