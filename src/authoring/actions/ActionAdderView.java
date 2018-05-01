@@ -3,6 +3,7 @@ package authoring.actions;
 import authoring.entities.Entity;
 import authoring.factories.ButtonElement;
 import engine.components.Component;
+import javafx.geometry.Pos;
 import javafx.scene.control.ComboBox;
 
 import java.util.*;
@@ -16,15 +17,15 @@ public class ActionAdderView extends Supplier{
     private ActionAdder actionAdder;
     private ComboBox<String> components;
     private ComboBox<String> actions;
-    private static final int SIZE = 300;
-    private static final double RATIO = 1.7;
+    private static final int SIZE = 200;
+    private static final double RATIO = 2.5;
     private static final String ADD = "Add an action";
     private static final String COMP_CONFIG = "Configure a Component";
     private static final String ACTION_CONFIG = "Configure an action";
     private static final String TRY = "Try a combination";
     private static final Set<String> ACCEPTED_COMPONENTS = new HashSet<>(Arrays.asList("AI", "Collidable", "KeyInput"));
 
-    ActionAdderView(Entity entity){
+    public ActionAdderView(Entity entity){
         super(ADD, SIZE, (int)Math.round(SIZE/RATIO),entity);
     }
 
@@ -32,6 +33,8 @@ public class ActionAdderView extends Supplier{
         /* define the options that the user sees when building actions
          */
         actionAdder = new ActionAdder(entity);
+        menu.setAlignment(Pos.CENTER);
+        buttons.setAlignment(Pos.CENTER);
         enter.setOnAction(e-> build());
         components = new ComboBox<>();
         components.setPromptText(COMP_CONFIG);

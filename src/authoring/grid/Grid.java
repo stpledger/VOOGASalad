@@ -3,6 +3,7 @@ package authoring.grid;
 import java.util.ArrayList;
 import java.util.List;
 
+import authoring.actions.ActionAdderView;
 import authoring.entities.Entity;
 import authoring.entities.data.EntityLoader;
 import authoring.exceptions.AuthoringAlert;
@@ -129,7 +130,9 @@ public class Grid extends GridPane {
 					MenuItem addFiveRow = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Five Grid Rows", e1->this.addRow(ADD_FIVE));
 					cMenu.getItems().addAll(addCol,addRow,addFiveCol,addFiveRow);
 					if(c.containsEntity()) {
-						MenuItem openLPV = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Edit Entity", e1->this.openLPV(c.getEntity()));
+						MenuItem openLPV = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Edit Entity Components", e1->this.openLPV(c.getEntity()));
+						MenuItem actionConfig = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Edit Entity Actions", e1->{
+							ActionAdderView a = new ActionAdderView(c.getEntity());});
 						MenuItem removeEntity = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Entity", e1->this.clearCell(c));
 						cMenu.getItems().addAll(openLPV,removeEntity);
 						if(!c.getEntity().getInteractable()) {

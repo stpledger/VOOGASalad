@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity name="Hello"><Name>Hello </Name><Sprite>mario.png </Sprite><Health>90.0 </Health><Dimension>9.0 9.0 </Dimension><Type>Block </Type></Entity>

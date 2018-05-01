@@ -7,6 +7,9 @@ import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
 
 import org.w3c.dom.Element;
+
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 /**
  * Class to build a sprite from a given image path
  * @author dylanpowers
@@ -14,7 +17,7 @@ import org.w3c.dom.Element;
  */
 public class ComponentBuilder {
 
-	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
+	private final String ERROR_MESSAGE = "The component %s could not be built. Please refer to documentation and check that the component exists in the engine.components package.";
 
 	public Component build(int ID, Element e) {
 		try {
@@ -30,9 +33,7 @@ public class ComponentBuilder {
 			System.out.println("Component " + component + " created successfully.");
 			return component;
 		} catch (Exception e2) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e2.toString(), e2);
-			e2.printStackTrace();
-			return null;
+			throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW, e.getNodeName());
 		}
 
 	}

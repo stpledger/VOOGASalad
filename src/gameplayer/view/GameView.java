@@ -17,7 +17,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 
 /**
- * Class that controls how the entity objects are displayed on the GamePlayer
+ * Class that controls how the entity objects are displayed on the gameplayer
  * @authors Ryan Fu & Scott Pledger
  *
  */
@@ -145,6 +145,7 @@ public class GameView implements IGamePlayerView{
 		inputHandler.removeCode(code);
 	}
 
+
 	/**
 	 * Saves the current game state to a new file
 	 */
@@ -203,17 +204,17 @@ public class GameView implements IGamePlayerView{
 	private Map<Integer, Pane> createLevelDisplays(Map<Level, Map<Integer, Map<String, Component>>> map){
 		Map<Integer, Pane> levelEntityMap = new HashMap<>();
 		for(Level level : map.keySet()) {
-			levelEntityMap.put(level.getLevelNum(), createIndividualLevelDisplay(map.get(level), level.getLevelNum()));
+			levelEntityMap.put(level.getLevelNum(), createIndividualEntityGroup(map.get(level), level.getLevelNum()));
 		}
 		return levelEntityMap;
 	}
 
 	/**
-	 * Method that creates all the panes for each level in a game.
+	 * Method that creates all the groups for each level in a levels.
 	 * @param entityMap
 	 * @return
 	 */
-	private Pane createIndividualLevelDisplay(Map<Integer, Map<String, Component>> entityMap, int levelNum) {
+	private Pane createIndividualEntityGroup(Map<Integer, Map<String, Component>> entityMap, int levelNum) {
 		Pane entityRoot = new Pane();
 		Map<String, Component> entityComponents;
 		for(Integer i : entityMap.keySet()) {
@@ -225,7 +226,9 @@ public class GameView implements IGamePlayerView{
 				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
 					setSpritePosition(entityComponents, image);
 				}
-
+				if(entityComponents.containsKey(Width.KEY) && entityComponents.containsKey(Height.KEY)) {
+					setSpriteSize(entityComponents, image);
+				}
 				if (entityComponents.containsKey(Type.KEY)) {
 					SingleStringComponent entityTypeComponent = (SingleStringComponent) entityComponents.get(Type.KEY);
 					System.out.println(entityTypeComponent.getData());
@@ -234,11 +237,6 @@ public class GameView implements IGamePlayerView{
 						continue;
 					}
 				}
-
-				if(entityComponents.containsKey(Width.KEY) && entityComponents.containsKey(Height.KEY)) {
-					setSpriteSize(entityComponents, image);
-				}
-
 				entityRoot.getChildren().add(image);
 			}
 		}
@@ -268,5 +266,6 @@ public class GameView implements IGamePlayerView{
 		image.setFitHeight(h.getData());
 		image.setFitWidth(w.getData());
 	}
+
 
 }

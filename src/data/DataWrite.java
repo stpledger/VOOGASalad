@@ -1,5 +1,8 @@
 package data;
 
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
+
 import gameplayer.view.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
@@ -37,7 +40,7 @@ public class DataWrite {
     private static final String ENTITY_PATH = "entity/";
     private static final String HIGHSCORE_FILE = "src/highscores.xml";
 
-
+    
     public static void saveFile(GameState gameState, String fileName) throws Exception {
         //creates an xml file from an authoiring environment this method converts authoring gamestate to player
         // gamestate then writes to xml
@@ -70,17 +73,17 @@ public class DataWrite {
         Map<String, List<Person>> people;
         try {
             people = DataRead.loadHighscore();
-            people.get(game).add(person);
+            people.get(gameName).add(person);
             hs = loadFile( HIGHSCORE_FILE);
         } catch (Exception e) {
             people = new HashMap<>();
-            if(!people.containsKey(game)){
+            if(!people.containsKey(gameName)){
                 List<Person> thepeeps = new ArrayList<>();
                 thepeeps.add(person);
-                people.put(game,thepeeps);
+                people.put(gameName,thepeeps);
             }
             else
-                people.get(game).add(person);
+                people.get(gameName).add(person);
             hs = new File(HIGHSCORE_FILE);
         }
         try {
@@ -92,14 +95,14 @@ public class DataWrite {
     }
 
     public static void writeImage(File file) {
-        BufferedImage image = null;
+        BufferedImage image;
         try {
             image = ImageIO.read(file);
             //Image noWhite = ImageUtil.convert();
             File fileDest = new File(DEFAULT_IMAGEPATH + file.getName());
             ImageIO.write(image, getFileType(file), fileDest);
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new AuthoringException("couldnt load", AuthoringAlert.NO_SHOW);
         }
 
     }
@@ -163,6 +166,7 @@ public class DataWrite {
 
         File gameFolder = new File(gameDir);
         if (!gameFolder.exists()) {
+            System.out.println("made a directory ");
             File dataFolder = new File(dataDir);
             gameFolder.mkdir();
 
@@ -172,8 +176,8 @@ public class DataWrite {
 
             File imageFolder = new File(imageDir);
             imageFolder.mkdir();
-            
-        } else {
+        }
+        else {
             deleteDir(gameFolder);
             makeFolders(name);
         }

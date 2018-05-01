@@ -2,6 +2,7 @@ package authoring.actions;
 
 import authoring.entities.Entity;
 import authoring.factories.ButtonElement;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.Background;
@@ -35,6 +36,8 @@ public abstract class Supplier {
         init(prompt,xsize,ysize);
         entity = e;
         configureMenu();
+        myStage.show();
+
     }
 
     private void init(String prompt, int xsize, int ysize){
@@ -46,7 +49,6 @@ public abstract class Supplier {
         myStage.setTitle(prompt);
         myStage.setAlwaysOnTop(true);
         myStage.setScene(myScene);
-        myStage.show();
         setupMenu();
     }
 
@@ -55,7 +57,6 @@ public abstract class Supplier {
         buttons = new HBox();
         prompt = new Text();
         menu.setBackground(new Background(new BackgroundFill(Color.DARKGRAY, null, null)));
-
         enter = new ButtonElement(ENTER);
         enter.setOnAction(e->close());
         cancel = new ButtonElement(CANCEL);

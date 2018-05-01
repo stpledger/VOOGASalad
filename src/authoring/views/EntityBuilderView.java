@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import authoring.MainApplication;
 import authoring.entities.data.EntityBuilderData;
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 import authoring.factories.ClickElementType;
 import authoring.factories.ElementFactory;
 import authoring.forms.EntityComponentFormCollection;
@@ -47,6 +49,7 @@ public class EntityBuilderView extends Stage {
 	private ImageView entityPreview;
 	private ElementFactory eFactory;
 	private EntityComponentFormCollection componentFormCollection;
+	private boolean hasImage = false;
 
 	private EntityBuilderData data;
 
@@ -87,6 +90,7 @@ public class EntityBuilderView extends Stage {
 			ComboBox<String> typeComboBox = buildTypeComboBox();
 			addImageMenu = buildSingleButtonMenu("addImage", e -> {addImage();});
 			this.entityPreview = new ImageView();
+
 			File imageFile = new File("data/images/Collin.png");
 			updateEntityPreview(SwingFXUtils.toFXImage(ImageIO.read(imageFile), null));
 			this.root.getChildren().addAll(entityPreview, typeComboBox, addImageMenu, componentFormCollection);
@@ -172,13 +176,17 @@ public class EntityBuilderView extends Stage {
 	 * Saves the current entity
 	 */
 	private void save(Object e){
-		try {
-			data.save((List<Object[]>) e);
-			onClose.accept(data.getType(), data.getComponentAttributes());
-			this.close();
-		}
-		catch (Exception e1) {
-			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+		if(!hasImage) {
+			AuthoringException authorException = new AuthoringException("Please Add an Image", AuthoringAlert.SHOW);
+		} else {
+			try {
+				data.save((List<Object[]>) e);
+				onClose.accept(data.getType(), data.getComponentAttributes());
+				this.close();
+			}
+			catch (Exception e1) {
+				LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
+			}
 		}
 	} 
 
@@ -195,6 +203,7 @@ public class EntityBuilderView extends Stage {
 			DataRead.addImage(imageFile);
 			Image image = SwingFXUtils.toFXImage(ImageIO.read(imageFile), null);
 			updateEntityPreview(image);
+			hasImage = true;
 		} catch (Exception e1){
 			LOGGER.log(java.util.logging.Level.SEVERE, e1.toString(), e1);
 		}

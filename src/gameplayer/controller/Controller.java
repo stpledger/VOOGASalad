@@ -1,9 +1,9 @@
-
 package gameplayer.controller;
 
 import java.util.Map;
 
 import data.DataGameState;
+import engine.components.Component;
 import gameplayer.hud.SampleToolBar;
 import gameplayer.menu.MenuGameBar;
 import gameplayer.menu.PauseMenu;
@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Controller implements IController{
+public class Controller implements IController {
 	private static final int WIDTH_SIZE = 800;
 	private static final int HEIGHT_SIZE = 500;
 	private static final int LEVEL_ONE = 1;
@@ -34,6 +34,7 @@ public class Controller implements IController{
 	private GameView gameView;
 
 	private Map<Integer, Pane> gameLevelDisplays;
+	private DataGameState currentGameState;
 	private SampleToolBar sampleBar;
 	private Map<Integer, Map<String, Boolean>> hudPropMap;
 	private Timeline animation;
@@ -42,17 +43,17 @@ public class Controller implements IController{
 	private GameManager gameManager;
 
 	public Controller(Stage stage, DataGameState currentGame) {
-		myPane = new BorderPane();
-		pauseMenu = new PauseMenu(myStage);
 		gameState = currentGame;
 		myStage = stage;
 		myStage.setResizable(false);
 		this.gameManager = new GameManager(gameState);
+		myPane = new BorderPane();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
+		pauseMenu = new PauseMenu(myStage);
 		assignKeyInputs();
 		setGameView();
 	}
-
+	
 	/**
 	 * Initializes controller scene
 	 * @return
@@ -60,6 +61,7 @@ public class Controller implements IController{
 	public Scene getControllerScene() {
 		return myScene;
 	}
+
 	
 	/**
 	 * Restarts the current level
@@ -74,20 +76,49 @@ public class Controller implements IController{
 	public void saveGame(){
 		gameView.saveGame();
 	}
+	
+	/**
+	 * Changes the display of the gave.
+	 * @param level to be loaded
+	 */
+	public void changeGameLevel(int level) {
+		if(level > gameManager.getNumOfLevels()){
+			gameOver();
+		}
+		else {
+			gameRoot = gameLevelDisplays.get(level);
+			myPane.setCenter(gameRoot);
+			gameView.setActiveLevel(level);
+		}
+	}
+	
+	/**
+	 * Returns the level game display
+	 * @return
+	 */
+	public Map<Integer, Pane> getGameLevelRoot(){
+		return gameLevelDisplays;
+	}
 
+
+	
 	/**
 	 * Method that sets the current scene of the game
 	 */
-	public void setGameView() {
+	private void setGameView() {
 		gameView = new GameView(gameState, gameManager);
 		hudPropMap = gameView.getHudPropMap();
 		gameLevelDisplays = gameView.getGameLevelDisplays();
+		
 		gameRoot = gameLevelDisplays.get(LEVEL_ONE);
 		myPane.setCenter(gameRoot);
+		
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
+		
 		sampleBar = new SampleToolBar(LEVEL_ONE, gameManager.getPlayerKeys(), hudPropMap);
 		myPane.setTop(sampleBar);
+		
 		initializeGameAnimation();
 	}
 	
@@ -103,29 +134,7 @@ public class Controller implements IController{
 		animation.play();
 	}
 
-	/**
-	 * Changes the display of the gave.
-	 * @param level to be loaded
-	 */
-	public void changeGameLevel(int level) {
-		if(level > gameManager.getNumOfLevels()){
-			gameOver();
-		}
-		else {
-			gameRoot = gameLevelDisplays.get(level);
-			myPane.setCenter(gameRoot);
-			gameView.setActiveLevel(level);
-		}
-	}
-
-	/**
-	 * Returns the level game display
-	 * @return
-	 */
-	public Map<Integer, Pane> getGameLevelRoot(){
-		return gameLevelDisplays;
-	}
-
+	
 	/**
 	 * Step method that repeats the animation by checking entities using render and system Manager
 	 * @param elapsedTime
@@ -157,7 +166,6 @@ public class Controller implements IController{
 		myScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
 				pauseMenu.show(myStage);
-				//myTimeline.pause();
 			} else {
 				if(gameView != null) {
 					gameView.setInput(e.getCode());
@@ -179,5 +187,7 @@ public class Controller implements IController{
 	private void gameOver(){
 		//TODO add game over functionality like the high score screen
 	}
+
+
 
 }

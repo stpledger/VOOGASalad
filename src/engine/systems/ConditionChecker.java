@@ -5,6 +5,14 @@ import engine.components.Conditional;
 
 import java.util.Map;
 
+/**
+ * System which checks conditionals.
+ *
+ *  ### THIS CLASS HAS BEEN REPLACED WITH COLLISIONS AND COLLIDABLE COMPONENTS##
+ *
+ *  @author cndracos
+ *
+ */
 public class ConditionChecker extends AbstractSystem implements ISystem {
 
     public ConditionChecker() {
