@@ -32,6 +32,7 @@ public abstract class InteractableEntity extends Entity {
 		};
 		// all interactable components should be collidable, so add the component
 		this.add(new Collidable(ID));
+		this.setDimension(Entity.ENTITY_WIDTH, Entity.ENTITY_HEIGHT);
 	}
 
 	/**

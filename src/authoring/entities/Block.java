@@ -14,6 +14,7 @@ public class Block extends InteractableEntity {
 		super(ID);
 		this.setName(name);
 		this.setPresetType(TYPE);
+		
 	}
 
 }
