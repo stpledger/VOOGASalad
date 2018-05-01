@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="game" name="69"><Health>80.0</Health><Type>Block</Type><Name>69</Name><Sprite>asm.jpeg</Sprite></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="gamee" name="69"><XPosition>10.0</XPosition><DamageValue>10.0</DamageValue><Sprite>braun.png</Sprite><Health>69.0</Health><Type>Background</Type><Name>69</Name></Entity>

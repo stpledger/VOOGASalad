@@ -37,14 +37,13 @@ public class User extends InteractableEntity {
 	private void addDefaultComponents() {
 		this.setHealth(INITIAL_HEALTH);
 		this.setEntityType(TYPE);
-		this.setDimension(Entity.ENTITY_WIDTH, Entity.ENTITY_HEIGHT);
 		this.add(new Player(this.getID()));
 		this.add(new Lives(this.getID(), INITIAL_LIVES));
 		this.add(new PlayerCollision(this.getID()));
 		this.add(new PlayerMovement(this.getID(), KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN));
 		this.add(new Score(this.getID(), 0));
 		this.add(new Jumps(this.getID(), 3));
-		this.add(new Animated(this.getID(), "animations/blob/animation.properties"));
+		//this.add(new Animated(this.getID(), "animations/blob/animation.properties"));
 	}
 
 }
