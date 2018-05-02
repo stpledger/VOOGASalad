@@ -13,6 +13,7 @@ import authoring.entities.Entity;
  */
 public class EntityComponentFormCollection extends AbstractComponentFormCollection {
 	
+	
 	public EntityComponentFormCollection() {
 		super(EntityComponentForm.class);
 	}
@@ -41,6 +42,12 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 	@Override
 	protected Object getCurrentValue(String componentName) {
 		return null;
+	}
+
+	@Override
+	protected void delete(ComponentForm cf) {
+		this.getActiveForms().remove(cf);
+		this.getChildren().remove(cf);
 	}
 }
 

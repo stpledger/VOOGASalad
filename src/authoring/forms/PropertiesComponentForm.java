@@ -3,6 +3,7 @@ package authoring.forms;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.function.Consumer;
 
 import authoring.entities.data.PackageExplorer;
 import authoring.factories.Element;
@@ -10,6 +11,7 @@ import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
 import engine.components.Component;
 import engine.components.SingleDataComponent;
+import engine.components.SingleStringComponent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -28,8 +30,8 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	 * @param name the name of the component
 	 * @param numFields the number of fields necessary for this component
 	 */
-	public PropertiesComponentForm(int eID, String name) throws Exception {
-		super(name);
+	public PropertiesComponentForm(int eID, String name, Consumer onDelete) throws Exception {
+		super(name, onDelete);
 		entity = eID;
 	}
 	/**
@@ -38,8 +40,8 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	 * @param existingValue the String form of the existing value of this component
 	 * @throws Exception 
 	 */
-	public PropertiesComponentForm(int entity, String name, String existingValue) throws Exception {
-		this(entity, name);
+	public PropertiesComponentForm(int entity, String name, String existingValue, Consumer onDelete) throws Exception {
+		this(entity, name, onDelete);
 		this.field.setText(existingValue);
 	}
 
@@ -58,14 +60,19 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 		// first argument is always the entity ID
 		params[0] = this.entity;
 		try {
+			Component comp = null;
 			Class<?> clazz = Class.forName(fullName);
 			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
-			if (SingleDataComponent.class.isAssignableFrom(clazz)) {
+			if (SingleDataComponent.class.isAssignableFrom(clazz) && this.numFields > 0) {
 				params[1] = Double.valueOf(this.field.getText());
-			} else {
+				comp = (Component) cons.newInstance(params);
+			} else if (SingleStringComponent.class.isAssignableFrom(clazz) && this.numFields > 0) {
 				params[1] = this.field.getText();
+				comp = (Component) cons.newInstance(params);
+			} else {
+				comp = (Component) cons.newInstance(this.entity);
 			}
-			Component comp = (Component) cons.newInstance(params);
+			
 			return comp;
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
