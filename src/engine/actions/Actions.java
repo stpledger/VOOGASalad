@@ -253,6 +253,14 @@ public class Actions {
         };
     }*/
 
+    public static BiConsumer<Map<String, Component>, Map<String, Component>> bounce (double speed) {
+    	return (Serializable & BiConsumer<Map<String, Component>, Map<String, Component>>) (entity1, entity2) -> {
+    		YVelocity yv = (YVelocity) entity2.get(YVelocity.KEY);
+    		yv.setData(-speed);
+		};
+	}
+
+
     /**
      * This would be an AI component that has an enemy follow you
      * @param followed Player/entity being followed

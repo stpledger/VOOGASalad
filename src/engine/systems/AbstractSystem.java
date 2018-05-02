@@ -76,7 +76,6 @@ public abstract class AbstractSystem implements ISystem {
 	 */
 	@Override
 	public void setActives(Set<Integer> actives) {
-		System.out.println(actives.toString());
 		Set<Integer> myActives = new HashSet<>(actives);
 		myActives.retainAll(handledComponents.keySet());
 		activeComponents = myActives;

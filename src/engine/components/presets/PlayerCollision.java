@@ -26,7 +26,7 @@ import engine.systems.collisions.CollisionDirection;
 		super(pid);
 		
 		this.setOnDirection(CollisionDirection.Top, Actions.damage(), Actions.transferScore(), Actions.xFriction(FRICTION));
-		this.setOnDirection(CollisionDirection.Top, Actions.moveUp(0));
+		//this.setOnDirection(CollisionDirection.Top, Actions.moveUp(0));
 		
 		this.setOnDirection(CollisionDirection.Bot, Actions.moveDown(50));
 		
