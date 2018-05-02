@@ -46,6 +46,7 @@ public class GlobalPropertiesView extends PropertiesView {
 					level.addGProp(globalProps.getString("Filepath"), pathInput.getText());
 				}
 				this.makeSubmitAlert();
+				this.close();
 			});
 		} catch (Exception e1) {
 			throw new AuthoringException(this.getFormBundle().getString("FormError"),AuthoringAlert.SHOW);
