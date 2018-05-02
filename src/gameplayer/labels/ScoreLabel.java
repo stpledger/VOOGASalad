@@ -1,7 +1,7 @@
-package gameplayer.labels;
+package GamePlayer.labels;
 import java.text.MessageFormat;
 
-import gameplayer.hud.IHUD;
+import GamePlayer.hud.IHUD;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.SimpleDoubleProperty;

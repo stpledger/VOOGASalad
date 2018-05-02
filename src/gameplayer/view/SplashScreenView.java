@@ -1,11 +1,11 @@
-package gameplayer.view;
+package GamePlayer.view;
 
 import java.util.Map;
 
 import data.DataGameState;
 import data.DataRead;
-import gameplayer.buttons.FileUploadButton;
-import gameplayer.buttons.GameSelectButton;
+import GamePlayer.buttons.FileUploadButton;
+import GamePlayer.buttons.GameSelectButton;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -21,7 +21,7 @@ import javafx.stage.Stage;
  * Splash Screen for Selecting Games and Uploading Games
  * @author Ryan Fu
  */
-public class SplashScreenView extends BranchScreenView{
+public class SplashScreenView extends BranchScreenView {
 	private static final int ROW_NUM = 4;
 	private static final int COL_NUM = 3;
 	private Scene splashScene;

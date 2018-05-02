@@ -1,4 +1,4 @@
-package gameplayer.view;
+package GamePlayer.view;
 import java.util.Map;
 
 import authoring.gamestate.Level;

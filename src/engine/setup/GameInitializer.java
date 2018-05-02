@@ -12,7 +12,6 @@ import engine.exceptions.EngineException;
 import engine.systems.Accelerate;
 import engine.systems.Animate;
 import engine.systems.ArtificialIntelligence;
-import engine.systems.ConditionChecker;
 import engine.systems.HealthDamage;
 import engine.systems.ISystem;
 import engine.systems.InputHandler;
@@ -53,7 +52,7 @@ public class GameInitializer {
             if (components.containsKey(XPosition.KEY) && components.containsKey(YPosition.KEY)) {
                 XPosition px = (XPosition) components.get(XPosition.KEY);
                 YPosition py = (YPosition) components.get(YPosition.KEY);
-                renderManager.add(new Position(px.getPID(), px.getData(), py.getData()));
+                renderManager.add(new Position(px, py));
                 
             }
             systemManager.addEntity(id, components);
@@ -82,7 +81,6 @@ public class GameInitializer {
     private void addSystems() {
         systems.add(new Accelerate());
         systems.add(new Motion());
-        systems.add(new ConditionChecker());
         systems.add((new ArtificialIntelligence()));
         systems.add(new Collision());
         systems.add(new HealthDamage(systemManager));

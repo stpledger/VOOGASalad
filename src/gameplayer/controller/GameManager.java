@@ -1,4 +1,4 @@
-package gameplayer.controller;
+package GamePlayer.controller;
 
 import authoring.gamestate.Level;
 import data.DataGameState;
