@@ -5,7 +5,7 @@ import javafx.scene.control.TextArea;
 
 
 
-public class EntitySupplier extends Supplier {
+public class IntSupplier extends Supplier {
     /* @Author Conrad prompts user for double to help make actions
 
      */
@@ -14,10 +14,10 @@ public class EntitySupplier extends Supplier {
     private static final String KEY_PROMPT = "Input an int Corresponding to an entity";
     private static final int XSIZE = 200;
     private static final int YSIZE =70;
-    private static final String INVALID = "Invalid int";
-    private static final String VALID = "Accepted int";
+    private static final String INVALID = "Invalid Double";
+    private static final String VALID = "Accepted Double";
 
-    EntitySupplier(Entity e){
+    IntSupplier(Entity e){
         super(KEY_PROMPT, XSIZE, YSIZE, e);
     }
 

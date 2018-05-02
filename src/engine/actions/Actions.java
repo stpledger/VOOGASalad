@@ -1,6 +1,8 @@
 package engine.actions;
 
 import authoring.entities.Entity;
+import authoring.gamestate.GameState;
+import data.DataGameState;
 import engine.components.*;
 
 import java.awt.Point;
@@ -216,6 +218,8 @@ public class Actions {
 				}
 			}
         	else giveDamage(actor1, actor2);
+			System.out.println(((Health)actor2.get(Health.KEY)).getData());
+			System.out.println("11"+((DamageValue)actor1.get(DamageValue.KEY)).getData());
 		};
     }
     
@@ -255,13 +259,19 @@ public class Actions {
 
     /**
      * This would be an AI component that has an enemy follow you
-     * @param followed Player/entity being followed
+     * @param fInt Player/entity being followed
      * @return action which result in the tracker moving towards the followed
      */
 
     @SuppressWarnings("unchecked")
-	public static Consumer<Map <String, Component>> followsYou (Entity followed, double speed) {
-        XPosition px = (XPosition) followed.get(XPosition.KEY);
+	public static Consumer<Map <String, Component>> followsYou (int fInt, double speed) {
+		Entity  followed = null;
+		try {
+			followed = GameState.entity(fInt);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		XPosition px = (XPosition) followed.get(XPosition.KEY);
         YPosition py = (YPosition) followed.get(YPosition.KEY);
 
         return (Serializable & Consumer<Map <String, Component>>) (tracker) -> {
