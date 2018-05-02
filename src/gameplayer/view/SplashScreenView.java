@@ -1,11 +1,11 @@
-package GamePlayer.view;
+package gameplayer.view;
 
 import java.util.Map;
 
 import data.DataGameState;
 import data.DataRead;
-import GamePlayer.buttons.FileUploadButton;
-import GamePlayer.buttons.GameSelectButton;
+import gameplayer.buttons.FileUploadButton;
+import gameplayer.buttons.GameSelectButton;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;

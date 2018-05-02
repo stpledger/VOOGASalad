@@ -1,4 +1,4 @@
-package GamePlayer.controller;
+package gameplayer.controller;
 
 import java.util.Map;
 import javafx.scene.Scene;
