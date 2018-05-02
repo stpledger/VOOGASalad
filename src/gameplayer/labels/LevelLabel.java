@@ -1,30 +1,29 @@
 package gameplayer.labels;
-import java.util.Map;
-
-import engine.components.Component;
-import javafx.beans.property.SimpleDoubleProperty;
+import gameplayer.controller.GameManager;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.Label;
 
 public class LevelLabel extends Label implements IGameStatusLabel{
 
 	private final String LEVEL_LABEL_NAME = "Level: ";
-	private SimpleDoubleProperty levelProperty;
+	private SimpleStringProperty levelProperty;
 	
 	
 	public LevelLabel() {
-		levelProperty = new SimpleDoubleProperty();
-		this.textProperty().bind(levelProperty.asString());
+		levelProperty = new SimpleStringProperty();
+		this.textProperty().bind(levelProperty);
 	}
 
 	@Override
-	public double extractGameStateValue(Map<String, Component> playerStatusMap) {
-		return 0;
+	public double extractGameStateValue(GameManager gameManager) {
+		return gameManager.getActiveLevel();
 	}
 
 	@Override
 	public void update(double newValue) {
 		// TODO Auto-generated method stub
-		levelProperty.setValue(newValue);
+		String newStringValue = Double.toString(newValue);
+		levelProperty.setValue(LEVEL_LABEL_NAME+ newStringValue);
 	}
 
 	

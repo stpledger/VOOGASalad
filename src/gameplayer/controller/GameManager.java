@@ -18,6 +18,7 @@ public class GameManager {
     private XPosition activePlayerPosX;
     private YPosition activePlayerPosY;
     private int numOfLevels;
+    private double lifeCount;
 
     private static final int FIRST_LEVEL = 1;
 
@@ -25,6 +26,9 @@ public class GameManager {
         Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
         playerKeys = new HashMap<>();
         winKeys = new HashMap<>();
+        
+        Lives lives = (Lives) levelMap.get(FIRST_LEVEL).get(Lives.KEY);
+        lifeCount = lives.getData();
 
         for(Level level : levelMap.keySet()){
             extractInfo(levelMap.get(level), level.getLevelNum());
@@ -54,6 +58,11 @@ public class GameManager {
             }
         }
     }
+    
+    public double getLives() {
+    		return lifeCount;
+    }
+ 
 
     /**
      * Get a map of Level Number to their corresponding Player entity
