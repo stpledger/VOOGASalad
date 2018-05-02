@@ -46,6 +46,7 @@ public class SystemManager {
         for (ISystem s : systems) {
             s.removeComponent(pid);
         }
+        System.out.println("components removed");
         setActives(renderManager.render());
     }
 
