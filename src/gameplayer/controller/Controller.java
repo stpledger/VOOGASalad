@@ -110,6 +110,14 @@ public class Controller implements IController {
 	}
 	
 	/**
+	 * Returns the gameManager to access information about the game.
+	 * @return
+	 */
+	public GameManager getGameManager() {
+		return gameManager;
+	}
+	
+	/**
 	 * Method that sets the current scene of the game
 	 */
 	private void setGameView() {
