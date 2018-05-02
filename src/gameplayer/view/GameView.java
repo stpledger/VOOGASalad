@@ -1,4 +1,4 @@
-package gameplayer.view;
+package GamePlayer.view;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +11,7 @@ import engine.setup.GameInitializer;
 import engine.setup.RenderManager;
 import engine.setup.SystemManager;
 import engine.systems.InputHandler;
-import gameplayer.controller.GameManager;
+import GamePlayer.controller.GameManager;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;

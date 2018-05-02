@@ -1,4 +1,4 @@
-package gameplayer.labels;
+package GamePlayer.labels;
 
 import java.util.Map;
 

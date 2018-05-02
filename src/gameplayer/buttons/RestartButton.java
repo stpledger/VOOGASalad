@@ -1,6 +1,6 @@
-package gameplayer.buttons;
+package GamePlayer.buttons;
 
-import gameplayer.controller.Controller;
+import GamePlayer.controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;

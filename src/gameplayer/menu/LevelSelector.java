@@ -1,9 +1,9 @@
-package gameplayer.menu;
+package GamePlayer.menu;
 
 import java.util.Map;
 import java.util.Set;
 
-import gameplayer.controller.Controller;
+import GamePlayer.controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
