@@ -3,6 +3,7 @@ package authoring.entities.componentbuilders;
 import engine.components.BehaviorComponent;
 import engine.components.Component;
 import engine.components.SingleDataComponent;
+import engine.components.Win;
 
 import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
@@ -25,7 +26,7 @@ public class ComponentBuilder {
 			System.out.println(clazz.getSuperclass());
 			if (SingleDataComponent.class.isAssignableFrom(clazz)) {
 				component = (Component) cons.newInstance(ID, Double.valueOf(e.getTextContent()));
-			} else if(BehaviorComponent.class.isAssignableFrom(clazz)) {
+			} else if(BehaviorComponent.class.isAssignableFrom(clazz) || clazz.isInstance(Win.class)) {
 				component = (Component) cons.newInstance(ID);
 			}else {
 				component = (Component) cons.newInstance(ID, e.getTextContent());
