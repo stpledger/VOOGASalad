@@ -58,12 +58,11 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	 * Opens the Property Editor window.
 	 */
 	public void open() {
-		root.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		stage = new Stage();
 		stage.setTitle(this.title());
-		root.getStyleClass().add("properties-view");
 		stage.setScene(new Scene(root));
 		stage.getScene().getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+		root.getStyleClass().add("properties-view");
 		stage.show();
 		this.fill();
 		stage.sizeToScene();
@@ -92,6 +91,7 @@ public abstract class PropertiesView implements AuthoringLanguage {
 		for (String property : props.keySet()) {
 			try {
 				Label label = (Label) this.getElementFactory().buildElement(ElementType.Label,props.getString(property));
+				label.getStyleClass().add("properties-label");
 				this.getRoot().add(label, 0, currentRow);
 				this.getElementList().add((Element) label);
 				currentRow++;
@@ -128,6 +128,7 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	protected Button makeSubmitButton(Consumer<Void> event) {
 		try {
 			Button submit = (Button) this.getElementFactory().buildClickElement(ClickElementType.Button,this.getFormBundle().getString("Submit"), e->event.accept(null));
+			submit.getStyleClass().add("properties-view-button");
 			this.elements.add((Element) submit);
 			this.root.addColumn(0, submit);
 			return submit;
