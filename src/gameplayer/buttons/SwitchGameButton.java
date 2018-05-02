@@ -1,6 +1,6 @@
-package GamePlayer.buttons;
+package gameplayer.buttons;
 
-import GamePlayer.view.SplashScreenView;
+import gameplayer.view.SplashScreenView;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 

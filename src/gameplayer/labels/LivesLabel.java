@@ -1,8 +1,7 @@
-package GamePlayer.labels;
+package gameplayer.labels;
 import java.util.Map;
 
 import engine.components.Component;
-import engine.components.Lives;
 import engine.components.Player;
 
 import javafx.beans.property.SimpleDoubleProperty;

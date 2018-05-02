@@ -1,5 +1,5 @@
-package GamePlayer.buttons;
-import GamePlayer.menu.PauseMenu;
+package gameplayer.buttons;
+import gameplayer.menu.PauseMenu;
 import javafx.scene.control.Button;
 
 /**
