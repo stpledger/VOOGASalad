@@ -6,12 +6,15 @@ import java.util.Properties;
 import java.util.logging.Logger;
 
 import authoring.entities.data.PackageExplorer;
+import authoring.factories.ClickElementType;
 import authoring.factories.Element;
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
 import engine.components.DataComponent;
 import engine.components.FlagComponent;
 import engine.components.StringComponent;
+import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -30,6 +33,7 @@ public abstract class AbstractComponentForm extends GridPane {
 	protected List<String> oneParams = new ArrayList<String>() {{
 		this.add("FlagComponent");
 		this.add("Win");
+		this.add("AI");
 		}};
 
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -71,6 +75,11 @@ public abstract class AbstractComponentForm extends GridPane {
 			fields.add(tf);
 			col++;
 			this.add(tf, col, 0);
+			col++;
+			Button deleteButton = (Button) eFactory.buildClickElement(ClickElementType.Button,"X", e ->{
+				
+			});
+			this.add(deleteButton, col, 0);
 		}
 	}
 
