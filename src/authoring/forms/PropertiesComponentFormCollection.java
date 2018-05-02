@@ -63,9 +63,10 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 		Component component = entity.get(componentName);
 		if(DataComponent.class.isAssignableFrom(component.getClass())) {
 			return ((DataComponent) component).getData();
-		} else {
+		} else if(StringComponent.class.isAssignableFrom(component.getClass())) {
 			return ((StringComponent) component).getData();
 		}
+		return null;
 		
 	}
 

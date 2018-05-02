@@ -10,6 +10,7 @@ import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
 import engine.components.Component;
 import engine.components.SingleDataComponent;
+import engine.components.SingleStringComponent;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
@@ -58,14 +59,19 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 		// first argument is always the entity ID
 		params[0] = this.entity;
 		try {
+			Component comp = null;
 			Class<?> clazz = Class.forName(fullName);
 			Constructor<?> cons = clazz.getDeclaredConstructors()[0];
-			if (SingleDataComponent.class.isAssignableFrom(clazz)) {
+			if (SingleDataComponent.class.isAssignableFrom(clazz) && this.numFields > 0) {
 				params[1] = Double.valueOf(this.field.getText());
-			} else {
+				comp = (Component) cons.newInstance(params);
+			} else if (SingleStringComponent.class.isAssignableFrom(clazz) && this.numFields > 0) {
 				params[1] = this.field.getText();
+				comp = (Component) cons.newInstance(params);
+			} else {
+				comp = (Component) cons.newInstance(this.entity);
 			}
-			Component comp = (Component) cons.newInstance(params);
+			
 			return comp;
 		} catch (Exception e) {
 			LOGGER.log(java.util.logging.Level.SEVERE, e.toString(), e);
