@@ -3,6 +3,7 @@ package authoring.forms;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import authoring.entities.data.PackageExplorer;
@@ -28,6 +29,7 @@ import javafx.scene.layout.GridPane;
 public abstract class AbstractComponentForm extends GridPane {
 	protected static final String COMPONENT_PREFIX = "engine.components.";
 	protected String name;
+	protected Button deleteButton;
 	protected int numFields;
 	protected List<TextField> fields = new ArrayList<>();
 	protected List<Label> labels = new ArrayList<>();
@@ -37,6 +39,7 @@ public abstract class AbstractComponentForm extends GridPane {
 		this.add("AI");
 		this.add("Collidable");
 		}};
+	protected Consumer<ComponentForm> deleteComponent;
 
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -48,8 +51,9 @@ public abstract class AbstractComponentForm extends GridPane {
 
 	protected abstract Object buildComponent();
 	
-	public AbstractComponentForm(String name) throws Exception {
+	public AbstractComponentForm(String name, Consumer<ComponentForm> onDelete) throws Exception {
 		this.name = name;
+		this.deleteComponent = onDelete;
 		int col = 0;
 		Label label = (Label) eFactory.buildElement(ElementType.Label, name);
 		label.getStyleClass().add("component-form-label");
@@ -77,12 +81,12 @@ public abstract class AbstractComponentForm extends GridPane {
 			fields.add(tf);
 			col++;
 			this.add(tf, col, 0);
-			col++;
-			Button deleteButton = (Button) eFactory.buildClickElement(ClickElementType.Button,"X", e ->{
-				
-			});
-			this.add(deleteButton, col, 0);
 		}
+		col++;
+		this.deleteButton = (Button) eFactory.buildClickElement(ClickElementType.Button,"X", e -> {
+			this.deleteComponent.accept((ComponentForm) this);
+		});
+		this.add(deleteButton, col, 0);
 	}
 
 	/**

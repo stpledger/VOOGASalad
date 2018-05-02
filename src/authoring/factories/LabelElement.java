@@ -13,6 +13,7 @@ public class LabelElement extends Label implements Element{
 	public LabelElement(String text) {
 		this.setId(text);
 		this.handleText(text);
+		this.getStyleClass().add("label");
 	}
 
 	@Override
