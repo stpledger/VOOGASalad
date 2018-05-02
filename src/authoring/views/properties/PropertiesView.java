@@ -79,6 +79,10 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	 */
 	protected abstract String title();
 	
+	/**
+	 * Creates labels for the specified properties view
+	 * @param propsName Name of the Properties view
+	 */
 	protected void createLabels(String propsName) {
 		int currentRow = 0;
 		ResourceBundle props = this.getResourcesBundle(propsName);
