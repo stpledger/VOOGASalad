@@ -1,4 +1,4 @@
-package gameplayer.buttons;
+package GamePlayer.buttons;
 
 public interface IGamePlayerButton {
 	

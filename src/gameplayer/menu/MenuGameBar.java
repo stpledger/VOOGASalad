@@ -1,6 +1,8 @@
-package gameplayer.menu;
+package GamePlayer.menu;
 
-import gameplayer.controller.Controller;
+import java.util.Map;
+import engine.components.Component;
+import GamePlayer.controller.Controller;
 import javafx.scene.control.MenuBar;
 
 /**
