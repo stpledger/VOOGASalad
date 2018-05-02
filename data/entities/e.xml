@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="stef" name="e"><Sprite>mystery.jpg</Sprite><Type>Enemy</Type><YVelocity>3.0</YVelocity><XVelocity>3.0</XVelocity><Name>e</Name><DamageValue>5.0</DamageValue><Health>40.0</Health><YAcceleration>1.0</YAcceleration><DamageLifetime>2.0</DamageLifetime><XAcceleration>2.0</XAcceleration></Entity>
