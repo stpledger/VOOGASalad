@@ -45,11 +45,19 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 	private Class<?> componentFormType;
 	
 	protected Consumer onSave;
+	protected Consumer deleteCF = componentForm->{deleteComponent(componentForm);};
+	
 
 	public AbstractComponentFormCollection(String[] newExceptions, Consumer c, Class cType) {
 		this(cType);
 		getExceptions().addAll(Arrays.asList(newExceptions));
 		onSave = c;
+		
+	}
+
+	private void deleteComponent(Object componentForm) {
+		this.activeForms.remove(componentForm);
+		this.getChildren().remove(componentForm);
 		
 	}
 
@@ -164,9 +172,9 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 			newActiveForms.addAll(this.getActiveForms());
 			ComponentForm cf = null;
 			if(componentFormType.equals(PropertiesComponentForm.class)) {
-				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance(entityID, (componentName));
+				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance(entityID, (componentName), deleteCF);
 			} else {
-				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance((componentName));
+				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance((componentName), deleteCF);
 			}
 			if(hasCurrentValue(componentName)) {
 				cf.setValue(getCurrentValue(componentName));

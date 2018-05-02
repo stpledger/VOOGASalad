@@ -3,6 +3,7 @@ package authoring.forms;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.function.Consumer;
 
 import authoring.entities.data.PackageExplorer;
 import authoring.factories.Element;
@@ -29,8 +30,8 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	 * @param name the name of the component
 	 * @param numFields the number of fields necessary for this component
 	 */
-	public PropertiesComponentForm(int eID, String name) throws Exception {
-		super(name);
+	public PropertiesComponentForm(int eID, String name, Consumer onDelete) throws Exception {
+		super(name, onDelete);
 		entity = eID;
 	}
 	/**
@@ -39,8 +40,8 @@ public class PropertiesComponentForm extends AbstractComponentForm implements Co
 	 * @param existingValue the String form of the existing value of this component
 	 * @throws Exception 
 	 */
-	public PropertiesComponentForm(int entity, String name, String existingValue) throws Exception {
-		this(entity, name);
+	public PropertiesComponentForm(int entity, String name, String existingValue, Consumer onDelete) throws Exception {
+		this(entity, name, onDelete);
 		this.field.setText(existingValue);
 	}
 
