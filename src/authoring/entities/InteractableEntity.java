@@ -16,7 +16,7 @@ import engine.components.Health;
 public abstract class InteractableEntity extends Entity {
 
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);   
-	
+
 	/**
 	 * The constructor simply sets the ID of the entity and initializes its list of components
 	 * @param ID which identifies an entity
@@ -32,6 +32,7 @@ public abstract class InteractableEntity extends Entity {
 		};
 		// all interactable components should be collidable, so add the component
 		this.add(new Collidable(ID));
+		this.setDimension(Entity.ENTITY_WIDTH, Entity.ENTITY_HEIGHT);
 	}
 
 	/**

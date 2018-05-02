@@ -90,6 +90,8 @@ public class Controller implements IController {
 			gameRoot = gameLevelDisplays.get(level);
 			myPane.setCenter(gameRoot);
 			gameView.setActiveLevel(level);
+			gameManager.setActiveLevel(level);
+			sampleBar.setActiveLevel(level);
 		}
 	}
 	
@@ -131,7 +133,7 @@ public class Controller implements IController {
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
 		
-		sampleBar = new SampleToolBar(LEVEL_ONE, gameManager.getPlayerKeys(), hudPropMap);
+		sampleBar = new SampleToolBar(gameManager, hudPropMap);
 		myPane.setTop(sampleBar);
 		
 		initializeGameAnimation();
@@ -163,8 +165,7 @@ public class Controller implements IController {
 				renderTime = 0;
 			}
 			gameView.updateScroll(gameRoot);
-			sampleBar.updateGameStatusValues(gameManager.getPlayerKeys());
-			sampleBar.updateGameStatusLabels();
+			sampleBar.updateGameStatusLabels(gameManager);
 		}
 	}
 

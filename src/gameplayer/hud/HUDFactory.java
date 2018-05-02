@@ -32,7 +32,7 @@ public class HUDFactory {
 		List<IGameStatusLabel> listOfLabels = new ArrayList<IGameStatusLabel>();
 		for (String temp: listOfStates) {
 			try {
-				gameStatus = (IGameStatusLabel) Class.forName("labels."+temp).newInstance();
+				gameStatus = (IGameStatusLabel) Class.forName("gameplayer.labels."+temp+"Label").newInstance();
 			}catch (InstantiationException e) {
 				System.out.println("Error");
 			} catch (IllegalAccessException e) {
@@ -42,7 +42,7 @@ public class HUDFactory {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			listOfLabels.add(gameStatus); //repeatedly add Labels to a toolbar
+			listOfLabels.add(gameStatus);
 		}
 		return listOfLabels;
 	}
