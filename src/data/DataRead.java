@@ -75,6 +75,7 @@ public class DataRead  {
             BufferedImage image = ImageIO.read(file);
             return SwingFXUtils.toFXImage(image, null);
         } catch (IOException e) {
+            System.out.print(file.getAbsolutePath());
             ErrorStatement(FAIL_MESSAGE);
             return new Image(EMPTY_IMAGE);
         }
