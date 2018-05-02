@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import authoring.entities.Roller;
 import authoring.entities.User;
 import authoring.gamestate.Level;
 import data.DataGameState;
@@ -51,15 +52,15 @@ public class TestGameState {
 		
 		play.put(XPosition.KEY, new XPosition(1,0));
 		play.put(YPosition.KEY, new YPosition(1,100));
-		play.put(XVelocity.KEY, new XVelocity(1,300));
+		play.put(XVelocity.KEY, new XVelocity(1,0));
 		play.put(YVelocity.KEY, new YVelocity(1,0));
 		play.put(XAcceleration.KEY, new XAcceleration(1,0));
 		play.put(YAcceleration.KEY, new YAcceleration(1,0));
-		play.put(Sprite.KEY, new Sprite(1,"Collin.png"));
+		play.put(Sprite.KEY, new Sprite(1,"animations/sonic/sonicsprite.png"));
 		u.getComponentList().forEach(comp -> {
 			play.put(comp.getKey(), comp);
 		});
-		play.remove(Animated.KEY);
+		play.put(Animated.KEY, new Animated(1,"animations/sonic/sonicanimation.properties"));
 		entities.put(1, play);
 		
 		for(int k = 2; k < 100; k++) {
@@ -68,7 +69,7 @@ public class TestGameState {
 			EntityType et = new EntityType(k,"Block");
 			Height h = new Height(k,50);
 			Width w = new Width(k,50);
-			Sprite s = new Sprite(k, "8bit.png");
+			Sprite s = new Sprite(k, "8Bit.png");
 			Collidable cdb = new Collidable(k);
 			
 			Map<String,Component> ent = new HashMap<>();
@@ -88,7 +89,7 @@ public class TestGameState {
 			EntityType et = new EntityType(k,"Block");
 			Height h = new Height(k,50);
 			Width w = new Width(k,50);
-			Sprite s = new Sprite(k, "8bit.png");
+			Sprite s = new Sprite(k, "8Bit.png");
 			Collidable cdb = new Collidable(k);
 
 			Map<String,Component> ent = new HashMap<>();
@@ -107,7 +108,7 @@ public class TestGameState {
 
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);
-		state.put(l,entities);
+		//state.put(l,entities);
 
 		DataGameState dState = new DataGameState(state, "JackDemo");
 		try {

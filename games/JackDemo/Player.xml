@@ -4,7 +4,6 @@
       <authoring.gamestate.Level>
         <levelNum>1</levelNum>
         <levelTime>0.0</levelTime>
-        <levelDistance>0.0</levelDistance>
         <HUDprops/>
         <GProps/>
       </authoring.gamestate.Level>
@@ -16,21 +15,6 @@
               <string>Collidable</string>
               <engine.components.presets.PlayerCollision>
                 <actions>
-                  <entry>
-                    <engine.systems.collisions.CollisionDirection>Top</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer resolves-to="serialized-lambda">
-                      <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
-                      <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-                      <implClass>engine/components/presets/PlayerCollision</implClass>
-                      <implMethodName>lambda$0</implMethodName>
-                      <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
-                      <capturedArgs/>
-                    </java.util.function.BiConsumer>
-                  </entry>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Right</engine.systems.collisions.CollisionDirection>
                     <java.util.function.BiConsumer resolves-to="serialized-lambda">
@@ -47,21 +31,6 @@
                     </java.util.function.BiConsumer>
                   </entry>
                   <entry>
-                    <engine.systems.collisions.CollisionDirection>Left</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer resolves-to="serialized-lambda">
-                      <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
-                      <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-                      <implClass>engine/components/presets/PlayerCollision</implClass>
-                      <implMethodName>lambda$2</implMethodName>
-                      <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
-                      <capturedArgs/>
-                    </java.util.function.BiConsumer>
-                  </entry>
-                  <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
                     <java.util.function.BiConsumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
@@ -70,6 +39,36 @@
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerCollision</implClass>
                       <implMethodName>lambda$1</implMethodName>
+                      <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs/>
+                    </java.util.function.BiConsumer>
+                  </entry>
+                  <entry>
+                    <engine.systems.collisions.CollisionDirection>Top</engine.systems.collisions.CollisionDirection>
+                    <java.util.function.BiConsumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
+                      <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/components/presets/PlayerCollision</implClass>
+                      <implMethodName>lambda$0</implMethodName>
+                      <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs/>
+                    </java.util.function.BiConsumer>
+                  </entry>
+                  <entry>
+                    <engine.systems.collisions.CollisionDirection>Left</engine.systems.collisions.CollisionDirection>
+                    <java.util.function.BiConsumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
+                      <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/components/presets/PlayerCollision</implClass>
+                      <implMethodName>lambda$2</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
@@ -122,23 +121,6 @@
               <engine.components.presets.PlayerMovement>
                 <codes>
                   <entry>
-                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
-                    <java.util.function.Consumer resolves-to="serialized-lambda">
-                      <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
-                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-                      <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$2</implMethodName>
-                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
-                      <implMethodKind>7</implMethodKind>
-                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
-                      <capturedArgs>
-                        <engine.components.presets.PlayerMovement reference="../../../../.."/>
-                      </capturedArgs>
-                    </java.util.function.Consumer>
-                  </entry>
-                  <entry>
                     <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
@@ -154,14 +136,14 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
-                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$3</implMethodName>
+                      <implMethodName>lambda$2</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>7</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
@@ -185,10 +167,27 @@
                       <capturedArgs/>
                     </java.util.function.Consumer>
                   </entry>
+                  <entry>
+                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/components/presets/PlayerMovement</implClass>
+                      <implMethodName>lambda$3</implMethodName>
+                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>7</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs>
+                        <engine.components.presets.PlayerMovement reference="../../../../.."/>
+                      </capturedArgs>
+                    </java.util.function.Consumer>
+                  </entry>
                 </codes>
                 <pid>1</pid>
                 <crouched>false</crouched>
-                <timing>1.525071091869E12</timing>
+                <timing>1.525302869638E12</timing>
               </engine.components.presets.PlayerMovement>
             </entry>
             <entry>
