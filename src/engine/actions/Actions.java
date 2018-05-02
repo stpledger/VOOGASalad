@@ -15,6 +15,7 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 import engine.setup.SystemManager;
+import engine.systems.collisions.CollisionDirection;
 
 /**
  * This is the actions class which contains methods that represent any in-game actions done by an entity outside of
@@ -170,15 +171,11 @@ public class Actions {
 	public static BiConsumer<Map<String, Component>,Map<String, Component>> xFriction(double stickiness) {
 		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
     		if(actor1 != null && (actor1 instanceof Map<?,?>)) {
-    			if(actor1.containsKey(XVelocity.KEY) && actor1.containsKey(XAcceleration.KEY)) {
+    			if(actor1.containsKey(XVelocity.KEY)) {
     				XVelocity xv = (XVelocity) actor1.get(XVelocity.KEY);
-    				XAcceleration xa = (XAcceleration) actor1.get(XAcceleration.KEY);
-    				
-    				if(xv.getData() > 0) {
-    					xa.setData(-stickiness);
-    				} else if(xv.getData() < 0) {
-    					xa.setData(stickiness);
-    				}
+    				if (xv.getData() - stickiness > 0) xv.setData(xv.getData() - stickiness);
+    				else if (xv.getData() + stickiness < 0) xv.setData(xv.getData() + stickiness);
+    				else xv.setData(0);
     			}
     		}
     	};
@@ -223,6 +220,7 @@ public class Actions {
 		if (player.containsKey(DamageValue.KEY) &&
 				player.containsKey(DamageLifetime.KEY) &&
 				collider.containsKey(Health.KEY)) {
+
 			int playerID = player.get(DamageValue.KEY).getPID();
 			int colliderID = collider.get(Health.KEY).getPID();
 
@@ -253,10 +251,41 @@ public class Actions {
         };
     }*/
 
-    public static BiConsumer<Map<String, Component>, Map<String, Component>> bounce (double speed) {
-    	return (Serializable & BiConsumer<Map<String, Component>, Map<String, Component>>) (entity1, entity2) -> {
-    		YVelocity yv = (YVelocity) entity2.get(YVelocity.KEY);
-    		yv.setData(-speed);
+    public static BiConsumer<Map <String, Component>, Map<String, Component>> bounce (CollisionDirection cd, double speed) {
+		System.out.println("bouncing");
+    	switch (cd) {
+			case Left:
+				return horizontalBounce(speed);
+			case Right:
+				return horizontalBounce(-speed);
+			case Top:
+				return verticalBounce(speed);
+			case Bot:
+				return verticalBounce(-speed);
+		}
+		System.out.println("returned null");
+		return null;
+	}
+
+	private static BiConsumer<Map<String, Component>, Map<String, Component>> verticalBounce(double v) {
+		return (Serializable & BiConsumer<Map<String, Component>, Map<String, Component>>) (entity1, entity2) -> {
+            YVelocity yv = (YVelocity) entity2.get(YVelocity.KEY);
+            yv.setData(v);
+            if (entity2.containsKey(Collidable.KEY)) {
+                Collidable c = (Collidable) entity2.get(Collidable.KEY);
+                c.suppress();
+            }
+        };
+	}
+
+	private static BiConsumer<Map<String, Component>, Map<String, Component>> horizontalBounce(double v) {
+		return (Serializable & BiConsumer<Map<String, Component>, Map<String, Component>>) (entity1, entity2) -> {
+			XVelocity xv = (XVelocity) entity2.get(XVelocity.KEY);
+			xv.setData(v);
+			if (entity2.containsKey(Collidable.KEY)) {
+				Collidable c = (Collidable) entity2.get(Collidable.KEY);
+				c.suppress();
+			}
 		};
 	}
 
@@ -306,16 +335,56 @@ public class Actions {
 					(distance(xp.getData(), yp.getData(), destination.get().getX(), destination.get().getY())) * speed);
             yv.setData((destination.get().getY()-yp.getData())/
 					(distance(xp.getData(), yp.getData(), destination.get().getX(), destination.get().getY())) * speed);
-            if ((distance(xp.getData(), yp.getData(), destination.get().getX(), destination.get().getY())) < 10) {
-                if (current.get() == coordinates.size() - 1) current.set(0);
-                else current.getAndIncrement();
-                destination.set(coordinates.get(current.get()));
-            }
-        };
+			setNewDestination(coordinates, destination, current, xp, yp);
+		};
     }
 
+	/**
+	 * The patrol method that uses the user's position as a starting point, so any list of points can define
+	 * an entity-specific patrol route.
+	 *
+	 * @param coordinates Destination points
+	 * @param speed which you move at
+	 * @return action of patrolling
+	 */
+	private static Consumer<Map <String, Component>> patrolRelative(List<Point> coordinates, double speed) {
+    	AtomicReference<Point> destination = new AtomicReference<>(coordinates.get(0));
+    	AtomicInteger current = new AtomicInteger();
+		final boolean[] shifted = {false};
 
-    private static double distance (double x1, double y1, double x2, double y2) {
+    	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
+			XVelocity xv = (XVelocity) actor.get(XVelocity.KEY);
+			YVelocity yv = (YVelocity) actor.get(YVelocity.KEY);
+			XPosition xp = (XPosition) actor.get(XPosition.KEY);
+			YPosition yp = (YPosition) actor.get(YPosition.KEY);
+
+			if (!shifted[0]) {
+				double xDiff =  destination.get().getX() - xp.getData();
+				double yDiff = destination.get().getY() - yp.getData();
+				for (Point p : coordinates) {
+					p.setLocation(p.getX() - xDiff, p.getY() - yDiff);
+				}
+				shifted[0] = true;
+			}
+
+			xv.setData((destination.get().getX()-xp.getData())/
+					(distance(xp.getData(), yp.getData(), destination.get().getX(), destination.get().getY())) * speed);
+			yv.setData((destination.get().getY()-yp.getData())/
+					(distance(xp.getData(), yp.getData(), destination.get().getX(), destination.get().getY())) * speed);
+			setNewDestination(coordinates, destination, current, xp, yp);
+		};
+	}
+
+	private static void setNewDestination(List<Point> coordinates, AtomicReference<Point> destination, AtomicInteger current, XPosition xp, YPosition yp) {
+		if ((distance(xp.getData(), yp.getData(), destination.get().getX(), destination.get().getY())) < 10) {
+            if (current.get() == coordinates.size() - 1) current.set(0);
+            else current.getAndIncrement();
+            destination.set(coordinates.get(current.get()));
+        }
+	}
+
+
+	private static double distance (double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(y1-y2, 2) + Math.pow(x1 - x2, 2)); //distance between two positions/points
     }
 

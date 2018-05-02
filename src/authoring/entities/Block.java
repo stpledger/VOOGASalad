@@ -18,12 +18,12 @@ public class Block extends InteractableEntity {
 		super(ID);
 		this.setName(name);
 		this.setPresetType(TYPE);
-		addDefaultComponents();
+		//addDefaultComponents();
 	}
 
 	private void addDefaultComponents() {
 		Collidable c = new Collidable(this.getID());
-		c.setOnDirection(CollisionDirection.Bot, Actions.bounce(0));
+		//c.setOnDirection(CollisionDirection.Bot, Actions.bounce(0));
 		this.add(c);
 	}
 

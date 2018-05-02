@@ -19,14 +19,14 @@ import engine.systems.collisions.CollisionDirection;
  */
  public class PlayerCollision extends Collidable {
 
-	private static final int FRICTION = 50;
+	private static final int FRICTION = 20;
 	
 	@SuppressWarnings("unchecked")
 	public PlayerCollision(int pid) {
 		super(pid);
 		
 		this.setOnDirection(CollisionDirection.Top, Actions.damage(), Actions.transferScore(), Actions.xFriction(FRICTION));
-		//this.setOnDirection(CollisionDirection.Top, Actions.moveUp(0));
+		this.setOnDirection(CollisionDirection.Top, Actions.moveUp(0));
 		
 		this.setOnDirection(CollisionDirection.Bot, Actions.moveDown(50));
 		
