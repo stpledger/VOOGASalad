@@ -134,7 +134,7 @@ public class Grid extends GridPane {
 						MenuItem actionConfig = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Edit Entity Actions", e1->{
 							ActionAdderView a = new ActionAdderView(c.getEntity());});
 						MenuItem removeEntity = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Entity", e1->this.clearCell(c));
-						cMenu.getItems().addAll(openLPV,removeEntity);
+						cMenu.getItems().addAll(openLPV,removeEntity,actionConfig);
 						if(!c.getEntity().getInteractable()) {
 							ImageView bgrnd = (ImageView) c.getChildren().get(c.getChildren().size()-1);
 							MenuItem addImageCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addImageCol(c, bgrnd, 1));
