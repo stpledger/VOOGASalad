@@ -42,6 +42,18 @@ public class DataRead  {
         }
     }
 
+    public static DataGameState copyGame() {
+        /* receives a copy of a  gamestate and loads it to the player
+         * from buildState
+         */
+        try {
+            return buildState(loadFile(gameName));
+        } catch (IllegalStateException e) {
+            ErrorStatement(FAIL_MESSAGE);
+            return new DataGameState(EMPTY_GAME);
+        }
+    }
+
     public static Map<Level, Map<Integer, List<Component>>> loadAuthorFile(File xml) {
         /*return a map for the gamestate to be sent to authoring that can be built into their
          *version of game state
