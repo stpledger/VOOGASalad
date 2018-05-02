@@ -218,7 +218,23 @@ public class Actions {
         	else giveDamage(actor1, actor2);
 		};
     }
-    
+    @SuppressWarnings("unchecked")
+	public static BiConsumer<Map<String, Component>, Map<String, Component>> win(){
+        return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+			signifyWin(actor1,actor2);
+		};
+    }
+   public static void signifyWin( Map<String, Component> player, Map<String, Component> collider){
+    if(player.containsKey(Player.KEY) && collider.containsKey(Win.KEY)){
+    	    	  ((Win) collider.get(Win.KEY)).win();
+    	    	  System.out.println(((Win) player.get(Win.KEY)).getWinStatus());
+    	      }
+    else if(collider.containsKey(Player.KEY) && player.containsKey(Win.KEY)) {
+      	((Win) player.get(Win.KEY)).win();
+      	System.out.println(((Win) player.get(Win.KEY)).getWinStatus());
+    }
+   }
+    	
     private static void giveDamage(Map<String, Component> player, Map<String, Component> collider) {
 		if (player.containsKey(DamageValue.KEY) &&
 				player.containsKey(DamageLifetime.KEY) &&
@@ -305,7 +321,8 @@ public class Actions {
             }
         };
     }
-
+  
+   
 
     private static double distance (double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(y1-y2, 2) + Math.pow(x1 - x2, 2)); //distance between two positions/points
