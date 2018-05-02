@@ -29,6 +29,7 @@ import javafx.scene.layout.GridPane;
 public abstract class AbstractComponentForm extends GridPane {
 	protected static final String COMPONENT_PREFIX = "engine.components.";
 	protected String name;
+	protected Button deleteButton;
 	protected int numFields;
 	protected List<TextField> fields = new ArrayList<>();
 	protected List<Label> labels = new ArrayList<>();
@@ -38,7 +39,7 @@ public abstract class AbstractComponentForm extends GridPane {
 		this.add("AI");
 		this.add("Collidable");
 		}};
-	protected Consumer deleteComponent;
+	protected Consumer<ComponentForm> deleteComponent;
 
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
@@ -50,7 +51,7 @@ public abstract class AbstractComponentForm extends GridPane {
 
 	protected abstract Object buildComponent();
 	
-	public AbstractComponentForm(String name, Consumer onDelete) throws Exception {
+	public AbstractComponentForm(String name, Consumer<ComponentForm> onDelete) throws Exception {
 		this.name = name;
 		this.deleteComponent = onDelete;
 		int col = 0;
@@ -82,8 +83,8 @@ public abstract class AbstractComponentForm extends GridPane {
 			this.add(tf, col, 0);
 		}
 		col++;
-		Button deleteButton = (Button) eFactory.buildClickElement(ClickElementType.Button,"X", e ->{
-			this.deleteComponent.accept(this);
+		this.deleteButton = (Button) eFactory.buildClickElement(ClickElementType.Button,"X", e -> {
+			this.deleteComponent.accept((ComponentForm) this);
 		});
 		this.add(deleteButton, col, 0);
 	}
