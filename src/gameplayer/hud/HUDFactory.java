@@ -1,11 +1,11 @@
-package gameplayer.hud;
+package GamePlayer.hud;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import engine.components.Component;
-import gameplayer.labels.IGameStatusLabel;
+import GamePlayer.labels.IGameStatusLabel;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 

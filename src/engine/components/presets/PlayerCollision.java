@@ -17,7 +17,7 @@ import engine.systems.collisions.CollisionDirection;
  * @author fitzj
  *
  */
-public class PlayerCollision extends Collidable {
+ public class PlayerCollision extends Collidable {
 
 	private static final int FRICTION = 50;
 	
@@ -25,33 +25,14 @@ public class PlayerCollision extends Collidable {
 	public PlayerCollision(int pid) {
 		super(pid);
 		
-		this.setOnDirection(CollisionDirection.Top, (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>) (e1, e2) -> {
-			
-			Actions.damage().accept(e1, e2);
-			Actions.moveUp(0).accept(e1);
-			Actions.transferScore().accept(e1, e2);
-			Actions.xFriction(FRICTION).accept(e1, e2);
-			if(e1.containsKey(Jumps.KEY)) {
-				Jumps s = (Jumps) e1.get(Jumps.KEY);
-				s.reset();
-			}
-			
-		});
+		this.setOnDirection(CollisionDirection.Top, Actions.damage(), Actions.transferScore(), Actions.xFriction(FRICTION));
+		this.setOnDirection(CollisionDirection.Top, Actions.moveUp(0));
 		
-		this.setOnDirection(CollisionDirection.Bot, (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>) (e1, e2) -> {
-			Actions.moveDown(50).accept(e1);
-		});
+		this.setOnDirection(CollisionDirection.Bot, Actions.moveDown(50));
 		
-		this.setOnDirection(CollisionDirection.Left, (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>) (e1, e2) -> {
-			
-			Actions.moveLeft(0).accept(e1);
-			
-		});
+		this.setOnDirection(CollisionDirection.Left, Actions.moveLeft(0));
 		
-		this.setOnDirection(CollisionDirection.Right, (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>) (e1, e2) -> {
-			
-			Actions.moveRight(0).accept(e1);
-		});
+		this.setOnDirection(CollisionDirection.Right, Actions.moveRight(0));
 		
 	}
 

@@ -1,13 +1,13 @@
-package gameplayer.controller;
+package GamePlayer.controller;
 
 import java.util.Map;
 
 import data.DataGameState;
 import engine.components.Component;
-import gameplayer.hud.SampleToolBar;
-import gameplayer.menu.MenuGameBar;
-import gameplayer.menu.PauseMenu;
-import gameplayer.view.GameView;
+import GamePlayer.hud.SampleToolBar;
+import GamePlayer.menu.MenuGameBar;
+import GamePlayer.menu.PauseMenu;
+import GamePlayer.view.GameView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;

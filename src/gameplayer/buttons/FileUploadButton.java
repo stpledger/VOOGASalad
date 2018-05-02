@@ -1,11 +1,11 @@
-package gameplayer.buttons;
+package GamePlayer.buttons;
 
 
 import java.io.File;
 
 import data.DataGameState;
 import data.DataRead;
-import gameplayer.controller.Controller;
+import GamePlayer.controller.Controller;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;

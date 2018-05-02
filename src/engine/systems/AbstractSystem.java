@@ -20,12 +20,8 @@ public abstract class AbstractSystem implements ISystem {
 	 * Map of all entities being handled by the system
 	 */
 	private Map<Integer,Map<String,Component>> handledComponents;
-	
-	/**
-	 * Map of rendered entities being currently processed
-	 */
 	private Set<Integer> activeComponents;
-	
+
 	public AbstractSystem() {
 		handledComponents = new HashMap<>();
 		activeComponents = new HashSet<>();
@@ -85,6 +81,7 @@ public abstract class AbstractSystem implements ISystem {
 		activeComponents = myActives;
 	}
 
+
 	/**
 	 * Calls on system to modify components accordingly, given a time period
 	 * @param time	Amount of time passed since last execution
@@ -100,7 +97,8 @@ public abstract class AbstractSystem implements ISystem {
 	protected Map<Integer,Map<String,Component>> getHandled() {
 		return handledComponents;
 	}
-	
+
+
 	/**
 	 * Special method for subsystem to get active entities
 	 * @return	Active entities
@@ -108,5 +106,6 @@ public abstract class AbstractSystem implements ISystem {
 	protected Set<Integer> getActives() {
 		return activeComponents;
 	}
+
 
 }
