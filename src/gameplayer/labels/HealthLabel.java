@@ -1,14 +1,9 @@
-package GamePlayer.labels;
-import java.text.MessageFormat;
+package gameplayer.labels;
 import java.util.Map;
 
 import engine.components.Component;
 import engine.components.Health;
-import GamePlayer.hud.IHUD;
-import javafx.beans.binding.Bindings;
-import javafx.beans.binding.StringBinding;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 
 public class HealthLabel extends Label implements IGameStatusLabel{

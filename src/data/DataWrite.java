@@ -1,6 +1,6 @@
 package data;
 
-import GamePlayer.view.Person;
+import gameplayer.view.Person;
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
 

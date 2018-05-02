@@ -1,4 +1,4 @@
-package GamePlayer.hud;
+package gameplayer.hud;
 
 
 public interface IHUD{
