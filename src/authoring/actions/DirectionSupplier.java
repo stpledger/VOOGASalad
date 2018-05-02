@@ -9,7 +9,7 @@ public class DirectionSupplier extends Supplier{
  */
     private CollisionDirection dir;
     private static final int XSIZE = 150;
-    private static final int YSIZE =55;
+    private static final int YSIZE =70; //55
     private static final String PROMPT = "Select a direction you want associated with this action";
     private static final String COMBO_PROMPT = "Select Direction";
 
