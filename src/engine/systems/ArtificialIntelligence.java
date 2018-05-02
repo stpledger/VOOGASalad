@@ -3,16 +3,15 @@ package engine.systems;
 import engine.components.AI;
 import engine.components.Component;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
- * System which calls the AI components' actions if they are within rendering distance
+ * System which calls the AI components' actions if they are within rendering dinstance
  *
  * @author cndracos, fitzj
  */
 public class ArtificialIntelligence extends AbstractSystem implements  ISystem{
+
     public ArtificialIntelligence() {
     	super();
     }

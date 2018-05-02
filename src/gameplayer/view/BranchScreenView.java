@@ -1,4 +1,4 @@
-package GamePlayer.view;
+package gameplayer.view;
 
 import javafx.scene.Scene;
 

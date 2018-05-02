@@ -10,7 +10,9 @@ import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import authoring.gamestate.AuthoringStateLoader;
 import authoring.gamestate.GameNameChooser;
+import authoring.gamestate.GameState;
 import authoring.views.MainView;
 
 import javafx.geometry.Pos;
@@ -68,6 +70,7 @@ public class SplashScreen extends VBox {
 	 * Creates a new gameAuthoringEnviornment view based on the 
 	 */
 	public void loadAuthor() {
+		AuthoringStateLoader asl = new AuthoringStateLoader("load_tester_1");
 		FileChooser fileChooser = new FileChooser();
 		File selectedFile = fileChooser.showOpenDialog(null);
 		MainView mainView  = new MainView(selectedFile);

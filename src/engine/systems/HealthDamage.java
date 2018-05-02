@@ -1,9 +1,6 @@
 package engine.systems;
 
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import engine.components.Component;
 import engine.components.DamageLifetime;
@@ -29,29 +26,18 @@ public class HealthDamage extends AbstractSystem implements ISystem {
 	}
 
 	public void addComponent(int pid, Map<String, Component> components) {
-		Map<String, Component> newComponents;
-
 		if (this.checkComponents(components, Health.KEY)) {
-			newComponents = new HashMap<>();
-			newComponents.put(Health.KEY, components.get(Health.KEY));
-			this.directAddComponent(pid, newComponents);
-		}
-		else if (this.getHandled().containsKey(pid) && this.checkComponents(components, DamageValue.KEY, DamageLifetime.KEY)) {
+			this.directAddComponent(pid, components);
+		} else if (this.getHandled().containsKey(pid) && this.checkComponents(components, DamageValue.KEY, DamageLifetime.KEY)) {
+			Map<String, Component> newComponents = this.getHandled().get(pid);
 			DamageValue d = (DamageValue) components.get(DamageValue.KEY);
 			DamageLifetime dl = (DamageLifetime) components.get(DamageLifetime.KEY);
-			newComponents = this.getHandled().get(pid);
-
+			
 			if (d.getPID()!=pid) {
 				newComponents.put(DamageValue.KEY, d);
 				newComponents.put(DamageLifetime.KEY, dl);
 				this.directAddComponent(pid, newComponents);
 			}			
-		}
-
-		if (this.getHandled().containsKey(pid) && components.containsKey(Lives.KEY)) {
-			newComponents = this.getHandled().get(pid);
-			newComponents.put(Lives.KEY, components.get(Lives.KEY));
-			this.directAddComponent(pid, newComponents);
 		}
 	}
 	
@@ -89,13 +75,12 @@ public class HealthDamage extends AbstractSystem implements ISystem {
 		if (h.getPID()!=d.getPID()) {
 			h.setData(h.getData() - d.getData());
 			dl.setData(dl.getData() - 1);
-			if(dl.getData() <= 0) {
+			if(d.getData() <= 0) {
 				map.remove(d.getKey());
-				map.remove(dl.getKey());
 			}
 		}
 
-		if(h.getData() <= 0 && d!=null) {
+		if(h.getData() <= 0) {
 			this.kill(key);
 		}		
 	}

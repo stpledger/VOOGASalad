@@ -1,7 +1,7 @@
-package GamePlayer.buttons;
+package gameplayer.buttons;
 
 import data.DataGameState;
-import GamePlayer.controller.Controller;
+import gameplayer.controller.Controller;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

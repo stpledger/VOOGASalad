@@ -1,8 +1,6 @@
 package engine.systems;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import engine.components.Component;
 import engine.components.XAcceleration;
@@ -35,7 +33,6 @@ public class Accelerate extends AbstractSystem implements ISystem{
 			this.directAddComponent(pid, components);
 		}
     }
-
 
 	/**
      * Updates velocity values based on Acceleration component
