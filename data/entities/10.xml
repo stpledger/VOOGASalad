@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="games/peepee/" name="10"><Health>10.0</Health><Type>Block</Type><Sprite>braun.png</Sprite><Name>10</Name></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="game" name="10"><DamageLifetime>10.0</DamageLifetime><XAcceleration>10.0</XAcceleration><XVelocity>10.0</XVelocity><YAcceleration>10.0</YAcceleration><DamageValue>10.0</DamageValue><Sprite>DukeD.png</Sprite><Health>10.0</Health><Type>User</Type><Name>10</Name><YVelocity>10.0</YVelocity></Entity>

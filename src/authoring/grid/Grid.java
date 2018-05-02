@@ -31,8 +31,8 @@ import javafx.scene.layout.GridPane;
  */
 public class Grid extends GridPane {
 
-	private static final int DEFAULT_WIDTH = 1000;
-	private static final int DEFAULT_HEIGHT = 600;
+	private static final int DEFAULT_WIDTH = 2000;
+	private static final int DEFAULT_HEIGHT = 1200;
 	private static final int ADD_FIVE = 5;
 	private static final int ADD_ONE = 1;
 	private static final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
