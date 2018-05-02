@@ -1,9 +1,9 @@
 package data;
 
+import GamePlayer.view.Person;
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
 
-import gameplayer.view.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import authoring.entities.Entity;

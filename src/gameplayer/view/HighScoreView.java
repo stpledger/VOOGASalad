@@ -1,11 +1,11 @@
 
-package gameplayer.view;
+package GamePlayer.view;
 import java.util.List;
 import java.util.Map;
 
 import data.DataRead;
 import data.DataWrite;
-import gameplayer.buttons.IGamePlayerButton;
+import GamePlayer.buttons.IGamePlayerButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -39,9 +39,7 @@ public class HighScoreView extends BranchScreenView {
 	private ObservableList<Person> data;
 	
 	/**
-	 * HighScoreView is 
-	 * @param gameName 
-	 * @param score
+	 * HighScoreView is
 	 */
 	public HighScoreView() {
 		setupHighScoreTable();

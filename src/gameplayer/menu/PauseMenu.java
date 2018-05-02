@@ -1,9 +1,9 @@
-package gameplayer.menu;
+package GamePlayer.menu;
 
-import gameplayer.buttons.RestartButton;
-import gameplayer.buttons.SaveGameButton;
-import gameplayer.buttons.SwitchGameButton;
-import gameplayer.controller.Controller;
+import GamePlayer.buttons.RestartButton;
+import GamePlayer.buttons.SaveGameButton;
+import GamePlayer.buttons.SwitchGameButton;
+import GamePlayer.controller.Controller;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;

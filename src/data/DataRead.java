@@ -1,6 +1,6 @@
 package data;
 
-import gameplayer.view.Person;
+import GamePlayer.view.Person;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 import authoring.gamestate.Level;
@@ -93,7 +93,9 @@ public class DataRead  {
          */
         Map<Image, DataGameState> games =new HashMap<>();
         File file = loadFile(GAME_PATH);
-        for(File game : file.listFiles()){
+        File[] listFiles = file.listFiles();
+        for(File game : listFiles){
+            System.out.println("looking at file " + game.toString());
           DataGameState playable = loadPlayerFile(findInDirectory(game,PLAYER_TARGET));
           Image icon = getIcons().get(0);
           games.put(icon, playable);
@@ -137,6 +139,7 @@ public class DataRead  {
             return gameState;
         }
         catch(Exception e){
+            e.printStackTrace();
             ErrorStatement(FAIL_MESSAGE);
             return new DataGameState(EMPTY_GAME);
         }

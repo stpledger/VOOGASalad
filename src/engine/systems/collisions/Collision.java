@@ -25,6 +25,7 @@ import engine.systems.ISystem;
 
 public class Collision extends AbstractSystem implements ISystem {
 	private Set<Integer> colliders;
+	private Set<Integer> activeComponents = new HashSet<>();
 	
 	public Collision () {
 		super();
@@ -32,7 +33,7 @@ public class Collision extends AbstractSystem implements ISystem {
 	}
 
 	public void execute(double time) {
-		this.getActives().forEach(key1 -> {
+		activeComponents.forEach(key1 -> {
 			this.getHandled().forEach((key2, map2) -> {
 				if(key1 != key2) {
 					Map<String,Component> map1 = this.getHandled().get(key1);
@@ -179,5 +180,11 @@ public class Collision extends AbstractSystem implements ISystem {
 				colliders.add(pid);
 			}
 		}
+	}
+
+	public void setActives(Set<Integer> actives) {
+		Set<Integer> myActives = new HashSet<>(actives);
+		myActives.retainAll(this.getHandled().keySet());
+		activeComponents = myActives;
 	}
 }
