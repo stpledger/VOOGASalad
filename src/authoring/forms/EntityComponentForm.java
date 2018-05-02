@@ -3,6 +3,7 @@ package authoring.forms;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.function.Consumer;
 
 import authoring.entities.data.PackageExplorer;
 import authoring.factories.Element;
@@ -19,8 +20,8 @@ public class EntityComponentForm extends AbstractComponentForm implements Compon
 	 * @param numFields the number of fields necessary for this component
 	 * @throws Exception 
 	 */
-	public EntityComponentForm(String name) throws Exception {
-		super(name);
+	public EntityComponentForm(String name, Consumer onDelete) throws Exception {
+		super(name, onDelete);
 	}
 
 	/**
