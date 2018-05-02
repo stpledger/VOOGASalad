@@ -1,5 +1,6 @@
 package authoring.entities.componentbuilders;
 
+import engine.components.BehaviorComponent;
 import engine.components.Component;
 import engine.components.SingleDataComponent;
 
@@ -24,7 +25,9 @@ public class ComponentBuilder {
 			System.out.println(clazz.getSuperclass());
 			if (SingleDataComponent.class.isAssignableFrom(clazz)) {
 				component = (Component) cons.newInstance(ID, Double.valueOf(e.getTextContent()));
-			} else {
+			} else if(BehaviorComponent.class.isAssignableFrom(clazz)) {
+				component = (Component) cons.newInstance(ID);
+			}else {
 				component = (Component) cons.newInstance(ID, e.getTextContent());
 			}
 			System.out.println("Component " + component + " created successfully.");
