@@ -17,14 +17,12 @@ public class Collidable implements Component, BehaviorComponent {
 
 	public static final String KEY = "Collidable";
 	
-	private Map<CollisionDirection, BiConsumer<Map<String,Component>,Map<String,Component>>[]> actions;
-	private Map<CollisionDirection, Consumer<Map<String, Component>>[]> singleActions;
+	private Map<CollisionDirection, BiConsumer<Map<String,Component>,Map<String,Component>>> actions;
 	private int pid;
 	
 	public Collidable(int pid) {
 		this.pid = pid;
 		actions = new HashMap<>();
-		singleActions = new HashMap<>();
 	}
 	
 	/**
@@ -32,8 +30,10 @@ public class Collidable implements Component, BehaviorComponent {
 	 * @param cd	Direction of collision
 	 * @param c		Consumer defining action
 	 */
-	public void setOnDirection(CollisionDirection cd, Consumer<Map<String,Component>>... c) {
-		singleActions.put(cd, c);
+	public void setOnDirection(CollisionDirection cd, Consumer<Map<String,Component>> c) {
+		actions.put(cd, (entity1, entity2) -> {
+			c.accept(entity1);
+		});
 	}
 	
 	/**
@@ -41,7 +41,7 @@ public class Collidable implements Component, BehaviorComponent {
 	 * @param cd	Collision direction
 	 * @param c		Biconsumer to be added
 	 */
-	public void setOnDirection(CollisionDirection cd, BiConsumer<Map<String,Component>,Map<String,Component>>... c) {
+	public void setOnDirection(CollisionDirection cd, BiConsumer<Map<String,Component>,Map<String,Component>> c) {
 		actions.put(cd, c);
 	}
 	
@@ -53,13 +53,9 @@ public class Collidable implements Component, BehaviorComponent {
 	 */
 	public void action(CollisionDirection cd, Map<String, Component> entityMap1, Map<String, Component> entityMap2) {
 		if(actions.containsKey(cd)) {
-			for (BiConsumer<Map<String, Component>, Map<String, Component>> act : actions.get(cd) )
-				act.accept(entityMap1, entityMap2);
-		}
-		if(singleActions.containsKey(cd)) {
-			for (Consumer<Map<String, Component>> act : singleActions.get(cd)) {
-				act.accept(entityMap1);
-			}
+			
+			actions.get(cd).accept(entityMap1, entityMap2);
+
 		}
 	}
 

@@ -1,4 +1,4 @@
-package GamePlayer.labels;
+package gameplayer.labels;
 import java.text.MessageFormat;
 import java.util.Map;
 

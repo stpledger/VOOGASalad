@@ -1,10 +1,10 @@
-package GamePlayer.labels;
+package gameplayer.labels;
 import java.text.MessageFormat;
 import java.util.Map;
 
 import engine.components.Component;
 import engine.components.Health;
-import GamePlayer.hud.IHUD;
+import gameplayer.hud.IHUD;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.SimpleDoubleProperty;

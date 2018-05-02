@@ -1,4 +1,4 @@
-package GamePlayer.labels;
+package gameplayer.labels;
 import java.util.Map;
 
 import engine.components.Component;

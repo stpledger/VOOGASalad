@@ -15,12 +15,12 @@ public class Position implements Component {
 
 	public static final String KEY = "Position";
 
-	private XPosition xa;
-	private YPosition ya;
+	private DataComponent xa;
+	private DataComponent ya;
 	
-	public Position(XPosition xa, YPosition ya) {
-		this.xa =  xa;
-		this.ya = ya;
+	public Position(int pid, double xa, double ya) {
+		this.xa = new XPosition(pid, xa);
+		this.ya = new YPosition(pid, ya);
 	}
 	
 	public double getXPos() {
