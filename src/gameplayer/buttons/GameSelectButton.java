@@ -1,8 +1,4 @@
 package gameplayer.buttons;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-
 import data.DataGameState;
 import gameplayer.controller.Controller;
 import javafx.scene.control.Alert;

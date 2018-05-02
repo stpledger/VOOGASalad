@@ -2,6 +2,7 @@ package gameplayer.controller;
 
 import java.util.Map;
 
+import authoring.gamestate.Level;
 import data.DataGameState;
 import engine.components.Component;
 import gameplayer.hud.SampleToolBar;
@@ -44,14 +45,15 @@ public class Controller implements IController {
 	private DataGameState initialGameState;
 
 	public Controller(Stage stage, DataGameState currentGame) {
-		initialGameState = currentGame;
-		gameState = currentGame;
+		initialGameState = new DataGameState(currentGame.getGameState(), currentGame.getGameName());
 		myStage = stage;
+		pauseMenu = new PauseMenu(myStage, this);
+		gameState = currentGame;
 		myStage.setResizable(false);
 		this.gameManager = new GameManager(gameState);
 		myPane = new BorderPane();
 		myScene = new Scene(myPane,WIDTH_SIZE,HEIGHT_SIZE);
-		pauseMenu = new PauseMenu(myStage, this);
+		
 		assignKeyInputs();
 		setGameView();
 	}
@@ -108,6 +110,7 @@ public class Controller implements IController {
 	 * Returns the Current Data GameState from the Controller
 	 */
 	public DataGameState getInitialGameState() {
+		System.out.println(initialGameState ==gameState);
 		return initialGameState;
 	}
 	
