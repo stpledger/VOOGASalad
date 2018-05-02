@@ -27,8 +27,8 @@ public class GameManager {
         playerKeys = new HashMap<>();
         winKeys = new HashMap<>();
         
-        Lives lives = (Lives) levelMap.get(FIRST_LEVEL).get(Lives.KEY);
-        lifeCount = lives.getData();
+//        Lives lives = (Lives) levelMap.get(FIRST_LEVEL).get(Lives.KEY);
+//        lifeCount = lives.getData();
 
         for(Level level : levelMap.keySet()){
             extractInfo(levelMap.get(level), level.getLevelNum());
