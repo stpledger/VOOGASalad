@@ -1,11 +1,11 @@
 
-package gameplayer.view;
+package GamePlayer.view;
 import java.util.List;
 import java.util.Map;
 
 import data.DataRead;
 import data.DataWrite;
-import gameplayer.buttons.IGamePlayerButton;
+import GamePlayer.buttons.IGamePlayerButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
