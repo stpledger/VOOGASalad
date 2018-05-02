@@ -10,6 +10,7 @@ import authoring.factories.ClickElementType;
 import authoring.factories.Element;
 import authoring.factories.ElementFactory;
 import authoring.factories.ElementType;
+import engine.components.BehaviorComponent;
 import engine.components.DataComponent;
 import engine.components.FlagComponent;
 import engine.components.StringComponent;
@@ -34,6 +35,7 @@ public abstract class AbstractComponentForm extends GridPane {
 		this.add("FlagComponent");
 		this.add("Win");
 		this.add("AI");
+		this.add("Collidable");
 		}};
 
 	protected final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -55,7 +57,7 @@ public abstract class AbstractComponentForm extends GridPane {
 		this.add(label, col, 0);
 		this.numFields = PackageExplorer.getNumFields(name);
 		elements.add((Element) label);
-		if(FlagComponent.class.isAssignableFrom(Class.forName(COMPONENT_PREFIX + name))) {
+		if(FlagComponent.class.isAssignableFrom(Class.forName(COMPONENT_PREFIX + name)) || BehaviorComponent.class.isAssignableFrom(Class.forName(COMPONENT_PREFIX + name))) {
 			this.field = (TextField) eFactory.buildElement(ElementType.TextField, "True");
 			this.field.setEditable(false);
 		}
