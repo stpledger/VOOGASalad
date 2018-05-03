@@ -32,7 +32,7 @@ public class Collision extends AbstractSystem implements ISystem {
 	}
 
 	public void execute(double time) {
-		this.getActives().forEach(key1 -> {
+		this.colliders.forEach(key1 -> {
 			this.getHandled().forEach((key2, map2) -> {
 				if(key1 != key2) {
 					Map<String,Component> map1 = this.getHandled().get(key1);

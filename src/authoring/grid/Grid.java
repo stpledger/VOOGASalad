@@ -238,6 +238,13 @@ public class Grid extends GridPane {
 			this.numCols++;
 		}
 	}
+	
+	public void addToCell(Entity en, int row, int col) {
+		Cell cell = cells.get(row).get(col);
+		cell.addEntity(en);
+		ImageView img = new ImageView(en.getImage());
+		cell.getChildren().add(img);
+	}
 
 	/**
 	 * Creates the next ID to be used when creating a new entity
