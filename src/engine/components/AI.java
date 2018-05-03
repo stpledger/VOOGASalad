@@ -1,5 +1,6 @@
 package engine.components;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
@@ -57,7 +58,23 @@ public class AI implements Component, BehaviorComponent {
 	@Override
 	public void addBehavior(Object identifier, BiConsumer bic) {
 		setAction(entity -> {
-			bic.accept((Map<String, Component>) entity, null);
+			bic.accept((Map<String, Component>) entity, new HashMap<>());
+		});
+	}
+
+	@Override
+	public void appendBehavior(Object identifier, Consumer<Map<String, Component>> con) {
+		Consumer<Map<String, Component>> old = action;
+		action = entity -> {
+			old.accept(entity);
+			con.accept(entity);
+		};
+	}
+
+	@Override
+	public void appendBehavior(Object identifier, BiConsumer<Map<String, Component>, Map<String, Component>> bic) {
+		appendBehavior(identifier, entity -> {
+			bic.accept(entity, new HashMap<>());
 		});
 	}
 }

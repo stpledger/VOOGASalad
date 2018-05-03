@@ -1,5 +1,6 @@
 package engine.components;
 
+import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -77,6 +78,27 @@ public class Conditional implements Component, BehaviorComponent {
 	public void addBehavior(Object identifier, BiConsumer bic) {
 		setAction(bic);
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void appendBehavior(Object identifier, Consumer<Map<String, Component>> con) {
+		setAction((e1,e2) -> {
+			evaluate();
+			con.accept((Map<String, Component>) e1);
+		});
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public void appendBehavior(Object identifier, BiConsumer<Map<String, Component>, Map<String, Component>> bic) {
+		setAction((e1,e2) -> {
+			evaluate();
+			bic.accept((Map<String, Component>) e1,(Map<String, Component>) e2);
+		});
+	}
+	
+	
+	
 
     
 
