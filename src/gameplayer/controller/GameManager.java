@@ -21,20 +21,24 @@ public class GameManager {
     private int numOfLevels;
     private SimpleDoubleProperty lifeCount;
     private double levelProgress;
+    private PlayerController myController;
 
     private static final int FIRST_LEVEL = 1;
 
-    public GameManager(DataGameState gameState){
+    public GameManager(DataGameState gameState, PlayerController controller){
         Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
         playerKeys = new HashMap<>();
         winKeys = new HashMap<>();
         levelProgress = gameState.getLevelProgress();
+        myController = controller;
 
         for(Level level : levelMap.keySet()){
             extractInfo(levelMap.get(level), level.getLevelNum());
         }
 
         numOfLevels = levelMap.keySet().size();
+
+        lifeCount.addListener((o, oldVal, newVal) -> controller.liveChange((int) newVal));
 
         setActiveLevel(FIRST_LEVEL);
     }

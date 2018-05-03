@@ -2,10 +2,7 @@ package gameplayer.controller;
 
 import java.util.Map;
 
-import authoring.gamestate.Level;
 import data.DataGameState;
-import data.DataUtils;
-import engine.components.Component;
 import gameplayer.hud.SampleToolBar;
 import gameplayer.levelunlock.SelectLevel;
 import gameplayer.menu.MenuGameBar;
@@ -21,7 +18,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Controller implements IController, LevelController, WinController {
+public class Controller implements IController, LevelController, PlayerController {
 	private static final int WIDTH_SIZE = 800;
 	private static final int HEIGHT_SIZE = 500;
 	private static final int LEVEL_ONE = 1;
@@ -51,13 +48,13 @@ public class Controller implements IController, LevelController, WinController {
 	private DataGameState initialGameState;
 
 	public Controller(Stage stage, DataGameState currentGame) {
-		initialGameState = new DataGameState(currentGame.getGameState(), currentGame.getGameName());
+		this.initialGameState = new DataGameState(currentGame.getGameState(), currentGame.getGameName());
 		this.gameState = currentGame;
 		this.myStage = stage;
 		this.myStage.setWidth(WIDTH_SIZE);
 		this.myStage.setHeight(HEIGHT_SIZE);
 		this.myStage.setResizable(false);
-		this.gameManager = new GameManager(gameState);
+		this.gameManager = new GameManager(gameState, this);
 		this.myPane = new BorderPane();
 		this.pauseMenu = new PauseMenu(myStage, this);
 		this.levelSelector = new SelectLevel((int) gameState.getLevelProgress(), gameManager.getNumOfLevels(), myStage, this);
@@ -106,6 +103,15 @@ public class Controller implements IController, LevelController, WinController {
 		else{
 			levelSelector.updateLevelProgress(level + 1);
 			openLevelSelector();
+		}
+	}
+
+	public void liveChange(int livesLeft){
+		if (livesLeft > 0){
+			//gameView.respawnPlayer();
+		}
+		else{
+			gameOver();
 		}
 	}
 
