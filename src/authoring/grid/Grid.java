@@ -215,6 +215,8 @@ public class Grid extends GridPane {
 			this.cells.add(new ArrayList<>());
 			for (int i = 0; i < this.numCols; i++) {
 				Cell c = new Cell(this.level);
+				setupEntityDrop(c);
+				setupContextMenu(c);
 				this.cells.get(this.numRows).add(c);
 				this.add(c, i, this.numRows);
 			}
@@ -231,6 +233,8 @@ public class Grid extends GridPane {
 		for(int j = 0; j < numTimes; j++) {
 			for(int i = 0; i < this.numRows; i++) {
 				Cell c = new Cell(this.level);
+				setupEntityDrop(c);
+				setupContextMenu(c);
 				this.cells.get(i).add(c);
 				this.add(c, this.numCols, i);
 			}

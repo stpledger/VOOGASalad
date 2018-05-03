@@ -12,6 +12,7 @@ import authoring.languages.AuthoringLanguage;
 import data.DataGameState;
 import engine.components.Component;
 import engine.components.Sprite;
+import engine.components.Type;
 import engine.components.XPosition;
 import engine.components.YPosition;
 import javafx.scene.control.ScrollPane;
@@ -56,6 +57,15 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 			entityComponents = levelMap.get(i);
 			Entity entity = new BlankEntity(i);
 			for(Component c: entityComponents.values()) {
+				if(c.getKey().equals("Type")) {
+					Type type = (Type) entityComponents.get(Type.KEY);
+					if(type.getData().equals("Background")) {
+						entity.setInteractable(false);
+					}else {
+						entity.setInteractable(true);
+					}
+					entity.setPresetType(type.getData());
+				}
 				entity.add(c);
 			}
 			if(entityComponents.containsKey(Sprite.KEY)) {
