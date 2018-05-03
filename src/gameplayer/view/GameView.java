@@ -21,7 +21,7 @@ import javafx.scene.layout.Pane;
  * @authors Ryan Fu & Scott Pledger
  *
  */
-public class GameView implements IGamePlayerView{
+public class GameView implements IGamePlayerView, EntityManager{
 	private DataGameState gameState;
 
 	private Map<Level,Map<Integer,Map<String,Component>>> levels;
@@ -106,6 +106,7 @@ public class GameView implements IGamePlayerView{
 	 */
 	public void setActiveLevel(int activelevel){
 		gameManager.setActiveLevel(activelevel);
+		initializeGameView();
 	}
 
 	/**
@@ -265,6 +266,14 @@ public class GameView implements IGamePlayerView{
 		Height h = (Height) entityComponents.get(Height.KEY);
 		image.setFitHeight(h.getData());
 		image.setFitWidth(w.getData());
+	}
+
+	public void addEntity(int pid, Map<String, Component> entity){
+
+	}
+
+	public void removeEntity(int pid){
+
 	}
 
 
