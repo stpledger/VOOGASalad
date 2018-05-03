@@ -12,7 +12,7 @@ public class KeyCodeSupplier extends Supplier {
     private TextArea keyInput;
     private static final String KEY_PROMPT = "Input a key and press enter";
     private static final int XSIZE = 200;
-    private static final int YSIZE =70;
+    private static final int YSIZE =100;//70
     private static final String FEEDBACK ="You have entered: ";
     private static final String INVALID = "Invalid Key";
 

@@ -13,6 +13,7 @@ public class NumberFieldElement extends NumberField implements Element{
 		super();
 		this.handleText(text);
 		this.setId(text);
+		this.getStyleClass().add("field");
 	}
 
 	@Override

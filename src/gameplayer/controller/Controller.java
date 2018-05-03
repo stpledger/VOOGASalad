@@ -17,7 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Controller implements IController {
+public class Controller implements IController{
 	private static final int WIDTH_SIZE = 800;
 	private static final int HEIGHT_SIZE = 500;
 	private static final int LEVEL_ONE = 1;
@@ -53,14 +53,7 @@ public class Controller implements IController {
 		assignKeyInputs();
 		setGameView();
 	}
-	
-	/**
-	 * Initializes controller scene
-	 * @return
-	 */
-	public Scene getControllerScene() {
-		return myScene;
-	}
+
 
 	
 	/**
@@ -89,6 +82,8 @@ public class Controller implements IController {
 			gameRoot = gameLevelDisplays.get(level);
 			myPane.setCenter(gameRoot);
 			gameView.setActiveLevel(level);
+			gameManager.setActiveLevel(level);
+			sampleBar.setActiveLevel(level);
 		}
 	}
 	
@@ -96,8 +91,8 @@ public class Controller implements IController {
 	 * Returns the level game display
 	 * @return
 	 */
-	public Map<Integer, Pane> getGameLevelRoot(){
-		return gameLevelDisplays;
+	public Scene getControllerScene() {
+		return myScene;
 	}
 
 
@@ -115,8 +110,9 @@ public class Controller implements IController {
 		
 		MenuGameBar menuBar = new MenuGameBar(this);
 		myPane.setBottom(menuBar);
+
 		
-		sampleBar = new SampleToolBar(LEVEL_ONE, gameManager.getPlayerKeys(), hudPropMap);
+		sampleBar = new SampleToolBar(gameManager, hudPropMap);
 		myPane.setTop(sampleBar);
 		
 		initializeGameAnimation();
@@ -134,7 +130,14 @@ public class Controller implements IController {
 		animation.play();
 	}
 
-	
+	/**
+	 * Returns the level game display
+	 * @return
+	 */
+	public Map<Integer, Pane> getGameLevelRoot(){
+		return gameLevelDisplays;
+	}
+
 	/**
 	 * Step method that repeats the animation by checking entities using render and system Manager
 	 * @param elapsedTime
@@ -148,8 +151,7 @@ public class Controller implements IController {
 				renderTime = 0;
 			}
 			gameView.updateScroll(gameRoot);
-			sampleBar.updateGameStatusValues(gameManager.getPlayerKeys());
-			sampleBar.updateGameStatusLabels();
+			sampleBar.updateGameStatusLabels(gameManager);
 		}
 	}
 

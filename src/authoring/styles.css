@@ -102,7 +102,7 @@
 	
 }
 
-.entity-builder-view {
+.entity-builder-view, .properties-view {
 	-fx-background-color: tertiary-color;
 }
 
@@ -120,7 +120,33 @@
 	-fx-font-weight: bold;
 }
 
-.entity-builder-view-button {
+.field {
+	-fx-background-color: secondary-color;
+	-fx-text-fill: primary-color;
+}
+
+.checkbox {
+	-fx-text-fill: primary-color;
+}
+
+.checkbox .box {
+	-fx-text-fill: primary-color;
+	-fx-background-color: secondary-color;
+}
+
+.checkbox:selected .mark {
+	-fx-background-color: primary-color;
+}
+
+.checkbox:selected .box {
+	-fx-background-color: secondary-color;
+}
+
+.label {
+	-fx-text-fill: primary-color;
+}
+
+.entity-builder-view-button, .button {
 	-fx-background-color: transparent;
 	-fx-font-weight: bold;
 	-fx-text-fill: primary-color;
@@ -204,13 +230,13 @@
 * =============================================================
 */
 .name-selector {
-    -fx-background-color: tertiary-color;
-    -fx-text-fill: primary-color;
+	-fx-background-color: tertiary-color;
+	-fx-text-fill: primary-color;
 }
 
 .name-text-box {
-    -fx-background-color: secondary-color;
-    -fx-text-fill: primary-color;
+	-fx-background-color: secondary-color;
+	-fx-text-fill: primary-color;
 }
 
 .name-label {

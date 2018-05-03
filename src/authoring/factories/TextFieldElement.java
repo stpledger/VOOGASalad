@@ -15,6 +15,7 @@ public class TextFieldElement extends TextField implements Element{
 		super();
 		this.handleText(text);
 		this.setId(text);
+		this.getStyleClass().add("field");
 	}
 
 	@Override

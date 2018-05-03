@@ -52,10 +52,6 @@ public abstract class Entity extends ImageView {
 			this.setPosition(e.getX() + this.getLayoutX() - this.getFitWidth()/2, e.getY() + this.getLayoutY() - this.getFitHeight()/2);
 			e.consume();
 		});
-		this.setOnKeyPressed( e->{
-			ComponentAdder cAdd = new ComponentAdder(this);
-				}
-		);
 	}
 	
 	/**

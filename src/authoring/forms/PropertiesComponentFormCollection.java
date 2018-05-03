@@ -30,7 +30,12 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 		for(ComponentForm cf : this.getActiveForms()) {
 			try {
 			Component c = (Component) ((PropertiesComponentForm) cf).buildComponent();
+			if(c.equals(null)) {
+				continue;
+			}
 			componentsToAdd.add(c);		
+			} catch(NullPointerException e) {
+				
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -58,10 +63,32 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 		Component component = entity.get(componentName);
 		if(DataComponent.class.isAssignableFrom(component.getClass())) {
 			return ((DataComponent) component).getData();
-		} else {
+		} else if(StringComponent.class.isAssignableFrom(component.getClass())) {
 			return ((StringComponent) component).getData();
 		}
+		return null;
 		
+	}
+
+	@Override
+	protected void delete(ComponentForm cf) {
+		System.out.println("yuh" + cf.getName());
+		this.getActiveForms().remove(cf);
+		if(hasCurrentValue(cf.getName())) {
+			this.entity.remove(getCurrentComponent(cf.getName()));
+		}
+		this.getChildren().remove(cf);
+		
+	}
+
+
+	private Component getCurrentComponent(String name) {
+		for(Component c : entity.getComponentList()) {
+			if(c.getKey().equals(name)) {
+				return c;
+			}
+		}
+		return null;
 	}
 
 
