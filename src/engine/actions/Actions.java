@@ -47,21 +47,22 @@ public class Actions {
     
     public static Consumer<Map<String,Component>> fireball() {
     	return e1 -> {
-    		if(e1.containsKey(XPosition.KEY) && e1.containsKey(YPosition.KEY) && e1.containsKey(XVelocity.KEY)) {
+    		if(e1.containsKey(XPosition.KEY) && e1.containsKey(YPosition.KEY) && e1.containsKey(XVelocity.KEY) && e1.containsKey(Width.KEY)) {
     			XPosition x = (XPosition) e1.get(XPosition.KEY);
     			YPosition y = (YPosition) e1.get(YPosition.KEY);
     			XVelocity v = (XVelocity) e1.get(XVelocity.KEY);
+    			Width w = (Width) e1.get(Width.KEY);
     			
     			Map<String,Component> ne = new HashMap<>();
     			int id = (int) System.currentTimeMillis();
     			Sprite s = null;
     			try {
-					s = new Sprite(id, "fireball.gif");
+					s = new Sprite(id, "fireball.png");
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
     			
-    			Component[] newList = {new XPosition(id, x.getData()),
+    			Component[] newList = {new XPosition(id, x.getData() + w.getData()),
     			new YPosition(id, y.getData()),
     			new XVelocity(id, v.getData()),
     			new YVelocity(id, 0),

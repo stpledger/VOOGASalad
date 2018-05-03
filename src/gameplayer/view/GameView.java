@@ -98,6 +98,7 @@ public class GameView implements IGamePlayerView{
 		inputHandler = gameInitializer.getInputHandler();
 		renderManager = gameInitializer.getRenderManager();
 		systemManager = gameInitializer.getSystemManager();
+		
 	}
 
 	/**

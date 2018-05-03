@@ -21,9 +21,11 @@ public class SystemManager {
 
     private List<ISystem> systems;
     private RenderManager renderManager;
+    //private EntityController ec;
     
-    public SystemManager (RenderManager renderManager) {
+    public SystemManager (RenderManager renderManager, EntityManager ec) {
         this.renderManager = renderManager;
+        this.ec = ec;
     }
 
     public void addSystems(List<ISystem> systems) {
@@ -40,6 +42,7 @@ public class SystemManager {
         for (ISystem s : systems) {
             s.addComponent(pid, components);
         }
+        ec.addEntity(pid, components);
     }
 
     public void removeEntity (int pid) {
@@ -47,6 +50,7 @@ public class SystemManager {
             s.removeComponent(pid);
         }
         setActives(renderManager.render());
+        ec.removeEntity(pid);
     }
 
 

@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import engine.components.Component;
 import engine.exceptions.EngineException;
@@ -27,7 +28,7 @@ public abstract class AbstractSystem implements ISystem {
 	private Set<Integer> activeComponents;
 	
 	public AbstractSystem() {
-		handledComponents = new HashMap<>();
+		handledComponents = new ConcurrentHashMap<>();
 		activeComponents = new HashSet<>();
 	}
 	

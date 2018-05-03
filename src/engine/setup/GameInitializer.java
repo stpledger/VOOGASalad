@@ -38,10 +38,10 @@ public class GameInitializer {
      *
      * @param entities
      */
-    public GameInitializer (Map <Integer, Map<String, Component>> entities, double renderDistance, double renderCenterX, double renderCenterY) {
+    public GameInitializer (Map <Integer, Map<String, Component>> entities, double renderDistance, double renderCenterX, double renderCenterY, EntityManager ec) {
 
         renderManager = new RenderManager(renderDistance, renderCenterX, renderCenterY);
-        systemManager = new SystemManager(renderManager);
+        systemManager = new SystemManager(renderManager, ec);
         Actions.setSM(systemManager);
         inputHandler = new InputHandler();
         addSystems();
