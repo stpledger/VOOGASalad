@@ -2,12 +2,16 @@ package gameplayer.controller;
 
 import java.util.Map;
 
+import authoring.gamestate.Level;
 import data.DataGameState;
+import data.DataUtils;
+import engine.components.Component;
 import gameplayer.hud.SampleToolBar;
 import gameplayer.levelunlock.SelectLevel;
 import gameplayer.menu.MenuGameBar;
 import gameplayer.menu.PauseMenu;
 import gameplayer.view.GameView;
+import gameplayer.view.HighScoreView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -34,6 +38,7 @@ public class Controller implements IController, LevelController, WinController {
 	private PauseMenu pauseMenu;
 	private GameView gameView;
 	private SelectLevel levelSelector;
+	private Double playerLifeCount;
 
 	private Map<Integer, Pane> gameLevelDisplays;
 	private DataGameState currentGameState;
@@ -43,8 +48,10 @@ public class Controller implements IController, LevelController, WinController {
 	private String currentGameName;
 	private DataGameState gameState;
 	private GameManager gameManager;
+	private DataGameState initialGameState;
 
 	public Controller(Stage stage, DataGameState currentGame) {
+		initialGameState = new DataGameState(currentGame.getGameState(), currentGame.getGameName());
 		this.gameState = currentGame;
 		this.myStage = stage;
 		this.myStage.setWidth(WIDTH_SIZE);
@@ -52,11 +59,10 @@ public class Controller implements IController, LevelController, WinController {
 		this.myStage.setResizable(false);
 		this.gameManager = new GameManager(gameState);
 		this.myPane = new BorderPane();
-		this.pauseMenu = new PauseMenu(myStage);
+		this.pauseMenu = new PauseMenu(myStage, this);
 		this.levelSelector = new SelectLevel((int) gameState.getLevelProgress(), gameManager.getNumOfLevels(), myStage, this);
 		setGameView();
 		openLevelSelector();
-		//changeGameLevel(1);
 	}
 
 	/**
@@ -77,10 +83,9 @@ public class Controller implements IController, LevelController, WinController {
 
 
 	/**
-	 * Restarts the current level
+	 * Restarts the current game
 	 */
 	public void restartGame() {
-		setGameView();
 	}
 
 	/**
@@ -129,7 +134,22 @@ public class Controller implements IController, LevelController, WinController {
 	}
 
 
-
+	/**
+	 * Returns the Current Data GameState from the Controller
+	 */
+	public DataGameState getInitialGameState() {
+		System.out.println(initialGameState ==gameState);
+		return initialGameState;
+	}
+	
+	/**
+	 * Returns the gameManager to access information about the game.
+	 * @return
+	 */
+	public GameManager getGameManager() {
+		return gameManager;
+	}
+	
 	/**
 	 * Method that sets the current scene of the game
 	 */
@@ -177,11 +197,6 @@ public class Controller implements IController, LevelController, WinController {
 		}
 	}
 
-	//	public void setHighScoreView() {
-	//		HighScoreView highScoreScreen = new HighScoreView();
-	//		Scene highScore = highScoreScreen.getScene();
-	//		myStage.setScene(highScore);
-	//	}
 
 	/**
 	 * Passes keys to engine and assigns escape key to pause menu
@@ -189,10 +204,14 @@ public class Controller implements IController, LevelController, WinController {
 	private void assignKeyInputs() {
 		this.gameScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
-				this.pauseMenu.show(this.myStage);
-			} else {
-				if(this.gameView != null) {
-					this.gameView.setInput(e.getCode());
+				pauseMenu.show(myStage);
+			} 
+			else if(e.getCode() == KeyCode.H) {
+				gameOver();
+			}
+			else {
+				if(gameView != null) {
+					gameView.setInput(e.getCode());
 				}
 			}
 		});
@@ -204,12 +223,14 @@ public class Controller implements IController, LevelController, WinController {
 			}
 		});
 	}
-
 	/**
 	 * Shows the high score screen
 	 */
 	private void gameOver(){
-		//TODO add game over functionality like the high score screen
+		HighScoreView highScoreScreen = new HighScoreView(myStage);
+		highScoreScreen.setScore(100.0); //change to game's score
+		highScoreScreen.setGameName(currentGameName);
+		myStage.setScene(highScoreScreen.getScene());
 	}
 
 
