@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="stefi" name="f"><XVelocity>0.0</XVelocity><Animated>blobanimation.properties</Animated><Sprite>blobsprite.png</Sprite><Name>f</Name><Type>User</Type><YAcceleration>10.0</YAcceleration><DamageLifetime>1.0</DamageLifetime><XAcceleration>0.0</XAcceleration><Health>100.0</Health><YVelocity>0.0</YVelocity><DamageValue>10.0</DamageValue></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="ggg" name="f"><Win/><Name>f</Name><Sprite>mystery.jpg</Sprite><Type>Block</Type></Entity>
