@@ -39,7 +39,9 @@ public class HighScoreView extends BranchScreenView {
 	private ObservableList<Person> data;
 	
 	/**
-	 * HighScoreView is
+	 * HighScoreView is 
+	 * @param gameName 
+	 * @param score
 	 */
 	public HighScoreView() {
 		setupHighScoreTable();

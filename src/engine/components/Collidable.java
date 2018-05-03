@@ -18,15 +18,13 @@ public class Collidable implements Component, BehaviorComponent {
 
 	public static final String KEY = "Collidable";
 	
-	private Map<CollisionDirection, BiConsumer<Map<String,Component>,Map<String,Component>>[]> actions;
-	private Map<CollisionDirection, Consumer<Map<String, Component>>[]> singleActions;
+	private Map<CollisionDirection, BiConsumer<  Map<String, Component>,   Map<String, Component>  >> actions;
 	private int pid;
 	private boolean suppressed;
 
 	public Collidable(int pid) {
 		this.pid = pid;
 		actions = new HashMap<>();
-		singleActions = new HashMap<>();
 	}
 	
 	/**
@@ -34,8 +32,10 @@ public class Collidable implements Component, BehaviorComponent {
 	 * @param cd	Direction of collision
 	 * @param c		Consumer defining action
 	 */
-	public void setOnDirection(CollisionDirection cd, Consumer<Map<String,Component>>... c) {
-		singleActions.put(cd, c);
+	public void setOnDirection(CollisionDirection cd, Consumer<Map<String,Component>> c) {
+		actions.put(cd, (entity1, entity2) -> {
+			c.accept(entity1);
+		});
 	}
 	
 	/**
@@ -43,7 +43,7 @@ public class Collidable implements Component, BehaviorComponent {
 	 * @param cd	Collision direction
 	 * @param c		Biconsumer to be added
 	 */
-	public void setOnDirection(CollisionDirection cd, BiConsumer<Map<String,Component>,Map<String,Component>>... c) {
+	public void setOnDirection(CollisionDirection cd, BiConsumer<Map<String,Component>,Map<String,Component>> c) {
 		actions.put(cd, c);
 	}
 	
@@ -54,14 +54,8 @@ public class Collidable implements Component, BehaviorComponent {
 	 * @param entityMap2	Second entity, usually the one being collided with
 	 */
 	public void action(CollisionDirection cd, Map<String, Component> entityMap1, Map<String, Component> entityMap2) {
-		if(actions.containsKey(cd)) {
-			for (BiConsumer<Map<String, Component>, Map<String, Component>> act : actions.get(cd) )
-				if(!suppressed) act.accept(entityMap1, entityMap2);
-		}
-		if(singleActions.containsKey(cd)) {
-			for (Consumer<Map<String, Component>> act : singleActions.get(cd)) {
-				if (!suppressed) act.accept(entityMap1);
-			}
+		if(actions.containsKey(cd) && !suppressed) {
+			actions.get(cd).accept(entityMap1, entityMap2);
 		}
 		suppressed = false;
 	}
@@ -96,6 +90,26 @@ public class Collidable implements Component, BehaviorComponent {
 	@Override
 	public int getPID() {
 		return pid;
+	}
+
+	@Override
+	public void appendBehavior(Object identifier, Consumer<Map<String, Component>> con) {
+		if(identifier instanceof CollisionDirection) {
+			this.appendBehavior(identifier, (e1, e2) -> {
+				con.accept(e1);
+			});
+		}
+	}
+
+	@Override
+	public void appendBehavior(Object identifier, BiConsumer<Map<String, Component>, Map<String, Component>> bic) {
+		if(identifier instanceof CollisionDirection) {
+			BiConsumer<Map<String,Component>,Map<String,Component>> old = actions.get(identifier);
+			actions.put((CollisionDirection) identifier, (e1, e2) -> {
+				old.accept(e1, e2);
+				bic.accept(e1, e2);
+			});
+		}
 	}
 
 }

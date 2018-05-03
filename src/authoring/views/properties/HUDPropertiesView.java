@@ -37,22 +37,20 @@ public class HUDPropertiesView extends PropertiesView{
 		try {
 			CheckBox livesBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Lives"));
 			CheckBox healthBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Health"));
-			CheckBox timeBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Time"));
 			CheckBox levelBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Levels"));
 			CheckBox scoreBox = (CheckBox) this.getElementFactory().buildElement(ElementType.CheckBox, HUDProps.getString("Score"));
-			this.getRoot().addColumn(0, healthBox,livesBox,levelBox,timeBox,scoreBox);
+			this.getRoot().addColumn(0, healthBox,livesBox,levelBox,scoreBox);
 			this.makeSubmitButton(e->{
 				for(Level level : levels) {
 					level.addHUDProp(HUDProps.getString("Lives"), livesBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Health"), healthBox.isSelected());
-					level.addHUDProp(HUDProps.getString("Time"), timeBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Levels"), levelBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Score"), levelBox.isSelected());
 				}
 				this.makeSubmitAlert();
 				this.close();
 			});
-			this.getElementList().addAll(Arrays.asList(new Element[] {(Element) livesBox, (Element) healthBox, (Element) timeBox, (Element) levelBox}));
+			this.getElementList().addAll(Arrays.asList(new Element[] {(Element) livesBox, (Element) healthBox, (Element) levelBox}));
 		} catch (Exception e2) {
 			throw new AuthoringException(this.getFormBundle().getString("FormError"),AuthoringAlert.SHOW);
 		}	

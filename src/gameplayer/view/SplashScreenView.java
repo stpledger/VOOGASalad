@@ -21,7 +21,7 @@ import javafx.stage.Stage;
  * Splash Screen for Selecting Games and Uploading Games
  * @author Ryan Fu
  */
-public class SplashScreenView extends BranchScreenView {
+public class SplashScreenView extends BranchScreenView{
 	private static final int ROW_NUM = 4;
 	private static final int COL_NUM = 3;
 	private Scene splashScene;

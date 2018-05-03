@@ -10,10 +10,7 @@ import engine.components.XVelocity;
 import engine.components.YPosition;
 import engine.exceptions.EngineException;
 import javafx.scene.image.ImageView;
-
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * System which updates the entity's sprite depending on its position component which may (or may not) have been

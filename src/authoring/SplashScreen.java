@@ -10,9 +10,13 @@ import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import authoring.gamestate.AuthoringStateLoader;
+import authoring.gamestate.GameChooser;
 import authoring.gamestate.GameNameChooser;
+import authoring.gamestate.GameState;
 import authoring.views.MainView;
-
+import data.DataGameState;
+import data.DataRead;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -68,18 +72,21 @@ public class SplashScreen extends VBox {
 	 * Creates a new gameAuthoringEnviornment view based on the 
 	 */
 	public void loadAuthor() {
-		FileChooser fileChooser = new FileChooser();
-		File selectedFile = fileChooser.showOpenDialog(null);
-		MainView mainView  = new MainView(selectedFile);
-		Parent layout = mainView.build();
-		Scene s = new Scene(layout, mainView.getIDEWidth(), mainView.getIDEHeight());
-		s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
-		changeScene.accept(s);
+		GameChooser gc = new GameChooser();
+		gc.showAndWait(name -> {
+			File playerFile = AuthoringStateLoader.findStateFile(name);
+			DataGameState dgs = DataRead.loadPlayerFile(playerFile);
+			MainView mainView  = new MainView(name, dgs);
+			Parent layout = mainView.build();
+			Scene s = new Scene(layout, mainView.getIDEWidth(), mainView.getIDEHeight());
+			s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+			changeScene.accept(s);
+		});
 	}
 	
 	public void newAuthor() {
-		GameNameChooser gcn = new GameNameChooser();
-		gcn.showAndWait(name -> {
+		GameNameChooser gnc = new GameNameChooser();
+		gnc.showAndWait(name -> {
 			MainView mainView  = new MainView(name);
 			Parent layout = mainView.build();
 			Scene s = new Scene(layout, mainView.getIDEWidth(), mainView.getIDEHeight());

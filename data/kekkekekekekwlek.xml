@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<Entity name="kekkekekekekwlek">
-	<Name>kekkekekekekwlek</Name>
-	<Type>Block</Type>
-	<Health>75.0</Health>
-	<Sprite>bosch.png</Sprite>
-</Entity>

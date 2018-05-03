@@ -34,7 +34,9 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	
 	private static final String RESOURCES = "resources.views.Properties/";
 	private static final String FORM_RESOURCES = "resources.views.Properties/FormProperties";
-	private static final int GRID_SEPARATION = 10;
+	private static final int PANE_SEPARATION = 10;
+	private static final int PANE_HEIGHT = 400;
+	private static final int PANE_WIDTH = 400;
 	private GridPane root;
 	private Stage stage;
 	private ElementFactory eFactory = new ElementFactory();
@@ -47,20 +49,20 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	public PropertiesView() {
 		this.root = new GridPane();
 		root.setAlignment(Pos.CENTER);
-		root.setHgap(GRID_SEPARATION);
-		root.setVgap(GRID_SEPARATION);
+		root.setHgap(PANE_SEPARATION);
+		root.setVgap(PANE_SEPARATION);
+		root.setMinSize(PANE_WIDTH, PANE_HEIGHT);
 	}
 
 	/**
 	 * Opens the Property Editor window.
 	 */
 	public void open() {
-		root.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		stage = new Stage();
 		stage.setTitle(this.title());
-		root.getStyleClass().add("properties-view");
 		stage.setScene(new Scene(root));
 		stage.getScene().getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+		root.getStyleClass().add("properties-view");
 		stage.show();
 		this.fill();
 		stage.sizeToScene();
@@ -79,6 +81,10 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	 */
 	protected abstract String title();
 	
+	/**
+	 * Creates labels for the specified properties view
+	 * @param propsName Name of the Properties view
+	 */
 	protected void createLabels(String propsName) {
 		int currentRow = 0;
 		ResourceBundle props = this.getResourcesBundle(propsName);

@@ -1,8 +1,6 @@
 package engine.systems;
 
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 import engine.components.Component;
 import engine.components.XPosition;
@@ -30,6 +28,7 @@ public class Motion extends AbstractSystem implements ISystem {
         	this.directAddComponent(pid, components);
         }
     }
+    
 
     /**
      * Apply changes in velocities to positions

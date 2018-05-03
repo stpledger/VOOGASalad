@@ -17,7 +17,7 @@ public class ActionAdderView extends Supplier{
     private ActionAdder actionAdder;
     private ComboBox<String> components;
     private ComboBox<String> actions;
-    private static final int SIZE = 200;
+    private static final int SIZE = 240;
     private static final double RATIO = 2.5;
     private static final String ADD = "Add an action";
     private static final String COMP_CONFIG = "Configure a Component";

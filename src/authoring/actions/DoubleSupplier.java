@@ -12,8 +12,8 @@ public class DoubleSupplier extends Supplier {
     private double dub;
     private TextArea keyInput;
     private static final String KEY_PROMPT = "Input a double and press enter";
-    private static final int XSIZE = 200;
-    private static final int YSIZE =70;
+    private static final int XSIZE = 350;
+    private static final int YSIZE =100; //75
     private static final String INVALID = "Invalid Double";
     private static final String VALID = "Accepted Double";
 

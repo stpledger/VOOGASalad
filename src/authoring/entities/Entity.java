@@ -52,10 +52,6 @@ public abstract class Entity extends ImageView {
 			this.setPosition(e.getX() + this.getLayoutX() - this.getFitWidth()/2, e.getY() + this.getLayoutY() - this.getFitHeight()/2);
 			e.consume();
 		});
-		this.setOnKeyPressed( e->{
-			ComponentAdder cAdd = new ComponentAdder(this);
-				}
-		);
 	}
 	
 	/**
@@ -72,7 +68,9 @@ public abstract class Entity extends ImageView {
 	 * @throws FileNotFoundException
 	 */
 	protected void setSprite(String filename) throws FileNotFoundException {
+		Sprite spriteComponent = new Sprite(this.getID(),filename);
 		this.add(new Sprite(this.getID(),filename));
+		this.setImage(spriteComponent.getImage().getImage());
 	}
 	
 	/**
@@ -153,7 +151,7 @@ public abstract class Entity extends ImageView {
 	 * 
 	 * @param type Interact type, either interactable or noninteractable
 	 */
-	protected void setInteractable(boolean bool) {
+	public void setInteractable(boolean bool) {
 		this.entityType = bool;
 	}
 	
@@ -169,7 +167,7 @@ public abstract class Entity extends ImageView {
 	 * 
 	 * @param type Preset type of the entity, i.e. user, block, etc.
 	 */
-	protected void setPresetType(String type) {
+	public void setPresetType(String type) {
 		this.presetType = type;
 	}
 	

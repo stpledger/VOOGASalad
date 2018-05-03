@@ -93,11 +93,12 @@ public class DataRead  {
          */
         Map<Image, DataGameState> games =new HashMap<>();
         File file = loadFile(GAME_PATH);
-        File[] listFiles = file.listFiles();
-        for(File game : listFiles){
-            System.out.println("looking at file " + game.toString());
+        for(File game : file.listFiles()){
           DataGameState playable = loadPlayerFile(findInDirectory(game,PLAYER_TARGET));
-          Image icon = getIcons().get(0);
+          Image icon = null;
+          try {
+          icon = getIcons().get(0);
+          }catch(Exception e) {e.printStackTrace();}
           games.put(icon, playable);
         }
         return games;
@@ -139,7 +140,6 @@ public class DataRead  {
             return gameState;
         }
         catch(Exception e){
-            e.printStackTrace();
             ErrorStatement(FAIL_MESSAGE);
             return new DataGameState(EMPTY_GAME);
         }

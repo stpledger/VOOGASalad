@@ -9,6 +9,7 @@ import authoring.exceptions.AuthoringException;
 import authoring.factories.ElementType;
 import authoring.factories.NumberField;
 import authoring.gamestate.Level;
+import data.DataUtils;
 import javafx.scene.control.TextField;
 
 /**
@@ -41,6 +42,7 @@ public class GlobalPropertiesView extends PropertiesView {
 			this.getRoot().addColumn(1,livesInput,titleInput,pathInput);
 			this.makeSubmitButton(e->{
 				for(Level level : levels) {
+					DataUtils.setGame(titleInput.getText());
 					level.addGProp(globalProps.getString("Title"), titleInput.getText());
 					level.addGProp(globalProps.getString("Lives"), livesInput.getText());
 					level.addGProp(globalProps.getString("Filepath"), pathInput.getText());

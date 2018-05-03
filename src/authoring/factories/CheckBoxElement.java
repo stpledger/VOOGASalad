@@ -15,6 +15,7 @@ public class CheckBoxElement extends CheckBox implements Element{
 		super();
 		this.handleText(text );
 		this.setId(text);
+		this.getStyleClass().add("checkbox");
 	}
 
 	@Override
