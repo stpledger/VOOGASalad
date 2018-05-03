@@ -61,6 +61,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	private Consumer<String> setMainViewLang;
 	private String name;
 	private List<Level> levels;
+	private DataGameState gameState;
 
 	Properties language = new Properties();
 
@@ -141,10 +142,36 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		}
 	}
 	
+	private void addLoadLevel(Level level) {
+		try {
+			Tab t = (Tab) this.eFactory.buildElement(ElementType.Tab, "Level " + (levelTabsList.size()+1));
+			levelTabsList.add(t);
+			levels.add(level);
+			state.addLevel(level);
+			LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, e -> {addEntityMethod(e);});
+			levelView.loadGameState(gameState.getGameState().get(level));
+			t.setContent(levelView);
+			t.setOnClosed(e -> {
+				levelTabsList.remove(t);
+				updateTabs.accept(levelTabsList);
+			});
+			//((LevelView) t.getContent()).setLanguage(language);
+			tabPane.getTabs().add(t);
+		} catch (Exception e) {
+			throw new AuthoringException(Level.ERROR_MESSAGE, AuthoringAlert.SHOW);
+		}
+	}
+	
+	private void removeLevels() {
+		levels.clear();
+		levelTabsList.clear();
+	}
+	
 	public void startLoadingGameStates(DataGameState state) {
-		for(Level level : levels) {
-			LevelView lView = new LevelView(level,levels.indexOf(level));
-			lView.loadGameState(state.getGameState().get(level));
+		this.gameState = state;
+		removeLevels();
+		for(Level level: state.getGameState().keySet()) {
+			this.addLoadLevel(level);
 		}
 	}
 
