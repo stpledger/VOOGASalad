@@ -76,7 +76,6 @@ public class SplashScreen extends VBox {
 		gc.showAndWait(name -> {
 			File playerFile = AuthoringStateLoader.findStateFile(name);
 			DataGameState dgs = DataRead.loadPlayerFile(playerFile);
-			System.out.println(dgs);
 			MainView mainView  = new MainView(name, dgs);
 			Parent layout = mainView.build();
 			Scene s = new Scene(layout, mainView.getIDEWidth(), mainView.getIDEHeight());
