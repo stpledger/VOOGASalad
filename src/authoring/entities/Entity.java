@@ -151,7 +151,7 @@ public abstract class Entity extends ImageView {
 	 * 
 	 * @param type Interact type, either interactable or noninteractable
 	 */
-	protected void setInteractable(boolean bool) {
+	public void setInteractable(boolean bool) {
 		this.entityType = bool;
 	}
 	
@@ -167,7 +167,7 @@ public abstract class Entity extends ImageView {
 	 * 
 	 * @param type Preset type of the entity, i.e. user, block, etc.
 	 */
-	protected void setPresetType(String type) {
+	public void setPresetType(String type) {
 		this.presetType = type;
 	}
 	
