@@ -2,6 +2,7 @@ package authoring.entities.componentbuilders;
 
 import engine.components.Component;
 import engine.components.SingleDataComponent;
+import engine.components.SingleStringComponent;
 
 import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
@@ -27,15 +28,16 @@ public class ComponentBuilder {
 			System.out.println(clazz.getSuperclass());
 			if (SingleDataComponent.class.isAssignableFrom(clazz)) {
 				component = (Component) cons.newInstance(ID, Double.valueOf(e.getTextContent()));
-			} else {
+			} else if (SingleStringComponent.class.isAssignableFrom(clazz)) {
 				component = (Component) cons.newInstance(ID, e.getTextContent());
+			} else {
+				component = (Component) cons.newInstance(ID);
 			}
 			System.out.println("Component " + component + " created successfully.");
 			return component;
 		} catch (Exception e2) {
 			throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW, e.getNodeName());
 		}
-
 	}
 
 }

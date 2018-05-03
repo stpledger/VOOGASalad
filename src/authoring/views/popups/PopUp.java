@@ -10,5 +10,4 @@ import authoring.languages.AuthoringLanguage;
 public interface PopUp extends AuthoringLanguage{
 
 	public void show();
-
 }
