@@ -54,8 +54,12 @@ public class EntitySaver {
 			String compName = compClass.getName().replace(COMPONENT_PREFIX, "");
 			Element comp = document.createElement(compName);
 			root.appendChild(comp);
-			for (Object o : attributes.get(compClass)) {
-				comp.appendChild(document.createTextNode(String.valueOf(o)));
+			if (attributes.get(compClass).length == 0) {
+				comp.appendChild(document.createTextNode(""));
+			} else {
+        			for (Object o : attributes.get(compClass)) {
+        				comp.appendChild(document.createTextNode(String.valueOf(o)));
+        			}
 			}
 		}
 		Transformer t = TransformerFactory.newInstance().newTransformer();
