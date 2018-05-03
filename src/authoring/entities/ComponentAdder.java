@@ -29,7 +29,7 @@ public class ComponentAdder {
 
                 Group root = new Group();
 				try {
-					root = new Group(new PropertiesComponentForm(entity.getID(),component));
+					root = new Group(new PropertiesComponentForm(entity.getID(),component, null));
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
