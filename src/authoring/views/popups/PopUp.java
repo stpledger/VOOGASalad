@@ -1,18 +1,14 @@
 package authoring.views.popups;
 
-import java.util.Properties;
-import java.util.function.Consumer;
+import authoring.languages.AuthoringLanguage;
 
 /**
  * 
  * @author Collin Brown(cdb55)
  *
  */
-public interface PopUp {
+public interface PopUp extends AuthoringLanguage{
 
 	public void show();
 
-	public void onClose(Consumer<?> consumer);
-
-	public void setLanguage(Properties lang);
 }
