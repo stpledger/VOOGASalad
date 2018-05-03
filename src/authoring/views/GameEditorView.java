@@ -142,7 +142,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	}
 	
 	public void startLoadingGameStates(DataGameState state) {
-		for(Level level: levels) {
+		for(Level level : levels) {
 			LevelView lView = new LevelView(level,levels.indexOf(level));
 			lView.loadGameState(state.getGameState().get(level));
 		}

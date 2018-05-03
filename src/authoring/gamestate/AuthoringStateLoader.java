@@ -33,15 +33,11 @@ public class AuthoringStateLoader {
 	 * Create this loader with a given game name to load. 
 	 * @param gameName the name of the game to load
 	 */
-	public AuthoringStateLoader(String gameName) {
+	public AuthoringStateLoader() {
 		try {
 			documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 		} catch (ParserConfigurationException e) {
 			throw new AuthoringException(e, AuthoringAlert.NO_SHOW);
-		}
-		File[] entityFiles = new File(ENTITY_FOLDER).listFiles();
-		for (File f : findFilesForGame(gameName, entityFiles)) {
-			System.out.println(f.getName());
 		}
 	}
 	
@@ -52,9 +48,10 @@ public class AuthoringStateLoader {
 	 * @param filesToSearch the files to search through for the given game type
 	 * @return a list of files that pertain to a given game
 	 */
-	private List<File> findFilesForGame(String gameName, File[] filesToSearch) {
+	public List<File> findFilesForGame(String gameName) {
 		List<File> gameEntities = new ArrayList<>();
 		Document d;
+		File[] filesToSearch = new File(ENTITY_FOLDER).listFiles();
 		for (File poss : filesToSearch) {
 			try {
 				d = documentBuilder.parse(poss);
@@ -74,7 +71,7 @@ public class AuthoringStateLoader {
 	 * @param gameName the name of the game to load
 	 */
 	public static File findStateFile(String gameName) {
-		File gameDirectory = new File(GAME_FOLDER);
+		File gameDirectory = new File(GAME_FOLDER + gameName);
 		File[] savedFiles = gameDirectory.listFiles(new FilenameFilter() {
 			public boolean accept(File dir, String name) {
 				return name.startsWith("Player");
