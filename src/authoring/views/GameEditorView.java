@@ -10,6 +10,8 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
+
+import data.DataGameState;
 import data.DataRead;
 import javafx.application.Platform;
 import javafx.scene.control.Tab;
@@ -58,6 +60,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	private static final int BLOCK_DEFAULT_WIDTH = 50;
 	private Consumer<String> setMainViewLang;
 	private String name;
+	private List<Level> levels;
 
 	Properties language = new Properties();
 
@@ -72,6 +75,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		this.setTop(toolbar);
 		this.tabPane = new TabPane();
 		this.levelTabsList = new ArrayList<>();
+		this.levels = new ArrayList<>();
 		this.state = new GameState();
 		state.setName(name);
 		this.setCenter(tabPane);
@@ -104,8 +108,6 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		});
 	}
 
-
-
 	/**
 	 * Update the numbers of the level tabs
 	 * @param tabList
@@ -124,6 +126,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			Tab t = (Tab) this.eFactory.buildElement(ElementType.Tab, "Level " + (levelTabsList.size()+1));
 			levelTabsList.add(t);
 			Level level = new Level(levelTabsList.indexOf(t)+1);
+			levels.add(level);
 			state.addLevel(level);
 			LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, e -> {addEntityMethod(e);});
 			t.setContent(levelView);
@@ -135,6 +138,13 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			tabPane.getTabs().add(t);
 		} catch (Exception e) {
 			throw new AuthoringException(Level.ERROR_MESSAGE, AuthoringAlert.SHOW);
+		}
+	}
+	
+	public void startLoadingGameStates(DataGameState state) {
+		for(Level level: levels) {
+			LevelView lView = new LevelView(level,levels.indexOf(level));
+			lView.loadGameState(state.getGameState().get(level));
 		}
 	}
 

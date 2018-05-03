@@ -25,7 +25,7 @@ import javafx.stage.Stage;
  * @author Dylan Powers
  *
  */
-public class GameNameChooser implements AuthoringPane {
+public class GameNameChooser implements AuthoringPane, NameChooser {
 
 	private final int SCREEN_WIDTH = 400;
 	private final int SCREEN_HEIGHT = 400;
@@ -46,12 +46,13 @@ public class GameNameChooser implements AuthoringPane {
 	public GameNameChooser() {
 		root = new VBox();
 		root.setAlignment(Pos.CENTER);
-		root.setMaxWidth(300);
+		root.setMaxWidth(TEXT_WIDTH);
 	}
 
 	/**
 	 * Show this pop-up by adding the necessary JavaFX elements.
 	 */
+	@Override
 	public void showAndWait(Consumer<String> onClose) {
 		Stage stage = new Stage();
 		Scene scene = new Scene(root, SCREEN_WIDTH, SCREEN_HEIGHT);

@@ -1,6 +1,7 @@
 package authoring.gamestate;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,9 @@ public class AuthoringStateLoader {
 
 	private DocumentBuilder documentBuilder;
 	private final String ENTITY_FOLDER = "data/entities/";
+	private final String ATTRIBUTE_NAME = "game";
+	private static final String GAME_FOLDER = "games/";
+	
 	/**
 	 * Create this loader with a given game name to load. 
 	 * @param gameName the name of the game to load
@@ -40,6 +44,8 @@ public class AuthoringStateLoader {
 			System.out.println(f.getName());
 		}
 	}
+	
+	
 	/**
 	 * Finds all of the files that pertain to a specific game.
 	 * @param gameName the name of the game to search for
@@ -53,7 +59,7 @@ public class AuthoringStateLoader {
 			try {
 				d = documentBuilder.parse(poss);
 				Element e = d.getDocumentElement();
-				if (e.getAttribute("game").equals(gameName)) {
+				if (e.getAttribute(ATTRIBUTE_NAME).equals(gameName)) {
 					gameEntities.add(poss);
 				}
 			} catch (SAXException | IOException e) {
@@ -61,5 +67,19 @@ public class AuthoringStateLoader {
 			}
 		}
 		return gameEntities;
+	}
+	
+	/**
+	 * Finds the correct Player.xml file to load based upon the name of the game.
+	 * @param gameName the name of the game to load
+	 */
+	public static File findStateFile(String gameName) {
+		File gameDirectory = new File(GAME_FOLDER);
+		File[] savedFiles = gameDirectory.listFiles(new FilenameFilter() {
+			public boolean accept(File dir, String name) {
+				return name.startsWith("Player");
+			}
+		});
+		return savedFiles[0];
 	}
 }
