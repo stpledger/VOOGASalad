@@ -78,6 +78,7 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 					double col = (xComp.getData()/Entity.ENTITY_WIDTH);
 					double row = (yComp.getData()/Entity.ENTITY_HEIGHT);
 					this.content.addToCell(entity, (int) row, (int) col);
+					this.level.addEntity(entity);
 				}
 			}
 			this.level.addEntity(entity);

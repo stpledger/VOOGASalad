@@ -82,6 +82,7 @@ public class Grid extends GridPane {
 	 * @param c Cell to add the mouse click event listener to
 	 */
 	private void setupEntityDrop(Cell c) {
+		System.out.println("Working!");
 		c.setOnDragEntered(e -> c.setStyle(DRAGGED_OVER_STYLE));
 		c.setOnDragExited(e -> c.setStyle(DEFAULT_STYLE));
 		c.setOnDragOver(e -> {
@@ -250,6 +251,7 @@ public class Grid extends GridPane {
 		img.setFitWidth(Entity.ENTITY_WIDTH);
 		img.setFitHeight(Entity.ENTITY_HEIGHT);
 		cell.getChildren().add(img);
+		this.entityID++;
 	}
 
 	/**
