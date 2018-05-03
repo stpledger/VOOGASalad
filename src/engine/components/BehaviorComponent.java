@@ -28,4 +28,12 @@ public interface BehaviorComponent {
 	 * @param bic			The biconsumer to be run
 	 */
 	public void addBehavior(Object identifier, BiConsumer<Map<String,Component>,Map<String,Component>> bic);
+	
+	
+	public void appendBehavior(Object identifier, Consumer<Map<String,Component>> con);
+
+	
+	public void appendBehavior(Object identifier, BiConsumer<Map<String,Component>,Map<String,Component>> bic);
+
+	
 }

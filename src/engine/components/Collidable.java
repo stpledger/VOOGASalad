@@ -17,7 +17,7 @@ public class Collidable implements Component, BehaviorComponent {
 
 	public static final String KEY = "Collidable";
 	
-	private Map<CollisionDirection, BiConsumer<Map<String,Component>,Map<String,Component>>> actions;
+	private Map<CollisionDirection, BiConsumer<  Map<String, Component>,   Map<String, Component>  >> actions;
 	private int pid;
 	
 	public Collidable(int pid) {
@@ -87,6 +87,26 @@ public class Collidable implements Component, BehaviorComponent {
 	@Override
 	public int getPID() {
 		return pid;
+	}
+
+	@Override
+	public void appendBehavior(Object identifier, Consumer<Map<String, Component>> con) {
+		if(identifier instanceof CollisionDirection) {
+			this.appendBehavior(identifier, (e1, e2) -> {
+				con.accept(e1);
+			});
+		}
+	}
+
+	@Override
+	public void appendBehavior(Object identifier, BiConsumer<Map<String, Component>, Map<String, Component>> bic) {
+		if(identifier instanceof CollisionDirection) {
+			BiConsumer<Map<String,Component>,Map<String,Component>> old = actions.get(identifier);
+			actions.put((CollisionDirection) identifier, (e1, e2) -> {
+				old.accept(e1, e2);
+				bic.accept(e1, e2);
+			});
+		}
 	}
 
 }

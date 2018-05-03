@@ -75,6 +75,7 @@ public class Controller implements IController, LevelController, WinController {
 	}
 
 
+
 	/**
 	 * Restarts the current level
 	 */
@@ -158,7 +159,6 @@ public class Controller implements IController, LevelController, WinController {
 		this.animation.getKeyFrames().add(frame);
 		this.animation.play();
 	}
-
 
 	/**
 	 * Step method that repeats the animation by checking entities using render and system Manager

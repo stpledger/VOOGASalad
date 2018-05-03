@@ -39,7 +39,7 @@ public class PlayerMovement extends KeyInput {
 			if(map.containsKey(Sprite.KEY)) {
 				Sprite s = (Sprite) map.get(Sprite.KEY);
 				
-				//s.getImage().setScaleX(-1);
+				s.getImage().setScaleX(-1);
 			}
 		});
 		
@@ -48,7 +48,7 @@ public class PlayerMovement extends KeyInput {
 			if(map.containsKey(Sprite.KEY)) {
 				Sprite s = (Sprite) map.get(Sprite.KEY);
 				
-				//s.getImage().setScaleX(1);
+				s.getImage().setScaleX(1);
 			}
 		});
 		
@@ -102,6 +102,8 @@ public class PlayerMovement extends KeyInput {
 				}
 			}
 		});
+		
+		this.addCode(KeyCode.SPACE, Actions.fireball());
 		
 	}
 	
