@@ -1,5 +1,6 @@
 package engine.components.presets;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.function.BiConsumer;
 
@@ -13,10 +14,10 @@ public class RollerJumpPad extends Collidable {
 	public RollerJumpPad(int pid) {
 		super(pid);
 
-		this.setOnDirection(CollisionDirection.Top, jumper());
-		this.setOnDirection(CollisionDirection.Bot, jumper());
-		this.setOnDirection(CollisionDirection.Left, jumper());
-		this.setOnDirection(CollisionDirection.Right, jumper());
+		this.setOnDirection(CollisionDirection.Top,  (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>)jumper());
+		this.setOnDirection(CollisionDirection.Bot,  (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>)jumper());
+		this.setOnDirection(CollisionDirection.Left,  (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>)jumper());
+		this.setOnDirection(CollisionDirection.Right,  (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>)jumper());
 
 	}
 	

@@ -22,8 +22,8 @@ import javafx.scene.input.KeyCode;
  */
 public class PlayerMovement extends KeyInput {
 
-	private static final int JUMP_SPEED = 100;
-	private static final int MOVE_SPEED = 50;
+	private static final int JUMP_SPEED = 300;
+	private static final int MOVE_SPEED = 200;
 	
 	private boolean crouched;
 	private double timing;
