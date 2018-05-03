@@ -136,7 +136,6 @@ public class DataRead  {
          */
         try {
             DataGameState gameState = (DataGameState)deserialize(xml);
-            gameName=GAME_PATH + gameState.getGameName()+ FRONTSLASH;
             return gameState;
         }
         catch(Exception e){

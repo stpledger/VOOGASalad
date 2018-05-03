@@ -28,6 +28,7 @@ public class AuthoringStateLoader {
 	private final String ENTITY_FOLDER = "data/entities/";
 	private final String ATTRIBUTE_NAME = "game";
 	private static final String GAME_FOLDER = "games/";
+	private static final String ERROR_MESSAGE = "The game saved under that name does not contain a playable file.";
 	
 	/**
 	 * Create this loader with a given game name to load. 
@@ -77,6 +78,10 @@ public class AuthoringStateLoader {
 				return name.startsWith("Player");
 			}
 		});
-		return savedFiles[0];
+		if (savedFiles.length == 0) {
+			throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW);
+		} else {
+			return savedFiles[0];
+		}
 	}
 }
