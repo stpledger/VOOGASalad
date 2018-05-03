@@ -3,6 +3,7 @@ package gameplayer.controller;
 import authoring.gamestate.Level;
 import data.DataGameState;
 import engine.components.*;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
 import java.util.HashMap;
@@ -19,7 +20,7 @@ public class GameManager {
     private XPosition activePlayerPosX;
     private YPosition activePlayerPosY;
     private int numOfLevels;
-    private SimpleDoubleProperty lifeCount;
+    private DoubleProperty lifeCount;
     private double levelProgress;
     private PlayerController myController;
 
@@ -29,6 +30,7 @@ public class GameManager {
         Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
         playerKeys = new HashMap<>();
         winKeys = new HashMap<>();
+        lifeCount = new SimpleDoubleProperty(1);
         levelProgress = gameState.getLevelProgress();
         myController = controller;
 
@@ -38,7 +40,7 @@ public class GameManager {
 
         numOfLevels = levelMap.keySet().size();
 
-        lifeCount.addListener((o, oldVal, newVal) -> controller.liveChange((int) newVal));
+        lifeCount.addListener((o, oldVal, newVal) -> myController.liveChange((int) newVal));
 
         setActiveLevel(FIRST_LEVEL);
     }
@@ -60,15 +62,14 @@ public class GameManager {
                     winKeys.put((Win) entityComponents.get(Win.KEY), levelNum);
                 }
                 if(entityComponents.containsKey(Lives.KEY)) {
-                	//	lifeCount = ((Lives) entityComponents.get(Lives.KEY)).getLives();
+                		lifeCount = ((Lives) entityComponents.get(Lives.KEY)).getLives();
                 }
             }
         }
     }
     
-    public double getLives() {
-    		//return lifeCount.doubleValue();
-    	return 1;
+    public Double getLives() {
+    		return lifeCount.doubleValue();
     }
  
 
