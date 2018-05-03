@@ -28,11 +28,11 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 	private Level level;
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
-	
+
 	private Map<Level,Map<Integer,Map<String,Component>>> levels;
 
 	Properties language = new Properties();
-	
+
 	public LevelView(Level level, int levelNum) {
 		this.getStyleClass().add("level-view");
 		this.level = level;
@@ -40,7 +40,7 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 		this.content.getStyleClass().add("level-view-content");
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		this.setContent((content));
+		this.setContent(content);
 		this.setupMouseDrag();
 	}
 
@@ -48,9 +48,9 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 		this(level,levelNum);
 		this.addEntity = aE;
 	}
-	
+
 	public void loadGameState(Map<Integer,Map<String,Component>> levelMap) {
-		
+
 		Map<String, Component> entityComponents;
 		for(Integer i:levelMap.keySet()) {
 			entityComponents = levelMap.get(i);
@@ -67,7 +67,7 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 					this.content.addToCell(entity, (int) row, (int) col);
 				}
 			} 
-			
+
 			for(Component c: entityComponents.values()) {
 				entity.add(c);
 			}
