@@ -50,7 +50,6 @@ public class SelectionBox extends VBox implements PopUp {
 					label.setPrefWidth(WIDTH);
 					label.setOnMouseClicked(e->{
 						selection = label.getId();
-						onClose(consumer);
 						stage.close();
 					});
 					this.getChildren().add(label);
@@ -70,11 +69,6 @@ public class SelectionBox extends VBox implements PopUp {
 		stage.getScene().getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		stage.show();
 		stage.sizeToScene();
-	}
-
-	@Override
-	public void onClose(Consumer consumer) {
-		consumer.accept(selection);
 	}
 
 	public void setLanguage(Properties lang) {
