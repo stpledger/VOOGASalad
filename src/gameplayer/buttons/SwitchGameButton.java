@@ -10,6 +10,12 @@ public class SwitchGameButton extends Button implements IGamePlayerButton{
 	private Stage myStage;
 	private PauseMenu pauseMenu;
 	
+	public SwitchGameButton(Stage stage) {
+		myStage = stage;
+		this.setText(BUTTON_NAME);
+		this.setEvent();
+	}
+	
 	public SwitchGameButton(Stage stage, PauseMenu pausemenu) {
 		pauseMenu = pausemenu;
 		myStage = stage;

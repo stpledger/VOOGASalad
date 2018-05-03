@@ -185,7 +185,11 @@ public class Controller implements IController {
 		myScene.setOnKeyPressed(e -> {
 			if(e.getCode() == KeyCode.ESCAPE) {
 				pauseMenu.show(myStage);
-			} else {
+			} 
+			else if(e.getCode() == KeyCode.H) {
+				gameOver();
+			}
+			else {
 				if(gameView != null) {
 					gameView.setInput(e.getCode());
 				}
@@ -198,19 +202,13 @@ public class Controller implements IController {
 				}
 			}
 		});
-		myScene.setOnKeyPressed(e->{
-			if(e.getCode() == KeyCode.H) {
-				gameOver();
-			}
-		});
 	}
-
 	/**
 	 * Shows the high score screen
 	 */
 	private void gameOver(){
-		HighScoreView highScoreScreen = new HighScoreView();
-		highScoreScreen.setScore(100.0);
+		HighScoreView highScoreScreen = new HighScoreView(myStage);
+		highScoreScreen.setScore(100.0); //change to game's score
 		highScoreScreen.setGameName(currentGameName);
 		myStage.setScene(highScoreScreen.getScene());
 	}
