@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.systems.ISystem;
+import gameplayer.view.EntityManager;
 import engine.components.Component;
 import engine.exceptions.EngineException;
 
@@ -21,7 +22,7 @@ public class SystemManager {
 
     private List<ISystem> systems;
     private RenderManager renderManager;
-    //private EntityController ec;
+    private EntityManager ec;
     
     public SystemManager (RenderManager renderManager, EntityManager ec) {
         this.renderManager = renderManager;

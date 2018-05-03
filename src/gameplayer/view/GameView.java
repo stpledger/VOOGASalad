@@ -21,7 +21,7 @@ import javafx.scene.layout.Pane;
  * @authors Ryan Fu & Scott Pledger
  *
  */
-public class GameView implements IGamePlayerView{
+public class GameView implements IGamePlayerView, EntityManager {
 	private DataGameState gameState;
 
 	private Map<Level,Map<Integer,Map<String,Component>>> levels;
@@ -94,7 +94,7 @@ public class GameView implements IGamePlayerView{
 	 */
 	public void initializeGameView() {
 		gameInitializer = new GameInitializer(intLevels.get(gameManager.getActiveLevel()),
-				Math.max(PANE_HEIGHT, PANE_WIDTH), gameManager.getActivePlayerPosX(), gameManager.getActivePlayerPosY());
+				Math.max(PANE_HEIGHT, PANE_WIDTH), gameManager.getActivePlayerPosX(), gameManager.getActivePlayerPosY(), this);
 		inputHandler = gameInitializer.getInputHandler();
 		renderManager = gameInitializer.getRenderManager();
 		systemManager = gameInitializer.getSystemManager();
