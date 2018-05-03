@@ -55,6 +55,9 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 		for(Integer i:levelMap.keySet()) {
 			entityComponents = levelMap.get(i);
 			Entity entity = new BlankEntity(i);
+			for(Component c: entityComponents.values()) {
+				entity.add(c);
+			}
 			if(entityComponents.containsKey(Sprite.KEY)) {
 				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
 				Image image = spriteComponent.getImage().getImage();
@@ -67,10 +70,6 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 					this.content.addToCell(entity, (int) row, (int) col);
 				}
 			} 
-
-			for(Component c: entityComponents.values()) {
-				entity.add(c);
-			}
 		}
 	}
 
