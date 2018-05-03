@@ -68,7 +68,9 @@ public abstract class Entity extends ImageView {
 	 * @throws FileNotFoundException
 	 */
 	protected void setSprite(String filename) throws FileNotFoundException {
+		Sprite spriteComponent = new Sprite(this.getID(),filename);
 		this.add(new Sprite(this.getID(),filename));
+		this.setImage(spriteComponent.getImage().getImage());
 	}
 	
 	/**
