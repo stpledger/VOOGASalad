@@ -8,7 +8,6 @@ import authoring.views.popups.PopUp;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.VBox;
@@ -55,10 +54,9 @@ public class GameChooser implements PopUp {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+
 	@Override
-	public void setLanguage(Properties lang) {
+	public void setLanguage(Properties language) {
 		
 	}
-
 }
