@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="stef" name="me"><Type>User</Type><Sprite>mario.png</Sprite><XAcceleration>1.0</XAcceleration><Collidable/><DamageLifetime>1.0</DamageLifetime><YVelocity>0.0</YVelocity><XVelocity>0.0</XVelocity><DamageValue>20.0</DamageValue><YAcceleration>1.0</YAcceleration><Health>100.0</Health><Name>me</Name></Entity>

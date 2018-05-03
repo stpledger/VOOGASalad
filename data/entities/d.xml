@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="play" name="d"><Sprite>dirt.jpg</Sprite><Name>d</Name><Type>Block</Type></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="games/thisshouldworknow/" name="d"><Type>Block</Type><Sprite>dirt.jpg</Sprite><Name>d</Name></Entity>

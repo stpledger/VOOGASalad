@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="games/thisshouldworknow/" name="s"><DamageLifetime>1.0</DamageLifetime><Type>User</Type><YVelocity>0.0</YVelocity><Sprite>mario.png</Sprite><DamageValue>10.0</DamageValue><YAcceleration>10.0</YAcceleration><XAcceleration>10.0</XAcceleration><XVelocity>0.0</XVelocity><Health>100.0</Health><Name>s</Name></Entity>

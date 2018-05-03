@@ -22,11 +22,7 @@ import javafx.scene.input.KeyCode;
  */
 public class PlayerMovement extends KeyInput {
 
-<<<<<<< HEAD
-	private static final int JUMP_SPEED = 60;
-=======
 	private static final int JUMP_SPEED = 100;
->>>>>>> ae005f24270d2ce93cb0f794d9f0b3f694c58c96
 	private static final int MOVE_SPEED = 50;
 	
 	private boolean crouched;
@@ -64,7 +60,7 @@ public class PlayerMovement extends KeyInput {
 				Jumps s = (Jumps) map.get(Jumps.KEY);
 				if(s.getData() > 0) {
 					Actions.moveUp(JUMP_SPEED).accept(map);
-					//s.setData(s.getData() - 1);
+					s.setData(s.getData() - 1);
 					timing = time;
 
 				} 

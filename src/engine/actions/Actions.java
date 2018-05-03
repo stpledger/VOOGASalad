@@ -218,22 +218,32 @@ public class Actions {
         	else giveDamage(actor1, actor2);
 		};
     }
+    
     @SuppressWarnings("unchecked")
-	public static BiConsumer<Map<String, Component>, Map<String, Component>> win(){
-        return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
-			signifyWin(actor1,actor2);
-		};
+    public static BiConsumer<Map<String,Component>, Map<String,Component>> Ystop(){
+      	return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+    		if(actor1.containsKey(YVelocity.KEY) && !actor2.containsKey(YVelocity.KEY)) {
+   
+    			YVelocity yv =(YVelocity) actor1.get(YVelocity.KEY);
+    			yv.setData(0);
+    		 }
+      	};    	
+    	
     }
-   public static void signifyWin( Map<String, Component> player, Map<String, Component> collider){
-    if(player.containsKey(Player.KEY) && collider.containsKey(Win.KEY)){
-    	    	  ((Win) collider.get(Win.KEY)).win();
-    	    	  System.out.println(((Win) player.get(Win.KEY)).getWinStatus());
-    	      }
-    else if(collider.containsKey(Player.KEY) && player.containsKey(Win.KEY)) {
-      	((Win) player.get(Win.KEY)).win();
-      	System.out.println(((Win) player.get(Win.KEY)).getWinStatus());
+    @SuppressWarnings("unchecked")
+    public static BiConsumer<Map<String,Component>, Map<String,Component>> Xstop(){
+      	return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+    		if(actor1.containsKey(XVelocity.KEY) && !actor2.containsKey(XVelocity.KEY)) {
+    			XVelocity xv = (XVelocity) actor1.get(XVelocity.KEY);
+    			xv.setData(0);
+    		 }
+      	};    	
+    	
     }
-   }
+    
+    
+   
+   
     	
     private static void giveDamage(Map<String, Component> player, Map<String, Component> collider) {
 		if (player.containsKey(DamageValue.KEY) &&

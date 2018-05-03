@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="NewGame2" name="f"><Type>User</Type><Sprite>mario.png</Sprite><YAcceleration>1.0</YAcceleration><YVelocity>0.0</YVelocity><DamageValue>10.0</DamageValue><DamageLifetime>1.0</DamageLifetime><XVelocity>0.0</XVelocity><XAcceleration>1.0</XAcceleration><Health>200.0</Health><Name>f</Name></Entity>
