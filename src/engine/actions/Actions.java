@@ -210,6 +210,7 @@ public class Actions {
     			if(actor1.containsKey(Player.KEY) && actor2.containsKey(Win.KEY)) {
     				Win w = (Win) actor2.get(Win.KEY);
     				w.win();
+    				System.out.println("In win action");
     			}
     		}
     	};
@@ -222,6 +223,7 @@ public class Actions {
     			if(actor2.containsKey(Player.KEY) && actor2.containsKey(Height.KEY)) {
     				Height h = (Height) actor2.get(Height.KEY);
     				h.setData(h.getData()*1.5);
+    			    sm.removeEntity(actor1.get(EntityType.KEY).getPID());
     		    }
     	   }
 	   };
