@@ -15,7 +15,8 @@ import authoring.gamestate.GameChooser;
 import authoring.gamestate.GameNameChooser;
 import authoring.gamestate.GameState;
 import authoring.views.MainView;
-
+import data.DataGameState;
+import data.DataRead;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -72,18 +73,20 @@ public class SplashScreen extends VBox {
 	 */
 	public void loadAuthor() {
 		GameChooser gc = new GameChooser();
-		gc.show();
-		AuthoringStateLoader asl = new AuthoringStateLoader("");
-		MainView mainView  = new MainView(new File("peepee"));
-		Parent layout = mainView.build();
-		Scene s = new Scene(layout, mainView.getIDEWidth(), mainView.getIDEHeight());
-		s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
-		changeScene.accept(s);
+		gc.showAndWait(name -> {
+			File playerFile = AuthoringStateLoader.findStateFile(name);
+			DataGameState dgs = DataRead.loadPlayerFile(playerFile);
+			MainView mainView  = new MainView(name, dgs);
+			Parent layout = mainView.build();
+			Scene s = new Scene(layout, mainView.getIDEWidth(), mainView.getIDEHeight());
+			s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+			changeScene.accept(s);
+		});
 	}
 	
 	public void newAuthor() {
-		GameNameChooser gcn = new GameNameChooser();
-		gcn.showAndWait(name -> {
+		GameNameChooser gnc = new GameNameChooser();
+		gnc.showAndWait(name -> {
 			MainView mainView  = new MainView(name);
 			Parent layout = mainView.build();
 			Scene s = new Scene(layout, mainView.getIDEWidth(), mainView.getIDEHeight());
