@@ -4,11 +4,13 @@ import java.util.Map;
 
 import authoring.gamestate.Level;
 import data.DataGameState;
+import data.DataUtils;
 import engine.components.Component;
 import gameplayer.hud.SampleToolBar;
 import gameplayer.menu.MenuGameBar;
 import gameplayer.menu.PauseMenu;
 import gameplayer.view.GameView;
+import gameplayer.view.HighScoreView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Scene;
@@ -46,9 +48,12 @@ public class Controller implements IController {
 
 	public Controller(Stage stage, DataGameState currentGame) {
 		initialGameState = new DataGameState(currentGame.getGameState(), currentGame.getGameName());
+
 		myStage = stage;
 		pauseMenu = new PauseMenu(myStage, this);
 		gameState = currentGame;
+		currentGameName = gameState.getGameName();
+		DataUtils.setGame(currentGameName);
 		myStage.setResizable(false);
 		this.gameManager = new GameManager(gameState);
 		myPane = new BorderPane();
@@ -172,11 +177,6 @@ public class Controller implements IController {
 		}
 	}
 
-	//	public void setHighScoreView() {
-	//		HighScoreView highScoreScreen = new HighScoreView();
-	//		Scene highScore = highScoreScreen.getScene();
-	//		myStage.setScene(highScore);
-	//	}
 
 	/**
 	 * Passes keys to engine and assigns escape key to pause menu
@@ -198,13 +198,21 @@ public class Controller implements IController {
 				}
 			}
 		});
+		myScene.setOnKeyPressed(e->{
+			if(e.getCode() == KeyCode.H) {
+				gameOver();
+			}
+		});
 	}
 
 	/**
 	 * Shows the high score screen
 	 */
 	private void gameOver(){
-		//TODO add game over functionality like the high score screen
+		HighScoreView highScoreScreen = new HighScoreView();
+		highScoreScreen.setScore(100.0);
+		highScoreScreen.setGameName(currentGameName);
+		myStage.setScene(highScoreScreen.getScene());
 	}
 
 

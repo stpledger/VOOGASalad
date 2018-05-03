@@ -1,0 +1,31 @@
+<map>
+  <entry>
+    <string>asdfsad</string>
+    <list>
+      <gameplayer.view.Person>
+        <name>
+          <value>billy</value>
+          <valid>true</valid>
+          <name></name>
+        </name>
+        <score>
+          <value>100.0</value>
+          <valid>true</valid>
+          <name></name>
+        </score>
+      </gameplayer.view.Person>
+      <gameplayer.view.Person>
+        <name>
+          <value>hello</value>
+          <valid>true</valid>
+          <name></name>
+        </name>
+        <score>
+          <value>100.0</value>
+          <valid>true</valid>
+          <name></name>
+        </score>
+      </gameplayer.view.Person>
+    </list>
+  </entry>
+</map>

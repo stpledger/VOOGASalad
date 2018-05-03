@@ -53,7 +53,6 @@ public class HighScoreView extends BranchScreenView {
 	@Override
 	public Scene initializeScreen() {
 		highScorePane = new BorderPane();
-		//highScorePane.setCenter(highScoreTable);
 		Scene currentScene = new Scene(highScorePane,WIDTH_SIZE,HEIGHT_SIZE);
 		return currentScene;
 	}
@@ -68,7 +67,6 @@ public class HighScoreView extends BranchScreenView {
 	
 	@Override
 	public Scene getScene() {
-		// TODO Auto-generated method stub
 		return highScoreScene;
 	}
 	
@@ -102,7 +100,7 @@ public class HighScoreView extends BranchScreenView {
 		facebookAuthButton = new Button("FB");
 		userNameField = new TextField();
 		userNameField.setMaxWidth(200);
-		submitButton.setOnAction(e->{addHighScore(userNameField.getText(), 50.0); 
+		submitButton.setOnAction(e->{addHighScore(userNameField.getText(), finalScore); 
 			hideRecordInput();
 		});
 		//facebookAuthButton.setOnAction(e->{authenticateUser();});
@@ -113,7 +111,6 @@ public class HighScoreView extends BranchScreenView {
 	public void hideRecordInput() {
 		highScorePane.setCenter(highScoreTable);
 		//requestRecordLayout.getChildren().clear();
-		
 	}
 	
 	
@@ -121,7 +118,7 @@ public class HighScoreView extends BranchScreenView {
 	 * Method to add High Score to the High Score Data File
 	 */
 	public void addHighScore(String name, Double score) {
-		Person recordHolder = new Person(name, 100.0);
+		Person recordHolder = new Person(name, score);
 		//data.add(recordHolder);
 		DataWrite.saveHighscore(recordHolder);
 		getHighScores();
