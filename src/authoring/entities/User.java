@@ -39,8 +39,8 @@ public class User extends InteractableEntity {
 		this.setEntityType(TYPE);
 		this.add(new Player(this.getID()));
 		this.add(new Lives(this.getID(), INITIAL_LIVES));
-		//this.add(new PlayerCollision(this.getID()));
-		//this.add(new PlayerMovement(this.getID(), KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN));
+		this.add(new PlayerCollision(this.getID()));
+		this.add(new PlayerMovement(this.getID(), KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN));
 		this.add(new Score(this.getID(), 0));
 		this.add(new Jumps(this.getID(), 3));
 	}

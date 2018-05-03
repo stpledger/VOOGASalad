@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="games/thisshouldworknow/" name="fox2"><Name>fox2</Name><Type>User</Type><XVelocity>0.0</XVelocity><XAcceleration>0.0</XAcceleration><DamageLifetime>1.0</DamageLifetime><Health>50.0</Health><YVelocity>0.0</YVelocity><Sprite>fox.png</Sprite><YAcceleration>5.0</YAcceleration><DamageValue>20.0</DamageValue></Entity>

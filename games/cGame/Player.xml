@@ -1,0 +1,15 @@
+<data.DataGameState>
+  <gameState>
+    <entry>
+      <authoring.gamestate.Level>
+        <levelNum>1</levelNum>
+        <levelTime>0.0</levelTime>
+        <HUDprops/>
+        <GProps/>
+      </authoring.gamestate.Level>
+      <map/>
+    </entry>
+  </gameState>
+  <gameName>cGame</gameName>
+  <levelProgress>1.0</levelProgress>
+</data.DataGameState>
