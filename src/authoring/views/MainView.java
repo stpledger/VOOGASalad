@@ -17,6 +17,7 @@ import javafx.scene.layout.BorderPane;
  *
  */
 public class MainView {
+	
 	public static final String LANGUAGE_PROPERTIES_PACKAGE = "src/resources/languages/";
 	public static final String DEFAULT_LANGUAGE = "english";
 	public static final String PROPERTIES_EXTENSION = ".properties";
@@ -35,7 +36,6 @@ public class MainView {
 
 	private Consumer setLangConsumer = (langName) -> {setLanguage((String) langName);};
 	private List<AuthoringPane> authorPaneList = new ArrayList<>();
-
 
 	/**
 	 * Creates an instance of GameAuthoringEnvironment Based on a file
