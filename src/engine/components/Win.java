@@ -10,7 +10,9 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
 public class Win extends Collidable implements Component{
+
 	public static final String KEY = "WIN";
+	
 	private BooleanProperty winStatus = new SimpleBooleanProperty();
 	
 	@SuppressWarnings("unchecked")

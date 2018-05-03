@@ -308,3 +308,4 @@ public class TestGameState {
 	public InputHandler getIH() { return ih; }
 
 }
+

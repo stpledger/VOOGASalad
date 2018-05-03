@@ -2,10 +2,12 @@ package engine.actions;
 
 import authoring.entities.Entity;
 import engine.components.*;
+import engine.components.presets.FireballCollision;
 
 import java.awt.Point;
-
+import java.io.FileNotFoundException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +35,58 @@ public class Actions {
     	sm = sman;
     }
 
+    public static Consumer<Map<String,Component>> remove() {
+    	return e1 -> {
+    		if(e1.containsKey(Sprite.KEY)) {
+    			Sprite s = (Sprite) e1.get(Sprite.KEY);
+    			s.getImage().toBack();
+    			sm.removeEntity(s.getPID());
+    		}
+    	};
+    }
+    
+    public static Consumer<Map<String,Component>> fireball() {
+    	return e1 -> {
+    		if(e1.containsKey(XPosition.KEY) && e1.containsKey(YPosition.KEY) && e1.containsKey(XVelocity.KEY)) {
+    			XPosition x = (XPosition) e1.get(XPosition.KEY);
+    			YPosition y = (YPosition) e1.get(YPosition.KEY);
+    			XVelocity v = (XVelocity) e1.get(XVelocity.KEY);
+    			
+    			Map<String,Component> ne = new HashMap<>();
+    			int id = (int) System.currentTimeMillis();
+    			Sprite s = null;
+    			try {
+					s = new Sprite(id, "fireball.gif");
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+    			
+    			Component[] newList = {new XPosition(id, x.getData()),
+    			new YPosition(id, y.getData()),
+    			new XVelocity(id, v.getData()),
+    			new YVelocity(id, 0),
+    			s,
+    			new FireballCollision(id),
+    			new DamageValue(id, 50),
+    			new DamageLifetime(id, 1),
+    			new EntityType(id, "Fire"),
+    			new Height(id, 10),
+    			new Width(id, 30),
+    			new Type(id, "Fire")};
+    			
+    			for(Component c : newList) {
+    				if(c != null) {
+    					ne.put(c.getKey(), c);
+    				}
+    			}
+    			
+    			sm.addEntity(id, ne);
+    			
+    		}
+    	};
+    }
+    
+    
     /**
 
      * @return left action

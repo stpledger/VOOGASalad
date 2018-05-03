@@ -91,5 +91,6 @@ public class RenderManager {
     private boolean withinRenderDistance(double x, double y) {
         return true;
         		//Math.abs(centerX - x) < renderDistance && Math.abs(centerY - y) < renderDistance;
+
     }
 }
