@@ -28,14 +28,12 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 	private Level level;
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
-	private DataGameState gameState;
 	
 	private Map<Level,Map<Integer,Map<String,Component>>> levels;
 
 	Properties language = new Properties();
 	
 	public LevelView(Level level, int levelNum) {
-		this.levels = gameState.getGameState();
 		this.getStyleClass().add("level-view");
 		this.level = level;
 		this.content = new Grid(level);
@@ -55,28 +53,24 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 		
 		Map<String, Component> entityComponents;
 		for(Integer i:levelMap.keySet()) {
-			entityComponents = levels.get(level).get(i);
+			entityComponents = levelMap.get(i);
 			Entity entity = new BlankEntity(i);
 			if(entityComponents.containsKey(Sprite.KEY)) {
 				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
 				Image image = spriteComponent.getImage().getImage();
 				entity.setImage(image);
-				entity.add(spriteComponent);
 				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
 					XPosition xComp = (XPosition) entityComponents.get(XPosition.KEY);
 					YPosition yComp = (YPosition) entityComponents.get(YPosition.KEY);
-					entity.add(yComp);
-					entity.add(xComp);
 					double row = (xComp.getData()/Entity.ENTITY_WIDTH)-1;
 					double col = (yComp.getData()/Entity.ENTITY_HEIGHT)-1;
 					this.content.addToCell(entity, (int) row, (int) col);
 				}
-			} else {
-				for(Component c: entityComponents.values()) {
-					entity.add(c);
-				}
-			}
+			} 
 			
+			for(Component c: entityComponents.values()) {
+				entity.add(c);
+			}
 		}
 	}
 
