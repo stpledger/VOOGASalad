@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="games/thisshouldworknow/" name="ja"><Name>ja</Name><Health>45.0</Health><DamageValue>1.0</DamageValue><YVelocity>10.0</YVelocity><XAcceleration>1.0</XAcceleration><XVelocity>10.0</XVelocity><YAcceleration>1.0</YAcceleration><DamageLifetime>9.0</DamageLifetime><Type>User</Type><Sprite>mario.png</Sprite></Entity>
