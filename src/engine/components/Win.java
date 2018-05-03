@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleBooleanProperty;
 
 public class Win extends FlagComponent implements Component {
 	public static final String KEY = "WIN";
+	
 	private BooleanProperty winStatus = new SimpleBooleanProperty();
 	
 	public Win(int pid) {

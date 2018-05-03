@@ -56,11 +56,11 @@ public class TestGameState {
 		play.put(YVelocity.KEY, new YVelocity(1,0));
 		play.put(XAcceleration.KEY, new XAcceleration(1,0));
 		play.put(YAcceleration.KEY, new YAcceleration(1,0));
-		play.put(Sprite.KEY, new Sprite(1,"animations/sonic/sonicsprite.png"));
+		play.put(Sprite.KEY, new Sprite(1,"sonicsprite.png"));
 		u.getComponentList().forEach(comp -> {
 			play.put(comp.getKey(), comp);
 		});
-		play.put(Animated.KEY, new Animated(1,"animations/sonic/sonicanimation.properties"));
+		play.put(Animated.KEY, new Animated(1,"sonicanimation.properties"));
 		entities.put(1, play);
 		
 		for(int k = 2; k < 100; k++) {
@@ -108,7 +108,7 @@ public class TestGameState {
 
 		Map<Level, Map<Integer,Map<String,Component>>> state = new HashMap<>();
 		Level l = new Level(1);
-		//state.put(l,entities);
+		state.put(l,entities);
 
 		DataGameState dState = new DataGameState(state, "JackDemo");
 		try {

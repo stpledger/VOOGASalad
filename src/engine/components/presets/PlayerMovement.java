@@ -103,6 +103,8 @@ public class PlayerMovement extends KeyInput {
 			}
 		});
 		
+		this.addCode(KeyCode.SPACE, Actions.fireball());
+		
 	}
 	
 }
