@@ -62,8 +62,8 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
 					XPosition xComp = (XPosition) entityComponents.get(XPosition.KEY);
 					YPosition yComp = (YPosition) entityComponents.get(YPosition.KEY);
-					double col = (xComp.getData()/Entity.ENTITY_WIDTH)-1;
-					double row = (yComp.getData()/Entity.ENTITY_HEIGHT)-1;
+					double col = (xComp.getData()/Entity.ENTITY_WIDTH);
+					double row = (yComp.getData()/Entity.ENTITY_HEIGHT);
 					this.content.addToCell(entity, (int) row, (int) col);
 				}
 			} 
