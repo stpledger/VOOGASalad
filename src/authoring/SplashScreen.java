@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import authoring.gamestate.AuthoringStateLoader;
+import authoring.gamestate.GameChooser;
 import authoring.gamestate.GameNameChooser;
 import authoring.gamestate.GameState;
 import authoring.views.MainView;
@@ -70,10 +71,10 @@ public class SplashScreen extends VBox {
 	 * Creates a new gameAuthoringEnviornment view based on the 
 	 */
 	public void loadAuthor() {
-		AuthoringStateLoader asl = new AuthoringStateLoader("load_tester_1");
-		FileChooser fileChooser = new FileChooser();
-		File selectedFile = fileChooser.showOpenDialog(null);
-		MainView mainView  = new MainView(selectedFile);
+		GameChooser gc = new GameChooser();
+		gc.show();
+		AuthoringStateLoader asl = new AuthoringStateLoader("");
+		MainView mainView  = new MainView(new File("peepee"));
 		Parent layout = mainView.build();
 		Scene s = new Scene(layout, mainView.getIDEWidth(), mainView.getIDEHeight());
 		s.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());

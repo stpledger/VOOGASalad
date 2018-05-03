@@ -25,6 +25,7 @@ public class AuthoringStateLoader {
 
 	private DocumentBuilder documentBuilder;
 	private final String ENTITY_FOLDER = "data/entities/";
+	private final String ATTRIBUTE_NAME = "game";
 	/**
 	 * Create this loader with a given game name to load. 
 	 * @param gameName the name of the game to load
@@ -53,7 +54,7 @@ public class AuthoringStateLoader {
 			try {
 				d = documentBuilder.parse(poss);
 				Element e = d.getDocumentElement();
-				if (e.getAttribute("game").equals(gameName)) {
+				if (e.getAttribute(ATTRIBUTE_NAME).equals(gameName)) {
 					gameEntities.add(poss);
 				}
 			} catch (SAXException | IOException e) {

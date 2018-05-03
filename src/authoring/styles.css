@@ -217,4 +217,20 @@
     -fx-text-fill: primary-color;
     -fx-font-size: 20;
 }
+
+.list-view .list-cell {
+    -fx-text-fill: primary-color;
+    -fx-font-size: 20;
+}
     
+.list-view .list-cell:even {
+    -fx-background-color: tertiary-color;
+}
+
+.list-view .list-cell:odd {
+    -fx-background-color: secondary-color;
+}
+
+.list-view .list-cell:filled:hover {
+    -fx-text-fill: white;
+}
