@@ -46,7 +46,7 @@ public class GameNameChooser implements AuthoringPane {
 	public GameNameChooser() {
 		root = new VBox();
 		root.setAlignment(Pos.CENTER);
-		root.setMaxWidth(300);
+		root.setMaxWidth(TEXT_WIDTH);
 	}
 
 	/**
