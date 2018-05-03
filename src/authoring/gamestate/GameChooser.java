@@ -1,6 +1,7 @@
 package authoring.gamestate;
 
 import java.io.File;
+import java.util.Properties;
 
 import authoring.MainApplication;
 import authoring.views.popups.PopUp;
@@ -53,6 +54,11 @@ public class GameChooser implements PopUp {
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.show();
+	}
+	
+	@Override
+	public void setLanguage(Properties lang) {
+		
 	}
 
 }

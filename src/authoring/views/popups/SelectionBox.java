@@ -72,7 +72,6 @@ public class SelectionBox extends VBox implements PopUp {
 		stage.sizeToScene();
 	}
 
-	@Override
 	public void onClose(Consumer consumer) {
 		consumer.accept(selection);
 	}
