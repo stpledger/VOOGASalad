@@ -38,7 +38,6 @@ public class ComponentBuilder {
 		} catch (Exception e2) {
 			throw new AuthoringException(ERROR_MESSAGE, AuthoringAlert.SHOW, e.getNodeName());
 		}
-
 	}
 
 }

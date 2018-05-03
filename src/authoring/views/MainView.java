@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
+
+import data.DataGameState;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
 
@@ -17,6 +19,7 @@ import javafx.scene.layout.BorderPane;
  *
  */
 public class MainView {
+	
 	public static final String LANGUAGE_PROPERTIES_PACKAGE = "src/resources/languages/";
 	public static final String DEFAULT_LANGUAGE = "english";
 	public static final String PROPERTIES_EXTENSION = ".properties";
@@ -36,25 +39,24 @@ public class MainView {
 	private Consumer setLangConsumer = (langName) -> {setLanguage((String) langName);};
 	private List<AuthoringPane> authorPaneList = new ArrayList<>();
 
-
 	/**
-	 * Creates an instance of GameAuthoringEnvironment Based on a file
+	 * Creates an instance of GameAuthoringEnvironment from scratch
 	 * @param name the name of the game to load/create
 	 */
 	public MainView(String name) {
 		// TODO check if name exists in path
 		gameEditorView = new GameEditorView(setLangConsumer, name);
-		
 		this.build();
 	}
 	
 	/**
-	 * Creates a new instance of GameAuthoringEnvironment
-	 * 
+	 * Creates an instance of GameAuthoringEnvironment based upon an existing gameState.
+	 * @param name the name of the game to load
+	 * @param gameState the state object of the game to load in 
 	 */
-	public MainView(File selectedFile) {
-		gameEditorView = new GameEditorView(setLangConsumer, selectedFile.getName());
-		this.build();
+	public MainView(String name, DataGameState gameState) {
+		this(name);
+		gameEditorView.startLoadingGameStates(gameState);
 	}
 
 	/**
