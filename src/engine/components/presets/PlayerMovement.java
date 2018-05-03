@@ -103,8 +103,14 @@ public class PlayerMovement extends KeyInput {
 			}
 		});
 		
-		this.addCode(KeyCode.SPACE, (Serializable & Consumer<Map<String,Component>>) e1 -> Actions.fireball().accept(e1));
-		
+		this.addCode(KeyCode.SPACE, (Serializable & Consumer<Map<String,Component>>) e1 -> {
+			long time = System.currentTimeMillis();
+			if(time - timing > 200) {
+				Actions.fireball().accept(e1);
+				timing = time;
+			}
+			
+		});
 	}
 	
 }

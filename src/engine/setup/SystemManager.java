@@ -46,12 +46,12 @@ public class SystemManager {
         ec.addEntity(pid, components);
     }
 
-    public void removeEntity (int pid) {
+    public void removeEntity (int pid, Map<String,Component> components) {
         for (ISystem s : systems) {
             s.removeComponent(pid);
         }
         setActives(renderManager.render());
-        ec.removeEntity(pid);
+        ec.removeEntity(pid, components);
     }
 
 
@@ -63,9 +63,9 @@ public class SystemManager {
 		}
     }
 
-    public void removeComponent(int pid) {
+   /* public void removeComponent(int pid) {
         removeEntity(pid);
-    }
+    }*/
 
     /**
      * Sets the active components for the systems to act upon based on the rendering
@@ -82,5 +82,11 @@ public class SystemManager {
             s.execute(time);
         }
     }
+
+	public void setActives() {
+		for(ISystem s : systems) {
+			s.setActives();
+		}
+	}
 
 }

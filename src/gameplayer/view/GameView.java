@@ -268,5 +268,31 @@ public class GameView implements IGamePlayerView, EntityManager {
 		image.setFitWidth(w.getData());
 	}
 
+	@Override
+	public void addEntity(int pid, Map<String, Component> components) {
+		if(gameLevelDisplays != null && gameLevelDisplays.get(gameManager.getActiveLevel()) != null) {
+			Pane p = gameLevelDisplays.get(gameManager.getActiveLevel());
+			if(components.containsKey(Sprite.KEY)) {
+				Sprite s = (Sprite) components.get(Sprite.KEY);
+				if(!p.getChildren().contains(s.getImage())) {
+					p.getChildren().add(s.getImage());
+				}
+			}
+		}
+	}
+
+	@Override
+	public void removeEntity(int pid, Map<String,Component> components) {
+		if(gameLevelDisplays != null && gameLevelDisplays.get(gameManager.getActiveLevel()) != null) {
+			Pane p = gameLevelDisplays.get(gameManager.getActiveLevel());
+			if(components.containsKey(Sprite.KEY)) {
+				Sprite s = (Sprite) components.get(Sprite.KEY);
+				if(p.getChildren().contains(s.getImage())) {
+					p.getChildren().remove(s.getImage());
+				}
+			}
+		}
+	}
+
 
 }

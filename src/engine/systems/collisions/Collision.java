@@ -5,15 +5,17 @@ package engine.systems.collisions;
  * author jcf44, sv116
  */
 import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 import engine.components.Collidable;
 import engine.components.Component;
+import engine.components.EntityType;
 import engine.components.Height;
+import engine.components.Player;
+import engine.components.Type;
 import engine.components.Width;
 import engine.components.XPosition;
 import engine.components.XVelocity;
@@ -24,15 +26,15 @@ import engine.systems.ISystem;
 
 
 public class Collision extends AbstractSystem implements ISystem {
-	private Set<Integer> colliders;
+	private Map<Integer, Object> colliders;
 	
 	public Collision () {
 		super();
-		colliders = new HashSet<>();
+		colliders = new ConcurrentHashMap<>();
 	}
 
 	public void execute(double time) {
-		colliders.forEach(key1 -> {
+		colliders.keySet().forEach(key1 -> {
 			this.getHandled().forEach((key2, map2) -> {
 				if(key1 != key2) {
 					Map<String,Component> map1 = this.getHandled().get(key1);
@@ -43,6 +45,8 @@ public class Collision extends AbstractSystem implements ISystem {
 	}
 
 	private void checkCollision(Map<String, Component> map1, Map<String, Component> map2) {
+		
+		if(map2.containsKey(EntityType.KEY) && ((EntityType) map2.get(EntityType.KEY)).getData().equals("Fire")) return;
 
 		Width w1 = (Width) map1.get(Width.KEY);
 		Height h1 = (Height) map1.get(Height.KEY);
@@ -167,7 +171,7 @@ public class Collision extends AbstractSystem implements ISystem {
 		if(handled.containsKey(pid)) {
 			handled.remove(pid);
 		}
-		if(colliders.contains(pid)) {
+		if(colliders.keySet().contains(pid)) {
 			colliders.remove(pid);
 		}
 	}
@@ -176,7 +180,7 @@ public class Collision extends AbstractSystem implements ISystem {
 		if(this.checkComponents(components, XPosition.KEY, YPosition.KEY, Width.KEY, Height.KEY, Collidable.KEY)) {
 			this.directAddComponent(pid, components);
 			if(this.checkComponents(components, XVelocity.KEY, YVelocity.KEY)) {
-				colliders.add(pid);
+				colliders.put(pid,components);
 			}
 		}
 	}

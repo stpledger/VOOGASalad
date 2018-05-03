@@ -40,7 +40,7 @@ public class Actions {
     		if(e1.containsKey(Sprite.KEY)) {
     			Sprite s = (Sprite) e1.get(Sprite.KEY);
     			s.getImage().toBack();
-    			sm.removeEntity(s.getPID());
+    			sm.removeEntity(s.getPID(), e1);
     		}
     	};
     }
@@ -52,7 +52,6 @@ public class Actions {
     			YPosition y = (YPosition) e1.get(YPosition.KEY);
     			XVelocity v = (XVelocity) e1.get(XVelocity.KEY);
     			Width w = (Width) e1.get(Width.KEY);
-    			
     			Map<String,Component> ne = new HashMap<>();
     			int id = (int) System.currentTimeMillis();
     			Sprite s = null;
@@ -61,19 +60,33 @@ public class Actions {
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-    			
-    			Component[] newList = {new XPosition(id, x.getData() + w.getData()),
-    			new YPosition(id, y.getData()),
-    			new XVelocity(id, v.getData()),
+    			double vel = 0;
+    			double xf = 0;
+    			if(v.getData() > 0) {
+    				s.getImage().setScaleX(-1);
+    				vel = Math.max(150,3*v.getData());
+    				xf = x.getData() + w.getData() + 20;
+    			} else {
+    				vel = Math.min(-150, 3*v.getData());
+    				xf = x.getData() - 60;
+    			}
+    			s.getImage().setFitHeight(20);
+    			s.getImage().setFitWidth(40);
+    			s.getImage().setX(xf);
+    			s.getImage().setY(y.getData());
+    			Component[] newList = {new XPosition(id, x.getData()),
+    			new YPosition(id, y.getData() - 20),
+    			new XVelocity(id, vel),
     			new YVelocity(id, 0),
     			s,
     			new FireballCollision(id),
     			new DamageValue(id, 50),
     			new DamageLifetime(id, 1),
     			new EntityType(id, "Fire"),
-    			new Height(id, 10),
-    			new Width(id, 30),
-    			new Type(id, "Fire")};
+    			new Height(id, 20),
+    			new Width(id, 40),
+    			new Type(id, "Fire"),
+    			new Animated(id, "fireballanimation.properties")};
     			
     			for(Component c : newList) {
     				if(c != null) {
@@ -82,7 +95,7 @@ public class Actions {
     			}
     			
     			sm.addEntity(id, ne);
-    			
+    			sm.setActives();
     		}
     	};
     }

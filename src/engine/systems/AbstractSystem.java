@@ -109,5 +109,9 @@ public abstract class AbstractSystem implements ISystem {
 	protected Set<Integer> getActives() {
 		return activeComponents;
 	}
+	
+	public void setActives() {
+		activeComponents = handledComponents.keySet();
+	}
 
 }
