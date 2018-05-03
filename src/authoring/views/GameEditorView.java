@@ -142,14 +142,15 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		}
 	}
 	
-	private void addLoadLevel(Level level) {
+	private void addLoadLevel(Level l) {
 		try {
 			Tab t = (Tab) this.eFactory.buildElement(ElementType.Tab, "Level " + (levelTabsList.size()+1));
 			levelTabsList.add(t);
+			Level level = new Level(levelTabsList.indexOf(t)+1);
 			levels.add(level);
 			state.addLevel(level);
 			LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, e -> {addEntityMethod(e);});
-			levelView.loadGameState(gameState.getGameState().get(level));
+			levelView.loadGameState(gameState.getGameState().get(l));
 			t.setContent(levelView);
 			t.setOnClosed(e -> {
 				levelTabsList.remove(t);
@@ -165,6 +166,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 	private void removeLevels() {
 		levels.clear();
 		levelTabsList.clear();
+		tabPane.getTabs().clear();
 	}
 	
 	public void startLoadingGameStates(DataGameState state) {
