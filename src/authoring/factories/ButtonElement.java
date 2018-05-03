@@ -16,6 +16,7 @@ public class ButtonElement extends Button implements ClickableElement{
 		super();
 		this.handleText(text);
 		this.setId(text);
+		this.getStyleClass().add("button");
 	}
 
 	@Override

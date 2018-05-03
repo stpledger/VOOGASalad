@@ -10,8 +10,8 @@ public class EntitySupplier extends Supplier {
 
  */
     private String eName;
-    private static final int XSIZE = 150;
-    private static final int YSIZE =55;
+    private static final int XSIZE = 350;
+    private static final int YSIZE =90; //55
     private static final String PROMPT = "Select an entity type you want associated with this action";
     private static final String COMBO_PROMPT = "Select entity";
     private static final String PERIOD = ".";

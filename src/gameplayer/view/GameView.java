@@ -106,6 +106,7 @@ public class GameView implements IGamePlayerView{
 	 */
 	public void setActiveLevel(int activelevel){
 		gameManager.setActiveLevel(activelevel);
+		initializeGameView();
 	}
 
 	/**

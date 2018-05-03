@@ -22,8 +22,8 @@ import javafx.scene.input.KeyCode;
  */
 public class PlayerMovement extends KeyInput {
 
-	private static final int JUMP_SPEED = 200;
-	private static final int MOVE_SPEED = 100;
+	private static final int JUMP_SPEED = 100;
+	private static final int MOVE_SPEED = 50;
 	
 	private boolean crouched;
 	private double timing;
@@ -89,6 +89,7 @@ public class PlayerMovement extends KeyInput {
 		});
 		
 		this.addCode(down, (Serializable & Consumer<Map<String,Component>>) map -> {
+			Actions.moveDown(MOVE_SPEED).accept(map);
 			if(map.containsKey(Height.KEY)) {
 				Height s = (Height) map.get(Height.KEY);
 				if(!crouched) {
@@ -101,6 +102,8 @@ public class PlayerMovement extends KeyInput {
 				}
 			}
 		});
+		
+		this.addCode(KeyCode.SPACE, Actions.fireball());
 		
 	}
 	

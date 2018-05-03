@@ -58,12 +58,11 @@ public abstract class PropertiesView implements AuthoringLanguage {
 	 * Opens the Property Editor window.
 	 */
 	public void open() {
-		root.getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
 		stage = new Stage();
 		stage.setTitle(this.title());
-		root.getStyleClass().add("properties-view");
 		stage.setScene(new Scene(root));
 		stage.getScene().getStylesheets().add(MainApplication.class.getResource("styles.css").toExternalForm());
+		root.getStyleClass().add("properties-view");
 		stage.show();
 		this.fill();
 		stage.sizeToScene();

@@ -31,8 +31,8 @@ import javafx.scene.layout.GridPane;
  */
 public class Grid extends GridPane {
 
-	private static final int DEFAULT_WIDTH = 1000;
-	private static final int DEFAULT_HEIGHT = 600;
+	private static final int DEFAULT_WIDTH = 2000;
+	private static final int DEFAULT_HEIGHT = 1200;
 	private static final int ADD_FIVE = 5;
 	private static final int ADD_ONE = 1;
 	private static final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
@@ -134,7 +134,7 @@ public class Grid extends GridPane {
 						MenuItem actionConfig = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Edit Entity Actions", e1->{
 							ActionAdderView a = new ActionAdderView(c.getEntity());});
 						MenuItem removeEntity = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Remove Entity", e1->this.clearCell(c));
-						cMenu.getItems().addAll(openLPV,removeEntity);
+						cMenu.getItems().addAll(openLPV,removeEntity,actionConfig);
 						if(!c.getEntity().getInteractable()) {
 							ImageView bgrnd = (ImageView) c.getChildren().get(c.getChildren().size()-1);
 							MenuItem addImageCol = (MenuItem) eFactory.buildClickElement(ClickElementType.MenuItem, "Add Column", e2->this.addImageCol(c, bgrnd, 1));

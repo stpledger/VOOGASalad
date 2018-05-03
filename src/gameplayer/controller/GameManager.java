@@ -3,6 +3,7 @@ package gameplayer.controller;
 import authoring.gamestate.Level;
 import data.DataGameState;
 import engine.components.*;
+import javafx.beans.property.SimpleDoubleProperty;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,7 +19,8 @@ public class GameManager {
     private XPosition activePlayerPosX;
     private YPosition activePlayerPosY;
     private int numOfLevels;
-    private double lifeCount;
+    private SimpleDoubleProperty lifeCount;
+    private double levelProgress;
 
     private static final int FIRST_LEVEL = 1;
 
@@ -26,9 +28,7 @@ public class GameManager {
         Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
         playerKeys = new HashMap<>();
         winKeys = new HashMap<>();
-        
-//        Lives lives = (Lives) levelMap.get(FIRST_LEVEL).get(Lives.KEY);
-//        lifeCount = lives.getData();
+        levelProgress = gameState.getLevelProgress();
 
         for(Level level : levelMap.keySet()){
             extractInfo(levelMap.get(level), level.getLevelNum());
@@ -55,12 +55,16 @@ public class GameManager {
                 if (entityComponents.containsKey(Win.KEY)) {
                     winKeys.put((Win) entityComponents.get(Win.KEY), levelNum);
                 }
+                if(entityComponents.containsKey(Lives.KEY)) {
+                	//	lifeCount = ((Lives) entityComponents.get(Lives.KEY)).getLives();
+                }
             }
         }
     }
     
     public double getLives() {
-    		return lifeCount;
+    		//return lifeCount.doubleValue();
+    	return 1;
     }
  
 
@@ -116,7 +120,7 @@ public class GameManager {
      * Set the value of activeLevel
      * @param level
      */
-    public void setActiveLevel(int level) {
+    public void setActiveLevel(int level){
         this.activeLevel = level;
         if(level <= this.numOfLevels){
             this.activePlayerPosX = (XPosition) playerKeys.get(level).get(XPosition.KEY);

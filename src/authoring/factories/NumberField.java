@@ -25,6 +25,9 @@ public class NumberField extends TextField{
 	}
 
 	private boolean isNumber(String input) {
+		if(input.contains("-")) {
+			input.replace("-", "");
+		}
 		return input.matches("[0-9]*");
 	}
 }
