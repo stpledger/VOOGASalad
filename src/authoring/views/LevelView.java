@@ -28,14 +28,12 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 	private Level level;
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
-	private DataGameState gameState;
 	
 	private Map<Level,Map<Integer,Map<String,Component>>> levels;
 
 	Properties language = new Properties();
 	
 	public LevelView(Level level, int levelNum) {
-		this.levels = gameState.getGameState();
 		this.getStyleClass().add("level-view");
 		this.level = level;
 		this.content = new Grid(level);
@@ -55,7 +53,7 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 		
 		Map<String, Component> entityComponents;
 		for(Integer i:levelMap.keySet()) {
-			entityComponents = levels.get(level).get(i);
+			entityComponents = levelMap.get(i);
 			Entity entity = new BlankEntity(i);
 			if(entityComponents.containsKey(Sprite.KEY)) {
 				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
