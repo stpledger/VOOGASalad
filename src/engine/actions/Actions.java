@@ -306,7 +306,7 @@ public class Actions {
     }*/
 
     public static BiConsumer<Map <String, Component>, Map<String, Component>> bounce (CollisionDirection cd, double speed) {
-		System.out.println("bouncing");
+		//System.out.println("bouncing");
     	switch (cd) {
 			case Left:
 				return horizontalBounce(speed);
