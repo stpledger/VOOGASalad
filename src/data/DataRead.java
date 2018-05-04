@@ -72,7 +72,6 @@ public class DataRead  {
         /*used to load all iamges in player
          */
         File imageFile = loadFile(GAME_PATH+gameName +FRONTSLASH+ IMAGE_PATH +name);
-
         return loadImage(imageFile);
     }
 

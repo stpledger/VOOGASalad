@@ -12,25 +12,25 @@ import javafx.stage.Stage;
 
 public class RestartButton extends Button implements IGamePlayerButton{
 
-    private final String BUTTON_NAME = "Restart Game";
-    private Controller gameController;
-    private Stage myStage;
-    private PauseMenu pauseMenu;
-    private DataGameState initialGameState;
+	private final String BUTTON_NAME = "Restart Game";
+	private Controller gameController;
+	private Stage myStage;
+	private PauseMenu pauseMenu;
+	private DataGameState initialGameState;
 
-    public RestartButton(Stage stage, Controller g, PauseMenu pausemenu) {
-        pauseMenu = pausemenu;
-        myStage = stage;
-        gameController = g;
-        this.setText(BUTTON_NAME);
-        this.setEvent();
-    }
+	public RestartButton(Stage stage, Controller g, PauseMenu pausemenu) {
+		pauseMenu = pausemenu;
+		myStage = stage;
+		gameController = g;
+		this.setText(BUTTON_NAME);
+		this.setEvent();
+	}
 
 
-    public void setEvent() {
-        this.setOnAction(e->{
-            pauseMenu.hide();
-            gameController.restartGame();
-        });
-    }
+	public void setEvent() {
+		this.setOnAction(e->{
+			pauseMenu.hide();
+			gameController.restartGame();
+		});
+	}
 }
