@@ -27,6 +27,7 @@ public class GameManager {
 	private Map<Level, Map<Integer, Map<String, Component>>> levelMap;
 	private Map<Integer, Integer> levelToPlayer;
 	private int levelCount;
+	private Double lives;
 
     private static final int FIRST_LEVEL = 1;
 
@@ -157,5 +158,9 @@ public class GameManager {
         }
         return score;
     }
+    
+	public void setLives(Double numOfLives) {
+		lives = numOfLives;
+	}
 
 }

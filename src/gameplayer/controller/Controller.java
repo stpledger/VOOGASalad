@@ -64,8 +64,10 @@ public class Controller implements IController, LevelController, PlayerControlle
 		this.myPane = new BorderPane();
 		this.pauseMenu = new PauseMenu(myStage, this);
 		this.levelSelector = new SelectLevel((int) gameState.getLevelProgress(), gameManager.getNumOfLevels(), myStage, this);
+		playerLifeCount = gameManager.getLives();
 		setGameView();
 		openLevelSelector();
+		
 	}
 
 	/**
@@ -115,8 +117,9 @@ public class Controller implements IController, LevelController, PlayerControlle
 		}
 	}
 
-	public void liveChange(int livesLeft){
+	public void lifeChange(Double livesLeft){
 		if (livesLeft > 0){
+			gameManager.setLives(livesLeft);
 			//gameView.respawnPlayer();
 		}
 		else{
@@ -199,6 +202,11 @@ public class Controller implements IController, LevelController, PlayerControlle
 				this.gameView.render();
 				this.renderTime = 0;
 			}
+			Double lifeCount = gameManager.getLives();
+			if (playerLifeCount != lifeCount){
+				 lifeChange(lifeCount);
+				 playerLifeCount = lifeCount;
+			 }
 			this.gameView.updateScroll(this.gameRoot);
 			this.sampleBar.updateGameStatusLabels(this.gameManager);
 		}
