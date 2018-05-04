@@ -47,7 +47,7 @@ public class User extends InteractableEntity {
 		this.add(new YVelocity(this.getID(),GRAVITY));
 		this.add(new XVelocity(this.getID(), 50));
 		this.add(new PlayerCollision(this.getID()));
-		this.add(new PlayerMovement(this.getID(),KeyCode.UP,KeyCode.DOWN,KeyCode.LEFT,KeyCode.RIGHT));
+		this.add(new PlayerMovement(this.getID(),KeyCode.LEFT,KeyCode.RIGHT, KeyCode.UP,KeyCode.DOWN));
 		this.add(new Score(this.getID(), 0));
 		this.add(new Jumps(this.getID(), 3));
 	}

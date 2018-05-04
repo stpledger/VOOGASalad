@@ -28,6 +28,7 @@ public class GameManager {
 	private Map<Integer, Integer> levelToPlayer;
 	private int levelCount;
 	private Double lives;
+	private DoubleProperty numOfLives;
 
     private static final int FIRST_LEVEL = 1;
 
@@ -43,6 +44,10 @@ public class GameManager {
             extractInfo(levelMap.get(level), level.getLevelNum());
         }
 
+        setActiveLevel(FIRST_LEVEL);
+
+        numOfLives = livesSetup();
+
         numOfLevels = levelMap.keySet().size();
 
         if(winKeys.keySet().size() > 0){
@@ -55,7 +60,9 @@ public class GameManager {
             }
         }
 
-        setActiveLevel(FIRST_LEVEL);
+        numOfLives.addListener((o, oldVal, newVal) -> {
+            myController.lifeChange(newVal.doubleValue());
+        });
     }
 
     /**
@@ -83,18 +90,28 @@ public class GameManager {
             }
         }
     }
+
+    public DoubleProperty livesSetup(){
+        DoubleProperty temp = new SimpleDoubleProperty();
+        for (Integer i : playerKeys.keySet()) {
+            /*if (levelMap.get(l).get(levelToPlayer.get(activeLevel)).containsKey(Lives.KEY)) {
+                temp = ((Lives) levelMap.get(l).get(levelToPlayer).get(Lives.KEY)).getLives();*/
+            if(playerKeys.get(i).containsKey(Lives.KEY)){
+                //lifeCount = ((Lives) levelMap.get(l).get(levelToPlayer.get(activeLevel)).get(Lives.KEY)).getData();
+                temp = ((Lives) playerKeys.get(i).get(Lives.KEY)).getLives();
+                temp.addListener((o, oldVal, newVal) -> {
+                    myController.lifeChange(newVal.doubleValue());
+                });
+            }
+            else{
+                temp.setValue(1);
+            }
+        }
+        return temp;
+    }
     
-   	public Double getLives() {
-   		int count = 1;
-   		for (Level l: levelMap.keySet()) {
-   			if (count==activeLevel) {
-   			    if (levelMap.get(l).get(levelToPlayer.get(activeLevel)).containsKey(Lives.KEY)) {
-                    lifeCount = ((Lives) levelMap.get(l).get(levelToPlayer.get(activeLevel)).get(Lives.KEY)).getData();
-                }
-   			}
-   			count++;
-   		}
-   		return lifeCount;
+   	public double getLives() {
+   		return numOfLives.doubleValue();
    	}
  
 
