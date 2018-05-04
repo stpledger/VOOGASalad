@@ -17,7 +17,7 @@ public class RestartButton extends Button implements IGamePlayerButton{
 	private Stage myStage;
 	private PauseMenu pauseMenu;
 	private DataGameState initialGameState;
-	
+
 	public RestartButton(Stage stage, Controller g, PauseMenu pausemenu) {
 		pauseMenu = pausemenu;
 		myStage = stage;
@@ -25,12 +25,12 @@ public class RestartButton extends Button implements IGamePlayerButton{
 		this.setText(BUTTON_NAME);
 		this.setEvent();
 	}
-	
-	
+
+
 	public void setEvent() {
 		this.setOnAction(e->{
 			pauseMenu.hide();
-			gameController.restartGame();		
+			gameController.restartGame();
 		});
 	}
 }

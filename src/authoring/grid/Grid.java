@@ -122,8 +122,7 @@ public class Grid extends GridPane {
 
 	/**
 	 * Sets up mouse click listener that opens up the context menu for that particular cell.
-	 * @param c Cell 
-	 * @param img ImageView of the entity
+	 * @param c Cell
 	 */
 	private void setupContextMenu(Cell c) {
 		c.setOnMouseClicked(e -> {
