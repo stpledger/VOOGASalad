@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="stefani" name="r"><Type>Block</Type><Name>r</Name><Sprite>dirt.jpg</Sprite></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="stef" name="r"><Health>300.0</Health><DamageLifetime>1.0</DamageLifetime><AI/><Name>r</Name><XVelocity>0.0</XVelocity><YVelocity>0.0</YVelocity><DamageValue>5.0</DamageValue><Sprite>mystery.jpg</Sprite><Type>Enemy</Type></Entity>
