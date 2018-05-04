@@ -61,11 +61,13 @@ public class SplashScreenView extends BranchScreenView{
 		myGridPane.setGridLinesVisible(true);
 		myGridPane.getStyleClass().add("grid-pane");
 		fileBtn = new FileUploadButton(myStage);
+		fileBtn.getStyleClass().add("Button");
 		assignGameSelectButtons();
 		myScrollPane = new ScrollPane(myGridPane);
-		myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 		myBorderPane = new BorderPane(myScrollPane);
 		myBorderPane.setBottom(fileBtn);
+		myBorderPane.setStyle("-fx-background-color: secondary-color");
+		myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 		BorderPane.setAlignment(fileBtn, Pos.CENTER);
 		Scene currentScene= new Scene(myBorderPane,WIDTH_SIZE,HEIGHT_SIZE);	
 		currentScene.getStylesheets().add(SplashScreenView.class.getResource("/resources/styles/PlayerStyles.css").toExternalForm());
