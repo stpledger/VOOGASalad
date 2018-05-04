@@ -296,10 +296,6 @@ public class GameView implements IGamePlayerView, EntityManager{
 		}
 	}
 
-	public void respawnPlayer() {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 }

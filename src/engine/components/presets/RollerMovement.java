@@ -8,6 +8,7 @@ import engine.components.Component;
 import engine.components.Jumps;
 import engine.components.KeyInput;
 import engine.components.Sprite;
+import engine.components.XVelocity;
 import engine.components.YAcceleration;
 import javafx.scene.input.KeyCode;
 
@@ -33,6 +34,29 @@ public class RollerMovement extends KeyInput {
 						s.getImage().setScaleY(-s.getImage().getScaleY());
 					}
 				}
+			}
+		});
+		
+		
+		this.addCode(KeyCode.RIGHT, (Serializable & Consumer<Map<String,Component>>) map -> {
+			if(map.containsKey(XVelocity.KEY)) {
+				XVelocity xv = (XVelocity) map.get(XVelocity.KEY);
+				xv.setData(Math.abs(xv.getData()));
+			}
+			if(map.containsKey(Sprite.KEY)) {
+				Sprite s = (Sprite) map.get(Sprite.KEY);
+				s.getImage().setScaleX(1);
+			}
+		});
+		
+		this.addCode(KeyCode.LEFT, (Serializable & Consumer<Map<String,Component>>) map -> {
+			if(map.containsKey(XVelocity.KEY)) {
+				XVelocity xv = (XVelocity) map.get(XVelocity.KEY);
+				xv.setData(-Math.abs(xv.getData()));
+			}
+			if(map.containsKey(Sprite.KEY)) {
+				Sprite s = (Sprite) map.get(Sprite.KEY);
+				s.getImage().setScaleX(-1);
 			}
 		});
 	

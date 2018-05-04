@@ -28,12 +28,17 @@ public class GameManager {
 	private Map<Integer, Integer> levelToPlayer;
 	private int levelCount;
 	private Double lives;
+	private Map<Integer, Double> startingXPositionMap;
+	private Map<Integer, Double> startingYPositionMap;
+	
 
     private static final int FIRST_LEVEL = 1;
 
     public GameManager(DataGameState gameState, PlayerController controller){
     		levelMap = gameState.getGameState();
     		levelToPlayer = new HashMap<>();
+    		startingXPositionMap = new HashMap<>();
+    		startingYPositionMap = new HashMap<>();
         playerKeys = new HashMap<>();
         winKeys = new HashMap<>();
         levelProgress = gameState.getLevelProgress();
@@ -64,6 +69,12 @@ public class GameManager {
                 if (entityComponents.containsKey(Win.KEY)) {
                     winKeys.put((Win) entityComponents.get(Win.KEY), levelNum);
                 }
+                if (entityComponents.containsKey(XPosition.KEY)) {
+                		startingXPositionMap.put(levelNum, ((XPosition) entityComponents.get(XPosition.KEY)).getData());
+                }
+                if (entityComponents.containsKey(YPosition.KEY)) {
+            		startingYPositionMap.put(levelNum, ((YPosition) entityComponents.get(YPosition.KEY)).getData());
+            }
                 if(entityComponents.containsKey(Lives.KEY)) {
               
                		lifeEntityID = i;
@@ -85,6 +96,10 @@ public class GameManager {
    		return lifeCount;	
    	}
  
+   	public void respawnPlayer() {
+   		((XPosition) playerKeys.get(activeLevel).get(XPosition.KEY)).setData(startingXPositionMap.get(activeLevel));
+   		((YPosition) playerKeys.get(activeLevel).get(YPosition.KEY)).setData(startingYPositionMap.get(activeLevel));
+   	}
 
     /**
      * Get a map of Level Number to their corresponding Player entity

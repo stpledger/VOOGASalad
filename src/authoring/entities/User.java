@@ -9,7 +9,7 @@ import engine.components.Score;
 import engine.components.XVelocity;
 import engine.components.YAcceleration;
 import engine.components.YVelocity;
-import engine.components.presets.BirdMovement;
+//import engine.components.presets.BirdMovement;
 import engine.components.presets.PlayerCollision;
 import engine.components.presets.PlayerMovement;
 
@@ -46,7 +46,7 @@ public class User extends InteractableEntity {
 		this.add(new Lives(this.getID(), INITIAL_LIVES));
 		this.add(new YVelocity(this.getID(),GRAVITY));
 		this.add(new XVelocity(this.getID(), 50));
-	    this.add(new PlayerCollision(this.getID()));
+		this.add(new PlayerCollision(this.getID()));
 		this.add(new PlayerMovement(this.getID(),KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN));
 		this.add(new Score(this.getID(), 0));
 		this.add(new Jumps(this.getID(), 3));

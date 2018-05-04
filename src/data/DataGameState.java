@@ -99,5 +99,4 @@ public class DataGameState {
     		levelProgress = d;
     }
 
-
 }
