@@ -18,6 +18,7 @@ import engine.systems.ISystem;
 import engine.systems.InputHandler;
 import engine.systems.Motion;
 import engine.systems.collisions.Collision;
+import gameplayer.view.EntityManager;
 
 /**
  * This is the class which is created when the player first decides to run a game. It creates the managers and loads
@@ -38,10 +39,10 @@ public class GameInitializer {
      *
      * @param entities
      */
-    public GameInitializer (Map <Integer, Map<String, Component>> entities, double renderDistance, double renderCenterX, double renderCenterY) {
+    public GameInitializer (Map <Integer, Map<String, Component>> entities, double renderDistance, double renderCenterX, double renderCenterY, EntityManager ec) {
 
         renderManager = new RenderManager(renderDistance, renderCenterX, renderCenterY);
-        systemManager = new SystemManager(renderManager);
+        systemManager = new SystemManager(renderManager, ec);
         Actions.setSM(systemManager);
         inputHandler = new InputHandler();
         addSystems();

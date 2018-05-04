@@ -54,8 +54,9 @@ public class Collidable implements Component, BehaviorComponent {
 	public void action(CollisionDirection cd, Map<String, Component> entityMap1, Map<String, Component> entityMap2) {
 		if(actions.containsKey(cd)) {
 			
-			actions.get(cd).accept(entityMap1, entityMap2);
-
+			if(actions.get(cd) != null) {
+				actions.get(cd).accept(entityMap1, entityMap2);
+			}
 		}
 	}
 

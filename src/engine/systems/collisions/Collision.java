@@ -5,15 +5,17 @@ package engine.systems.collisions;
  * author jcf44, sv116
  */
 import java.util.Map;
-import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 
 import engine.components.Collidable;
 import engine.components.Component;
+import engine.components.EntityType;
 import engine.components.Height;
+import engine.components.Player;
+import engine.components.Type;
 import engine.components.Width;
 import engine.components.XPosition;
 import engine.components.XVelocity;
@@ -24,15 +26,15 @@ import engine.systems.ISystem;
 
 
 public class Collision extends AbstractSystem implements ISystem {
-	private Set<Integer> colliders;
+	private Map<Integer, Object> colliders;
 	
 	public Collision () {
 		super();
-		colliders = new HashSet<>();
+		colliders = new ConcurrentHashMap<>();
 	}
 
 	public void execute(double time) {
-		this.colliders.forEach(key1 -> {
+		colliders.keySet().forEach(key1 -> {
 			this.getHandled().forEach((key2, map2) -> {
 				if(key1 != key2) {
 					Map<String,Component> map1 = this.getHandled().get(key1);
@@ -43,11 +45,24 @@ public class Collision extends AbstractSystem implements ISystem {
 	}
 
 	private void checkCollision(Map<String, Component> map1, Map<String, Component> map2) {
-
-		Width w1 = (Width) map1.get(Width.KEY);
-		Height h1 = (Height) map1.get(Height.KEY);
-		Width w2 = (Width) map2.get(Width.KEY);
-		Height h2 = (Height) map2.get(Height.KEY);
+		if(map1 == null || map2 == null) return;
+		if(map2.containsKey(EntityType.KEY) && ((EntityType) map2.get(EntityType.KEY)).getData().equals("Fire")) return;
+		double w1,w2,h1,h2 = 0;
+		
+		if(!map1.containsKey(Width.KEY)) {
+			w1 = 50;
+			h1 = 50;
+		} else {
+			w1 = ((Width) map1.get(Width.KEY)).getData();
+			h1 = ((Height) map1.get(Height.KEY)).getData();
+		}
+		if(!map2.containsKey(Width.KEY)) {
+			w2 = 50;
+			h2 = 50;
+		} else {
+			w2 = ((Width) map2.get(Width.KEY)).getData();
+			h2 = ((Height) map2.get(Height.KEY)).getData();
+		}
 		
 		XPosition x1 = (XPosition) map1.get(XPosition.KEY);
 		YPosition y1 = (YPosition) map1.get(YPosition.KEY);
@@ -56,8 +71,8 @@ public class Collision extends AbstractSystem implements ISystem {
 
 		
 
-		CollisionDirection cd = this.getOverlaps(x1.getData(), y1.getData(), w1.getData(), h1.getData(),
-												x2.getData(), y2.getData(), w2.getData(), h2.getData());
+		CollisionDirection cd = this.getOverlaps(x1.getData(), y1.getData(), w1, h1,
+												x2.getData(), y2.getData(), w2, h2);
 		
 		if (cd != null) {
 
@@ -66,19 +81,19 @@ public class Collision extends AbstractSystem implements ISystem {
 			switch (cd) {
 
 			case Top:
-				y1.setData(y2.getData() - h1.getData());
+				y1.setData(y2.getData() - h1);
 				break;
 				
 			case Bot:
-				y1.setData(y2.getData() + h2.getData());
+				y1.setData(y2.getData() + h2);
 				break;
 				
 			case Left:
-				x1.setData(x2.getData() - w1.getData());
+				x1.setData(x2.getData() - w1);
 				break;
 				
 			case Right:
-				x1.setData(x2.getData() + w2.getData());
+				x1.setData(x2.getData() + w2);
 				break;
 
 			}
@@ -167,7 +182,7 @@ public class Collision extends AbstractSystem implements ISystem {
 		if(handled.containsKey(pid)) {
 			handled.remove(pid);
 		}
-		if(colliders.contains(pid)) {
+		if(colliders.keySet().contains(pid)) {
 			colliders.remove(pid);
 		}
 	}
@@ -176,7 +191,7 @@ public class Collision extends AbstractSystem implements ISystem {
 		if(this.checkComponents(components, XPosition.KEY, YPosition.KEY, Width.KEY, Height.KEY, Collidable.KEY)) {
 			this.directAddComponent(pid, components);
 			if(this.checkComponents(components, XVelocity.KEY, YVelocity.KEY)) {
-				colliders.add(pid);
+				colliders.put(pid,components);
 			}
 		}
 	}

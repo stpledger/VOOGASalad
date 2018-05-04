@@ -51,6 +51,9 @@ public class Accelerate extends AbstractSystem implements ISystem{
 			vx.setData(vx.getData() + ax.getData()*time);
 			vy.setData(vy.getData() + ay.getData()*time);
 
+			if(vx.getData() < 0) ax.setData(Math.max(ax.getData(), 0));
+			if(vx.getData() > 0) ax.setData(Math.min(ax.getData(), 0));
+			
 		}
 	}
 
