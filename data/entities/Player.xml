@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="LevelTest" name="Player"><Name>Player</Name><Health>10.0</Health><YVelocity>0.0</YVelocity><DamageLifetime>1.0</DamageLifetime><Type>User</Type><Sprite>mario.png</Sprite><XVelocity>0.0</XVelocity><DamageValue>1.0</DamageValue><YAcceleration>0.0</YAcceleration><XAcceleration>0.0</XAcceleration></Entity>
