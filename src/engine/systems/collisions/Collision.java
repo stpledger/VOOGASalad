@@ -45,13 +45,24 @@ public class Collision extends AbstractSystem implements ISystem {
 	}
 
 	private void checkCollision(Map<String, Component> map1, Map<String, Component> map2) {
-		
+		if(map1 == null || map2 == null) return;
 		if(map2.containsKey(EntityType.KEY) && ((EntityType) map2.get(EntityType.KEY)).getData().equals("Fire")) return;
-
-		Width w1 = (Width) map1.get(Width.KEY);
-		Height h1 = (Height) map1.get(Height.KEY);
-		Width w2 = (Width) map2.get(Width.KEY);
-		Height h2 = (Height) map2.get(Height.KEY);
+		double w1,w2,h1,h2 = 0;
+		
+		if(!map1.containsKey(Width.KEY)) {
+			w1 = 50;
+			h1 = 50;
+		} else {
+			w1 = ((Width) map1.get(Width.KEY)).getData();
+			h1 = ((Height) map1.get(Height.KEY)).getData();
+		}
+		if(!map2.containsKey(Width.KEY)) {
+			w2 = 50;
+			h2 = 50;
+		} else {
+			w2 = ((Width) map2.get(Width.KEY)).getData();
+			h2 = ((Height) map2.get(Height.KEY)).getData();
+		}
 		
 		XPosition x1 = (XPosition) map1.get(XPosition.KEY);
 		YPosition y1 = (YPosition) map1.get(YPosition.KEY);
@@ -60,8 +71,8 @@ public class Collision extends AbstractSystem implements ISystem {
 
 		
 
-		CollisionDirection cd = this.getOverlaps(x1.getData(), y1.getData(), w1.getData(), h1.getData(),
-												x2.getData(), y2.getData(), w2.getData(), h2.getData());
+		CollisionDirection cd = this.getOverlaps(x1.getData(), y1.getData(), w1, h1,
+												x2.getData(), y2.getData(), w2, h2);
 		
 		if (cd != null) {
 
@@ -70,19 +81,19 @@ public class Collision extends AbstractSystem implements ISystem {
 			switch (cd) {
 
 			case Top:
-				y1.setData(y2.getData() - h1.getData());
+				y1.setData(y2.getData() - h1);
 				break;
 				
 			case Bot:
-				y1.setData(y2.getData() + h2.getData());
+				y1.setData(y2.getData() + h2);
 				break;
 				
 			case Left:
-				x1.setData(x2.getData() - w1.getData());
+				x1.setData(x2.getData() - w1);
 				break;
 				
 			case Right:
-				x1.setData(x2.getData() + w2.getData());
+				x1.setData(x2.getData() + w2);
 				break;
 
 			}

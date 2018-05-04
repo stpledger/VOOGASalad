@@ -75,7 +75,7 @@ public class Actions {
     			s.getImage().setX(xf);
     			s.getImage().setY(y.getData());
     			Component[] newList = {new XPosition(id, x.getData()),
-    			new YPosition(id, y.getData() - 20),
+    			new YPosition(id, y.getData()),
     			new XVelocity(id, vel),
     			new YVelocity(id, 0),
     			s,
@@ -246,6 +246,8 @@ public class Actions {
     					xa.setData(-stickiness);
     				} else if(xv.getData() < 0) {
     					xa.setData(stickiness);
+    				} else {
+    					xa.setData(0);
     				}
     			}
     		}
