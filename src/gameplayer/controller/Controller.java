@@ -2,8 +2,10 @@ package gameplayer.controller;
 
 import java.util.Map;
 
+import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataRead;
+import engine.components.XPosition;
 import gameplayer.hud.SampleToolBar;
 import gameplayer.levelunlock.SelectLevel;
 import gameplayer.menu.MenuGameBar;
@@ -49,10 +51,12 @@ public class Controller implements IController, LevelController, PlayerControlle
 	private DataGameState initialGameState;
 
 	public Controller(Stage stage, DataGameState currentGame) {
-		this.initialGameState = DataRead.copyGame();
-		System.out.println(currentGame.getGameState().size());
-		System.out.println(initialGameState.getGameState().size());
+		initialGameState = DataRead.copyGame();
 		this.gameState = currentGame;
+//		for (Level l: initialGameState.getGameState().keySet()) {
+//			System.out.println(initialGameState.getGameState().get(l).get(1).get(XPosition.KEY).);
+//			break;
+//		}
 		this.myStage = stage;
 		this.myStage.setWidth(WIDTH_SIZE);
 		this.myStage.setHeight(HEIGHT_SIZE);
@@ -81,11 +85,14 @@ public class Controller implements IController, LevelController, PlayerControlle
 	}
 
 
-
 	/**
 	 * Restarts the current game
 	 */
 	public void restartGame() {
+		initialGameState = DataRead.copyGame();
+		gameState = initialGameState;
+		this.gameManager = new GameManager(gameState, this);
+		setGameView();
 	}
 
 	/**
@@ -142,14 +149,6 @@ public class Controller implements IController, LevelController, PlayerControlle
 		return this.gameLevelDisplays;
 	}
 
-
-	/**
-	 * Returns the Current Data GameState from the Controller
-	 */
-	public DataGameState getInitialGameState() {
-		System.out.println(initialGameState ==gameState);
-		return initialGameState;
-	}
 	
 	/**
 	 * Returns the gameManager to access information about the game.
