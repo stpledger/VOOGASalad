@@ -134,4 +134,15 @@ public class GameManager {
         }
     }
 
+    public double getScore(){
+        double score = 0;
+        for(Integer i : playerKeys.keySet()){
+            if(playerKeys.get(i).containsKey(Score.KEY)){
+                Score s = ((Score) playerKeys.get(i).get(Score.KEY));
+                score += s.getData();
+            }
+        }
+        return score;
+    }
+
 }

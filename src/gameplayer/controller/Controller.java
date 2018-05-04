@@ -32,7 +32,6 @@ public class Controller implements IController, LevelController, PlayerControlle
 	private double renderTime;
 	private Stage myStage;
 	private Scene gameScene;
-	private Scene levelScene;
 	private Pane gameRoot;
 	private BorderPane myPane;
 	private PauseMenu pauseMenu;
