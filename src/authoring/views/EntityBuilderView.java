@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
@@ -135,7 +136,8 @@ public class EntityBuilderView extends Stage {
 		comboBox.setPromptText(language.getProperty("selectObjectType"));
 		comboBox.setOnAction(e -> {
 				data.setComponent(engine.components.Type.class, getRealName(comboBox.getSelectionModel().getSelectedItem()));
-				List<String> componentsToAdd = (List<String>) ResourceBundle.getBundle(PROPERTIES_PACKAGE + data.getType()).keySet();
+				Set<String> s = ResourceBundle.getBundle(PROPERTIES_PACKAGE + data.getType()).keySet();
+				List<String> componentsToAdd = Arrays.asList(s.toArray(new String[s.size()]));
 				componentFormCollection.fill(componentsToAdd);
 				componentFormCollection.setLanguage(language);
 				this.sizeToScene();
