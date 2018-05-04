@@ -1,19 +1,13 @@
 package gameplayer.labels;
-import java.util.Map;
-
-import engine.components.Component;
-import engine.components.Lives;
-import engine.components.Player;
 import gameplayer.controller.GameManager;
-import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
-import javafx.scene.text.TextFlow;
 
 public class LivesLabel extends Label implements IGameStatusLabel{
 
 	private final String LIVES_LABEL_NAME = "Lives: ";
-	private SimpleStringProperty livesProperty;
+	private StringProperty livesProperty;
 	
 	
 	public LivesLabel() {

@@ -1,12 +1,13 @@
 package gameplayer.labels;
 import gameplayer.controller.GameManager;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 
 public class LevelLabel extends Label implements IGameStatusLabel{
 
 	private final String LEVEL_LABEL_NAME = "Level: ";
-	private SimpleStringProperty levelProperty;
+	private StringProperty levelProperty;
 	
 	
 	public LevelLabel() {
