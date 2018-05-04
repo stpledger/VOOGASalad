@@ -168,21 +168,15 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		levelTabsList.clear();
 		tabPane.getTabs().clear();
 	}
-	
-	private void reloadState() { 
-		state.getLevels().clear();
-		for(Level level: levels) {
-			state.addLevel(level);
-		}
-	}
+
 	
 	public void startLoadingGameStates(DataGameState state) {
 		this.gameState = state;
 		removeLevels();
+		this.state.getLevels().clear();
 		for(Level level: state.getGameState().keySet()) {
 			this.addLoadLevel(level);
 		}
-		reloadState();
 	}
 
 	/**

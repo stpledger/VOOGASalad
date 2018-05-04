@@ -1,22 +1,10 @@
 <map>
   <entry>
-    <string>testing respawn</string>
+    <string>OCOM_Final</string>
     <list>
       <gameplayer.view.Person>
         <name>
-          <value>hi</value>
-          <valid>true</valid>
-          <name></name>
-        </name>
-        <score>
-          <value>100.0</value>
-          <valid>true</valid>
-          <name></name>
-        </score>
-      </gameplayer.view.Person>
-      <gameplayer.view.Person>
-        <name>
-          <value>lksad</value>
+          <value>Dylan</value>
           <valid>true</valid>
           <name></name>
         </name>

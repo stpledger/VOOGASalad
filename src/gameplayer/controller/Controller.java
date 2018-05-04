@@ -5,6 +5,7 @@ import java.util.Map;
 import authoring.gamestate.Level;
 import data.DataGameState;
 import data.DataRead;
+import data.DataUtils;
 import engine.components.XPosition;
 import gameplayer.hud.SampleToolBar;
 import gameplayer.levelunlock.SelectLevel;
@@ -189,9 +190,9 @@ public class Controller implements IController, LevelController, PlayerControlle
 			gameManager.setLives(livesLeft);
 			gameManager.respawnPlayer();
 		}
-//		else{
-//			gameOver();
-//		}
+		else{
+			gameOver();
+		}
 	}
 	
 	/**
@@ -246,7 +247,7 @@ public class Controller implements IController, LevelController, PlayerControlle
 		System.out.println(gameManager.getActiveLevel());
 		HighScoreView highScoreScreen = new HighScoreView(myStage);
 		highScoreScreen.setScore(100.0); //change to game's score
-		highScoreScreen.setGameName(currentGameName);
+		highScoreScreen.setGameName(gameState.getGameName());
 		myStage.setScene(highScoreScreen.getScene());
 	}
 

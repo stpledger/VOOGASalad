@@ -23,8 +23,8 @@ public class User extends InteractableEntity {
 
 	private final static String TYPE = "User";
 	private final static double INITIAL_HEALTH = 100;
-	private final static int INITIAL_LIVES = 10;
-	private static final int GRAVITY = 300;
+	private final static int INITIAL_LIVES = 3;
+	private static final int GRAVITY = 160;
 	
 	/**
 	 * Construct the object with a given ID

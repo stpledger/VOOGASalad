@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="games/thisshouldworknow/" name="Turtle"><Name>Turtle</Name><Type>Block</Type><Sprite>8Bit.png</Sprite><Health>100.0</Health></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="OCOM_Final" name="turtle"><Name>turtle</Name><Sprite>8Bit.png</Sprite><Type>Enemy</Type><AI/></Entity>

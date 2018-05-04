@@ -44,7 +44,13 @@ public class HighScoreView extends BranchScreenView {
 	private PauseMenu pauseMenu;
 	
 	//Data Structure to Display High Scores
-	private ObservableList<Person> data;
+	private ObservableList<Person> data = FXCollections.observableArrayList(
+		    new Person("Conrad", 60.0),
+		    new Person("Dylan", 55.0),
+		    new Person("Charlie", 75.0),
+		    new Person("Hemanth", 45.0),
+		    new Person("Ryan", 65.0)
+		);
 	private RestartButton restartButton;
 	private SwitchGameButton switchButton;
 	
@@ -56,7 +62,7 @@ public class HighScoreView extends BranchScreenView {
 	public HighScoreView(Stage stage) {
 		myStage = stage;
 		setupHighScoreTable();
-		//displayHighScores();
+		displayHighScores();
 		highScoreScene = initializeScreen();
 		showRecordInput();
 		//showScores();
@@ -111,7 +117,7 @@ public class HighScoreView extends BranchScreenView {
 		requestRecordLayout = new HBox(50);
 		requestRecordLayout.setAlignment(Pos.CENTER);
 		submitButton = new Button("Submit");
-		facebookAuthButton = new Button("FB");
+		//facebookAuthButton = new Button("FB");
 		userNameField = new TextField();
 		userNameField.setMaxWidth(200);
 		submitButton.setOnAction(e->{
@@ -119,7 +125,7 @@ public class HighScoreView extends BranchScreenView {
 			showScores();
 		});
 		//facebookAuthButton.setOnAction(e->{authenticateUser();});
-		requestRecordLayout.getChildren().addAll(userNameField, submitButton, facebookAuthButton);
+		requestRecordLayout.getChildren().addAll(userNameField, submitButton);
 		highScorePane.setCenter(requestRecordLayout);
 	}
 	
@@ -138,7 +144,7 @@ public class HighScoreView extends BranchScreenView {
 	public void addHighScore(String name, Double score) {
 		Person recordHolder = new Person(name, score);
 		DataWrite.saveHighscore(recordHolder);
-		getHighScores();
+		//getHighScores();
 		displayHighScores();
 		data.add(recordHolder);
 	}
@@ -149,7 +155,7 @@ public class HighScoreView extends BranchScreenView {
 	 */
 	public void getHighScores(){
 		Map<String, List<Person>> highScoreMap = DataRead.loadHighscore(); //gives me map
-		data = FXCollections.observableArrayList(highScoreMap.get(finalGameName));
+		//data = FXCollections.observableArrayList(highScoreMap.get(finalGameName));
 	}
 	
 //	/**
