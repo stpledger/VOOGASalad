@@ -42,6 +42,18 @@ public class DataRead  {
         }
     }
 
+    public static DataGameState copyGame() {
+        /* receives a copy of a  gamestate and loads it to the player
+         * from buildState
+         */
+        try {
+            return buildState(loadFile(GAME_PATH+gameName+FRONTSLASH+PLAYER_TARGET));
+        } catch (IllegalStateException e) {
+            ErrorStatement(FAIL_MESSAGE);
+            return new DataGameState(EMPTY_GAME);
+        }
+    }
+
     public static Map<Level, Map<Integer, List<Component>>> loadAuthorFile(File xml) {
         /*return a map for the gamestate to be sent to authoring that can be built into their
          *version of game state
@@ -59,7 +71,7 @@ public class DataRead  {
     public static Image loadImage(String name)throws RuntimeException {
         /*used to load all iamges in player
          */
-        File imageFile = loadFile(GAME_PATH + gameName +FRONTSLASH +IMAGE_PATH +name);
+        File imageFile = loadFile(GAME_PATH+gameName +FRONTSLASH+ IMAGE_PATH +name);
         return loadImage(imageFile);
     }
 
@@ -75,6 +87,7 @@ public class DataRead  {
             BufferedImage image = ImageIO.read(file);
             return SwingFXUtils.toFXImage(image, null);
         } catch (IOException e) {
+            System.out.print(file.getAbsolutePath());
             ErrorStatement(FAIL_MESSAGE);
             return new Image(EMPTY_IMAGE);
         }
@@ -123,7 +136,7 @@ public class DataRead  {
 
     public static List<Image> getIcons(){
         List<Image> icons = new ArrayList<>();
-        File imageRepo = loadFile(GAME_PATH+gameName+FRONTSLASH+IMAGE_PATH);
+        File imageRepo = loadFile(GAME_PATH +gameName+FRONTSLASH+IMAGE_PATH);
         for(File image : imageRepo.listFiles()) {
             icons.add(loadImage(image));
         }

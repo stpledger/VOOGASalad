@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 
 import engine.systems.ISystem;
+import gameplayer.view.EntityManager;
 import engine.components.Component;
 import engine.exceptions.EngineException;
 
@@ -21,9 +22,11 @@ public class SystemManager {
 
     private List<ISystem> systems;
     private RenderManager renderManager;
+    private EntityManager ec;
     
-    public SystemManager (RenderManager renderManager) {
+    public SystemManager (RenderManager renderManager, EntityManager ec) {
         this.renderManager = renderManager;
+        this.ec = ec;
     }
 
     public void addSystems(List<ISystem> systems) {
@@ -40,13 +43,15 @@ public class SystemManager {
         for (ISystem s : systems) {
             s.addComponent(pid, components);
         }
+        ec.addEntity(pid, components);
     }
 
-    public void removeEntity (int pid) {
+    public void removeEntity (int pid, Map<String,Component> components) {
         for (ISystem s : systems) {
             s.removeComponent(pid);
         }
         setActives(renderManager.render());
+        ec.removeEntity(pid, components);
     }
 
 
@@ -58,9 +63,9 @@ public class SystemManager {
 		}
     }
 
-    public void removeComponent(int pid) {
+   /* public void removeComponent(int pid) {
         removeEntity(pid);
-    }
+    }*/
 
     /**
      * Sets the active components for the systems to act upon based on the rendering
@@ -77,5 +82,11 @@ public class SystemManager {
             s.execute(time);
         }
     }
+
+	public void setActives() {
+		for(ISystem s : systems) {
+			s.setActives();
+		}
+	}
 
 }

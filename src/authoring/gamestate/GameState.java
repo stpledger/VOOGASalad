@@ -2,11 +2,14 @@ package authoring.gamestate;
 
 import java.util.List;
 
+import authoring.entities.Entity;
 import authoring.exceptions.AuthoringAlert;
 import authoring.exceptions.AuthoringException;
 import data.DataWrite;
+import engine.components.Component;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Keeps track of the current state of the authoring environment, so that the author 
@@ -20,7 +23,7 @@ public class GameState {
 	 * This object should only be constructed once, upon initialization of the authoring environment.
 	 * It will then continue to keep track of the current state of the game by using the update method below.
 	 */
-	private List<Level> state;
+	private static List<Level> state;
 	private static String name;
 
 	public GameState() {
@@ -79,5 +82,20 @@ public class GameState {
 	 */
 	public static String getName() {
 		return GameState.name;
+	}
+
+
+	public static Entity entity(int a) throws NullPointerException{
+		try{
+			for(Level lev : state){
+				for(Entity e :lev.getEntityList())
+					if (e.getID()==a)
+						return e;
+			}
+		}
+		catch(NullPointerException e){
+			throw new NullPointerException();
+		}
+		return null;
 	}
 }
