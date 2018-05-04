@@ -305,8 +305,8 @@ public class Actions {
 				}
 			}
         	else giveDamage(actor1, actor2);
-			System.out.println(((Health)actor2.get(Health.KEY)).getData());
-			System.out.println("11"+((DamageValue)actor1.get(DamageValue.KEY)).getData());
+//			System.out.println(((Health)actor2.get(Health.KEY)).getData());
+//			System.out.println("11"+((DamageValue)actor1.get(DamageValue.KEY)).getData());
 		};
     }
     

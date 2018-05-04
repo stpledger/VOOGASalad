@@ -5,12 +5,16 @@ import java.util.Map;
 import authoring.gamestate.Level;
 import data.DataGameState;
 import engine.components.Component;
+import data.DataGameState;
+import data.DataRead;
+
 import gameplayer.controller.Controller;
 import gameplayer.menu.PauseMenu;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class RestartButton extends Button implements IGamePlayerButton{
+
 
 	private final String BUTTON_NAME = "Restart Game";
 	private Controller gameController;
@@ -28,11 +32,13 @@ public class RestartButton extends Button implements IGamePlayerButton{
 	}
 	
 	
+
 	public void setEvent() {
 		this.setOnAction(e->{
 			gameController = new Controller(myStage, initialGameState);
 			myStage.setScene(gameController.getControllerScene());
 			pauseMenu.hide();
+
 		});
 	}
 }
