@@ -102,7 +102,7 @@ public class Grid extends GridPane {
 					img.setFitWidth(Entity.ENTITY_WIDTH);
 					img.setFitHeight(Entity.ENTITY_HEIGHT);
 					c.getChildren().add(img);
-					c.setImage(db.getImage());
+					//c.setImage(db.getImage());
 				} catch (Exception e1) {
 					throw new AuthoringException("Cannot add entity to the cell!", AuthoringAlert.SHOW);
 				}
@@ -215,6 +215,8 @@ public class Grid extends GridPane {
 			this.cells.add(new ArrayList<>());
 			for (int i = 0; i < this.numCols; i++) {
 				Cell c = new Cell(this.level);
+				setupEntityDrop(c);
+				setupContextMenu(c);
 				this.cells.get(this.numRows).add(c);
 				this.add(c, i, this.numRows);
 			}
@@ -231,12 +233,23 @@ public class Grid extends GridPane {
 		for(int j = 0; j < numTimes; j++) {
 			for(int i = 0; i < this.numRows; i++) {
 				Cell c = new Cell(this.level);
+				setupEntityDrop(c);
+				setupContextMenu(c);
 				this.cells.get(i).add(c);
 				this.add(c, this.numCols, i);
 			}
 			this.setPrefWidth(this.getPrefWidth() + Entity.ENTITY_WIDTH);
 			this.numCols++;
 		}
+	}
+	
+	public void addToCell(Entity en, int row, int col) {
+		Cell cell = cells.get(row).get(col);
+		cell.addEntity(en);
+		ImageView img = new ImageView(en.getImage());
+		img.setFitWidth(Entity.ENTITY_WIDTH);
+		img.setFitHeight(Entity.ENTITY_HEIGHT);
+		cell.getChildren().add(img);
 	}
 
 	/**

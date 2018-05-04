@@ -72,9 +72,34 @@ public class KeyInput implements Component, BehaviorComponent {
 		}
 	}
 	
+	
 
 	public int getPID() {
 		return pid;
+	}
+
+	@Override
+	public void appendBehavior(Object identifier, Consumer<Map<String, Component>> con) {
+		if(identifier instanceof KeyCode && codes.containsKey(identifier)) {
+			Consumer<Map<String,Component>> old = codes.get(identifier);
+			codes.put((KeyCode) identifier, e1 -> {
+				old.accept(e1);
+				con.accept(e1);
+			});
+		} else {
+			this.addBehavior(identifier, con);
+		}
+	}
+
+	@Override
+	public void appendBehavior(Object identifier, BiConsumer<Map<String, Component>, Map<String, Component>> bic) {
+		if(identifier instanceof KeyCode && codes.containsKey(identifier)) {
+			this.appendBehavior(identifier, e1 -> {
+				bic.accept(e1, new HashMap<>());
+			});
+		} else {
+			this.addBehavior(identifier, bic);
+		}
 	}
 }
 

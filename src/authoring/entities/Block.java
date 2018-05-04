@@ -10,11 +10,15 @@ public class Block extends InteractableEntity {
 
 	private final static String TYPE =  "Block";
 
+	/**
+	 * Initialize 
+	 * @param ID
+	 * @param name
+	 */
 	public Block(int ID, String name) {
 		super(ID);
 		this.setName(name);
 		this.setPresetType(TYPE);
-		
 	}
 
 }

@@ -1,13 +1,22 @@
 package authoring.views;
 
+import java.util.Map;
 import java.util.Properties;
 import java.util.function.Consumer;
 
+import authoring.entities.BlankEntity;
 import authoring.entities.Entity;
 import authoring.gamestate.Level;
 import authoring.grid.Grid;
 import authoring.languages.AuthoringLanguage;
+import data.DataGameState;
+import engine.components.Component;
+import engine.components.Sprite;
+import engine.components.Type;
+import engine.components.XPosition;
+import engine.components.YPosition;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 
 /**
@@ -21,18 +30,57 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
 
+	private Map<Level,Map<Integer,Map<String,Component>>> levels;
+
 	Properties language = new Properties();
 
-	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
+	public LevelView(Level level, int levelNum) {
 		this.getStyleClass().add("level-view");
-		this.addEntity = aE;
 		this.level = level;
 		this.content = new Grid(level);
 		this.content.getStyleClass().add("level-view-content");
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		this.setContent((content));
+		this.setContent(content);
 		this.setupMouseDrag();
+	}
+
+	public LevelView(Level level, int levelNum, Consumer<MouseEvent> aE) {
+		this(level,levelNum);
+		this.addEntity = aE;
+	}
+
+	public void loadGameState(Map<Integer,Map<String,Component>> levelMap) {
+
+		Map<String, Component> entityComponents;
+		for(Integer i:levelMap.keySet()) {
+			entityComponents = levelMap.get(i);
+			Entity entity = new BlankEntity(i);
+			for(Component c: entityComponents.values()) {
+				if(c.getKey().equals("Type")) {
+					Type type = (Type) entityComponents.get(Type.KEY);
+					if(type.getData().equals("Background")) {
+						entity.setInteractable(false);
+					}else {
+						entity.setInteractable(true);
+					}
+					entity.setPresetType(type.getData());
+				}
+				entity.add(c);
+			}
+			if(entityComponents.containsKey(Sprite.KEY)) {
+				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
+				Image image = spriteComponent.getImage().getImage();
+				entity.setImage(image);
+				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
+					XPosition xComp = (XPosition) entityComponents.get(XPosition.KEY);
+					YPosition yComp = (YPosition) entityComponents.get(YPosition.KEY);
+					double col = (xComp.getData()/Entity.ENTITY_WIDTH);
+					double row = (yComp.getData()/Entity.ENTITY_HEIGHT);
+					this.content.addToCell(entity, (int) row, (int) col);
+				}
+			} 
+		}
 	}
 
 	/**

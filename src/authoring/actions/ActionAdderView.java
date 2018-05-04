@@ -17,7 +17,7 @@ public class ActionAdderView extends Supplier{
     private ActionAdder actionAdder;
     private ComboBox<String> components;
     private ComboBox<String> actions;
-    private static final int SIZE = 200;
+    private static final int SIZE = 240;
     private static final double RATIO = 2.5;
     private static final String ADD = "Add an action";
     private static final String COMP_CONFIG = "Configure a Component";
@@ -35,7 +35,7 @@ public class ActionAdderView extends Supplier{
         actionAdder = new ActionAdder(entity);
         menu.setAlignment(Pos.CENTER);
         buttons.setAlignment(Pos.CENTER);
-        enter.setOnAction(e-> build());
+        enter.setOnAction(e->{ build(); close();});
         components = new ComboBox<>();
         components.setPromptText(COMP_CONFIG);
         for(Component component : entity.getComponentList()){
