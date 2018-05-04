@@ -95,5 +95,4 @@ public class DataGameState {
         return levelProgress;
     }
 
-
 }
