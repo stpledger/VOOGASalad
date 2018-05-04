@@ -41,7 +41,7 @@ public class DataRead  {
             return new DataGameState(EMPTY_GAME);
         }
     }
-
+    
     public static DataGameState copyGame() {
         /* receives a copy of a  gamestate and loads it to the player
          * from buildState
@@ -127,7 +127,7 @@ public class DataRead  {
     public static List<DataGameState> getSaves(){
         //loads all saves
         List<DataGameState> saves = new ArrayList<DataGameState>();
-        File file = loadFile(gameName + FRONTSLASH + SAVE_PATH);
+        File file = loadFile(GAME_PATH + gameName + FRONTSLASH + SAVE_PATH);
         for(File save : file.listFiles()){
             saves.add((DataGameState)deserialize(save));
         }

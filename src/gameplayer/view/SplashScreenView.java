@@ -3,6 +3,7 @@ package gameplayer.view;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
+import authoring.MainApplication;
 import data.DataGameState;
 import data.DataRead;
 import gameplayer.buttons.FileUploadButton;
@@ -65,7 +66,8 @@ public class SplashScreenView extends BranchScreenView{
 		myBorderPane = new BorderPane(myScrollPane);
 		myBorderPane.setBottom(fileBtn);
 		BorderPane.setAlignment(fileBtn, Pos.CENTER);
-		Scene currentScene= new Scene(myBorderPane,WIDTH_SIZE,HEIGHT_SIZE);		
+		Scene currentScene= new Scene(myBorderPane,WIDTH_SIZE,HEIGHT_SIZE);	
+		currentScene.getStylesheets().add(SplashScreenView.class.getResource("src/resources/styles/PlayerStyles.css").toExternalForm());
 		return currentScene;
 	}
 	/**
