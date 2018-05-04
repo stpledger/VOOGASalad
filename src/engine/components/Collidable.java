@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.io.Serializable;
 
 import engine.systems.collisions.CollisionDirection;
 

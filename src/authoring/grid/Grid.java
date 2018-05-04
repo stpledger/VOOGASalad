@@ -1,5 +1,6 @@
 package authoring.grid;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -102,7 +103,7 @@ public class Grid extends GridPane {
 			ImageView img = new ImageView(db.getImage());
 			if(!c.containsEntity() || !c.getEntity().getInteractable()) { //can add entity to empty cell or cell with background entity
 				try {
-					Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(),c.getLayoutY());
+					Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(), c.getLayoutY());
 					c.addEntity(en);
 					level.addEntity(en);
 					if(!en.getInteractable()) {

@@ -20,7 +20,7 @@ public class Block extends InteractableEntity {
 	public Block(int ID, String name) {
 		super(ID);
 		this.setName(name);
-		//addDefaultComponents();
+		this.setPresetType(TYPE);
 	}
 
 	private void addDefaultComponents() {

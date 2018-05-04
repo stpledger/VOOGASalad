@@ -1,6 +1,7 @@
 package authoring.entities;
 
 import java.io.FileNotFoundException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -38,7 +39,6 @@ public abstract class Entity extends ImageView {
 	 * @param ID the ID of this entity
 	 */
 	public Entity(int ID) {
-		System.out.println("making entity!");
 		this.ID = ID;
 		this.components = new ArrayList<>();
 		this.setFitWidth(ENTITY_WIDTH);
@@ -52,6 +52,19 @@ public abstract class Entity extends ImageView {
 			this.setPosition(e.getX() + this.getLayoutX() - this.getFitWidth()/2, e.getY() + this.getLayoutY() - this.getFitHeight()/2);
 			e.consume();
 		});
+	}
+	
+	/**
+	 * Adds a given component only if it is not already present in the component list.
+	 * @param component the component to add 
+	 */
+	public void addIfAbsent(Component component) {
+		for (Component c : this.components) {
+			if (c.getKey().equals(component.getKey())) {
+				return;
+			}
+		}
+		this.components.add(component);
 	}
 	
 	/**
@@ -201,7 +214,6 @@ public abstract class Entity extends ImageView {
 	public List<Component> getComponentList() {
 		return this.components;
 	}
-
 	/**
 	 * @param c Component class to remove
 	 */

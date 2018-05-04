@@ -54,7 +54,6 @@ public class GameManager {
         numOfLives = livesSetup();
 
         numOfLevels = levelMap.keySet().size();
-
         if(winKeys.keySet().size() > 0){
             for(Win w : winKeys.keySet()){
                 w.getWinStatus().addListener((o, oldVal, newVal) -> {
@@ -124,7 +123,7 @@ public class GameManager {
         for (Integer i : playerKeys.keySet()) {
             /*if (levelMap.get(l).get(levelToPlayer.get(activeLevel)).containsKey(Lives.KEY)) {
                 temp = ((Lives) levelMap.get(l).get(levelToPlayer).get(Lives.KEY)).getLives();*/
-            if(playerKeys.get(i).containsKey(Lives.KEY)){
+            if(playerKeys.get(i).containsKey(Lives.KEY)) {
                 //lifeCount = ((Lives) levelMap.get(l).get(levelToPlayer.get(activeLevel)).get(Lives.KEY)).getData();
                 temp = ((Lives) playerKeys.get(i).get(Lives.KEY)).getLives();
                 temp.addListener((o, oldVal, newVal) -> {

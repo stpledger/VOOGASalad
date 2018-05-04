@@ -1,5 +1,7 @@
 package engine.components;
 
+import java.io.Serializable;
+
 /**
  * Component containing a single double as data. Implements component interfaces for reading and read/writing.
  * Abstract class to make other data classes easier to write.
