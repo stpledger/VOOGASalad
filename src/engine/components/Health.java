@@ -4,6 +4,7 @@ package engine.components;
  * Data component representing an entity's health.
  * @author fitzj
  * @author Yameng Liu
+ * @author Stefani Vukajlovic
  */
 
 public class Health extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {

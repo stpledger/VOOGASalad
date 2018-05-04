@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="ss" name="des"><Name>des</Name><Health>333.0</Health><DamageValue>111.0</DamageValue><YVelocity>23.0</YVelocity><XAcceleration>12.0</XAcceleration><XVelocity>23.0</XVelocity><YAcceleration>10.0</YAcceleration><DamageLifetime>23.0</DamageLifetime><Type>User</Type><Sprite>sprite.png</Sprite></Entity>

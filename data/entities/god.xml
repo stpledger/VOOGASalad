@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="stef" name="god"><Type>Enemy</Type><Sprite>mystery.jpg</Sprite><DamageLifetime>1.0</DamageLifetime><XVelocity>10.0</XVelocity><Collidable/><XAcceleration>1.0</XAcceleration><Health>100.0</Health><DamageValue>30.0</DamageValue><YVelocity>1.0</YVelocity><YAcceleration>1.0</YAcceleration><Name>god</Name></Entity>

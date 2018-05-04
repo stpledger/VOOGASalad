@@ -69,7 +69,7 @@ public class Animate extends AbstractSystem implements ISystem {
             
         }
     }
-
+   
     @Override
     public void removeComponent(int pid) {
         if (this.getHandled().containsKey(pid)) {
