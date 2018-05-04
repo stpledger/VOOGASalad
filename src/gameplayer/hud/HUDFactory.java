@@ -16,9 +16,6 @@ import javafx.scene.layout.HBox;
  */
 
 public class HUDFactory {
-
-	private Map<String, Component> PlayerComponentsforLevel;
-	private List<String> listOfStates;
 	
 	public HUDFactory() {}
 	

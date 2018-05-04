@@ -82,7 +82,6 @@ public class GameManager {
    			}
    			count++;
    		}
-   		System.out.print(lifeCount);
    		return lifeCount;	
    	}
  
