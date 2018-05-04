@@ -28,6 +28,7 @@ public class GameView implements IGamePlayerView, EntityManager{
 	private Map<Integer, Map<Integer,Map<String,Component>>> intLevels;
 	private Map<Integer, Pane> gameLevelDisplays;
 
+
 	private GameInitializer gameInitializer;
 	private InputHandler inputHandler;
 	private RenderManager renderManager;
@@ -293,6 +294,11 @@ public class GameView implements IGamePlayerView, EntityManager{
 				}
 			}
 		}
+	}
+
+	public void respawnPlayer() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

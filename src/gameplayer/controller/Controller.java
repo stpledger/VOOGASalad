@@ -120,7 +120,7 @@ public class Controller implements IController, LevelController, PlayerControlle
 	public void lifeChange(Double livesLeft){
 		if (livesLeft > 0){
 			gameManager.setLives(livesLeft);
-			//gameView.respawnPlayer();
+			gameView.respawnPlayer();
 		}
 		else{
 			gameOver();
@@ -159,10 +159,6 @@ public class Controller implements IController, LevelController, PlayerControlle
 	public GameManager getGameManager() {
 		return gameManager;
 	}
-	
-	/**
-	 * Respawns the player sprite view after dying
-	 */
 	
 	/**
 	 * Method that sets the current scene of the game
