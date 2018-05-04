@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="top" name="4"><YAcceleration>1.0</YAcceleration><XAcceleration>1.0</XAcceleration><Sprite>sprite1.png</Sprite><Type>User</Type><Health>100.0</Health><DamageValue>10.0</DamageValue><DamageLifetime>1.0</DamageLifetime><Animated>birdanimation.properties</Animated><Name>4</Name></Entity>

@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="mee" name="stef"><YAcceleration>10.0</YAcceleration><Sprite>mystery.jpg</Sprite><DamageLifetime>1.0</DamageLifetime><XVelocity>0.0</XVelocity><DamageValue>10.0</DamageValue><YVelocity>0.0</YVelocity><Health>100.0</Health><Type>User</Type><XAcceleration>10.0</XAcceleration><Name>stef</Name></Entity>
