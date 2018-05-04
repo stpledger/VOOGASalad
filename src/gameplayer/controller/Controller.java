@@ -108,13 +108,13 @@ public class Controller implements IController, LevelController, PlayerControlle
 	 * @param level - level won
 	 */
 	public void levelWon(int level){
-		/*if(level >= this.gameManager.getNumOfLevels()){
+		if(level >= this.gameManager.getNumOfLevels()){
 			gameOver();
 		}
-		else{*/
+		else{
 			levelSelector.updateLevelProgress(level + 1);
 			openLevelSelector();
-		//}
+		}
 	}
 
 
@@ -206,11 +206,6 @@ public class Controller implements IController, LevelController, PlayerControlle
 				this.gameView.render();
 				this.renderTime = 0;
 			}
-			/*Double lifeCount = gameManager.getLives();
-			if (playerLifeCount != lifeCount){
-				 lifeChange(lifeCount);
-				 playerLifeCount = lifeCount;
-			 }*/
 			this.gameManager.setLives(gameManager.getLives());
 			this.gameView.updateScroll(this.gameRoot);
 			this.sampleBar.updateGameStatusLabels(this.gameManager);
