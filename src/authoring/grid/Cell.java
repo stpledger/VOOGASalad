@@ -43,17 +43,19 @@ public class Cell extends Pane {
 	 */
 	private void setUpDrag() {
 		this.setOnDragDetected(e -> {
-			Dragboard db = this.startDragAndDrop(TransferMode.COPY);
+			Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
 			ClipboardContent cc = new ClipboardContent();
 			cc.putImage(image);
 			cc.putString(((StringComponent)this.getEntity().get("Name")).getData());
 			db.setContent(cc);
 			e.consume();
 		});
-		this.setOnDragDone(e ->{
-			this.level.removeEntity(this.getEntity());
-			this.removeEntity(this.getEntity());
-			this.getChildren().clear();
+		this.setOnDragDone(e -> {
+			if (e.getGestureTarget() != this) {
+                	this.level.removeEntity(this.getEntity());
+                	this.removeEntity(this.getEntity());
+                	this.getChildren().clear();
+			}
 		});
 	}
 
