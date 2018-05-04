@@ -71,7 +71,7 @@ public class DataRead  {
     public static Image loadImage(String name)throws RuntimeException {
         /*used to load all iamges in player
          */
-        File imageFile = loadFile(GAME_PATH+gameName + IMAGE_PATH +name);
+        File imageFile = loadFile(GAME_PATH + gameName +FRONTSLASH +IMAGE_PATH +name);
         return loadImage(imageFile);
     }
 
@@ -87,6 +87,7 @@ public class DataRead  {
             BufferedImage image = ImageIO.read(file);
             return SwingFXUtils.toFXImage(image, null);
         } catch (IOException e) {
+            System.out.print(file.getAbsolutePath());
             ErrorStatement(FAIL_MESSAGE);
             return new Image(EMPTY_IMAGE);
         }

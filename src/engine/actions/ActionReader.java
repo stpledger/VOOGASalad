@@ -4,6 +4,7 @@ package engine.actions;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 /**
@@ -32,7 +33,7 @@ public class ActionReader {
      * @param arguments The arguments that the action would need in order to execute
      * @return the action specified in the form of a Consumer
      */
-    public Consumer<?> getAction(String methodName, List<Object> arguments) {
+    public Object getAction(String methodName, List<Object> arguments) {
         this.methodName = methodName;
         methodParams = getMethodParams(actions.getClass());
 
@@ -48,10 +49,14 @@ public class ActionReader {
         }
 
         invokeArgs = getInvokeArguments(arguments);
-
         try {
-            return (Consumer<?>) method.invoke(actions, invokeArgs); //finally invokes the appropriate method with the given arguments and returns the Consumer
-        } catch (IllegalAccessException e) {
+            try {
+                return (Consumer<?>) method.invoke(actions, invokeArgs); //finally invokes the appropriate method with the given arguments and returns the Consumer
+            } catch (ClassCastException e) {
+                return (BiConsumer<?,?>) method.invoke(actions, invokeArgs); //finally invokes the appropriate method with the given arguments and returns the Consumer
+            }
+        }
+        catch (IllegalAccessException e) {
             System.out.println("I don't know what this exception is catching");
         } catch (InvocationTargetException e) {
             System.out.println("Same with this one");
@@ -60,6 +65,8 @@ public class ActionReader {
         }
         return null;
     }
+
+
 
     /**
      * Takes in a class type and returns the parameters that a given method in that class needs

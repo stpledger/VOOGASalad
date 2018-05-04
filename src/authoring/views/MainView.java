@@ -9,6 +9,7 @@ import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import authoring.gamestate.AuthoringStateLoader;
 import data.DataGameState;
 import javafx.scene.Parent;
 import javafx.scene.layout.BorderPane;
@@ -57,6 +58,12 @@ public class MainView {
 	public MainView(String name, DataGameState gameState) {
 		this(name);
 		gameEditorView.startLoadingGameStates(gameState);
+		// find all existing entities and load them into the entityView
+		AuthoringStateLoader asl = new AuthoringStateLoader();
+		for (File entityFile : asl.findFilesForGame(name)) {
+			componentView.loadEntityFromFile(entityFile);
+		}
+		System.out.println(gameState);
 	}
 
 	/**
@@ -70,7 +77,6 @@ public class MainView {
 		this.setLanguage(DEFAULT_LANGUAGE);
 		authorPaneList.addAll(Arrays.asList(new AuthoringPane[] {componentView, gameEditorView}));
 		return border;
-
 	}
 
 	/**

@@ -1,11 +1,12 @@
 package gameplayer.view;
 
-import engine.components.Component;
-
 import java.util.Map;
 
-public interface EntityManager {
-    void addEntity(int pid, Map<String, Component> entity);
+import engine.components.Component;
 
-    void removeEntity(int pid);
+public interface EntityManager {
+	
+	public void addEntity(int pid, Map<String,Component> components);
+	public void removeEntity(int pid, Map<String,Component> components);
+	
 }
