@@ -8,6 +8,7 @@ public class SupplierFactory {
 
     private static final String POSITIONS = "java.util.List<java.awt.Point>";
     private static final String DOUBLE = "double";
+    private static final String INT = "int";
     private static final String ENTITY = "authoring.entities.Entity";
     private static final String KEYCODE = "KeyInput";
     private static final String COLLIDABLE = "Collidable";

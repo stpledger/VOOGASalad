@@ -1,11 +1,7 @@
 package gameplayer.menu;
 
 import java.util.Map;
-import java.util.Set;
-
 import gameplayer.controller.Controller;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.Pane;
@@ -17,14 +13,11 @@ import javafx.scene.layout.Pane;
  */
 public class LevelSelector extends Menu {
 	private final String MENU_TITLE = "Level";
-	private Controller mainController;
-	private  Map<Integer, Pane> levelEntityPaneMap;
+	private Controller controller;
 	private int levelCount;
 	
 	public LevelSelector(Controller g) {
-		mainController = g;
-		levelEntityPaneMap = g.getGameLevelRoot();
-		System.out.println(levelEntityPaneMap);
+		controller = g;
 		this.setText(MENU_TITLE);
 		createLevelMenu();
 	}
@@ -34,17 +27,13 @@ public class LevelSelector extends Menu {
 	 * @param
 	 */
 	public void createLevelMenu() {
-		Set<Integer> levelKeySet = levelEntityPaneMap.keySet();
-		int count = levelKeySet.size();
+		int numOfLevels = controller.getGameManager().getNumOfLevels();
 		levelCount = 1;
-		for (int i = 1; i<=count; i++) {
-			//Adds each level to the LevelList
+		for (int i = 1; i<=numOfLevels; i++) {
 			MenuItem currentMenu = new MenuItem("Level " + levelCount);
-			currentMenu.setOnAction(new EventHandler<ActionEvent>() { //event listener when the menu is selected.
-			    public void handle(ActionEvent t) {
+			currentMenu.setOnAction(e->{
 			    		int level = obtainLevelInteger(currentMenu.getText());
-			    		mainController.changeGameLevel(level);
-			    }
+			    		controller.changeGameLevel(level);		    
 			});
 			this.getItems().add(currentMenu);
 			levelCount++;

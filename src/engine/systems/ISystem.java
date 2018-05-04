@@ -15,4 +15,5 @@ public interface ISystem {
     void removeComponent (int pid);
     void setActives(Set<Integer> actives);
     void execute(double time) throws EngineException;
+	void setActives();
 }

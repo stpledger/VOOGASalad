@@ -40,8 +40,8 @@ public class Roller extends InteractableEntity {
 		this.add(new RollerCollision(this.getID()));
 		this.add(new RollerMovement(this.getID()));
 		this.add(new Score(this.getID(), 0));
-		this.add(new Jumps(this.getID(), 3));
-		this.add(new Animated(this.getID(), "animations/sonic/animation.properties"));
+		this.add(new Jumps(this.getID(), 1));
+		//this.add(new Animated(this.getID(), "animations/sonic/animation.properties"));
 	}
 
 }
