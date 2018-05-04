@@ -106,6 +106,7 @@ public class Grid extends GridPane {
 					Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(), c.getLayoutY());
 					c.addEntity(en);
 					level.addEntity(en);
+					System.out.println("Adding entity of type " + en.getComponentList());
 					img.setFitWidth(Entity.ENTITY_WIDTH);
 					img.setFitHeight(Entity.ENTITY_HEIGHT);
 					c.getChildren().add(img);
