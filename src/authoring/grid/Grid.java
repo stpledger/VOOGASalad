@@ -103,7 +103,7 @@ public class Grid extends GridPane {
 					img.setFitWidth(Entity.ENTITY_WIDTH);
 					img.setFitHeight(Entity.ENTITY_HEIGHT);
 					c.getChildren().add(img);
-					//c.setImage(db.getImage());
+					c.setImage(db.getImage());
 				} catch (Exception e1) {
 					throw new AuthoringException("Cannot add entity to the cell!", AuthoringAlert.SHOW);
 				}
@@ -251,6 +251,7 @@ public class Grid extends GridPane {
 		img.setFitWidth(Entity.ENTITY_WIDTH);
 		img.setFitHeight(Entity.ENTITY_HEIGHT);
 		cell.getChildren().add(img);
+		cell.setImage(en.getImage());
 		this.entityID++;
 	}
 

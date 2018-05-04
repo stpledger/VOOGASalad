@@ -81,7 +81,6 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 					this.level.addEntity(entity);
 				}
 			}
-			this.level.addEntity(entity);
 		}
 	}
 
