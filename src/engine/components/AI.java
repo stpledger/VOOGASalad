@@ -38,7 +38,8 @@ public class AI implements Component, BehaviorComponent {
 	 * @param components
 	 */
 	public void doAction(Map<String, Component> components) {
-        action.accept(components);
+        if(action!=null)
+        		action.accept(components);
     }
 
 	public String getKey() {

@@ -2,7 +2,10 @@ package gameplayer.controller;
 
 import java.util.Map;
 
+import authoring.gamestate.Level;
 import data.DataGameState;
+import data.DataRead;
+import engine.components.XPosition;
 import gameplayer.hud.SampleToolBar;
 import gameplayer.levelunlock.SelectLevel;
 import gameplayer.menu.MenuGameBar;
@@ -29,7 +32,6 @@ public class Controller implements IController, LevelController, PlayerControlle
 	private double renderTime;
 	private Stage myStage;
 	private Scene gameScene;
-	private Scene levelScene;
 	private Pane gameRoot;
 	private BorderPane myPane;
 	private PauseMenu pauseMenu;
@@ -48,8 +50,12 @@ public class Controller implements IController, LevelController, PlayerControlle
 	private DataGameState initialGameState;
 
 	public Controller(Stage stage, DataGameState currentGame) {
-		this.initialGameState = new DataGameState(currentGame.getGameState(), currentGame.getGameName());
+		initialGameState = DataRead.copyGame();
 		this.gameState = currentGame;
+//		for (Level l: initialGameState.getGameState().keySet()) {
+//			System.out.println(initialGameState.getGameState().get(l).get(1).get(XPosition.KEY).);
+//			break;
+//		}
 		this.myStage = stage;
 		this.myStage.setWidth(WIDTH_SIZE);
 		this.myStage.setHeight(HEIGHT_SIZE);
@@ -58,8 +64,10 @@ public class Controller implements IController, LevelController, PlayerControlle
 		this.myPane = new BorderPane();
 		this.pauseMenu = new PauseMenu(myStage, this);
 		this.levelSelector = new SelectLevel((int) gameState.getLevelProgress(), gameManager.getNumOfLevels(), myStage, this);
+        playerLifeCount = gameManager.getLives();
 		setGameView();
 		openLevelSelector();
+		
 	}
 
 	/**
@@ -78,11 +86,14 @@ public class Controller implements IController, LevelController, PlayerControlle
 	}
 
 
-
 	/**
 	 * Restarts the current game
 	 */
 	public void restartGame() {
+		initialGameState = DataRead.copyGame();
+		gameState = initialGameState;
+		this.gameManager = new GameManager(gameState, this);
+		setGameView();
 	}
 
 	/**
@@ -97,7 +108,7 @@ public class Controller implements IController, LevelController, PlayerControlle
 	 * @param level - level won
 	 */
 	public void levelWon(int level){
-		if(level > this.gameManager.getNumOfLevels()){
+		if(level >= this.gameManager.getNumOfLevels()){
 			gameOver();
 		}
 		else{
@@ -106,14 +117,6 @@ public class Controller implements IController, LevelController, PlayerControlle
 		}
 	}
 
-	public void liveChange(int livesLeft){
-		if (livesLeft > 0){
-			//gameView.respawnPlayer();
-		}
-		else{
-			gameOver();
-		}
-	}
 
 	/**
 	 * Changes the display of the gave.
@@ -125,7 +128,9 @@ public class Controller implements IController, LevelController, PlayerControlle
 		this.gameView.setActiveLevel(level);
 		this.gameManager.setActiveLevel(level);
 		this.sampleBar.setActiveLevel(level);
-		this.gameScene = new Scene(myPane, WIDTH_SIZE, HEIGHT_SIZE);
+		if (gameScene == null){
+            gameScene = new Scene(myPane, WIDTH_SIZE, HEIGHT_SIZE);
+        }
 		initializeGameAnimation();
 		assignKeyInputs();
 		myStage.setScene(gameScene);
@@ -139,14 +144,6 @@ public class Controller implements IController, LevelController, PlayerControlle
 		return this.gameLevelDisplays;
 	}
 
-
-	/**
-	 * Returns the Current Data GameState from the Controller
-	 */
-	public DataGameState getInitialGameState() {
-		System.out.println(initialGameState ==gameState);
-		return initialGameState;
-	}
 	
 	/**
 	 * Returns the gameManager to access information about the game.
@@ -186,6 +183,17 @@ public class Controller implements IController, LevelController, PlayerControlle
 		this.animation.play();
 	}
 
+
+	public void lifeChange(Double livesLeft){
+		if (livesLeft > 0){
+			gameManager.setLives(livesLeft);
+			gameManager.respawnPlayer();
+		}
+//		else{
+//			gameOver();
+//		}
+	}
+	
 	/**
 	 * Step method that repeats the animation by checking entities using render and system Manager
 	 * @param elapsedTime
@@ -198,6 +206,7 @@ public class Controller implements IController, LevelController, PlayerControlle
 				this.gameView.render();
 				this.renderTime = 0;
 			}
+			this.gameManager.setLives(gameManager.getLives());
 			this.gameView.updateScroll(this.gameRoot);
 			this.sampleBar.updateGameStatusLabels(this.gameManager);
 		}
@@ -233,6 +242,8 @@ public class Controller implements IController, LevelController, PlayerControlle
 	 * Shows the high score screen
 	 */
 	private void gameOver(){
+		System.out.println(gameManager.getNumOfLevels());
+		System.out.println(gameManager.getActiveLevel());
 		HighScoreView highScoreScreen = new HighScoreView(myStage);
 		highScoreScreen.setScore(100.0); //change to game's score
 		highScoreScreen.setGameName(currentGameName);

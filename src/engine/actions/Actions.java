@@ -221,8 +221,33 @@ public class Actions {
     		}
     	};
     }
+
 	
+	@SuppressWarnings("unchecked")
+	public static BiConsumer<Map<String, Component>,Map<String, Component>> checkWin() {
+		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+    		if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
+    			if(actor1.containsKey(Player.KEY) && actor2.containsKey(Win.KEY)) {
+    				Win w = (Win) actor2.get(Win.KEY);
+    				w.win();
+    				System.out.println("In win action");
+    			}
+    		}
+    	};
+	}
 	
+	@SuppressWarnings("unchecked")
+	public static BiConsumer<Map<String, Component>,Map<String, Component>> HeightPowerUp() {
+		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+    		if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
+    			if(actor2.containsKey(Player.KEY) && actor2.containsKey(Height.KEY)) {
+    				Height h = (Height) actor2.get(Height.KEY);
+    				h.setData(h.getData()*1.5);
+    			    sm.removeEntity(actor1.get(EntityType.KEY).getPID(),actor1);
+    		    }
+    	   }
+	   };
+	}
 	
 	@SuppressWarnings("unchecked")
 	public static BiConsumer<Map<String, Component>,Map<String, Component>> transferScore() {
@@ -241,17 +266,18 @@ public class Actions {
 	
 	
 	@SuppressWarnings("unchecked")
-	public static BiConsumer<Map<String, Component>,Map<String, Component>> reverseAcceleration() {
+	public static BiConsumer<Map<String, Component>,Map<String, Component>> accelerateUpCollision(double acc) {
 		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
 			if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
     			if(actor2.containsKey(YAcceleration.KEY) && actor2.containsKey(YPosition.KEY)) {
     				YAcceleration ya = (YAcceleration) actor2.get(YAcceleration.KEY);
-    				YPosition yp = (YPosition) actor2.get(YPosition.KEY);
-    				ya.setData(-ya.getData());
+    				ya.setData(acc);
     			}
 			}
 		};
 	}
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	public static BiConsumer<Map<String, Component>,Map<String, Component>> xFriction(double stickiness) {
@@ -310,6 +336,32 @@ public class Actions {
 		};
     }
     
+    @SuppressWarnings("unchecked")
+    public static BiConsumer<Map<String,Component>, Map<String,Component>> Ystop(){
+      	return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+    		if(actor1.containsKey(YVelocity.KEY) && !actor2.containsKey(YVelocity.KEY)) {
+   
+    			YVelocity yv =(YVelocity) actor1.get(YVelocity.KEY);
+    			yv.setData(0);
+    		 }
+      	};    	
+    	
+    }
+    @SuppressWarnings("unchecked")
+    public static BiConsumer<Map<String,Component>, Map<String,Component>> Xstop(){
+      	return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+    		if(actor1.containsKey(XVelocity.KEY) && !actor2.containsKey(XVelocity.KEY)) {
+    			XVelocity xv = (XVelocity) actor1.get(XVelocity.KEY);
+    			xv.setData(0);
+    		 }
+      	};    	
+    	
+    }
+    
+    
+   
+   
+    	
     private static void giveDamage(Map<String, Component> player, Map<String, Component> collider) {
 		if (player.containsKey(DamageValue.KEY) &&
 				player.containsKey(DamageLifetime.KEY) &&
@@ -438,7 +490,6 @@ public class Actions {
 			setNewDestination(coordinates, destination, current, xp, yp);
 		};
     }
-
 	/**
 	 * The patrol method that uses the user's position as a starting point, so any list of points can define
 	 * an entity-specific patrol route.

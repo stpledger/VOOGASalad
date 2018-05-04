@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="plays" name="block"><Type>Block</Type><Sprite>dirt.jpg</Sprite><Collidable/><Name>block</Name></Entity>

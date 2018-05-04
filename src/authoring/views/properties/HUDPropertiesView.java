@@ -45,7 +45,7 @@ public class HUDPropertiesView extends PropertiesView{
 					level.addHUDProp(HUDProps.getString("Lives"), livesBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Health"), healthBox.isSelected());
 					level.addHUDProp(HUDProps.getString("Levels"), levelBox.isSelected());
-					level.addHUDProp(HUDProps.getString("Score"), levelBox.isSelected());
+					level.addHUDProp(HUDProps.getString("Score"), scoreBox.isSelected());
 				}
 				this.makeSubmitAlert();
 				this.close();

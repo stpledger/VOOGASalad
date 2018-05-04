@@ -5,12 +5,13 @@ import engine.components.Component;
 import engine.components.Health;
 import gameplayer.controller.GameManager;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.scene.control.Label;
 
 public class HealthLabel extends Label implements IGameStatusLabel{
 
 	private final String HEALTH_LABEL_NAME = "Health: ";
-	private SimpleStringProperty healthProperty;
+	private StringProperty healthProperty;
 	
 	
 	public HealthLabel() {

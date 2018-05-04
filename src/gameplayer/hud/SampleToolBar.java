@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import data.DataRead;
 import engine.components.Component;
 import gameplayer.controller.GameManager;
 import gameplayer.labels.IGameStatusLabel;
@@ -22,7 +23,7 @@ public class SampleToolBar extends ToolBar{
 	private List<String> approvedLabels;
 	private GameManager gameManager;
 	private Map<Integer, Map<String, Component>> playerKeys;
-	private static int HBOX_LENGTH = 250;
+	private static int HBOX_LENGTH = 120;
 	Map<Integer, Map<String, Boolean>> hudPropMap;
 
 
@@ -56,6 +57,7 @@ public class SampleToolBar extends ToolBar{
 			label.update(label.extractGameStateValue(gameManager));
 		}
 	}
+
 
 
 	/**
