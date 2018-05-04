@@ -45,20 +45,21 @@ public class EntityComponentFormCollection extends AbstractComponentFormCollecti
 	protected boolean hasCurrentValue(String componentName) {
 			try{
 				if(!sudoComponents.equals(null)) {
-					sudoComponents.get(Class.forName(componentName));
+					if(sudoComponents.containsKey(Class.forName("engine.components." + componentName)))
 					return true;
 				}
 			} catch(Exception e) {
+				e.printStackTrace();
 				return false;
 			}
 		return false;
 	}
 
 	@Override
-	protected Object getCurrentValue(String componentName) {
+	protected String getCurrentValue(String componentName) {
 		try {
-			Object[] temp = sudoComponents.get(Class.forName(componentName));
-			
+			Object[] temp = sudoComponents.get(Class.forName("engine.components." + componentName));
+			return (String) temp[0];
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

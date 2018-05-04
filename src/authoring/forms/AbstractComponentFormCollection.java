@@ -145,6 +145,7 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 		currentRow++;
 		this.createSaveButton(currentRow);
 		currentRow++;
+		this.getScene().getWindow().sizeToScene();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

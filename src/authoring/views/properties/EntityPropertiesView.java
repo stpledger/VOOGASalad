@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import java.util.function.Consumer;
 
 import authoring.entities.Entity;
+import authoring.entities.data.EntityBuilderData;
 import authoring.entities.data.SudoEntityLoader;
 import authoring.forms.EntityComponentFormCollection;
 import authoring.forms.FormCollection;
@@ -53,7 +54,7 @@ public class EntityPropertiesView extends PropertiesView{
 	
 	@Override
 	protected void fill() {
-		componentFormCollection = new EntityComponentFormCollection(sudoComponents, new String[] {""}, e-> {});
+		componentFormCollection = new EntityComponentFormCollection(sudoComponents, new String[] {""}, e-> {save((List<Object[]>) e);});
 		this.getRoot().getChildren().add((Node) componentFormCollection);
 		componentFormCollection.setLanguage(language);
 		List<String> componentsToAdd = new ArrayList<String>();
@@ -64,10 +65,18 @@ public class EntityPropertiesView extends PropertiesView{
 		}
 		componentFormCollection.fill(componentsToAdd);
 		this.getRoot().getScene().getWindow().sizeToScene();
-		
 	}
 
-	@Override
+	private void save(List<Object[]> e) {
+		EntityBuilderData ebd = new EntityBuilderData();
+		try {
+			ebd.save(e);
+			this.close();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
 	protected String title() {
 		return this.name;
 	}
