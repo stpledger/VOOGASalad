@@ -40,15 +40,21 @@ public class PlayerCollision extends Collidable {
 		
 		this.setOnDirection(CollisionDirection.Bot, (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>) (e1, e2) -> {
 			Actions.moveDown(50).accept(e1);
+			Actions.transferScore().accept(e1, e2);
+
 		});
 		
 		this.setOnDirection(CollisionDirection.Left, (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>) (e1, e2) -> {
 			Actions.moveLeft(0).accept(e1);
+			Actions.transferScore().accept(e1, e2);
+
 			
 		});
 		
 		this.setOnDirection(CollisionDirection.Right, (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>) (e1, e2) -> {
 			Actions.moveRight(0).accept(e1);
+			Actions.transferScore().accept(e1, e2);
+
 		});
 		
 	}
