@@ -20,27 +20,29 @@ public class GameManager {
     private XPosition activePlayerPosX;
     private YPosition activePlayerPosY;
     private int numOfLevels;
-    private DoubleProperty lifeCount;
+    private double lifeCount;
     private double levelProgress;
     private PlayerController myController;
+	private Integer lifeEntityID;
+	private Map<Level, Map<Integer, Map<String, Component>>> levelMap;
+	private Map<Integer, Integer> levelToPlayer;
+	private int levelCount;
 
     private static final int FIRST_LEVEL = 1;
 
     public GameManager(DataGameState gameState, PlayerController controller){
-        Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
+    		levelMap = gameState.getGameState();
+    		levelToPlayer = new HashMap<>();
         playerKeys = new HashMap<>();
         winKeys = new HashMap<>();
-        lifeCount = new SimpleDoubleProperty(1);
         levelProgress = gameState.getLevelProgress();
         myController = controller;
-
+        levelCount = 1;
         for(Level level : levelMap.keySet()){
             extractInfo(levelMap.get(level), level.getLevelNum());
         }
 
         numOfLevels = levelMap.keySet().size();
-
-       // lifeCount.addListener((o, oldVal, newVal) -> myController.liveChange((int) newVal));
 
         setActiveLevel(FIRST_LEVEL);
     }
@@ -62,16 +64,26 @@ public class GameManager {
                     winKeys.put((Win) entityComponents.get(Win.KEY), levelNum);
                 }
                 if(entityComponents.containsKey(Lives.KEY)) {
-                		lifeCount = ((Lives) entityComponents.get(Lives.KEY)).getLives();
+              
+               		lifeEntityID = i;
+                		levelToPlayer.put(levelNum, lifeEntityID);
+                		//lifeCount = ((Lives) entityComponents.get(Lives.KEY)).getData();
                 }
             }
         }
     }
     
-    public Double getLives() {
-    		//return lifeCount.doubleValue();
-    		return 1.0;
-    }
+   	public Double getLives() {
+   		int count = 1;
+   		for (Level l: levelMap.keySet()) {
+   			if (count==activeLevel) {
+   				lifeCount = ((Lives)levelMap.get(l).get(levelToPlayer.get(activeLevel)).get(Lives.KEY)).getData();
+   			}
+   			count++;
+   		}
+   		System.out.print(lifeCount);
+   		return lifeCount;	
+   	}
  
 
     /**
