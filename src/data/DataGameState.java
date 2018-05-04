@@ -2,21 +2,22 @@ package data;
 
 import engine.components.Component;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import authoring.entities.Entity;
 import authoring.gamestate.GameState;
 import authoring.gamestate.Level;
-/**
- * @author Conrad 
- */
+
 public class DataGameState {
     /*@Author Conrad this class represents the complete information that is contained in a
      * game-- all levels which contain entities which contain all components
      * additionally, this class provides utility methods for converting between authoring and player
      */
 
-    private static Map<Level,Map<Integer, Map<String, Component>>> gameState;
+    private Map<Level,Map<Integer, Map<String, Component>>> gameState;
 
     private String gameName = "data";
     private double levelProgress =1;
@@ -94,17 +95,5 @@ public class DataGameState {
         return levelProgress;
     }
 
-    public static  Map<String, Component> entity(int a) throws NullPointerException{
-        try{
-            for(Level lev : gameState.keySet()){
-                if(gameState.get(lev).containsKey(a));
-                    return gameState.get(lev).get(a);
-            }
-        }
-        catch(NullPointerException e){
-            throw new NullPointerException();
-        }
-        return null;
-    }
 
 }
