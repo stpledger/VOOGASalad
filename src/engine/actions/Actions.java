@@ -221,7 +221,7 @@ public class Actions {
     		}
     	};
     }
-	
+
 	
 	@SuppressWarnings("unchecked")
 	public static BiConsumer<Map<String, Component>,Map<String, Component>> checkWin() {

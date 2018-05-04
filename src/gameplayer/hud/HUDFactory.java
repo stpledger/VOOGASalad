@@ -27,6 +27,7 @@ public class HUDFactory {
 	public List<IGameStatusLabel> create(List<String> listOfStates) {
 		IGameStatusLabel gameStatus = null;
 		List<IGameStatusLabel> listOfLabels = new ArrayList<IGameStatusLabel>();
+		System.out.println(listOfLabels.size());
 		for (String temp: listOfStates) {
 			try {
 				System.out.println(temp);

@@ -32,8 +32,8 @@ public class GameManager {
     private static final int FIRST_LEVEL = 1;
 
     public GameManager(DataGameState gameState, PlayerController controller){
-    		levelMap = gameState.getGameState();
-    		levelToPlayer = new HashMap<>();
+        levelMap = gameState.getGameState();
+        levelToPlayer = new HashMap<>();
         playerKeys = new HashMap<>();
         winKeys = new HashMap<>();
         levelProgress = gameState.getLevelProgress();
@@ -44,6 +44,16 @@ public class GameManager {
         }
 
         numOfLevels = levelMap.keySet().size();
+
+        if(winKeys.keySet().size() > 0){
+            for(Win w : winKeys.keySet()){
+                w.getWinStatus().addListener((o, oldVal, newVal) -> {
+                    if(newVal){
+                        myController.levelWon(winKeys.get(w));
+                    }
+                });
+            }
+        }
 
         setActiveLevel(FIRST_LEVEL);
     }
@@ -78,11 +88,13 @@ public class GameManager {
    		int count = 1;
    		for (Level l: levelMap.keySet()) {
    			if (count==activeLevel) {
-   				lifeCount = ((Lives)levelMap.get(l).get(levelToPlayer.get(activeLevel)).get(Lives.KEY)).getData();
+   			    if (levelMap.get(l).get(levelToPlayer.get(activeLevel)).containsKey(Lives.KEY)) {
+                    lifeCount = ((Lives) levelMap.get(l).get(levelToPlayer.get(activeLevel)).get(Lives.KEY)).getData();
+                }
    			}
    			count++;
    		}
-   		return lifeCount;	
+   		return lifeCount;
    	}
  
 
@@ -131,6 +143,7 @@ public class GameManager {
      * @return
      */
     public int getNumOfLevels() {
+        System.out.println(numOfLevels);
         return numOfLevels;
     }
 

@@ -30,15 +30,38 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>0</pid>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <data>200.0</data>
+=======
+                <data>100.0</data>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <data>0.0</data>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>0</pid>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <data>Dirt-Block4.png</data>
+                <name>Dirt-Block4.png</name>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <data>Dirt-Block2.png</data>
+                <name>Dirt-Block2.png</name>
+=======
+                <data>dirt-block8.png</data>
+                <name>dirt-block8.png</name>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <data>Dirt-Block3.png</data>
                 <name>Dirt-Block3.png</name>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -46,7 +69,19 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>0</pid>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <data>200.0</data>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <data>200.0</data>
+=======
+                <data>100.0</data>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <data>450.0</data>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.YPosition>
             </entry>
             <entry>
@@ -67,7 +102,19 @@
               <string>Name</string>
               <engine.components.Name>
                 <pid>0</pid>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <data>UDB1</data>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <data>DB2</data>
+=======
+                <data>UDB5</data>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <data>DB3</data>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.Name>
             </entry>
           </map>
@@ -77,10 +124,23 @@
           <map>
             <entry>
               <string>Collidable</string>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+=======
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               <engine.components.Collidable>
                 <actions/>
                 <pid>1</pid>
                 <suppressed>false</suppressed>
+<<<<<<< HEAD:games/testing/Player.xml
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+              <engine.components.Collidable>
+                <actions/>
+                <pid>1</pid>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.Collidable>
             </entry>
             <entry>
@@ -94,15 +154,33 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>1</pid>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <data>200.0</data>
+=======
+                <data>150.0</data>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <data>50.0</data>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>1</pid>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <data>Dirt-Block3.png</data>
+                <name>Dirt-Block3.png</name>
+=======
+                <data>Dirt-Block2.png</data>
+                <name>Dirt-Block2.png</name>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <data>Dirt-Block1.png</data>
                 <name>Dirt-Block1.png</name>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -110,7 +188,15 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>1</pid>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <data>150.0</data>
+=======
+                <data>200.0</data>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <data>450.0</data>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.YPosition>
             </entry>
             <entry>
@@ -131,7 +217,15 @@
               <string>Name</string>
               <engine.components.Name>
                 <pid>1</pid>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <data>DB3</data>
+=======
+                <data>DB2</data>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <data>DB1</data>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.Name>
             </entry>
           </map>
@@ -141,6 +235,15 @@
           <map>
             <entry>
               <string>Collidable</string>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+              <engine.components.presets.PlayerCollision>
+                <actions>
+                  <entry>
+                    <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
+=======
+=======
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               <engine.components.Collidable>
                 <actions/>
                 <pid>2</pid>
@@ -208,14 +311,27 @@
               <engine.components.presets.PlayerCollision>
                 <actions>
                   <entry>
+<<<<<<< HEAD:games/testing/Player.xml
+                    <engine.systems.collisions.CollisionDirection>Left</engine.systems.collisions.CollisionDirection>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                     <java.util.function.BiConsumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
                       <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerCollision</implClass>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
                       <implMethodName>lambda$1</implMethodName>
+=======
+                      <implMethodName>lambda$2</implMethodName>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
+                      <implMethodName>lambda$1</implMethodName>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                       <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
@@ -223,14 +339,38 @@
                     </java.util.function.BiConsumer>
                   </entry>
                   <entry>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                    <engine.systems.collisions.CollisionDirection>Left</engine.systems.collisions.CollisionDirection>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
                     <engine.systems.collisions.CollisionDirection>Right</engine.systems.collisions.CollisionDirection>
+=======
+                    <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
+                    <engine.systems.collisions.CollisionDirection>Right</engine.systems.collisions.CollisionDirection>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                     <java.util.function.BiConsumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
                       <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerCollision</implClass>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                      <implMethodName>lambda$2</implMethodName>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
                       <implMethodName>lambda$3</implMethodName>
+=======
+                      <implMethodName>lambda$1</implMethodName>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
+                      <implMethodName>lambda$3</implMethodName>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                       <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
@@ -268,44 +408,119 @@
                     </java.util.function.BiConsumer>
                   </entry>
                 </actions>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <suppressed>false</suppressed>
               </engine.components.presets.PlayerCollision>
             </entry>
             <entry>
               <string>Player</string>
               <engine.components.Player>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.Player>
             </entry>
             <entry>
               <string>XVelocity</string>
               <engine.components.XVelocity>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>0.0</data>
               </engine.components.XVelocity>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+                <data>fox.png</data>
+                <name>fox.png</name>
+=======
                 <pid>3</pid>
                 <data>blobsprite.png</data>
                 <name>blobsprite.png</name>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
             <entry>
               <string>Health</string>
               <engine.components.Health>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+                <data>50.0</data>
+                <initialHealth>50.0</initialHealth>
+=======
                 <pid>3</pid>
                 <data>100.0</data>
                 <initialHealth>100.0</initialHealth>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.Health>
             </entry>
             <entry>
               <string>Lives</string>
               <engine.components.Lives>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>10.0</data>
                 <lives class="javafx.beans.property.SimpleDoubleProperty">
                   <value>1.0</value>
@@ -336,14 +551,30 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                    <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+=======
+                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                     <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerMovement</implClass>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                      <implMethodName>lambda$4</implMethodName>
+=======
+                      <implMethodName>lambda$3</implMethodName>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                       <implMethodName>lambda$1</implMethodName>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                       <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
@@ -368,7 +599,16 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                    <javafx.scene.input.KeyCode>RIGHT</javafx.scene.input.KeyCode>
+=======
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                     <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
@@ -385,14 +625,38 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
                     <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+=======
+                    <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
+                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerMovement</implClass>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                      <implMethodName>lambda$2</implMethodName>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
                       <implMethodName>lambda$0</implMethodName>
+=======
+                      <implMethodName>lambda$4</implMethodName>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
+                      <implMethodName>lambda$0</implMethodName>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                       <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
@@ -400,15 +664,45 @@
                     </java.util.function.Consumer>
                   </entry>
                 </codes>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+                <crouched>false</crouched>
+                <timing>1.525402640563E12</timing>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+                <crouched>false</crouched>
+                <timing>1.525395639017E12</timing>
+=======
+                <pid>1</pid>
+                <crouched>false</crouched>
+                <timing>1.52539801182E12</timing>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
                 <crouched>false</crouched>
                 <timing>1.525405989172E12</timing>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.presets.PlayerMovement>
             </entry>
             <entry>
               <string>Jumps</string>
               <engine.components.Jumps>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>3.0</data>
                 <max>3</max>
               </engine.components.Jumps>
@@ -416,64 +710,179 @@
             <entry>
               <string>YVelocity</string>
               <engine.components.YVelocity>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>0.0</data>
               </engine.components.YVelocity>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+                <data>Fox</data>
+=======
                 <pid>3</pid>
                 <data>Blob</data>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.Name>
             </entry>
             <entry>
               <string>DamageValue</string>
               <engine.components.DamageValue>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>1.0</data>
               </engine.components.DamageValue>
             </entry>
             <entry>
               <string>EntityType</string>
               <engine.components.EntityType>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>User</data>
               </engine.components.EntityType>
             </entry>
             <entry>
               <string>YAcceleration</string>
               <engine.components.YAcceleration>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+                <data>0.0</data>
+=======
+                <pid>1</pid>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>200.0</data>
               </engine.components.YAcceleration>
             </entry>
             <entry>
               <string>Score</string>
               <engine.components.Score>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>0.0</data>
               </engine.components.Score>
             </entry>
             <entry>
               <string>Type</string>
               <engine.components.Type>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>User</data>
               </engine.components.Type>
             </entry>
             <entry>
               <string>XPosition</string>
               <engine.components.XPosition>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+                <data>200.0</data>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+                <data>50.0</data>
+=======
+                <pid>1</pid>
+                <data>150.0</data>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
                 <data>0.0</data>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>YPosition</string>
               <engine.components.YPosition>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+                <data>100.0</data>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+                <data>150.0</data>
+=======
+                <pid>1</pid>
+                <data>50.0</data>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
                 <data>400.0</data>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
               </engine.components.YPosition>
             </entry>
             <entry>
@@ -486,28 +895,76 @@
             <entry>
               <string>Height</string>
               <engine.components.Height>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>50.0</data>
               </engine.components.Height>
             </entry>
             <entry>
               <string>DamageLifetime</string>
               <engine.components.DamageLifetime>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>1.0</data>
               </engine.components.DamageLifetime>
             </entry>
             <entry>
               <string>Width</string>
               <engine.components.Width>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+=======
+                <pid>1</pid>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>50.0</data>
               </engine.components.Width>
             </entry>
             <entry>
               <string>XAcceleration</string>
               <engine.components.XAcceleration>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+                <pid>2</pid>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+                <pid>5</pid>
+                <data>10.0</data>
+=======
+                <pid>1</pid>
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
                 <pid>3</pid>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
                 <data>0.0</data>
               </engine.components.XAcceleration>
             </entry>
@@ -516,6 +973,18 @@
       </map>
     </entry>
   </gameState>
+<<<<<<< HEAD:games/testing/Player.xml
+<<<<<<< HEAD:games/testing/Player.xml
+  <gameName>testing</gameName>
+=======
+<<<<<<< HEAD:games/cGame/Player.xml
+  <gameName>cGAme</gameName>
+=======
+  <gameName>Great Game</gameName>
+>>>>>>> e197f326c0ad5588ed8c7bb5968b9aaa5f297118:games/Great Game/Player.xml
+>>>>>>> df567a24129eb6f6f925b2cf73c724f4fa1e18f9:games/Great Game/Player.xml
+=======
   <gameName>cGame</gameName>
+>>>>>>> 621720d3d2665ea9645057135ce9a08d9bbf959e:games/cGame/Player.xml
   <levelProgress>1.0</levelProgress>
 </data.DataGameState>
