@@ -23,7 +23,7 @@ import javafx.scene.layout.GridPane;
  * @author Collin Brown(cdb55)
  *
  */
-public abstract class AbstractComponentFormCollection extends GridPane implements AuthoringLanguage{
+public abstract class AbstractComponentFormCollection extends GridPane implements AuthoringLanguage, FormCollection{
 	private final static String PROPERTIES_PACKAGE = "resources.menus.Entity/";
 	private final static String ENTITIES_PACKAGE = "engine.components.";
 	protected Properties language = new Properties();
@@ -33,7 +33,7 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 	private final static Logger LOGGER = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
 	private List<ComponentForm> activeForms = new ArrayList<>();
-	private List<String> exceptions;
+	private String[] exceptions;
 
 	
 	protected int currentRow;
@@ -50,7 +50,7 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 
 	public AbstractComponentFormCollection(String[] newExceptions, Consumer c, Class cType) {
 		this(cType);
-		getExceptions().addAll(Arrays.asList(newExceptions));
+		exceptions = newExceptions;
 		onSave = c;
 		
 	}
@@ -64,7 +64,7 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 	public AbstractComponentFormCollection(Class cType) {
 		componentFormType = cType;
 		this.getStyleClass().add("component-form");
-		setExceptions(new ArrayList<>());
+		setExceptions(new String[0]);
 	}
 
 	protected void createAddComponentButton(int row) {
@@ -109,10 +109,10 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 	}
 
 	protected List<String> getExceptions() {
-		return exceptions;
+		return Arrays.asList(exceptions);
 	}
-
-	public void setExceptions(List<String> exceptions) {
+	@Override
+	public void setExceptions(String[] exceptions) {
 		this.exceptions = exceptions;
 	}
 
@@ -131,6 +131,7 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 		});
 	}
 	
+	@Override
 	public void fill(List<String> entityProperties) {
 		try {
 		currentRow = 0;
@@ -197,6 +198,7 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 	protected abstract void save(Consumer c);
 	protected abstract void delete(ComponentForm cf);
 
+	
 
 
 }
