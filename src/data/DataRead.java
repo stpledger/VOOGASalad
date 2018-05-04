@@ -41,6 +41,18 @@ public class DataRead  {
             return new DataGameState(EMPTY_GAME);
         }
     }
+    
+    public static DataGameState copyGame() {
+        /* receives a copy of a  gamestate and loads it to the player
+         * from buildState
+         */
+        try {
+            return buildState(loadFile(GAME_PATH+gameName+FRONTSLASH+PLAYER_TARGET));
+        } catch (IllegalStateException e) {
+            ErrorStatement(FAIL_MESSAGE);
+            return new DataGameState(EMPTY_GAME);
+        }
+    }
 
     public static Map<Level, Map<Integer, List<Component>>> loadAuthorFile(File xml) {
         /*return a map for the gamestate to be sent to authoring that can be built into their
@@ -59,7 +71,7 @@ public class DataRead  {
     public static Image loadImage(String name)throws RuntimeException {
         /*used to load all iamges in player
          */
-        File imageFile = loadFile(gameName + IMAGE_PATH +name);
+        File imageFile = loadFile(GAME_PATH+gameName + IMAGE_PATH +name);
         return loadImage(imageFile);
     }
 
@@ -114,7 +126,7 @@ public class DataRead  {
     public static List<DataGameState> getSaves(){
         //loads all saves
         List<DataGameState> saves = new ArrayList<DataGameState>();
-        File file = loadFile(gameName + FRONTSLASH + SAVE_PATH);
+        File file = loadFile(GAME_PATH + gameName + FRONTSLASH + SAVE_PATH);
         for(File save : file.listFiles()){
             saves.add((DataGameState)deserialize(save));
         }
@@ -123,7 +135,7 @@ public class DataRead  {
 
     public static List<Image> getIcons(){
         List<Image> icons = new ArrayList<>();
-        File imageRepo = loadFile(gameName+IMAGE_PATH);
+        File imageRepo = loadFile(GAME_PATH+gameName+FRONTSLASH+IMAGE_PATH);
         for(File image : imageRepo.listFiles()) {
             icons.add(loadImage(image));
         }
@@ -136,7 +148,7 @@ public class DataRead  {
          */
         try {
             DataGameState gameState = (DataGameState)deserialize(xml);
-            gameName=GAME_PATH + gameState.getGameName()+ FRONTSLASH;
+            gameName = gameState.getGameName();
             return gameState;
         }
         catch(Exception e){

@@ -3,6 +3,7 @@ package gameplayer.controller;
 import java.util.Map;
 
 import data.DataGameState;
+import data.DataRead;
 import gameplayer.hud.SampleToolBar;
 import gameplayer.levelunlock.SelectLevel;
 import gameplayer.menu.MenuGameBar;
@@ -48,7 +49,9 @@ public class Controller implements IController, LevelController, PlayerControlle
 	private DataGameState initialGameState;
 
 	public Controller(Stage stage, DataGameState currentGame) {
-		this.initialGameState = new DataGameState(currentGame.getGameState(), currentGame.getGameName());
+		this.initialGameState = DataRead.copyGame();
+		System.out.println(currentGame.getGameState().size());
+		System.out.println(initialGameState.getGameState().size());
 		this.gameState = currentGame;
 		this.myStage = stage;
 		this.myStage.setWidth(WIDTH_SIZE);

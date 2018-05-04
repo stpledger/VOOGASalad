@@ -40,7 +40,7 @@ public class GameManager {
 
         numOfLevels = levelMap.keySet().size();
 
-        lifeCount.addListener((o, oldVal, newVal) -> myController.liveChange((int) newVal));
+       // lifeCount.addListener((o, oldVal, newVal) -> myController.liveChange((int) newVal));
 
         setActiveLevel(FIRST_LEVEL);
     }
@@ -69,7 +69,8 @@ public class GameManager {
     }
     
     public Double getLives() {
-    		return lifeCount.doubleValue();
+    		//return lifeCount.doubleValue();
+    		return 1.0;
     }
  
 

@@ -30,9 +30,10 @@ public class RestartButton extends Button implements IGamePlayerButton{
 	
 	public void setEvent() {
 		this.setOnAction(e->{
+			pauseMenu.hide();
 			gameController = new Controller(myStage, initialGameState);
 			myStage.setScene(gameController.getControllerScene());
-			pauseMenu.hide();
+			
 		});
 	}
 }
