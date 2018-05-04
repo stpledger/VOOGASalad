@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="cGame" name="block"><Type>Block</Type><Sprite>dirt.jpg</Sprite><DamageLifetime>1.0</DamageLifetime><Name>block</Name><DamageValue>2.0</DamageValue></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="plays" name="block"><Type>Block</Type><Sprite>dirt.jpg</Sprite><Collidable/><Name>block</Name></Entity>

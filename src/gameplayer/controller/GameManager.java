@@ -3,6 +3,7 @@ package gameplayer.controller;
 import authoring.gamestate.Level;
 import data.DataGameState;
 import engine.components.*;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
 import java.util.HashMap;
@@ -19,26 +20,30 @@ public class GameManager {
     private XPosition activePlayerPosX;
     private YPosition activePlayerPosY;
     private int numOfLevels;
-    private SimpleDoubleProperty lifeCount;
+    private double lifeCount;
     private double levelProgress;
     private PlayerController myController;
+	private Integer lifeEntityID;
+	private Map<Level, Map<Integer, Map<String, Component>>> levelMap;
+	private Map<Integer, Integer> levelToPlayer;
+	private int levelCount;
+	private Double lives;
 
     private static final int FIRST_LEVEL = 1;
 
     public GameManager(DataGameState gameState, PlayerController controller){
-        Map<Level, Map<Integer, Map<String, Component>>> levelMap = gameState.getGameState();
+    		levelMap = gameState.getGameState();
+    		levelToPlayer = new HashMap<>();
         playerKeys = new HashMap<>();
         winKeys = new HashMap<>();
         levelProgress = gameState.getLevelProgress();
         myController = controller;
-
+        levelCount = 1;
         for(Level level : levelMap.keySet()){
             extractInfo(levelMap.get(level), level.getLevelNum());
         }
 
         numOfLevels = levelMap.keySet().size();
-
-       // lifeCount.addListener((o, oldVal, newVal) -> controller.liveChange((int) newVal));
 
         setActiveLevel(FIRST_LEVEL);
     }
@@ -60,16 +65,25 @@ public class GameManager {
                     winKeys.put((Win) entityComponents.get(Win.KEY), levelNum);
                 }
                 if(entityComponents.containsKey(Lives.KEY)) {
-                	//	lifeCount = ((Lives) entityComponents.get(Lives.KEY)).getLives();
+              
+               		lifeEntityID = i;
+                		levelToPlayer.put(levelNum, lifeEntityID);
+                		//lifeCount = ((Lives) entityComponents.get(Lives.KEY)).getData();
                 }
             }
         }
     }
     
-    public double getLives() {
-    		//return lifeCount.doubleValue();
-    	return 1;
-    }
+   	public Double getLives() {
+   		int count = 1;
+   		for (Level l: levelMap.keySet()) {
+   			if (count==activeLevel) {
+   				lifeCount = ((Lives)levelMap.get(l).get(levelToPlayer.get(activeLevel)).get(Lives.KEY)).getData();
+   			}
+   			count++;
+   		}
+   		return lifeCount;	
+   	}
  
 
     /**
@@ -132,5 +146,20 @@ public class GameManager {
             this.activePlayerPosY = (YPosition) playerKeys.get(level).get(YPosition.KEY);
         }
     }
+
+    public double getScore(){
+        double score = 0;
+        for(Integer i : playerKeys.keySet()){
+            if(playerKeys.get(i).containsKey(Score.KEY)){
+                Score s = ((Score) playerKeys.get(i).get(Score.KEY));
+                score += s.getData();
+            }
+        }
+        return score;
+    }
+    
+	public void setLives(Double numOfLives) {
+		lives = numOfLives;
+	}
 
 }

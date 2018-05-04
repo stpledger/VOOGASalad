@@ -22,7 +22,7 @@ public class SampleToolBar extends ToolBar{
 	private List<String> approvedLabels;
 	private GameManager gameManager;
 	private Map<Integer, Map<String, Component>> playerKeys;
-	private static int HBOX_LENGTH = 250;
+	private static int HBOX_LENGTH = 120;
 	Map<Integer, Map<String, Boolean>> hudPropMap;
 
 
