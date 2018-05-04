@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="stefi" name="t"><Sprite>Dirt-Block1.png</Sprite><Type>Block</Type><Name>t</Name></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="StefDemo" name="t"><Name>t</Name><Sprite>Dirt-Block1.png</Sprite><Type>Block</Type></Entity>

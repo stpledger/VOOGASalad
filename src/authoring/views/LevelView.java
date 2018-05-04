@@ -11,7 +11,10 @@ import authoring.grid.Grid;
 import authoring.languages.AuthoringLanguage;
 import data.DataGameState;
 import engine.components.Component;
+import engine.components.Height;
 import engine.components.Sprite;
+import engine.components.Type;
+import engine.components.Width;
 import engine.components.XPosition;
 import engine.components.YPosition;
 import javafx.scene.control.ScrollPane;
@@ -28,11 +31,11 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 	private Level level;
 	Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
-	
+
 	private Map<Level,Map<Integer,Map<String,Component>>> levels;
 
 	Properties language = new Properties();
-	
+
 	public LevelView(Level level, int levelNum) {
 		this.getStyleClass().add("level-view");
 		this.level = level;
@@ -40,7 +43,7 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 		this.content.getStyleClass().add("level-view-content");
 		this.setHbarPolicy(ScrollBarPolicy.ALWAYS);
 		this.setVbarPolicy(ScrollBarPolicy.ALWAYS);
-		this.setContent((content));
+		this.setContent(content);
 		this.setupMouseDrag();
 	}
 
@@ -48,13 +51,25 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 		this(level,levelNum);
 		this.addEntity = aE;
 	}
-	
+
 	public void loadGameState(Map<Integer,Map<String,Component>> levelMap) {
-		
+
 		Map<String, Component> entityComponents;
 		for(Integer i:levelMap.keySet()) {
 			entityComponents = levelMap.get(i);
 			Entity entity = new BlankEntity(i);
+			for(Component c: entityComponents.values()) {
+				if(c.getKey().equals("Type")) {
+					Type type = (Type) entityComponents.get(Type.KEY);
+					if(type.getData().equals("Background")) {
+						entity.setInteractable(false);
+					}else {
+						entity.setInteractable(true);
+					}
+					entity.setPresetType(type.getData());
+				}
+				entity.add(c);
+			}
 			if(entityComponents.containsKey(Sprite.KEY)) {
 				Sprite spriteComponent = (Sprite) entityComponents.get(Sprite.KEY);
 				Image image = spriteComponent.getImage().getImage();
@@ -62,14 +77,17 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 				if (entityComponents.containsKey(XPosition.KEY) && entityComponents.containsKey(YPosition.KEY)) {
 					XPosition xComp = (XPosition) entityComponents.get(XPosition.KEY);
 					YPosition yComp = (YPosition) entityComponents.get(YPosition.KEY);
-					double row = (xComp.getData()/Entity.ENTITY_WIDTH)-1;
-					double col = (yComp.getData()/Entity.ENTITY_HEIGHT)-1;
-					this.content.addToCell(entity, (int) row, (int) col);
+					double col = (xComp.getData()/Entity.ENTITY_WIDTH);
+					double row = (yComp.getData()/Entity.ENTITY_HEIGHT);
+					if(!entity.getInteractable()) {
+						Width width = (Width) entityComponents.get(Width.KEY);
+						Height height = (Height) entityComponents.get(Height.KEY);
+						this.content.addBackgroundToCell(entity,(int) row, (int) col,width.getData(),height.getData());
+					} else {
+						this.content.addToCell(entity, (int) row, (int) col);
+					}
+					this.level.addEntity(entity);
 				}
-			} 
-			
-			for(Component c: entityComponents.values()) {
-				entity.add(c);
 			}
 		}
 	}
