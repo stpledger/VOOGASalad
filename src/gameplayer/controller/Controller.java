@@ -208,11 +208,11 @@ public class Controller implements IController, LevelController, PlayerControlle
 				this.gameView.render();
 				this.renderTime = 0;
 			}
-			Double lifeCount = gameManager.getLives();
+			/*Double lifeCount = gameManager.getLives();
 			if (playerLifeCount != lifeCount){
 				 lifeChange(lifeCount);
 				 playerLifeCount = lifeCount;
-			 }
+			 }*/
 			this.gameView.updateScroll(this.gameRoot);
 			this.sampleBar.updateGameStatusLabels(this.gameManager);
 		}
@@ -248,6 +248,8 @@ public class Controller implements IController, LevelController, PlayerControlle
 	 * Shows the high score screen
 	 */
 	private void gameOver(){
+		System.out.println(gameManager.getNumOfLevels());
+		System.out.println(gameManager.getActiveLevel());
 		HighScoreView highScoreScreen = new HighScoreView(myStage);
 		highScoreScreen.setScore(100.0); //change to game's score
 		highScoreScreen.setGameName(currentGameName);
