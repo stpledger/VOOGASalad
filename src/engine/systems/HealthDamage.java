@@ -50,10 +50,10 @@ public class HealthDamage extends AbstractSystem implements ISystem {
 			if(l.getData()>=0) {
 				h.resetHealth();
 			} else {
-			   sm.removeEntity(key);
+			   sm.removeEntity(key, map);
 			}
 		} else {
-			sm.removeEntity(key);
+			sm.removeEntity(key, map);
 		}
 	}
 	
@@ -75,7 +75,8 @@ public class HealthDamage extends AbstractSystem implements ISystem {
 		if (h.getPID()!=d.getPID()) {
 			h.setData(h.getData() - d.getData());
 			dl.setData(dl.getData() - 1);
-			if(d.getData() <= 0) {
+			if(dl.getData() <= 0) {
+				map.remove(dl.getKey());
 				map.remove(d.getKey());
 			}
 		}

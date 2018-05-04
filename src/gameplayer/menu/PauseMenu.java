@@ -17,18 +17,21 @@ public class PauseMenu extends Popup {
 	public SwitchGameButton switchBtn;
 	private Controller gamePlayerController;
 	private Stage myStage;
+	private static final String PAUSE_LABEL = "Paused";
+	private static final int BUTTON_SPACING = 10;
 	/**
 	 * Constructor for the Pause Menu Popup
 	 */
-	public PauseMenu(Stage stage) {
+	public PauseMenu(Stage stage, Controller controller) {
 		myStage = stage;
+		gamePlayerController = controller;
 		VBox pane = new VBox();
 		saveBtn = new SaveGameButton(this);
-		switchBtn = new SwitchGameButton(stage);
-		restartBtn = new RestartButton(gamePlayerController);
-		pane.setSpacing(10);
+		switchBtn = new SwitchGameButton(stage, this);
+		restartBtn = new RestartButton(stage, gamePlayerController, this);
+		pane.setSpacing(BUTTON_SPACING);
 		pane.setAlignment(Pos.CENTER);
-		pane.getChildren().addAll(new Label("Paused"), restartBtn, switchBtn, saveBtn);
+		pane.getChildren().addAll(new Label(PAUSE_LABEL), restartBtn, switchBtn, saveBtn);
 		this.getContent().add(pane);
 		pane.getStylesheets().add("gameplayer/playstyle.css");
 		pane.setFillWidth(true);

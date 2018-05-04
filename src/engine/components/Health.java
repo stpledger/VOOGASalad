@@ -7,7 +7,7 @@ package engine.components;
  */
 
 public class Health extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
-	private double initialHealth;
+	public double initialHealth;
 	public static final String KEY = "Health";
 	
 	public Health(int pid, double data) {

@@ -105,8 +105,15 @@ public class Grid extends GridPane {
 					Entity en = el.buildEntity(this.getID(), db.getString(), c.getLayoutX(),c.getLayoutY());
 					c.addEntity(en);
 					level.addEntity(en);
-					img.setFitWidth(Entity.ENTITY_WIDTH);
-					img.setFitHeight(Entity.ENTITY_HEIGHT);
+					if(!en.getInteractable()) {
+						Width width = (Width) en.get("Width");
+						Height height = (Height) en.get("Height");
+						img.setFitHeight(height.getData());
+						img.setFitWidth(width.getData());
+					}else {
+						img.setFitWidth(Entity.ENTITY_WIDTH);
+						img.setFitHeight(Entity.ENTITY_HEIGHT);	
+					}
 					c.getChildren().add(img);
 					c.setImage(db.getImage());
 				} catch (Exception e1) {
@@ -122,8 +129,7 @@ public class Grid extends GridPane {
 
 	/**
 	 * Sets up mouse click listener that opens up the context menu for that particular cell.
-	 * @param c Cell 
-	 * @param img ImageView of the entity
+	 * @param c Cell
 	 */
 	private void setupContextMenu(Cell c) {
 		c.setOnMouseClicked(e -> {
@@ -200,6 +206,7 @@ public class Grid extends GridPane {
 		img.setFitHeight(img.getFitHeight()+numRows*Entity.ENTITY_HEIGHT);
 		Entity en = c.getEntity();
 		en.add(new Height(en.getID(),img.getFitHeight()));
+		System.out.println(img.getFitHeight());
 	}
 
 	/**
