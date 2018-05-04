@@ -251,6 +251,18 @@ public class Grid extends GridPane {
 		img.setFitWidth(Entity.ENTITY_WIDTH);
 		img.setFitHeight(Entity.ENTITY_HEIGHT);
 		cell.getChildren().add(img);
+		cell.setImage(en.getImage());
+		this.entityID++;
+	}
+	
+	public void addBackgroundToCell(Entity en, int row, int col, double width, double height) {
+		Cell cell = cells.get(row).get(col);
+		cell.addEntity(en);
+		ImageView img = new ImageView(en.getImage());
+		img.setFitWidth(width);
+		img.setFitHeight(height);
+		cell.getChildren().add(img);
+		cell.setImage(en.getImage());
 		this.entityID++;
 	}
 

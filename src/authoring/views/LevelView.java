@@ -11,8 +11,10 @@ import authoring.grid.Grid;
 import authoring.languages.AuthoringLanguage;
 import data.DataGameState;
 import engine.components.Component;
+import engine.components.Height;
 import engine.components.Sprite;
 import engine.components.Type;
+import engine.components.Width;
 import engine.components.XPosition;
 import engine.components.YPosition;
 import javafx.scene.control.ScrollPane;
@@ -77,7 +79,13 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 					YPosition yComp = (YPosition) entityComponents.get(YPosition.KEY);
 					double col = (xComp.getData()/Entity.ENTITY_WIDTH);
 					double row = (yComp.getData()/Entity.ENTITY_HEIGHT);
-					this.content.addToCell(entity, (int) row, (int) col);
+					if(!entity.getInteractable()) {
+						Width width = (Width) entityComponents.get(Width.KEY);
+						Height height = (Height) entityComponents.get(Height.KEY);
+						this.content.addBackgroundToCell(entity,(int) row, (int) col,width.getData(),height.getData());
+					} else {
+						this.content.addToCell(entity, (int) row, (int) col);
+					}
 					this.level.addEntity(entity);
 				}
 			} 
