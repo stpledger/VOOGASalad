@@ -32,8 +32,8 @@ public class GameManager {
     private static final int FIRST_LEVEL = 1;
 
     public GameManager(DataGameState gameState, PlayerController controller){
-    		levelMap = gameState.getGameState();
-    		levelToPlayer = new HashMap<>();
+        levelMap = gameState.getGameState();
+        levelToPlayer = new HashMap<>();
         playerKeys = new HashMap<>();
         winKeys = new HashMap<>();
         levelProgress = gameState.getLevelProgress();
@@ -44,6 +44,16 @@ public class GameManager {
         }
 
         numOfLevels = levelMap.keySet().size();
+
+        if(winKeys.keySet().size() > 0){
+            for(Win w : winKeys.keySet()){
+                w.getWinStatus().addListener((o, oldVal, newVal) -> {
+                    if(newVal){
+                        System.out.println("Won!");
+                    }
+                });
+            }
+        }
 
         setActiveLevel(FIRST_LEVEL);
     }
