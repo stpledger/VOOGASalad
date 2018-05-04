@@ -213,6 +213,7 @@ public class Controller implements IController, LevelController, PlayerControlle
 				 lifeChange(lifeCount);
 				 playerLifeCount = lifeCount;
 			 }*/
+			this.gameManager.setLives(gameManager.getLives());
 			this.gameView.updateScroll(this.gameRoot);
 			this.sampleBar.updateGameStatusLabels(this.gameManager);
 		}
