@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="Fox Game" name="Sky"><Name>Sky</Name><Type>Background</Type><Sprite>back.png</Sprite></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="OCOM_MasterGame" name="sky"><Type>Background</Type><Name>sky</Name><Sprite>sky_2.jpeg</Sprite></Entity>

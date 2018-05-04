@@ -6,6 +6,7 @@ import engine.components.Lives;
 import engine.components.Player;
 import javafx.scene.input.KeyCode;
 import engine.components.Score;
+import engine.components.XAcceleration;
 import engine.components.XVelocity;
 import engine.components.YAcceleration;
 import engine.components.YVelocity;
@@ -45,11 +46,12 @@ public class User extends InteractableEntity {
 		this.setEntityType(TYPE);
 		this.add(new Player(this.getID()));
 		this.add(new Lives(this.getID(), INITIAL_LIVES));
-		this.add(new YVelocity(this.getID(),GRAVITY));
-		this.add(new XVelocity(this.getID(), 50));
+		this.add(new YAcceleration(this.getID(),GRAVITY));
+		this.add(new XAcceleration(this.getID(), 50));
+		this.add(new XVelocity(this.getID(), 0));
+		this.add(new YVelocity(this.getID(), 0));
 		this.add(new PlayerCollision(this.getID()));
 		this.add(new Jumps(this.getID(), 3));
-		this.add(new PlayerMovement(this.getID(), KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN));
 		this.add(new PlayerMovement(this.getID(),KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN));
 		this.add(new Score(this.getID(), 0));
 	}
