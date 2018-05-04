@@ -21,7 +21,7 @@ public abstract class NonInteractableEntity extends Entity {
 	 */
 	public NonInteractableEntity(int ID) {
 		super(ID);
-		components = new ArrayList<>();
+		this.components = new ArrayList<>();
 		this.setInteractable(false);
 	}
 

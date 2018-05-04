@@ -8,6 +8,7 @@ import authoring.gamestate.Level;
 import engine.components.StringComponent;
 import javafx.scene.image.Image;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.DataFormat;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.Pane;
@@ -43,12 +44,14 @@ public class Cell extends Pane {
 	 */
 	private void setUpDrag() {
 		this.setOnDragDetected(e -> {
-			Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
-			ClipboardContent cc = new ClipboardContent();
-			cc.putImage(image);
-			cc.putString(((StringComponent)this.getEntity().get("Name")).getData());
-			db.setContent(cc);
-			e.consume();
+			if (this.containsEntity()) {
+        			Dragboard db = this.startDragAndDrop(TransferMode.MOVE);
+        			ClipboardContent cc = new ClipboardContent();
+        			cc.putImage(image);
+        			cc.putString(((StringComponent)this.getEntity().get("Name")).getData());
+        			db.setContent(cc);
+        			e.consume();
+			}
 		});
 		this.setOnDragDone(e -> {
 			if (e.getGestureTarget() != this) {
@@ -56,6 +59,7 @@ public class Cell extends Pane {
                 	this.removeEntity(this.getEntity());
                 	this.getChildren().clear();
 			}
+			e.consume();
 		});
 	}
 

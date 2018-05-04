@@ -1,5 +1,6 @@
 package authoring.entities;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -53,7 +54,6 @@ public abstract class InteractableEntity extends Entity {
 	 */
 	@Override
 	public void add(Component c) {
-		// component must be in the list of addable components
 		if (c != null) {
 			if (this.contains(c)) {
 				this.removeByName(c.getKey());
