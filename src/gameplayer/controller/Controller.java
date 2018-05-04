@@ -64,7 +64,7 @@ public class Controller implements IController, LevelController, PlayerControlle
 		this.myPane = new BorderPane();
 		this.pauseMenu = new PauseMenu(myStage, this);
 		this.levelSelector = new SelectLevel((int) gameState.getLevelProgress(), gameManager.getNumOfLevels(), myStage, this);
-		playerLifeCount = gameManager.getLives();
+        playerLifeCount = gameManager.getLives();
 		setGameView();
 		openLevelSelector();
 		
@@ -108,13 +108,13 @@ public class Controller implements IController, LevelController, PlayerControlle
 	 * @param level - level won
 	 */
 	public void levelWon(int level){
-		if(level > this.gameManager.getNumOfLevels()){
+		/*if(level >= this.gameManager.getNumOfLevels()){
 			gameOver();
 		}
-		else{
+		else{*/
 			levelSelector.updateLevelProgress(level + 1);
 			openLevelSelector();
-		}
+		//}
 	}
 
 	public void lifeChange(Double livesLeft){
@@ -137,7 +137,9 @@ public class Controller implements IController, LevelController, PlayerControlle
 		this.gameView.setActiveLevel(level);
 		this.gameManager.setActiveLevel(level);
 		this.sampleBar.setActiveLevel(level);
-		this.gameScene = new Scene(myPane, WIDTH_SIZE, HEIGHT_SIZE);
+		if (gameScene == null){
+            gameScene = new Scene(myPane, WIDTH_SIZE, HEIGHT_SIZE);
+        }
 		initializeGameAnimation();
 		assignKeyInputs();
 		myStage.setScene(gameScene);
