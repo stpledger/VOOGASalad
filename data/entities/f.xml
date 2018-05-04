@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="ggg" name="f"><Win/><Name>f</Name><Sprite>mystery.jpg</Sprite><Type>Block</Type></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="top" name="f"><XVelocity>10.0</XVelocity><Animated>birdanimation.properties</Animated><DamageValue>10.0</DamageValue><DamageLifetime>1.0</DamageLifetime><YVelocity>0.0</YVelocity><Sprite>sprite1.png</Sprite><Health>100.0</Health><Type>User</Type><Name>f</Name><XAcceleration>1.0</XAcceleration><YAcceleration>0.0</YAcceleration></Entity>

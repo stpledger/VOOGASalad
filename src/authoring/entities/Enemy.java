@@ -1,5 +1,7 @@
 package authoring.entities;
 
+import engine.components.presets.Tube;
+
 /**
  * Enemy class that acts as a preset. Makes it easier to users to create an enemy without needing 
  * to manually add components.
@@ -12,7 +14,14 @@ public class Enemy extends InteractableEntity {
 	public Enemy(int ID, String name) {
 		super(ID);
 		this.setName(name);
+		addDefaultComponents();
 		this.setPresetType(TYPE);
+	}
+	private void addDefaultComponents() {		
+		this.setEntityType(TYPE);
+		
+		//this.add(new Tube(this.getID()));
+		
 	}
 
 }

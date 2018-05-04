@@ -5,33 +5,33 @@ import engine.components.Collidable;
 import engine.components.Player;
 import engine.systems.collisions.CollisionDirection;
 
-public class HeightPowerUpCollision extends Collidable {
+public class Tube extends Collidable {
 
-	public HeightPowerUpCollision(int pid) {
+	public Tube(int pid) {
 		super(pid);
 		
 		this.setOnDirection(CollisionDirection.Top, (e1,e2) -> {
 			if(!e2.containsKey(Player.KEY)) {
-				Actions.HeightPowerUp();
+				Actions.damage().accept(e1, e2);
 			}
 			
 		});
 		
 		this.setOnDirection(CollisionDirection.Bot, (e1,e2) -> {
 			
-			Actions.HeightPowerUp();
+			Actions.damage().accept(e1, e2);
 			
 		});
 
 		this.setOnDirection(CollisionDirection.Left, (e1,e2) -> {
 			if(!e2.containsKey(Player.KEY)) {
-				Actions.HeightPowerUp();
+				Actions.damage().accept(e1, e2);
 			}
 			
 		});
 		this.setOnDirection(CollisionDirection.Right, (e1,e2) -> {
 			if(!e2.containsKey(Player.KEY)) {
-				Actions.HeightPowerUp();;
+				Actions.damage().accept(e1, e2);
 			}
 			
 		});
