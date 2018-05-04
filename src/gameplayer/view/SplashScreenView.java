@@ -59,6 +59,7 @@ public class SplashScreenView extends BranchScreenView{
 		myGridPane = new GridPane();
 		myGridPane = setupGridSpacing(myGridPane);
 		myGridPane.setGridLinesVisible(true);
+		myGridPane.getStyleClass().add("grid-pane");
 		fileBtn = new FileUploadButton(myStage);
 		assignGameSelectButtons();
 		myScrollPane = new ScrollPane(myGridPane);
@@ -81,6 +82,7 @@ public class SplashScreenView extends BranchScreenView{
 			String nameOfGame = currentDataGameState.getGameName();
 			GameSelectButton currentButton = new GameSelectButton(myStage, nameOfGame, currentDataGameState, image);
 			currentButton.setMaxSize(WIDTH_SIZE/COL_NUM, HEIGHT_SIZE/ROW_NUM);
+			currentButton.getStyleClass().add("Button");
 			myGridPane.add(currentButton, col, row);
 			if (col == (COL_NUM-1)) {
 				col=0; 	

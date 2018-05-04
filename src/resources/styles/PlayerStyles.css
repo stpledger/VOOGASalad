@@ -1,0 +1,22 @@
+.root {
+	primary-color: #1CFEBA;
+	secondary-color: #7E7F7B;
+	tertiary-color: #3A3A38;
+	-fx-background-color: red;
+}
+.Button{
+	-fx-background-color: tertiary-color;
+	-fx-text-fill: primary-color;
+	-fx-font-size: 20;
+	-fx-font-weight: bold;
+}
+
+.Button:hover{
+	-fx-background-color: primary-color;
+	-fx-text-fill: tertiary-color;
+}
+
+.grid-pane{
+	-fx-background-color: red;
+	-fx-text-fill: primary-color;
+}
