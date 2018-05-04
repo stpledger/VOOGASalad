@@ -3,6 +3,7 @@ package gameplayer.view;
 import java.io.FileNotFoundException;
 import java.util.Map;
 
+import authoring.MainApplication;
 import data.DataGameState;
 import data.DataRead;
 import gameplayer.buttons.FileUploadButton;
@@ -58,14 +59,18 @@ public class SplashScreenView extends BranchScreenView{
 		myGridPane = new GridPane();
 		myGridPane = setupGridSpacing(myGridPane);
 		myGridPane.setGridLinesVisible(true);
+		myGridPane.getStyleClass().add("grid-pane");
 		fileBtn = new FileUploadButton(myStage);
+		fileBtn.getStyleClass().add("Button");
 		assignGameSelectButtons();
 		myScrollPane = new ScrollPane(myGridPane);
-		myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 		myBorderPane = new BorderPane(myScrollPane);
 		myBorderPane.setBottom(fileBtn);
+		myBorderPane.setStyle("-fx-background-color: secondary-color");
+		myScrollPane.setVbarPolicy(ScrollBarPolicy.NEVER);
 		BorderPane.setAlignment(fileBtn, Pos.CENTER);
-		Scene currentScene= new Scene(myBorderPane,WIDTH_SIZE,HEIGHT_SIZE);		
+		Scene currentScene= new Scene(myBorderPane,WIDTH_SIZE,HEIGHT_SIZE);	
+		currentScene.getStylesheets().add(SplashScreenView.class.getResource("/resources/styles/PlayerStyles.css").toExternalForm());
 		return currentScene;
 	}
 	/**
@@ -79,6 +84,7 @@ public class SplashScreenView extends BranchScreenView{
 			String nameOfGame = currentDataGameState.getGameName();
 			GameSelectButton currentButton = new GameSelectButton(myStage, nameOfGame, currentDataGameState, image);
 			currentButton.setMaxSize(WIDTH_SIZE/COL_NUM, HEIGHT_SIZE/ROW_NUM);
+			currentButton.getStyleClass().add("Button");
 			myGridPane.add(currentButton, col, row);
 			if (col == (COL_NUM-1)) {
 				col=0; 	

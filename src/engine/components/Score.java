@@ -2,7 +2,7 @@ package engine.components;
 
 /**
  * Data component representing an entity's score. Only used for player entities.
- * @author fitzj
+ * @author fitzj, sv116
  *
  */
 public class Score extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {

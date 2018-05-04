@@ -35,19 +35,21 @@ public class PlayerCollision extends Collidable {
 				Jumps s = (Jumps) e1.get(Jumps.KEY);
 				s.reset();
 			}
-			
+			Actions.checkWin().accept(e1, e2);
 		});
 		
 		this.setOnDirection(CollisionDirection.Bot, (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>) (e1, e2) -> {
 			Actions.moveDown(50).accept(e1);
 			Actions.transferScore().accept(e1, e2);
 
+			Actions.checkWin().accept(e1, e2);
 		});
 		
 		this.setOnDirection(CollisionDirection.Left, (Serializable & BiConsumer<Map<String,Component>, Map<String,Component>>) (e1, e2) -> {
 			Actions.moveLeft(0).accept(e1);
 			Actions.transferScore().accept(e1, e2);
 
+			Actions.checkWin().accept(e1, e2);
 			
 		});
 		
@@ -55,6 +57,7 @@ public class PlayerCollision extends Collidable {
 			Actions.moveRight(0).accept(e1);
 			Actions.transferScore().accept(e1, e2);
 
+			Actions.checkWin().accept(e1, e2);
 		});
 		
 	}

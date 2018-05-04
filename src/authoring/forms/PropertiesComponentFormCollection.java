@@ -72,7 +72,6 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 
 	@Override
 	protected void delete(ComponentForm cf) {
-		System.out.println("yuh" + cf.getName());
 		this.getActiveForms().remove(cf);
 		if(hasCurrentValue(cf.getName())) {
 			this.entity.remove(getCurrentComponent(cf.getName()));

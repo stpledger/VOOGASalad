@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="top" name="ttt"><Type>User</Type><Animated>birdanimation.properties</Animated><Health>100.0</Health><DamageLifetime>1.0</DamageLifetime><DamageValue>10.0</DamageValue><YAcceleration>100.0</YAcceleration><Name>ttt</Name><Sprite>sprite1.png</Sprite><XAcceleration>10.0</XAcceleration></Entity>

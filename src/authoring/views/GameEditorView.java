@@ -225,8 +225,10 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			@Override
 			public void run() {
 				try { 
-					new Main().start(new Stage());
+					Main myMain = new Main();
+					myMain.start(new Stage());
 				} catch (Exception e) { 
+					e.printStackTrace();
 					throw new AuthoringException(e, AuthoringAlert.NO_SHOW);
 				}
 			}	
