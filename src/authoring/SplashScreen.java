@@ -17,12 +17,15 @@ import authoring.gamestate.GameState;
 import authoring.views.MainView;
 import data.DataGameState;
 import data.DataRead;
+import gameplayer.Main;
+import javafx.application.Platform;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * 
@@ -66,6 +69,16 @@ public class SplashScreen extends VBox {
 	}
 
 	public void playGame() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Main myMain = new Main();
+					myMain.start(new Stage());
+				} catch(Exception e) {	
+				}
+			}
+		});
 	}
 
 	/**
