@@ -221,9 +221,23 @@ public class Actions {
     		}
     	};
     }
-	
-	
-	
+
+	@SuppressWarnings("unchecked")
+	public static BiConsumer<Map<String, Component>,Map<String, Component>> checkWin() {
+		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+			if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
+				if(actor1.containsKey(Player.KEY) && actor2.containsKey(Win.KEY)) {
+					Win w = (Win) actor2.get(Win.KEY);
+					w.win();
+					System.out.println("In win action");
+				}
+			}
+		};
+	}
+
+
+
+
 	@SuppressWarnings("unchecked")
 	public static BiConsumer<Map<String, Component>,Map<String, Component>> transferScore() {
 		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {

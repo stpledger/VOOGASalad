@@ -49,7 +49,7 @@ public class GameManager {
             for(Win w : winKeys.keySet()){
                 w.getWinStatus().addListener((o, oldVal, newVal) -> {
                     if(newVal){
-                        System.out.println("Won!");
+                        myController.levelWon(winKeys.get(w));
                     }
                 });
             }
@@ -88,12 +88,13 @@ public class GameManager {
    		int count = 1;
    		for (Level l: levelMap.keySet()) {
    			if (count==activeLevel) {
-   				lifeCount = ((Lives)levelMap.get(l).get(levelToPlayer.get(activeLevel)).get(Lives.KEY)).getData();
+   			    if (levelMap.get(l).get(levelToPlayer.get(activeLevel)).containsKey(Lives.KEY)) {
+                    lifeCount = ((Lives) levelMap.get(l).get(levelToPlayer.get(activeLevel)).get(Lives.KEY)).getData();
+                }
    			}
    			count++;
    		}
-   		System.out.print(lifeCount);
-   		return lifeCount;	
+   		return lifeCount;
    	}
  
 
@@ -142,6 +143,7 @@ public class GameManager {
      * @return
      */
     public int getNumOfLevels() {
+        System.out.println(numOfLevels);
         return numOfLevels;
     }
 
