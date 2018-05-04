@@ -1,5 +1,6 @@
 package gameplayer.buttons;
 import data.DataGameState;
+import data.DataUtils;
 import gameplayer.controller.Controller;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -34,6 +35,7 @@ public class GameSelectButton extends Button implements IGamePlayerButton{
 
 	public void setEvent() {
 		this.setOnAction(e -> {
+			DataUtils.setGame(myGameState.getGameName());
 			gameController = new Controller(myStage, myGameState);
 		});
 	}
