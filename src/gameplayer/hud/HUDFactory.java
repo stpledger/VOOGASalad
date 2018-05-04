@@ -16,9 +16,6 @@ import javafx.scene.layout.HBox;
  */
 
 public class HUDFactory {
-
-	private Map<String, Component> PlayerComponentsforLevel;
-	private List<String> listOfStates;
 	
 	public HUDFactory() {}
 	
@@ -32,6 +29,7 @@ public class HUDFactory {
 		List<IGameStatusLabel> listOfLabels = new ArrayList<IGameStatusLabel>();
 		for (String temp: listOfStates) {
 			try {
+				System.out.println(temp);
 				gameStatus = (IGameStatusLabel) Class.forName("gameplayer.labels."+temp+"Label").newInstance();
 			}catch (InstantiationException e) {
 				System.out.println("Error");

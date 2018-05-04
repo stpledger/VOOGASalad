@@ -94,6 +94,10 @@ public class DataGameState {
     public double getLevelProgress(){
         return levelProgress;
     }
+    
+    public void setLevelProgress(double d) {
+    		levelProgress = d;
+    }
 
 
 }

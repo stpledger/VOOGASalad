@@ -2,7 +2,10 @@ package gameplayer.controller;
 
 import java.util.Map;
 
+import authoring.gamestate.Level;
 import data.DataGameState;
+import data.DataRead;
+import engine.components.XPosition;
 import gameplayer.hud.SampleToolBar;
 import gameplayer.levelunlock.SelectLevel;
 import gameplayer.menu.MenuGameBar;
@@ -29,7 +32,6 @@ public class Controller implements IController, LevelController, PlayerControlle
 	private double renderTime;
 	private Stage myStage;
 	private Scene gameScene;
-	private Scene levelScene;
 	private Pane gameRoot;
 	private BorderPane myPane;
 	private PauseMenu pauseMenu;
@@ -48,8 +50,12 @@ public class Controller implements IController, LevelController, PlayerControlle
 	private DataGameState initialGameState;
 
 	public Controller(Stage stage, DataGameState currentGame) {
-		this.initialGameState = new DataGameState(currentGame.getGameState(), currentGame.getGameName());
+		initialGameState = DataRead.copyGame();
 		this.gameState = currentGame;
+//		for (Level l: initialGameState.getGameState().keySet()) {
+//			System.out.println(initialGameState.getGameState().get(l).get(1).get(XPosition.KEY).);
+//			break;
+//		}
 		this.myStage = stage;
 		this.myStage.setWidth(WIDTH_SIZE);
 		this.myStage.setHeight(HEIGHT_SIZE);
@@ -58,8 +64,10 @@ public class Controller implements IController, LevelController, PlayerControlle
 		this.myPane = new BorderPane();
 		this.pauseMenu = new PauseMenu(myStage, this);
 		this.levelSelector = new SelectLevel((int) gameState.getLevelProgress(), gameManager.getNumOfLevels(), myStage, this);
+		playerLifeCount = gameManager.getLives();
 		setGameView();
 		openLevelSelector();
+		
 	}
 
 	/**
@@ -78,11 +86,14 @@ public class Controller implements IController, LevelController, PlayerControlle
 	}
 
 
-
 	/**
 	 * Restarts the current game
 	 */
 	public void restartGame() {
+		initialGameState = DataRead.copyGame();
+		gameState = initialGameState;
+		this.gameManager = new GameManager(gameState, this);
+		setGameView();
 	}
 
 	/**
@@ -106,8 +117,9 @@ public class Controller implements IController, LevelController, PlayerControlle
 		}
 	}
 
-	public void liveChange(int livesLeft){
+	public void lifeChange(Double livesLeft){
 		if (livesLeft > 0){
+			gameManager.setLives(livesLeft);
 			//gameView.respawnPlayer();
 		}
 		else{
@@ -139,14 +151,6 @@ public class Controller implements IController, LevelController, PlayerControlle
 		return this.gameLevelDisplays;
 	}
 
-
-	/**
-	 * Returns the Current Data GameState from the Controller
-	 */
-	public DataGameState getInitialGameState() {
-		System.out.println(initialGameState ==gameState);
-		return initialGameState;
-	}
 	
 	/**
 	 * Returns the gameManager to access information about the game.
@@ -155,6 +159,10 @@ public class Controller implements IController, LevelController, PlayerControlle
 	public GameManager getGameManager() {
 		return gameManager;
 	}
+	
+	/**
+	 * Respawns the player sprite view after dying
+	 */
 	
 	/**
 	 * Method that sets the current scene of the game
@@ -198,6 +206,11 @@ public class Controller implements IController, LevelController, PlayerControlle
 				this.gameView.render();
 				this.renderTime = 0;
 			}
+			Double lifeCount = gameManager.getLives();
+			if (playerLifeCount != lifeCount){
+				 lifeChange(lifeCount);
+				 playerLifeCount = lifeCount;
+			 }
 			this.gameView.updateScroll(this.gameRoot);
 			this.sampleBar.updateGameStatusLabels(this.gameManager);
 		}
