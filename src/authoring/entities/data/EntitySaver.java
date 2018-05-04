@@ -47,6 +47,7 @@ public class EntitySaver {
 		Document document = DOCUMENT_BUILDER.newDocument();
 		Element root = document.createElement(DOCUMENT_TITLE);
 		root.setAttribute("name", fileName);
+		System.out.println("SAVING TO " + DataUtils.getGame());
 		root.setAttribute("game", DataUtils.getGame());
 		document.appendChild(root);
 		for (Class compClass : attributes.keySet()) {
@@ -54,8 +55,12 @@ public class EntitySaver {
 			String compName = compClass.getName().replace(COMPONENT_PREFIX, "");
 			Element comp = document.createElement(compName);
 			root.appendChild(comp);
-			for (Object o : attributes.get(compClass)) {
-				comp.appendChild(document.createTextNode(String.valueOf(o)));
+			if (attributes.get(compClass).length == 0) {
+				comp.appendChild(document.createTextNode(""));
+			} else {
+        			for (Object o : attributes.get(compClass)) {
+        				comp.appendChild(document.createTextNode(String.valueOf(o)));
+        			}
 			}
 		}
 		Transformer t = TransformerFactory.newInstance().newTransformer();

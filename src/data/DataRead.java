@@ -59,7 +59,7 @@ public class DataRead  {
     public static Image loadImage(String name)throws RuntimeException {
         /*used to load all iamges in player
          */
-        File imageFile = loadFile(gameName + IMAGE_PATH +name);
+        File imageFile = loadFile(GAME_PATH + gameName +FRONTSLASH +IMAGE_PATH +name);
         return loadImage(imageFile);
     }
 
@@ -95,7 +95,10 @@ public class DataRead  {
         File file = loadFile(GAME_PATH);
         for(File game : file.listFiles()){
           DataGameState playable = loadPlayerFile(findInDirectory(game,PLAYER_TARGET));
-          Image icon = getIcons().get(0);
+          Image icon = null;
+          try {
+          icon = getIcons().get(0);
+          }catch(Exception e) {e.printStackTrace();}
           games.put(icon, playable);
         }
         return games;
@@ -120,7 +123,7 @@ public class DataRead  {
 
     public static List<Image> getIcons(){
         List<Image> icons = new ArrayList<>();
-        File imageRepo = loadFile(gameName+IMAGE_PATH);
+        File imageRepo = loadFile(GAME_PATH+gameName+FRONTSLASH+IMAGE_PATH);
         for(File image : imageRepo.listFiles()) {
             icons.add(loadImage(image));
         }
@@ -133,7 +136,7 @@ public class DataRead  {
          */
         try {
             DataGameState gameState = (DataGameState)deserialize(xml);
-            gameName=GAME_PATH + gameState.getGameName()+ FRONTSLASH;
+            gameName = gameState.getGameName();
             return gameState;
         }
         catch(Exception e){

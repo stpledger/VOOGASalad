@@ -45,11 +45,19 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 	private Class<?> componentFormType;
 	
 	protected Consumer onSave;
+	protected Consumer deleteConsumer = e -> {delete((ComponentForm) e);};
+	
 
 	public AbstractComponentFormCollection(String[] newExceptions, Consumer c, Class cType) {
 		this(cType);
 		getExceptions().addAll(Arrays.asList(newExceptions));
 		onSave = c;
+		
+	}
+
+	private void deleteComponent(Object componentForm) {
+		this.activeForms.remove(componentForm);
+		this.getChildren().remove(componentForm);
 		
 	}
 
@@ -123,11 +131,11 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 		});
 	}
 	
-	public void fill(String entityType) {
+	public void fill(List<String> entityProperties) {
 		try {
 		currentRow = 0;
 		this.getChildren().clear();
-		for (String property : ResourceBundle.getBundle(getPropertiesPackage() + entityType).keySet()) {
+		for (String property : entityProperties) {
 			if(!getExceptions().contains(property)) {
 				this.addComponent(property);
 			}
@@ -164,9 +172,10 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 			newActiveForms.addAll(this.getActiveForms());
 			ComponentForm cf = null;
 			if(componentFormType.equals(PropertiesComponentForm.class)) {
-				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance(entityID, (componentName));
+				System.out.println(componentName.toString());
+				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance(entityID, (componentName), deleteConsumer);
 			} else {
-				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance((componentName));
+				cf = (ComponentForm) componentFormType.getConstructors()[0].newInstance((componentName), deleteConsumer);
 			}
 			if(hasCurrentValue(componentName)) {
 				cf.setValue(getCurrentValue(componentName));
@@ -186,6 +195,7 @@ public abstract class AbstractComponentFormCollection extends GridPane implement
 	protected abstract Object getCurrentValue(String componentName);
 	
 	protected abstract void save(Consumer c);
+	protected abstract void delete(ComponentForm cf);
 
 
 

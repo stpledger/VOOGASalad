@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import engine.components.Score;
 import engine.components.presets.PlayerCollision;
 import engine.components.presets.PlayerMovement;
+import engine.components.presets.BottomCollision;
 
 /**
  * A class to represent the player object, and its default components.
@@ -43,7 +44,6 @@ public class User extends InteractableEntity {
 		this.add(new PlayerMovement(this.getID(), KeyCode.LEFT, KeyCode.RIGHT, KeyCode.UP, KeyCode.DOWN));
 		this.add(new Score(this.getID(), 0));
 		this.add(new Jumps(this.getID(), 3));
-		//this.add(new Animated(this.getID(), "animations/blob/animation.properties"));
 	}
 
 }
