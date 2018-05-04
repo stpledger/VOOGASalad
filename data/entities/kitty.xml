@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="T-Rex" name="kitty"><DamageLifetime>0.0</DamageLifetime><XAcceleration>0.0</XAcceleration><Sprite>Hello Kitty.png</Sprite><YVelocity>0.0</YVelocity><DamageValue>0.0</DamageValue><XVelocity>0.0</XVelocity><Type>User</Type><Health>10.0</Health><Name>kitty</Name><YAcceleration>0.0</YAcceleration></Entity>
