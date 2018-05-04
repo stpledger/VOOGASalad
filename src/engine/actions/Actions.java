@@ -117,6 +117,9 @@ public class Actions {
     	};
     }
 	
+	
+	
+	
 	@SuppressWarnings("unchecked")
 	public static Consumer<Map<String, Component>> moveRight (double speed) {
     	return (Serializable & Consumer<Map<String, Component>>) (actor) -> {
@@ -233,6 +236,19 @@ public class Actions {
     	};
 	}
 	
+	
+	@SuppressWarnings("unchecked")
+	public static BiConsumer<Map<String, Component>,Map<String, Component>> reverseAcceleration() {
+		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+			if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
+    			if(actor2.containsKey(YAcceleration.KEY) && actor2.containsKey(YPosition.KEY)) {
+    				YAcceleration ya = (YAcceleration) actor2.get(YAcceleration.KEY);
+    				YPosition yp = (YPosition) actor2.get(YPosition.KEY);
+    				ya.setData(-ya.getData());
+    			}
+			}
+		};
+	}
 	
 	@SuppressWarnings("unchecked")
 	public static BiConsumer<Map<String, Component>,Map<String, Component>> xFriction(double stickiness) {
