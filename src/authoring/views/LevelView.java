@@ -29,7 +29,7 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 
 	private Grid content;
 	private Level level;
-	Consumer<MouseEvent> addEntity;
+	private Consumer<MouseEvent> addEntity;
 	boolean drag = false; 
 
 	private Map<Level,Map<Integer,Map<String,Component>>> levels;

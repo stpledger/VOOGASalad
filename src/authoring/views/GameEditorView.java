@@ -135,7 +135,6 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 				levelTabsList.remove(t);
 				updateTabs.accept(levelTabsList);
 			});
-			//((LevelView) t.getContent()).setLanguage(language);
 			tabPane.getTabs().add(t);
 		} catch (Exception e) {
 			throw new AuthoringException(Level.ERROR_MESSAGE, AuthoringAlert.SHOW);
@@ -149,14 +148,14 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 			Level level = new Level(levelTabsList.indexOf(t)+1);
 			levels.add(level);
 			state.addLevel(level);
-			LevelView levelView = new LevelView(level, levelTabsList.indexOf(t)+1, e -> {addEntityMethod(e);});
+			LevelView levelView = new LevelView(level, levelTabsList.indexOf(t) + 1, e -> {addEntityMethod(e);});
 			levelView.loadGameState(gameState.getGameState().get(l));
 			t.setContent(levelView);
 			t.setOnClosed(e -> {
 				levelTabsList.remove(t);
 				updateTabs.accept(levelTabsList);
 			});
-			//((LevelView) t.getContent()).setLanguage(language);
+			// ((LevelView) t.getContent()).setLanguage(language);
 			tabPane.getTabs().add(t);
 		} catch (Exception e) {
 			throw new AuthoringException(Level.ERROR_MESSAGE, AuthoringAlert.SHOW);
@@ -169,20 +168,13 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		tabPane.getTabs().clear();
 	}
 	
-	private void reloadState() { 
-		state.getLevels().clear();
-		for(Level level: levels) {
-			state.addLevel(level);
-		}
-	}
-	
 	public void startLoadingGameStates(DataGameState state) {
 		this.gameState = state;
 		removeLevels();
+		this.state.getLevels().clear();
 		for(Level level: state.getGameState().keySet()) {
 			this.addLoadLevel(level);
 		}
-		reloadState();
 	}
 
 	/**

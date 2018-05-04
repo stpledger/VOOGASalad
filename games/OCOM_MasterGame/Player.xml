@@ -904,14 +904,14 @@
               <engine.components.presets.PlayerCollision>
                 <actions>
                   <entry>
-                    <engine.systems.collisions.CollisionDirection>Top</engine.systems.collisions.CollisionDirection>
+                    <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
                     <java.util.function.BiConsumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
                       <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerCollision</implClass>
-                      <implMethodName>lambda$0</implMethodName>
+                      <implMethodName>lambda$1</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
@@ -934,21 +934,6 @@
                     </java.util.function.BiConsumer>
                   </entry>
                   <entry>
-                    <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer resolves-to="serialized-lambda">
-                      <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
-                      <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-                      <implClass>engine/components/presets/PlayerCollision</implClass>
-                      <implMethodName>lambda$1</implMethodName>
-                      <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
-                      <capturedArgs/>
-                    </java.util.function.BiConsumer>
-                  </entry>
-                  <entry>
                     <engine.systems.collisions.CollisionDirection>Left</engine.systems.collisions.CollisionDirection>
                     <java.util.function.BiConsumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
@@ -957,6 +942,21 @@
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerCollision</implClass>
                       <implMethodName>lambda$2</implMethodName>
+                      <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs/>
+                    </java.util.function.BiConsumer>
+                  </entry>
+                  <entry>
+                    <engine.systems.collisions.CollisionDirection>Top</engine.systems.collisions.CollisionDirection>
+                    <java.util.function.BiConsumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
+                      <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/components/presets/PlayerCollision</implClass>
+                      <implMethodName>lambda$0</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
@@ -1015,6 +1015,21 @@
               <engine.components.presets.PlayerMovement>
                 <codes>
                   <entry>
+                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+                    <java.util.function.Consumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
+                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/components/presets/PlayerMovement</implClass>
+                      <implMethodName>lambda$0</implMethodName>
+                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs/>
+                    </java.util.function.Consumer>
+                  </entry>
+                  <entry>
                     <javafx.scene.input.KeyCode>SPACE</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
@@ -1032,14 +1047,14 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
-                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
+                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$3</implMethodName>
+                      <implMethodName>lambda$2</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>7</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
@@ -1049,29 +1064,14 @@
                     </java.util.function.Consumer>
                   </entry>
                   <entry>
-                    <javafx.scene.input.KeyCode>LEFT</javafx.scene.input.KeyCode>
+                    <javafx.scene.input.KeyCode>DOWN</javafx.scene.input.KeyCode>
                     <java.util.function.Consumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
                       <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$0</implMethodName>
-                      <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
-                      <capturedArgs/>
-                    </java.util.function.Consumer>
-                  </entry>
-                  <entry>
-                    <javafx.scene.input.KeyCode>UP</javafx.scene.input.KeyCode>
-                    <java.util.function.Consumer resolves-to="serialized-lambda">
-                      <capturingClass>engine.components.presets.PlayerMovement</capturingClass>
-                      <functionalInterfaceClass>java/util/function/Consumer</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-                      <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$2</implMethodName>
+                      <implMethodName>lambda$3</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>7</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
@@ -3440,18 +3440,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer resolves-to="serialized-lambda">
-                      <capturingClass>engine.components.presets.SpikeCollision</capturingClass>
-                      <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-                      <implClass>engine/components/presets/SpikeCollision</implClass>
-                      <implMethodName>lambda$0</implMethodName>
-                      <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
-                      <capturedArgs/>
-                    </java.util.function.BiConsumer>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>51</pid>
@@ -3534,7 +3523,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>52</pid>
@@ -6537,7 +6526,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>101</pid>
@@ -6620,7 +6609,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>103</pid>
@@ -6703,7 +6692,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>104</pid>
@@ -6786,7 +6775,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>105</pid>
@@ -6869,7 +6858,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>106</pid>
@@ -6952,7 +6941,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>107</pid>
@@ -8555,7 +8544,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>133</pid>
@@ -8638,7 +8627,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>134</pid>
@@ -8721,7 +8710,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>135</pid>
@@ -8804,7 +8793,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>136</pid>
@@ -8887,7 +8876,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>137</pid>
@@ -8970,7 +8959,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>138</pid>
@@ -9309,7 +9298,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>143</pid>
@@ -9392,7 +9381,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>144</pid>
@@ -9475,7 +9464,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>145</pid>
@@ -9622,7 +9611,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>147</pid>
@@ -9705,7 +9694,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>148</pid>
@@ -9916,7 +9905,7 @@
                 <actions>
                   <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer reference="../../../../../../../entry[49]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
+                    <java.util.function.BiConsumer reference="../../../../../../../entry[16]/map/entry/engine.components.presets.SpikeCollision/actions/entry/java.util.function.BiConsumer"/>
                   </entry>
                 </actions>
                 <pid>151</pid>
