@@ -38,6 +38,7 @@ public abstract class AbstractComponentForm extends GridPane {
 		this.add("Win");
 		this.add("AI");
 		this.add("Collidable");
+		this.add("KeyInput");
 		}};
 	protected Consumer<ComponentForm> deleteComponent;
 
