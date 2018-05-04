@@ -46,7 +46,9 @@ public class KeyInput implements Component, BehaviorComponent {
 	public void action(Set<KeyCode> codeSet, Map<String, Component> entityMap) {
         codeSet.forEach(key -> {
         	if(codes.containsKey(key)) {
-        		codes.get(key).accept(entityMap);
+        		if(codes.get(key) != null) {
+        			codes.get(key).accept(entityMap);
+        		}
         	}
         });
 	}

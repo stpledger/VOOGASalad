@@ -47,6 +47,7 @@ public class EntitySaver {
 		Document document = DOCUMENT_BUILDER.newDocument();
 		Element root = document.createElement(DOCUMENT_TITLE);
 		root.setAttribute("name", fileName);
+		System.out.println("SAVING TO " + DataUtils.getGame());
 		root.setAttribute("game", DataUtils.getGame());
 		document.appendChild(root);
 		for (Class compClass : attributes.keySet()) {

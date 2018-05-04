@@ -141,9 +141,21 @@ public class GameManager {
     public void setActiveLevel(int level){
         this.activeLevel = level;
         if(level <= this.numOfLevels){
+
             this.activePlayerPosX = (XPosition) playerKeys.get(level).get(XPosition.KEY);
             this.activePlayerPosY = (YPosition) playerKeys.get(level).get(YPosition.KEY);
         }
+    }
+
+    public double getScore(){
+        double score = 0;
+        for(Integer i : playerKeys.keySet()){
+            if(playerKeys.get(i).containsKey(Score.KEY)){
+                Score s = ((Score) playerKeys.get(i).get(Score.KEY));
+                score += s.getData();
+            }
+        }
+        return score;
     }
 
 }
