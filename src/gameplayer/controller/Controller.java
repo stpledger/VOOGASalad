@@ -64,7 +64,7 @@ public class Controller implements IController, LevelController, PlayerControlle
 		this.myPane = new BorderPane();
 		this.pauseMenu = new PauseMenu(myStage, this);
 		this.levelSelector = new SelectLevel((int) gameState.getLevelProgress(), gameManager.getNumOfLevels(), myStage, this);
-		playerLifeCount = gameManager.getLives();
+        playerLifeCount = gameManager.getLives();
 		setGameView();
 		openLevelSelector();
 		
@@ -108,13 +108,13 @@ public class Controller implements IController, LevelController, PlayerControlle
 	 * @param level - level won
 	 */
 	public void levelWon(int level){
-		if(level > this.gameManager.getNumOfLevels()){
+		/*if(level >= this.gameManager.getNumOfLevels()){
 			gameOver();
 		}
-		else{
+		else{*/
 			levelSelector.updateLevelProgress(level + 1);
 			openLevelSelector();
-		}
+		//}
 	}
 
 
@@ -128,7 +128,9 @@ public class Controller implements IController, LevelController, PlayerControlle
 		this.gameView.setActiveLevel(level);
 		this.gameManager.setActiveLevel(level);
 		this.sampleBar.setActiveLevel(level);
-		this.gameScene = new Scene(myPane, WIDTH_SIZE, HEIGHT_SIZE);
+		if (gameScene == null){
+            gameScene = new Scene(myPane, WIDTH_SIZE, HEIGHT_SIZE);
+        }
 		initializeGameAnimation();
 		assignKeyInputs();
 		myStage.setScene(gameScene);
@@ -185,7 +187,7 @@ public class Controller implements IController, LevelController, PlayerControlle
 	public void lifeChange(Double livesLeft){
 		if (livesLeft > 0){
 			gameManager.setLives(livesLeft);
-			gameManager.respawnPlayer();
+		//	gameManager.respawnPlayer();
 		}
 //		else{
 //			gameOver();
@@ -204,11 +206,12 @@ public class Controller implements IController, LevelController, PlayerControlle
 				this.gameView.render();
 				this.renderTime = 0;
 			}
-			Double lifeCount = gameManager.getLives();
+			/*Double lifeCount = gameManager.getLives();
 			if (playerLifeCount != lifeCount){
 				 lifeChange(lifeCount);
 				 playerLifeCount = lifeCount;
-			 }
+			 }*/
+			this.gameManager.setLives(gameManager.getLives());
 			this.gameView.updateScroll(this.gameRoot);
 			this.sampleBar.updateGameStatusLabels(this.gameManager);
 		}
@@ -244,6 +247,8 @@ public class Controller implements IController, LevelController, PlayerControlle
 	 * Shows the high score screen
 	 */
 	private void gameOver(){
+		System.out.println(gameManager.getNumOfLevels());
+		System.out.println(gameManager.getActiveLevel());
 		HighScoreView highScoreScreen = new HighScoreView(myStage);
 		highScoreScreen.setScore(100.0); //change to game's score
 		highScoreScreen.setGameName(currentGameName);

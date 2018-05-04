@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="T-Rex" name="sun flower"><DamageLifetime>1.0</DamageLifetime><XAcceleration>0.0</XAcceleration><Sprite>sun flower.jpg</Sprite><YVelocity>0.0</YVelocity><DamageValue>2.0</DamageValue><XVelocity>0.0</XVelocity><Type>Enemy</Type><Health>100.0</Health><Name>sun flower</Name><YAcceleration>0.0</YAcceleration></Entity>

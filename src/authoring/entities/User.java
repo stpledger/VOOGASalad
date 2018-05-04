@@ -12,6 +12,7 @@ import engine.components.YVelocity;
 //import engine.components.presets.BirdMovement;
 import engine.components.presets.PlayerCollision;
 import engine.components.presets.PlayerMovement;
+import engine.components.presets.BottomCollision;
 
 /**
  * A class to represent the player object, and its default components.

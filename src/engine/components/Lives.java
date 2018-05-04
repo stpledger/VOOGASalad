@@ -11,12 +11,30 @@ import javafx.beans.property.SimpleDoubleProperty;
 public class Lives extends SingleDataComponent implements Component, DataComponent, ReadDataComponent {
 
 	public static final String KEY = "Lives";
+
+
+	DoubleProperty lives;
+
 	public Lives(int pid, double data) {
 		super(pid, data);
+		lives = new SimpleDoubleProperty(data);
 	}
 
 	public String getKey() {
 		return KEY;
 	}
 
+	@Override
+	public void setData(double data) {
+		lives.setValue(data);
+	}
+
+	@Override
+	public double getData() {
+		return lives.getValue();
+	}
+
+	public DoubleProperty getLives() {
+		return lives;
+    }
 }

@@ -10,6 +10,8 @@ import java.util.Properties;
 import java.util.function.Consumer;
 import java.util.logging.Logger;
 
+import authoring.exceptions.AuthoringAlert;
+import authoring.exceptions.AuthoringException;
 import authoring.gamestate.AuthoringStateLoader;
 import authoring.gamestate.GameChooser;
 import authoring.gamestate.GameNameChooser;
@@ -72,12 +74,14 @@ public class SplashScreen extends VBox {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				try {
+				try { 
 					Main myMain = new Main();
 					myMain.start(new Stage());
-				} catch(Exception e) {	
+				} catch (Exception e) { 
+					e.printStackTrace();
+					throw new AuthoringException(e, AuthoringAlert.NO_SHOW);
 				}
-			}
+			}	
 		});
 	}
 
