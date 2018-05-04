@@ -82,6 +82,7 @@ public class Grid extends GridPane {
 	 * @param c Cell to add the mouse click event listener to
 	 */
 	private void setupEntityDrop(Cell c) {
+		System.out.println("Working!");
 		c.setOnDragEntered(e -> c.setStyle(DRAGGED_OVER_STYLE));
 		c.setOnDragExited(e -> c.setStyle(DEFAULT_STYLE));
 		c.setOnDragOver(e -> {
@@ -102,7 +103,7 @@ public class Grid extends GridPane {
 					img.setFitWidth(Entity.ENTITY_WIDTH);
 					img.setFitHeight(Entity.ENTITY_HEIGHT);
 					c.getChildren().add(img);
-					//c.setImage(db.getImage());
+					c.setImage(db.getImage());
 				} catch (Exception e1) {
 					throw new AuthoringException("Cannot add entity to the cell!", AuthoringAlert.SHOW);
 				}
@@ -249,6 +250,19 @@ public class Grid extends GridPane {
 		img.setFitWidth(Entity.ENTITY_WIDTH);
 		img.setFitHeight(Entity.ENTITY_HEIGHT);
 		cell.getChildren().add(img);
+		cell.setImage(en.getImage());
+		this.entityID++;
+	}
+	
+	public void addBackgroundToCell(Entity en, int row, int col, double width, double height) {
+		Cell cell = cells.get(row).get(col);
+		cell.addEntity(en);
+		ImageView img = new ImageView(en.getImage());
+		img.setFitWidth(width);
+		img.setFitHeight(height);
+		cell.getChildren().add(img);
+		cell.setImage(en.getImage());
+		this.entityID++;
 	}
 
 	/**
