@@ -254,6 +254,17 @@ public class Grid extends GridPane {
 		cell.setImage(en.getImage());
 		this.entityID++;
 	}
+	
+	public void addBackgroundToCell(Entity en, int row, int col, double width, double height) {
+		Cell cell = cells.get(row).get(col);
+		cell.addEntity(en);
+		ImageView img = new ImageView(en.getImage());
+		img.setFitWidth(width);
+		img.setFitHeight(height);
+		cell.getChildren().add(img);
+		cell.setImage(en.getImage());
+		this.entityID++;
+	}
 
 	/**
 	 * Creates the next ID to be used when creating a new entity
