@@ -12,6 +12,7 @@ public class Lives extends SingleDataComponent implements Component, DataCompone
 
 	public static final String KEY = "Lives";
 
+
 	DoubleProperty lives;
 
 	public Lives(int pid, double data) {
@@ -22,6 +23,7 @@ public class Lives extends SingleDataComponent implements Component, DataCompone
 	public String getKey() {
 		return KEY;
 	}
+
 	@Override
 	public void setData(double data) {
 		lives.setValue(data);
@@ -33,6 +35,6 @@ public class Lives extends SingleDataComponent implements Component, DataCompone
 	}
 
 	public DoubleProperty getLives() {
-    	return lives;
+		return lives;
     }
 }

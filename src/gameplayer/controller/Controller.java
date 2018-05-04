@@ -117,15 +117,6 @@ public class Controller implements IController, LevelController, PlayerControlle
 		}
 	}
 
-	public void lifeChange(Double livesLeft){
-		if (livesLeft > 0){
-			gameManager.setLives(livesLeft);
-			//gameView.respawnPlayer();
-		}
-		else{
-			gameOver();
-		}
-	}
 
 	/**
 	 * Changes the display of the gave.
@@ -163,10 +154,6 @@ public class Controller implements IController, LevelController, PlayerControlle
 	}
 	
 	/**
-	 * Respawns the player sprite view after dying
-	 */
-	
-	/**
 	 * Method that sets the current scene of the game
 	 */
 	private void setGameView() {
@@ -196,6 +183,17 @@ public class Controller implements IController, LevelController, PlayerControlle
 		this.animation.play();
 	}
 
+
+	public void lifeChange(Double livesLeft){
+		if (livesLeft > 0){
+			gameManager.setLives(livesLeft);
+			gameManager.respawnPlayer();
+		}
+//		else{
+//			gameOver();
+//		}
+	}
+	
 	/**
 	 * Step method that repeats the animation by checking entities using render and system Manager
 	 * @param elapsedTime

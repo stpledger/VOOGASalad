@@ -137,6 +137,7 @@ public class EntityBuilderView extends Stage {
 		comboBox.setOnAction(e -> {
 				data.setComponent(engine.components.Type.class, getRealName(comboBox.getSelectionModel().getSelectedItem()));
 				List<String> componentsToAdd = new ArrayList<>(ResourceBundle.getBundle(PROPERTIES_PACKAGE + data.getType()).keySet());
+
 				componentFormCollection.fill(componentsToAdd);
 				componentFormCollection.setLanguage(language);
 				this.sizeToScene();

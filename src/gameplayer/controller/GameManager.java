@@ -2,6 +2,7 @@ package gameplayer.controller;
 
 import authoring.gamestate.Level;
 import data.DataGameState;
+import data.DataRead;
 import engine.components.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -14,27 +15,31 @@ import java.util.Map;
  * @author Scott Pledger
  */
 public class GameManager {
-    private Map<Integer, Map<String, Component>> playerKeys;
-    private Map<Win, Integer> winKeys;
-    private int activeLevel;
-    private XPosition activePlayerPosX;
-    private YPosition activePlayerPosY;
-    private int numOfLevels;
-    private double lifeCount;
-    private double levelProgress;
-    private PlayerController myController;
+	private Map<Integer, Map<String, Component>> playerKeys;
+	private Map<Win, Integer> winKeys;
+	private int activeLevel;
+	private XPosition activePlayerPosX;
+	private YPosition activePlayerPosY;
+	private int numOfLevels;
+	private double lifeCount;
+	private double levelProgress;
+	private PlayerController myController;
 	private Integer lifeEntityID;
 	private Map<Level, Map<Integer, Map<String, Component>>> levelMap;
 	private Map<Integer, Integer> levelToPlayer;
 	private int levelCount;
 	private Double lives;
 	private DoubleProperty numOfLives;
+	private Map<Integer, Double> startingXPositionMap;
+	private Map<Integer, Double> startingYPositionMap;
 
     private static final int FIRST_LEVEL = 1;
 
     public GameManager(DataGameState gameState, PlayerController controller){
         levelMap = gameState.getGameState();
         levelToPlayer = new HashMap<>();
+		startingXPositionMap = new HashMap<>();
+		startingYPositionMap = new HashMap<>();
         playerKeys = new HashMap<>();
         winKeys = new HashMap<>();
         levelProgress = gameState.getLevelProgress();
@@ -65,31 +70,55 @@ public class GameManager {
         });
     }
 
-    /**
-     * Extracts player and win components from each level
-     * @param entities
-     * @param levelNum
-     */
-    private void extractInfo(Map<Integer, Map<String, Component>> entities, int levelNum){
-        Map<String, Component> entityComponents;
-        for(Integer i : entities.keySet()) {
-            entityComponents = entities.get(i);
-            if(entityComponents.containsKey(Sprite.KEY)) {
-                if(entityComponents.containsKey(Player.KEY)){
-                    playerKeys.put(levelNum, entityComponents);
-                }
-                if (entityComponents.containsKey(Win.KEY)) {
-                    winKeys.put((Win) entityComponents.get(Win.KEY), levelNum);
-                }
-                if(entityComponents.containsKey(Lives.KEY)) {
-              
-               		lifeEntityID = i;
-                		levelToPlayer.put(levelNum, lifeEntityID);
-                		//lifeCount = ((Lives) entityComponents.get(Lives.KEY)).getData();
-                }
-            }
-        }
-    }
+
+	private Map<Integer, Map<String, Component>> getEntitiesForSingleLevel(Map<Level, Map<Integer, Map<String, Component>>> levelMap, int levelNum){
+		int count = 1;
+		Map<Integer, Map<String, Component>> entityMapForSingleLevel = new HashMap<>();;
+		for (Level l: levelMap.keySet()) {
+			if (count == levelNum) {
+				entityMapForSingleLevel = levelMap.get(l);
+			}
+			count++;
+		}
+		return entityMapForSingleLevel;
+	}
+    
+	/**
+	 * Extracts player and win components from each level
+	 * @param entities
+	 * @param levelNum
+	 */
+	private void extractInfo(Map<Integer, Map<String, Component>> entities, int levelNum){
+		Map<String, Component> entityComponents;
+		for(Integer i : entities.keySet()) {
+			entityComponents = entities.get(i);
+			if(entityComponents.containsKey(Sprite.KEY)) {
+				if(entityComponents.containsKey(Player.KEY)){
+					playerKeys.put(levelNum, entityComponents);
+
+					Map<Integer, Map<String, Component>> initialGameState = getEntitiesForSingleLevel(DataRead.copyGame().getGameState(),levelNum);
+					if (initialGameState.get(i).containsKey(XPosition.KEY)) {     
+						System.out.println(((XPosition) initialGameState.get(i).get(XPosition.KEY)).getData());
+						startingXPositionMap.put(levelNum,((XPosition) initialGameState.get(i).get(XPosition.KEY)).getData());
+					}
+					if (initialGameState.get(i).containsKey(YPosition.KEY)) {   
+						System.out.println(((YPosition) initialGameState.get(i).get(YPosition.KEY)).getData());
+						startingYPositionMap.put(levelNum,((YPosition) initialGameState.get(i).get(YPosition.KEY)).getData());
+					}
+				}
+				if (entityComponents.containsKey(Win.KEY)) {
+					winKeys.put((Win) entityComponents.get(Win.KEY), levelNum);
+				}
+				//obtaining starting values for each level.
+
+				if(entityComponents.containsKey(Lives.KEY)) {
+					lifeEntityID = i;
+					levelToPlayer.put(levelNum, lifeEntityID);
+					//lifeCount = ((Lives) entityComponents.get(Lives.KEY)).getData();
+				}
+			}
+		}
+	}
 
     public DoubleProperty livesSetup(){
         DoubleProperty temp = new SimpleDoubleProperty();
@@ -109,11 +138,24 @@ public class GameManager {
         }
         return temp;
     }
+
+    /**
+     * Returns the lives
+     * @return
+     */
     
    	public double getLives() {
    		return numOfLives.doubleValue();
    	}
  
+   	/**
+   	 * Repositions the player to the starting position.
+   	 */
+	public void respawnPlayer() {
+		((XPosition) playerKeys.get(activeLevel).get(XPosition.KEY)).setData(startingXPositionMap.get(activeLevel));
+		((YPosition) playerKeys.get(activeLevel).get(YPosition.KEY)).setData(startingYPositionMap.get(activeLevel));
+	}
+
 
     /**
      * Get a map of Level Number to their corresponding Player entity
