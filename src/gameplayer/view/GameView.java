@@ -21,7 +21,7 @@ import javafx.scene.layout.Pane;
  * @authors Ryan Fu & Scott Pledger
  *
  */
-public class GameView implements IGamePlayerView{
+public class GameView implements IGamePlayerView, EntityManager {
 	private DataGameState gameState;
 
 	private Map<Level,Map<Integer,Map<String,Component>>> levels;
@@ -94,10 +94,11 @@ public class GameView implements IGamePlayerView{
 	 */
 	public void initializeGameView() {
 		gameInitializer = new GameInitializer(intLevels.get(gameManager.getActiveLevel()),
-				Math.max(PANE_HEIGHT, PANE_WIDTH), gameManager.getActivePlayerPosX(), gameManager.getActivePlayerPosY());
+				Math.max(PANE_HEIGHT, PANE_WIDTH), gameManager.getActivePlayerPosX(), gameManager.getActivePlayerPosY(), this);
 		inputHandler = gameInitializer.getInputHandler();
 		renderManager = gameInitializer.getRenderManager();
 		systemManager = gameInitializer.getSystemManager();
+		
 	}
 
 	/**
@@ -265,6 +266,32 @@ public class GameView implements IGamePlayerView{
 		Height h = (Height) entityComponents.get(Height.KEY);
 		image.setFitHeight(h.getData());
 		image.setFitWidth(w.getData());
+	}
+
+	@Override
+	public void addEntity(int pid, Map<String, Component> components) {
+		if(gameLevelDisplays != null && gameLevelDisplays.get(gameManager.getActiveLevel()) != null) {
+			Pane p = gameLevelDisplays.get(gameManager.getActiveLevel());
+			if(components.containsKey(Sprite.KEY)) {
+				Sprite s = (Sprite) components.get(Sprite.KEY);
+				if(!p.getChildren().contains(s.getImage())) {
+					p.getChildren().add(s.getImage());
+				}
+			}
+		}
+	}
+
+	@Override
+	public void removeEntity(int pid, Map<String,Component> components) {
+		if(gameLevelDisplays != null && gameLevelDisplays.get(gameManager.getActiveLevel()) != null) {
+			Pane p = gameLevelDisplays.get(gameManager.getActiveLevel());
+			if(components.containsKey(Sprite.KEY)) {
+				Sprite s = (Sprite) components.get(Sprite.KEY);
+				if(p.getChildren().contains(s.getImage())) {
+					p.getChildren().remove(s.getImage());
+				}
+			}
+		}
 	}
 
 
