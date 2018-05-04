@@ -81,15 +81,16 @@ public class ActionAdder {
               args.add(supplier.getData());
           System.out.print("Supplier with " + args.size() + " items");
           if (component.equals(AI))
-             configureAI(aRead.getAction(methodName,args));
+             configureAI((Consumer)aRead.getAction(methodName,args));
           if (component.equals(COLLIDABLE))
               configureCollidable((BiConsumer)aRead.getAction(methodName, args));
           if(component.equals(KEYCODE))
-              configureKeyInput(aRead.getAction(methodName,args));
+              configureKeyInput((Consumer)aRead.getAction(methodName,args));
       }
       catch(Exception e){
           DataUtils.ErrorStatement(FAILED);
           System.out.print("Error loading in ine 92 ActionAdder");
+          e.printStackTrace();
       }
     }
 

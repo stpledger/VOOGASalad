@@ -27,7 +27,6 @@ public class DataWrite {
      *  or the player
      */
     private static final String XML_FILETYPE = ".xml";
-
     private static final String IMAGE_DATAPATH = "images/";
     private static final String DATA_DATAPTH = "data";
     private static final String PERIOD = ".";
@@ -186,6 +185,7 @@ public class DataWrite {
     private static void writeGame(DataGameState dataGameState) {
         //writes the xml to the folder created above
         String name = dataGameState.getGameName();
+        System.out.println(dataGameState.getComponents().size()+"sdkfjhsdkf;jhsdkjfskjdf");
         File game = new File(GAME_PATH + name + PLAYER + XML_FILETYPE);
         FileOutputStream fos = null;
         try {

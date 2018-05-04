@@ -1,6 +1,9 @@
 package authoring.entities;
 
+
 import engine.components.presets.Tube;
+import engine.components.presets.KoopaCollision;
+
 
 /**
  * Enemy class that acts as a preset. Makes it easier to users to create an enemy without needing 
@@ -16,6 +19,11 @@ public class Enemy extends InteractableEntity {
 		this.setName(name);
 		addDefaultComponents();
 		this.setPresetType(TYPE);
+		addDefaultComponent();
+	}
+
+	private void addDefaultComponent() {
+		this.add(new KoopaCollision(this.getID()));
 	}
 	private void addDefaultComponents() {		
 		this.setEntityType(TYPE);

@@ -89,6 +89,4 @@ public class PropertiesComponentFormCollection extends AbstractComponentFormColl
 		}
 		return null;
 	}
-
-
 }

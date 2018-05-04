@@ -1,45 +1,52 @@
 package authoring.actions;
 
 import authoring.entities.Entity;
-import data.DataRead;
-import javafx.scene.control.ComboBox;
-import java.io.File;
+import javafx.scene.control.TextArea;
+
+
 
 public class EntitySupplier extends Supplier {
-/*@Author Conrad pronpts user for EntityName to help build actions
+    /* @Author Conrad prompts user for double to help make actions
 
- */
-    private String eName;
-    private static final int XSIZE = 350;
-    private static final int YSIZE =90; //55
+     */
+    private int dub;
+    private TextArea keyInput;
+    private static final String KEY_PROMPT = "Input an int Corresponding to an entity";
+    private static final int XSIZE = 200;
+    private static final int YSIZE =70;
+    private static final String INVALID = "Invalid int";
+    private static final String VALID = "Accepted int";
+
     private static final String PROMPT = "Select an entity type you want associated with this action";
     private static final String COMBO_PROMPT = "Select entity";
     private static final String PERIOD = ".";
 
     EntitySupplier(Entity e){
-        super(PROMPT,XSIZE,YSIZE,e);
-        configureMenu();
+        super(KEY_PROMPT, XSIZE, YSIZE, e);
     }
 
+    protected void configureMenu(){
+        keyInput = new TextArea();
+        keyInput.setPrefHeight(10);
+        keyInput.setOnKeyPressed(e->checkCode(e.getText()));
+        menu.getChildren().add(0,keyInput);
+        menu.setPrefHeight(YSIZE);
+        prompt.setText(INVALID);
 
-    @Override
-    protected void configureMenu() {
-        ComboBox entityList = new ComboBox();
-        entityList.setPromptText(COMBO_PROMPT);
-        for(File entity : DataRead.getAllEntities()){
-            entityList.getItems().add(cutFile(entity.getName()));
-        }
-        entityList.setOnAction(e->{eName=(String)entityList.getValue(); });
-        menu.getChildren().add(0,entityList);
     }
 
     @Override
     protected Object getData() {
-        return eName;
+        return dub;
     }
 
-    private String cutFile(String file){
-        return file.substring(0,file.indexOf(PERIOD));
+    private void checkCode(String num){
+        try{
+            dub = Integer.valueOf(keyInput.getText()+num);
+            prompt.setText(VALID);
+        }
+        catch(NumberFormatException e){
+            prompt.setText(INVALID);
+        }
     }
-
 }
