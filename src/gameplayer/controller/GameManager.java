@@ -2,6 +2,7 @@ package gameplayer.controller;
 
 import authoring.gamestate.Level;
 import data.DataGameState;
+import data.DataRead;
 import engine.components.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -14,15 +15,15 @@ import java.util.Map;
  * @author Scott Pledger
  */
 public class GameManager {
-    private Map<Integer, Map<String, Component>> playerKeys;
-    private Map<Win, Integer> winKeys;
-    private int activeLevel;
-    private XPosition activePlayerPosX;
-    private YPosition activePlayerPosY;
-    private int numOfLevels;
-    private double lifeCount;
-    private double levelProgress;
-    private PlayerController myController;
+	private Map<Integer, Map<String, Component>> playerKeys;
+	private Map<Win, Integer> winKeys;
+	private int activeLevel;
+	private XPosition activePlayerPosX;
+	private YPosition activePlayerPosY;
+	private int numOfLevels;
+	private double lifeCount;
+	private double levelProgress;
+	private PlayerController myController;
 	private Integer lifeEntityID;
 	private Map<Level, Map<Integer, Map<String, Component>>> levelMap;
 	private Map<Integer, Integer> levelToPlayer;
@@ -30,149 +31,166 @@ public class GameManager {
 	private Double lives;
 	private Map<Integer, Double> startingXPositionMap;
 	private Map<Integer, Double> startingYPositionMap;
-	
 
-    private static final int FIRST_LEVEL = 1;
 
-    public GameManager(DataGameState gameState, PlayerController controller){
-    		levelMap = gameState.getGameState();
-    		levelToPlayer = new HashMap<>();
-    		startingXPositionMap = new HashMap<>();
-    		startingYPositionMap = new HashMap<>();
-        playerKeys = new HashMap<>();
-        winKeys = new HashMap<>();
-        levelProgress = gameState.getLevelProgress();
-        myController = controller;
-        levelCount = 1;
-        for(Level level : levelMap.keySet()){
-            extractInfo(levelMap.get(level), level.getLevelNum());
-        }
+	private static final int FIRST_LEVEL = 1;
 
-        numOfLevels = levelMap.keySet().size();
+	public GameManager(DataGameState gameState, PlayerController controller){
+		levelMap = gameState.getGameState();
+		levelToPlayer = new HashMap<>();
+		startingXPositionMap = new HashMap<>();
+		startingYPositionMap = new HashMap<>();
+		playerKeys = new HashMap<>();
+		winKeys = new HashMap<>();
+		levelProgress = gameState.getLevelProgress();
+		myController = controller;
+		levelCount = 1;
+		for(Level level : levelMap.keySet()){
+			extractInfo(levelMap.get(level), level.getLevelNum());
+		}
 
-        setActiveLevel(FIRST_LEVEL);
-    }
+		numOfLevels = levelMap.keySet().size();
 
-    /**
-     * Extracts player and win components from each level
-     * @param entities
-     * @param levelNum
-     */
-    private void extractInfo(Map<Integer, Map<String, Component>> entities, int levelNum){
-        Map<String, Component> entityComponents;
-        for(Integer i : entities.keySet()) {
-            entityComponents = entities.get(i);
-            if(entityComponents.containsKey(Sprite.KEY)) {
-                if(entityComponents.containsKey(Player.KEY)){
-                    playerKeys.put(levelNum, entityComponents);
-                }
-                if (entityComponents.containsKey(Win.KEY)) {
-                    winKeys.put((Win) entityComponents.get(Win.KEY), levelNum);
-                }
-                if (entityComponents.containsKey(XPosition.KEY)) {
-                		startingXPositionMap.put(levelNum, ((XPosition) entityComponents.get(XPosition.KEY)).getData());
-                }
-                if (entityComponents.containsKey(YPosition.KEY)) {
-            		startingYPositionMap.put(levelNum, ((YPosition) entityComponents.get(YPosition.KEY)).getData());
-            }
-                if(entityComponents.containsKey(Lives.KEY)) {
-              
-               		lifeEntityID = i;
-                		levelToPlayer.put(levelNum, lifeEntityID);
-                		//lifeCount = ((Lives) entityComponents.get(Lives.KEY)).getData();
-                }
-            }
-        }
-    }
-    
-   	public Double getLives() {
-   		int count = 1;
-   		for (Level l: levelMap.keySet()) {
-   			if (count==activeLevel) {
-   				lifeCount = ((Lives)levelMap.get(l).get(levelToPlayer.get(activeLevel)).get(Lives.KEY)).getData();
-   			}
-   			count++;
-   		}
-   		return lifeCount;	
-   	}
- 
-   	public void respawnPlayer() {
-   		((XPosition) playerKeys.get(activeLevel).get(XPosition.KEY)).setData(startingXPositionMap.get(activeLevel));
-   		((YPosition) playerKeys.get(activeLevel).get(YPosition.KEY)).setData(startingYPositionMap.get(activeLevel));
-   	}
+		setActiveLevel(FIRST_LEVEL);
+	}
 
-    /**
-     * Get a map of Level Number to their corresponding Player entity
-     * @return
-     */
-    public Map<Integer, Map<String, Component>> getPlayerKeys() {
-        return playerKeys;
-    }
+	/**
+	 * Extracts player and win components from each level
+	 * @param entities
+	 * @param levelNum
+	 */
+	private void extractInfo(Map<Integer, Map<String, Component>> entities, int levelNum){
+		Map<String, Component> entityComponents;
+		for(Integer i : entities.keySet()) {
+			entityComponents = entities.get(i);
+			if(entityComponents.containsKey(Sprite.KEY)) {
+				if(entityComponents.containsKey(Player.KEY)){
+					playerKeys.put(levelNum, entityComponents);
 
-    /**
-     * Get a map of Win components to their corresponding levels
-     * @return
-     */
-    public Map<Win, Integer> getWinKeys() {
-        return winKeys;
-    }
+					Map<Integer, Map<String, Component>> initialGameState = getEntitiesForSingleLevel(DataRead.copyGame().getGameState(),levelNum);
+					if (initialGameState.get(i).containsKey(XPosition.KEY)) {     
+						System.out.println(((XPosition) initialGameState.get(i).get(XPosition.KEY)).getData());
+						startingXPositionMap.put(levelNum,((XPosition) initialGameState.get(i).get(XPosition.KEY)).getData());
+					}
+					if (initialGameState.get(i).containsKey(YPosition.KEY)) {   
+						System.out.println(((YPosition) initialGameState.get(i).get(YPosition.KEY)).getData());
+						startingYPositionMap.put(levelNum,((YPosition) initialGameState.get(i).get(YPosition.KEY)).getData());
+					}
+				}
+				if (entityComponents.containsKey(Win.KEY)) {
+					winKeys.put((Win) entityComponents.get(Win.KEY), levelNum);
+				}
+				//obtaining starting values for each level.
 
-    /**
-     * Get the value of the level currently being played
-     * @return
-     */
-    public int getActiveLevel() {
-        return activeLevel;
-    }
+				if(entityComponents.containsKey(Lives.KEY)) {
+					lifeEntityID = i;
+					levelToPlayer.put(levelNum, lifeEntityID);
+					//lifeCount = ((Lives) entityComponents.get(Lives.KEY)).getData();
+				}
+			}
+		}
+	}
 
-    /**
-     * Get the XPosition of the Player in the current active level as a double
-     * @return
-     */
-    public double getActivePlayerPosX() {
-        return activePlayerPosX.getData();
-    }
+	private Map<Integer, Map<String, Component>> getEntitiesForSingleLevel(Map<Level, Map<Integer, Map<String, Component>>> levelMap, int levelNum){
+		int count = 1;
+		Map<Integer, Map<String, Component>> entityMapForSingleLevel = new HashMap<>();;
+		for (Level l: levelMap.keySet()) {
+			if (count == levelNum) {
+				entityMapForSingleLevel = levelMap.get(l);
+			}
+			count++;
+		}
+		return entityMapForSingleLevel;
+	}
 
-    /**
-     * Get the YPosition of the Player in the current active level as a double
-     * @return
-     */
-    public double getActivePlayerPosY() {
-        return activePlayerPosY.getData();
-    }
+	public Double getLives() {
+		int count = 1;
+		for (Level l: levelMap.keySet()) {
+			if (count==activeLevel) {
+				lifeCount = ((Lives)levelMap.get(l).get(levelToPlayer.get(activeLevel)).get(Lives.KEY)).getData();
+			}
+			count++;
+		}
+		return lifeCount;	
+	}
 
-    /**
-     * Get the total number of levels
-     * @return
-     */
-    public int getNumOfLevels() {
-        return numOfLevels;
-    }
+	public void respawnPlayer() {
+		((XPosition) playerKeys.get(activeLevel).get(XPosition.KEY)).setData(startingXPositionMap.get(activeLevel));
+		((YPosition) playerKeys.get(activeLevel).get(YPosition.KEY)).setData(startingYPositionMap.get(activeLevel));
+	}
 
-    /**
-     * Set the value of activeLevel
-     * @param level
-     */
-    public void setActiveLevel(int level){
-        this.activeLevel = level;
-        if(level <= this.numOfLevels){
+	/**
+	 * Get a map of Level Number to their corresponding Player entity
+	 * @return
+	 */
+	public Map<Integer, Map<String, Component>> getPlayerKeys() {
+		return playerKeys;
+	}
 
-            this.activePlayerPosX = (XPosition) playerKeys.get(level).get(XPosition.KEY);
-            this.activePlayerPosY = (YPosition) playerKeys.get(level).get(YPosition.KEY);
-        }
-    }
+	/**
+	 * Get a map of Win components to their corresponding levels
+	 * @return
+	 */
+	public Map<Win, Integer> getWinKeys() {
+		return winKeys;
+	}
 
-    public double getScore(){
-        double score = 0;
-        for(Integer i : playerKeys.keySet()){
-            if(playerKeys.get(i).containsKey(Score.KEY)){
-                Score s = ((Score) playerKeys.get(i).get(Score.KEY));
-                score += s.getData();
-            }
-        }
-        return score;
-    }
-    
+	/**
+	 * Get the value of the level currently being played
+	 * @return
+	 */
+	public int getActiveLevel() {
+		return activeLevel;
+	}
+
+	/**
+	 * Get the XPosition of the Player in the current active level as a double
+	 * @return
+	 */
+	public double getActivePlayerPosX() {
+		return activePlayerPosX.getData();
+	}
+
+	/**
+	 * Get the YPosition of the Player in the current active level as a double
+	 * @return
+	 */
+	public double getActivePlayerPosY() {
+		return activePlayerPosY.getData();
+	}
+
+	/**
+	 * Get the total number of levels
+	 * @return
+	 */
+	public int getNumOfLevels() {
+		return numOfLevels;
+	}
+
+	/**
+	 * Set the value of activeLevel
+	 * @param level
+	 */
+	public void setActiveLevel(int level){
+		this.activeLevel = level;
+		if(level <= this.numOfLevels){
+
+			this.activePlayerPosX = (XPosition) playerKeys.get(level).get(XPosition.KEY);
+			this.activePlayerPosY = (YPosition) playerKeys.get(level).get(YPosition.KEY);
+		}
+	}
+
+	public double getScore(){
+		double score = 0;
+		for(Integer i : playerKeys.keySet()){
+			if(playerKeys.get(i).containsKey(Score.KEY)){
+				Score s = ((Score) playerKeys.get(i).get(Score.KEY));
+				score += s.getData();
+			}
+		}
+		return score;
+	}
+
 	public void setLives(Double numOfLives) {
 		lives = numOfLives;
 	}
