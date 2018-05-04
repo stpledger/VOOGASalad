@@ -67,7 +67,7 @@ public class SplashScreenView extends BranchScreenView{
 		myBorderPane.setBottom(fileBtn);
 		BorderPane.setAlignment(fileBtn, Pos.CENTER);
 		Scene currentScene= new Scene(myBorderPane,WIDTH_SIZE,HEIGHT_SIZE);	
-		currentScene.getStylesheets().add(SplashScreenView.class.getResource("src/resources/styles/PlayerStyles.css").toExternalForm());
+		currentScene.getStylesheets().add(SplashScreenView.class.getResource("/resources/styles/PlayerStyles.css").toExternalForm());
 		return currentScene;
 	}
 	/**
