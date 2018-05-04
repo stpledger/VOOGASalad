@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="T-Rex-Demo" name="User"><DamageValue>0.0</DamageValue><Type>User</Type><DamageLifetime>0.0</DamageLifetime><XAcceleration>0.0</XAcceleration><Sprite>mario.png</Sprite><YVelocity>0.0</YVelocity><YAcceleration>0.0</YAcceleration><Health>10.0</Health><XVelocity>0.0</XVelocity><Name>User</Name></Entity>

@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="T-Rex-Demo" name="block"><DamageValue>2.0</DamageValue><Type>Block</Type><DamageLifetime>1.0</DamageLifetime><Sprite>dirt.jpg</Sprite><Name>block</Name></Entity>

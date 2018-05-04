@@ -9,6 +9,83 @@
       </authoring.gamestate.Level>
       <map>
         <entry>
+          <int>1</int>
+          <map>
+            <entry>
+              <string>Collidable</string>
+              <engine.components.Collidable>
+                <actions/>
+                <pid>1</pid>
+              </engine.components.Collidable>
+            </entry>
+            <entry>
+              <string>Type</string>
+              <engine.components.Type>
+                <pid>1</pid>
+                <data>Block</data>
+              </engine.components.Type>
+            </entry>
+            <entry>
+              <string>XPosition</string>
+              <engine.components.XPosition>
+                <pid>1</pid>
+                <data>100.0</data>
+              </engine.components.XPosition>
+            </entry>
+            <entry>
+              <string>Sprite</string>
+              <engine.components.Sprite>
+                <pid>1</pid>
+                <data>dirt.jpg</data>
+                <name>dirt.jpg</name>
+                <isPlaying>false</isPlaying>
+              </engine.components.Sprite>
+            </entry>
+            <entry>
+              <string>YPosition</string>
+              <engine.components.YPosition>
+                <pid>1</pid>
+                <data>350.0</data>
+              </engine.components.YPosition>
+            </entry>
+            <entry>
+              <string>Height</string>
+              <engine.components.Height>
+                <pid>1</pid>
+                <data>50.0</data>
+              </engine.components.Height>
+            </entry>
+            <entry>
+              <string>DamageLifetime</string>
+              <engine.components.DamageLifetime>
+                <pid>1</pid>
+                <data>1.0</data>
+              </engine.components.DamageLifetime>
+            </entry>
+            <entry>
+              <string>Width</string>
+              <engine.components.Width>
+                <pid>1</pid>
+                <data>50.0</data>
+              </engine.components.Width>
+            </entry>
+            <entry>
+              <string>DamageValue</string>
+              <engine.components.DamageValue>
+                <pid>1</pid>
+                <data>2.0</data>
+              </engine.components.DamageValue>
+            </entry>
+            <entry>
+              <string>Name</string>
+              <engine.components.Name>
+                <pid>1</pid>
+                <data>block</data>
+              </engine.components.Name>
+            </entry>
+          </map>
+        </entry>
+        <entry>
           <int>2</int>
           <map>
             <entry>
@@ -29,15 +106,15 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>2</pid>
-                <data>100.0</data>
+                <data>150.0</data>
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>2</pid>
-                <data>bosch.jpeg</data>
-                <name>bosch.jpeg</name>
+                <data>dirt.jpg</data>
+                <name>dirt.jpg</name>
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -45,14 +122,42 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>2</pid>
-                <data>200.0</data>
+                <data>350.0</data>
               </engine.components.YPosition>
+            </entry>
+            <entry>
+              <string>Height</string>
+              <engine.components.Height>
+                <pid>2</pid>
+                <data>50.0</data>
+              </engine.components.Height>
+            </entry>
+            <entry>
+              <string>DamageLifetime</string>
+              <engine.components.DamageLifetime>
+                <pid>2</pid>
+                <data>1.0</data>
+              </engine.components.DamageLifetime>
+            </entry>
+            <entry>
+              <string>Width</string>
+              <engine.components.Width>
+                <pid>2</pid>
+                <data>50.0</data>
+              </engine.components.Width>
+            </entry>
+            <entry>
+              <string>DamageValue</string>
+              <engine.components.DamageValue>
+                <pid>2</pid>
+                <data>2.0</data>
+              </engine.components.DamageValue>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>2</pid>
-                <data>sleekee</data>
+                <data>block</data>
               </engine.components.Name>
             </entry>
           </map>
@@ -78,15 +183,15 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>3</pid>
-                <data>150.0</data>
+                <data>200.0</data>
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>3</pid>
-                <data>bosch.jpeg</data>
-                <name>bosch.jpeg</name>
+                <data>dirt.jpg</data>
+                <name>dirt.jpg</name>
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -94,14 +199,42 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>3</pid>
-                <data>200.0</data>
+                <data>350.0</data>
               </engine.components.YPosition>
+            </entry>
+            <entry>
+              <string>Height</string>
+              <engine.components.Height>
+                <pid>3</pid>
+                <data>50.0</data>
+              </engine.components.Height>
+            </entry>
+            <entry>
+              <string>DamageLifetime</string>
+              <engine.components.DamageLifetime>
+                <pid>3</pid>
+                <data>1.0</data>
+              </engine.components.DamageLifetime>
+            </entry>
+            <entry>
+              <string>Width</string>
+              <engine.components.Width>
+                <pid>3</pid>
+                <data>50.0</data>
+              </engine.components.Width>
+            </entry>
+            <entry>
+              <string>DamageValue</string>
+              <engine.components.DamageValue>
+                <pid>3</pid>
+                <data>2.0</data>
+              </engine.components.DamageValue>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>3</pid>
-                <data>sleekee</data>
+                <data>block</data>
               </engine.components.Name>
             </entry>
           </map>
@@ -127,15 +260,15 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>4</pid>
-                <data>200.0</data>
+                <data>300.0</data>
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>4</pid>
-                <data>bosch.jpeg</data>
-                <name>bosch.jpeg</name>
+                <data>dirt.jpg</data>
+                <name>dirt.jpg</name>
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -143,14 +276,42 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>4</pid>
-                <data>200.0</data>
+                <data>350.0</data>
               </engine.components.YPosition>
+            </entry>
+            <entry>
+              <string>Height</string>
+              <engine.components.Height>
+                <pid>4</pid>
+                <data>50.0</data>
+              </engine.components.Height>
+            </entry>
+            <entry>
+              <string>DamageLifetime</string>
+              <engine.components.DamageLifetime>
+                <pid>4</pid>
+                <data>1.0</data>
+              </engine.components.DamageLifetime>
+            </entry>
+            <entry>
+              <string>Width</string>
+              <engine.components.Width>
+                <pid>4</pid>
+                <data>50.0</data>
+              </engine.components.Width>
+            </entry>
+            <entry>
+              <string>DamageValue</string>
+              <engine.components.DamageValue>
+                <pid>4</pid>
+                <data>2.0</data>
+              </engine.components.DamageValue>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>4</pid>
-                <data>sleekee</data>
+                <data>block</data>
               </engine.components.Name>
             </entry>
           </map>
@@ -176,15 +337,15 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>5</pid>
-                <data>250.0</data>
+                <data>350.0</data>
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>5</pid>
-                <data>bosch.jpeg</data>
-                <name>bosch.jpeg</name>
+                <data>dirt.jpg</data>
+                <name>dirt.jpg</name>
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -192,14 +353,42 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>5</pid>
-                <data>200.0</data>
+                <data>350.0</data>
               </engine.components.YPosition>
+            </entry>
+            <entry>
+              <string>Height</string>
+              <engine.components.Height>
+                <pid>5</pid>
+                <data>50.0</data>
+              </engine.components.Height>
+            </entry>
+            <entry>
+              <string>DamageLifetime</string>
+              <engine.components.DamageLifetime>
+                <pid>5</pid>
+                <data>1.0</data>
+              </engine.components.DamageLifetime>
+            </entry>
+            <entry>
+              <string>Width</string>
+              <engine.components.Width>
+                <pid>5</pid>
+                <data>50.0</data>
+              </engine.components.Width>
+            </entry>
+            <entry>
+              <string>DamageValue</string>
+              <engine.components.DamageValue>
+                <pid>5</pid>
+                <data>2.0</data>
+              </engine.components.DamageValue>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>5</pid>
-                <data>sleekee</data>
+                <data>block</data>
               </engine.components.Name>
             </entry>
           </map>
@@ -225,15 +414,15 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>6</pid>
-                <data>250.0</data>
+                <data>400.0</data>
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>6</pid>
-                <data>bosch.jpeg</data>
-                <name>bosch.jpeg</name>
+                <data>dirt.jpg</data>
+                <name>dirt.jpg</name>
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -241,14 +430,42 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>6</pid>
-                <data>150.0</data>
+                <data>350.0</data>
               </engine.components.YPosition>
+            </entry>
+            <entry>
+              <string>Height</string>
+              <engine.components.Height>
+                <pid>6</pid>
+                <data>50.0</data>
+              </engine.components.Height>
+            </entry>
+            <entry>
+              <string>DamageLifetime</string>
+              <engine.components.DamageLifetime>
+                <pid>6</pid>
+                <data>1.0</data>
+              </engine.components.DamageLifetime>
+            </entry>
+            <entry>
+              <string>Width</string>
+              <engine.components.Width>
+                <pid>6</pid>
+                <data>50.0</data>
+              </engine.components.Width>
+            </entry>
+            <entry>
+              <string>DamageValue</string>
+              <engine.components.DamageValue>
+                <pid>6</pid>
+                <data>2.0</data>
+              </engine.components.DamageValue>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>6</pid>
-                <data>sleekee</data>
+                <data>block</data>
               </engine.components.Name>
             </entry>
           </map>
@@ -274,15 +491,15 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>7</pid>
-                <data>250.0</data>
+                <data>350.0</data>
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>7</pid>
-                <data>bosch.jpeg</data>
-                <name>bosch.jpeg</name>
+                <data>dirt.jpg</data>
+                <name>dirt.jpg</name>
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -290,14 +507,42 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>7</pid>
-                <data>100.0</data>
+                <data>300.0</data>
               </engine.components.YPosition>
+            </entry>
+            <entry>
+              <string>Height</string>
+              <engine.components.Height>
+                <pid>7</pid>
+                <data>50.0</data>
+              </engine.components.Height>
+            </entry>
+            <entry>
+              <string>DamageLifetime</string>
+              <engine.components.DamageLifetime>
+                <pid>7</pid>
+                <data>1.0</data>
+              </engine.components.DamageLifetime>
+            </entry>
+            <entry>
+              <string>Width</string>
+              <engine.components.Width>
+                <pid>7</pid>
+                <data>50.0</data>
+              </engine.components.Width>
+            </entry>
+            <entry>
+              <string>DamageValue</string>
+              <engine.components.DamageValue>
+                <pid>7</pid>
+                <data>2.0</data>
+              </engine.components.DamageValue>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>7</pid>
-                <data>sleekee</data>
+                <data>block</data>
               </engine.components.Name>
             </entry>
           </map>
@@ -323,15 +568,15 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>8</pid>
-                <data>300.0</data>
+                <data>500.0</data>
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>8</pid>
-                <data>bosch.jpeg</data>
-                <name>bosch.jpeg</name>
+                <data>dirt.jpg</data>
+                <name>dirt.jpg</name>
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -339,14 +584,42 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>8</pid>
-                <data>200.0</data>
+                <data>350.0</data>
               </engine.components.YPosition>
+            </entry>
+            <entry>
+              <string>Height</string>
+              <engine.components.Height>
+                <pid>8</pid>
+                <data>50.0</data>
+              </engine.components.Height>
+            </entry>
+            <entry>
+              <string>DamageLifetime</string>
+              <engine.components.DamageLifetime>
+                <pid>8</pid>
+                <data>1.0</data>
+              </engine.components.DamageLifetime>
+            </entry>
+            <entry>
+              <string>Width</string>
+              <engine.components.Width>
+                <pid>8</pid>
+                <data>50.0</data>
+              </engine.components.Width>
+            </entry>
+            <entry>
+              <string>DamageValue</string>
+              <engine.components.DamageValue>
+                <pid>8</pid>
+                <data>2.0</data>
+              </engine.components.DamageValue>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>8</pid>
-                <data>sleekee</data>
+                <data>block</data>
               </engine.components.Name>
             </entry>
           </map>
@@ -372,15 +645,15 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>9</pid>
-                <data>350.0</data>
+                <data>550.0</data>
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>9</pid>
-                <data>bosch.jpeg</data>
-                <name>bosch.jpeg</name>
+                <data>dirt.jpg</data>
+                <name>dirt.jpg</name>
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -388,14 +661,42 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>9</pid>
-                <data>200.0</data>
+                <data>350.0</data>
               </engine.components.YPosition>
+            </entry>
+            <entry>
+              <string>Height</string>
+              <engine.components.Height>
+                <pid>9</pid>
+                <data>50.0</data>
+              </engine.components.Height>
+            </entry>
+            <entry>
+              <string>DamageLifetime</string>
+              <engine.components.DamageLifetime>
+                <pid>9</pid>
+                <data>1.0</data>
+              </engine.components.DamageLifetime>
+            </entry>
+            <entry>
+              <string>Width</string>
+              <engine.components.Width>
+                <pid>9</pid>
+                <data>50.0</data>
+              </engine.components.Width>
+            </entry>
+            <entry>
+              <string>DamageValue</string>
+              <engine.components.DamageValue>
+                <pid>9</pid>
+                <data>2.0</data>
+              </engine.components.DamageValue>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>9</pid>
-                <data>sleekee</data>
+                <data>block</data>
               </engine.components.Name>
             </entry>
           </map>
@@ -421,15 +722,15 @@
               <string>XPosition</string>
               <engine.components.XPosition>
                 <pid>10</pid>
-                <data>400.0</data>
+                <data>550.0</data>
               </engine.components.XPosition>
             </entry>
             <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>10</pid>
-                <data>bosch.jpeg</data>
-                <name>bosch.jpeg</name>
+                <data>dirt.jpg</data>
+                <name>dirt.jpg</name>
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -437,14 +738,42 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>10</pid>
-                <data>200.0</data>
+                <data>300.0</data>
               </engine.components.YPosition>
+            </entry>
+            <entry>
+              <string>Height</string>
+              <engine.components.Height>
+                <pid>10</pid>
+                <data>50.0</data>
+              </engine.components.Height>
+            </entry>
+            <entry>
+              <string>DamageLifetime</string>
+              <engine.components.DamageLifetime>
+                <pid>10</pid>
+                <data>1.0</data>
+              </engine.components.DamageLifetime>
+            </entry>
+            <entry>
+              <string>Width</string>
+              <engine.components.Width>
+                <pid>10</pid>
+                <data>50.0</data>
+              </engine.components.Width>
+            </entry>
+            <entry>
+              <string>DamageValue</string>
+              <engine.components.DamageValue>
+                <pid>10</pid>
+                <data>2.0</data>
+              </engine.components.DamageValue>
             </entry>
             <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>10</pid>
-                <data>sleekee</data>
+                <data>block</data>
               </engine.components.Name>
             </entry>
           </map>
@@ -457,21 +786,6 @@
               <engine.components.presets.PlayerCollision>
                 <actions>
                   <entry>
-                    <engine.systems.collisions.CollisionDirection>Right</engine.systems.collisions.CollisionDirection>
-                    <java.util.function.BiConsumer resolves-to="serialized-lambda">
-                      <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
-                      <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
-                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
-                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
-                      <implClass>engine/components/presets/PlayerCollision</implClass>
-                      <implMethodName>lambda$3</implMethodName>
-                      <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
-                      <implMethodKind>6</implMethodKind>
-                      <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
-                      <capturedArgs/>
-                    </java.util.function.BiConsumer>
-                  </entry>
-                  <entry>
                     <engine.systems.collisions.CollisionDirection>Bot</engine.systems.collisions.CollisionDirection>
                     <java.util.function.BiConsumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
@@ -479,7 +793,7 @@
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerCollision</implClass>
-                      <implMethodName>lambda$1</implMethodName>
+                      <implMethodName>lambda$new$f0f98599$2</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
@@ -487,14 +801,14 @@
                     </java.util.function.BiConsumer>
                   </entry>
                   <entry>
-                    <engine.systems.collisions.CollisionDirection>Left</engine.systems.collisions.CollisionDirection>
+                    <engine.systems.collisions.CollisionDirection>Right</engine.systems.collisions.CollisionDirection>
                     <java.util.function.BiConsumer resolves-to="serialized-lambda">
                       <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
                       <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerCollision</implClass>
-                      <implMethodName>lambda$2</implMethodName>
+                      <implMethodName>lambda$new$f0f98599$4</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
@@ -509,7 +823,22 @@
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerCollision</implClass>
-                      <implMethodName>lambda$0</implMethodName>
+                      <implMethodName>lambda$new$f0f98599$1</implMethodName>
+                      <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
+                      <implMethodKind>6</implMethodKind>
+                      <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
+                      <capturedArgs/>
+                    </java.util.function.BiConsumer>
+                  </entry>
+                  <entry>
+                    <engine.systems.collisions.CollisionDirection>Left</engine.systems.collisions.CollisionDirection>
+                    <java.util.function.BiConsumer resolves-to="serialized-lambda">
+                      <capturingClass>engine.components.presets.PlayerCollision</capturingClass>
+                      <functionalInterfaceClass>java/util/function/BiConsumer</functionalInterfaceClass>
+                      <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
+                      <functionalInterfaceMethodSignature>(Ljava/lang/Object;Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
+                      <implClass>engine/components/presets/PlayerCollision</implClass>
+                      <implMethodName>lambda$new$f0f98599$3</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;Ljava/util/Map;)V</instantiatedMethodType>
@@ -527,11 +856,18 @@
               </engine.components.Player>
             </entry>
             <entry>
+              <string>XVelocity</string>
+              <engine.components.XVelocity>
+                <pid>11</pid>
+                <data>0.0</data>
+              </engine.components.XVelocity>
+            </entry>
+            <entry>
               <string>Sprite</string>
               <engine.components.Sprite>
                 <pid>11</pid>
-                <data>Hemanth.png</data>
-                <name>Hemanth.png</name>
+                <data>mario.png</data>
+                <name>mario.png</name>
                 <isPlaying>false</isPlaying>
               </engine.components.Sprite>
             </entry>
@@ -539,8 +875,8 @@
               <string>Health</string>
               <engine.components.Health>
                 <pid>11</pid>
-                <data>100.0</data>
-                <initialHealth>100.0</initialHealth>
+                <data>10.0</data>
+                <initialHealth>10.0</initialHealth>
               </engine.components.Health>
             </entry>
             <entry>
@@ -562,7 +898,7 @@
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$0</implMethodName>
+                      <implMethodName>lambda$new$852f5708$1</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
@@ -577,7 +913,7 @@
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$1</implMethodName>
+                      <implMethodName>lambda$new$852f5708$2</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>6</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
@@ -592,7 +928,7 @@
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$2</implMethodName>
+                      <implMethodName>lambda$new$852f5708$3</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>7</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
@@ -609,7 +945,7 @@
                       <functionalInterfaceMethodName>accept</functionalInterfaceMethodName>
                       <functionalInterfaceMethodSignature>(Ljava/lang/Object;)V</functionalInterfaceMethodSignature>
                       <implClass>engine/components/presets/PlayerMovement</implClass>
-                      <implMethodName>lambda$3</implMethodName>
+                      <implMethodName>lambda$new$852f5708$4</implMethodName>
                       <implMethodSignature>(Ljava/util/Map;)V</implMethodSignature>
                       <implMethodKind>7</implMethodKind>
                       <instantiatedMethodType>(Ljava/util/Map;)V</instantiatedMethodType>
@@ -621,7 +957,7 @@
                 </codes>
                 <pid>11</pid>
                 <crouched>false</crouched>
-                <timing>1.525134165306E12</timing>
+                <timing>1.525394983955E12</timing>
               </engine.components.presets.PlayerMovement>
             </entry>
             <entry>
@@ -633,10 +969,24 @@
               </engine.components.Jumps>
             </entry>
             <entry>
+              <string>YVelocity</string>
+              <engine.components.YVelocity>
+                <pid>11</pid>
+                <data>0.0</data>
+              </engine.components.YVelocity>
+            </entry>
+            <entry>
+              <string>DamageValue</string>
+              <engine.components.DamageValue>
+                <pid>11</pid>
+                <data>0.0</data>
+              </engine.components.DamageValue>
+            </entry>
+            <entry>
               <string>Name</string>
               <engine.components.Name>
                 <pid>11</pid>
-                <data>hemenat</data>
+                <data>User</data>
               </engine.components.Name>
             </entry>
             <entry>
@@ -645,6 +995,13 @@
                 <pid>11</pid>
                 <data>User</data>
               </engine.components.EntityType>
+            </entry>
+            <entry>
+              <string>YAcceleration</string>
+              <engine.components.YAcceleration>
+                <pid>11</pid>
+                <data>0.0</data>
+              </engine.components.YAcceleration>
             </entry>
             <entry>
               <string>Score</string>
@@ -671,15 +1028,8 @@
               <string>YPosition</string>
               <engine.components.YPosition>
                 <pid>11</pid>
-                <data>150.0</data>
+                <data>300.0</data>
               </engine.components.YPosition>
-            </entry>
-            <entry>
-              <string>Animated</string>
-              <engine.components.Animated>
-                <pid>11</pid>
-                <data>animations/blob/animation.properties</data>
-              </engine.components.Animated>
             </entry>
             <entry>
               <string>Height</string>
@@ -689,17 +1039,31 @@
               </engine.components.Height>
             </entry>
             <entry>
+              <string>DamageLifetime</string>
+              <engine.components.DamageLifetime>
+                <pid>11</pid>
+                <data>0.0</data>
+              </engine.components.DamageLifetime>
+            </entry>
+            <entry>
               <string>Width</string>
               <engine.components.Width>
                 <pid>11</pid>
                 <data>50.0</data>
               </engine.components.Width>
             </entry>
+            <entry>
+              <string>XAcceleration</string>
+              <engine.components.XAcceleration>
+                <pid>11</pid>
+                <data>0.0</data>
+              </engine.components.XAcceleration>
+            </entry>
           </map>
         </entry>
       </map>
     </entry>
   </gameState>
-  <gameName>test_now</gameName>
+  <gameName>T-Rex-Demo</gameName>
   <levelProgress>1.0</levelProgress>
 </data.DataGameState>
