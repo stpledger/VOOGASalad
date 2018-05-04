@@ -252,6 +252,8 @@ public class Actions {
 		};
 	}
 	
+	
+	
 	@SuppressWarnings("unchecked")
 	public static BiConsumer<Map<String, Component>,Map<String, Component>> xFriction(double stickiness) {
 		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
