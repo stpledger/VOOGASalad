@@ -1,1 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="T-Rex" name="user"><Sprite>fox.png</Sprite><Type>User</Type><XVelocity>0.0</XVelocity><Name>user</Name><DamageLifetime>0.0</DamageLifetime><DamageValue>0.0</DamageValue><YAcceleration>0.0</YAcceleration><XAcceleration>0.0</XAcceleration><YVelocity>0.0</YVelocity><Health>10.0</Health></Entity>
