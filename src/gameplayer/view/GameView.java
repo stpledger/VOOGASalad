@@ -21,7 +21,7 @@ import javafx.scene.layout.Pane;
  * @authors Ryan Fu & Scott Pledger
  *
  */
-public class GameView implements IGamePlayerView, EntityManager {
+public class GameView implements IGamePlayerView, EntityManager{
 	private DataGameState gameState;
 
 	private Map<Level,Map<Integer,Map<String,Component>>> levels;
@@ -107,6 +107,7 @@ public class GameView implements IGamePlayerView, EntityManager {
 	 */
 	public void setActiveLevel(int activelevel){
 		gameManager.setActiveLevel(activelevel);
+		initializeGameView();
 	}
 
 	/**

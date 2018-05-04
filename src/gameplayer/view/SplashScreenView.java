@@ -1,5 +1,6 @@
 package gameplayer.view;
 
+import java.io.FileNotFoundException;
 import java.util.Map;
 
 import data.DataGameState;
@@ -88,7 +89,6 @@ public class SplashScreenView extends BranchScreenView{
 		}
 	}
 
-
 	/**
 	 * Method that reorganizes the spacing between gridPanes
 	 * @param gridPane
@@ -103,9 +103,6 @@ public class SplashScreenView extends BranchScreenView{
 		}
 		return gridPane;
 	}
-
-
-
 
 
 }

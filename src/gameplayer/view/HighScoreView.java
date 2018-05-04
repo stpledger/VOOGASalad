@@ -6,6 +6,10 @@ import java.util.Map;
 import data.DataRead;
 import data.DataWrite;
 import gameplayer.buttons.IGamePlayerButton;
+import gameplayer.buttons.RestartButton;
+import gameplayer.buttons.SwitchGameButton;
+import gameplayer.controller.Controller;
+import gameplayer.menu.PauseMenu;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
@@ -15,11 +19,14 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Stage;
 
 public class HighScoreView extends BranchScreenView {
 	private Scene highScoreScene;
+	private Stage myStage;
 	private TableView highScoreTable;
 	private TableColumn firstCol;
 	private TableColumn secondCol;
@@ -34,26 +41,32 @@ public class HighScoreView extends BranchScreenView {
 	private final String appId = "190769674886367";
 	private final String authUrl = "https://graph.facebook.com/oauth/authorize?type=user_agent&client_id="+appId+"&redirect_uri="+domain+"&scope=public_profile,"
 			+ "user_photos,user_friends,user_hometown";
+	private PauseMenu pauseMenu;
 	
 	//Data Structure to Display High Scores
 	private ObservableList<Person> data;
+	private RestartButton restartButton;
+	private SwitchGameButton switchButton;
 	
 	/**
 	 * HighScoreView is 
 	 * @param gameName 
 	 * @param score
 	 */
-	public HighScoreView() {
+	public HighScoreView(Stage stage) {
+		myStage = stage;
 		setupHighScoreTable();
-		displayHighScores();
+		//displayHighScores();
 		highScoreScene = initializeScreen();
 		showRecordInput();
+		//showScores();
 	}
 	
 	@Override
 	public Scene initializeScreen() {
 		highScorePane = new BorderPane();
-		//highScorePane.setCenter(highScoreTable);
+		switchButton = new SwitchGameButton(myStage);
+		highScorePane.setRight(switchButton);
 		Scene currentScene = new Scene(highScorePane,WIDTH_SIZE,HEIGHT_SIZE);
 		return currentScene;
 	}
@@ -68,7 +81,6 @@ public class HighScoreView extends BranchScreenView {
 	
 	@Override
 	public Scene getScene() {
-		// TODO Auto-generated method stub
 		return highScoreScene;
 	}
 	
@@ -102,18 +114,21 @@ public class HighScoreView extends BranchScreenView {
 		facebookAuthButton = new Button("FB");
 		userNameField = new TextField();
 		userNameField.setMaxWidth(200);
-		submitButton.setOnAction(e->{addHighScore(userNameField.getText(), 50.0); 
-			hideRecordInput();
+		submitButton.setOnAction(e->{
+			addHighScore(userNameField.getText(), finalScore); 
+			showScores();
 		});
 		//facebookAuthButton.setOnAction(e->{authenticateUser();});
 		requestRecordLayout.getChildren().addAll(userNameField, submitButton, facebookAuthButton);
 		highScorePane.setCenter(requestRecordLayout);
 	}
 	
-	public void hideRecordInput() {
+	
+	public void showScores() {
+		getHighScores();
+		displayHighScores();
 		highScorePane.setCenter(highScoreTable);
 		//requestRecordLayout.getChildren().clear();
-		
 	}
 	
 	
@@ -121,11 +136,11 @@ public class HighScoreView extends BranchScreenView {
 	 * Method to add High Score to the High Score Data File
 	 */
 	public void addHighScore(String name, Double score) {
-		Person recordHolder = new Person(name, 100.0);
-		//data.add(recordHolder);
+		Person recordHolder = new Person(name, score);
 		DataWrite.saveHighscore(recordHolder);
 		getHighScores();
 		displayHighScores();
+		data.add(recordHolder);
 	}
 	
 	
@@ -137,7 +152,7 @@ public class HighScoreView extends BranchScreenView {
 		data = FXCollections.observableArrayList(highScoreMap.get(finalGameName));
 		System.out.println(data.size());
 	}
-
+	
 //	/**
 //	 * Facebook Authentification Method 
 //	 */
