@@ -187,7 +187,7 @@ public class Controller implements IController, LevelController, PlayerControlle
 	public void lifeChange(Double livesLeft){
 		if (livesLeft > 0){
 			gameManager.setLives(livesLeft);
-		//	gameManager.respawnPlayer();
+			gameManager.respawnPlayer();
 		}
 //		else{
 //			gameOver();

@@ -139,11 +139,23 @@ public class GameManager {
         return temp;
     }
 
+    /**
+     * Returns the lives
+     * @return
+     */
     
    	public double getLives() {
    		return numOfLives.doubleValue();
    	}
  
+   	/**
+   	 * Repositions the player to the starting position.
+   	 */
+	public void respawnPlayer() {
+		((XPosition) playerKeys.get(activeLevel).get(XPosition.KEY)).setData(startingXPositionMap.get(activeLevel));
+		((YPosition) playerKeys.get(activeLevel).get(YPosition.KEY)).setData(startingYPositionMap.get(activeLevel));
+	}
+
 
     /**
      * Get a map of Level Number to their corresponding Player entity
