@@ -1,0 +1,1 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="OCOM Demo" name="Koopa"><DamageValue>20.0</DamageValue><YAcceleration>0.0</YAcceleration><Name>Koopa</Name><XVelocity>0.0</XVelocity><AI/><XAcceleration>0.0</XAcceleration><Sprite>8Bit.png</Sprite><DamageLifetime>1.0</DamageLifetime><Health>40.0</Health><Type>Enemy</Type><YVelocity>0.0</YVelocity></Entity>

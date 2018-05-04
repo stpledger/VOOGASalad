@@ -167,6 +167,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		levelTabsList.clear();
 		tabPane.getTabs().clear();
 	}
+
 	
 	public void startLoadingGameStates(DataGameState state) {
 		this.gameState = state;

@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="l" name="collin"><Sprite>Collin.png</Sprite><Name>collin</Name><Type>Spike</Type><Health>100.0</Health></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="OCOM_Final" name="collin"><Name>collin</Name><Sprite>Collin.png</Sprite><Type>Block</Type></Entity>

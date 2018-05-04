@@ -325,7 +325,7 @@ public class Actions {
         return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
 			if (actor1.containsKey(EntityType.KEY) && actor2.containsKey(EntityType.KEY)) {
 				EntityType e1 = (EntityType) actor1.get(EntityType.KEY);
-				EntityType e2 = (EntityType) actor1.get(EntityType.KEY);
+				EntityType e2 = (EntityType) actor2.get(EntityType.KEY);
 				if (!e1.getData().equals(e2.getData())) { //cannot harm same entity type
 					giveDamage(actor1, actor2);
 				}
@@ -397,18 +397,18 @@ public class Actions {
         };
     }*/
 
-    public static BiConsumer<Map <String, Component>, Map<String, Component>> bounce (CollisionDirection cd, double speed) {
+    public static BiConsumer<Map <String, Component>, Map<String, Component>> bounce (int cd, double speed) {
 		//System.out.println("bouncing");
-    	switch (cd) {
-			case Left:
+  
+			if (cd == 1)
 				return horizontalBounce(speed);
-			case Right:
+			else if (cd == 2)
 				return horizontalBounce(-speed);
-			case Top:
+			else if (cd == 3)
 				return verticalBounce(speed);
-			case Bot:
+			else if (cd == 4)
 				return verticalBounce(-speed);
-		}
+		
 		System.out.println("returned null");
 		return null;
 	}

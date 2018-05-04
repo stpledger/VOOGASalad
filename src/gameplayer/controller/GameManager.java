@@ -94,7 +94,6 @@ public class GameManager {
 			if(entityComponents.containsKey(Sprite.KEY)) {
 				if(entityComponents.containsKey(Player.KEY)){
 					playerKeys.put(levelNum, entityComponents);
-
 					Map<Integer, Map<String, Component>> initialGameState = getEntitiesForSingleLevel(DataRead.copyGame().getGameState(),levelNum);
 					if (initialGameState.get(i).containsKey(XPosition.KEY)) {     
 						System.out.println(((XPosition) initialGameState.get(i).get(XPosition.KEY)).getData());
