@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="T-Rex-Demo" name="background"><Type>Background</Type><Name>background</Name><Width>10000.0</Width><Sprite>back.png</Sprite><Height>10000.0</Height></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="yuanjun" name="background"><Name>background</Name><Sprite>back.png</Sprite><Type>Background</Type></Entity>

@@ -1,1 +1,1 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="T-Rex" name="collider"><Sprite>bottom.JPG</Sprite><Name>collider</Name><DamageLifetime>1.0</DamageLifetime><DamageValue>2.0</DamageValue><Type>Block</Type></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="T-Rex" name="Collider"><Sprite>bottom.JPG</Sprite><Type>Block</Type><Name>Collider</Name><DamageLifetime>1.0</DamageLifetime><DamageValue>2.0</DamageValue></Entity>
