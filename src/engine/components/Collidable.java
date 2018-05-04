@@ -1,5 +1,6 @@
 package engine.components;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.BiConsumer;
@@ -19,7 +20,8 @@ public class Collidable implements Component, BehaviorComponent {
 	
 	private Map<CollisionDirection, BiConsumer<  Map<String, Component>,   Map<String, Component>  >> actions;
 	private int pid;
-	
+	private boolean suppressed;
+
 	public Collidable(int pid) {
 		this.pid = pid;
 		actions = new HashMap<>();
@@ -52,11 +54,10 @@ public class Collidable implements Component, BehaviorComponent {
 	 * @param entityMap2	Second entity, usually the one being collided with
 	 */
 	public void action(CollisionDirection cd, Map<String, Component> entityMap1, Map<String, Component> entityMap2) {
-		if(actions.containsKey(cd)) {
-			
+		if(actions.get(cd) != null && actions.containsKey(cd) && !suppressed) {
 			actions.get(cd).accept(entityMap1, entityMap2);
-
 		}
+		suppressed = false;
 	}
 
 	@Override
@@ -83,6 +84,8 @@ public class Collidable implements Component, BehaviorComponent {
 			this.setOnDirection((CollisionDirection) identifier, bic);
 		}
 	}
+
+	public void suppress () { suppressed = true; }
 
 	@Override
 	public int getPID() {

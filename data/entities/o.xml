@@ -1,1 +1,2 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="gpiuhae" name="o"><Health>1.0</Health><YVelocity>1.0</YVelocity><Name>o</Name><DamageValue>1.0</DamageValue><YAcceleration>1.0</YAcceleration><Type>User</Type><Sprite>8Bit.png</Sprite><XVelocity>1.0</XVelocity><DamageLifetime>1.0</DamageLifetime><XAcceleration>1.0</XAcceleration></Entity>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><Entity game="l" name="o"><Sprite>8Bit.png</Sprite><Name>o</Name><Type>Block</Type><Health>100.0</Health></Entity>
+

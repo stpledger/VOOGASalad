@@ -72,6 +72,7 @@ public class DataRead  {
         /*used to load all iamges in player
          */
         File imageFile = loadFile(GAME_PATH+gameName +FRONTSLASH+ IMAGE_PATH +name);
+
         return loadImage(imageFile);
     }
 
@@ -149,6 +150,7 @@ public class DataRead  {
          */
         try {
             DataGameState gameState = (DataGameState)deserialize(xml);
+            gameName = gameState.getGameName();
             return gameState;
         }
         catch(Exception e){

@@ -70,8 +70,18 @@ public class Animate extends AbstractSystem implements ISystem {
         }
     }
 
+    @Override
+    public void removeComponent(int pid) {
+        if (this.getHandled().containsKey(pid)) {
+            Sprite s = (Sprite) this.getHandled().get(pid).get(Sprite.KEY);
+            s.getImage().setX(10000);
+        }
+        this.getHandled().remove(pid);
+    }
+
 	private void animateComponents(Map<String, Component> components) throws EngineException {
         Sprite s = (Sprite) components.get(Sprite.KEY);
+        
     	Animated an = (Animated) components.get(Animated.KEY);
 		if(!s.isPlaying()) {
 			s.animate(an.getData());

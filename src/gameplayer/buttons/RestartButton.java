@@ -1,33 +1,36 @@
 package gameplayer.buttons;
 
+import java.util.Map;
+
+import authoring.gamestate.Level;
 import data.DataGameState;
-import data.DataRead;
+import engine.components.Component;
 import gameplayer.controller.Controller;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import gameplayer.menu.PauseMenu;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 
-import javax.xml.crypto.Data;
+public class RestartButton extends Button implements IGamePlayerButton{
 
-public class RestartButton extends Button{
+    private final String BUTTON_NAME = "Restart Game";
+    private Controller gameController;
+    private Stage myStage;
+    private PauseMenu pauseMenu;
+    private DataGameState initialGameState;
 
-	private final String BUTTON_NAME = "Restart Game";
-	private Controller gameController;
-	
-	public RestartButton(Controller g) {
-		gameController = g;
-		this.setText(BUTTON_NAME);
-		this.setRestartEvent();
-		
-	}
-	
-	
-	private void setRestartEvent() {
-		this.setOnAction(new EventHandler<ActionEvent>() {
-			@Override public void handle(ActionEvent e) {
-				DataGameState dg = DataRead.copyGame();
-				System.out.print(dg.getGameName());
-			}
-		});
-	}
+    public RestartButton(Stage stage, Controller g, PauseMenu pausemenu) {
+        pauseMenu = pausemenu;
+        myStage = stage;
+        gameController = g;
+        this.setText(BUTTON_NAME);
+        this.setEvent();
+    }
+
+
+    public void setEvent() {
+        this.setOnAction(e->{
+            pauseMenu.hide();
+            gameController.restartGame();
+        });
+    }
 }

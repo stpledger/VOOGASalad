@@ -169,7 +169,7 @@ public class GameEditorView extends BorderPane implements AuthoringPane{
 		tabPane.getTabs().clear();
 	}
 	
-	private void reloadState() {
+	private void reloadState() { 
 		state.getLevels().clear();
 		for(Level level: levels) {
 			state.addLevel(level);

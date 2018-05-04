@@ -33,6 +33,8 @@ public class Grid extends GridPane {
 
 	private static final int DEFAULT_WIDTH = 2000;
 	private static final int DEFAULT_HEIGHT = 1200;
+	public static int GRID_ROW;
+	public static int GRID_COL;
 	private static final int ADD_FIVE = 5;
 	private static final int ADD_ONE = 1;
 	private static final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
@@ -53,6 +55,10 @@ public class Grid extends GridPane {
 	public Grid(int width, int height, Level level) {
 		this.numRows = height/Entity.ENTITY_HEIGHT;
 		this.numCols = width/Entity.ENTITY_WIDTH;
+		this.GRID_COL = this.numCols;
+		this.GRID_ROW = this.numRows;
+		System.out.println("AHHH"+this.numRows);
+		System.out.println("AHHH"+GRID_ROW);
 		this.cells = new ArrayList<>();
 		this.level = level;
 		this.eFactory = new ElementFactory();
@@ -102,7 +108,7 @@ public class Grid extends GridPane {
 					img.setFitWidth(Entity.ENTITY_WIDTH);
 					img.setFitHeight(Entity.ENTITY_HEIGHT);
 					c.getChildren().add(img);
-					//c.setImage(db.getImage());
+					c.setImage(db.getImage());
 				} catch (Exception e1) {
 					throw new AuthoringException("Cannot add entity to the cell!", AuthoringAlert.SHOW);
 				}
@@ -116,8 +122,7 @@ public class Grid extends GridPane {
 
 	/**
 	 * Sets up mouse click listener that opens up the context menu for that particular cell.
-	 * @param c Cell 
-	 * @param img ImageView of the entity
+	 * @param c Cell
 	 */
 	private void setupContextMenu(Cell c) {
 		c.setOnMouseClicked(e -> {
@@ -222,6 +227,7 @@ public class Grid extends GridPane {
 			}
 			this.setPrefHeight(this.getPrefHeight() + Entity.ENTITY_HEIGHT);
 			this.numRows++;
+			this.GRID_ROW++;
 		}
 	}
 
@@ -240,6 +246,7 @@ public class Grid extends GridPane {
 			}
 			this.setPrefWidth(this.getPrefWidth() + Entity.ENTITY_WIDTH);
 			this.numCols++;
+			this.GRID_COL++;
 		}
 	}
 	
@@ -250,6 +257,19 @@ public class Grid extends GridPane {
 		img.setFitWidth(Entity.ENTITY_WIDTH);
 		img.setFitHeight(Entity.ENTITY_HEIGHT);
 		cell.getChildren().add(img);
+		cell.setImage(en.getImage());
+		this.entityID++;
+	}
+	
+	public void addBackgroundToCell(Entity en, int row, int col, double width, double height) {
+		Cell cell = cells.get(row).get(col);
+		cell.addEntity(en);
+		ImageView img = new ImageView(en.getImage());
+		img.setFitWidth(width);
+		img.setFitHeight(height);
+		cell.getChildren().add(img);
+		cell.setImage(en.getImage());
+		this.entityID++;
 	}
 
 	/**

@@ -6,13 +6,14 @@ import java.util.Map;
 import engine.components.Component;
 import engine.components.XVelocity;
 import gameplayer.controller.GameManager;
+import gameplayer.labels.IGameStatusLabel;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 
-public class VelocityLabel extends Label implements IGameStatusLabel{
+public class VelocityLabel extends Label implements IGameStatusLabel {
 
 	private double currentVelocity;
 	private final String VELOCITY_LABEL_NAME = "Velocity";
@@ -44,3 +45,4 @@ public class VelocityLabel extends Label implements IGameStatusLabel{
 	
 	
 }
+
