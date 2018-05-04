@@ -81,6 +81,7 @@ public class Animate extends AbstractSystem implements ISystem {
 
 	private void animateComponents(Map<String, Component> components) throws EngineException {
         Sprite s = (Sprite) components.get(Sprite.KEY);
+        
     	Animated an = (Animated) components.get(Animated.KEY);
 		if(!s.isPlaying()) {
 			s.animate(an.getData());

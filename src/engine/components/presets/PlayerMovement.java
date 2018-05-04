@@ -24,7 +24,6 @@ public class PlayerMovement extends KeyInput {
 
 	private static final int JUMP_SPEED = 100;
 	private static final int MOVE_SPEED = 60;
-
 	
 	private boolean crouched;
 	private double timing;
@@ -39,7 +38,7 @@ public class PlayerMovement extends KeyInput {
 			Actions.moveLeft(MOVE_SPEED).accept(map);
 			if(map.containsKey(Sprite.KEY)) {
 				Sprite s = (Sprite) map.get(Sprite.KEY);
-				
+				Actions.xFriction(100).accept(map, map);
 				s.getImage().setScaleX(-1);
 			}
 		});
@@ -48,7 +47,7 @@ public class PlayerMovement extends KeyInput {
 			Actions.moveRight(MOVE_SPEED).accept(map);
 			if(map.containsKey(Sprite.KEY)) {
 				Sprite s = (Sprite) map.get(Sprite.KEY);
-				
+				Actions.xFriction(100).accept(map, map);
 				s.getImage().setScaleX(1);
 			}
 		});
@@ -105,8 +104,14 @@ public class PlayerMovement extends KeyInput {
 			}
 		});
 		
-		this.addCode(KeyCode.SPACE, Actions.fireball());
-		
+		this.addCode(KeyCode.SPACE, (Serializable & Consumer<Map<String,Component>>) e1 -> {
+			long time = System.currentTimeMillis();
+			if(time - timing > 200) {
+				Actions.fireball().accept(e1);
+				timing = time;
+			}
+			
+		});
 	}
 	
 }

@@ -1,6 +1,8 @@
 package engine.actions;
 
 import authoring.entities.Entity;
+import authoring.gamestate.GameState;
+import data.DataGameState;
 import engine.components.*;
 import engine.components.presets.FireballCollision;
 
@@ -41,39 +43,53 @@ public class Actions {
     		if(e1.containsKey(Sprite.KEY)) {
     			Sprite s = (Sprite) e1.get(Sprite.KEY);
     			s.getImage().toBack();
-    			sm.removeEntity(s.getPID());
+    			sm.removeEntity(s.getPID(), e1);
     		}
     	};
     }
     
     public static Consumer<Map<String,Component>> fireball() {
     	return e1 -> {
-    		if(e1.containsKey(XPosition.KEY) && e1.containsKey(YPosition.KEY) && e1.containsKey(XVelocity.KEY)) {
+    		if(e1.containsKey(XPosition.KEY) && e1.containsKey(YPosition.KEY) && e1.containsKey(XVelocity.KEY) && e1.containsKey(Width.KEY)) {
     			XPosition x = (XPosition) e1.get(XPosition.KEY);
     			YPosition y = (YPosition) e1.get(YPosition.KEY);
     			XVelocity v = (XVelocity) e1.get(XVelocity.KEY);
-    			
+    			Width w = (Width) e1.get(Width.KEY);
     			Map<String,Component> ne = new HashMap<>();
     			int id = (int) System.currentTimeMillis();
     			Sprite s = null;
     			try {
-					s = new Sprite(id, "fireball.gif");
+					s = new Sprite(id, "fireball.png");
 				} catch (FileNotFoundException e) {
 					e.printStackTrace();
 				}
-    			
+    			double vel = 0;
+    			double xf = 0;
+    			if(v.getData() > 0) {
+    				s.getImage().setScaleX(-1);
+    				vel = Math.max(150,3*v.getData());
+    				xf = x.getData() + w.getData() + 20;
+    			} else {
+    				vel = Math.min(-150, 3*v.getData());
+    				xf = x.getData() - 60;
+    			}
+    			s.getImage().setFitHeight(20);
+    			s.getImage().setFitWidth(40);
+    			s.getImage().setX(xf);
+    			s.getImage().setY(y.getData());
     			Component[] newList = {new XPosition(id, x.getData()),
     			new YPosition(id, y.getData()),
-    			new XVelocity(id, v.getData()),
+    			new XVelocity(id, vel),
     			new YVelocity(id, 0),
     			s,
     			new FireballCollision(id),
     			new DamageValue(id, 50),
     			new DamageLifetime(id, 1),
     			new EntityType(id, "Fire"),
-    			new Height(id, 10),
-    			new Width(id, 30),
-    			new Type(id, "Fire")};
+    			new Height(id, 20),
+    			new Width(id, 40),
+    			new Type(id, "Fire"),
+    			new Animated(id, "fireballanimation.properties")};
     			
     			for(Component c : newList) {
     				if(c != null) {
@@ -82,7 +98,7 @@ public class Actions {
     			}
     			
     			sm.addEntity(id, ne);
-    			
+    			sm.setActives();
     		}
     	};
     }
@@ -103,6 +119,9 @@ public class Actions {
     		}
     	};
     }
+	
+	
+	
 	
 	@SuppressWarnings("unchecked")
 	public static Consumer<Map<String, Component>> moveRight (double speed) {
@@ -222,14 +241,33 @@ public class Actions {
 	
 	
 	@SuppressWarnings("unchecked")
+	public static BiConsumer<Map<String, Component>,Map<String, Component>> reverseAcceleration() {
+		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
+			if(actor1 != null && (actor1 instanceof Map<?,?>) && actor2 != null && (actor2 instanceof Map<?,?>)) {
+    			if(actor2.containsKey(YAcceleration.KEY) && actor2.containsKey(YPosition.KEY)) {
+    				YAcceleration ya = (YAcceleration) actor2.get(YAcceleration.KEY);
+    				YPosition yp = (YPosition) actor2.get(YPosition.KEY);
+    				ya.setData(-ya.getData());
+    			}
+			}
+		};
+	}
+	
+	@SuppressWarnings("unchecked")
 	public static BiConsumer<Map<String, Component>,Map<String, Component>> xFriction(double stickiness) {
 		return (Serializable & BiConsumer<Map<String, Component>,Map<String, Component>>) (actor1, actor2) -> {
     		if(actor1 != null && (actor1 instanceof Map<?,?>)) {
     			if(actor1.containsKey(XVelocity.KEY)) {
     				XVelocity xv = (XVelocity) actor1.get(XVelocity.KEY);
-    				if (xv.getData() - stickiness > 0) xv.setData(xv.getData() - stickiness);
-    				else if (xv.getData() + stickiness < 0) xv.setData(xv.getData() + stickiness);
-    				else xv.setData(0);
+    				XAcceleration xa = (XAcceleration) actor1.get(XAcceleration.KEY);
+    				
+    				if(xv.getData() > 0) {
+    					xa.setData(-stickiness);
+    				} else if(xv.getData() < 0) {
+    					xa.setData(stickiness);
+    				} else {
+    					xa.setData(0);
+    				}
     			}
     		}
     	};
@@ -267,6 +305,8 @@ public class Actions {
 				}
 			}
         	else giveDamage(actor1, actor2);
+			System.out.println(((Health)actor2.get(Health.KEY)).getData());
+			System.out.println("11"+((DamageValue)actor1.get(DamageValue.KEY)).getData());
 		};
     }
     
@@ -346,13 +386,19 @@ public class Actions {
 
     /**
      * This would be an AI component that has an enemy follow you
-     * @param followed Player/entity being followed
+     * @param fInt Player/entity being followed
      * @return action which result in the tracker moving towards the followed
      */
 
     @SuppressWarnings("unchecked")
-	public static Consumer<Map <String, Component>> followsYou (Entity followed, double speed) {
-        XPosition px = (XPosition) followed.get(XPosition.KEY);
+	public static Consumer<Map <String, Component>> followsYou (int fInt, double speed) {
+		Entity  followed = null;
+		try {
+			followed = GameState.entity(fInt);
+		} catch (NullPointerException e) {
+			e.printStackTrace();
+		}
+		XPosition px = (XPosition) followed.get(XPosition.KEY);
         YPosition py = (YPosition) followed.get(YPosition.KEY);
 
         return (Serializable & Consumer<Map <String, Component>>) (tracker) -> {

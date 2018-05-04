@@ -33,6 +33,8 @@ public class Grid extends GridPane {
 
 	private static final int DEFAULT_WIDTH = 2000;
 	private static final int DEFAULT_HEIGHT = 1200;
+	public static int GRID_ROW;
+	public static int GRID_COL;
 	private static final int ADD_FIVE = 5;
 	private static final int ADD_ONE = 1;
 	private static final String DEFAULT_STYLE = "-fx-background-color: rgba(0, 0, 0, 0); -fx-border-color: black";
@@ -53,6 +55,10 @@ public class Grid extends GridPane {
 	public Grid(int width, int height, Level level) {
 		this.numRows = height/Entity.ENTITY_HEIGHT;
 		this.numCols = width/Entity.ENTITY_WIDTH;
+		this.GRID_COL = this.numCols;
+		this.GRID_ROW = this.numRows;
+		System.out.println("AHHH"+this.numRows);
+		System.out.println("AHHH"+GRID_ROW);
 		this.cells = new ArrayList<>();
 		this.level = level;
 		this.eFactory = new ElementFactory();
@@ -82,7 +88,6 @@ public class Grid extends GridPane {
 	 * @param c Cell to add the mouse click event listener to
 	 */
 	private void setupEntityDrop(Cell c) {
-		System.out.println("Working!");
 		c.setOnDragEntered(e -> c.setStyle(DRAGGED_OVER_STYLE));
 		c.setOnDragExited(e -> c.setStyle(DEFAULT_STYLE));
 		c.setOnDragOver(e -> {
@@ -222,6 +227,7 @@ public class Grid extends GridPane {
 			}
 			this.setPrefHeight(this.getPrefHeight() + Entity.ENTITY_HEIGHT);
 			this.numRows++;
+			this.GRID_ROW++;
 		}
 	}
 
@@ -240,6 +246,7 @@ public class Grid extends GridPane {
 			}
 			this.setPrefWidth(this.getPrefWidth() + Entity.ENTITY_WIDTH);
 			this.numCols++;
+			this.GRID_COL++;
 		}
 	}
 	

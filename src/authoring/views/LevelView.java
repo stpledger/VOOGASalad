@@ -79,6 +79,13 @@ public class LevelView extends ScrollPane implements AuthoringLanguage{
 					YPosition yComp = (YPosition) entityComponents.get(YPosition.KEY);
 					double col = (xComp.getData()/Entity.ENTITY_WIDTH);
 					double row = (yComp.getData()/Entity.ENTITY_HEIGHT);
+					System.out.println("what"+col);
+					while((int)col>(Grid.GRID_COL-1)) {
+						this.content.addCol(1);
+					}
+					while((int)row>(Grid.GRID_ROW-1)) {
+						this.content.addRow(1);
+					}
 					if(!entity.getInteractable()) {
 						Width width = (Width) entityComponents.get(Width.KEY);
 						Height height = (Height) entityComponents.get(Height.KEY);
